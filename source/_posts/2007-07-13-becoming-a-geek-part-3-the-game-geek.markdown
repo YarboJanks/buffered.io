@@ -1,6 +1,6 @@
 ---
 categories: [Being in the Industry, HOWTO]
-date: 2007-07-13 14:05:07
+date: 2007-07-13 14:05
 layout: post
 title: "Becoming a Geek Part 3: The Game Geek"
 ---

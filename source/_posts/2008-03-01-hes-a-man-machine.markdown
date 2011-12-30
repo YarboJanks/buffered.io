@@ -1,6 +1,6 @@
 ---
 categories: [Miscellaneous]
-date: 2008-03-01 17:04:26
+date: 2008-03-01 17:04
 layout: post
 title: "He's a Man-Machine!"
 ---

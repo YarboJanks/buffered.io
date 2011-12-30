@@ -1,6 +1,6 @@
 ---
 categories: [HOWTO, Software, Software Development, Tips/Tricks, Windows, Mercurial]
-date: 2009-05-16 17:43:12
+date: 2009-05-16 17:43
 tags: [Windows, Mercurial, hg, ssh, trac]
 layout: post
 title: "Setting up Trac, Mercurial and SSH on Windows"

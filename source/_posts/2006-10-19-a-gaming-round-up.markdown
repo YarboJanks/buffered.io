@@ -1,6 +1,6 @@
 ---
 categories: [Games]
-date: 2006-10-19 19:50:47
+date: 2006-10-19 19:50
 layout: post
 title: "A Gaming Round-Up"
 ---

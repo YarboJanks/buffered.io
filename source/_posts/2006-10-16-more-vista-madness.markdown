@@ -1,6 +1,6 @@
 ---
 categories: [Microsoft, Windows]
-date: 2006-10-16 13:11:50
+date: 2006-10-16 13:11
 layout: post
 title: "More Vista Madness"
 ---

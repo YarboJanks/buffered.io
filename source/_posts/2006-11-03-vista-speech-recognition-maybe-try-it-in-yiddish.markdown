@@ -1,6 +1,6 @@
 ---
 categories: [Microsoft]
-date: 2006-11-03 08:19:03
+date: 2006-11-03 08:19
 layout: post
 title: "Vista Speech Recognition - Maybe try it in Yiddish?"
 ---

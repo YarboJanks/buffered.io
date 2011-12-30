@@ -1,6 +1,6 @@
 ---
 categories: [Functional Programming, Haskell]
-date: 2009-08-17 17:03:36
+date: 2009-08-17 17:03
 layout: post
 title: "Haskell 101 at the Brisbane Functional Programming Meetup"
 ---

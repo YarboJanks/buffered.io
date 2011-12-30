@@ -1,6 +1,6 @@
 ---
 categories: [Freeware, Linux, Microsoft, Software Development, Technology]
-date: 2006-09-12 22:35:58
+date: 2006-09-12 22:35
 layout: post
 title: "Is an IDE all it's cracked up to be?"
 ---

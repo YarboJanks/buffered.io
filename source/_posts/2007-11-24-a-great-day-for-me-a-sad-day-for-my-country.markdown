@@ -1,6 +1,6 @@
 ---
 categories: [Miscellaneous]
-date: 2007-11-24 21:24:28
+date: 2007-11-24 21:24
 layout: post
 title: "A Great Day for Me, a Sad Day for my Country"
 ---

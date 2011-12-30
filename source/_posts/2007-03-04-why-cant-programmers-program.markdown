@@ -1,6 +1,6 @@
 ---
 categories: [Being in the Industry, Software Development]
-date: 2007-03-04 10:33:03
+date: 2007-03-04 10:33
 layout: post
 title: "Why Can't Programmers Program?"
 ---

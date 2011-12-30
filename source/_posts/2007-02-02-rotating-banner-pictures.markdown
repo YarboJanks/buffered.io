@@ -1,6 +1,6 @@
 ---
 categories: [Blogging]
-date: 2007-02-02 22:48:36
+date: 2007-02-02 22:48
 layout: post
 title: "Rotating Banner Pictures"
 ---

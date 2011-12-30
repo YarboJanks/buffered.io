@@ -1,6 +1,6 @@
 ---
 categories: [Miscellaneous]
-date: 2006-10-14 20:33:09
+date: 2006-10-14 20:33
 layout: post
 title: "Scott Adams' Blog"
 ---

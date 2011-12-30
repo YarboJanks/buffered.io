@@ -1,6 +1,6 @@
 ---
 categories: [Algorithms, Functional Programming, Haskell, Software Development]
-date: 2009-06-25 00:00:44
+date: 2009-06-25 00:00
 layout: post
 title: "Data Crunching in Haskell"
 ---

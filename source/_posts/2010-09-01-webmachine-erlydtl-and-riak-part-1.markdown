@@ -1,6 +1,6 @@
 ---
 categories: [Databases, Functional Programming, HOWTO, Erlang, Webmachine]
-date: 2010-09-01 23:29:54
+date: 2010-09-01 23:29
 updated: 2011-06-15 07:26:22
 tags: [web development, Erlang, NoSQL, Webmachine, Riak, ErlyDTL]
 layout: post

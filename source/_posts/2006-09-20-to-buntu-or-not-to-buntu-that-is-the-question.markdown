@@ -1,6 +1,6 @@
 ---
 categories: [Linux]
-date: 2006-09-20 14:15:20
+date: 2006-09-20 14:15
 layout: post
 title: "To-buntu, or not to-buntu. That is the question."
 ---

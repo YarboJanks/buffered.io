@@ -1,6 +1,6 @@
 ---
 categories: [Blogging]
-date: 2008-06-29 08:51:30
+date: 2008-06-29 08:51
 tags: [annoying, Blogging, rant]
 layout: post
 title: "Things that Suck about Blogs"

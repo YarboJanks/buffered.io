@@ -1,6 +1,6 @@
 ---
 categories: [Miscellaneous]
-date: 2006-10-15 10:08:01
+date: 2006-10-15 10:08
 layout: post
 title: "Groovey Honda Commercial"
 ---

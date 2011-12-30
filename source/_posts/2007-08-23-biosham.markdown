@@ -1,6 +1,6 @@
 ---
 categories: [Being in the Industry, Digital Rights, Games, Privacy, Security, WTF]
-date: 2007-08-23 16:20:32
+date: 2007-08-23 16:20
 layout: post
 title: "Biosham &#8482;"
 ---

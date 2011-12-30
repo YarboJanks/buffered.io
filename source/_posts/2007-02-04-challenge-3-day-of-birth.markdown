@@ -1,6 +1,6 @@
 ---
 categories: [Challenges]
-date: 2007-02-04 02:02:46
+date: 2007-02-04 02:02
 layout: post
 title: "Challenge #3 - Day of Birth"
 ---

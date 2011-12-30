@@ -1,6 +1,6 @@
 ---
 categories: [Databases, Functional Programming, Google, Software Development, Technology, Mercurial, Erlang, Webmachine]
-date: 2009-10-31 20:28:10
+date: 2009-10-31 20:28
 layout: post
 title: "The Future is Erlang"
 ---

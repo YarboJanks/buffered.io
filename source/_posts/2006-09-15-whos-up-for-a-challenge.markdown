@@ -1,6 +1,6 @@
 ---
 categories: [Challenges, Software Development]
-date: 2006-09-15 15:58:53
+date: 2006-09-15 15:58
 layout: post
 title: "Who's up for a challenge?"
 ---

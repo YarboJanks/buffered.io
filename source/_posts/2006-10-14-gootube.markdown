@@ -1,6 +1,6 @@
 ---
 categories: [Google, Miscellaneous]
-date: 2006-10-14 10:56:15
+date: 2006-10-14 10:56
 layout: post
 title: "GooTube"
 ---

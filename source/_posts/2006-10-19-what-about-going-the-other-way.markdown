@@ -1,6 +1,6 @@
 ---
 categories: [Apple, Mac OS, Microsoft, Windows]
-date: 2006-10-19 20:02:26
+date: 2006-10-19 20:02
 layout: post
 title: "What About Going the Other Way?"
 ---

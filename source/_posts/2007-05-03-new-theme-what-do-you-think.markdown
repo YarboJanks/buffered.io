@@ -1,6 +1,6 @@
 ---
 categories: [Blogging]
-date: 2007-05-03 21:48:55
+date: 2007-05-03 21:48
 layout: post
 title: "New Theme - What do you think?"
 ---

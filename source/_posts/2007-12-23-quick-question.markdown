@@ -1,6 +1,6 @@
 ---
 categories: [Miscellaneous]
-date: 2007-12-23 13:46:10
+date: 2007-12-23 13:46
 layout: post
 title: "Quick Question"
 ---

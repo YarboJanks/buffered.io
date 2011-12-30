@@ -1,6 +1,6 @@
 ---
 categories: [Blogging]
-date: 2009-04-23 21:57:41
+date: 2009-04-23 21:57
 tags: [Blogging, sitemove, buffered.io]
 layout: post
 title: "Out with the Old and in with the New"

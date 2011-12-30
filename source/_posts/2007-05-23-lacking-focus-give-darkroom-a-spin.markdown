@@ -1,6 +1,6 @@
 ---
 categories: [Blogging]
-date: 2007-05-23 19:10:35
+date: 2007-05-23 19:10
 layout: post
 title: "Lacking Focus? Give DarkRoom a Spin!"
 ---

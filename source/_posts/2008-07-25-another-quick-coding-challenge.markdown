@@ -1,6 +1,6 @@
 ---
 categories: [Challenges, Functional Programming, Haskell]
-date: 2008-07-25 04:46:35
+date: 2008-07-25 04:46
 tags: [challenge, functional]
 layout: post
 title: "Another Quick Coding Challenge"

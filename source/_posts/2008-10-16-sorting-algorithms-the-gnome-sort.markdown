@@ -1,6 +1,6 @@
 ---
 categories: [Algorithms, Software Development, Sorting]
-date: 2008-10-16 20:58:33
+date: 2008-10-16 20:58
 tags: [Gnome Sort, Sorting]
 layout: post
 title: "Sorting Algorithms: The Gnome Sort"

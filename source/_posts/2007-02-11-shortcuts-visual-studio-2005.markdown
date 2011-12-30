@@ -1,6 +1,6 @@
 ---
 categories: [Shortcuts, Software Development, Tips/Tricks]
-date: 2007-02-11 09:37:03
+date: 2007-02-11 09:37
 tags: [Shortcuts, visual studio]
 layout: post
 title: "Shortcuts: Visual Studio 2005"

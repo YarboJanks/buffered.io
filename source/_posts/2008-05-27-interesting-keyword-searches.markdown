@@ -1,6 +1,6 @@
 ---
 categories: [Miscellaneous]
-date: 2008-05-27 21:50:49
+date: 2008-05-27 21:50
 layout: post
 title: "Interesting Keyword Searches"
 ---

@@ -1,6 +1,6 @@
 ---
 categories: [C#, Riak, Mono, NoSQL, Open Source, CLR]
-date: 2011-07-25 09:00:00
+date: 2011-07-25 09:00
 tags: [corrugatediron, dotnet, csharp, clr, mono, riak]
 layout: post
 title: "Introducing CorrugatedIron"

@@ -1,6 +1,6 @@
 ---
 categories: [Hardware, Technology]
-date: 2007-02-06 06:29:36
+date: 2007-02-06 06:29
 layout: post
 title: "A Quiet Purchase"
 ---

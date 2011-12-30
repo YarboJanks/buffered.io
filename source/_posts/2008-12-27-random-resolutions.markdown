@@ -1,6 +1,6 @@
 ---
 categories: [Miscellaneous]
-date: 2008-12-27 13:02:52
+date: 2008-12-27 13:02
 layout: post
 title: "Random Resolutions"
 ---

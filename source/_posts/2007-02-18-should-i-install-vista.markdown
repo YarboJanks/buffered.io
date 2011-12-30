@@ -1,6 +1,6 @@
 ---
 categories: [Miscellaneous]
-date: 2007-02-18 13:10:30
+date: 2007-02-18 13:10
 layout: post
 title: "Should I Install Vista?"
 ---

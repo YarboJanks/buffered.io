@@ -1,6 +1,6 @@
 ---
 categories: [Security, Technology, Tips/Tricks]
-date: 2008-08-18 22:03:42
+date: 2008-08-18 22:03
 tags: [dns, Freeware, Security]
 layout: post
 title: "OpenDNS is Wicked"

@@ -1,6 +1,6 @@
 ---
 categories: [Being in the Industry, Software Development, Technology]
-date: 2009-12-11 15:42:38
+date: 2009-12-11 15:42
 tags: [Fail, Software Development, ignorance, stagnation]
 layout: post
 title: "'It's OK to Fail"

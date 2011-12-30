@@ -1,6 +1,6 @@
 ---
 categories: [C#]
-date: 2007-03-02 17:13:37
+date: 2007-03-02 17:13
 layout: post
 title: ".NET System::String to ANSI char*"
 ---

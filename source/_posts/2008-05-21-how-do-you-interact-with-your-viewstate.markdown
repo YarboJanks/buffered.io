@@ -1,6 +1,6 @@
 ---
 categories: [ASP.NET, Software Development, Tips/Tricks, C#]
-date: 2008-05-21 20:50:43
+date: 2008-05-21 20:50
 tags: [ASP.NET, C#, tip, viewstate]
 layout: post
 title: "How do you Interact with your ViewState?"

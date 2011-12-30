@@ -1,6 +1,6 @@
 ---
 categories: [Fail, Google]
-date: 2010-11-26 09:58:05
+date: 2010-11-26 09:58
 tags: [Google Reader, bug, fail]
 layout: post
 title: "Issue with Google Reader"

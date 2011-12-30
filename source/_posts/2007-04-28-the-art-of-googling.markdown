@@ -1,6 +1,6 @@
 ---
 categories: [Google]
-date: 2007-04-28 06:28:30
+date: 2007-04-28 06:28
 layout: post
 title: "The Art of Googling"
 ---

@@ -1,6 +1,6 @@
 ---
 categories: [Miscellaneous]
-date: 2007-12-05 15:22:37
+date: 2007-12-05 15:22
 layout: post
 title: "My Shortest Post... Ever"
 ---

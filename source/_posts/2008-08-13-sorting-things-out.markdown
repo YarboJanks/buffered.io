@@ -1,6 +1,6 @@
 ---
 categories: [Algorithms, Series, Software Development, Sorting]
-date: 2008-08-13 12:23:00
+date: 2008-08-13 12:23
 tags: [Algorithms, Series, Sorting]
 layout: post
 title: "Sorting Things Out"

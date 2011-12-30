@@ -1,6 +1,6 @@
 ---
 categories: [Miscellaneous]
-date: 2006-09-16 21:13:26
+date: 2006-09-16 21:13
 layout: post
 title: "Server change imminent"
 ---

@@ -1,6 +1,6 @@
 ---
 categories: [Networks, Technology]
-date: 2007-12-05 15:13:54
+date: 2007-12-05 15:13
 layout: post
 title: "Vote with your Wallet"
 ---

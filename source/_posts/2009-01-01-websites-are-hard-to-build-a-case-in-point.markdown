@@ -1,6 +1,6 @@
 ---
 categories: [Being in the Industry, Software Development]
-date: 2009-01-01 14:03:04
+date: 2009-01-01 14:03
 tags: [case study, taking the piss, webdev]
 layout: post
 title: "Websites are Hard to Build - A Case in Point"

@@ -1,6 +1,6 @@
 ---
 categories: [Shortcuts, Windows]
-date: 2007-02-10 11:38:40
+date: 2007-02-10 11:38
 layout: post
 title: "Shortcuts: Windows"
 ---

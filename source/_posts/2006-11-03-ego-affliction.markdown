@@ -1,6 +1,6 @@
 ---
 categories: [Software Development]
-date: 2006-11-03 18:03:34
+date: 2006-11-03 18:03
 layout: post
 title: "Ego Affliction"
 ---

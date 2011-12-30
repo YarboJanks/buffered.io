@@ -1,6 +1,6 @@
 ---
 categories: [Digital Rights, Privacy, Software, Technology]
-date: 2006-09-25 12:53:27
+date: 2006-09-25 12:53
 layout: post
 title: "A pox on your DRM"
 ---

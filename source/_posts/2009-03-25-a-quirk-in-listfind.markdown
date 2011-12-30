@@ -1,6 +1,6 @@
 ---
 categories: [Microsoft, Software Development, C#]
-date: 2009-03-25 05:31:30
+date: 2009-03-25 05:31
 tags: [.net, C#, design, generics]
 layout: post
 title: "A Quirk in List.Find()"

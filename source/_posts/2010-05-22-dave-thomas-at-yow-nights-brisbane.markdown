@@ -1,6 +1,6 @@
 ---
 categories: [Being in the Industry, Functional Programming, Software Development, Technology,NoSQL]
-date: 2010-05-22 23:30:20
+date: 2010-05-22 23:30
 tags: [Functional Programming, NoSQL]
 layout: post
 title: "Dave Thomas at YOW! Nights Brisbane"

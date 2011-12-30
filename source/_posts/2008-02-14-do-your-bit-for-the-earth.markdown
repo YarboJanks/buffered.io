@@ -1,6 +1,6 @@
 ---
 categories: [Miscellaneous]
-date: 2008-02-14 08:49:47
+date: 2008-02-14 08:49
 layout: post
 title: "Do your bit for the Earth"
 ---

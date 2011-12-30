@@ -1,6 +1,6 @@
 ---
 categories: [Miscellaneous]
-date: 2008-05-24 21:00:00
+date: 2008-05-24 21:00
 layout: post
 title: "The Best Sound in the World"
 ---

@@ -1,6 +1,6 @@
 ---
 categories: [Being in the Industry, Software Development]
-date: 2006-10-18 13:54:13
+date: 2006-10-18 13:54
 layout: post
 title: "Open Sauce"
 ---

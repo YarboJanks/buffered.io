@@ -1,6 +1,6 @@
 ---
 categories: [Guest posts, Software Development]
-date: 2008-07-29 01:07:00
+date: 2008-07-29 01:07
 tags: [unit testing]
 layout: post
 title: "Unit Tests: Boldly Crossing Boundaries and Gently Breaking Rules"

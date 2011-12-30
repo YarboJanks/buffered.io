@@ -1,6 +1,6 @@
 ---
 categories: [Screencasts, Software Development, Tips/Tricks, C#]
-date: 2008-06-19 23:20:05
+date: 2008-06-19 23:20
 tags: [screencast, unity build, visual studio]
 layout: post
 title: "Screencast - Setting up Unity Builds"

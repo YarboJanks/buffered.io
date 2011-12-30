@@ -1,6 +1,6 @@
 ---
 categories: [Miscellaneous]
-date: 2007-02-19 05:18:21
+date: 2007-02-19 05:18
 layout: post
 title: "What are you Really Looking at?"
 ---

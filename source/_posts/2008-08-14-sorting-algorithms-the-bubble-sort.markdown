@@ -1,6 +1,6 @@
 ---
 categories: [Algorithms, Software Development, Sorting]
-date: 2008-08-14 20:27:30
+date: 2008-08-14 20:27
 tags: [Bubble Sort, Sorting]
 layout: post
 title: "Sorting Algorithms: The Bubble Sort"

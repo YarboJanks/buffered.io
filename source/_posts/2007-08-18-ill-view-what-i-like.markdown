@@ -1,6 +1,6 @@
 ---
 categories: [Digital Rights, Software, Technology, WTF]
-date: 2007-08-18 12:36:09
+date: 2007-08-18 12:36
 layout: post
 title: "I'll View What I Like!"
 ---

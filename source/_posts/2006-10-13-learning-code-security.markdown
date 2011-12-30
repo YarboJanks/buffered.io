@@ -1,6 +1,6 @@
 ---
 categories: [Being in the Industry, Security, Software Development]
-date: 2006-10-13 08:15:21
+date: 2006-10-13 08:15
 layout: post
 title: "Learning Code Security"
 ---

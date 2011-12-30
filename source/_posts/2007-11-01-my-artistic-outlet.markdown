@@ -1,6 +1,6 @@
 ---
 categories: [Miscellaneous]
-date: 2007-11-01 21:04:11
+date: 2007-11-01 21:04
 tags: [guitar, music]
 layout: post
 title: "My Artistic Outlet"

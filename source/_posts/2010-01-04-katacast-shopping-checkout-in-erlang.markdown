@@ -1,6 +1,6 @@
 ---
 categories: [Functional Programming, Software Development, Erlang]
-date: 2010-01-04 17:47:05
+date: 2010-01-04 17:47
 tags: [Erlang, codekata, katacast, vim, rake]
 layout: post
 title: "Katacast: Shopping Checkout in Erlang"

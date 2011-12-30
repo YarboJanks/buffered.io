@@ -1,6 +1,6 @@
 ---
 categories: [Hardware]
-date: 2008-01-04 23:48:16
+date: 2008-01-04 23:48
 layout: post
 title: "A Hardware Update"
 ---

@@ -1,6 +1,6 @@
 ---
 categories: [Challenges, F#, Functional Programming, Google, Haskell]
-date: 2008-06-14 20:39:38
+date: 2008-06-14 20:39
 tags: [challenge, F#, functional, Google, Haskell, interview, programming]
 layout: post
 title: "An Interesting Little Problem"

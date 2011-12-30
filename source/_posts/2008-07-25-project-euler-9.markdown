@@ -1,6 +1,6 @@
 ---
 categories: [Functional Programming, Haskell, Project Euler]
-date: 2008-07-25 22:08:57
+date: 2008-07-25 22:08
 series: "Project Euler"
 tags: [functional, Haskell, programming, Project Euler]
 layout: post

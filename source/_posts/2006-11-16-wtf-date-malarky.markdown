@@ -1,6 +1,6 @@
 ---
 categories: [WTF]
-date: 2006-11-16 08:09:30
+date: 2006-11-16 08:09
 layout: post
 title: "WTF: Date Malarky"
 ---

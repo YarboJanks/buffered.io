@@ -1,6 +1,6 @@
 ---
 categories: [Funny]
-date: 2007-06-14 09:42:53
+date: 2007-06-14 09:42
 layout: post
 title: "The Swear Jar"
 ---

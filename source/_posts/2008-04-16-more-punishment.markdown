@@ -1,6 +1,6 @@
 ---
 categories: [Miscellaneous]
-date: 2008-04-16 17:15:10
+date: 2008-04-16 17:15
 tags: [marathon]
 layout: post
 title: "More Punishment"

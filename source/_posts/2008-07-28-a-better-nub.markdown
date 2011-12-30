@@ -1,6 +1,6 @@
 ---
 categories: [Haskell]
-date: 2008-07-28 17:10:18
+date: 2008-07-28 17:10
 tags: [Haskell, performance, tip]
 layout: post
 title: "A Better 'nub'"

@@ -1,6 +1,6 @@
 ---
 categories: [Security]
-date: 2008-03-17 15:45:47
+date: 2008-03-17 15:45
 layout: post
 title: "How to be an Idiot"
 ---

@@ -1,6 +1,6 @@
 ---
 categories: [Miscellaneous]
-date: 2007-05-13 21:30:58
+date: 2007-05-13 21:30
 layout: post
 title: "Banner Image"
 ---

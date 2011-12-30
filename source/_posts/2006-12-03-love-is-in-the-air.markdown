@@ -1,6 +1,6 @@
 ---
 categories: [Miscellaneous]
-date: 2006-12-03 09:23:02
+date: 2006-12-03 09:23
 layout: post
 title: "Love is in the Air"
 ---

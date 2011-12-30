@@ -1,6 +1,6 @@
 ---
 categories: [Privacy]
-date: 2007-05-17 08:16:42
+date: 2007-05-17 08:16
 layout: post
 title: "Facebook Privacy"
 ---

@@ -1,6 +1,6 @@
 ---
 categories: [Being in the Industry, HOWTO]
-date: 2007-06-22 20:40:17
+date: 2007-06-22 20:40
 layout: post
 title: "Becoming a Geek Part 2: The Web Geek"
 ---

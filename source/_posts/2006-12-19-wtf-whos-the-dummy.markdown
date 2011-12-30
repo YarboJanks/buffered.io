@@ -1,6 +1,6 @@
 ---
 categories: [WTF]
-date: 2006-12-19 13:58:34
+date: 2006-12-19 13:58
 layout: post
 title: "WTF: Who's the Dummy?"
 ---

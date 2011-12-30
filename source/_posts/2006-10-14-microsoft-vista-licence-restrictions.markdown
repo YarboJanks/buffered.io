@@ -1,6 +1,6 @@
 ---
 categories: [Microsoft, Technology]
-date: 2006-10-14 10:43:18
+date: 2006-10-14 10:43
 layout: post
 title: "Microsoft Vista Licence Restrictions"
 ---

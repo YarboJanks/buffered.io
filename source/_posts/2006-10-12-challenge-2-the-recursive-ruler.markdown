@@ -1,6 +1,6 @@
 ---
 categories: [Challenges]
-date: 2006-10-12 23:18:25
+date: 2006-10-12 23:18
 layout: post
 title: "Challenge #2 - The Recursive Ruler"
 ---

@@ -1,6 +1,6 @@
 ---
 categories: [Software Development]
-date: 2009-02-18 16:47:51
+date: 2009-02-18 16:47
 tags: [decisions, development, genius, truth]
 layout: post
 title: "An All Too Common Issue"

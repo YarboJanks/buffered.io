@@ -1,6 +1,6 @@
 ---
 categories: [Software, Technology]
-date: 2006-09-26 21:57:38
+date: 2006-09-26 21:57
 layout: post
 title: "ViEmu - are you the answer?"
 ---

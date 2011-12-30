@@ -1,6 +1,6 @@
 ---
 categories: [Software, Technology]
-date: 2009-09-10 17:52:05
+date: 2009-09-10 17:52
 layout: post
 title: "Now Running Nginx"
 ---

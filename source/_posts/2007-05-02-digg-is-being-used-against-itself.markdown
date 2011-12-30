@@ -1,6 +1,6 @@
 ---
 categories: [Digital Rights, Security, Software, Technology]
-date: 2007-05-02 12:00:09
+date: 2007-05-02 12:00
 layout: post
 title: "Digg is Being Used Against Itself"
 ---

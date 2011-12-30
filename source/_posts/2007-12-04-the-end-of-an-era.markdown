@@ -1,6 +1,6 @@
 ---
 categories: [Miscellaneous]
-date: 2007-12-04 17:32:08
+date: 2007-12-04 17:32
 layout: post
 title: "The End of an Era"
 ---

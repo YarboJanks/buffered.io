@@ -1,6 +1,6 @@
 ---
 categories: [Freeware, Software, WTF]
-date: 2007-11-01 12:53:04
+date: 2007-11-01 12:53
 tags: [bloatware]
 layout: post
 title: "Rancid Bloatware"

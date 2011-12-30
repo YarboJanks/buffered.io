@@ -1,6 +1,6 @@
 ---
 categories: [Google, Security, Software Development]
-date: 2006-10-16 18:22:36
+date: 2006-10-16 18:22
 layout: post
 title: "Google Code Search"
 ---

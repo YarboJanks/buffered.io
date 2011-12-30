@@ -1,6 +1,6 @@
 ---
 categories: [Funny, Software Development]
-date: 2006-11-13 08:42:59
+date: 2006-11-13 08:42
 layout: post
 title: "Were the Wiggles Software Developers?"
 ---

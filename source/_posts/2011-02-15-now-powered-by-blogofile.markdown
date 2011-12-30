@@ -1,6 +1,6 @@
 ---
 categories: [Blogging]
-date: 2011-02-15 20:44:05
+date: 2011-02-15 20:44
 tags: [blogging, python, blogofile]
 layout: post
 title: "Now Powered by Blogofile"

@@ -1,6 +1,6 @@
 ---
 categories: [F#]
-date: 2008-03-17 17:15:05
+date: 2008-03-17 17:15
 layout: post
 title: "F# Presentation Tomorrow"
 ---

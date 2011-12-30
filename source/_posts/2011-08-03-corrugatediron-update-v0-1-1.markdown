@@ -1,6 +1,6 @@
 ---
 categories: [C#, Riak, Mono, NoSQL, Open Source, CLR]
-date: 2011-08-03 21:18:00
+date: 2011-08-03 21:18
 tags: [corrugatediron, dotnet, csharp, clr, mono, riak]
 layout: post
 title: "CorrugatedIron Update - v0.1.1"

@@ -1,6 +1,6 @@
 ---
 categories: [Microsoft, Windows]
-date: 2006-10-14 11:00:54
+date: 2006-10-14 11:00
 layout: post
 title: "The Vista 'Squeeze' Begins"
 ---

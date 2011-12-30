@@ -1,6 +1,6 @@
 ---
 categories: [Miscellaneous]
-date: 2007-12-10 07:33:01
+date: 2007-12-10 07:33
 layout: post
 title: "Server Downtime"
 ---

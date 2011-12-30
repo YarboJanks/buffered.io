@@ -1,6 +1,6 @@
 ---
 categories: [Miscellaneous]
-date: 2008-05-05 18:08:13
+date: 2008-05-05 18:08
 tags: [marathon, training]
 layout: post
 title: "62 Days To Go"

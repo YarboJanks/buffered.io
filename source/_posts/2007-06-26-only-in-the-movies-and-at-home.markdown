@@ -1,6 +1,6 @@
 ---
 categories: [Miscellaneous]
-date: 2007-06-26 07:20:42
+date: 2007-06-26 07:20
 layout: post
 title: "Only in the Movies... and at Home."
 ---

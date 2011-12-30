@@ -1,6 +1,6 @@
 ---
 categories: [Hardware]
-date: 2008-04-12 21:49:34
+date: 2008-04-12 21:49
 tags: [enermax, experience, Hardware, keyboard]
 layout: post
 title: "No Regrets"

@@ -1,6 +1,6 @@
 ---
 categories: [Blogging, Miscellaneous]
-date: 2007-01-28 13:15:14
+date: 2007-01-28 13:15
 layout: post
 title: "A New Look"
 ---

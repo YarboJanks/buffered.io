@@ -1,6 +1,6 @@
 ---
 categories: [Miscellaneous]
-date: 2006-11-29 09:20:38
+date: 2006-11-29 09:20
 layout: post
 title: "Can you see me Waving?"
 ---

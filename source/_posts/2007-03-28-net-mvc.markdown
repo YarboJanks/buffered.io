@@ -1,6 +1,6 @@
 ---
 categories: [ASP.NET, Ruby on Rails]
-date: 2007-03-28 17:15:07
+date: 2007-03-28 17:15
 layout: post
 title: ".NET MVC"
 ---

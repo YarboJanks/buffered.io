@@ -1,6 +1,6 @@
 ---
 categories: [Blogging, Technology]
-date: 2009-01-14 18:16:05
+date: 2009-01-14 18:16
 tags: [italian, translation]
 layout: post
 title: "Assembly Signing Article Translated into Italian"

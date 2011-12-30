@@ -1,6 +1,6 @@
 ---
 categories: [Microsoft, Software, Software Development]
-date: 2009-03-24 18:27:27
+date: 2009-03-24 18:27
 tags: [crystalreports, installation, visualstudio, WTF]
 layout: post
 title: "Damn you, Crystal Reports!"

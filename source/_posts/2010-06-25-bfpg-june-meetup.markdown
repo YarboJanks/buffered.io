@@ -1,6 +1,6 @@
 ---
 categories: [Functional Programming, Software Development]
-date: 2010-06-25 20:05:40
+date: 2010-06-25 20:05
 tags: [Functional Programming, bfpg, meetup]
 layout: post
 title: "BFPG June Meetup"

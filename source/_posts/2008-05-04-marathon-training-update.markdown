@@ -1,6 +1,6 @@
 ---
 categories: [Miscellaneous]
-date: 2008-05-04 21:06:37
+date: 2008-05-04 21:06
 tags: [marathon, running, sport, training]
 layout: post
 title: "Marathon Training Update"

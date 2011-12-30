@@ -1,6 +1,6 @@
 ---
 categories: [ASP.NET, Microsoft, Software Development, WTF]
-date: 2010-10-06 08:39:03
+date: 2010-10-06 08:39
 tags: [ASP.NET, TempData, Content Advisor, ASP.NET MVC]
 layout: post
 title: "ASP.NET MVC 2, Random Sign-offs and TempData Loss"

@@ -1,6 +1,6 @@
 ---
 categories: [Hardware]
-date: 2008-03-28 21:33:49
+date: 2008-03-28 21:33
 layout: post
 title: "Another New Keyboard"
 ---

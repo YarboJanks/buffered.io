@@ -1,6 +1,6 @@
 ---
 categories: [Microsoft, Networks, Technology]
-date: 2007-11-21 08:04:49
+date: 2007-11-21 08:04
 tags: [internet, Microsoft, Networks]
 layout: post
 title: "Living in Australia has a Downside"

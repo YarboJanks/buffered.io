@@ -1,6 +1,6 @@
 ---
 categories: [Technology]
-date: 2007-03-31 09:31:20
+date: 2007-03-31 09:31
 layout: post
 title: "BumpTop 3D Desktop Prototype"
 ---

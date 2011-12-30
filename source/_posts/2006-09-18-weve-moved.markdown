@@ -1,6 +1,6 @@
 ---
 categories: [Miscellaneous]
-date: 2006-09-18 06:39:18
+date: 2006-09-18 06:39
 layout: post
 title: "We've moved!"
 ---

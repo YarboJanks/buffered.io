@@ -1,6 +1,6 @@
 ---
 categories: [Freeware, Software]
-date: 2006-09-22 16:01:47
+date: 2006-09-22 16:01
 layout: post
 title: "Yarr me hearties!"
 ---

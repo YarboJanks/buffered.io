@@ -1,6 +1,6 @@
 ---
 categories: [Software Development, WPF, C#]
-date: 2008-09-09 20:22:15
+date: 2008-09-09 20:22
 tags: [Effects, FX, Graphics, Shader, WPF]
 layout: post
 title: "WPF Shader FX on Codeplex"

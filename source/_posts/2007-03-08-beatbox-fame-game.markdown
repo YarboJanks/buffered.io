@@ -1,6 +1,6 @@
 ---
 categories: [Funny]
-date: 2007-03-08 20:44:20
+date: 2007-03-08 20:44
 layout: post
 title: "Beatbox Fame Game"
 ---

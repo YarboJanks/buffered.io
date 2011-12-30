@@ -1,6 +1,6 @@
 ---
 categories: [Miscellaneous, Technology]
-date: 2008-06-19 13:09:52
+date: 2008-06-19 13:09
 tags: [twitter]
 layout: post
 title: "I've Caved-in to Twitter"

@@ -1,6 +1,6 @@
 ---
 categories: [HOWTO, Tips/Tricks]
-date: 2007-07-18 12:15:37
+date: 2007-07-18 12:15
 layout: post
 title: "And Help You I Shall!"
 ---

@@ -1,6 +1,6 @@
 ---
 categories: [Digital Rights, Hardware]
-date: 2006-12-23 22:53:35
+date: 2006-12-23 22:53
 layout: post
 title: "Is it Becoming Illegal to do Anything?"
 ---

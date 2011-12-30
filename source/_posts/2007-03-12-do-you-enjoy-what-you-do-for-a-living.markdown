@@ -1,6 +1,6 @@
 ---
 categories: [Being in the Industry, Miscellaneous, Software Development]
-date: 2007-03-12 09:10:44
+date: 2007-03-12 09:10
 layout: post
 title: "Do you Enjoy what you do for a Living?"
 ---

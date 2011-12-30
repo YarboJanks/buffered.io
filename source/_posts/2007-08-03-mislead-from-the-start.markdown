@@ -1,6 +1,6 @@
 ---
 categories: [Being in the Industry, Software Development, WTF]
-date: 2007-08-03 12:30:38
+date: 2007-08-03 12:30
 layout: post
 title: "Misled from the Start"
 ---

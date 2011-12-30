@@ -1,6 +1,6 @@
 ---
 categories: [Microsoft, Windows]
-date: 2006-11-15 11:34:23
+date: 2006-11-15 11:34
 layout: post
 title: "A Crack in the Vista"
 ---

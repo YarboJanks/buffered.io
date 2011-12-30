@@ -1,6 +1,6 @@
 ---
 categories: [Miscellaneous]
-date: 2008-04-06 21:05:58
+date: 2008-04-06 21:05
 tags: [australia, economy, expense, living]
 layout: post
 title: "Because the Cost of Living is Getting so High, High, High"

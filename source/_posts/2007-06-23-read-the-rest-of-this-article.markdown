@@ -1,6 +1,6 @@
 ---
 categories: [Blogging]
-date: 2007-06-23 12:19:12
+date: 2007-06-23 12:19
 layout: post
 title: "Read the Rest of this Article"
 ---

@@ -1,6 +1,6 @@
 ---
 categories: [Software, Technology]
-date: 2006-09-28 22:38:05
+date: 2006-09-28 22:38
 layout: post
 title: "ViEmu for SQL"
 ---

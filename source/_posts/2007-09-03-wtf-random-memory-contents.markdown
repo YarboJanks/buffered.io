@@ -1,6 +1,6 @@
 ---
 categories: [Software Development, WTF, C#]
-date: 2007-09-03 15:40:45
+date: 2007-09-03 15:40
 layout: post
 title: "WTF: Random Memory Contents"
 ---

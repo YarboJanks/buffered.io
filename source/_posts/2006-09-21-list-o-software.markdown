@@ -1,6 +1,6 @@
 ---
 categories: [Freeware, Games, Software]
-date: 2006-09-21 10:48:00
+date: 2006-09-21 10:48
 layout: post
 title: "List o' Software"
 ---

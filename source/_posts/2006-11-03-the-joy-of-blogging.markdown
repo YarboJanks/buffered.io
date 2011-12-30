@@ -1,6 +1,6 @@
 ---
 categories: [Miscellaneous]
-date: 2006-11-03 08:10:29
+date: 2006-11-03 08:10
 layout: post
 title: "The Joy of Blogging"
 ---

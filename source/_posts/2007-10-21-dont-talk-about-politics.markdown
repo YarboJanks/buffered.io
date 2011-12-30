@@ -1,6 +1,6 @@
 ---
 categories: [Miscellaneous]
-date: 2007-10-21 20:54:18
+date: 2007-10-21 20:54
 layout: post
 title: "Don't Talk About Politics"
 ---

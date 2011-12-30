@@ -1,6 +1,6 @@
 ---
 categories: [Functional Programming, Haskell, Software Development]
-date: 2009-06-27 21:49:43
+date: 2009-06-27 21:49
 tags: [Haskell, Point Free, style]
 layout: post
 title: "'Point-Free style: What is it good for?'"

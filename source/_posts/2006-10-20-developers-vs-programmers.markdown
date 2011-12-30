@@ -1,6 +1,6 @@
 ---
 categories: [Being in the Industry, Software Development]
-date: 2006-10-20 20:39:03
+date: 2006-10-20 20:39
 layout: post
 title: "Developers vs Programmers"
 ---

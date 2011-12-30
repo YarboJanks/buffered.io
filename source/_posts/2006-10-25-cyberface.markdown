@@ -1,6 +1,6 @@
 ---
 categories: [Software, Technology]
-date: 2006-10-25 08:33:59
+date: 2006-10-25 08:33
 layout: post
 title: "Cyberface"
 ---
