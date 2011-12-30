@@ -1,0 +1,9 @@
+---
+categories: [Freeware, Software]
+date: 2006-10-24 12:48:24
+layout: post
+title: "FireFox 2"
+---
+<a href="http://getfirefox.com/" title="Get Firefox - Web browsing redefined." target="_blank"><img class="InlineImageRight" src="http://www.mozilla.org/products/firefox/buttons/getfirefox_large2.png" width="178" height="60" border="0" alt="Get Firefox"></a>WAHOO! It's been released :) Our lovable browser has had its second major version <a href="http://www.theinquirer.net/default.aspx?article=35284" title="Don't wait for Firefox Numero Duo" target="_blank">released into the wild</a>, which is great news. I've been using the latest released candidate for a while, and have had no issues at all, but now it's officially out there for all to enjoy.
+
+Point your currently insecure/outdated browsers over <a href="http://releases.mozilla.org/pub/mozilla.org/firefox/releases/2.0/" title="Mozilla Releases" target="_blank">here</a> and start your download.
