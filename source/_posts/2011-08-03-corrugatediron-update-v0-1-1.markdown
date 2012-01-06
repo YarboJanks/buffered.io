@@ -44,14 +44,14 @@ The XML that's required is not going to be changing in the short term. The value
 
 In short, you can wire-in CorrugatedIron's XML configuration as simply as:
 
-$$code(lang=csharp)
+{% codeblock lang:csharp %}
 var cluster = RiakCluster.FromConfig("riakConfig");
 var client = cluster.CreateClient();
-$$/code
+{% endcodeblock %}
 
 ## That's it! ##
 
-Hopefully this will make your life a little easier while dealing with CorrugatedIron. We're always keen to hear your feedback, so please [drop us a line][contact] if you have any thoughts, suggestions or issues.
+Hopefully this will make your life a little easier while getting CorrugatedIron up and running. We're always keen to hear your feedback, so please [drop us a line][contact] if you have any thoughts, suggestions or issues.
 
 Enjoy!
 

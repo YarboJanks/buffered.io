@@ -55,11 +55,10 @@ Then, just before Christmas (23rd December to be exact) I received an email out 
 
 There was much more to the email than that, but it certainly started off well! The email was from [Jeremiah Peschka][JP], a chap who's name I had seen floating around the Riak [mailing list][]. In fact, I remember his name catching my eye on more than one occasion because his email signature contained the following:
 
-> Microsoft SQL Server MVP
->
+> Microsoft SQL Server MVP<br/>
 > MCITP: Database Developer, DBA
 
-This resonated with me because he was obviously into RDBMSs, but hadn't been a complete asshat on a list full of people working in [NoSQL][]. This was a rare and surprising thing.
+This resonated with me because he was obviously into RDBMSs, but hadn't been a complete asshat on a list full of people working with [NoSQL][]. This was a rare and surprising thing.
 
 Moving on. After a few email exchanges, Jeremiah indicated that he was interested in helping to build CorrugatedIron (despite the whacky name) and we decided to team up. I knew that he'd definitely add value to the whole process and would also keep me motivated. Plus, his obvious skills in the SQL realm would no doubt be useful too!
 
@@ -145,3 +144,7 @@ Thanks for reading this far! If you're a .NET mofo and you're keen to get your R
 [Session State Provider]: https://github.com/peschkaj/CorrugatedIron.Samples/tree/master/VisualStudio2010/Sample.SessionStateProvider
 [source]: https://github.com/DistributedNonsense/CorrugatedIron "Source code"
 [v0.1.0]: https://github.com/DistributedNonsense/CorrugatedIron/tree/v0.1.0
+[HistoryGraph]: https://github.com/DistributedNonsense/CorrugatedIron/graph
+[YakRiak]: https://github.com/seancribbs/yakriak "The original YakRiak"
+[YakRiak.NET]: https://github.com/DistributedNonsense/CorrugatedIron.Samples/tree/master/VisualStudio2010/Sample.YakRiak "YakRiak.NET"
+[Sean Cribbs]: https://github.com/seancribbs "Sean Cribbs"

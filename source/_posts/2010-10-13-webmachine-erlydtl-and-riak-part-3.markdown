@@ -133,7 +133,7 @@ I then edited the `csd_web.app.src` file so that the names were updated (I tidie
 
 I then opened up `csd_web_resource.erl` and made it look like the original `csd_resource.erl` so that it called the ErlyDTL template:
 
-{% codeblock apps/csd_web/src/csd_web_resource.erl %}
+{% codeblock apps/csd_web/src/csd_web_resource.erl lang:erlang %}
 -module(csd_web_resource).
 -export([init/1, to_html/2]).
 
@@ -876,12 +876,13 @@ As you can see, this code calls through to the `csd_core_server` to extract the 
 The code also uses a new ErlyDTL template called `snippet`. We'd best add that to the `templates` folder:
 
 {% codeblock apps/csd_web/templates/snippet.dtl lang:html %}
+<!-- TODO : get the templating engine to stop ripping out the inline template code -->
 <html>
   <body>
     <h1>Snippet View</h1>
-    <h2>{{ title }}</h2>
-    <p>Left: {{ left }}</p>
-    <p>Right: {{ right }}</p>
+    <h2>{{ "{{ title "}} }}</h2>
+    <p>Left: {{ "{{ left "}} }}</p>
+    <p>Right: {{ "{{ right "}} }}</p>
   </body>
 </html>
 {% endcodeblock %}
@@ -937,8 +938,8 @@ As always, comments and feedback is welcomed and greatly appreciated. As are sug
   [gen_server]: http://www.erlang.org/doc/design_principles/gen_server_concepts.html "gen_server behaviour"
   [supervisor]: http://www.erlang.org/doc/design_principles/sup_princ.html "supervisor behaviour"
   [proplists]: http://www.erlang.org/doc/man/proplists.html "proplists"
-  [term\_to\_binary]: http://www.erlang.org/doc/man/erlang.html#term_to_binary-1 "term\_to\_binary"
-  [binary\_to\_term]: http://www.erlang.org/doc/man/erlang.html#binary_to_term-1 "binary\_to\_term"
+  [term_to_binary]: http://www.erlang.org/doc/man/erlang.html#term_to_binary-1 "term_to_binary"
+  [binary_to_term]: http://www.erlang.org/doc/man/erlang.html#binary_to_term-1 "binary_to_term"
   [map/reduce]: http://en.wikipedia.org/wiki/MapReduce "map/reduce"
   [cURL]: http://curl.haxx.se/ "cURL homepage"
   [MononcQc]: http://twitter.com/mononcqc "Ferd T-H on Twitter"
