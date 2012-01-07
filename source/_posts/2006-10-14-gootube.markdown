@@ -1,6 +1,7 @@
 ---
 categories: [Google, Miscellaneous]
 date: 2006-10-14 10:56
+comments: true
 layout: post
 title: "GooTube"
 ---

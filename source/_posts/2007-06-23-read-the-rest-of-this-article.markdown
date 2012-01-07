@@ -1,6 +1,7 @@
 ---
 categories: [Blogging]
 date: 2007-06-23 12:19
+comments: true
 layout: post
 title: "Read the Rest of this Article"
 ---

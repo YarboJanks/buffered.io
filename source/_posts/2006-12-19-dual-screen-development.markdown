@@ -1,6 +1,7 @@
 ---
 categories: [Hardware, Software Development, Technology]
 date: 2006-12-19 08:46
+comments: true
 layout: post
 title: "Dual-Screen Development"
 ---

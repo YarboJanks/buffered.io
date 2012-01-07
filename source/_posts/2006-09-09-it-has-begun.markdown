@@ -1,6 +1,7 @@
 ---
 categories: [Funny, Miscellaneous]
 date: 2006-09-09 12:19
+comments: true
 layout: post
 title: "It has begun"
 

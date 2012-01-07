@@ -1,6 +1,7 @@
 ---
 categories: [Miscellaneous]
 date: 2007-04-14 22:13
+comments: true
 layout: post
 title: "What Constitutes a 'Tutorial'?"
 ---

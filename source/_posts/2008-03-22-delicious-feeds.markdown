@@ -1,6 +1,7 @@
 ---
 categories: [Blogging]
 date: 2008-03-22 10:55
+comments: true
 layout: post
 title: "Delicious Feeds"
 ---

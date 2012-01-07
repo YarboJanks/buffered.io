@@ -2,6 +2,7 @@
 categories: [Microsoft, Networks, Technology]
 date: 2007-11-21 08:04
 tags: [internet, Microsoft, Networks]
+comments: true
 layout: post
 title: "Living in Australia has a Downside"
 ---

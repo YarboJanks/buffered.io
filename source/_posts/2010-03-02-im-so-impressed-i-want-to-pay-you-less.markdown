@@ -1,6 +1,7 @@
 ---
 categories: [Being in the Industry, Software Development, Erlang]
 date: 2010-03-02 12:27
+comments: true
 layout: post
 title: "I'm so impressed I want to pay you less"
 ---

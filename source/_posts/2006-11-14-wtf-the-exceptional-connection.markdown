@@ -1,6 +1,7 @@
 ---
 categories: [WTF]
 date: 2006-11-14 11:37
+comments: true
 layout: post
 title: "WTF: The Exceptional Connection"
 ---

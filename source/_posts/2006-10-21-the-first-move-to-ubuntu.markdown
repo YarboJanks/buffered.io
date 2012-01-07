@@ -1,6 +1,7 @@
 ---
 categories: [Linux]
 date: 2006-10-21 21:55
+comments: true
 layout: post
 title: "The First Move to Ubuntu"
 ---

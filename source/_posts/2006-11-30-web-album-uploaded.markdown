@@ -1,6 +1,7 @@
 ---
 categories: [Miscellaneous]
 date: 2006-11-30 10:18
+comments: true
 layout: post
 title: "Web Album Uploaded"
 ---

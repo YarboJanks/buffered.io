@@ -3,6 +3,7 @@ categories: [Databases, Functional Programming, HOWTO, Erlang, Webmachine]
 date: 2010-09-01 23:29
 updated: 2011-06-15 07:26:22
 tags: [web development, Erlang, NoSQL, Webmachine, Riak, ErlyDTL]
+comments: true
 layout: post
 title: "Webmachine, ErlyDTL and Riak - Part 1"
 series: "Web Development with Erlang"

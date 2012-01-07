@@ -2,6 +2,7 @@
 categories: [Microsoft, Security]
 date: 2008-04-12 21:43
 tags: [brave, developers, Microsoft, Security, UAC]
+comments: true
 layout: post
 title: "Microsoft want to Annoy you, Cancel or Allow?"
 ---

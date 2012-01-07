@@ -2,6 +2,7 @@
 categories: [HOWTO, Microsoft, Security, Software Development, Tips/Tricks, C#]
 date: 2008-07-09 12:13
 tags: [.net, disassemble, ilasm, ildasm, MSIL, sign, snk, strong name]
+comments: true
 layout: post
 title: ".NET-fu: Signing an Unsigned Assembly (without Delay Signing)"
 ---

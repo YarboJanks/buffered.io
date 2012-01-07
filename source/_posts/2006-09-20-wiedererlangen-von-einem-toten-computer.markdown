@@ -1,6 +1,7 @@
 ---
 categories: [Hardware, Technology]
 date: 2006-09-20 16:20
+comments: true
 layout: post
 title: "Wiedererlangen von einem toten Computer"
 ---

@@ -2,6 +2,7 @@
 categories: [Databases, Security, Software, Software Development]
 date: 2008-11-26 21:08
 tags: [misconception, Software, Software Development, web development, websites]
+comments: true
 layout: post
 title: "Websites are Hard to Build"
 ---

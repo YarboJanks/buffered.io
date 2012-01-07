@@ -3,6 +3,7 @@ categories: [Databases, Functional Programming, HOWTO, Erlang, Webmachine]
 date: 2010-09-12 22:15
 updated: 2011-04-04 23:54:25
 tags: [web development, Erlang, NoSQL, Webmachine, Riak, ErlyDTL, HAProxy]
+comments: true
 layout: post
 title: "Webmachine, ErlyDTL and Riak - Part 2"
 series: "Web Development with Erlang"

@@ -2,6 +2,7 @@
 categories: [Being in the Industry, Software Development, WTF]
 date: 2009-04-13 14:09
 tags: [.net, bloat, framework, overengineering, programming]
+comments: true
 layout: post
 title: "I Don't Need Your Frickin' Framework!"
 ---

@@ -1,6 +1,7 @@
 ---
 categories: [Freeware, Software]
 date: 2006-10-24 12:48
+comments: true
 layout: post
 title: "FireFox 2"
 ---

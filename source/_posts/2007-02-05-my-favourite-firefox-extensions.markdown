@@ -1,6 +1,7 @@
 ---
 categories: [Software]
 date: 2007-02-05 06:27
+comments: true
 layout: post
 title: "My Favourite Firefox Extensions"
 ---

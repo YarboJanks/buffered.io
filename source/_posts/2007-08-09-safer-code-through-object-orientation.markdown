@@ -1,6 +1,7 @@
 ---
 categories: [Software Development, C#]
 date: 2007-08-09 18:55
+comments: true
 layout: post
 title: "Safer Code through Object-Orientation"
 ---

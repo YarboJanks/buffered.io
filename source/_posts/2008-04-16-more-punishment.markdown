@@ -2,6 +2,7 @@
 categories: [Miscellaneous]
 date: 2008-04-16 17:15
 tags: [marathon]
+comments: true
 layout: post
 title: "More Punishment"
 ---

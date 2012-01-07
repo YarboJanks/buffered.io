@@ -1,6 +1,7 @@
 ---
 categories: [Miscellaneous]
 date: 2007-01-31 01:35
+comments: true
 layout: post
 title: "A Bad Workman Blames his Tools"
 ---

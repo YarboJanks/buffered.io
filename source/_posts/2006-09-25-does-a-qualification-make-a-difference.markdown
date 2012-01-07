@@ -1,6 +1,7 @@
 ---
 categories: [Being in the Industry]
 date: 2006-09-25 13:25
+comments: true
 layout: post
 title: "Does a qualification make a difference?"
 ---

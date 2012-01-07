@@ -2,6 +2,7 @@
 categories: [Challenges, F#, Functional Programming]
 date: 2008-07-24 09:11
 tags: [challenge, fsharp, functional]
+comments: true
 layout: post
 title: "Validating use of Parenthesis"
 ---

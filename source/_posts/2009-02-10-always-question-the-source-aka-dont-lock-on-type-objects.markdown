@@ -2,6 +2,7 @@
 categories: [Software Development, WTF, C#]
 date: 2009-02-10 21:22
 tags: [assumptions, lock, multithreading, stupidity]
+comments: true
 layout: post
 title: "Always Question the Source (aka \"Don't Lock on Type Objects\")"
 ---

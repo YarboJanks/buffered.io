@@ -1,6 +1,7 @@
 ---
 categories: [Being in the Industry]
 date: 2007-01-28 16:59
+comments: true
 layout: post
 title: "A Software List is Not a Job Description"
 ---

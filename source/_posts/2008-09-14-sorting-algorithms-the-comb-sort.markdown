@@ -2,6 +2,7 @@
 categories: [Algorithms, Software Development, Sorting]
 date: 2008-09-14 20:26
 tags: [Comb Sort, Sorting]
+comments: true
 layout: post
 title: "Sorting Algorithms: The Comb Sort"
 ---

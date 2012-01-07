@@ -2,6 +2,7 @@
 categories: [Linux, Software, WTF]
 date: 2008-12-27 12:51
 tags: [idiot, Linux, sysadmin]
+comments: true
 layout: post
 title: "The Admin is an Idiot"
 ---

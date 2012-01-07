@@ -1,6 +1,7 @@
 ---
 categories: [Challenges]
 date: 2006-10-12 23:18
+comments: true
 layout: post
 title: "Challenge #2 - The Recursive Ruler"
 ---

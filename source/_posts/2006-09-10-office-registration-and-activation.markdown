@@ -1,6 +1,7 @@
 ---
 categories: [Microsoft, Software, Technology]
 date: 2006-09-10 12:33
+comments: true
 layout: post
 title: "Office Registration and Activation"
 ---

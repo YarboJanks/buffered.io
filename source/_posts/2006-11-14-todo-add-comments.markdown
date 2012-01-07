@@ -1,6 +1,7 @@
 ---
 categories: [Software Development]
 date: 2006-11-14 08:43
+comments: true
 layout: post
 title: "// TODO: Add Comments"
 ---

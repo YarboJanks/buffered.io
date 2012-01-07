@@ -2,6 +2,7 @@
 categories: [CLR, Tips/Tricks, C#]
 date: 2007-06-27 12:54
 tags: [C#, CLR, floating point]
+comments: true
 layout: post
 title: "Extended-Precision Floating-Point Values in the CLR"
 ---

@@ -1,6 +1,7 @@
 ---
 categories: [Miscellaneous]
 date: 2007-04-27 22:15
+comments: true
 layout: post
 title: "Noisy Neighbours"
 ---

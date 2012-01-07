@@ -1,6 +1,7 @@
 ---
 categories: [Being in the Industry, Software Development]
 date: 2006-09-14 13:50
+comments: true
 layout: post
 title: "Are you any good?"
 ---

@@ -2,6 +2,7 @@
 categories: [Challenges, Functional Programming, Haskell]
 date: 2008-07-25 04:46
 tags: [challenge, functional]
+comments: true
 layout: post
 title: "Another Quick Coding Challenge"
 ---

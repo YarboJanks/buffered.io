@@ -1,6 +1,7 @@
 ---
 categories: [Being in the Industry, Software Development]
 date: 2006-09-18 16:36
+comments: true
 layout: post
 title: "Finding Productivity Utopia"
 ---

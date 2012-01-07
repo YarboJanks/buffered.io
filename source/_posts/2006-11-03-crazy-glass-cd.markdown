@@ -1,6 +1,7 @@
 ---
 categories: [Technology]
 date: 2006-11-03 07:29
+comments: true
 layout: post
 title: "Crazy Glass CD"
 ---

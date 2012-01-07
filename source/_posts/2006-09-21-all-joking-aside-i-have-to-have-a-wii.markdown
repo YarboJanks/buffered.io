@@ -1,6 +1,7 @@
 ---
 categories: [Games, Hardware, Technology]
 date: 2006-09-21 00:01
+comments: true
 layout: post
 title: "All joking aside, I have to have a Wii"
 ---

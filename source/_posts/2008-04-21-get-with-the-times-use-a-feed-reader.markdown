@@ -2,6 +2,7 @@
 categories: [Software, Technology]
 date: 2008-04-21 19:11
 tags: [dilbert, feed, rss]
+comments: true
 layout: post
 title: "Get with the Times - Use a Feed Reader"
 ---

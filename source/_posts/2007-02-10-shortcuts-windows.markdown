@@ -1,6 +1,7 @@
 ---
 categories: [Shortcuts, Windows]
 date: 2007-02-10 11:38
+comments: true
 layout: post
 title: "Shortcuts: Windows"
 ---

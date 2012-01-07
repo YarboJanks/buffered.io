@@ -1,6 +1,7 @@
 ---
 categories: [Miscellaneous]
 date: 2007-10-28 21:16
+comments: true
 layout: post
 title: "A Little Mixed Bag"
 ---

@@ -1,6 +1,7 @@
 ---
 categories: [HOWTO, Software Development, C#]
 date: 2007-07-14 20:21
+comments: true
 layout: post
 title: "Creating Concrete Objects"
 ---

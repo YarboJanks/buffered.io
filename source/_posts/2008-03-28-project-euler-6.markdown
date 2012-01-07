@@ -3,6 +3,7 @@ categories: [Functional Programming, Haskell, Project Euler]
 date: 2008-03-28 21:06
 series: "Project Euler"
 tags: [functional, Haskell, programming, Project Euler]
+comments: true
 layout: post
 title: "Project Euler #6"
 ---

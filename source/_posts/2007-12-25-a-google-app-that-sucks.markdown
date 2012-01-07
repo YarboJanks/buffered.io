@@ -1,6 +1,7 @@
 ---
 categories: [Google, Software, Technology]
 date: 2007-12-25 16:29
+comments: true
 layout: post
 title: "A Google App that Sucks"
 ---

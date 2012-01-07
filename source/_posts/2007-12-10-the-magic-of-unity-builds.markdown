@@ -2,6 +2,7 @@
 categories: [HOWTO, Software Development, C#]
 date: 2007-12-10 18:03
 tags: [unity builds]
+comments: true
 layout: post
 title: "The Magic of Unity Builds"
 ---

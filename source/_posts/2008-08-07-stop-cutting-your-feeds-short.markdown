@@ -2,6 +2,7 @@
 categories: [Blogging]
 date: 2008-08-07 12:23
 tags: [atom, Blogging, feeds, frustration, Google, offline, rss]
+comments: true
 layout: post
 title: "Stop Cutting your Feeds Short"
 ---

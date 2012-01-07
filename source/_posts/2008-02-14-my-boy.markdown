@@ -1,6 +1,7 @@
 ---
 categories: [Miscellaneous]
 date: 2008-02-14 12:15
+comments: true
 layout: post
 title: "My Boy"
 ---

@@ -1,6 +1,7 @@
 ---
 categories: [C#]
 date: 2007-03-02 17:13
+comments: true
 layout: post
 title: ".NET System::String to ANSI char*"
 ---

@@ -1,6 +1,7 @@
 ---
 categories: [Funny, Linux]
 date: 2006-10-14 20:38
+comments: true
 layout: post
 title: "Get Away from that Computer!"
 ---

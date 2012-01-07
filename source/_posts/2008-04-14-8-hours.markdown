@@ -2,6 +2,7 @@
 categories: [Miscellaneous]
 date: 2008-04-14 07:46
 tags: [sleep]
+comments: true
 layout: post
 title: "8 Hours"
 ---

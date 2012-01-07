@@ -2,6 +2,7 @@
 categories: [Google, Shortcuts, Software, Tips/Tricks]
 date: 2008-05-25 09:51
 tags: [Google, productivity, reader, rss]
+comments: true
 layout: post
 title: "Preview Feeds in Google Reader"
 ---

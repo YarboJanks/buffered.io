@@ -1,6 +1,7 @@
 ---
 categories: [Miscellaneous]
 date: 2006-09-18 06:39
+comments: true
 layout: post
 title: "We've moved!"
 ---

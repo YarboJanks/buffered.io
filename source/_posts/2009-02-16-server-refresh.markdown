@@ -2,6 +2,7 @@
 categories: [Linux, Shortcuts, Technology]
 date: 2009-02-16 07:24
 tags: [debian, gentoo, maintenance, sysadmin]
+comments: true
 layout: post
 title: "Server Refresh"
 ---

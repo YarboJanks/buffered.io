@@ -1,6 +1,7 @@
 ---
 categories: [Funny, Software Development]
 date: 2007-02-04 04:20
+comments: true
 layout: post
 title: "CI Punishment"
 ---

@@ -2,6 +2,7 @@
 categories: [Blogging]
 date: 2008-06-29 08:51
 tags: [annoying, Blogging, rant]
+comments: true
 layout: post
 title: "Things that Suck about Blogs"
 ---

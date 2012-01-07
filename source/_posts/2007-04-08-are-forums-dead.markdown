@@ -1,6 +1,7 @@
 ---
 categories: [Technology]
 date: 2007-04-08 22:59
+comments: true
 layout: post
 title: "Are Forums Dead?"
 ---

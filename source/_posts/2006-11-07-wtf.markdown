@@ -1,6 +1,7 @@
 ---
 categories: [WTF]
 date: 2006-11-07 13:37
+comments: true
 layout: post
 title: "WTF?!"
 ---

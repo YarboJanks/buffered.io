@@ -1,6 +1,7 @@
 ---
 categories: [Funny, Software]
 date: 2006-09-23 23:40
+comments: true
 layout: post
 title: "Get FartFox"
 ---

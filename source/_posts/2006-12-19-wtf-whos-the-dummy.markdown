@@ -1,6 +1,7 @@
 ---
 categories: [WTF]
 date: 2006-12-19 13:58
+comments: true
 layout: post
 title: "WTF: Who's the Dummy?"
 ---

@@ -1,6 +1,7 @@
 ---
 categories: [Software Development]
 date: 2007-12-23 09:48
+comments: true
 layout: post
 title: "A Frequently Asked Question"
 ---

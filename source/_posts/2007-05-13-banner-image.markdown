@@ -1,6 +1,7 @@
 ---
 categories: [Miscellaneous]
 date: 2007-05-13 21:30
+comments: true
 layout: post
 title: "Banner Image"
 ---

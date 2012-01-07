@@ -1,6 +1,7 @@
 ---
 categories: [Funny]
 date: 2007-03-08 20:44
+comments: true
 layout: post
 title: "Beatbox Fame Game"
 ---

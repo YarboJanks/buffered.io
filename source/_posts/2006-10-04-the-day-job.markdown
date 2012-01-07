@@ -1,6 +1,7 @@
 ---
 categories: [Being in the Industry, Software Development]
 date: 2006-10-04 17:56
+comments: true
 layout: post
 title: "The Day Job"
 ---

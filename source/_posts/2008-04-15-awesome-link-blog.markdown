@@ -2,6 +2,7 @@
 categories: [Software Development]
 date: 2008-04-15 20:25
 tags: [blog, link]
+comments: true
 layout: post
 title: "Awesome Link Blog"
 ---

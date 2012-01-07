@@ -2,6 +2,7 @@
 categories: [Hardware]
 date: 2008-04-12 21:49
 tags: [enermax, experience, Hardware, keyboard]
+comments: true
 layout: post
 title: "No Regrets"
 ---

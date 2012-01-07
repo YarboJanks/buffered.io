@@ -1,6 +1,7 @@
 ---
 categories: [Challenges, RCE]
 date: 2007-03-06 12:45
+comments: true
 layout: post
 title: "More RCE Goodness"
 ---

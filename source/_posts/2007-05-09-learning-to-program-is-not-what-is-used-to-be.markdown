@@ -1,6 +1,7 @@
 ---
 categories: [Software Development]
 date: 2007-05-09 17:28
+comments: true
 layout: post
 title: "Learning to Program is not what it used to be"
 ---

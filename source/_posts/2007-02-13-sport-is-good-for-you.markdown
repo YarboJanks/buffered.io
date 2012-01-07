@@ -1,6 +1,7 @@
 ---
 categories: [Miscellaneous]
 date: 2007-02-13 18:41
+comments: true
 layout: post
 title: "Sport is Good For You"
 ---

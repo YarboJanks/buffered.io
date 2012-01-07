@@ -2,6 +2,7 @@
 categories: [Blogging, Technology]
 date: 2009-01-13 19:21
 tags: [Blogging, coming soon]
+comments: true
 layout: post
 title: "The Sales Pipeline"
 ---

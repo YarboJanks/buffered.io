@@ -1,6 +1,7 @@
 ---
 categories: [Miscellaneous]
 date: 2006-10-27 07:47
+comments: true
 layout: post
 title: "Pumpkin Computer"
 ---

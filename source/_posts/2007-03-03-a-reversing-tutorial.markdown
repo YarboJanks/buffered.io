@@ -1,6 +1,7 @@
 ---
 categories: [ASM, HOWTO, RCE, C#]
 date: 2007-03-03 00:24
+comments: true
 layout: post
 title: "A Reversing Tutorial"
 ---

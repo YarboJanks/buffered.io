@@ -1,6 +1,7 @@
 ---
 categories: [Microsoft, Software, Windows]
 date: 2007-05-31 09:57
+comments: true
 layout: post
 title: "Microsoft Take Auto-Update Annoyances Another Step Further"
 ---

@@ -1,6 +1,7 @@
 ---
 categories: [Miscellaneous, Software]
 date: 2007-01-14 09:30
+comments: true
 layout: post
 title: "Quality of Service"
 ---

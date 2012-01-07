@@ -1,6 +1,7 @@
 ---
 categories: [Funny]
 date: 2007-06-26 08:29
+comments: true
 layout: post
 title: "Online Order Tracking"
 ---

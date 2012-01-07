@@ -1,6 +1,7 @@
 ---
 categories: [Miscellaneous]
 date: 2007-04-07 23:51
+comments: true
 layout: post
 title: "We've Moved ... Again!"
 ---

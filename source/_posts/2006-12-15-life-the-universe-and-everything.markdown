@@ -1,6 +1,7 @@
 ---
 categories: [Being in the Industry, Miscellaneous]
 date: 2006-12-15 17:13
+comments: true
 layout: post
 title: "Life, the Universe and Everything."
 ---

@@ -2,6 +2,7 @@
 categories: [Microsoft, Tips/Tricks, Windows]
 date: 2008-05-17 20:33
 tags: [configuration, dll, error, investigation, Windows, winsxs]
+comments: true
 layout: post
 title: "Resolving Side-by-Side Configuration Issues"
 ---

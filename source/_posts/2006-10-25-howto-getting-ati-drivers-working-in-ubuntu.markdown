@@ -1,6 +1,7 @@
 ---
 categories: [HOWTO, Linux]
 date: 2006-10-25 22:07
+comments: true
 layout: post
 title: "HOWTO: Getting ATi Drivers Working in Ubuntu"
 ---

@@ -2,6 +2,7 @@
 categories: [Freeware, Software]
 date: 2008-05-31 11:29
 tags: [firefox]
+comments: true
 layout: post
 title: "Be Part of a World Record"
 ---

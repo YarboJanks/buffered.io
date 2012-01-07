@@ -1,6 +1,7 @@
 ---
 categories: [Blogging]
 date: 2007-06-26 08:25
+comments: true
 layout: post
 title: "Content Duplication"
 ---

@@ -1,6 +1,7 @@
 ---
 categories: [Technology]
 date: 2006-11-15 08:29
+comments: true
 layout: post
 title: "A New Way to SMS?"
 ---

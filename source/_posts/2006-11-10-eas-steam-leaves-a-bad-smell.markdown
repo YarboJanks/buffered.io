@@ -1,6 +1,7 @@
 ---
 categories: [Software, Technology]
 date: 2006-11-10 08:52
+comments: true
 layout: post
 title: "EA's 'Steam' Leaves a Bad Smell"
 ---

@@ -2,6 +2,7 @@
 categories: [Algorithms, Software Development, Sorting]
 date: 2008-08-29 21:44
 tags: [Cocktail Sort, Sorting]
+comments: true
 layout: post
 title: "Sorting Algorithms: The Cocktail Sort"
 ---

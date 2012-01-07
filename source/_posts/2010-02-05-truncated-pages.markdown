@@ -2,6 +2,7 @@
 categories: [Software]
 date: 2010-02-05 21:42
 tags: [Fail, sysadmin]
+comments: true
 layout: post
 title: "Truncated Pages"
 ---

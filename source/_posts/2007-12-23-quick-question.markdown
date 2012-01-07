@@ -1,6 +1,7 @@
 ---
 categories: [Miscellaneous]
 date: 2007-12-23 13:46
+comments: true
 layout: post
 title: "Quick Question"
 ---

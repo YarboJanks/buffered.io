@@ -2,6 +2,7 @@
 categories: [Being in the Industry, Software Development, Technology, WTF]
 date: 2010-01-28 22:35
 tags: [WTF, bad decisions, software developer]
+comments: true
 layout: post
 title: "The Wrong Decision by the Wrong Person"
 ---

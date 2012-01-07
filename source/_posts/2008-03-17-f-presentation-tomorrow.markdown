@@ -1,6 +1,7 @@
 ---
 categories: [F#]
 date: 2008-03-17 17:15
+comments: true
 layout: post
 title: "F# Presentation Tomorrow"
 ---

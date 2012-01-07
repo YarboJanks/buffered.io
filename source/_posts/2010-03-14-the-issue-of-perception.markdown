@@ -2,6 +2,7 @@
 categories: [Being in the Industry]
 date: 2010-03-14 22:12
 tags: [perception, professionalism]
+comments: true
 layout: post
 title: "The Issue of Perception"
 ---

@@ -1,6 +1,7 @@
 ---
 categories: [Miscellaneous]
 date: 2007-09-21 10:55
+comments: true
 layout: post
 title: "I am not OJ Simpson"
 ---

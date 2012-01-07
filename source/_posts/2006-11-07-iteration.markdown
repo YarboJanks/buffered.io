@@ -1,6 +1,7 @@
 ---
 categories: [Miscellaneous, Software Development]
 date: 2006-11-07 09:30
+comments: true
 layout: post
 title: "Iteration"
 ---

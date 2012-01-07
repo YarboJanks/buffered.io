@@ -2,6 +2,7 @@
 categories: [Being in the Industry, Haskell, Software Development, Technology, Mercurial]
 date: 2009-07-29 07:30
 tags: [Haskell, Mercurial, community, anger, value, Technology, irc]
+comments: true
 layout: post
 title: "The Value of a Technical Community"
 ---

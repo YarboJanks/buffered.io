@@ -2,6 +2,7 @@
 categories: [WTF, Miscellaneous]
 date: 2011-02-25 16:31
 tags: [common sense, sucker, prank, easy prey]
+comments: true
 layout: post
 title: "Go With Your Instinct"
 ---

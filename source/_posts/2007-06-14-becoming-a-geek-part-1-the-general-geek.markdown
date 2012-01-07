@@ -1,6 +1,7 @@
 ---
 categories: [Being in the Industry, HOWTO]
 date: 2007-06-14 17:14
+comments: true
 layout: post
 title: "Becoming a Geek Part 1: The General Geek"
 ---

@@ -1,6 +1,7 @@
 ---
 categories: [Miscellaneous]
 date: 2007-02-19 05:18
+comments: true
 layout: post
 title: "What are you Really Looking at?"
 ---

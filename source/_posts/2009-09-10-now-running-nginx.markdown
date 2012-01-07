@@ -1,6 +1,7 @@
 ---
 categories: [Software, Technology]
 date: 2009-09-10 17:52
+comments: true
 layout: post
 title: "Now Running Nginx"
 ---

@@ -2,6 +2,7 @@
 categories: [Blogging]
 date: 2011-02-15 20:44
 tags: [blogging, python, blogofile]
+comments: true
 layout: post
 title: "Now Powered by Blogofile"
 ---

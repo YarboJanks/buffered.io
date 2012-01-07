@@ -1,6 +1,7 @@
 ---
 categories: [Google, Software]
 date: 2007-05-06 09:04
+comments: true
 layout: post
 title: "Moving to Google Apps"
 ---

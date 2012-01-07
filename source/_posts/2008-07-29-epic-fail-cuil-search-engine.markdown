@@ -2,6 +2,7 @@
 categories: [Fail, Software, Technology, WTF]
 date: 2008-07-29 08:55
 tags: [Fail, hype, search]
+comments: true
 layout: post
 title: "Epic Fail - Cuil Search Engine"
 ---

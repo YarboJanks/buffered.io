@@ -1,6 +1,7 @@
 ---
 categories: [HOWTO, Miscellaneous, Tips/Tricks]
 date: 2007-07-14 15:29
+comments: true
 layout: post
 title: "Help Me Help You!"
 ---

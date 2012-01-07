@@ -2,6 +2,7 @@
 categories: [Microsoft, Technology, Windows]
 date: 2007-10-29 06:43
 tags: [opinion, vista, Windows]
+comments: true
 layout: post
 title: "Requisite Vista"
 ---

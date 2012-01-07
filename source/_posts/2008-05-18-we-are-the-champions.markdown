@@ -2,6 +2,7 @@
 categories: [Miscellaneous]
 date: 2008-05-18 14:39
 tags: [football, portsmouth]
+comments: true
 layout: post
 title: "We are the Champions!"
 ---

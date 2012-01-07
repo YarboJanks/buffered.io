@@ -1,6 +1,7 @@
 ---
 categories: [ASM, RCE]
 date: 2007-03-08 21:10
+comments: true
 layout: post
 title: "Another Lesson in Software Reversing"
 ---

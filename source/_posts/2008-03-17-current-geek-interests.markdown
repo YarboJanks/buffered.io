@@ -1,6 +1,7 @@
 ---
 categories: [F#, Functional Programming, Haskell, Software Development, Technology]
 date: 2008-03-17 13:43
+comments: true
 layout: post
 title: "Current Geek Interests"
 ---

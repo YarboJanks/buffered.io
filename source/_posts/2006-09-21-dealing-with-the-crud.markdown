@@ -1,6 +1,7 @@
 ---
 categories: [Databases, Software Development, Technology]
 date: 2006-09-21 16:12
+comments: true
 layout: post
 title: "Dealing with the CRUD"
 ---

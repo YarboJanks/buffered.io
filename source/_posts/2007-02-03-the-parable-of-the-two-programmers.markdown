@@ -1,6 +1,7 @@
 ---
 categories: [Being in the Industry, Software Development]
 date: 2007-02-03 06:11
+comments: true
 layout: post
 title: "The Parable of the Two Programmers"
 ---

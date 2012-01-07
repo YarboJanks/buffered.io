@@ -1,6 +1,7 @@
 ---
 categories: [Linux, Miscellaneous, Technology, Windows]
 date: 2006-11-09 07:59
+comments: true
 layout: post
 title: "PCs for the Family"
 ---

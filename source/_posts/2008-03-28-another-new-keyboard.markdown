@@ -1,6 +1,7 @@
 ---
 categories: [Hardware]
 date: 2008-03-28 21:33
+comments: true
 layout: post
 title: "Another New Keyboard"
 ---

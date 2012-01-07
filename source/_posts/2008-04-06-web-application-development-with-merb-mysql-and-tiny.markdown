@@ -2,6 +2,7 @@
 categories: [Merb, Software Development]
 date: 2008-04-06 16:04
 tags: [Merb, tiny, web development]
+comments: true
 layout: post
 title: "Web Application Development with Merb, MySQL and Tiny"
 ---

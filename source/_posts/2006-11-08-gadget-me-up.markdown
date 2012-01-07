@@ -1,6 +1,7 @@
 ---
 categories: [Freeware, Software]
 date: 2006-11-08 06:13
+comments: true
 layout: post
 title: "Gadget Me Up"
 ---

@@ -1,6 +1,7 @@
 ---
 categories: [Being in the Industry, Games]
 date: 2007-12-07 12:28
+comments: true
 layout: post
 title: "Farewell to an Australian Games Industry Icon"
 ---

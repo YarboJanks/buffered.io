@@ -1,6 +1,7 @@
 ---
 categories: [Miscellaneous]
 date: 2008-03-23 09:41
+comments: true
 layout: post
 title: "Tiger Administration"
 ---

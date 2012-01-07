@@ -1,6 +1,7 @@
 ---
 categories: [Miscellaneous]
 date: 2006-10-15 10:08
+comments: true
 layout: post
 title: "Groovey Honda Commercial"
 ---

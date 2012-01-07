@@ -1,6 +1,7 @@
 ---
 categories: [WTF]
 date: 2006-11-16 08:09
+comments: true
 layout: post
 title: "WTF: Date Malarky"
 ---

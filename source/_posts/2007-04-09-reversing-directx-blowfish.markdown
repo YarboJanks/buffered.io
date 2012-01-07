@@ -1,6 +1,7 @@
 ---
 categories: [ASM, HOWTO, RCE, C#]
 date: 2007-04-09 06:31
+comments: true
 layout: post
 title: "Reversing DirectX &amp; Blowfish"
 ---

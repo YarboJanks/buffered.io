@@ -1,6 +1,7 @@
 ---
 categories: [Software Development]
 date: 2007-02-02 18:43
+comments: true
 layout: post
 title: "Writing Object-Oriented Code vs Writing Code in an Object-Oriented Language"
 ---

@@ -1,6 +1,7 @@
 ---
 categories: [Miscellaneous, Technology]
 date: 2006-09-12 21:49
+comments: true
 layout: post
 title: "Minority Report becomes Reality?"
 ---

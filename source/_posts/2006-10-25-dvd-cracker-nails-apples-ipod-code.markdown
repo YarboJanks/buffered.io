@@ -1,6 +1,7 @@
 ---
 categories: [Apple, Digital Rights, Security, Software]
 date: 2006-10-25 08:27
+comments: true
 layout: post
 title: "DVD Cracker Nails Apple's iPod Code"
 ---

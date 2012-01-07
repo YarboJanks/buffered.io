@@ -1,6 +1,7 @@
 ---
 categories: [Apple, Mac OS, Microsoft, Windows]
 date: 2006-10-17 08:33
+comments: true
 layout: post
 title: "Virtual Vista Stuff-Up"
 ---

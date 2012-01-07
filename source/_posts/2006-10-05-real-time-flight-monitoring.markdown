@@ -1,6 +1,7 @@
 ---
 categories: [Freeware, Google, Technology]
 date: 2006-10-05 19:45
+comments: true
 layout: post
 title: "Real-Time Flight Monitoring"
 ---

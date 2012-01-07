@@ -1,6 +1,7 @@
 ---
 categories: [HOWTO, Software Development]
 date: 2007-07-20 10:33
+comments: true
 layout: post
 title: "Avoid Writing Unintuitive Code"
 ---

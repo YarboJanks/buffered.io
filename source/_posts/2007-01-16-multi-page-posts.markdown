@@ -1,6 +1,7 @@
 ---
 categories: [Blogging]
 date: 2007-01-16 04:48
+comments: true
 layout: post
 title: "Multi-Page Posts"
 ---

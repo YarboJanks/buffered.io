@@ -1,6 +1,7 @@
 ---
 categories: [Freeware, Linux, Software Development]
 date: 2006-09-20 13:50
+comments: true
 layout: post
 title: "An IDE Follow-Up"
 ---

@@ -1,6 +1,7 @@
 ---
 categories: [Functional Programming, Haskell]
 date: 2008-03-17 14:01
+comments: true
 layout: post
 title: "Rekindling my Functional Programming Passion with Haskell"
 ---

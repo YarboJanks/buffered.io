@@ -1,6 +1,7 @@
 ---
 categories: [Miscellaneous]
 date: 2007-05-13 21:03
+comments: true
 layout: post
 title: "Brisbane Real Estate"
 ---

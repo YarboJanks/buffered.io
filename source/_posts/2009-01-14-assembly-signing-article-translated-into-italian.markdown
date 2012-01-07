@@ -2,6 +2,7 @@
 categories: [Blogging, Technology]
 date: 2009-01-14 18:16
 tags: [italian, translation]
+comments: true
 layout: post
 title: "Assembly Signing Article Translated into Italian"
 ---

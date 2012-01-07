@@ -1,6 +1,7 @@
 ---
 categories: [Miscellaneous]
 date: 2008-12-27 13:02
+comments: true
 layout: post
 title: "Random Resolutions"
 ---

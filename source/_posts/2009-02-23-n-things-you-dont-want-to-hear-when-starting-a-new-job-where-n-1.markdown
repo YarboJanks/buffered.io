@@ -2,6 +2,7 @@
 categories: [Miscellaneous, Software Development]
 date: 2009-02-23 21:29
 tags: [development, humour, Software]
+comments: true
 layout: post
 title: "N Things You Don't Want to Hear when Starting a New Job (where N &gt;= 1)"
 ---

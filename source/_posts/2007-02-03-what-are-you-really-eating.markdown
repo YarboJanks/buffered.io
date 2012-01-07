@@ -1,6 +1,7 @@
 ---
 categories: [Food]
 date: 2007-02-03 14:18
+comments: true
 layout: post
 title: "What are you Really Eating?"
 ---

@@ -1,6 +1,7 @@
 ---
 categories: [WTF]
 date: 2006-12-20 05:24
+comments: true
 layout: post
 title: "WTF: You'll Never Amount to Anything"
 ---

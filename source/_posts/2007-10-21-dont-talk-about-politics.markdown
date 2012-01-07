@@ -1,6 +1,7 @@
 ---
 categories: [Miscellaneous]
 date: 2007-10-21 20:54
+comments: true
 layout: post
 title: "Don't Talk About Politics"
 ---

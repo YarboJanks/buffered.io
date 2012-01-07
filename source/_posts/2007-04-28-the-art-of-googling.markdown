@@ -1,6 +1,7 @@
 ---
 categories: [Google]
 date: 2007-04-28 06:28
+comments: true
 layout: post
 title: "The Art of Googling"
 ---

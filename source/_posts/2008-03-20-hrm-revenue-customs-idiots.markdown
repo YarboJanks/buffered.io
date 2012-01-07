@@ -1,6 +1,7 @@
 ---
 categories: [WTF]
 date: 2008-03-20 22:07
+comments: true
 layout: post
 title: "HRM Revenue &amp; Customs - Idiots!"
 ---

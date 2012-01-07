@@ -1,6 +1,7 @@
 ---
 categories: [Software]
 date: 2006-10-26 08:20
+comments: true
 layout: post
 title: "Microsoft Congratulate Mozilla"
 ---

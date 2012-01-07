@@ -1,6 +1,7 @@
 ---
 categories: [Digital Rights, Funny, Hardware, Linux, Windows, WTF]
 date: 2007-12-27 12:29
+comments: true
 layout: post
 title: "Reactivate? AGAIN!?"
 ---

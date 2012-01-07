@@ -1,6 +1,7 @@
 ---
 categories: [Blogging, Miscellaneous]
 date: 2007-01-28 13:15
+comments: true
 layout: post
 title: "A New Look"
 ---

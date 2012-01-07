@@ -2,6 +2,7 @@
 categories: [Microsoft, Software Development, C#]
 date: 2009-03-25 05:31
 tags: [.net, C#, design, generics]
+comments: true
 layout: post
 title: "A Quirk in List.Find()"
 ---

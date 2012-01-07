@@ -1,6 +1,7 @@
 ---
 categories: [Miscellaneous]
 date: 2007-05-25 21:51
+comments: true
 layout: post
 title: "The Search Might be Over"
 ---

@@ -2,6 +2,7 @@
 categories: [Haskell]
 date: 2008-07-28 17:10
 tags: [Haskell, performance, tip]
+comments: true
 layout: post
 title: "A Better 'nub'"
 ---
