@@ -16,7 +16,7 @@ description: Software development and technology blog site written by OJ Reeves 
 date_format: "ordinal"
 
 # RSS / Email (optional) subscription links (change if using something like Feedburner)
-subscribe_rss: http://feeds2.feedburner.com/OjsRants
+subscribe_rss: http://feeds.feedburner.com/OjsRants
 subscribe_email:
 # RSS feeds can list your email address if you like
 email:
