@@ -1,7 +1,7 @@
 ---
 published: false
 date: 2011-10-13 22:00
-categories: [Databases, Functional Programming, HOWTO, Erlang, Webmachine]
+categories: [Riak, Databases, Functional Programming, HOWTO, Erlang, Webmachine]
 tags: [web development, Erlang, NoSQL, Webmachine, Riak, ErlyDTL, Twitter]
 comments: true
 layout: post
