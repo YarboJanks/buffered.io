@@ -7,11 +7,11 @@ title: "I'm so impressed I want to pay you less"
 ---
 <a href="/uploads/2010/03/statue-of-liberty_whip_ny-times.jpg" title="Slave driver" rel="lightbox[slave]"><img src="/uploads/2010/03/statue-of-liberty_whip_ny-times.jpg" alt="Slave driver" title="Slave driver" width="150" style="float: left; margin-bottom: 5px; margin-right: 5px;"/></a>The title of this post is a statement that I've heard a few times in the past while at work. The people who said it might not have used those exact words, but the intent is the same. Usually I hear it in the following form:
 
-<em>"We're very happy with the work you've done for us as a contractor. We want to keep you on, but would like you to take a job as a permanent employee and continue to work on the project."</em>
+_"We're very happy with the work you've done for us as a contractor. We want to keep you on, but would like you to take a job as a permanent employee and continue to work on the project."_
 
 Once they've made this point, they then feel the need to harp on about the good points of becoming a permanent employee. Things such as job security, sick/annual leave and better hours tend to get mentioned. All of them are complete bullshit of course.
 
-There is <strong>no such thing as job security</strong>. Sick and/or annual leave isn't enough to make up for the difference in pay. Hours tend to always be worse when you're working for the man, because you're expected to do whatever needs to be done regardless of the hours. This is worse if you're working on mission-critical stuff.
+There is **no such thing as job security**. Sick and/or annual leave isn't enough to make up for the difference in pay. Hours tend to always be worse when you're working for the man, because you're expected to do whatever needs to be done regardless of the hours. This is worse if you're working on mission-critical stuff.
 
 <!--more-->
 
