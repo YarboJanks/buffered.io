@@ -6,35 +6,48 @@ comments: true
 layout: post
 title: ".NET-fu: Signing an Unsigned Assembly (without Delay Signing)"
 ---
-This article is also available in: <a href="http://www.otherbit.com/modules/blog/BlogContent.aspx?ID=174" title=".NET-FU : come trasformare in SIGNED un assembly UNSIGNED (senza ricorrere al DELAY SIGNING)">Italian</a>
-<hr/>
-The code-base that I am currently working with consists of a large set of binaries that are all <a href="http://msdn.microsoft.com/en-us/library/xc31ft41.aspx" title="Sign an Assembly with a Strong Name">signed</a>. The savvy .NET devs out there will know that any assembly that's used/referenced by a signed assembly must <em>also</em> be signed.
+This article is also available in [Italian][].
 
-This is an issue when dealing with third-party libraries that are not signed. Sometimes you'll be lucky enough to be dealing with vendor that is happy to provide a set of signed assemblies, other times you won't. If your scenario fits the latter (as a recent one did for my colleagues and I), you need to sign the assemblies yourself. Here's how.<!--more-->
+----
+The code-base that I am currently working with consists of a large set of binaries that are all [signed][SignedAssemblies]. The savvy .NET devs out there will know that any assembly that's used/referenced by a signed assembly must _also_ be signed.
 
-<em>Note:</em> <a href="http://msdn.microsoft.com/en-us/library/t07a3dye(VS.80).aspx" title="Delay Signing an Assembly">delay signing</a> is not covered in this article.
+This is an issue when dealing with third-party libraries that are not signed. Sometimes you'll be lucky enough to be dealing with vendor that is happy to provide a set of signed assemblies, other times you won't. If your scenario fits the latter (as a recent one did for my colleagues and I), you need to sign the assemblies yourself. Here's how.
 
-<h2>Scenario 1 - Foo and Bar</h2>
-<strong>Foo</strong> is the component that you're building which has to be signed.
-<strong>Bar</strong> is the third-party component that you're forced to use that <em>isn't</em>.
+<!--more-->
+
+_Note:_ [delay signing][DelaySigning] is not covered in this article.
+
+Scenario 1 - Foo and Bar
+------------------------
+
+* `Foo` is the component that you're building which has to be signed.
+* `Bar` is the third-party component that you're forced to use that _isn't_.
 
 <img src="/uploads/2008/07/foobar.png" alt="Relationship between Foo and Bar" />
-Grab <a href="/uploads/2008/07/bar.zip" title="Project/Binary for Bar"><em>Bar.dll</em> and project</a> along with <a href="/uploads/2008/07/foobar.zip" title="Project/Binary for Foo"><em>Foo.dll</em> and project</a> to see a source sample.
 
-You'll notice <em>Foo</em> has a .snk which is used to sign <em>Foo.dll.</em> When you attempt to compile <em>Foo</em> you get the following error message:<blockquote><p>Assembly generation failed -- Referenced assembly 'Bar' does not have a strong name</p></blockquote>
-We need to sign <em>Bar</em> in order for <em>Foo</em> to compile.
+Grab [Bar.dll and project][BarProj] along with [Foo.dll and project][FooBarProj] to see a source sample.
 
-<img src="/uploads/2008/07/step1.jpg" style="float: right; margin-left: 5px; margin-bottom: 2px;" alt="Disassemble Bar" /><h3>Step 1 - Disassemble Bar</h3>
-We need to open a command prompt which has the .NET framework binaries in the <a href="http://en.wikipedia.org/wiki/Path_%28computing%29" title="Path">PATH</a> <a href="http://en.wikipedia.org/wiki/Environment_variable" title="Environment variable">environment variable</a>. The easiest way to do this is to open a Visual Studio command prompt (which is usually under the "Visual Studio Tools" subfolder of "Visual Studio 200X" in your programs menu). Change directory so that you're in the folder which contains <em>Bar.dll</em>.
+You'll notice _Foo_ has a .snk which is used to sign _Foo.dll._ When you attempt to compile _Foo_ you get the following error message:
 
-Use <a href="http://msdn.microsoft.com/en-us/library/f7dy01k1(VS.80).aspx" title="MSIL Disassembly">ildasm.exe</a> to disassemble the file using the <strong>/all</strong> and <strong>/out</strong>, like so:
+> Assembly generation failed -- Referenced assembly 'Bar' does not have a strong name.
+
+We need to sign _Bar_ in order for _Foo_ to compile.
+
+<img src="/uploads/2008/07/step1.jpg" style="float: right; margin-left: 5px; margin-bottom: 2px;" alt="Disassemble Bar" />
+### Step 1 - Disassemble Bar ###
+We need to open a command prompt which has the .NET framework binaries in the PATH environment variable. The easiest way to do this is to open a Visual Studio command prompt (which is usually under the "Visual Studio Tools" subfolder of "Visual Studio 20XX" in your programs menu). Change directory so that you're in the folder which contains _Bar.dll_.
+
+Use [ildasm][] to disassemble the file using the `/all` and `/out`, like so:
 
     C:\Foo\bin> ildasm /all /out=Bar.il Bar.dll
 
-The result of the command is a new file, <em>Bar.il</em>, which contains a dissassembled listing of <em>Bar.dll</em>.
+The result of the command is a new file, _Bar.il_, which contains a dissassembled listing of _Bar.dll_.
 
-<img src="/uploads/2008/07/step2.jpg" style="float: right; margin-left: 5px; margin-bottom: 2px;" alt="Rebuild and Sign Bar" /><h3>Step 2 - Rebuild and Sign Bar</h3>
-We can now use <a href="http://msdn.microsoft.com/en-us/library/496e4ekx.aspx" title="MSIL Assembler">ilasm</a> to reassemble <em>Bar.il</em> back into <em>Bar.dll</em>, but at the same time specify a strong-name key to use to sign the resulting assembly. We pass in the value <em>Foo.snk</em> to the <strong>/key</strong> switch on the command line, like so:<div style="clear:both;"></div>
+<img src="/uploads/2008/07/step2.jpg" style="float: right; margin-left: 5px; margin-bottom: 2px;" alt="Rebuild and Sign Bar" />
+### Step 2 - Rebuild and Sign Bar ###
+[ilasm]: http://msdn.microsoft.com/en-us/library/496e4ekx.aspx "MSIL Assembler"
+We can now use [ilasm][] to reassemble _Bar.il_ back into _Bar.dll_, but at the same time specify a strong-name key to use to sign the resulting assembly. We pass in the value _Foo.snk_ to the `/key` switch on the command line, like so:
+<div style="clear:both;"></div>
 
     C:\Foo\bin> ilasm /dll /key=Foo.snk Bar.il
 
@@ -63,33 +76,37 @@ We can now use <a href="http://msdn.microsoft.com/en-us/library/496e4ekx.aspx" t
     Signing file with strong name
     Operation completed successfully
 
-<em>Bar.dll</em> is now signed! All we have to do is reopen <em>Foo</em>'s project, remove the reference to <em>Bar.dll</em>, re-add the reference to the new signed assembly and rebuild. Sorted!
+_Bar.dll_ is now signed! All we have to do is reopen _Foo_'s project, remove the reference to _Bar.dll_, re-add the reference to the new signed assembly and rebuild. Sorted!
 
-<h2>Scenario 2 - Foo, Bar and Baz</h2>
-<strong>Foo</strong> is the component that you're building which has to be signed.
-<strong>Bar</strong> is the third-party component that you're forced to use that <em>isn't</em>.
-<strong>Baz</strong> is another third-party component that is required in order for you to use <em>Bar</em>.
+Scenario 2 - Foo, Bar and Baz
+-----------------------------
 
-<div class="LargeImage"><img src="/uploads/2008/07/foobarbaz.png" alt="Relationship between Foo, Bar and Baz"/></div>
-Grab <a href="/uploads/2008/07/baz.zip" title="Project/Binary for Baz"><em>Baz.dll</em> and project</a>, <a href="/uploads/2008/07/barbaz.zip" title="Project/Binary for Bar"><em>Bar.dll</em> and project</a> along with <a href="/uploads/2008/07/foobarbaz.zip" title="Project/Binary for Foo"><em>Foo.dll</em> and project</a> for a sample source.
+* `Foo` is the component that you're building which has to be signed.
+* `Bar` is the third-party component that you're forced to use that _isn't_.
+* `Baz` is another third-party component that is required in order for you to use _Bar_.
 
-When you attempt to build <em>Foo</em> you get the same error as you do in the previous scenario. Bear in mind that this time, <strong>both</strong> <em>Bar.dll</em> and <em>Baz.dll</em> need to be signed. So first of all, follow the steps in <strong>Scenario 1</strong> for both <em>Bar.dll</em> and <em>Baz.dll</em>.
+<img src="/uploads/2008/07/foobarbaz.png" alt="Relationship between Foo, Bar and Baz"/>
 
-Done? OK. When you attempt to build <em>Foo.dll</em> after pointing the project at the new <em>Bar.dll</em> no compiler errors will be shown. Don't get too excited :)
+Grab [_Baz.dll_ and project][BazProj], [_Bar.dll_ and project][BarBazProj] along with [_Foo.dll_ and project][FooBarBazProj] for a sample source.
 
-When you attempt to <strong>use</strong> <em>Foo.dll</em> your world will come crashing down. The reason is because <em>Bar.dll</em> was originally built with a reference to an <u>unsigned version</u> of <em>Baz.dll</em>. Now that <em>Baz.dll</em> is signed we need to force <em>Bar.dll</em> to reference the <strong>signed</strong> version of <em>Baz.dll</em>.
+When you attempt to build _Foo_ you get the same error as you do in the previous scenario. Bear in mind that this time, **both** _Bar.dll_ and _Baz.dll_ need to be signed. So first of all, follow the steps in **Scenario 1** for both _Bar.dll_ and _Baz.dll_.
 
-<img src="/uploads/2008/07/step3.jpg" style="float: right; margin-left: 5px; margin-bottom: 2px;" alt="Hack the Disassembled IL" /><h3>Step 1 - Hack the Disassembled IL</h3>
-Just like we did in the previous steps we need to disassemble the binary that we need to fix. This time, make sure you disassemble the new binary that you created in the previous step (this binary has been signed, and will contain the signature block for the strong name). Once <em>Bar.il</em> has been created using ildasm, open it up in a <a href="http://www.vim.org/" title="VIM - secretGeek loves it.. no really, he does!">text editor</a>.
+Done? OK. When you attempt to build _Foo.dll_ after pointing the project at the new _Bar.dll_ no compiler errors will be shown. Don't get too excited :)
 
-Search for the reference to <em>Baz</em> -- this should be located a fair way down the file, somewhere near the top of the actual code listing, just after the comments. Here's what it looks like on my machine:
+When you attempt to **use** _Foo.dll_ your world will come crashing down. The reason is because _Bar.dll_ was originally built with a reference to an <u>unsigned version</u> of _Baz.dll_. Now that _Baz.dll_ is signed we need to force _Bar.dll_ to reference the **signed** version of _Baz.dll_.
+
+<img src="/uploads/2008/07/step3.jpg" style="float: right; margin-left: 5px; margin-bottom: 2px;" alt="Hack the Disassembled IL" />
+### Step 1 - Hack the Disassembled IL ###
+Just like we did in the previous steps we need to disassemble the binary that we need to fix. This time, make sure you disassemble the new binary that you created in the previous step (this binary has been signed, and will contain the signature block for the strong name). Once _Bar.il_ has been created using ildasm, open it up in a [text editor][VIM].
+
+Search for the reference to _Baz_ -- this should be located a fair way down the file, somewhere near the top of the actual code listing, just after the comments. Here's what it looks like on my machine:
 
     .assembly extern /*23000002*/ Baz
     {
       .ver 1:0:0:0
     }
 
-This external assembly reference is missing the all-important public key token reference. Before we can add it, we need to know what the public key token is for <em>Bar.dll</em>. To determine this, we can use the <a href="http://msdn.microsoft.com/en-us/library/k5b5tt23(VS.80).aspx" title="Strong Name Tool">sn.exe</a> utility, like so:
+This external assembly reference is missing the all-important public key token reference. Before we can add it, we need to know what the public key token is for _Bar.dll_. To determine this, we can use the [sn.exe][StrongNameTool] utility, like so:
 
     C:\Foo\bin> sn -Tp Baz.dll
 
@@ -105,7 +122,7 @@ This external assembly reference is missing the all-important public key token r
 
     Public key token is 2ed7bbec811020ec
 
-Now we return to <em>Bar.il</em> and modify the assembly reference so that the public key token is specified. This is what it should look like after modification:
+Now we return to _Bar.il_ and modify the assembly reference so that the public key token is specified. This is what it should look like after modification:
 
     .assembly extern /*23000002*/ Baz
     {
@@ -115,8 +132,9 @@ Now we return to <em>Bar.il</em> and modify the assembly reference so that the p
 
 Save your changes.
 
-<img src="/uploads/2008/07/step4.jpg" style="float: right; margin-left: 5px; margin-bottom: 2px;" alt="Reassemble Bar" /><h3>Step 2 - Reassemble Bar</h3>
-This step is just a repeat of previous steps. We are again using ilasm to reassemble <em>Bar.dll</em>, but this time from the new "hacked" <em>Bar.il</em> file. We must use the exact same command line as we did previously, and we still need to specify the <em>Foo.snk</em> for signing the assembly. To save you having to scroll up, here it is again:
+<img src="/uploads/2008/07/step4.jpg" style="float: right; margin-left: 5px; margin-bottom: 2px;" alt="Reassemble Bar" />
+### Step 2 - Reassemble Bar ###
+This step is just a repeat of previous steps. We are again using ilasm to reassemble _Bar.dll_, but this time from the new "hacked" _Bar.il_ file. We must use the exact same command line as we did previously, and we still need to specify the _Foo.snk_ for signing the assembly. To save you having to scroll up, here it is again:
 
     C:\Foo\bin> ilasm /dll /key=Foo.snk Bar.il
 
@@ -145,9 +163,23 @@ This step is just a repeat of previous steps. We are again using ilasm to reasse
     Signing file with strong name
     Operation completed successfully
 
-Open up <em>Foo</em>'s project, remove and re-add the reference to <em>Bar.dll</em>, making sure you point to the new version that you just created. <em>Foo.dll</em> will not only build, but this time it will run!
+Open up _Foo_'s project, remove and re-add the reference to _Bar.dll_, making sure you point to the new version that you just created. _Foo.dll_ will not only build, but this time it will run!
 
-<h2>Disclaimer</h2>
-"Hacking" third-party binaries in this manner <strong><em>may</em> breach the license agreement</strong> of those binaries. Please make sure that you are not breaking the license agreement before adopting this technique.
+Disclaimer
+----------
+
+"Hacking" third-party binaries in this manner **_may_ breach the license agreement** of those binaries. Please make sure that you are not breaking the license agreement before adopting this technique.
 
 I hope this helps!
+
+[Italian]: http://www.otherbit.com/modules/blog/BlogContent.aspx?ID=174 ".NET-FU : come trasformare in SIGNED un assembly UNSIGNED (senza ricorrere al DELAY SIGNING)"
+[SignedAssemblies]: http://msdn.microsoft.com/en-us/library/xc31ft41.aspx "Sign an Assembly with a Strong Name"
+[DelaySigning]: http://msdn.microsoft.com/en-us/library/t07a3dye(VS.80).aspx "Delay Signing an Assembly"
+[BarProj]: /uploads/2008/07/bar.zip "Project/Binary for Bar"
+[FooBarProj]: /uploads/2008/07/foobar.zip "Project/Binary for Foo"
+[ildasm]: http://msdn.microsoft.com/en-us/library/f7dy01k1(VS.80).aspx "MSIL Disassembly"
+[BazProj]: /uploads/2008/07/baz.zip "Project/Binary for Baz"
+[BarBazProj]: /uploads/2008/07/barbaz.zip "Project/Binary for Bar"
+[FooBarBazProj]: /uploads/2008/07/foobarbaz.zip "Project/Binary for Foo"
+[VIM]: http://www.vim.org/ "VIM - @secretGeek loves it... no really, he does!"
+[StrongNameTool]: http://msdn.microsoft.com/en-us/library/k5b5tt23(VS.80).aspx "Strong Name Tool"
