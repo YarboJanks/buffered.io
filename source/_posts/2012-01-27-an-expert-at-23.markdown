@@ -18,11 +18,11 @@ Despite the appalling structure and lack of coherence of the opening paragraph I
 
 Then I got to the end and found this:
 
-> For IT expert _Foo Bar_, 23, right, the telecommunications and digital industry holds the promise of future growth. _Foo_ studied IT at the University of Technology before completing a one-year placement at Macquarie Telecom.
+> For IT expert _Joe Public_, 23, right, the telecommunications and digital industry holds the promise of future growth. _Joe_ studied IT at the University of Technology before completing a one-year placement at Macquarie Telecom.
 >
 > "The industry is enormous and there's plenty of variations and specialisations that you can pursue," he says.
 >
-> _Foo_ now sets up servers and IT networks for various clients' business applications.
+> _Joe_ now sets up servers and IT networks for various clients' business applications.
 >
 > Asked where he would like to be in five years' time, he says: "What I like is that I can go into a lot of different directions from where I am."
 
