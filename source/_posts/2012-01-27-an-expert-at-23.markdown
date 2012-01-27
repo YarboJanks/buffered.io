@@ -44,5 +44,9 @@ If you don't love it, don't do it. Don't do it for the money. It's not worth it,
 
 If you want to read news which is meaningful, well-written, edited and at least researched to a semi-decent level, then try the [ABC][] instead.
 
+### NOTE ###
+
+This article is not targetting _Joe Public_, it is instead attacking the way that the newspaper has portrayed him.
+
 [article]: http://www.news.com.au/business/the-best-places-to-look-for-work-in-2012/story-e6frfm1i-1226255099978 "The best places to look for work in 2012"
 [ABC]: http://www.abc.net.au/news/ "ABC News"
