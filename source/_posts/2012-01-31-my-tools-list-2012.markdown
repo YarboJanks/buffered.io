@@ -160,7 +160,7 @@ Mercurial
 Author: [Matt Mackall](http://mercurial.selenic.com/wiki/mpm) and others --
 Homepage: [http://hg-scm.org/](http://hg-scm.org/)
 
-This was the first [DVCS] that I was exposed to and I still love it.
+This was the first [DVCS][] that I was exposed to and I still love it.
 It's a fantastic version control system and one that I often use for my
 own projects. Mercurial is one of those tools that many people use,
 particularly in the Open Source community.
@@ -428,3 +428,4 @@ Bring on the comments, suggestions and flames.
 [grep]: http://en.wikipedia.org/wiki/Grep
 [sed]: http://en.wikipedia.org/wiki/Sed
 [which]: http://en.wikipedia.org/wiki/Which_(Unix)
+[DVCS]: http://en.wikipedia.org/wiki/Distributed_revision_control
