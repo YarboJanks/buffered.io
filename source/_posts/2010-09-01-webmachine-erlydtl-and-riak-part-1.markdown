@@ -474,7 +474,7 @@ We now have a working environment in which to do our development. In the next po
 
 Feedback and criticism welcome!
 
-**Note:** The code for Part 1 (this post) can be found [on my Bitbucket account][Part1Code].
+**Note:** The code for Part 1 (this post) can be found on [Github][Part1Code].
 
   [ErlangPost]: /posts/the-future-is-erlang/ "The Future is Erlang"
   [Basho]: http://basho.com/ "Basho Technologies"
@@ -495,4 +495,4 @@ Feedback and criticism welcome!
   [Webmachine]: http://www.basho.com/developers.html#Webmachine "Webmachine"
   [VIM]: http://www.vim.org/ "VIM"
   [Riak Fast Track]: https://wiki.basho.com/display/RIAK/The+Riak+Fast+Track "Riak Fast Track"
-  [Part1Code]: https://bitbucket.org/OJ/csd/src/716be7603ad7 "Source Code for Part 1"
+  [Part1Code]: https://github.com/OJ/csd/tree/Part1-20110403 "Source Code for Part 1"

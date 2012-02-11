@@ -913,7 +913,7 @@ Many thanks to those people who took the time out of their busy schedules to rev
 
 As always, comments and feedback is welcomed and greatly appreciated. As are suggestions on improvements, pitfalls and blatant mistakes :)
 
-**Note:** The code for Part 3 (this post) can be found [on my Bitbucket account][Part3Code].
+**Note:** The code for Part 3 (this post) can be found on [Github][Part3Code].
 
 
   [Erlang]: http://erlang.org/ "Erlang"

@@ -347,13 +347,13 @@ ok
      {server_version,<<"0.12.0">>}]}
 {% endcodeblock %}
 
-
 ### Wrapping up ###
+
 Excellent. Now that we've got our load-balancer set up in development, we're ready to dive into connecting to Riak from our `csd` application. That will be the topic for the next post in this series.
 
 As always, comments and feedback are welcome and greatly appreciated. Suggestions on improvements and pointers on mistakes would be awesome. To anyone out there who has put HAProxy into production, we would love to hear your comments on your configuration!
 
-**Note:** The code for Part 2 (this post) can be found [on my Bitbucket account][Part2Code].
+**Note:** The code for Part 2 (this post) can be found on [Github][Part2Code].
 
   [HAProxy]: http://haproxy.1wt.eu/ "HAProxy"
   [Part 1]: /posts/webmachine-erlydtl-and-riak-part-1/ "Wembachine, ErlyDTL and Riak - Part 1"
@@ -363,4 +363,4 @@ As always, comments and feedback are welcome and greatly appreciated. Suggestion
   [riakc-startlink]: https://github.com/basho/riak-erlang-client/blob/master/src/riakc_pb_socket.erl#L97 "riakc_pb_socket:start_link/2"
   [riakc-getserverinfo]: https://github.com/basho/riak-erlang-client/blob/master/src/riakc_pb_socket.erl#L181 "riakc_pb_socket:get_server_info/1"
   [uname]: http://en.wikipedia.org/wiki/Uname "uname"
-  [Part2Code]: https://bitbucket.org/OJ/csd/src/df62880d12a8 "Source Code for Part 2"
+  [Part2Code]: https://github.com/OJ/csd/tree/Part2-20110403 "Source Code for Part 2"
