@@ -1,5 +1,4 @@
 ---
-published: false
 date: 2011-10-13 22:00
 categories: [Riak, Databases, Functional Programming, HOWTO, Erlang, Webmachine]
 tags: [web development, Erlang, NoSQL, Webmachine, Riak, ErlyDTL, Twitter]
@@ -22,6 +21,7 @@ Agenda
 In this post we're going to hit a few points of pain:
 
 1. Another slight refactor! We need to manage Riak connections in a smarter way, so we'll do that first.
+1. We'll be dealing with more configuration so we'll change the way our application deals with configuration so that it's all in the one spot and a little easier to manage.
 1. Add the ability for users to sign in. To keep this simple and avoid the need for users to manage yet another login, we're going to use [Oauth][] and let people sign in with their [Twitter][] accounts.
 1. Write Oauth tokens to the Riak store.
 1. Store a session cookie in the user's browser to keep track of their credentials (using HMAC).
@@ -144,11 +144,11 @@ defaults
   .
 {% endcodeblock %}
 
-After making this change to the configuration, HAProxy will no longer kill off the connections. Therefore it's up to use to manage them.
+After making this change to the configuration, HAProxy will no longer kill off the connections. Therefore it's up to us to manage them.
 
 ### Connection Pooling ###
 
-Given that it is _not_ one of the goals of this series to demonstrate how to create a connection pooling application in Erlang, we're going to use an application that's already out there to do it for us. This application is called [Pooler]][]. Out of the box this application does Erlang process pooling, and given that our Riak connections are each Erlang processes, this suits us perfectly.
+Given that it is _not_ one of the goals of this series to demonstrate how to create a connection pooling application in Erlang, we're going to use an application that's already out there to do it for us. This application is called [Pooler][]. Out of the box this application does Erlang process pooling, and given that our Riak connections are each Erlang processes, this suits us perfectly.
 
 One thing that I didn't like about the interface to Pooler was that it relied on the caller managing the lifetime of the connection. As a result, I made a small change to the interface in my own [fork][PoolerFork] which I think helps keep things a little cleaner. This application will be making use of this fork.
 
@@ -158,7 +158,7 @@ First up, we need to add another dependency in our `rebar.config` file which wil
 %%-*- mode: erlang -*-
 {deps,
   [
-    {mochiweb, "1.5.1", {git, "git://github.com/mochi/mochiweb", {tag, "1.5.1"}}},
+    {mochiweb, ".*", {git, "git://github.com/mochi/mochiweb", "HEAD"}},
     {riakc, ".*", {git, "git://github.com/basho/riak-erlang-client", "HEAD"}},
     {pooler, ".*", {git, "git://github.com/OJ/pooler", "HEAD"}}
   ]
@@ -276,31 +276,37 @@ The last parameter in the configuration, `start_mfa`, tells `pooler` which modul
 
 Next we modify our `Makefile` so that when we invoke `make webstart` the configuration is properly included:
 
-    ERL ?= Makefile erl
-    APP = csd
+{% codeblock Makefile lang:bash %}
+.PHONY: deps
 
-    .PHONY: deps
+REBAR=`which rebar || ./rebar`
 
-    all: deps
-        @./rebar compile
+all: deps compile
 
-    app:
-        @./rebar compile skip_deps=true
+compile:
+    @$(REBAR) compile
 
-    deps:
-        @./rebar get-deps
+app:
+    @$(REBAR) compile skip_deps=true
 
-    clean:
-        @./rebar clean
+deps:
+    @$(REBAR) get-deps
 
-    distclean: clean
-        @./rebar delete-deps
+clean:
+    @$(REBAR) clean
 
-    webstart: app
-        exec erl -pa $(PWD)/apps/*/ebin -pa $(PWD)/deps/*/ebin -boot start_sasl -config $(PWD)/apps/csd_core/priv/app.config -s reloader -s csd_core -s csd_web
+distclean: clean
+    @$(REBAR) delete-deps
 
-    proxystart:
-        @haproxy -f dev.haproxy.conf
+test: app
+    @$(REBAR) eunit skip_deps=true
+
+webstart: app
+    exec erl -pa $(PWD)/apps/*/ebin -pa $(PWD)/deps/*/ebin -boot start_sasl -config $(PWD)/apps/csd_core/priv/app.config -s reloader -s csd_core -s csd_web
+
+proxystart:
+    @haproxy -f dev.haproxy.conf
+{% endcodeblock %}
 
 At this point we are able to build and run the application just as we were before. The first thing you'll notice is that the HAProxy console immediately registers 5 new connections:
 
@@ -383,12 +389,94 @@ code_change(_OldVsn, State, _Extra) ->
 
 Here you can see we're making use of the [pooler:use_member][] function to easily wrap up the management of the connection's usage lifetime. All traces of the old configuration are gone. We can now rebuild the application using `make`, fire it up using `make webstart` and hit the [same page](http://localhost/snippet/B41kUQ==) as before resulting in the same content appearing on screen.
 
-We have now successfully removed the old configuration and connection handling code, and we've replaced it with `pooler` to handle a pool of connections to the Riak proxy. Our small refactor is complete. Time to start designing our user login functionality.
+We have now successfully removed the old configuration and connection handling code, and we've replaced it with `pooler` to handle a pool of connections to the Riak proxy. The last part of our refactor is around configuration for the front-end web application.
+
+Rewiring Configuration
+----------------------
+
+Our configuration is going to get more complicated, so to make sure that we're able to better handle and manage it we're going to set up a similar structure to what we had set up in the `csd_core` application (in the previous section). The first thing we're going to change is the way that the **Webmachine** routes are loaded. Right now, they're stored in `apps/tr\_web/priv/dispatch.conf`. This configuration belongs alongside others, so we'll move that to an `app.config` file and re-jig the code to load it from there.
+
+First up, rename the file:
+
+    oj@air ~/code/csd/apps/csd_web/priv $ mv dispatch.conf app.config
+
+Now let's edit it so that it takes the appropriate format:
+
+{% codeblock apps/csd_web/priv/app.config lang:erlang %}
+%%-*- mode: erlang -*-
+[
+  {sasl,
+    [
+      {sasl_error_logger, {file, "log/sasl-error.log"}},
+      {errlog_type, error},
+      {error_logger_mf_dir, "log/sasl"},      % Log directory
+      {error_logger_mf_maxbytes, 10485760},   % 10 MB max file size
+      {error_logger_mf_maxfiles, 5}           % 5 files max
+    ]
+  },
+  {csd_web,
+    [
+      {web,
+        [
+          {ip, "0.0.0.0"},
+          {port, 8000},
+          {log_dir, "priv/log"},
+          {dispatch,
+            [
+              {[], csd_web_resource, []},
+              {["snippet", key], csd_web_snippet_resource, []}
+            ]
+          }
+        ]
+      }
+    ]
+  }
+].
+{% endcodeblock %}
+
+A few things to note here:
+
+1. I've included the `sasl` configuration for later tweaking.
+1. the `csd_web` section is named that way so that it is matches the application name. This makes the auto-wiring work.
+1. The Webmachine configuration for application is now in a subsection called `web`. Inside this section is the original `dispatch` that we had in our old `dispatch.conf`. This configuration sections takes the _exact_ form that Webmachine expects when we start its process in our supervisor.
+
+At this point we need to go and fiddle with the way Webmachine loads its configuration so that it picks up these details. We'll start by defining a helper which will make it easy to get access to configuration for the `csd_web` application.
+
+{% codeblock apps/csd_web/src/csd_conf.erl lang:erl %}
+% TODO: put the file in here when it's done
+{% endcodeblock %}
+
+Configuration helpers are now in place, let's fix the Webmachine loader in `csd_web_sup.erl`.
+
+{% codeblock apps/csd_web/src/csd_conf.erl (partial) lang:erl %}
+% ... snip ... %
+%% @spec init([]) -> SupervisorTree
+%% @doc supervisor callback.
+init([]) ->
+  WebConfig = conf:get_section(web),
+  Web = {webmachine_mochiweb,
+    {webmachine_mochiweb, start, [WebConfig]},
+    permanent, 5000, worker, dynamic},
+  Processes = [Web],
+  {ok, { {one_for_one, 10, 10}, Processes} }.
+% ... snip ... %
+{% endcodeblock %}
+
+This little snippet delegates the responsibility of all Webmachine-related stuff to the `app.config` file. Let's include this in our `Makefile` when we start our application.
+
+{% codeblock Makefile (partial) lang:bash %}
+webstart: app
+	exec erl -pa $(PWD)/apps/*/ebin -pa $(PWD)/deps/*/ebin -boot start_sasl -config $(PWD)/apps/csd_web/priv/app.config -config $(PWD)/apps/csd_core/priv/app.config -s reloader -s csd_core -s csd_web
+{% endcodeblock %}
+
+All we've done here is add another `-config` parameter and pointed it at the new `app.config` file in the `csd_web/src` folder. Fire up the application and it _should_ behave exactly as it did before.
+
+Now that we have our configuration tweaked we have finalised the last of the refactoring tasks (at least for now). It's now time to start designing our user login functionality.
 
 Handling User Logins
 --------------------
 
-Handling logins isn't necessarily as simple as it looks. Remember, [Webmachine][] is not a Web application framework, it's a feature-rich set of tools which help us build well-behaving RESTful HTTP applications. The idea of a "session" is a (leaky) abstraction that web developers have added to web applications to aid in preventing users from having to manually sign in each time they want to access a resource. This abstraction tends to be handled through cookies.
+Handling logins isn't necessarily as simple as it looks. Remember, [Webmachine][] is not a Web application framework, it's a feature-rich tool which helps us build well-behaving RESTful HTTP applications. The idea of a "session" is a (leaky) abstraction that web developers have added to web applications to aid in preventing users from having to manually sign in each time they want to access a resource. This abstraction tends to be handled through cookies.
 
 We'll be doing the same, but given that we don't have anything in place at all we're going to have to come up with our own method for handling authentication of the user via cookies.
 
@@ -405,6 +493,47 @@ Prepare yourself, you're about to learn how to do Oauth in Erlang! But before we
 
 ### Creating a new Twitter Application ###
 
+Start by browsing to the [Twitter application registration page][TwitterNewApp] and signing in with your Twitter account credentials. You'll be taken to a page where you can enter the details of the application. Leave the Callback URL blank as we'll be using OAuth, but fill out the rest of the deails. Once you've filled out the details you'll being presented with a standard set of OAuth-related bits which we'll be using down the track. I'll of course be using my own registered application name (Code Smackdown) along with the keys. Given these keys are specific to my application I will not be making them part of the source (sorry).
+
+Once you're registered, we're ready to take the OAuth configuration information from Twitter and plug it into our own configuration. Re-open `csd_web/priv/app.config` and create a new section called `twitter` under the `csd_web` section and add the following
+
+{% codeblock apps/csd_web/priv/app.config (partial) lang:erlang %}
+% ... snip ... %
+  {csd_web,
+    [
+      % ... snip ... %
+      {twitter,
+        [
+          {consumer_key, "< your application's key goes here >"},
+          {consumer_secret, "< your application's secret goes here >"},
+          {request_token_url, "https://twitter.com/oauth/request_token"},
+          {access_token_url, "https://twitter.com/oauth/access_token"},
+          {authorize_url, "https://twitter.com/oauth/authorize"},
+          {authenticate_url, "https://twitter.com/oauth/authenticate"},
+          {current_user_info_url, "https://twitter.com/account/verify_credentials.json"},
+          {lookup_users_url, "https://api.twitter.com/1/users/lookup.json"},
+          {direct_messages_list_url, "https://twitter.com/direct_messages.json"}
+        ]
+      }
+    ]
+  }
+% ... snip ... %
+{% endcodeblock %}
+
+The first two values come straight from Twitter and would have been given to you upon registering your application. The rest are URLs that we'll be using later on.
+
+Now that we've got our configuration locked in we can get started on managing the requests. For this we need to understand how OAuth actually works.
+
+A deep-dive into the ins and outs of OAuth is beyond the scope of this article. I recommend having a read of [this presentation on OAuth][OAuthPresso] which gives a good overview. The rest of this article will fill the gaps as to how it all works.
+
+### Implementing OAuth ###
+
+Using OAuth requires us to invoke HTTP requests to Twitter. We could go through the pain of doing this manually, but instead we're going to use another Open Source utility which has the ability to handle this for us.
+
+
+
+[OAuthPresso]: http://www.slideshare.net/leahculver/oauth-open-api-authentication "OAuth overview"
+[TwitterNewApp]: https://dev.twitter.com/apps/new "New Twitter Application"
 [Erlang]: http://erlang.org/ "Erlang"
 [Webmachine]: http://www.basho.com/developers.html#Webmachine "Webmachine"
 [JSON]: http://json.org/ "JavaScript Object Notation"
