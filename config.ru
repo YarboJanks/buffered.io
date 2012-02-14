@@ -1,7 +1,7 @@
 require 'bundler/setup'
 require 'sinatra/base'
-require 'rack'
-require 'rack/rewrite'
+#require 'rack'
+#require 'rack/rewrite'
 
 # The project root directory
 $root = ::File.dirname(__FILE__)
