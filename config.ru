@@ -9,7 +9,7 @@ $root = ::File.dirname(__FILE__)
 use Rack::Deflater
 use Rack::Rewrite do
     r301 %r{.*}, 'http://functional.io$&', :if => Proc.new {|rack_env|
-      rack_env['SERVER_NAME'].include?('functionalio.com')
+      rack_env['SERVER_NAME'].endswith('functionalio.com') || rack_env['SERVER_NAME'].endswith('functionalio.com.au')
     }
 
     r301 %r{.*}, 'http://www.brosql.org$&', :if => Proc.new {|rack_env|
