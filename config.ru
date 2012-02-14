@@ -1,17 +1,20 @@
 require 'bundler/setup'
 require 'sinatra/base'
-#require 'rack'
-#require 'rack/rewrite'
+require 'rack'
+require 'rack/rewrite'
 
 # The project root directory
 $root = ::File.dirname(__FILE__)
 
-# use Rack::Deflater
-# use Rack::Rewrite do
-#     r301 %r{.*}, 'http://buffered.io$&', :if => Proc.new {|rack_env|
-#           rack_env['SERVER_NAME'] != 'buffered.io'
-#     }
-# end
+use Rack::Deflater
+use Rack::Rewrite do
+    #r301 %r{.*}, 'http://buffered.io$&', :if => Proc.new {|rack_env|
+    #      rack_env['SERVER_NAME'] != 'buffered.io'
+    #}
+
+    r301 %r{^/\d\d\d\d/\d\d/\d\d/(.*)/?}, '/posts/$1'
+    r301 %r{^/(.*)/}, '/$1'
+end
 
 class SinatraStaticServer < Sinatra::Base  
 
