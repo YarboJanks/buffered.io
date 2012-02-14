@@ -6,12 +6,12 @@ require 'rack/rewrite'
 # The project root directory
 $root = ::File.dirname(__FILE__)
 
-use Rack::Deflater
-use Rack::Rewrite do
-    r301 %r{.*}, 'http://buffered.io$&', :if => Proc.new {|rack_env|
-          rack_env['SERVER_NAME'] != 'buffered.io' && ENV['RACK_ENV'] == 'production'
-    }
-end
+# use Rack::Deflater
+# use Rack::Rewrite do
+#     r301 %r{.*}, 'http://buffered.io$&', :if => Proc.new {|rack_env|
+#           rack_env['SERVER_NAME'] != 'buffered.io'
+#     }
+# end
 
 class SinatraStaticServer < Sinatra::Base  
 
