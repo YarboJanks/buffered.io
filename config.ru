@@ -8,9 +8,9 @@ $root = ::File.dirname(__FILE__)
 
 use Rack::Deflater
 use Rack::Rewrite do
-    # r301 %r{.*}, 'http://functional.io$&', :if => Proc.new {|rack_env|
-    #   rack_env['SERVER_NAME'].endswith('functionalio.com') || rack_env['SERVER_NAME'].endswith('functionalio.com.au')
-    # }
+    r301 %r{.*}, 'http://functional.io$&', :if => Proc.new {|rack_env|
+      rack_env['SERVER_NAME'] == 'functionalio.com') || rack_env['SERVER_NAME'] == 'functionalio.com.au') || rack_env['SERVER_NAME'] == 'www.functionalio.com') || rack_env['SERVER_NAME'] == 'www.functionalio.com.au')
+    }
 
     r301 %r{.*}, 'http://www.brosql.org$&', :if => Proc.new {|rack_env|
       rack_env['SERVER_NAME'] == 'brosql.org'
@@ -25,7 +25,6 @@ use Rack::Rewrite do
     }
 
     r301 %r{^/\d\d\d\d/\d\d/\d\d/(.*)$}, '/posts/$1'
-    r301 %r{^/(.*)/$}, '/$1'
 end
 
 class SinatraStaticServer < Sinatra::Base  
