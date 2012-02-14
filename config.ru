@@ -15,16 +15,16 @@ use Rack::Rewrite do
   #r301 %r{.*}, 'http://buffered.io$&', :if => Proc.new { |rack_env|
   #  rack_env['SERVER_NAME'] != 'buffered.io' && ENV['RACK_ENV'] == 'production'
   #}
-  r301 %r{.*}, 'http://www.brosql.org$&', :if => Proc.new { |rack_env|
-    rack_env['SERVER_NAME'] == 'brosql.org'
-  }
+  #r301 %r{.*}, 'http://www.brosql.org$&', :if => Proc.new { |rack_env|
+  #  rack_env['SERVER_NAME'] == 'brosql.org'
+  #}
 
-  r301 %r{.*}, 'http://www.bfpg.org$&', :if => Proc.new { |rack_env|
-    rack_env['SERVER_NAME'] == 'bfpg.org'
-  }
+  #r301 %r{.*}, 'http://www.bfpg.org$&', :if => Proc.new { |rack_env|
+  #  rack_env['SERVER_NAME'] == 'bfpg.org'
+  #}
 
-  r301 %r{^/\d\d\d\d/\d\d/\d\d/(.*)/?}, '/posts/$1'
-  r301 %r{^/(.*)/$}, '/$1'
+  #r301 %r{^/\d\d\d\d/\d\d/\d\d/(.*)/?}, '/posts/$1'
+  #r301 %r{^/(.*)/$}, '/$1'
 end
 
 class SinatraStaticServer < Sinatra::Base  
