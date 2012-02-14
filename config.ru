@@ -12,13 +12,13 @@ use Rack::Rewrite do
     #   rack_env['SERVER_NAME'].endswith('functionalio.com') || rack_env['SERVER_NAME'].endswith('functionalio.com.au')
     # }
 
-    # r301 %r{.*}, 'http://www.brosql.org$&', :if => Proc.new {|rack_env|
-    #   rack_env['SERVER_NAME'].endswith('brosql.org')
-    # }
+    r301 %r{.*}, 'http://www.brosql.org$&', :if => Proc.new {|rack_env|
+      rack_env['SERVER_NAME'] == 'brosql.org'
+    }
 
-    # r301 %r{.*}, 'http://www.bfpg.org$&', :if => Proc.new {|rack_env|
-    #   rack_env['SERVER_NAME'].endswith('bfpg.org')
-    # }
+    r301 %r{.*}, 'http://www.bfpg.org$&', :if => Proc.new {|rack_env|
+      rack_env['SERVER_NAME'] == 'bfpg.org'
+    }
 
     r301 %r{.*}, 'http://buffered.io$&', :if => Proc.new {|rack_env|
           rack_env['SERVER_NAME'] != 'buffered.io' && ENV['RACK_ENV'] == 'production'
