@@ -1,0 +1,441 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>CorrugatedIron Update - v0.1.1 - OJ's rants</title>
+  <meta name="author" content="OJ Reeves">
+
+  
+  <meta name="description" content="Last week JP and I released our first Open Source project, CorrugatedIron. The release seemed to be fairly well received by those people who gave it &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's rants RSS 2.0" type="application/rss+xml">
+  <link rel="canonical" href="http://buffered.io/posts/corrugatediron-update-v0-1-1">
+  <link href="/favicon.ico" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+
+  <script src="/javascripts/modernizr-2.0.js" type="text/javascript"></script>
+  <script src="/javascripts/ender.js" type="text/javascript"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+
+  <script type="text/javascript">
+    Modernizr.load([
+      { load: '//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js' },
+      { load: '/javascripts/jquery.lightbox.js', complete: function() {
+        $("a[rel^='lightbox']").lightbox();
+      } }
+    ]);
+  </script>
+
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-8648787-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">OJ's rants</a></h1>
+  
+    <h2>It's not about you, it's about the software</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/OjsRants" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:buffered.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/posts/archives">Archives</a></li>
+  <li><a href="/+">About</a></li>
+  <li><a href="http://www.google.com/recaptcha/mailhide/d?k=01KtoERsnUusX9vVliTm27uQ==&c=Be1wE57A4P96e6U9_HLCvw==">Contact</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">CorrugatedIron Update - v0.1.1</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+
+<time datetime="2011-08-03T21:18:00+10:00" pubdate data-updated="true">03 Aug 2011</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Last week <a href="http://facility9.com/" title="Jeremiah Peschka">JP</a> and I released our first Open Source project, <a href="http://corrugatediron.org/" title="CorrugatedIron">CorrugatedIron</a>. The release seemed to be fairly well received by those people who gave it a spin. We&#8217;ve had some good feedback along the way which we&#8217;ll be evaluating, and no doubt those suggestions and comments will be influencing the future of the library.</p>
+
+<p>In the interim, we wanted to get another version out which sorts out two main issues and that changes the <em>perceived</em> &#8220;norm&#8221; when building applications with CorrugatedIron. Those issues are listed below. We&#8217;ve also go the first pass of our <a href="http://corrugatediron.org/documentation/MapReduce.html" title="Map/Reduce">Map/Reduce</a> documentation ready.</p>
+
+<p>If you&#8217;re not interested in the detail, head on over to the <a href="http://corrugatediron.org/downloads.html" title="Downloads page">download page</a> to find out the many ways in which you can get access to the release. Otherwise, please read on!</p>
+
+<!--more-->
+
+
+<h2>Removal of IoC</h2>
+
+<p>When we first put together the sample applications we thought that it&#8217;d be a good idea to show how these things can be done using what the mainstream .NET developers would use. That is, we decided to wire everything in with IoC. This wasn&#8217;t because we felt that this is how it <strong>had</strong> to be done, but more to try and give people a level of familiarity. The library that we chose to use for the samples was Unity, for no other reason that &#8220;it was there&#8221;.</p>
+
+<p>This small mistake seemed to give off the impression that we felt that Unity was the best choice of all the IoC containers out there.</p>
+
+<p>This is most definitely <strong>not the case</strong>. We are in no way advocating the use of one IoC container over the other. We honestly don&#8217;t care which one you want to use. You should use whichever works for you.</p>
+
+<p>To avoid this perception we decided that it would be best to remove references to any IoC container in all samples except for the <a href="https://github.com/DistributedNonsense/CorrugatedIron.Samples/tree/master/VisualStudio2010/Sample" title="IoC Sample Project">one sample</a> which shows how to use <em>lots</em> of different containers to do the same thing. Hence you should see a <em>lack</em> of IoC containers in our examples from now on. Sorry for any confusion.</p>
+
+<h2>Handling of Client IDs</h2>
+
+<p>Our first implementation of Client ID generation in CorrugatedIron wasn&#8217;t a great implementation. We made the decision early on to generate IDs based on some details of the machine that the client was running on (ie. The MAC address of the first functioning NIC on the machine). Our thinking was that we wanted to uniquely identify a client while still allowing the ID to be reused across instances of the application. This might make sense for rich-client applications, but certainly doesn&#8217;t work well in the web world. In a web environment, each request could come from a different user.</p>
+
+<p>Almost immediately after releasing v0.1.0, <a href="http://facility9.com/" title="Jeremiah Peschka">JP</a> and I read an email on the [Riak mailing list][mailinglist] which made us rethink our approach. After a bit of discussion, we decided to go with an idea of Jeremiah&#8217;s which involves the generation of the Client ID when the RiakClient instance is created. This generation can be controlled by the user of the library by specifying a <code>seed</code> value.</p>
+
+<p>This gives the user the flexibility of not being concerned about the Client ID if they don&#8217;t want to be, but can have some control if they do.</p>
+
+<h2>Ease of Configuration</h2>
+
+<p>The only bit of &#8220;constructive criticism&#8221; that we received on-masse was via <a href="http://news.ycombinator.com/item?id=2799823" title="CI on Hacker News">Hacker News</a> and revolved around configuration. The general feeling was that the effort required to configure the library was higher than expected, especially when compared to other libraries. I&#8217;d suggest reading the full discussion over on the <a href="http://news.ycombinator.com/item?id=2799823" title="CI on Hacker News">Hacker News</a> site to read some of the reasons behind the design decisions. But, if you&#8217;re too lazy (I don&#8217;t blame you if you are), the short version is this: CorrugatedIron is a .NET library connecting to a clustered, distributed key-value store. A library that does this, while attempting to manage load-balancing across all nodes in the cluster, is going to require some configuration.</p>
+
+<p>One concern in particular resonated with me, and that was the difficulty in getting CorrugatedIron running inside a REPL, such as <a href="http://www.fsharphelp.com/Interactive.aspx" title="F# interactive">FSI</a>. The two issues with getting a REPL to work from configuration are:</p>
+
+<ul>
+<li>The ability to specify the location of the configuration file.</li>
+<li>The number of lines of code it takes to wire things in.</li>
+</ul>
+
+
+<p>The XML that&#8217;s required is not going to be changing in the short term. The values that are specified in that configuration are required to make the most of Riak and that&#8217;s not something we&#8217;re prepared to compromise on. However, the .NET code required to access it has changed, though the old way of wiring things in still exists for those people who want that level of flexibility.</p>
+
+<p>In short, you can wire-in CorrugatedIron&#8217;s XML configuration as simply as:</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="n">var</span> <span class="n">cluster</span> <span class="p">=</span> <span class="n">RiakCluster</span><span class="p">.</span><span class="n">FromConfig</span><span class="p">(</span><span class="s">&quot;riakConfig&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="n">var</span> <span class="n">client</span> <span class="p">=</span> <span class="n">cluster</span><span class="p">.</span><span class="n">CreateClient</span><span class="p">();</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>That&#8217;s it!</h2>
+
+<p>Hopefully this will make your life a little easier while getting CorrugatedIron up and running. We&#8217;re always keen to hear your feedback, so please <a href="https://github.com/DistributedNonsense/CorrugatedIron" title="CorrugatedIron @ Github">drop us a line</a> if you have any thoughts, suggestions or issues.</p>
+
+<p>Enjoy!</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">OJ Reeves</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+
+<time datetime="2011-08-03T21:18:00+10:00" pubdate data-updated="true">03 Aug 2011</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/categories/c-/'>C#</a>, <a class='category' href='/categories/clr/'>CLR</a>, <a class='category' href='/categories/mono/'>Mono</a>, <a class='category' href='/categories/nosql/'>NoSQL</a>, <a class='category' href='/categories/open-source/'>Open Source</a>, <a class='category' href='/categories/riak/'>Riak</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://buffered.io/posts/corrugatediron-update-v0-1-1/" data-via="TheColonial" data-counturl="http://buffered.io/posts/corrugatediron-update-v0-1-1/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/posts/introducing-corrugatediron/" title="Previous Post: Introducing CorrugatedIron">&laquo; Introducing CorrugatedIron</a>
+      
+      
+        <a class="basic-alignment right" href="/posts/why-i-use-twitter/" title="next Post: Why I use Twitter">Why I use Twitter &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>OJ on the Web</h1>
+  <ul id="about_me">
+    <li class="post">
+      <a href="http://buffered.io/+" title="About OJ">About me</a>
+    </li>
+    <li class="post">
+      <a href="http://functional.io/" title="Functional IO">Functional IO</a>
+    </li>
+    <li class="post">
+      <a href="http://twitter.com/TheColonial" title="OJ @ Twitter">Twitter</a>
+    </li>
+    <li class="post">
+      <a href="http://github.com/OJ/" title="OJ @ Github">Github</a>
+    </li>
+    <li class="post">
+      <a href="http://bitbucket.org/OJ/" title="OJ @ Bitbucket">Bitbucket</a>
+    </li>
+    <li class="post">
+      <a href="http://stackoverflow.com/users/611/oj" title="OJ @ SO">StackOverflow</a>
+    </li>
+    <li><a href="http://www.erlang-factory.com/conference/SFBay2012"><img src="http://www.erlang-factory.com//upload/item/83/SF2012ImSpeaking.jpg" alt="I'm speaking at the 2012 San Francisco Erlang Factory!"></a>
+  </ul>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/posts/my-tools-list-2012/">My Tools List - 2012</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/an-expert-at-23/">An Expert at 23</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/reviews-theyre-all-you-need/">Reviews - They're all You need</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/why-i-use-twitter/">Why I use Twitter</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/corrugatediron-update-v0-1-1/">CorrugatedIron Update - v0.1.1</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("TheColonial", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/TheColonial" class="twitter-follow-button" data-show-count="false">Follow @TheColonial</a>
+  
+</section>
+
+<section>
+  <h1>Series</h1>
+  <ul id="series">
+    <li class='series'><a href='/series/project-euler/'>Project Euler (11)</a></li>
+<li class='series'><a href='/series/web-development-with-erlang/'>Web Development with Erlang (3)</a></li>
+
+  </ul>
+</section>
+<section>
+  <h1>Categories</h1>
+  <ul id="categories">
+    <li class='category'><a href='/categories/asm/'>ASM (3)</a></li>
+<li class='category'><a href='/categories/asp-net/'>ASP.NET (3)</a></li>
+<li class='category'><a href='/categories/agile/'>Agile (1)</a></li>
+<li class='category'><a href='/categories/algorithms/'>Algorithms (6)</a></li>
+<li class='category'><a href='/categories/apple/'>Apple (3)</a></li>
+<li class='category'><a href='/categories/being-in-the-industry/'>Being in the Industry (28)</a></li>
+<li class='category'><a href='/categories/blogging/'>Blogging (15)</a></li>
+<li class='category'><a href='/categories/c-/'>C# (15)</a></li>
+<li class='category'><a href='/categories/clr/'>CLR (3)</a></li>
+<li class='category'><a href='/categories/challenges/'>Challenges (7)</a></li>
+<li class='category'><a href='/categories/databases/'>Databases (6)</a></li>
+<li class='category'><a href='/categories/digital-rights/'>Digital Rights (7)</a></li>
+<li class='category'><a href='/categories/erlang/'>Erlang (6)</a></li>
+<li class='category'><a href='/categories/f-/'>F# (4)</a></li>
+<li class='category'><a href='/categories/fail/'>Fail (2)</a></li>
+<li class='category'><a href='/categories/food/'>Food (1)</a></li>
+<li class='category'><a href='/categories/freeware/'>Freeware (9)</a></li>
+<li class='category'><a href='/categories/functional-programming/'>Functional Programming (26)</a></li>
+<li class='category'><a href='/categories/funny/'>Funny (9)</a></li>
+<li class='category'><a href='/categories/games/'>Games (5)</a></li>
+<li class='category'><a href='/categories/google/'>Google (10)</a></li>
+<li class='category'><a href='/categories/guest-posts/'>Guest posts (1)</a></li>
+<li class='category'><a href='/categories/howto/'>HOWTO (16)</a></li>
+<li class='category'><a href='/categories/hardware/'>Hardware (9)</a></li>
+<li class='category'><a href='/categories/haskell/'>Haskell (20)</a></li>
+<li class='category'><a href='/categories/linux/'>Linux (10)</a></li>
+<li class='category'><a href='/categories/mac-os/'>Mac OS (2)</a></li>
+<li class='category'><a href='/categories/merb/'>Merb (1)</a></li>
+<li class='category'><a href='/categories/mercurial/'>Mercurial (3)</a></li>
+<li class='category'><a href='/categories/microsoft/'>Microsoft (18)</a></li>
+<li class='category'><a href='/categories/miscellaneous/'>Miscellaneous (56)</a></li>
+<li class='category'><a href='/categories/mono/'>Mono (2)</a></li>
+<li class='category'><a href='/categories/networks/'>Networks (2)</a></li>
+<li class='category'><a href='/categories/nosql/'>NoSQL (3)</a></li>
+<li class='category'><a href='/categories/open-source/'>Open Source (2)</a></li>
+<li class='category'><a href='/categories/privacy/'>Privacy (3)</a></li>
+<li class='category'><a href='/categories/productivity/'>Productivity (1)</a></li>
+<li class='category'><a href='/categories/project-euler/'>Project Euler (11)</a></li>
+<li class='category'><a href='/categories/rce/'>RCE (4)</a></li>
+<li class='category'><a href='/categories/riak/'>Riak (5)</a></li>
+<li class='category'><a href='/categories/ruby-on-rails/'>Ruby on Rails (1)</a></li>
+<li class='category'><a href='/categories/screencasts/'>Screencasts (1)</a></li>
+<li class='category'><a href='/categories/security/'>Security (10)</a></li>
+<li class='category'><a href='/categories/series/'>Series (1)</a></li>
+<li class='category'><a href='/categories/shortcuts/'>Shortcuts (4)</a></li>
+<li class='category'><a href='/categories/software/'>Software (31)</a></li>
+<li class='category'><a href='/categories/software-development/'>Software Development (65)</a></li>
+<li class='category'><a href='/categories/sorting/'>Sorting (5)</a></li>
+<li class='category'><a href='/categories/technology/'>Technology (40)</a></li>
+<li class='category'><a href='/categories/testing/'>Testing (1)</a></li>
+<li class='category'><a href='/categories/tips-tricks/'>Tips/Tricks (11)</a></li>
+<li class='category'><a href='/categories/twitter/'>Twitter (1)</a></li>
+<li class='category'><a href='/categories/wpf/'>WPF (1)</a></li>
+<li class='category'><a href='/categories/wtf/'>WTF (20)</a></li>
+<li class='category'><a href='/categories/webmachine/'>Webmachine (4)</a></li>
+<li class='category'><a href='/categories/windows/'>Windows (12)</a></li>
+
+  </ul>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+Copyright &copy; 2012 -
+<span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" property="dct:title" rel="dct:type">Blog content for OJ's rants</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://buffered.io/+" property="cc:attributionName" rel="cc:attributionURL">OJ Reeves</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License</a> -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'ojsrants';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://buffered.io/posts/corrugatediron-update-v0-1-1/';
+        var disqus_url = 'http://buffered.io/posts/corrugatediron-update-v0-1-1/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

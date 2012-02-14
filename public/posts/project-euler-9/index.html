@@ -1,0 +1,451 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Project Euler #9 - OJ's rants</title>
+  <meta name="author" content="OJ Reeves">
+
+  
+  <meta name="description" content="WARNING! This post contains a spoiler for Problem #9 listed at Project Euler. Do not read the rest of this post if you&#8217;re planning to attempt &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's rants RSS 2.0" type="application/rss+xml">
+  <link rel="canonical" href="http://buffered.io/posts/project-euler-9">
+  <link href="/favicon.ico" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+
+  <script src="/javascripts/modernizr-2.0.js" type="text/javascript"></script>
+  <script src="/javascripts/ender.js" type="text/javascript"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+
+  <script type="text/javascript">
+    Modernizr.load([
+      { load: '//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js' },
+      { load: '/javascripts/jquery.lightbox.js', complete: function() {
+        $("a[rel^='lightbox']").lightbox();
+      } }
+    ]);
+  </script>
+
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-8648787-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">OJ's rants</a></h1>
+  
+    <h2>It's not about you, it's about the software</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/OjsRants" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:buffered.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/posts/archives">Archives</a></li>
+  <li><a href="/+">About</a></li>
+  <li><a href="http://www.google.com/recaptcha/mailhide/d?k=01KtoERsnUusX9vVliTm27uQ==&c=Be1wE57A4P96e6U9_HLCvw==">Contact</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Project Euler #9</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+
+<time datetime="2008-07-25T22:08:00+10:00" pubdate data-updated="true">25 Jul 2008</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p><strong>WARNING!</strong> This post contains a spoiler for Problem #9 listed at <a href="http://projecteuler.net/" title="Project Euler">Project Euler</a>. Do not read the rest of this post if you&#8217;re planning to attempt to solve the problem yourself.</p>
+
+<!--more-->
+
+
+<p><a href="http://projecteuler.net/index.php?section=problems&id=9">Problem #9</a> takes a turn back into the math theory and forces you to think about Pythagorean triplets. It goes as follows:<blockquote><p>
+A Pythagorean triplet is a set of three natural numbers, a  b  c, for which,
+&nbsp;&nbsp;&nbsp;&nbsp;a<sup>2</sup> + b<sup>2</sup> = c<sup>2</sup></p>
+
+<p>For example, 3<sup>2</sup> + 4<sup>2</sup> = 9 + 16 = 25 = 5<sup>2</sup>.</p>
+
+<p>There exists exactly one Pythagorean triplet for which a + b + c = 1000.
+Find the product abc.
+</p></blockquote>
+The first solution to this problem that I came up with was just atrocious :) It was long, bloated and extremely messy. But it worked. If you really want to see it then ask me nicely and I&#8217;ll post it.</p>
+
+<p>For now I&#8217;m going to show you my second attempt, which is a little nicer on the eyes.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='haskell'><span class='line'><span class="nf">main</span> <span class="ow">::</span> <span class="kt">IO</span> <span class="nb">()</span>
+</span><span class='line'><span class="nf">main</span> <span class="ow">=</span> <span class="n">print</span> <span class="o">$</span> <span class="n">head</span> <span class="p">[</span> <span class="n">a</span> <span class="o">*</span> <span class="n">b</span> <span class="o">*</span> <span class="n">c</span>
+</span><span class='line'>                    <span class="o">|</span> <span class="n">b</span> <span class="ow">&lt;-</span> <span class="p">[</span><span class="mi">1</span><span class="o">..</span><span class="mi">400</span><span class="p">],</span>
+</span><span class='line'>                      <span class="n">a</span> <span class="ow">&lt;-</span> <span class="p">[</span><span class="n">b</span><span class="o">..</span><span class="mi">400</span><span class="p">],</span>
+</span><span class='line'>                      <span class="kr">let</span> <span class="n">c</span> <span class="ow">=</span> <span class="mi">1000</span> <span class="o">-</span> <span class="n">a</span> <span class="o">-</span> <span class="n">b</span><span class="p">,</span>
+</span><span class='line'>                      <span class="n">c</span><span class="o">^</span><span class="mi">2</span> <span class="o">==</span> <span class="n">a</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="n">b</span><span class="o">^</span><span class="mi">2</span> <span class="p">]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>It&#8217;s a mini brute-forcer which uses two variables to count up to 400. I chose 400 as the end number because it seemed like a stupid idea to go as far as 500 when brute forcing since the first of the numbers that fit the criteria wouldn&#8217;t be anywhere near that high. For each combination of numbers I pick what&#8217;s left over and check to see if it fits the rules of a Pythagorean triplet. In this case there is only one that does (as per the question).</p>
+
+<p>We can see below that the solution isn&#8217;t particularly fantastic as far as performance goes. It&#8217;s not terrible, but approaching .2 seconds for a problem like this is starting to get on the sluggish side.</p>
+
+<pre><code>  Fri Jul 25 21:28 2008 Time and Allocation Profiling Report  (Final)
+
+     main +RTS -p -RTS
+
+  total time  =        0.18 secs   (9 ticks @ 20 ms)
+  total alloc =  29,337,532 bytes  (excludes profiling overheads)
+
+COST CENTRE   MODULE  %time %alloc
+
+CAF           Main    100.0  100.0
+
+
+                                           individual    inherited
+COST CENTRE   MODULE      no.    entries  %time %alloc   %time %alloc
+
+MAIN          MAIN          1           0   0.0    0.0   100.0  100.0
+ CAF          Main        152          16 100.0  100.0   100.0  100.0
+ CAF          GHC.Handle   88           4   0.0    0.0     0.0    0.0
+</code></pre>
+
+<p>Another way of brute-force solving this is to abuse a bit of math. We know that each Pythagorean triplet is representative of the sides of a triangle. Given that the sides of a triangle scale evenly when the entire triangle is scaled, we can assume that if we were able to find a triplet whose sum is a factor of 1000, then we could use this factor to generate a, b and c. It turns out that the 5th Pythagorean triplet (8, 15, 17) adds up to 40, and since 40 * 25 == 1000, we can simply multiple each of the values by 25 to get (200, 375, 425).</p>
+
+<p>While this is interesting, brute-force methods aren&#8217;t never really the nicest way of solving a given problem. In the case of Project Euler it&#8217;s rare to find a problem that doesn&#8217;t have some form of trickery that can be abused to get the answer in a much more efficient manner. The theory that should be used is that each Pythagorean triplet can be <a href="http://en.wikipedia.org/wiki/Pythagorean_triple#Generating_a_triple">written in the following form</a>:</p>
+
+<pre><code>k [ m^2 - n^2, 2mn, m^2 + n^2 ]
+</code></pre>
+
+<p>This info can be abused to come up with some code to generate the answer rather quickly. At this point, I become tired of the problem and decided not to implement a version that uses this theory. If you decide to write one, please ping me!</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">OJ Reeves</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+
+<time datetime="2008-07-25T22:08:00+10:00" pubdate data-updated="true">25 Jul 2008</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/categories/functional-programming/'>Functional Programming</a>, <a class='category' href='/categories/haskell/'>Haskell</a>, <a class='category' href='/categories/project-euler/'>Project Euler</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://buffered.io/posts/project-euler-9/" data-via="TheColonial" data-counturl="http://buffered.io/posts/project-euler-9/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/posts/another-quick-coding-challenge/" title="Previous Post: Another Quick Coding Challenge">&laquo; Another Quick Coding Challenge</a>
+      
+      
+        <a class="basic-alignment right" href="/posts/a-better-nub/" title="next Post: A Better 'nub'">A Better 'nub' &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>OJ on the Web</h1>
+  <ul id="about_me">
+    <li class="post">
+      <a href="http://buffered.io/+" title="About OJ">About me</a>
+    </li>
+    <li class="post">
+      <a href="http://functional.io/" title="Functional IO">Functional IO</a>
+    </li>
+    <li class="post">
+      <a href="http://twitter.com/TheColonial" title="OJ @ Twitter">Twitter</a>
+    </li>
+    <li class="post">
+      <a href="http://github.com/OJ/" title="OJ @ Github">Github</a>
+    </li>
+    <li class="post">
+      <a href="http://bitbucket.org/OJ/" title="OJ @ Bitbucket">Bitbucket</a>
+    </li>
+    <li class="post">
+      <a href="http://stackoverflow.com/users/611/oj" title="OJ @ SO">StackOverflow</a>
+    </li>
+    <li><a href="http://www.erlang-factory.com/conference/SFBay2012"><img src="http://www.erlang-factory.com//upload/item/83/SF2012ImSpeaking.jpg" alt="I'm speaking at the 2012 San Francisco Erlang Factory!"></a>
+  </ul>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/posts/my-tools-list-2012/">My Tools List - 2012</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/an-expert-at-23/">An Expert at 23</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/reviews-theyre-all-you-need/">Reviews - They're all You need</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/why-i-use-twitter/">Why I use Twitter</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/corrugatediron-update-v0-1-1/">CorrugatedIron Update - v0.1.1</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("TheColonial", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/TheColonial" class="twitter-follow-button" data-show-count="false">Follow @TheColonial</a>
+  
+</section>
+
+<section>
+  <h1>Series</h1>
+  <ul id="series">
+    <li class='series'><a href='/series/project-euler/'>Project Euler (11)</a></li>
+<li class='series'><a href='/series/web-development-with-erlang/'>Web Development with Erlang (3)</a></li>
+
+  </ul>
+</section>
+<section>
+  <h1>Categories</h1>
+  <ul id="categories">
+    <li class='category'><a href='/categories/asm/'>ASM (3)</a></li>
+<li class='category'><a href='/categories/asp-net/'>ASP.NET (3)</a></li>
+<li class='category'><a href='/categories/agile/'>Agile (1)</a></li>
+<li class='category'><a href='/categories/algorithms/'>Algorithms (6)</a></li>
+<li class='category'><a href='/categories/apple/'>Apple (3)</a></li>
+<li class='category'><a href='/categories/being-in-the-industry/'>Being in the Industry (28)</a></li>
+<li class='category'><a href='/categories/blogging/'>Blogging (15)</a></li>
+<li class='category'><a href='/categories/c-/'>C# (15)</a></li>
+<li class='category'><a href='/categories/clr/'>CLR (3)</a></li>
+<li class='category'><a href='/categories/challenges/'>Challenges (7)</a></li>
+<li class='category'><a href='/categories/databases/'>Databases (6)</a></li>
+<li class='category'><a href='/categories/digital-rights/'>Digital Rights (7)</a></li>
+<li class='category'><a href='/categories/erlang/'>Erlang (6)</a></li>
+<li class='category'><a href='/categories/f-/'>F# (4)</a></li>
+<li class='category'><a href='/categories/fail/'>Fail (2)</a></li>
+<li class='category'><a href='/categories/food/'>Food (1)</a></li>
+<li class='category'><a href='/categories/freeware/'>Freeware (9)</a></li>
+<li class='category'><a href='/categories/functional-programming/'>Functional Programming (26)</a></li>
+<li class='category'><a href='/categories/funny/'>Funny (9)</a></li>
+<li class='category'><a href='/categories/games/'>Games (5)</a></li>
+<li class='category'><a href='/categories/google/'>Google (10)</a></li>
+<li class='category'><a href='/categories/guest-posts/'>Guest posts (1)</a></li>
+<li class='category'><a href='/categories/howto/'>HOWTO (16)</a></li>
+<li class='category'><a href='/categories/hardware/'>Hardware (9)</a></li>
+<li class='category'><a href='/categories/haskell/'>Haskell (20)</a></li>
+<li class='category'><a href='/categories/linux/'>Linux (10)</a></li>
+<li class='category'><a href='/categories/mac-os/'>Mac OS (2)</a></li>
+<li class='category'><a href='/categories/merb/'>Merb (1)</a></li>
+<li class='category'><a href='/categories/mercurial/'>Mercurial (3)</a></li>
+<li class='category'><a href='/categories/microsoft/'>Microsoft (18)</a></li>
+<li class='category'><a href='/categories/miscellaneous/'>Miscellaneous (56)</a></li>
+<li class='category'><a href='/categories/mono/'>Mono (2)</a></li>
+<li class='category'><a href='/categories/networks/'>Networks (2)</a></li>
+<li class='category'><a href='/categories/nosql/'>NoSQL (3)</a></li>
+<li class='category'><a href='/categories/open-source/'>Open Source (2)</a></li>
+<li class='category'><a href='/categories/privacy/'>Privacy (3)</a></li>
+<li class='category'><a href='/categories/productivity/'>Productivity (1)</a></li>
+<li class='category'><a href='/categories/project-euler/'>Project Euler (11)</a></li>
+<li class='category'><a href='/categories/rce/'>RCE (4)</a></li>
+<li class='category'><a href='/categories/riak/'>Riak (5)</a></li>
+<li class='category'><a href='/categories/ruby-on-rails/'>Ruby on Rails (1)</a></li>
+<li class='category'><a href='/categories/screencasts/'>Screencasts (1)</a></li>
+<li class='category'><a href='/categories/security/'>Security (10)</a></li>
+<li class='category'><a href='/categories/series/'>Series (1)</a></li>
+<li class='category'><a href='/categories/shortcuts/'>Shortcuts (4)</a></li>
+<li class='category'><a href='/categories/software/'>Software (31)</a></li>
+<li class='category'><a href='/categories/software-development/'>Software Development (65)</a></li>
+<li class='category'><a href='/categories/sorting/'>Sorting (5)</a></li>
+<li class='category'><a href='/categories/technology/'>Technology (40)</a></li>
+<li class='category'><a href='/categories/testing/'>Testing (1)</a></li>
+<li class='category'><a href='/categories/tips-tricks/'>Tips/Tricks (11)</a></li>
+<li class='category'><a href='/categories/twitter/'>Twitter (1)</a></li>
+<li class='category'><a href='/categories/wpf/'>WPF (1)</a></li>
+<li class='category'><a href='/categories/wtf/'>WTF (20)</a></li>
+<li class='category'><a href='/categories/webmachine/'>Webmachine (4)</a></li>
+<li class='category'><a href='/categories/windows/'>Windows (12)</a></li>
+
+  </ul>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+Copyright &copy; 2012 -
+<span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" property="dct:title" rel="dct:type">Blog content for OJ's rants</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://buffered.io/+" property="cc:attributionName" rel="cc:attributionURL">OJ Reeves</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License</a> -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'ojsrants';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://buffered.io/posts/project-euler-9/';
+        var disqus_url = 'http://buffered.io/posts/project-euler-9/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

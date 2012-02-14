@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Apple | OJ's rants]]></title>
+  <link href="http://buffered.io/categories/apple/atom.xml" rel="self"/>
+  <link href="http://buffered.io/"/>
+  <updated>2012-02-14T09:57:08+10:00</updated>
+  <id>http://buffered.io/</id>
+  <author>
+    <name><![CDATA[OJ Reeves]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[DVD Cracker Nails Apple's iPod Code]]></title>
+    <link href="http://buffered.io/posts/dvd-cracker-nails-apples-ipod-code/"/>
+    <updated>2006-10-25T08:27:00+10:00</updated>
+    <id>http://buffered.io/posts/dvd-cracker-nails-apples-ipod-code</id>
+    <content type="html"><![CDATA[<p>You gotta hand it to this guy, he says that he "doesn't like closed systems", which is pretty darned obvious :) The man, Jon Lech Johansen, who years ago cracked the DVD encryption known as <a href="http://en.wikipedia.org/wiki/Content_Scrambling_System" title="Content Scrambling System" target="_blank">CSS</a>, and released (with two other unknowns) the software that could be used to decrypt DVDs (called <a href="http://en.wikipedia.org/wiki/DeCSS" title="DeCSS" target="_blank">DeCSS</a>), has taken his code-breaking career to a new level - he's nailed Apple iPod's <a href="http://www.andrewhargadon.com/blog/?p=36" title="iPod's Ecosystem" target="_blank">ecosystem</a> (or so he claims) by breaking their <a href="http://en.wikipedia.org/wiki/FairPlay" title="FairPlay" target="_blank">FairPlay DRM software</a>.</p>
+
+<p>I have no reason to find his claims outrageous, since he's quite clearly experienced in this area (he was 15 when he cracked CSS after all), so it looks like Apple have got themselves an issue to deal with. It'll be interesting to see if they take steps to stop him and his new <a href="http://doubletwistventures.com/" title="DoubleTwist" target="_blank">DoubleTwist</a> venture from taking off, or releasing any information/software pertaining to the crack.</p>
+
+<p>Check out <a href="http://www.smh.com.au/news/digital-music/apples-ipoditunes-code-cracked/posts/1161455702584.html" title="Apple's iPod code 'cracked' - Digital Music - Gadgets - Technology - smh.com.au" target="_blank">this SMH article</a> for a bit more info.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[What About Going the Other Way?]]></title>
+    <link href="http://buffered.io/posts/what-about-going-the-other-way/"/>
+    <updated>2006-10-19T20:02:00+10:00</updated>
+    <id>http://buffered.io/posts/what-about-going-the-other-way</id>
+    <content type="html"><![CDATA[<p>I just thought I'd add this last post as a bit of food for thought before signing off today. This link comes from a bloke who's been through the pain of wanting to move away from Windows, only to find that the results were just as, if not more, painful than sticking to what he knew. Have a read of <a href="http://www.cs.umd.edu/~bederson/user-advocate/2006/09/switchback-horrors-of-windows-power.html" title="HCI User Advocate: Switchback: Horrors of a Windows Power-user Trying to Switch to Apple OS X" target="_blank">this blog entry</a> to see that the grass isn't necessarily greener.</p>
+
+<p>It definitely makes you wonder if the effort is going to be worth it.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Virtual Vista Stuff-Up]]></title>
+    <link href="http://buffered.io/posts/virtual-vista-stuff-up/"/>
+    <updated>2006-10-17T08:33:00+10:00</updated>
+    <id>http://buffered.io/posts/virtual-vista-stuff-up</id>
+    <content type="html"><![CDATA[<p>OK, so it looks like I might have been misinformed (er... wrong :)) by stating that the basic versions of Vista can't be installed on VMs. That'll teach me not to read the licencing details properly myself! It looks like it was a slight misunderstanding of the terms and structure that MS used in stating the rules. I won't go into the details myself since <a href="http://blogs.zdnet.com/Bott/?p=157" title="No, theres no ban on virtual Vista" target="_blank">Ed Bott has already done it for me</a>. So, MS <em>haven't</em> shot themselves in the foot in this regard, but they still seem to be doing it in other ways.</p>
+
+<p>One of those ways, which is now 100% confirmed, is that you can only move your installation of Vista to a different machine (read: different hardware) <strong>once and once <em>only</em></strong>. Again, this is confirmed courtesty of <a href="http://blogs.zdnet.com/Bott/?p=156" title="A sneaky change in Windows licensing terms" target="_blank">Ed Bott</a>. Instead of being able to reinstall when you buy a new mobo, and then reinstall again after you buy a new CPU, you may well have to fork out for another Vista licence due to the hardware change. What a lovely feature!</p>
+
+<p>Yesterday's chat (via previous post on Vista) with Bryce got me thinking about what other peoples' thoughts were regarding the whole stance MS are taking with Vista, and during my searches I found <a href="http://www.computerpoweruser.com/editorial/article.asp?article=articles/archive/c0611/44c11/44c11.asp&guid=8CF5E5CB35CB42E1857F6F42970E2A2C" title="Vista Will Double Apples Market Share" target="_blank">this post by Chris Pirillo</a> (a long-time MS user) which covers his views on said topic. It's quite an interesting read :) He also took a bit of time to post on his blog after writing the article to cover some <a href="http://chris.pirillo.com/posts/microsoft-windows-vista-vs-apple-os-x/" title="Microsoft Windows Vista vs. Apple OS X" target="_blank">other points</a>, again well worth reading.  It's good to see another long-term MS user with the balls to speak out loud and say that Macs are becoming more appealing by the day.  I agree with him when he says that MS isn't really making this a difficult decision to make.</p>
+
+<p>I've never been a huge fan of Macs, partly because I never had to use them and Windows was familiar, but as time goes by I'm rethinking my position. I keep saying that there's not enough software out there for me to make the move to Mac (and Linux), but not I'm thinking that I need to make the switch and become one of the developers that can help sort that problem out :D</p>
+
+<p>So, sorry about my stuff up, but it doesn't really improve my view of Vista by much anyway!</p>
+]]></content>
+  </entry>
+  
+</feed>

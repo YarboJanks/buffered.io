@@ -1,0 +1,425 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>I Don't Need Your Frickin' Framework! - OJ's rants</title>
+  <meta name="author" content="OJ Reeves">
+
+  
+  <meta name="description" content="How many companies have you worked with/for that have their own framework? How many have been in the process of developing their own framework? How &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's rants RSS 2.0" type="application/rss+xml">
+  <link rel="canonical" href="http://buffered.io/posts/i-dont-need-your-frickin-framework">
+  <link href="/favicon.ico" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+
+  <script src="/javascripts/modernizr-2.0.js" type="text/javascript"></script>
+  <script src="/javascripts/ender.js" type="text/javascript"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+
+  <script type="text/javascript">
+    Modernizr.load([
+      { load: '//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js' },
+      { load: '/javascripts/jquery.lightbox.js', complete: function() {
+        $("a[rel^='lightbox']").lightbox();
+      } }
+    ]);
+  </script>
+
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-8648787-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">OJ's rants</a></h1>
+  
+    <h2>It's not about you, it's about the software</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/OjsRants" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:buffered.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/posts/archives">Archives</a></li>
+  <li><a href="/+">About</a></li>
+  <li><a href="http://www.google.com/recaptcha/mailhide/d?k=01KtoERsnUusX9vVliTm27uQ==&c=Be1wE57A4P96e6U9_HLCvw==">Contact</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">I Don't Need Your Frickin' Framework!</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+
+<time datetime="2009-04-13T14:09:00+10:00" pubdate data-updated="true">13 Apr 2009</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p><a href="/uploads/2009/04/scaffold_fail.jpg" title="Scaffold Fail"><img src="/uploads/2009/04/scaffold_fail.jpg" alt="Scaffold Fail" title="Scaffold Fail" width="200" style="float: right; margin-left: 5px; margin-bottom: 5px;" /></a>How many companies have you worked with/for that have their own framework? How many have been in the process of developing their own framework? How many have been in the process of <strong>re</strong>developing their own framework? How many have taken another framework and <del>hacked</del> improved it?</p>
+
+<p>When I attempt to answer the questions listed above, I start to shiver. I feel the need to burn my clothes and take a very long shower.</p>
+
+<!--more-->
+
+
+<p>In the early days of my career, frameworks were few and far between. These days it is no longer the case. An alarming number of companies are carrying the burden of their own frameworks. A huge number of private and public sector organisations are <em>currently paying people to write new frameworks</em>! For some reason, many nave project managers and team leads feel the need to invest a great deal of time and <abbr title="Cash">moolah</abbr> into building the next-generation, latest-and-greatest, all-singing-all-dancing, cover-every-possible-web-and-rich-client-case framework before they start to do what they&#8217;re being paid to do: <strong>solve a business problem</strong>.</p>
+
+<p>The last job I worked on was one of those places. On my first day I was told that the project team (which at that point was just 2 of the 6 developers) were building a new framework. They were also building a code generator that used this framework. This dynamic duo of programs would be used in conjunction with each other to build any kind of application under the sun. It would solve all of the issues without the developer having to think, all while making poverty history.</p>
+
+<p>What a joke. The code generator was never finished and the framework was never used. The money that was intended to be burned while <em>adding more features to an existing application</em> disappeared in a blur of <a href="http://en.wikipedia.org/wiki/Greenfield_project" title="">Greenfield</a> over-engineering of a framework that simply <strong>was not required</strong>.</p>
+
+<p>This kind of problem happens so much these days, and it&#8217;s just appalling. What I want to say is: <em>I am <a href="http://www.urbandictionary.com/define.php?term=frickin" title="">frickin&#8217;</a> tired of it!</em></p>
+
+<p>The example I mentioned above is probably the worst I&#8217;ve seen for a while. I&#8217;d love to go into a fair bit of depth to uncover some &#8220;interesting&#8221; features of the framework, but it&#8217;s not worth it. I <em>would</em> like to highlight just a few points about it though:</p>
+
+<ul>
+  <li>It was based on <a href="http://www.lhotka.net/cslanet/" title="CSLA">CSLA</a>, which is already a rather large framework that attempts to do way too much via an enormous amount of code. The author decided that some parts of CSLA weren&#8217;t good enough and hence needed to be &#8220;improved&#8221;. The &#8220;improvements&#8221; were atrocious.</li>
+<li>It was supposed to be Open Source, but as far as I&#8217;m aware it never made it onto the Web, hence I can&#8217;t point you at it.</li>
+<li>In some areas of code, you were required to invoke functions through a generic <kbd>MessagePortal</kbd> helper object which invoked the required function via reflection after attempting to infer a stack of unnecessary information. This was interesting, as you knew what you needed to call. But you still had to pass in function names as string parameters, hence losing knowledge, and wait for the framework to regain that knowledge by inspecting the code at runtime. Even though the excessive use of reflection was &lt;sarcasm&gt;an obvious win&lt;/sarcasm&gt;, we also copped the added bonus of having another 35 (yes, that&#8217;s right <strong>35</strong>) function calls appearing in our call-stack.</li>
+<li>Those developers who attempted to use it were bitten constantly by esoteric and undocumented pitfalls in the design.</li>
+<li>It took around 3 times longer during development to do the &#8220;basics&#8221; (such as create objects and have them load from a DB). This is compared to using no framework and loading objects manually via ADO.</li>
+<li>It was unable to load any form of object graph.</li>
+<li>It not only leaked database connections every time you made a database call, it leaked <em>two extra connections</em> during start-up while it attempts to read some database information, such as schema, into memory.</li>
+<li>The code generator was written in such a way that the first half of the generator would be used to generate the other half (epic fail)!</li>
+<li>The author wasn&#8217;t able to use it.</li>
+</ul>
+
+
+<p>I hence conclude that this framework was a large, unwieldy, bloated, over-engineered, slow and riddled with design flaws. This is all for something that was actually totally unnecessary. Why? &#8230;</p>
+
+<p>.. because this was <strong>&#8220;The Framework&#8221; v2.0!</strong> Yup, it was the second version. The first was also a dog&#8217;s breakfast, but at least it was finished.</p>
+
+<p>So what&#8217;s my point? Am I trying to say that use of <em>any</em> framework is bad? Having helper libraries and well-designed platforms to build on are an epic fail?</p>
+
+<p>Most definitely not. What I am saying is this: there are people out there with minds immeasurably superior to ours who have already done a better job of solving this problem. Stop writing your own frameworks. Stop writing code generators. There are already options out there.</p>
+
+<p>So to all of you wannabe framework developers: stop what you&#8217;re doing. You&#8217;re wasting cash and not adding value. We&#8217;ve already got a framework. It&#8217;s called <strong>Microsoft .NET</strong>. Now get out of the way and let me use it!</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">OJ Reeves</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+
+<time datetime="2009-04-13T14:09:00+10:00" pubdate data-updated="true">13 Apr 2009</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/categories/being-in-the-industry/'>Being in the Industry</a>, <a class='category' href='/categories/software-development/'>Software Development</a>, <a class='category' href='/categories/wtf/'>WTF</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://buffered.io/posts/i-dont-need-your-frickin-framework/" data-via="TheColonial" data-counturl="http://buffered.io/posts/i-dont-need-your-frickin-framework/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/posts/a-quirk-in-listfind/" title="Previous Post: A Quirk in List.Find()">&laquo; A Quirk in List.Find()</a>
+      
+      
+        <a class="basic-alignment right" href="/posts/out-with-the-old-and-in-with-the-new/" title="next Post: Out with the Old and in with the New">Out with the Old and in with the New &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>OJ on the Web</h1>
+  <ul id="about_me">
+    <li class="post">
+      <a href="http://buffered.io/+" title="About OJ">About me</a>
+    </li>
+    <li class="post">
+      <a href="http://functional.io/" title="Functional IO">Functional IO</a>
+    </li>
+    <li class="post">
+      <a href="http://twitter.com/TheColonial" title="OJ @ Twitter">Twitter</a>
+    </li>
+    <li class="post">
+      <a href="http://github.com/OJ/" title="OJ @ Github">Github</a>
+    </li>
+    <li class="post">
+      <a href="http://bitbucket.org/OJ/" title="OJ @ Bitbucket">Bitbucket</a>
+    </li>
+    <li class="post">
+      <a href="http://stackoverflow.com/users/611/oj" title="OJ @ SO">StackOverflow</a>
+    </li>
+    <li><a href="http://www.erlang-factory.com/conference/SFBay2012"><img src="http://www.erlang-factory.com//upload/item/83/SF2012ImSpeaking.jpg" alt="I'm speaking at the 2012 San Francisco Erlang Factory!"></a>
+  </ul>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/posts/my-tools-list-2012/">My Tools List - 2012</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/an-expert-at-23/">An Expert at 23</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/reviews-theyre-all-you-need/">Reviews - They're all You need</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/why-i-use-twitter/">Why I use Twitter</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/corrugatediron-update-v0-1-1/">CorrugatedIron Update - v0.1.1</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("TheColonial", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/TheColonial" class="twitter-follow-button" data-show-count="false">Follow @TheColonial</a>
+  
+</section>
+
+<section>
+  <h1>Series</h1>
+  <ul id="series">
+    <li class='series'><a href='/series/project-euler/'>Project Euler (11)</a></li>
+<li class='series'><a href='/series/web-development-with-erlang/'>Web Development with Erlang (3)</a></li>
+
+  </ul>
+</section>
+<section>
+  <h1>Categories</h1>
+  <ul id="categories">
+    <li class='category'><a href='/categories/asm/'>ASM (3)</a></li>
+<li class='category'><a href='/categories/asp-net/'>ASP.NET (3)</a></li>
+<li class='category'><a href='/categories/agile/'>Agile (1)</a></li>
+<li class='category'><a href='/categories/algorithms/'>Algorithms (6)</a></li>
+<li class='category'><a href='/categories/apple/'>Apple (3)</a></li>
+<li class='category'><a href='/categories/being-in-the-industry/'>Being in the Industry (28)</a></li>
+<li class='category'><a href='/categories/blogging/'>Blogging (15)</a></li>
+<li class='category'><a href='/categories/c-/'>C# (15)</a></li>
+<li class='category'><a href='/categories/clr/'>CLR (3)</a></li>
+<li class='category'><a href='/categories/challenges/'>Challenges (7)</a></li>
+<li class='category'><a href='/categories/databases/'>Databases (6)</a></li>
+<li class='category'><a href='/categories/digital-rights/'>Digital Rights (7)</a></li>
+<li class='category'><a href='/categories/erlang/'>Erlang (6)</a></li>
+<li class='category'><a href='/categories/f-/'>F# (4)</a></li>
+<li class='category'><a href='/categories/fail/'>Fail (2)</a></li>
+<li class='category'><a href='/categories/food/'>Food (1)</a></li>
+<li class='category'><a href='/categories/freeware/'>Freeware (9)</a></li>
+<li class='category'><a href='/categories/functional-programming/'>Functional Programming (26)</a></li>
+<li class='category'><a href='/categories/funny/'>Funny (9)</a></li>
+<li class='category'><a href='/categories/games/'>Games (5)</a></li>
+<li class='category'><a href='/categories/google/'>Google (10)</a></li>
+<li class='category'><a href='/categories/guest-posts/'>Guest posts (1)</a></li>
+<li class='category'><a href='/categories/howto/'>HOWTO (16)</a></li>
+<li class='category'><a href='/categories/hardware/'>Hardware (9)</a></li>
+<li class='category'><a href='/categories/haskell/'>Haskell (20)</a></li>
+<li class='category'><a href='/categories/linux/'>Linux (10)</a></li>
+<li class='category'><a href='/categories/mac-os/'>Mac OS (2)</a></li>
+<li class='category'><a href='/categories/merb/'>Merb (1)</a></li>
+<li class='category'><a href='/categories/mercurial/'>Mercurial (3)</a></li>
+<li class='category'><a href='/categories/microsoft/'>Microsoft (18)</a></li>
+<li class='category'><a href='/categories/miscellaneous/'>Miscellaneous (56)</a></li>
+<li class='category'><a href='/categories/mono/'>Mono (2)</a></li>
+<li class='category'><a href='/categories/networks/'>Networks (2)</a></li>
+<li class='category'><a href='/categories/nosql/'>NoSQL (3)</a></li>
+<li class='category'><a href='/categories/open-source/'>Open Source (2)</a></li>
+<li class='category'><a href='/categories/privacy/'>Privacy (3)</a></li>
+<li class='category'><a href='/categories/productivity/'>Productivity (1)</a></li>
+<li class='category'><a href='/categories/project-euler/'>Project Euler (11)</a></li>
+<li class='category'><a href='/categories/rce/'>RCE (4)</a></li>
+<li class='category'><a href='/categories/riak/'>Riak (5)</a></li>
+<li class='category'><a href='/categories/ruby-on-rails/'>Ruby on Rails (1)</a></li>
+<li class='category'><a href='/categories/screencasts/'>Screencasts (1)</a></li>
+<li class='category'><a href='/categories/security/'>Security (10)</a></li>
+<li class='category'><a href='/categories/series/'>Series (1)</a></li>
+<li class='category'><a href='/categories/shortcuts/'>Shortcuts (4)</a></li>
+<li class='category'><a href='/categories/software/'>Software (31)</a></li>
+<li class='category'><a href='/categories/software-development/'>Software Development (65)</a></li>
+<li class='category'><a href='/categories/sorting/'>Sorting (5)</a></li>
+<li class='category'><a href='/categories/technology/'>Technology (40)</a></li>
+<li class='category'><a href='/categories/testing/'>Testing (1)</a></li>
+<li class='category'><a href='/categories/tips-tricks/'>Tips/Tricks (11)</a></li>
+<li class='category'><a href='/categories/twitter/'>Twitter (1)</a></li>
+<li class='category'><a href='/categories/wpf/'>WPF (1)</a></li>
+<li class='category'><a href='/categories/wtf/'>WTF (20)</a></li>
+<li class='category'><a href='/categories/webmachine/'>Webmachine (4)</a></li>
+<li class='category'><a href='/categories/windows/'>Windows (12)</a></li>
+
+  </ul>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+Copyright &copy; 2012 -
+<span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" property="dct:title" rel="dct:type">Blog content for OJ's rants</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://buffered.io/+" property="cc:attributionName" rel="cc:attributionURL">OJ Reeves</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License</a> -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'ojsrants';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://buffered.io/posts/i-dont-need-your-frickin-framework/';
+        var disqus_url = 'http://buffered.io/posts/i-dont-need-your-frickin-framework/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

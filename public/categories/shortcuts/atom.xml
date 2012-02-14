@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Shortcuts | OJ's rants]]></title>
+  <link href="http://buffered.io/categories/shortcuts/atom.xml" rel="self"/>
+  <link href="http://buffered.io/"/>
+  <updated>2012-02-14T09:57:08+10:00</updated>
+  <id>http://buffered.io/</id>
+  <author>
+    <name><![CDATA[OJ Reeves]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Server Refresh]]></title>
+    <link href="http://buffered.io/posts/server-refresh/"/>
+    <updated>2009-02-16T07:24:00+10:00</updated>
+    <id>http://buffered.io/posts/server-refresh</id>
+    <content type="html"><![CDATA[<p>Over the weekend I revamped the webserver. Over the last month or two I've been bummed about the amount of overhead in maintaining a <a href="Gentoo" title="http://www.gentoo.org/">Gentoo</a> install as my webserver. Now before any of you Gentoo zealots have a whinge, let me explain.</p>
+
+<p>Yes, <a href="Portage" title="http://en.wikipedia.org/wiki/Portage_(software)">Portage</a> is cool. It's quick, it builds stuff from source, etc. While that power is great, it's a pain in the butt at the same time. Especially when you're running on a <a href="VPS" title="http://en.wikipedia.org/wiki/Virtual_private_server">VPS</a>. I am tired of the underlying bits and pieces changing constantly and me having to muck around with masking and unmasking packages just to get things to update and play nicely together.</p>
+
+<p>I made the decision to switch to <a href="Debian" title="http://www.debian.org/">Debian</a> and I am happy I did it. I don't think the time I'll have to spend maintaining the server will be as high as before. This is all about productivity and as far as I'm concerned this is going to reduce my workload. Given that my software installs don't change once I've got the server up and running, I shouldn't have to spend that amount of time keeping things running.</p>
+
+<p>As always, there's a risk of teething problems when you do a full reinstall. So if anyone out there is having issues then please <a href="Contact me" title="/contact-me/">let me know</a>. Cheers! :)</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Preview Feeds in Google Reader]]></title>
+    <link href="http://buffered.io/posts/preview-feeds-in-google-reader/"/>
+    <updated>2008-05-25T09:51:00+10:00</updated>
+    <id>http://buffered.io/posts/preview-feeds-in-google-reader</id>
+    <content type="html"><![CDATA[<p>Here's another reason why I find <a href="http://reader.google.com/" title="Google Reader">Google Reader</a> a excellent choice for reading your RSS feeds.</p>
+
+<p>Most of us have a collection of feeds that contain similar subject matter. As a geek, <em>most</em> of my feeds are geek-related. As a geek who likes to stay up to speed, I also like to know what other blogs and feeds are good to read.</p>
+
+<p>This is where Google Reader's <strong>Top Recommendations</strong> come in. Google do a great job of throwing other feeds in your face that you might like to read based on the kind of stuff that you've already subscribed to.</p>
+
+<!--more-->
+
+
+<p><a href="http://buffered.io/uploads/2008/05/reader_recommendations.png" rel="lightbox[rec_reader]" title="Recommended feeds"><img src="http://buffered.io/uploads/2008/05/reader_recommendations.png" alt="A shortlist of recommended feeds" title="Recommended feeds" width="300" height="205" class="aligncenter size-medium wp-image-361" /></a></p>
+
+<p>As you can see, it lists a few blogs that are of a similar nature to those that you read and gives you the option to view them. When you click on the <em>View all &gt;&gt;</em> button, you're presented with a rather extensive list:</p>
+
+<p><a href="http://buffered.io/uploads/2008/05/reader_rec_list.png" title="Detail list of recommended feeds" rel="lightbox[rec_reader]"><img src="http://buffered.io/uploads/2008/05/reader_rec_list.png" alt="Detail list of recommended feeds" title="Detail list of recommended feeds" width="300" height="205" class="aligncenter size-medium wp-image-362" /></a></p>
+
+<p>This next bit is something I really like. When I see a feed that I might be interested in (after weighing up how active the blog is and how many subscribers there are), I can click on the feed to preview it without having to subscribe to it first! Check it out:</p>
+
+<p><a href="http://buffered.io/uploads/2008/05/reader_rec_preview.png" rel="lightbox[rec_reader]" title="Feed preview"><img src="http://buffered.io/uploads/2008/05/reader_rec_preview.png" alt="Feed preview" title="Feed preview" width="300" height="205" class="aligncenter size-medium wp-image-360" /></a></p>
+
+<p>You can browse through the feed and interact with it as if it was part of your subscription list already. If you see some articles that take your fancy and the content appeals to you, you can easily subscribe by clicking on the profoundly obvious <em>Subscribe</em> button. If I don't like it, I can go back to the list, and I can even click on the "No thanks" link next to the feed so that it doesn't appear in my recommended list again.</p>
+
+<p>Too easy. This is exactly the kind of "ease of use" feature that I want from my RSS reader. I'm sure a couple of other readers would provide similar features, but the simplicity of this really blows my skirt up.</p>
+
+<p>+1 Google Reader (again).</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Shortcuts: Visual Studio 2005]]></title>
+    <link href="http://buffered.io/posts/shortcuts-visual-studio-2005/"/>
+    <updated>2007-02-11T09:37:00+10:00</updated>
+    <id>http://buffered.io/posts/shortcuts-visual-studio-2005</id>
+    <content type="html"><![CDATA[<p>Welcome to the next in the series of posts on program shortcuts. This time round we're talking Visual Studio. I'll be assuming that you don't have the <a href="http://www.viemu.com/" title="ViEmu" target="_blank">ViEmu</a> plugin enabled and that you're just using the IDE in the way it was intended without any other form of shortcut-based plugin installed.</p>
+
+<p>I'm using Visual Studio 2005 and I think I have the C# settings enabled by default. Most of these shortcuts will work regardless of the default setting that you have, but some of them will no doubt be different. Please note that I won't be going through every single shortcut that Visual Studio supports, instead I'll be going through the ones that I find very handy. If you're looking to find a complete list, then you should check out <a href="http://msdn.microsoft.com/" title="MSDN" target="_blank">MSDN</a>.</p>
+
+<p>Basic text manipulation shortcuts are the same as what is posted in the <a href="http://buffered.io/posts/shortcuts-windows/trackback/" title="Shortcuts: Windows">Windows shortcuts</a> entry that I posted. OK, on with the goodies.</p>
+
+<ul>
+<li><strong>CTRL + Space or CTRL + K, L</strong> - Display the Intellisense members drop-down based on the current cursor position, or auto-complete the current symbol.</li>
+<li><strong>CTRL + SHIFT + Space or CTRL + K, P</strong> - Display the Intellisense parameter list tool-tip based on the corrent curosr position (handy for when you've forgotten a function's singature).</li>
+<li><strong>CTRL + F3</strong> - Find the next instance of the word under the cursor.</li>
+<li><strong>F3</strong> - Find the next instance of the search word.</li>
+<li><strong>SHIFT + F3</strong> - Find the previous instance of the search word.</li>
+<li><strong>F5</strong> - Run in the debugger.</li>
+<li><strong>SHIFT + F5</strong> - Run without the debugger.</li>
+<li><strong>F6</strong> - Build solution.</li>
+<li><strong>SHIFT + F6</strong> - Build current project.</li>
+<li><strong>F7</strong> - Show code for the current item.</li>
+<li><strong>CTRL + F7</strong> - Compile current file.</li>
+<li><strong>F9</strong> - Toggle breakpoint.</li>
+<li><strong>F10</strong> - Step over current line (while debugging).</li>
+<li><strong>F11</strong> - Step into the current function call (while debugging).</li>
+<li><strong>F12</strong> - Go to definition.</li>
+<li><strong>CTRL + SHIFT + B</strong> - Rebuild.</li>
+<li><strong>CTRL + SHIFT + F9</strong> - Remove all breakpoints.</li>
+<li><strong>CTRL + D, B</strong> - Show the breakpoints window.</li>
+<li><strong>CTRL + D, E</strong> - Show the exceptions window.</li>
+<li><strong>CTRL + D, N</strong> - Set breakpoint in a function call.</li>
+<li><strong>CTRL + D, I</strong> - Show the Immediate window.</li>
+<li><strong>CTRL + ALT + P</strong> - Attach the debugger to a currently running process.</li>
+<li><strong>CTRL + SHIFT + A</strong> - Add a new item to the project.</li>
+<li><strong>SHIFT + ALT + A</strong> - Add an existing item to the project.</li>
+<li><strong>SHIFT + ALT + C</strong> - Add a new class to the project.</li>
+<li><strong>CTRL + &#45;</strong> - Navigate to previous location. If you've gone to the definition of a function, or moved to the end of a file, this shortcut will take you back to where you were. Quite handy for when you need to do things like add #includes to the top of the file and then return to where you were before.</li>
+<li><strong>CTRL + SHIFT + &#45;</strong> - Same as the previous shortcut, but navigating forward again.</li>
+<li><strong>CTRL + F</strong> - Open the Quick Find dialog.</li>
+<li><strong>CTRL + SHIFT + F</strong> - Open the Find in Files dialog.</li>
+<li><strong>CTRL + H</strong> - Open the Replace dialog.</li>
+<li><strong>CTRL + SHIFT + H</strong> - Open the Replace in Files dialog.</li>
+<li><strong>ALT + F12</strong> - Open the Find Symbol dialog.</li>
+<li><strong>CTRL + SHIFT + V</strong> - Cycle through the clipboard ring.</li>
+<li><strong>CTRL + K, F</strong> - Auto-format current selection.</li>
+<li><strong>CTRL + K, D</strong> - Auto-format current document.</li>
+<li><strong>CTRL + K, S</strong> - Surround selection with a template/code snippet.</li>
+<li><strong>SHIFT + ALT + Enter</strong> - Toggle Fullscreen.</li>
+<li><strong>CTRL + K, K or CTRL + B, T</strong> - Toggle bookmark at the current location.</li>
+<li><strong>CTRL + K, N or CTRL + B, N</strong> - Move to the next bookmark.</li>
+<li><strong>CTRL + B, P</strong> - Move to the previous bookmark.</li>
+<li><strong>CTRL + B, C</strong> - Clear all bookmarks.</li>
+<li><strong>CTRL + K, C</strong> - Comment out selected text.</li>
+<li><strong>CTRL + K, U</strong> - Uncomment selected text.</li>
+<li><strong>CTRL + M, M</strong> - Toggle view of current fold.</li>
+<li><strong>CTRL + M, L</strong> - Toggle view of all folds.</li>
+<li><strong>CTRL + M, O</strong> - Collapse to definitions.</li>
+<li><strong>CTRL + M, H</strong> - Hide selected text (shows up as '...').</li>
+<li><strong>CTRL + M, U</strong> - Unhide selected text.</li>
+</ul>
+
+
+<p>It's far from an exhaustive list, but I think there may well be some in there that you haven't seen before. There are a stack more, so check out the documentation if this little list doesn't sort you out.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Shortcuts: Windows]]></title>
+    <link href="http://buffered.io/posts/shortcuts-windows/"/>
+    <updated>2007-02-10T11:38:00+10:00</updated>
+    <id>http://buffered.io/posts/shortcuts-windows</id>
+    <content type="html"><![CDATA[<p>This is the first of a collection of posts that I'm going to be making about shortcuts in applications. I'm constantly on the lookout for keyboard shortcuts to aid in improving the speed of my day to day activities, and I thought it'd be a good idea to start sharing them with you. These posts will probably get edited a few times over the course of their lives as I find more shortcuts :)</p>
+
+<p>Below is a list of shortcuts that I use for generally getting around Windows. Note that when I refer to the <em>WIN</em> key I am referring to the Windows/Start key that lies between <em>CTRL</em> and <em>ALT</em> on the keyboard. Most of these shortcuts will work regardless of the application you're currently using as these shortcuts are 'unwritten laws'. Some of these are pretty obvious, but I'll stick them in anyway. Some of them might be XP specific, but most of them will work regardless of the Windows version.</p>
+
+<ul>
+<li><strong>WIN + E</strong> - Open a new Windows File Explorer window.</li>
+<li><strong>WIN + R</strong> - Open the 'Run' dialog.</li>
+<li><strong>WIN + F</strong> - Open a new Windows Search/Find window.</li>
+<li><strong>WIN + U</strong> - Open the <a href="http://www.microsoft.com/windowsxp/using/accessibility/openutilitymanager.mspx" title="Windows Utility Manager" target="_blank">Utility Manager</a> (most people don't even know this exists!).</li>
+<li><strong>WIN + M</strong> - Minimise all windows.</li>
+<li><strong>WIN + SHIFT + M</strong> - Restore all windows to the state they were in before pressing <em>WIN + M.</em></li>
+<li><strong>WIN + D</strong> - Toggles minimise/restore in the same way that <em>WIN + M</em> and <em>WIN + SHIFT + M</em> do.</li>
+<li><strong>WIN + Pause/Break</strong> - Open the System Properties dialog.</li>
+<li><strong>WIN + L</strong> - Lock the workstation.</li>
+<li><strong>CTRL + ALT + DEL</strong> - If logged in to your machine as a domain user, this will bring up a user options dialog which allows you to change password, lock workstation, etc. If logged into a home machine that is not part of a domain this will invoke the Windows Task Manager.</li>
+<li><strong>CTRL + ESC</strong> - Open the Start menu (handy for those without a Windows key).</li>
+<li><strong>CTRL + SHIFT + ESC</strong> - Open the Windows Task Manager.</li>
+<li><strong>ALT + TAB</strong> - Cycle through applications.</li>
+<li><strong>ALT + SHIFT + TAB</strong> - Cycle through applications in the other direction.</li>
+<li><strong>CTRL + TAB</strong> - Cycle through any tabs in the current application (eg. Firefox).</li>
+<li><strong>CTRL + SHIFT + TAB</strong> - Cycle through any tabs in the current application in the other direction.</li>
+<li><strong>ALT + SPACE + N</strong> - Minimise the current window.</li>
+<li><strong>ALT + SPACE + X</strong> - Maximise the current window.</li>
+<li><strong>ALT + SPACE + M</strong> - Move the current window.</li>
+<li><strong>CTRL + F4</strong> - Close the current document/tab.</li>
+<li><strong>ALT + F4</strong> - Close the current application.</li>
+<li><strong>CTRL + C</strong> - Copy the current folder/file/text/image/etc to the clipboard.</li>
+<li><strong>CTRL + X</strong> - Cut the current folder/file/text/image/etc to the clipboard.</li>
+<li><strong>CTRL + V</strong> - Paste the current folder/file/text/image/etc from the clipboard.</li>
+<li><strong>CTRL + Z</strong> - Undo.</li>
+<li><strong>CTRL + Y</strong> - Redo.</li>
+<li><strong>Print Scrn</strong> - Take a screenshot of the entire desktop (including open Windows) and store it on the clipboard.</li>
+<li><strong>ALT + Print Scrn</strong> - Take a screenshot of the current window.</li>
+</ul>
+
+
+<p>Now we're past the shortcuts, I'd also like to show you some of the other commands that I frequently punch into the 'Run' dialog (<em>WIN + R</em>) to quickly launch to applications instead of using the Start menu.</p>
+
+<ul>
+<li><strong>services.msc</strong> - Open the Windows Services dialog.</li>
+<li><strong>compmgmt.msc</strong> - Open the Computer Management dialog. This is great as it has all the bits that you need to manage your machine, such as IIS, Services, Security, etc.</li>
+<li><strong>eventvwr</strong> - Open the Windows Event Log viewer.</li>
+<li><strong>iisreset</strong> - Reset IIS (if you have it installed).</li>
+<li><strong>cmd</strong> - Open a command prompt.</li>
+<li><strong>msconfig</strong> - Open the <a href="http://www.microsoft.com/resources/documentation/windows/xp/all/proddocs/en-us/msconfig_usage.mspx" title="System Configuration Utility" target="_blank">System Configuration Utility</a>.</li>
+<li><strong>calc</strong> - Open the Windows Calculator.</li>
+<li><strong>notepad</strong> - See if you can figure this one out yourself ;).</li>
+<li><strong><em>drive:\path\to\folder</em></strong> - Open a Windows File Explorer window at the specified location.</li>
+<li><strong>mspaint</strong> - Open MS Paint for quick creation of images files from screen captures.</li>
+</ul>
+
+
+<p>There the ones I can think of at the moment, if I think of some more I'll add them. Please give me a shout if you use one that I haven't mentioned!</p>
+]]></content>
+  </entry>
+  
+</feed>

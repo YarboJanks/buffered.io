@@ -1,0 +1,1291 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Sorting | OJ's rants]]></title>
+  <link href="http://buffered.io/categories/sorting/atom.xml" rel="self"/>
+  <link href="http://buffered.io/"/>
+  <updated>2012-02-14T09:57:08+10:00</updated>
+  <id>http://buffered.io/</id>
+  <author>
+    <name><![CDATA[OJ Reeves]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Sorting Algorithms: The Gnome Sort]]></title>
+    <link href="http://buffered.io/posts/sorting-algorithms-the-gnome-sort/"/>
+    <updated>2008-10-16T20:58:00+10:00</updated>
+    <id>http://buffered.io/posts/sorting-algorithms-the-gnome-sort</id>
+    <content type="html"><![CDATA[<p><img src="http://buffered.io/uploads/2008/10/gnome.jpg" alt="Gnome Sort" title="Gnome Sort" width="240" style="float: right; margin-left: 5px; margin-bottom: 5px;"/>After a bit of down time for personal reasons, here is the fourth post in the series on <a href="http://buffered.io/category/sorting/" title="Sorting @ OJ's rants">sorting</a> algorithms. This time round we're taking a good look at the <strong>Gnome Sort</strong>.</p>
+
+<p>People often do a double-take when hearing the term "Gnome Sort" because it's not that common. The <strong>Gnome Sort</strong> is extremely simple, and is very similar to the principle behind the <strong>Insertion Sort</strong> (which we'll be covering soon).</p>
+
+<p>The Gnome Sort is yet another <em>comparison</em> and <em>exchange</em> sort which has elements that are similar to the <a href="http://buffered.io/posts/sorting-algorithms-the-bubble-sort/" title="Sorting Algorithms: The Bubble Sort">Bubble Sort</a>. If you haven't read up on the Bubble Sort, be sure to do that before reading this article as it may help with your understanding.</p>
+
+<!--more-->
+
+
+<p>Let's get straight into it!</p>
+
+<h2>Common Terms</h2>
+
+
+<ul>
+<li><em>Data set</em> - the array or list of items that is to be sorted.</li>
+<li><em>n</em> - the number of elements in the <em>data set</em>.</li>
+<li><em>Bubble</em> - perform a <strong>Bubble Sort-like</strong> shuffle of an item in a given direction.</li>
+</ul>
+
+
+
+
+<h2>The Algorithm</h2>
+
+
+<p>The first principle to bear in mind when doing a <strong>Gnome Sort</strong> is that as the algorithm progresses, all items to the left of the <em>current</em> item are always in order. Each iteration of the algorithm moves the current item to the correct spot with respect to the previously sorted items.</p>
+
+<p>The first part of the algorithm looks at the first two items in the <em>data set</em> and swaps them around if they are in the wrong order. Then, for each iteration thereafter, the next item is <em>bubbled backwards</em> towards to head of the list until a value is encountered which is less than the current item (or the head of the list is reached). At this point, the current item is left alone, and the sort continues from the next item.</p>
+
+<h2>The Example</h2>
+
+
+
+
+<p>As per usual we will use the same initial <em>data set</em> that we used for the Bubble Sort and Cocktail Sort to aid in highlighting the differences.</p>
+
+<p>The initial set looks like this:</p>
+
+<p><span class="eg">33 98 74 13 55 20 77 45 64 83</span></p>
+
+<p>The first step is to compare the firs two values:</p>
+
+<p><span class="eg"><b>33</b> <b>98</b> 74 13 55 20 77 45 64 83</span></p>
+
+<p>Given that they are in the correct order we leave this two values alone. We can say that two items in the <em>data set</em> are <strong>in order</strong>.</p>
+
+<p>Next we look at the item immediately after the <strong>in order</strong> items and compare that to the last sorted item:</p>
+
+<p><span class="eg">33 <b>98</b> <b>74</b> 13 55 20 77 45 64 83</span></p>
+
+<p>We can see that these two are not in the correct order, so we swap them:</p>
+
+<p><span class="eg">33 <i>74</i> <i>98</i> 13 55 20 77 45 64 83</span></p>
+
+<p>Given that we had to swap the values in the previous step, we can't assume that the current item is in the right location with respect to the other <strong>in order</strong> items, and hence we need to continue to work backwards. We compare the current item to the preceeding item in the <em>data set</em>:</p>
+
+<p><span class="eg"><b>33</b> <b>74</b> 98 13 55 20 77 45 64 83</span></p>
+
+<p>These two values are in the correct order, so we can now stop this iteration. At this point, the first three items in the set are sorted with respect to each other. Next, we move to the fourth item, and compare that with the last of the <strong>in order</strong> items:</p>
+
+<p><span class="eg">33 74 <b>98</b> <b>13</b> 55 20 77 45 64 83</span></p>
+
+<p>They're out of order, so we swap them:</p>
+
+<p><span class="eg">33 74 <i>13</i> <i>98</i> 55 20 77 45 64 83</span></p>
+
+<p>... and we keep <em>bubbling backwards</em> until we reach either a value that is smaller or the head of the list:</p>
+
+<p><span class="eg">33 <b>74</b> <b>13</b> 98 55 20 77 45 64 83</span>
+<span class="eg">33 <i>13</i> <i>74</i> 98 55 20 77 45 64 83</span>
+<span class="eg"><b>33</b> <b>13</b> 74 98 55 20 77 45 64 83</span>
+<span class="eg"><i>13</i> <i>33</i> 74 98 55 20 77 45 64 83</span></p>
+
+<p>Here we can see that 13 was the smallest number, so it was bubbled all the way to the head of the list. We then move on to the next iteration where we again compare the next item with the head of the list, and again <em>bubble backwards</em> until we reach the correct location. Here is a summary of the steps for the next iteration:</p>
+
+<p><span class="eg">13 33 74 <b>98</b> <b>55</b> 20 77 45 64 83</span>
+<span class="eg">13 33 74 <i>55</i> <i>98</i> 20 77 45 64 83</span>
+<span class="eg">13 33 <b>74</b> <b>55</b> 98 20 77 45 64 83</span>
+<span class="eg">13 33 <i>55</i> <i>74</i> 98 20 77 45 64 83</span>
+<span class="eg">13 <b>33</b> <b>55</b> 74 98 20 77 45 64 83</span></p>
+
+<p>55 is now in the correct spot with regards to the other pre-sorted items, so we move onto the next item. At this point it should be fairly obvious what's going on, so I shall show a summary for the rest of the example:</p>
+
+<p><span class="eg">13 33 55 74 <b>98</b> <b>20</b> 77 45 64 83</span>
+<span class="eg">13 33 55 74 <i>20</i> <i>98</i> 77 45 64 83</span>
+<span class="eg">13 33 55 <b>74</b> <b>20</b> 98 77 45 64 83</span>
+<span class="eg">13 33 55 <i>20</i> <i>74</i> 98 77 45 64 83</span>
+<span class="eg">13 33 <b>55</b> <b>20</b> 74 98 77 45 64 83</span>
+<span class="eg">13 33 <i>20</i> <i>55</i> 74 98 77 45 64 83</span>
+<span class="eg">13 <b>33</b> <b>20</b> 55 74 98 77 45 64 83</span>
+<span class="eg">13 <i>20</i> <i>33</i> 55 74 98 77 45 64 83</span>
+<span class="eg"><b>13</b> <b>20</b> 33 55 74 98 77 45 64 83</span>
+<span class="eg">13 20 33 55 74 <b>98</b> <b>77</b> 45 64 83</span>
+<span class="eg">13 20 33 55 74 <i>77</i> <i>98</i> 45 64 83</span>
+<span class="eg">13 20 33 55 <b>74</b> <b>77</b> 98 45 64 83</span>
+<span class="eg">13 20 33 55 74 77 <b>98</b> <b>45</b> 64 83</span>
+<span class="eg">13 20 33 55 74 77 <i>45</i> <i>98</i> 64 83</span>
+<span class="eg">13 20 33 55 74 <b>77</b> <b>45</b> 98 64 83</span>
+<span class="eg">13 20 33 55 74 <i>45</i> <i>77</i> 98 64 83</span>
+<span class="eg">13 20 33 55 <b>74</b> <b>45</b> 77 98 64 83</span>
+<span class="eg">13 20 33 55 <i>45</i> <i>74</i> 77 98 64 83</span>
+<span class="eg">13 20 33 <b>55</b> <b>45</b> 74 77 98 64 83</span>
+<span class="eg">13 20 33 <i>45</i> <i>55</i> 74 77 98 64 83</span>
+<span class="eg">13 20 <b>33</b> <b>45</b> 55 74 77 98 64 83</span>
+<span class="eg">13 20 33 45 55 74 77 <b>98</b> <b>64</b> 83</span>
+<span class="eg">13 20 33 45 55 74 77 <i>64</i> <i>98</i> 83</span>
+<span class="eg">13 20 33 45 55 74 <b>77</b> <b>64</b> 98 83</span>
+<span class="eg">13 20 33 45 55 74 <i>64</i> <i>77</i> 98 83</span>
+<span class="eg">13 20 33 45 55 <b>74</b> <b>64</b> 77 98 83</span>
+<span class="eg">13 20 33 45 55 <i>64</i> <i>74</i> 77 98 83</span>
+<span class="eg">13 20 33 45 <b>55</b> <b>64</b> 74 77 98 83</span>
+<span class="eg">13 20 33 45 55 64 74 77 <b>98</b> <b>83</b></span>
+<span class="eg">13 20 33 45 55 64 74 77 <i>83</i> <i>98</i></span>
+<span class="eg">13 20 33 45 55 64 74 <b>77</b> <b>83</b> 98</span>
+<span class="eg"><u>13</u> <u>20</u> <u>33</u> <u>45</u> <u>55</u> <u>64</u> <u>74</u> <u>77</u> <u>83</u> <u>98</u></span></p>
+
+<p>Note that we do not know for sure that an item is in the correct location until the entire set has been sorted.</p>
+
+<h2>The Implementation</h2>
+
+
+<p>Here is a sample implementation written in <a href="http://en.wikipedia.org/wiki/C_Sharp" title="C Sharp">C#</a>. It is heavily commented in the hope that it will aid in understanding how the algorithm works:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="c1">/// &lt;summary&gt;</span>
+</span><span class='line'><span class="c1">/// Example implementation of the Gnome Sort algorithm.</span>
+</span><span class='line'><span class="c1">/// &lt;/summary&gt;</span>
+</span><span class='line'><span class="c1">/// &lt;param name=&quot;dataSet&quot;&gt;Array of items to be sorted.&lt;/param&gt;</span>
+</span><span class='line'><span class="k">static</span> <span class="k">void</span> <span class="nf">GnomeSort</span><span class="p">(</span><span class="kt">int</span><span class="p">[]</span> <span class="n">dataSet</span><span class="p">)</span>
+</span><span class='line'><span class="p">{&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">pre</span><span class="p">&gt;&lt;</span><span class="n">code</span><span class="p">&gt;</span><span class="c1">// start at the second item</span>
+</span><span class='line'><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="m">1</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// keep track of the &#39;next&#39; item so we</span>
+</span><span class='line'><span class="c1">// can jump to it when the current iteration</span>
+</span><span class='line'><span class="c1">// is finished.</span>
+</span><span class='line'><span class="kt">int</span> <span class="n">j</span> <span class="p">=</span> <span class="m">2</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// loop until we reach the end of the data set</span>
+</span><span class='line'><span class="k">while</span> <span class="p">(</span><span class="n">i</span> <span class="p">&amp;</span><span class="n">lt</span><span class="p">;</span> <span class="n">dataSet</span><span class="p">.</span><span class="n">Length</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="c1">// swap if required</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="n">dataSet</span><span class="p">[</span><span class="n">i</span> <span class="p">-</span> <span class="m">1</span><span class="p">]</span> <span class="p">&amp;</span><span class="n">gt</span><span class="p">;</span> <span class="n">dataSet</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="n">Swap</span><span class="p">(</span><span class="n">dataSet</span><span class="p">,</span> <span class="n">i</span> <span class="p">-</span> <span class="m">1</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="c1">// move backwards through the sorted items</span>
+</span><span class='line'>        <span class="c1">// until we find the rightful spot.</span>
+</span><span class='line'>        <span class="p">--</span><span class="n">i</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="c1">// stop at the head of the list</span>
+</span><span class='line'>        <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="p">==</span> <span class="m">0</span><span class="p">)</span>
+</span><span class='line'>        <span class="p">{</span>
+</span><span class='line'>            <span class="c1">// jump to the next item in the set</span>
+</span><span class='line'>            <span class="n">i</span> <span class="p">=</span> <span class="n">j</span><span class="p">++;</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="k">else</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="c1">// jump to the next item in the set</span>
+</span><span class='line'>        <span class="n">i</span> <span class="p">=</span> <span class="n">j</span><span class="p">++;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="p">&lt;/</span><span class="n">code</span><span class="p">&gt;&lt;/</span><span class="n">pre</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h2>The Complexity</h2>
+
+
+<p>This is not a very efficient algorithm. It's time and space complexity are exactly that of the <a href="http://buffered.io/posts/sorting-algorithms-the-bubble-sort/" title="Sorting Algorithms: The Bubble Sort">Bubble Sort</a>. That is, the time complexity is O(n<sup>2</sup>), and space complexity for in-place sorting is O(1).</p>
+
+<p><a name="GnomeSortBitBucket"></a></p>
+
+<h2>Other Implementations</h2>
+
+
+<p>I'm slowly gathering a collection of implementations of all the sorting algorithms, including the ones listed above, that I'm covering in this series and posting them up on <a href="http://www.bitbucket.org/OJ/sorting/overview/" title="Sorting @ OJ's BitBucket">BitBucket</a>. The Gnome Sort implementations can be found <a href=http://www.bitbucket.org/OJ/sorting/src/3f2af8511799/04-GnomeSort/" title="GnomeSort @ OJ's BitBucket">here</a>.</p>
+
+<p><em>Note: You'll need <a href="http://www.selenic.com/mercurial/" title="Mercurial">Mercurial</a> if you want to pull directly from the repository, otherwise you'll have to copy and paste from the web.</em></p>
+
+<h2>References and Other Information</h2>
+
+
+<ol>
+<li><a href="http://en.wikipedia.org/wiki/Gnome_sort" title="Gnome sort">Wikipedia - Gnome sort</a></li>
+</ol>
+
+
+<p>Next up, we'll be looking at the first of the mind-bending algorithms: the <strong>Quick Sort</strong>.</p>
+
+<h2>Disclaimer</h2>
+
+
+<p>I'm no expert, nor an authority. The post above is based on my experience and a bit of research. If you find something wrong with anything I've said please let me know. Comments and feedback are greatly appreciated.</p>
+
+<p><em>Note: For those reading this article in an RSS reader, you may find the colours do not appear in the examples properly. For some reason the feed is stripping out some of the formatting. I will do my best to fix this up soon.</em></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Sorting Algorithms: The Comb Sort]]></title>
+    <link href="http://buffered.io/posts/sorting-algorithms-the-comb-sort/"/>
+    <updated>2008-09-14T20:26:00+10:00</updated>
+    <id>http://buffered.io/posts/sorting-algorithms-the-comb-sort</id>
+    <content type="html"><![CDATA[<p><img src="http://buffered.io/uploads/2008/09/combsort.jpg" alt="Comb Sort" title="Comb Sort" width="150" style="float: left; margin-right: 5px; margin-bottom: 5px;" />Welcome to this, the third post in the series on <a href="http://buffered.io/category/sorting/" title="Sorting @ OJ's rants">sorting</a> algorithms. Next up, we're going to cover the <strong>Comb Sort</strong>.</p>
+
+<p>Like the <a href="http://buffered.io/posts/sorting-algorithms-the-cocktail-sort/" title="Sorting Algorithms: The Cocktail Sort">Cocktail Sort</a>, the Comb Sort isn't particularly well known. Most people manage to make their way through tertiary studies without ever hearing of it. This post is designed to change that!</p>
+
+<p>The Comb Sort is another <em>comparison</em> and <em>exchange</em> sort which builds on the idea of the <a href="http://buffered.io/posts/sorting-algorithms-the-bubble-sort/" title="Sorting Algorithms: The Bubble Sort">Bubble Sort</a> and adds a potential optimisation or two.</p>
+
+<p>Make sure you read the articles on the <a href="http://buffered.io/posts/sorting-algorithms-the-bubble-sort/" title="Sorting Algorithms: The Bubble Sort">Bubble Sort</a> and the <a href="http://buffered.io/posts/sorting-algorithms-the-cocktail-sort/" title="Sorting Algorithms: The Cocktail Sort">Cocktail Sort</a> before you read this article. Doing so will make it much easier to understand.</p>
+
+<!--more-->
+
+
+<p>Right, enough with the introductions, let's break it down!</p>
+
+<h2>Common Terms</h2>
+
+
+<ul>
+<li><em>Data set</em> - the array or list of items that is to be sorted.</li>
+<li><em>n</em> - the number of elements in the <em>data set</em>.</li>
+<li><em>Turtle</em> - a name given to small numbers that appear towards the end of a <em>data set</em>. When used in a <strong>Bubble Sort</strong>, small numbers at the end of the set take a very long time to get to the front of the list, and hence are called <em>turtles</em> because of the lack of speed.</li>
+<li><em>Hare</em> - a name given to large numbers that appear towards the start of a <em>data set</em>. When used in a <strong>Bubble Sort</strong>, large numbers move to the end of the set very quickly, and hence are called <em>hares</em> due to their high speed.</li>
+<li><em>Killing the turtles</em> - a phrase that implies quickly moving <em>turtles</em> to the front of the <em>data set</em>.
+<li><em>Gap</em> - the size of the gap between areas of the <em>data set</em> that are being sorted during a given iteration of the sort.
+<li><em>Shrink Factor</em> - a factor which is applied to the <em>gap</em> prior to each iteration to reduce its size.
+</ul>
+
+
+
+
+<h2>A Bit of Background Information</h2>
+
+
+<p>The <strong>Comb Sort</strong>, along with the <strong>Cocktail Sort</strong>, was developed as an improvement to the <strong>Bubble Sort</strong> using the idea of <em>killing the turtles</em>. <em>Turtles</em> drastically reduce the efficiency of the <strong>Bubble Sort</strong> and hence are an obvious place to attempt optimisation.</p>
+
+<p>The Bubble Sort algorithm always compares values that are adjacent to each other in the <em>data set</em>. The Comb Sort improves on this by adding a <em>gap</em> which allows non-adjacent numbers to be compared. After each iteration, the <em>gap</em> is reduced by a <em>shrink factor</em> until it reaches the value of <strong>1</strong>. Hence, at the very end, the Comb Sort behaves exactly like the Bubble Sort.</p>
+
+<p>One interesting thing to note about this algorithm is that it's almost as fast as a Quick Sort!</p>
+
+<h2>The Algorithm</h2>
+
+
+<p>Each iteration of the algorithm consists of three stages:<ol><li>Calculation of the <em>gap</em> value.</li><li>Iterating over the <em>data set</em> comparing each item with the item that is <em>"gap"</em> elements further down the list and swapping them if required.</li><li>Checking to see if the gap value has reached one and no swaps have occurred. If so, then the set has been sorted.</li></ol></p>
+
+<h3>1. Calculating the "gap"</h3>
+
+
+<p>The <em>gap</em>, which is essentially an offset used when comparing elements, is something that changes for each iteration. The value needs to change in a uniform manner in such a way as to provide optimum comparisons during the sorting phases.</p>
+
+<p>Stephen Lacey and Richard Box, who popularised the algorithm, suggested that in each iteration the <em>gap</em> should be reduced by a factor of approximately 1.3 (see the <a href="http://en.wikipedia.org/wiki/Comb_sort" title="Comb sort @ Wikipedia">wikipedia article</a> for more information). Hence, calculation of the <em>gap</em> is as simple as starting with the size of the <em>data set</em> and dividing by a <em>shrink factor</em> of 1.3 each iteration.</p>
+
+<h3>2. Iterating and Swapping</h3>
+
+
+<p>This phase is the same as the Bubble Sort. The only difference in the Comb Sort is that the items which are compared are <em>i</em> and <em>i + gap</em> as opposed to <em>i</em> and <em>i + 1</em>.</p>
+
+<p>For each iteration, we start at the beginning of the <em>data set</em> and loop until <em>i + gap</em> is greater-than or equal to the size of the <em>data </em>. For each sub-iteration in this loop, we compare <em>i</em> and <em>i + gap</em> and swap the values if required.</p>
+
+<p>At this point the <em>gap is recalculated</em> and we go again.</p>
+
+<h3>3. Terminating the Loop</h3>
+
+
+<p>When the <em>gap</em> value reaches one, we know that we're now behaving the same as the Bubble Sort algorithm (since we're comparing <em>i</em> and <em>i + 1</em>), so we know that if we don't perform any swaps during the iteration then the set must be sorted.</p>
+
+<h2>The Example</h2>
+
+
+
+
+<p>As per usual we will use the same initial <em>data set</em> that we used for the Bubble Sort and Cocktail Sort to aid in highlighting the differences.</p>
+
+<p>The initial set looks like this:</p>
+
+<p><span class="eg">33 98 74 13 55 20 77 45 64 83</span></p>
+
+<p>We start by setting our <em>gap</em> value to 10, which is the size of the set. We then shrink the gap by the <em>shrink factor</em>, 1.3, which results in the value of 7 (when rounded down).</p>
+
+<p>The first iteration starts at the beginning of the set, comparing the 1st item with the item that is "<em>gap</em>" elements further up the set (the 8th item). These two items are shown in red:</p>
+
+<p><span class="eg"><b>33</b> 98 74 13 55 20 77 <b>45</b> 64 83</span></p>
+
+<p>33 is less than 45, so no swap is required. We then move to the 2nd item, and compare that item with the 9th item:</p>
+
+<p><span class="eg">33 <b>98</b> 74 13 55 20 77 45 <b>64</b> 83</span></p>
+
+<p>We perform a swap at this point because 98 is bigger than 64. The swap is shown in blue:</p>
+
+<p><span class="eg">33 <i>64</i> 74 13 55 20 77 45 <i>98</i> 83</span></p>
+
+<p>We then move on to compare the 3rd and 10th elements:</p>
+
+<p><span class="eg">33 64 <b>74</b> 13 55 20 77 45 98 <b>83</b></span></p>
+
+<p>Again, no swap is required here as the numbers are in the right order.</p>
+
+<p>At this point we have completed our first iteration as we've reached the end of the set. Given that the <em>gap</em> value is not 1, we know we still have more iterations to go. So we need to recalculate our <em>gap</em> value by dividing it again by the <em>shrink factor</em>, resulting in a value of 5 (after rounding down).</p>
+
+<p>We then start another iteration from the beginning of the set, using the <em>gap</em> value of 5 as the offset. We start with the 1st and 6th items:</p>
+
+<p><span class="eg"><b>33</b> 64 74 13 55 <b>20</b> 77 45 98 83</span></p>
+
+<p>Given 33 is bigger than 20, we swap:</p>
+
+<p><span class="eg"><i>20</i> 64 74 13 55 <i>33</i> 77 45 98 83</span></p>
+
+<p>Then we compare the 2nd and 7th items:</p>
+
+<p><span class="eg">20 <b>64</b> 74 13 55 33 <b>77</b> 45 98 83</span></p>
+
+<p>No swap required, move to the 3rd and 8th items:</p>
+
+<p><span class="eg">20 64 <b>74</b> 13 55 33 77 <b>45</b> 98 83</span></p>
+
+<p>Perform the swap since 74 is bigger than 45:</p>
+
+<p><span class="eg">20 64 <i>45</i> 13 55 33 77 <i>74</i> 98 83</span></p>
+
+<p>We then compare the 4th and 9th items:</p>
+
+<p><span class="eg">20 64 45 <b>13</b> 55 33 77 74 <b>98</b> 83</span></p>
+
+<p>No swap required, compare the 5th and 10th items:</p>
+
+<p><span class="eg">20 64 45 13 <b>55</b> 33 77 74 98 <b>83</b></span></p>
+
+<p>Again, no swap required. We've hit the end of this next iteration, and since <em>gap</em> doesn't equal 1, we recalculate (resulting in the value of 3) and go again.</p>
+
+<p>This time I'll just show a summary of the steps:</p>
+
+<p><span class="eg"><b>20</b> 64 45 <b>13</b> 55 33 77 74 98 83</span>
+<span class="eg"><i>13</i> 64 45 <i>20</i> 55 33 77 74 98 83</span>
+<span class="eg">13 <b>64</b> 45 20 <b>55</b> 33 77 74 98 83</span>
+<span class="eg">13 <i>55</i> 45 20 <i>64</i> 33 77 74 98 83</span>
+<span class="eg">13 55 <b>45</b> 20 64 <b>33</b> 77 74 98 83</span>
+<span class="eg">13 55 <i>33</i> 20 64 <i>45</i> 77 74 98 83</span>
+<span class="eg">13 55 33 <b>20</b> 64 45 <b>77</b> 74 98 83</span>
+<span class="eg">13 55 33 20 <b>64</b> 45 77 <b>74</b> 98 83</span>
+<span class="eg">13 55 33 20 64 <b>45</b> 77 74 <b>98</b> 83</span>
+<span class="eg">13 55 33 20 64 45 <b>77</b> 74 98 <b>83</b></span></p>
+
+<p>Again, we iterate the value of <em>gap</em>, which becomes 2, and we go again:</p>
+
+<p><span class="eg"><b>13</b> 55 <b>33</b> 20 64 45 77 74 98 83</span>
+<span class="eg">13 <b>55</b> 33 <b>20</b> 64 45 77 74 98 83</span>
+<span class="eg">13 <i>20</i> 33 <i>55</i> 64 45 77 74 98 83</span>
+<span class="eg">13 20 <b>33</b> 55 <b>64</b> 45 77 74 98 83</span>
+<span class="eg">13 20 33 <b>55</b> 64 <b>45</b> 77 74 98 83</span>
+<span class="eg">13 20 33 <i>45</i> 64 <i>55</i> 77 74 98 83</span>
+<span class="eg">13 20 33 45 <b>64</b> 55 <b>77</b> 74 98 83</span>
+<span class="eg">13 20 33 45 64 <b>55</b> 77 <b>74</b> 98 83</span>
+<span class="eg">13 20 33 45 64 55 <b>77</b> 74 <b>98</b> 83</span>
+<span class="eg">13 20 33 45 64 55 77 <b>74</b> 98 <b>83</b></span></p>
+
+<p>Finally, we reduce the value of <em>gap</em> one more time, resulting in the value of 1. We're finally at the <strong>Bubble Sort</strong> stage, and hence the last iteration looks like this:</p>
+
+<p><span class="eg"><b>13</b> <b>20</b> 33 45 64 55 77 74 98 83</span>
+<span class="eg">13 <b>20</b> <b>33</b> 45 64 55 77 74 98 83</span>
+<span class="eg">13 20 <b>33</b> <b>45</b> 64 55 77 74 98 83</span>
+<span class="eg">13 20 33 <b>45</b> <b>64</b> 55 77 74 98 83</span>
+<span class="eg">13 20 33 45 <b>64</b> <b>55</b> 77 74 98 83</span>
+<span class="eg">13 20 33 45 <i>55</i> <i>64</i> 77 74 98 83</span>
+<span class="eg">13 20 33 45 55 <b>64</b> <b>77</b> 74 98 83</span>
+<span class="eg">13 20 33 45 55 64 <b>77</b> <b>74</b> 98 83</span>
+<span class="eg">13 20 33 45 55 64 <i>74</i> <i>77</i> 98 83</span>
+<span class="eg">13 20 33 45 55 64 74 77 <b>98</b> <b>83</b></span>
+<span class="eg">13 20 33 45 55 64 74 77 <i>83</i> <i>98</i></span>
+<span class="eg"><u>13</u> <u>20</u> <u>33</u> <u>45</u> <u>55</u> <u>64</u> <u>74</u> <u>77</u> <u>83</u> <u>98</u></span></p>
+
+<p>At this point we know, due to observation, that the list is sorted. Unfortunately, the algorithm is yet to know. It looks at the value of <em>gap</em> and sees that it is set to 1, but during the last iteration there were swaps -- so the code will iterate again.</p>
+
+<p>At the end of this iteration, given that there were no swaps, it will know that the list is sorted and the code will terminate.</p>
+
+<h2>The Implementation</h2>
+
+
+<p>Here is a sample implementation written in <a href="http://en.wikipedia.org/wiki/C_Sharp" title="C Sharp">C#</a>. It is heavily commented in the hope that it will aid in understanding how the algorithm works:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="c1">/// &lt;summary&gt;</span>
+</span><span class='line'><span class="c1">/// The implementation of the standard comb sort algorithm which sorts</span>
+</span><span class='line'><span class="c1">/// an array of integers.</span>
+</span><span class='line'><span class="c1">/// &lt;/summary&gt;</span>
+</span><span class='line'><span class="c1">/// &lt;param name=&quot;dataSet&quot;&gt;Reference to the dataset that is to be soroted.&lt;/param&gt;</span>
+</span><span class='line'><span class="k">static</span> <span class="k">void</span> <span class="nf">CombSort</span><span class="p">(</span><span class="kt">int</span><span class="p">[]</span> <span class="n">dataSet</span><span class="p">)</span>
+</span><span class='line'><span class="p">{&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">pre</span><span class="p">&gt;&lt;</span><span class="n">code</span><span class="p">&gt;</span><span class="c1">// start by using the length/size of the set as the gap.</span>
+</span><span class='line'><span class="kt">int</span> <span class="n">gap</span> <span class="p">=</span> <span class="n">dataSet</span><span class="p">.</span><span class="n">Length</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// loop indefinately.</span>
+</span><span class='line'><span class="k">while</span> <span class="p">(</span><span class="k">true</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="c1">// update the gap value so that it shrinks</span>
+</span><span class='line'>    <span class="c1">// towards 1.</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="n">gap</span> <span class="p">&amp;</span><span class="n">gt</span><span class="p">;</span> <span class="m">1</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="n">gap</span> <span class="p">=</span> <span class="p">(</span><span class="kt">int</span><span class="p">)((</span><span class="kt">double</span><span class="p">)</span><span class="n">gap</span> <span class="p">/</span> <span class="n">SHRINK_FACTOR</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// do the comb sort with the current gap</span>
+</span><span class='line'>    <span class="kt">bool</span> <span class="n">swapped</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">+</span> <span class="n">gap</span> <span class="p">&amp;</span><span class="n">lt</span><span class="p">;</span> <span class="n">dataSet</span><span class="p">.</span><span class="n">Length</span><span class="p">;</span> <span class="p">++</span><span class="n">i</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="k">if</span> <span class="p">(</span><span class="n">dataSet</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="p">&amp;</span><span class="n">gt</span><span class="p">;</span> <span class="n">dataSet</span><span class="p">[</span><span class="n">i</span> <span class="p">+</span> <span class="n">gap</span><span class="p">])</span>
+</span><span class='line'>        <span class="p">{</span>
+</span><span class='line'>            <span class="n">Swap</span><span class="p">(</span><span class="n">dataSet</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">i</span> <span class="p">+</span> <span class="n">gap</span><span class="p">);</span>
+</span><span class='line'>            <span class="n">swapped</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// if we&#39;re down to a gap of 1, and we haven&#39;t swapped</span>
+</span><span class='line'>    <span class="c1">// anything, then we&#39;re sorted.</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="n">gap</span> <span class="p">==</span> <span class="m">1</span> <span class="p">&amp;</span><span class="n">amp</span><span class="p">;&amp;</span><span class="n">amp</span><span class="p">;</span> <span class="p">!</span><span class="n">swapped</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="p">&lt;/</span><span class="n">code</span><span class="p">&gt;&lt;/</span><span class="n">pre</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h2>The Complexity</h2>
+
+
+<p>This is quite surprising. Despite being based on the idea of a <a href="http://buffered.io/posts/sorting-algorithms-the-bubble-sort/" title="Sorting Algorithms: The Bubble Sort">Bubble Sort</a> the time complexity is just O(n log n), and space complexity for in-place sorting is O(1). Amazing for such a simple sorting algorithm!</p>
+
+<h2>A Note on Performance</h2>
+
+
+<p>What I'm about to say is almost a direct rip-off of Wikipedia ;) But at least I'm being honest!</p>
+
+<p>When you use a <em>shrink factor</em> of 1.3, as recommended, it turns out that there are only 3 ways for the gap sizes to reduce to 1. They are:</p>
+
+<p><span class="eg">1. - 9, 6, 4, 3, 2, 1</span>
+<span class="eg">2. - 10, 7, 5, 3, 2, 1</span>
+<span class="eg">3. - 11, 8, 6, 4, 3, 2, 1</span></p>
+
+<p>According to Wikipedia, it turns out that the 3rd option is the only one which manages to <em>kill all turtles</em> before the <em>gap</em> becomes 1. I haven't been able to find anything that backs this up though.</p>
+
+<p>Assuming that this is true, we can create a modified version of the <strong>Comb Sort</strong> which has this extra little check:
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">if</span><span class="p">(</span><span class="n">gap</span> <span class="p">==</span> <span class="m">9</span> <span class="p">||</span> <span class="n">gap</span> <span class="p">==</span> <span class="m">10</span><span class="p">)</span>
+</span><span class='line'><span class="p">{&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">pre</span><span class="p">&gt;&lt;</span><span class="n">code</span><span class="p">&gt;</span><span class="n">gap</span> <span class="p">=</span> <span class="m">11</span><span class="p">;</span>
+</span><span class='line'><span class="p">&lt;/</span><span class="n">code</span><span class="p">&gt;&lt;/</span><span class="n">pre</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>This is a little hack which makes sure that we get the third option before we reduce the <em>gap</em> to 1. Of course, this would only have an effect on sets of data which have more than 11 elements.</p>
+
+<p><a name="CombSortBitBucket"></a></p>
+
+<h2>Other Implementations</h2>
+
+
+<p>I'm slowly gathering a collection of implementations of all the sorting algorithms, including the ones listed above, that I'm covering in this series and posting them up on <a href="http://www.bitbucket.org/OJ/sorting/overview/" title="Sorting @ OJ's BitBucket">BitBucket</a>. The Comb Sort implementations can be found <a href="http://www.bitbucket.org/OJ/sorting/src/b26f42ecdbe0/03-CombSort/" title="CombSort @ OJ's BitBucket">here</a>.</p>
+
+<p><em>Note: You'll need <a href="http://www.selenic.com/mercurial/" title="Mercurial">Mercurial</a> if you want to pull directly from the repository, otherwise you'll have to copy and paste from the web.</em></p>
+
+<h2>References and Other Information</h2>
+
+
+<ol>
+<li><a href="http://en.wikipedia.org/wiki/Comb_sort" title="Comb sort">Wikipedia - Comb sort</a></li>
+</ol>
+
+
+<p>Next up, we'll be looking at the <a href="http://buffered.io/posts/sorting-algorithms-the-gnome-sort/" title="Sorting Algorithms: The Gnome Sort">Gnome Sort</a>.</p>
+
+<h2>Disclaimer</h2>
+
+
+<p>I'm no expert, nor an authority. The post above is based on my experience and a bit of research. If you find something wrong with anything I've said please let me know. Comments and feedback are greatly appreciated.</p>
+
+<p><em>Note: For those reading this article in an RSS reader, you may find the colours do not appear in the examples properly. For some reason the feed is stripping out some of the formatting. I will do my best to fix this up soon.</em></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Sorting Algorithms: The Cocktail Sort]]></title>
+    <link href="http://buffered.io/posts/sorting-algorithms-the-cocktail-sort/"/>
+    <updated>2008-08-29T21:44:00+10:00</updated>
+    <id>http://buffered.io/posts/sorting-algorithms-the-cocktail-sort</id>
+    <content type="html"><![CDATA[<p><img src="http://buffered.io/uploads/2008/08/cocktail.jpg" alt="Cocktail" title="Cocktail" style="float: right; margin-left: 5px; margin-bottom: 5px" />Welcome to the second post in my series on <a href="http://buffered.io/category/sorting/" title="Sorting @ OJ's rants">sorting</a> algorithms. This time we're going to talk about a sort that most people haven't heard a great deal about: the <strong>Cocktail Sort</strong>.</p>
+
+<p>This algorithm was the next logical choice in the series because it is very similar to the <a href="http://buffered.io/posts/sorting-algorithms-the-bubble-sort/" title="Sorting Algorithms: The Bubble Sort">Bubble Sort</a> in the way that it operates. If you're yet to read the first in the series, head <a href="http://buffered.io/posts/sorting-algorithms-the-bubble-sort/" title="Sorting Algorithms: The Bubble Sort">over there now</a> as it will make this algorithm easier to understand.</p>
+
+<!--more-->
+
+
+<p>Fundamentally the algorithm is the same. The difference is that the Cocktail Sort iterates through a given <em>data set</em> in <strong>both</strong> directions when sorting. So let's break it down.</p>
+
+<h2>Common Terms</h2>
+
+
+<ul>
+<li><em>Data set</em> - the array or list of items that is to be sorted.</li>
+<li><em>n</em> - the number of elements in the <em>data set</em></li>
+</ul>
+
+
+
+
+<h2>The Algorithm</h2>
+
+
+<p>Each iteration of the algorithm is broken up into two stages.</p>
+
+<p>The first stage loops through the <em>data set</em> from bottom to top, just like the Bubble Sort. During the loop, adjacent items are compared. If at any point the value on the left is greater than the value on the right, the items are swapped. At the end of the first iteration, the largest number will reside at the end of the set.</p>
+
+<p>The second stage loops through the <em>data set</em> in the <strong>opposite</strong> direction - starting from the item just before the most recently sorted item, and moving back towards the start of the list. Again, adjacent items are swapped if required.</p>
+
+<p>The Cocktail Sort also fits in the category of <strong>Exchange Sorts</strong> due to the manner in which elements are moved inside the <em>data set</em> during the sorting process.</p>
+
+<h2>The Example</h2>
+
+
+
+
+<p>We will use the same initial <em>data set</em> that we used for the Bubble Sort to aid in highlighting the differences.</p>
+
+<p>The initial set looks like this:</p>
+
+<p><span class="eg">33 98 74 13 55 20 77 45 64 83</span></p>
+
+<p>The first iteration starts at the beginning of the list, comparing the first two items (marked in red):</p>
+
+<p><span class="eg"><b>33 98</b> 74 13 55 20 77 45 64 83</span></p>
+
+<p>Since 33 is less than 98, no swapping needs to be done as they're already in the correct order. So we move on to the next comparison:</p>
+
+<p><span class="eg">33 <b>98 74</b> 13 55 20 77 45 64 83</span></p>
+
+<p>This time a swap is required as 98 is greater than 74:</p>
+
+<p><span class="eg">33 <i>74 98</i> 13 55 20 77 45 64 83</span></p>
+
+<p>We do the same again, this time starting at the third item:</p>
+
+<p><span class="eg">33 74 <b>98 13</b> 55 20 77 45 64 83</span></p>
+
+<p>Again, we need to swap the items since they're not in order:</p>
+
+<p><span class="eg">33 74 <i>13 98</i> 55 20 77 45 64 83</span></p>
+
+<p>We repeat this process until we get to the end of the list (marked in green):</p>
+
+<p><span class="eg">33 74 13 55 20 77 45 64 83 <u>98</u></span></p>
+
+<p>As was mentioned earlier, the result is that the largest number, <em>98</em> is placed at the end of the list. The next stage of the first iteration requires us to loop in the opposite direction. Since we know that <em>98</em> is in its rightful place, we start at the items immediately to the left:</p>
+
+<p><span class="eg">33 74 13 55 20 77 45 <b>64 83</b> <u>98</u></span></p>
+
+<p>We perform the same comparison as normal, and in this case we can see that we don't have to swap the items because 64 is less than 83. We move on to the next pair:</p>
+
+<p><span class="eg">33 74 13 55 20 77 <b>45 64</b> 83 <u>98</u></span></p>
+
+<p>Again, we find that a swap is not necessary because 45 is less than 64. Moving down the list again we compare the previous pair:</p>
+
+<p><span class="eg">33 74 13 55 20 <b>77 45</b> 64 83 <u>98</u></span></p>
+
+<p>This time we <strong>do</strong> want to swap the items, because 45 is less than 77, and hence the items are in the wrong order.</p>
+
+<p><span class="eg">33 74 13 55 20 <i>45 77</i> 64 83 <u>98</u></span></p>
+
+<p>With the swap complete we again move to the previous pair:</p>
+
+<p><span class="eg">33 74 13 55 <b>20 45</b> 77 64 83 <u>98</u></span></p>
+
+<p>Again, no swap needed, look at the previous pair:</p>
+
+<p><span class="eg">33 74 13 <b>55 20</b> 45 77 64 83 <u>98</u></span></p>
+
+<p>These two are not in the right order, so swap them:</p>
+
+<p><span class="eg">33 74 13 <i>20 55</i> 45 77 64 83 <u>98</u></span></p>
+
+<p>With the swap performed, we again move to the previous pair:</p>
+
+<p><span class="eg">33 74 <b>13 20</b> 55 45 77 64 83 <u>98</u></span></p>
+
+<p>No swap needed, go to the previous pair:</p>
+
+<p><span class="eg">33 <b>74 13</b> 20 55 45 77 64 83 <u>98</u></span></p>
+
+<p>These are out of order, so swap:</p>
+
+<p><span class="eg">33 <i>13 74</i> 20 55 45 77 64 83 <u>98</u></span></p>
+
+<p>Finally we look at the last pair in this stage:</p>
+
+<p><span class="eg"><b>33 13</b> 74 20 55 45 77 64 83 <u>98</u></span></p>
+
+<p>Again a swap is required:</p>
+
+<p><span class="eg"><i>13 33</i> 74 20 55 45 77 64 83 <u>98</u></span></p>
+
+<p>We're now done with the second stage, and as we can see we have the highest and lowest values at the end and start of the set (respectively):</p>
+
+<p><span class="eg"><u>13</u> 33 74 20 55 45 77 64 83 <u>98</u></span></p>
+
+<p>So at this point we're ready to iterate again, but we don't want to include the items that have already been sorted because we know they're in the right spot. Here's a short hand demo of both stages of the next iteration (remember, comparisons are in red, swaps are in blue, stores are in green):</p>
+
+<p><span class="eg"><u>13</u> <b>33 74</b> 20 55 45 77 64 83 <u>98</u></span>
+<span class="eg"><u>13</u> 33 <b>74 20</b> 55 45 77 64 83 <u>98</u></span>
+<span class="eg"><u>13</u> 33 <i>20 74</i> 55 45 77 64 83 <u>98</u></span>
+<span class="eg"><u>13</u> 33 20 <b>74 55</b> 45 77 64 83 <u>98</u></span>
+<span class="eg"><u>13</u> 33 20 <i>55 74</i> 45 77 64 83 <u>98</u></span>
+<span class="eg"><u>13</u> 33 20 55 <b>74 45</b> 77 64 83 <u>98</u></span>
+<span class="eg"><u>13</u> 33 20 55 <i>45 74</i> 77 64 83 <u>98</u></span>
+<span class="eg"><u>13</u> 33 20 55 45 <b>74 77</b> 64 83 <u>98</u></span>
+<span class="eg"><u>13</u> 33 20 55 45 74 <b>77 64</b> 83 <u>98</u></span>
+<span class="eg"><u>13</u> 33 20 55 45 74 <i>77 64</i> 83 <u>98</u></span>
+<span class="eg"><u>13</u> 33 20 55 45 74 77 <b>64 83</b> <u>98</u></span>
+<span class="eg"><u>13</u> 33 20 55 45 74 <b>77 64</b> <u>83</u> <u>98</u></span>
+<span class="eg"><u>13</u> 33 20 55 45 74 <i>64 77</i> <u>83</u> <u>98</u></span>
+<span class="eg"><u>13</u> 33 20 55 45 <b>74 64</b> 77 <u>83</u> <u>98</u></span>
+<span class="eg"><u>13</u> 33 20 55 45 <i>64 74</i> 77 <u>83</u> <u>98</u></span>
+<span class="eg"><u>13</u> 33 20 55 <b>45 64</b> 74 77 <u>83</u> <u>98</u></span>
+<span class="eg"><u>13</u> 33 20 <b>55 45</b> 64 74 77 <u>83</u> <u>98</u></span>
+<span class="eg"><u>13</u> 33 20 <i>45 55</i> 64 74 77 <u>83</u> <u>98</u></span>
+<span class="eg"><u>13</u> 33 <b>20 45</b> 55 64 74 77 <u>83</u> <u>98</u></span>
+<span class="eg"><u>13</u> <b>33 20</b> 45 55 64 74 77 <u>83</u> <u>98</u></span>
+<span class="eg"><u>13</u> <i>20 33</i> 45 55 64 74 77 <u>83</u> <u>98</u></span>
+<span class="eg"><u>13</u> <u>20</u> 33 45 55 64 74 77 <u>83</u> <u>98</u></span></p>
+
+<p>The process repeats again. But this time as we iterate through, we can see that no swaps are required. The result after the next iterate is simple:</p>
+
+<p><span class="eg"><u>13</u> <u>20</u> <u>33</u> <u>45</u> <u>55</u> <u>64</u> <u>74</u> <u>77</u> <u>83</u> <u>98</u></span></p>
+
+<p>As we can see, using this algorithm to sort this particular data set results in less work than when using the Bubble Sort.</p>
+
+<h2>The Implementation</h2>
+
+
+<p>Here is a sample implementation written in <a href="http://en.wikipedia.org/wiki/C_Sharp" title="C Sharp">C#</a>. It is heavily commented in the hope that it will aid in understanding how the algorithm works:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="c1">/// &lt;summary&gt;</span>
+</span><span class='line'><span class="c1">/// Performs a cocktail sort on an array of integers.</span>
+</span><span class='line'><span class="c1">/// &lt;/summary&gt;</span>
+</span><span class='line'><span class="c1">/// &lt;param name=&quot;dataSet&quot;&gt;An array of ints to be sorted.&lt;/param&gt;</span>
+</span><span class='line'><span class="k">static</span> <span class="k">void</span> <span class="nf">CocktailSortBasic</span><span class="p">(</span><span class="kt">int</span><span class="p">[]</span> <span class="n">dataSet</span><span class="p">)</span>
+</span><span class='line'><span class="p">{&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">pre</span><span class="p">&gt;&lt;</span><span class="n">code</span><span class="p">&gt;</span><span class="kt">bool</span> <span class="n">swapped</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
+</span><span class='line'><span class="kt">int</span> <span class="n">start</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span>
+</span><span class='line'><span class="kt">int</span> <span class="n">end</span> <span class="p">=</span> <span class="n">dataSet</span><span class="p">.</span><span class="n">Length</span> <span class="p">-</span> <span class="m">1</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">do</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="c1">// make sure we reset the swapped flag on entering</span>
+</span><span class='line'>    <span class="c1">// the loop, because it might be true from a previous</span>
+</span><span class='line'>    <span class="c1">// iteration.</span>
+</span><span class='line'>    <span class="n">swapped</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// loop from bottom to top just like we do with</span>
+</span><span class='line'>    <span class="c1">// the bubble sort</span>
+</span><span class='line'>    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="n">start</span><span class="p">;</span> <span class="n">i</span> <span class="p">&amp;</span><span class="n">lt</span><span class="p">;</span> <span class="n">end</span><span class="p">;</span> <span class="p">++</span><span class="n">i</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="k">if</span> <span class="p">(</span><span class="n">dataSet</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="p">&amp;</span><span class="n">gt</span><span class="p">;</span> <span class="n">dataSet</span><span class="p">[</span><span class="n">i</span> <span class="p">+</span> <span class="m">1</span><span class="p">])</span>
+</span><span class='line'>        <span class="p">{</span>
+</span><span class='line'>            <span class="n">Swap</span><span class="p">(</span><span class="n">dataSet</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">i</span> <span class="p">+</span> <span class="m">1</span><span class="p">);</span>
+</span><span class='line'>            <span class="n">swapped</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// if nothing moved, then we&#39;re sorted.</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(!</span><span class="n">swapped</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// otherwise, reset the swapped flag so that it</span>
+</span><span class='line'>    <span class="c1">// can be used in the next stage</span>
+</span><span class='line'>    <span class="n">swapped</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// move the end point back by one, because we know</span>
+</span><span class='line'>    <span class="c1">// that the item at the end is in its rightful spot</span>
+</span><span class='line'>    <span class="p">--</span><span class="n">end</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// this time we loop from top to bottom, doing the</span>
+</span><span class='line'>    <span class="c1">// same comparison as in the previous stage</span>
+</span><span class='line'>    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="n">end</span> <span class="p">-</span> <span class="m">1</span><span class="p">;</span> <span class="n">i</span> <span class="p">&amp;</span><span class="n">gt</span><span class="p">;=</span> <span class="n">start</span><span class="p">;</span> <span class="p">--</span><span class="n">i</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="k">if</span> <span class="p">(</span><span class="n">dataSet</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="p">&amp;</span><span class="n">gt</span><span class="p">;</span> <span class="n">dataSet</span><span class="p">[</span><span class="n">i</span> <span class="p">+</span> <span class="m">1</span><span class="p">])</span>
+</span><span class='line'>        <span class="p">{</span>
+</span><span class='line'>            <span class="n">Swap</span><span class="p">(</span><span class="n">dataSet</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">i</span> <span class="p">+</span> <span class="m">1</span><span class="p">);</span>
+</span><span class='line'>            <span class="n">swapped</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// this time we increase the starting point, because</span>
+</span><span class='line'>    <span class="c1">// the last stage would have moved the next smallest</span>
+</span><span class='line'>    <span class="c1">// number to its rightful spot.</span>
+</span><span class='line'>    <span class="p">++</span><span class="n">start</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span> <span class="k">while</span> <span class="p">(</span><span class="n">swapped</span><span class="p">);</span>
+</span><span class='line'><span class="p">&lt;/</span><span class="n">code</span><span class="p">&gt;&lt;/</span><span class="n">pre</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h2>The Complexity</h2>
+
+
+<p>Both space and time complexity are the same as that of the <a href="http://buffered.io/posts/sorting-algorithms-the-bubble-sort/" title="Sorting Algorithms: The Bubble Sort">Bubble Sort</a> for exactly the same reasons. That is, time complexity is O(n<sup>2</sup>), and space complexity for in-place sorting is O(1).</p>
+
+<h2>A Note on Performance</h2>
+
+
+<p>The Cocktail Sort can actually prove to be faster than the Bubble Sort in a fair few cases. This is due to the fact that we sort in both directions each iteration instead of just one.</p>
+
+<p>Here's an example <em>data set</em> which would require 9 iterations with a Bubble Sort, but only 1 iteration (of two stages) with a Cocktail Sort:</p>
+
+<p><span class="eg">20 33 45 55 64 74 77 83 98 13</span></p>
+
+<p>The second stage of the Cocktail Sort would simply move the number <em>13</em> all the way down to the start of the list, at which point the list is then sorted. The Bubble Sort would move the number <em>13</em> left one place for each iteration.</p>
+
+<p>In general, the Cocktail Sort will perform, at worst, the same as the Bubble Sort.</p>
+
+<p><a name="CocktailSortBitBucket"></a></p>
+
+<h2>Other Implementations</h2>
+
+
+<p>I'm slowly gathering a collection of implementations of all the sorting algorithms, including the ones listed above, that I'm covering in this series and posting them up on <a href="http://www.bitbucket.org/OJ/sorting/overview/" title="Sorting @ OJ's BitBucket">BitBucket</a>. The Cocktail Sort implementations can be found <a href="http://www.bitbucket.org/OJ/sorting/src/acf7fe9d7127/02-CocktailSort/" title="CocktailSort @ OJ's BitBucket">here</a>.</p>
+
+<p><em>Note: You'll need <a href="http://www.selenic.com/mercurial/" title="Mercurial">Mercurial</a> if you want to pull directly from the repository, otherwise you'll have to copy and paste from the web.</em></p>
+
+<h2>References and Other Information</h2>
+
+
+<ol>
+<li><a href="http://en.wikipedia.org/wiki/Cocktail_sort" title="Cocktail sort">Wikipedia - Cocktail sort</a></li>
+</ol>
+
+
+<p>Next up, we'll be looking at the <strong>Comb Sort</strong>.</p>
+
+<h2>Disclaimer</h2>
+
+
+<p>I'm no expert, nor an authority. The post above is based on my experience and a bit of research. If you find something wrong with anything I've said please let me know. Comments and feedback are greatly appreciated.</p>
+
+<p><em>Note: For those reading this article in an RSS reader, you may find the colours do not appear in the examples properly. For some reason the feed is stripping out some of the formatting. I will do my best to fix this up soon.</em></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Sorting Algorithms: The Bubble Sort]]></title>
+    <link href="http://buffered.io/posts/sorting-algorithms-the-bubble-sort/"/>
+    <updated>2008-08-14T20:27:00+10:00</updated>
+    <id>http://buffered.io/posts/sorting-algorithms-the-bubble-sort</id>
+    <content type="html"><![CDATA[<p><img src="http://buffered.io/uploads/2008/08/bubbles.jpg" alt="Bubbles" title="Bubbles" width="225" height="154" style="float: left; margin-right: 5px; margin-bottom: 5px" />This is the first of many posts covering the fascinating topic of <a href="http://buffered.io/category/sorting/" title="Sorting @ OJ's rants">sorting</a>.</p>
+
+<p>I chose the Bubble Sort algorithm as the first to cover because of its simplicity. This algorithm tends to be the first sorting algorithm that is taught to students, and hence is a rather apt starting point.</p>
+
+<p>Let's break it down.</p>
+
+<!--more-->
+
+
+
+
+<h2>Common Terms</h2>
+
+
+<ul>
+<li><em>Data set</em> - the array or list of items that is to be sorted.</li>
+<li><em>n</em> - the number of elements in the <em>data set</em></li>
+</ul>
+
+
+
+
+<h2>The Algorithm</h2>
+
+
+<p>The algorithm consists of a repeated iteration over the elements of the <em>data set</em>. In each iteration, adjacent elements are compared. If those two adjacent items are in the wrong order, they are swapped. The result of each iteration is that the next highest value is placed in the appropriate location in the <em>data set</em>. After repeating the iteration <em>n - 1</em> times, the entire <em>data set</em> will be sorted.</p>
+
+<p>The Bubble Sort fits in the category of <strong>Exchange Sorts</strong> due to the manner in which elements are moved inside the <em>data set</em> during the sorting process.</p>
+
+<h2>The Example</h2>
+
+
+
+
+<p>We start with an unsorted <em>data set</em> of 10 elements which we want to sort in <em>ascending</em> order:</p>
+
+<p><span class="eg">33 98 74 13 55 20 77 45 64 83</span></p>
+
+<p>The start of the first iteration looks at the first two elements (marked in red):</p>
+
+<p><span class="eg"><b>33 98</b> 74 13 55 20 77 45 64 83</span></p>
+
+<p>As per the algorithm we compare the two values, swapping them if the first item is bigger than the second. In this case, 98 is bigger than 33, so no swap is required.</p>
+
+<p>Next we look at the two adjacent items, starting at the second item in the list:</p>
+
+<p><span class="eg">33 <b>98 74</b> 13 55 20 77 45 64 83</span></p>
+
+<p>In this case 98 is greater than 74, so the items must be swapped (marked in blue):</p>
+
+<p><span class="eg">33 <i>74 98</i> 13 55 20 77 45 64 83</span></p>
+
+<p>We do the same again, this time starting at the third item:</p>
+
+<p><span class="eg">33 74 <b>98 13</b> 55 20 77 45 64 83</span></p>
+
+<p>Again, we need to swap the items since they're not in order:</p>
+
+<p><span class="eg">33 74 <i>13 98</i> 55 20 77 45 64 83</span></p>
+
+<p>We repeat this process until we get to the end of the list (marked in green):</p>
+
+<p><span class="eg">33 74 13 55 20 77 45 64 83 <u>98</u></span></p>
+
+<p>As we can see, the result is that the largest number is placed at the end of the list. This is the end of the first iteration.</p>
+
+<p>We then iterate again but only cover the section of numbers that haven't already been sorted.</p>
+
+<p><span class="eg"><b>33 74</b> 13 55 20 77 45 64 83 <u>98</u></span></p>
+
+<p>No swap required, move to the next pair.</p>
+
+<p><span class="eg">33 <b>74 13</b> 55 20 77 45 64 83 <u>98</u></span></p>
+
+<p>Swap required:</p>
+
+<p><span class="eg">33 <i>13 74</i> 55 20 77 45 64 83 <u>98</u></span></p>
+
+<p>Move to the next pair:</p>
+
+<p><span class="eg">33 13 <b>74 55</b> 20 77 45 64 83 <u>98</u></span></p>
+
+<p>Again, swap required:</p>
+
+<p><span class="eg">33 13 <i>55 74</i> 20 77 45 64 83 <u>98</u></span></p>
+
+<p>We continue this trend for another iteration before hitting the following case:</p>
+
+<p><span class="eg">33 13 55 20 <b>74 77</b> 45 64 83 <u>98</u></span></p>
+
+<p>Here, there is no swap required, so we leave behind the number we've been "carrying" (74) and pick up number 77.</p>
+
+<p><span class="eg">33 13 55 20 74 <b>77 45</b> 64 83 <u>98</u></span></p>
+
+<p>The result of the iteration is as follows:</p>
+
+<p><span class="eg">33 13 55 20 74 45 64 77 <u>83</u> <u>98</u></span></p>
+
+<p>As we can see, this "bubbles" each of the numbers to the top of the list in the order of highest to lowest. Here is how the rest of the numbers are sorted at the end of each following iteration:</p>
+
+<p><span class="eg">13 33 20 55 45 64 74 <u>77</u> <u>83</u> <u>98</u></span>
+<span class="eg">13 20 33 45 55 64 <u>74</u> <u>77</u> <u>83</u> <u>98</u></span>
+<span class="eg">13 20 33 45 55 <u>64</u> <u>74</u> <u>77</u> <u>83</u> <u>98</u></span>
+<span class="eg">13 20 33 45 <u>55</u> <u>64</u> <u>74</u> <u>77</u> <u>83</u> <u>98</u></span>
+<span class="eg">13 20 33 <u>45</u> <u>55</u> <u>64</u> <u>74</u> <u>77</u> <u>83</u> <u>98</u></span>
+<span class="eg">13 20 <u>33</u> <u>45</u> <u>55</u> <u>64</u> <u>74</u> <u>77</u> <u>83</u> <u>98</u></span>
+<span class="eg"><u>13</u> <u>20</u> <u>33</u> <u>45</u> <u>55</u> <u>64</u> <u>74</u> <u>77</u> <u>83</u> <u>98</u></span></p>
+
+<p>Note that the last iteration results in two numbers being locked in due to the fact we no longer have any numbers to sort.</p>
+
+<h2>The Implementation</h2>
+
+
+<p>Here's a commented sample in <a href="http://en.wikipedia.org/wiki/C_Sharp" title="C Sharp">C#</a> which is easily translatable to many other languages:
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="c1">/// &lt;summary&gt;</span>
+</span><span class='line'><span class="c1">/// This is the basic bubble sort algorithm, hard-coded to work</span>
+</span><span class='line'><span class="c1">/// with integer values.</span>
+</span><span class='line'><span class="c1">/// &lt;/summary&gt;</span>
+</span><span class='line'><span class="c1">/// &lt;param name=&quot;dataSet&quot;&gt;Array of integers to sort.&lt;/param&gt;</span>
+</span><span class='line'><span class="k">static</span> <span class="k">void</span> <span class="nf">BubbleSortBasic</span><span class="p">(</span><span class="kt">int</span><span class="p">[]</span> <span class="n">dataSet</span><span class="p">)</span>
+</span><span class='line'><span class="p">{&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">pre</span><span class="p">&gt;&lt;</span><span class="n">code</span><span class="p">&gt;</span><span class="c1">// loop n-1 times.</span>
+</span><span class='line'><span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="n">dataSet</span><span class="p">.</span><span class="n">Length</span> <span class="p">-</span> <span class="m">1</span><span class="p">;</span> <span class="n">i</span> <span class="p">&amp;</span><span class="n">gt</span><span class="p">;</span> <span class="m">0</span> <span class="p">;</span> <span class="p">--</span><span class="n">i</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="c1">// for each loop, iterate through the first i</span>
+</span><span class='line'>    <span class="c1">// items (ie. the unsorted ones)</span>
+</span><span class='line'>    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">j</span> <span class="p">&amp;</span><span class="n">lt</span><span class="p">;</span> <span class="n">i</span><span class="p">;</span> <span class="p">++</span><span class="n">j</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="c1">// if adjacent items need to be swapped</span>
+</span><span class='line'>        <span class="k">if</span> <span class="p">(</span><span class="n">dataSet</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="p">&amp;</span><span class="n">gt</span><span class="p">;</span> <span class="n">dataSet</span><span class="p">[</span><span class="n">j</span> <span class="p">+</span> <span class="m">1</span><span class="p">])</span>
+</span><span class='line'>        <span class="p">{</span>
+</span><span class='line'>            <span class="c1">// swap them</span>
+</span><span class='line'>            <span class="n">Swap</span><span class="p">(</span><span class="n">dataSet</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">j</span> <span class="p">+</span> <span class="m">1</span><span class="p">);</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="p">&lt;/</span><span class="n">code</span><span class="p">&gt;&lt;/</span><span class="n">pre</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>A general form of this algorithm which applies to any comparable type can be found in the source repository listed <a href="#BubbleSortBitBucket">below</a>.</p>
+
+<h2>A Minor Optimsation</h2>
+
+
+<p>The Bubble Sort can be optimised very slightly, though it's not guaranteed to provide much benefit depending on the structure of the <em>data set</em> that is to be sorted.</p>
+
+<p>If, for any iteration, there are no items swapped then all of the items in the <em>data set</em> must be in the correct order. As a result, subsequent iterations are unnecessary. The optimised version is listed below, again in C#:
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="c1">/// &lt;summary&gt;</span>
+</span><span class='line'><span class="c1">/// This is the basic bubble sort algorithm, hard-coded to work</span>
+</span><span class='line'><span class="c1">/// with integer values but with a slight difference - a minor</span>
+</span><span class='line'><span class="c1">/// optimisation.</span>
+</span><span class='line'><span class="c1">/// &lt;/summary&gt;</span>
+</span><span class='line'><span class="c1">/// &lt;param name=&quot;dataSet&quot;&gt;Array of integers to sort.&lt;/param&gt;</span>
+</span><span class='line'><span class="k">static</span> <span class="k">void</span> <span class="nf">BubbleSortBasicOptimised</span><span class="p">(</span><span class="kt">int</span><span class="p">[]</span> <span class="n">dataSet</span><span class="p">)</span>
+</span><span class='line'><span class="p">{&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">pre</span><span class="p">&gt;&lt;</span><span class="n">code</span><span class="p">&gt;</span><span class="c1">// loop n-1 times.</span>
+</span><span class='line'><span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="n">dataSet</span><span class="p">.</span><span class="n">Length</span> <span class="p">-</span> <span class="m">1</span><span class="p">;</span> <span class="n">i</span> <span class="p">&amp;</span><span class="n">gt</span><span class="p">;</span> <span class="m">0</span> <span class="p">;</span> <span class="p">--</span><span class="n">i</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="c1">// keep track of whether items were swapped</span>
+</span><span class='line'>    <span class="c1">// for this iteration</span>
+</span><span class='line'>    <span class="kt">bool</span> <span class="n">swapped</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// for each loop, iterate through the first i</span>
+</span><span class='line'>    <span class="c1">// items (ie. the unsorted ones)</span>
+</span><span class='line'>    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">j</span> <span class="p">&amp;</span><span class="n">lt</span><span class="p">;</span> <span class="n">i</span><span class="p">;</span> <span class="p">++</span><span class="n">j</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="c1">// if adjacent items need to be swapped</span>
+</span><span class='line'>        <span class="k">if</span> <span class="p">(</span><span class="n">dataSet</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="p">&amp;</span><span class="n">gt</span><span class="p">;</span> <span class="n">dataSet</span><span class="p">[</span><span class="n">j</span> <span class="p">+</span> <span class="m">1</span><span class="p">])</span>
+</span><span class='line'>        <span class="p">{</span>
+</span><span class='line'>            <span class="c1">// swap them</span>
+</span><span class='line'>            <span class="n">Swap</span><span class="p">(</span><span class="n">dataSet</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">j</span> <span class="p">+</span> <span class="m">1</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>            <span class="c1">// indicate that we found a swap</span>
+</span><span class='line'>            <span class="n">swapped</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// if nothing was swapped, then we should</span>
+</span><span class='line'>    <span class="c1">// already have everything in order</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(!</span><span class="n">swapped</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="p">&lt;/</span><span class="n">code</span><span class="p">&gt;&lt;/</span><span class="n">pre</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p><em>Caveat</em>: This "optimisation" may actually result in lower performance, particularly in the case where every iteration results in a swap.</p>
+
+<h2>The Complexity</h2>
+
+
+<h3>Space Complexity</h3>
+
+
+<p>Bubble Sorts are extremely efficient in terms of memory usage, due to the fact that all sorting and swapping operations are done on the original <em>data set</em>. Regardless of the size of the original <em>data set</em>, the amount of memory overhead is constant as we don't allocate any memory for each of the items. Hence, the space complexity is <strong>O(1)</strong> (in <a href="http://en.wikipedia.org/wiki/Big_O_notation" title="Big-O notation">Big-O notation</a>). This, of course, doesn't include the <strong>O(n)</strong> space complexity taken up by the original <em>data set</em>.</p>
+
+<h3>Time Complexity</h3>
+
+
+<p>This is where the Bubble Sort fails to shine. For each iteration <em>i</em> starting at <em>n</em>, we must loop through the previous <em>i - 1</em> elements and swap if required.</p>
+
+<p>The first iteration loops through <em>n - 1</em> elements.
+The second iteration loops through <em>n - 2</em> elements.
+The third iteration loops through <em>n - 3</em> elements.
+And so on.. which means the number of compares/swaps that we do is equal to:
+(<em>n</em> - 1) + (<em>n</em> - 2) + (<em>n</em> - 3) ... + 2 + 1
+This indicates that there <em>n</em> lots of <em>n - i</em>, or <em>n<sup>2</sup> - ni</em> (where <em>ni</em> varies for each iteration).</p>
+
+<p>Give that the highest power of <em>n</em> is <strong>2</strong> this indicates a time complexity of <strong>O(n<sup>2</sup>)</strong>.</p>
+
+<p>Or in layman's terms: it's f**king slow :)</p>
+
+<p>Bubble Sorts should only be used on <em>data sets</em> that are rather small. If you're dealing with medium-sized or larger sets of data, then the Bubble Sort is not the right algorithm to choose. So what would be a better option? You'll have to read the rest of this series and answer that yourself ;)</p>
+
+<p><a name="BubbleSortBitBucket"></a></p>
+
+<h2>Other Implementations</h2>
+
+
+<p>I'm slowly gathering a collection of implementations of all the sorting algorithms, including the ones listed above, that I'm covering in this series and posting them up on <a href="http://www.bitbucket.org/OJ/sorting/overview/" title="Sorting @ OJ's BitBucket">BitBucket</a>. The Bubble Sort implementations can be found <a href="http://www.bitbucket.org/OJ/sorting/src/2ce17136dbac/01-BubbleSort/" title="BubbleSort @ OJ's BitBucket">here</a>.</p>
+
+<p><em>Note: You'll need <a href="http://www.selenic.com/mercurial/" title="Mercurial">Mercurial</a> if you want to pull directly from the repository, otherwise you'll have to copy and paste from the web.</em></p>
+
+<h2>Closing Thoughts</h2>
+
+
+<p>I haven't included information on multithreading because the post would be insanely big. I will put up a follow-up post covering multithreading another day. The code stored in the BitBucket repository contains a sample of how you might use multithreading in conjunction with this sorting algorithm.</p>
+
+<p>To wrap up, Bubble Sorts are easy to understand and are a great place to start when learning sorting algorithms. Unfortunately, this simplicity results in a fairly expensive and slow sorting implementation which really isn't an option when dealing with anything other than small <em>data sets</em>.</p>
+
+<h2>References and Other Information</h2>
+
+
+<ol>
+<li><a href="http://en.wikipedia.org/wiki/Bubble_sort" title="Bubble sort">Wikipedia - Bubble sort</a></li>
+</ol>
+
+
+<p>Next up, we'll be looking at the <a href="http://buffered.io/posts/sorting-algorithms-the-cocktail-sort/" title="Sorting Algorithms: The Cocktail Sort">Cocktail Sort</a>.</p>
+
+<h2>Disclaimer</h2>
+
+
+<p>I'm no expert, nor an authority. The post above is based on my experience and a bit of research. If you find something wrong with anything I've said please let me know. Comments and feedback are greatly appreciated.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Sorting Things Out]]></title>
+    <link href="http://buffered.io/posts/sorting-things-out/"/>
+    <updated>2008-08-13T12:23:00+10:00</updated>
+    <id>http://buffered.io/posts/sorting-things-out</id>
+    <content type="html"><![CDATA[<p>It's time to recap a topic that is, or should be, close to the heart of every developer. A topic that is often overlooked or glossed over, rarely fully understood and not often discussed. Yet this topic is hugely important.</p>
+
+<p>That topic is <strong>Sorting</strong>.</p>
+
+<!--more-->
+
+
+<p><img src="http://buffered.io/uploads/2008/08/sorting-beans.jpg" alt="Sorting" title="Sorting" width="168" height="224" style="float: right; margin-left: 5px; margin-bottom: 5px;" />On the surface it appears to be so simple. Just arrange some stuff in a certain order. What could be easier?</p>
+
+<p>Unfortunately the implementations of various methods of sorting can be anything but easy. Determining <em>which</em> algorithm to choose can be difficult enough given that some lend themselves to sorting certain data types better than others do.</p>
+
+<p>As a result, I've decided to start writing a series on the different well-known (and perhaps not-so-well-known) sorting algorithms. For each algorithm, my goal will be to:</p>
+
+<ol>
+<li>Paint a very clear picture of how it functions. I aim to do this via pictures and discussion. If I get time, I will aim to provide an animated visualiser of the algorithm (though at the moment this might be a tough ask given time constraints).</li>
+<li>Explain the <a href="http://en.wikipedia.org/wiki/Big_O_notation" title="Big O">order of complexity/Big-O notation</a> so that it's clear just how expensive it is to use, along with details of best and worst cases.</li>
+<li>Give examples of data sets where the algorithm fits well, and examples of where it doesn't.</li>
+<li>Explain if and how the given algorithm can be used in a multhithreaded environment.</li>
+<li>Demonstrate errors that are found frequently in various implementations (if there are any), and show how to resolve/avoid them.</li>
+</ol>
+
+
+<p>By the end of the series, I hope that you (and I) will have a really solid understanding of the Sorting world.</p>
+
+<p>To start off with, I'll be covering the age-old <a href="http://buffered.io/posts/sorting-algorithms-the-bubble-sort/" title="Sorting Algorithms: The Bubble Sort">Bubble Sort</a>. I'm choosing this because it's very simple, and is an easy target for me to get going.</p>
+
+<p>As always, comments and feedback will be greatly appreciated. I'm hoping that I'll learn more from this exercise than you guys will.</p>
+]]></content>
+  </entry>
+  
+</feed>

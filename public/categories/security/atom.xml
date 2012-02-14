@@ -1,0 +1,392 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Security | OJ's rants]]></title>
+  <link href="http://buffered.io/categories/security/atom.xml" rel="self"/>
+  <link href="http://buffered.io/"/>
+  <updated>2012-02-14T09:57:08+10:00</updated>
+  <id>http://buffered.io/</id>
+  <author>
+    <name><![CDATA[OJ Reeves]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Websites are Hard to Build]]></title>
+    <link href="http://buffered.io/posts/websites-are-hard-to-build/"/>
+    <updated>2008-11-26T21:08:00+10:00</updated>
+    <id>http://buffered.io/posts/websites-are-hard-to-build</id>
+    <content type="html"><![CDATA[<p><img src="http://buffered.io/uploads/2008/11/elope-harlequin-jester.jpg" alt="Uninformed client" title="Uninformed client" style="float: left; margin-right: 5px; margin-bottom: 5px;" /><blockquote><p>"It's just a small site, how hard can it be?"</p>
+
+<p>"I thought you could do it for me as a favour. It's not a complicated site."</p>
+
+<p>"This would take me an afternoon, but I don't have time, can you do it for me?"</p></blockquote>Have you ever heard these comments before? Have you heard ones that are similar? I've been hearing them a lot in the last few weeks and it's starting to get to me.</p>
+
+<p>I have just had a chat with a mate who is also suffering this pain, and that conversation is what inspired me to write this, the first random rant in a while.</p>
+
+<!--more-->
+
+
+<p>Let me start by saying that <em>building software is <strong>hard</strong></em>. Building <em>quality</em> software is <strong>harder</strong>. I've been in the industry for 10 years now, and I can say with a certain level of confidence (and perhaps a little bit of authority) that it's harder than most people think -- particularly business users, clients and lots of family and friends.</p>
+
+<p>Let me follow that on by saying that websites are software (no way!). That puts them in the "hard" basket. Every site, even if it's a static page with some simple content, comes with its own set of challenges -- and those challenges are rarely understood by anyone who hasn't experienced the pain of building software.</p>
+
+<p>The point of this post it to give a little bit of exposure to some of these issues. I hope that this post gets read by those people who have plans to have some sort of software built but haven't really got a clue what's involved.</p>
+
+<h2>Requirement Issues</h2>
+
+
+<p>Let's be fair ... you don't know what you want. You <em>think</em> you do, but you really don't. You have an idea for something that will either make your life easier or "be really cool", but as far as actually <strong>thinking</strong> about how it would function ... ? You haven't done that at all.</p>
+
+<p>Here lies the first of the big stumbling blocks. You want a website, because "everyone has a website these days" for almost everything. Started a new business? You must have a website! Released an album? You must have a website! Had a child? You must have a website! Never had a website? You must have a website!</p>
+
+<p>Before you dive headlong into the quest to find the person to build the site for you, have a good long think about what it is you want that site to be. What is its purpose? What content is required? Will it be dynamic? Will it be static? Will it be data-driven and require a <a href="http://en.wikipedia.org/wiki/Content_management_system" title="Content Management System">Content Management System</a>? Do you want other people to submit content? Do you want to have the facility available for readers to add their own comments? Will it be product driven and need the ability for people to buy stuff directly from the site? Do you need it to work on all browsers? Does it require access via a mobile phone or hand-held gadget?</p>
+
+<p>These questions need to be answered well before any design is even contemplated, let alone structure and technical architecture. Do yourself and your site development team a favour. Think long and hard about what you want, and while you're doing that, ponder what possible issues you might face. The more issues you think of now, the cheaper it will be to build the site that fits your needs. Not just that, but you'll reduce the "scope on a rope" which results in the blowout of timelines and budgets.</p>
+
+<h2>Design Issues</h2>
+
+
+<p>We're coming to the end of 2008 and yet people still don't realise that development is <strong>not the same as design</strong>. Ask yourself the question: if design is part of development, then why do people make a living out of website design? The answer is simple: It's a big job, and it's very hard to do it right. I'm a developer, and I feel that there are very few (if any) areas of development that I couldn't do well in (yes, I'm arrogant ;)), but I can tell you this for certain: I am <strong>not a designer</strong>. <a href="http://shiftperception.com/blog/" title="Shiftperception">Dan</a> will no doubt appreciate that comment ;)</p>
+
+<p>It's true, I am not a designer. I can not design websites. I can do the technical desing, the architecture and the implementation. I can not do the design. Creating the right design for a website isn't an easy thing to do. I can tell you when people get it right, and I can tell you when people get it wrong. I can't tell you why :)</p>
+
+<p>So, again, do yourself a favour. Get a proper web designer with a great portfolio of projects and go through the ideas you have with them. They will end up providing you an interface which makes sense for what you're trying to do. Do not fall into the trap of assuming that this part of the process isn't important. Yes, up front the cost most appear higher, but in the long run you will not regret it.</p>
+
+<h2>Technical Issues</h2>
+
+
+<p>Stumbling block number 3 is the lack of understanding of the technical issues. It's no surprise though, considering that most people wanting sites are not technical in nature. While it's fine for a client to not have (or want) an understanding of the technical issues, it's certainly <em>not</em> fine for them to ignore the fact that they even exist. Sticking your head in the sand and saying things like "well you'll figure it out" or "isn't that what I'm paying you for" doesn't really cut the mustard, particularly when you haven't thought about what you want in the first place.</p>
+
+<p>When building websites there are all kinds of technical hurdles to leap over. To name a few...</p>
+
+<ul>
+<li><strong>Platform</strong> - I think most of the non-techie readers will have no clue of what I mean here. The platform is what the site runs on. That is, the operating system, the runtime, the software that supports it, etc.</li>
+<li><strong>Cross-browser compatibility</strong> - The biggest issue in any Internet-facing website is cross-browser issues. Not all browsers were made equally. Each and every one has its own set of quirks, and the people responsible for building the interface to the site need to cater for all these quirks. If they don't, then they may alienate a subset of potential readers which would do damage to the site's potential traffic and income. <strong>DO NOT</strong> underestimate how painful this can be. Yes, there are tools out there which apparently take care of these issues for you, but let me tell you that most of the time they fail too. Be prepared for a great deal of work to go into making your site look and behave on the same on a variety of browsers. As a small side-note, some browsers actually behave differently on, say, Windows compared to how they would on, say, Mac OSX.</li>
+<li><strong>Secure payments</strong> - Sounds easy right? "I just want the ability for people to enter credit card details and pay for stuff." Unfortunately it isn't that simple. You have all kinds of issues to worry about if you want that to happen directly in your site. You have to set up <a href="http://en.wikipedia.org/wiki/Transport_Layer_Security" title="Transport layer security">SSL</a>, you have to arrange for a proper payment portal to site behind your site and handle the requests. You need to make sure your site is set up in such a way that any malicious users can not buy stuff without paying, nor have honest users' information compromised and shared. There are other options, such as <a href="http://www.paypal.com/" title="PayPal">PayPal</a> and <a href="https://payments.amazon.com/sdui/sdui/index.htm" title="Amazon Payments">Amazon</a>, but these facilities operate externally and won't appear "incorporated" in the site.</li>
+<li><strong>Accessibility</strong> - You've done well if you already know what this is. In short, it refers to your sites ability to be read by people who are visually impaired who use devices such as <a href="http://en.wikipedia.org/wiki/Screen_reader" title="Screen reader">screen readers</a>. If you want your site to be fully accessible, then expect a great deal more effort to be involved. Your site needs to be structured in a special way and it needs to be <strong>fully</strong> compliant with a markup standard (such as <a href="http://www.w3.org/TR/html4/sgml/loosedtd.html" title="HTML 4.0">HTML 4.0 Transitional</a>).</li>
+<li><strong>Hosting</strong> - This issue comes with a stack of other issues that most people don't even think about (sometimes even developers!). Do you have your own host? Do you have a shared host? Dedicated host? Do you need it in your own country? Do you need Windows or Linux? Do you need email facilities? Do you need SSL? Do you need a <a href="http://en.wikipedia.org/wiki/Content_Delivery_Network" title="Content delivery network">CDN</a>? Choosing a location for your site is affected by so many things. For example, if you're looking for a fully secure site which keeps track of user details and sensitive information (such as credit cards) then a shared hosting solution is an <em>EPIC FAIL</em>. In case the reason isn't obvious I'll tell you. If you use a shared host, then the entire machine is only as secure as the weakest account. If another site, owned by someone else, is compromised then the attacker owns the box which contains YOUR sites as well.</li>
+<li><strong>Database</strong> - This isn't just about which one to use. It's about how to use it. Databases are underestimated and often misunderstood. It's <em>very</em> easy to do databases wrong. This is a real kicker for those applications that are very database heavy. In particular, applications which require complex relationships and/or deep searching capabilities. If your application relies on an insanely speedy, distributed database or is search-heavy, you had best get yourself a DB guru ... and be prepared to pay for them! A recent example with some interested details was recently posted on <a href="http://blog.stackoverflow.com/2008/11/sql-2008-full-text-search-problems/" title="SQL 2008 Full Text Search Problems">StackOverflow</a>, go have a read!</li>
+<li><strong>Traffic</strong> - If you're aiming to build a site that isn't going to be used often or doesn't have a great deal of content, then this might not be so much of an issue. But if you have a site that is going to be bombarded with traffic, don't expect your first cut of your system to, er, cut it. I once heard a semi-famous man say "<a href="http://www.codinghorror.com/blog/archives/000957.html" title="Everything is fast for small n">Everything is fast for small <em>n</em>"</a>, and he's dead right. In development and testing, your app will probably fly. But under load, with thousands of people hitting it at the same time, it may just keel over and die. Be prepared to face this problem in the development stage.</li>
+<li><strong>Maintainability</strong> - I left this one last because it's a little verbose and somewhat random. So many things can affect the maintainability of the site. The main problem here though is that in general, the idea of maintenance after a site has been developed is far from anyone's thoughts. Maintenance is where you'll spend most of your cash long term. Minimising the potential issues during development really is key to making a site which isn't going to cost the earth to maintain or enhance. The most common cause of highly unmaintainable websites is "Little Johnny" (LJ). LJ is the bloke that someone knows through a friend of a friend, or through the family. He's the guy who "knows stuff about computers". Of course, that means that he can &lt;sarcasm&gt;build commercial websites that are flexible, secure, fast, extendible, easy to maintain and that WORK&lt;/sarcasm&gt;. In all seriousness, you might know someone who knows something about computers, but if you're serious about your site, then get someone who knows what they're doing. You'll pay more in the long run for someone who doesn't. Either that, or take one of your employees, and put them through a course so that they can learn how it's done. To sum up, if you want to reduce the cost of maintenance there is a lot of work involved, and your developers need to know what they're doing. Be prepared for a lot of work in this area.</li>
+</ul>
+
+
+<h2>Testing Issues</h2>
+
+
+<p>Testing? What's that?</p>
+
+<p>It's frightening that even in Enterprise software, testing is generally an afterthought. Recently I was fortunate enough to be part of a team where testing was a huge part of the development process. It was <em>really</em> good and the result was a seriously higher quality application.</p>
+
+<p>Developers do not know how to test their own code properly. Sure, they can write unit tests, and they do some form of manual functional testing on a daily basis while they're building the software. This is <strong>not</strong> the same as having a full test plan and suite of tests to verify the quality of the application.</p>
+
+<p>Do yourself a favour, spend some of your budget and get some testers in. They will put your application/site through its paces instead of your users!</p>
+
+<h2>Deployment Issues</h2>
+
+
+<p>Once you've worked with a development team, you'll become very familiar with the following phrase:<blockquote><p>It works on my machine.</p></blockquote>It's something that you'll hear constantly :)</p>
+
+<p>The point here is that it is very common for things to work in the development environment, but end up breaking when deployed to a production environment. Deployment is another often overlooked area of the process. When it <em>is</em> considered, it's underestimated.</p>
+
+<p>Be careful. Here be dragons. Before you get stuck, speak to someone who <a href="http://johnmcfadyen.spaces.live.com/" title="John Mcfadyen's Windows Installer blog">knows what they're doing</a>.</p>
+
+<h2>Support Issues</h2>
+
+
+<p>So you've managed to ship your application. It's online, it's deployed and it's running. But something goes wrong. The site breaks every now and then. Users are having issues with the payment portal. People using Firefox on Mac OSX can't sign in. Reports are coming back with incorrect values.</p>
+
+<p>Do you have a plan in place to handle these requests? Do you have a <a href="http://en.wikipedia.org/wiki/Bugtracker" title="Bug tracker">bug tracking system</a>? Do you have a support team ready to handle requests? Have you kept any of the development team on board to help you with the support issues?</p>
+
+<p>Generally, the answer to all of these questions is: no. My advice would be to make it a yes. Put a plan in place to help you with the teething issues once you've gone live. Trust me, there <em>will</em> be issues.</p>
+
+<h2>Conclusion</h2>
+
+
+<p>I hope that the target audience have a little more visibility of the issues that are faced when building websites (and software in general). I hope that they learn from it and take some of the advice and do proper preparation before undertaking a development project.</p>
+
+<p>Finally, I really do hope that it stops some of you from coming out with the comments listed at the start of this post :)</p>
+
+<p>As always, feedback and comments are welcomed and appreciated. Cheers!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[OpenDNS is Wicked]]></title>
+    <link href="http://buffered.io/posts/opendns-is-wicked/"/>
+    <updated>2008-08-18T22:03:00+10:00</updated>
+    <id>http://buffered.io/posts/opendns-is-wicked</id>
+    <content type="html"><![CDATA[<p><a title="Use OpenDNS to make your Internet faster, safer, and smarter." href="http://www.opendns.com/share/"><img src="http://images.opendns.com/buttons/use_opendns_155x52.gif" width="155" height="52" style="border:0; float:right; margin-left:5px;margin-bottom;5px" alt="Use OpenDNS" /></a>Over the last couple of weeks the DNS timeouts and lags I've been experiencing at home have made the web experience a little dire. My <a href="http://internode.on.net/" title="Internode">ISP</a> is actually pretty darned good, but for some reason they seem to have glitches with their DNS servers every now and then.</p>
+
+<!--more-->
+
+
+<p>The last time it happened I wasn't able to get <em>any</em> sites to respond. I ended up popping some manual DNS server entries into my router which I had archived in a "welcome" email that I had received when I first signed up for my Internet account. These worked well for a while, but eventually ended up going offline and so I had to look for another option.</p>
+
+<p>Enter <a href="http://opendns.org/" title="OpenDNS">OpenDNS</a>. A free DNS service with a stack of features that anyone can use. I'll go over a few of them.</p>
+
+<p>First up is <strong>Content filtering</strong>. What a fab idea! Offsite content filtering that stops dodgey and unwanted stuff before it even hits your modem. OpenDNS supports content filtering in a couple of ways which makes it really easy to generally filter out particular sites and content.</p>
+
+<p><a href="http://buffered.io/uploads/2008/08/opendns_content_filtering_levels.png"><img src="http://buffered.io/uploads/2008/08/opendns_content_filtering_levels.png" alt="Content Filtering" title="Content Filtering" width="150" style="float:left; margin-right:5px; margin-bottom:5px;" rel="lightbox[opendns]" /></a>The content filtering mechanism is quite extensive. You have the option of choosing a predefined "filtering level", each of which defines a set of site categories which will be filtered out for viewers on your network. The options go from <em>Minimal</em>, which simply blocks known <a href="http://en.wikipedia.org/wiki/Phishing" title="Phishing">phishing</a> sites, through to <em>High</em> which covers everything from porn and illegal activities to video sharing sites.</p>
+
+<p><a href="http://buffered.io/uploads/2008/08/opendns_content_filtering_custom.png"><img src="http://buffered.io/uploads/2008/08/opendns_content_filtering_custom.png" alt="Custom Content Filtering" title="Custom Content Filtering" width="150" style="float:right; margin-left:5px; margin-bottom:5px;" rel="lightbox[opendns]" /></a>There is also a <em>Custom</em> level which allows you to choose the categories that you want filtered. This is the long-hand version of the predefined levels mentioned above, which is great as it let's you pick and choose if you want finger-grained control.</p>
+
+<p><a href="http://buffered.io/uploads/2008/08/opendns_site_block.png"><img src="http://buffered.io/uploads/2008/08/opendns_site_block.png" alt="Site Blocking" title="Site Blocking" width="150" style="float:left; margin-right:5px; margin-bottom:5px;" rel="lightbox[opendns]" /></a>Lastly, as far as filtering goes, you have the option of allowing or blocking sites as a hard rule. This is handy if you know that a particular site is getting caught in your filter but you know for sure that it's safe. This happens surprisingly often, so having a whitelist is very handy. Being able to block a stack of ad sites before they even hit your browser is also a winner, hence the blacklist feature is great too.</p>
+
+<p><a href="http://buffered.io/uploads/2008/08/opendns_client.png"><img src="http://buffered.io/uploads/2008/08/opendns_client.png" alt="OpenDNS Client" title="OpenDNS Client" width="150" style="float:right; margin-left:5px; margin-bottom:5px;" rel="lightbox[opendns]" /></a>Thankfully OpenDNS supports <strong>IP address auto-update</strong>. Over time, you'll no doubt get different IP addresses from your ISP as your DHCP leases expire or when you reconnect your modem to your service. Given that OpenDNS needs to have some way of determining who you are, IP address really is the only way. So to help keep OpenDNS up-to-date with your current IP (and hence, keep applying your filtering rules), there is a client application that you can have running in your system tray which contacts the service periodically and makes sure that it has the latest IP. While this is a great idea it's a bit crap that you have to run a client application. It's a shame that they didn't decide to support the use of another dynamic addressing system such as <a href="http://dyndns.org/" title="DynDns">DynDns.org</a> (lots of modems have built-in support for updating services like DynDns automatically).</p>
+
+<p><a href="http://buffered.io/uploads/2008/08/opendns_customisation.png"><img src="http://buffered.io/uploads/2008/08/opendns_customisation.png" alt="Customisation" title="Customisation" width="150" style="float:left; margin-right:5px; margin-bottom:5px;" rel="lightbox[opendns]" /></a>For those who like to make their services feel cosey, OpenDNS supports <strong>customisation</strong> of various bits of functionality. For example, you're able to change the logo picture (this is more of an interest to site admins). You can also modify messages that are displayed when sites are blocked for various reasons. For those of you on home networks, specifying more meaningful messages for those, shall we say, "less technical" family members will no doubt be beneficial in reducing the number of support calls.</p>
+
+<p><a href="http://buffered.io/uploads/2008/08/opendns_shortcuts.png"><img src="http://buffered.io/uploads/2008/08/opendns_shortcuts.png" alt="Shortcuts" title="Shortcuts" width="150" style="float:right; margin-left:5px; margin-bottom:5px;" rel="lightbox[opendns]" /></a><strong>Network shortcuts</strong> are another nifty feature. A network shortcut is essentially a bookmark which works across the entire network. All you have to do is specify a name for your shortcut, and the site that it redirects to, and you're done. Once the shortcut has been saved, all you have to do to get to the site is type in the name of the shortcut. When the DNS request is made, OpenDNS looks for any shortcuts by that name that exist in your list, and if found, it will redirect the user to the appropriate site. Groovey!</p>
+
+<p>At first you don't believe it, but OpenDNS is <strong>surprisingly quick</strong>. I wouldn't say that I have conducted a huge set of performance tests and benchmarks, but I would say that it by far outperforms my ISP's DNS servers as far as responsivity is concerned. Not just that, but <strong>it works</strong>. I am yet to see a DNS lookup fail requiring me to retry.</p>
+
+<p>The final redeeming feature of OpenDNS is that it's constantly updated and secure. <a href="http://www.doxpara.com/?p=1185">Flaws in the DNS system</a>, for example, have already been patched. This reduces the chances of you dealing with an insecure DNS server (such as the one sitting at your ISP) and ending up at a site that might be a little unsavoury.</p>
+
+<p>To sum up, I really think OpenDNS is a great service. It's fast, feature-rich and very handy. For anyone with a family/kids or a need/desire to filter out some of the f**ked up content that lives on the web (such as this site ;)), this service is for you. Give it a spin!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[.NET-fu: Signing an Unsigned Assembly (without Delay Signing)]]></title>
+    <link href="http://buffered.io/posts/net-fu-signing-an-unsigned-assembly-without-delay-signing/"/>
+    <updated>2008-07-09T12:13:00+10:00</updated>
+    <id>http://buffered.io/posts/net-fu-signing-an-unsigned-assembly-without-delay-signing</id>
+    <content type="html"><![CDATA[<p>This article is also available in <a href="http://www.otherbit.com/modules/blog/BlogContent.aspx?ID=174" title=".NET-FU : come trasformare in SIGNED un assembly UNSIGNED (senza ricorrere al DELAY SIGNING)">Italian</a>.</p>
+
+<hr />
+
+<p>The code-base that I am currently working with consists of a large set of binaries that are all <a href="http://msdn.microsoft.com/en-us/library/xc31ft41.aspx" title="Sign an Assembly with a Strong Name">signed</a>. The savvy .NET devs out there will know that any assembly that's used/referenced by a signed assembly must <em>also</em> be signed.</p>
+
+<p>This is an issue when dealing with third-party libraries that are not signed. Sometimes you'll be lucky enough to be dealing with vendor that is happy to provide a set of signed assemblies, other times you won't. If your scenario fits the latter (as a recent one did for my colleagues and I), you need to sign the assemblies yourself. Here's how.</p>
+
+<!--more-->
+
+
+<p><em>Note:</em> <a href="http://msdn.microsoft.com/en-us/library/t07a3dye(VS.80).aspx" title="Delay Signing an Assembly">delay signing</a> is not covered in this article.</p>
+
+<h2>Scenario 1 - Foo and Bar</h2>
+
+<ul>
+<li><code>Foo</code> is the component that you're building which has to be signed.</li>
+<li><code>Bar</code> is the third-party component that you're forced to use that <em>isn't</em>.</li>
+</ul>
+
+
+<p><img src="http://buffered.io/uploads/2008/07/foobar.png" alt="Relationship between Foo and Bar" /></p>
+
+<p>Grab <a href="/uploads/2008/07/bar.zip" title="Project/Binary for Bar">Bar.dll and project</a> along with <a href="/uploads/2008/07/foobar.zip" title="Project/Binary for Foo">Foo.dll and project</a> to see a source sample.</p>
+
+<p>You'll notice <em>Foo</em> has a .snk which is used to sign <em>Foo.dll.</em> When you attempt to compile <em>Foo</em> you get the following error message:</p>
+
+<blockquote><p>Assembly generation failed -- Referenced assembly 'Bar' does not have a strong name.</p></blockquote>
+
+<p>We need to sign <em>Bar</em> in order for <em>Foo</em> to compile.</p>
+
+<p><img src="http://buffered.io/uploads/2008/07/step1.jpg" style="float: right; margin-left: 5px; margin-bottom: 2px;" alt="Disassemble Bar" /></p>
+
+<h3>Step 1 - Disassemble Bar</h3>
+
+<p>We need to open a command prompt which has the .NET framework binaries in the PATH environment variable. The easiest way to do this is to open a Visual Studio command prompt (which is usually under the "Visual Studio Tools" subfolder of "Visual Studio 20XX" in your programs menu). Change directory so that you're in the folder which contains <em>Bar.dll</em>.</p>
+
+<p>Use <a href="http://msdn.microsoft.com/en-us/library/f7dy01k1(VS.80).aspx" title="MSIL Disassembly">ildasm</a> to disassemble the file using the <code>/all</code> and <code>/out</code>, like so:</p>
+
+<pre><code>C:\Foo\bin&gt; ildasm /all /out=Bar.il Bar.dll
+</code></pre>
+
+<p>The result of the command is a new file, <em>Bar.il</em>, which contains a dissassembled listing of <em>Bar.dll</em>.</p>
+
+<p><img src="http://buffered.io/uploads/2008/07/step2.jpg" style="float: right; margin-left: 5px; margin-bottom: 2px;" alt="Rebuild and Sign Bar" /></p>
+
+<h3>Step 2 - Rebuild and Sign Bar</h3>
+
+<p>We can now use <a href="http://msdn.microsoft.com/en-us/library/496e4ekx.aspx" title="MSIL Assembler">ilasm</a> to reassemble <em>Bar.il</em> back into <em>Bar.dll</em>, but at the same time specify a strong-name key to use to sign the resulting assembly. We pass in the value <em>Foo.snk</em> to the <code>/key</code> switch on the command line, like so:</p>
+
+<div style="clear:both;"></div>
+
+
+<pre><code>C:\Foo\bin&gt; ilasm /dll /key=Foo.snk Bar.il
+
+Microsoft (R) .NET Framework IL Assembler.  Version 2.0.50727.1434
+Copyright (c) Microsoft Corporation.  All rights reserved.
+Assembling 'Bar.il'  to DLL --&gt; 'Bar.dll'
+Source file is ANSI
+
+Assembled method Bar.Bar::get_SecretMessage
+Assembled method Bar.Bar::.ctor
+Creating PE file
+
+Emitting classes:
+Class 1:        Bar.Bar
+
+Emitting fields and methods:
+Global
+Class 1 Methods: 2;
+Resolving local member refs: 1 -&gt; 1 defs, 0 refs, 0 unresolved
+
+Emitting events and properties:
+Global
+Class 1 Props: 1;
+Resolving local member refs: 0 -&gt; 0 defs, 0 refs, 0 unresolved
+Writing PE file
+Signing file with strong name
+Operation completed successfully
+</code></pre>
+
+<p><em>Bar.dll</em> is now signed! All we have to do is reopen <em>Foo</em>'s project, remove the reference to <em>Bar.dll</em>, re-add the reference to the new signed assembly and rebuild. Sorted!</p>
+
+<h2>Scenario 2 - Foo, Bar and Baz</h2>
+
+<ul>
+<li><code>Foo</code> is the component that you're building which has to be signed.</li>
+<li><code>Bar</code> is the third-party component that you're forced to use that <em>isn't</em>.</li>
+<li><code>Baz</code> is another third-party component that is required in order for you to use <em>Bar</em>.</li>
+</ul>
+
+
+<p><img src="http://buffered.io/uploads/2008/07/foobarbaz.png" alt="Relationship between Foo, Bar and Baz"/></p>
+
+<p>Grab <a href="/uploads/2008/07/baz.zip" title="Project/Binary for Baz"><em>Baz.dll</em> and project</a>, <a href="/uploads/2008/07/barbaz.zip" title="Project/Binary for Bar"><em>Bar.dll</em> and project</a> along with <a href="/uploads/2008/07/foobarbaz.zip" title="Project/Binary for Foo"><em>Foo.dll</em> and project</a> for a sample source.</p>
+
+<p>When you attempt to build <em>Foo</em> you get the same error as you do in the previous scenario. Bear in mind that this time, <strong>both</strong> <em>Bar.dll</em> and <em>Baz.dll</em> need to be signed. So first of all, follow the steps in <strong>Scenario 1</strong> for both <em>Bar.dll</em> and <em>Baz.dll</em>.</p>
+
+<p>Done? OK. When you attempt to build <em>Foo.dll</em> after pointing the project at the new <em>Bar.dll</em> no compiler errors will be shown. Don't get too excited :)</p>
+
+<p>When you attempt to <strong>use</strong> <em>Foo.dll</em> your world will come crashing down. The reason is because <em>Bar.dll</em> was originally built with a reference to an <u>unsigned version</u> of <em>Baz.dll</em>. Now that <em>Baz.dll</em> is signed we need to force <em>Bar.dll</em> to reference the <strong>signed</strong> version of <em>Baz.dll</em>.</p>
+
+<p><img src="http://buffered.io/uploads/2008/07/step3.jpg" style="float: right; margin-left: 5px; margin-bottom: 2px;" alt="Hack the Disassembled IL" /></p>
+
+<h3>Step 1 - Hack the Disassembled IL</h3>
+
+<p>Just like we did in the previous steps we need to disassemble the binary that we need to fix. This time, make sure you disassemble the new binary that you created in the previous step (this binary has been signed, and will contain the signature block for the strong name). Once <em>Bar.il</em> has been created using ildasm, open it up in a <a href="http://www.vim.org/" title="VIM - @secretGeek loves it... no really, he does!">text editor</a>.</p>
+
+<p>Search for the reference to <em>Baz</em> -- this should be located a fair way down the file, somewhere near the top of the actual code listing, just after the comments. Here's what it looks like on my machine:</p>
+
+<pre><code>.assembly extern /*23000002*/ Baz
+{
+  .ver 1:0:0:0
+}
+</code></pre>
+
+<p>This external assembly reference is missing the all-important public key token reference. Before we can add it, we need to know what the public key token is for <em>Bar.dll</em>. To determine this, we can use the <a href="http://msdn.microsoft.com/en-us/library/k5b5tt23(VS.80).aspx" title="Strong Name Tool">sn.exe</a> utility, like so:</p>
+
+<pre><code>C:\Foo\bin&gt; sn -Tp Baz.dll
+
+Microsoft (R) .NET Framework Strong Name Utility  Version 3.5.21022.8
+Copyright (c) Microsoft Corporation.  All rights reserved.
+
+Public key is
+0024000004800000940000000602000000240000525341310004000001000100a59cd85e10658d
+9229d54de16c69d0b53b31f60bb4404b86eb3b8804203aca9d65412a249dfb8e7b9869d09ce80b
+0d9bdccd4943c0004c4e76b95fdcdbc6043765f51a1ee331fdd55ad25400d496808b792723fc76
+dee74d3db67403572cddd530cadfa7fbdd974cef7700be93c00c81121d978a3398b07a9dc1077f
+b331ca9c
+
+Public key token is 2ed7bbec811020ec
+</code></pre>
+
+<p>Now we return to <em>Bar.il</em> and modify the assembly reference so that the public key token is specified. This is what it should look like after modification:</p>
+
+<pre><code>.assembly extern /*23000002*/ Baz
+{
+  .publickeytoken = (2E D7 BB EC 81 10 20 EC )
+  .ver 1:0:0:0
+}
+</code></pre>
+
+<p>Save your changes.</p>
+
+<p><img src="http://buffered.io/uploads/2008/07/step4.jpg" style="float: right; margin-left: 5px; margin-bottom: 2px;" alt="Reassemble Bar" /></p>
+
+<h3>Step 2 - Reassemble Bar</h3>
+
+<p>This step is just a repeat of previous steps. We are again using ilasm to reassemble <em>Bar.dll</em>, but this time from the new "hacked" <em>Bar.il</em> file. We must use the exact same command line as we did previously, and we still need to specify the <em>Foo.snk</em> for signing the assembly. To save you having to scroll up, here it is again:</p>
+
+<pre><code>C:\Foo\bin&gt; ilasm /dll /key=Foo.snk Bar.il
+
+Microsoft (R) .NET Framework IL Assembler.  Version 2.0.50727.1434
+Copyright (c) Microsoft Corporation.  All rights reserved.
+Assembling 'Bar.il'  to DLL --&gt; 'Bar.dll'
+Source file is ANSI
+
+Assembled method Bar.Bar::get_SecretMessage
+Assembled method Bar.Bar::.ctor
+Creating PE file
+
+Emitting classes:
+Class 1:        Bar.Bar
+
+Emitting fields and methods:
+Global
+Class 1 Fields: 1;      Methods: 2;
+Resolving local member refs: 3 -&gt; 3 defs, 0 refs, 0 unresolved
+
+Emitting events and properties:
+Global
+Class 1 Props: 1;
+Resolving local member refs: 0 -&gt; 0 defs, 0 refs, 0 unresolved
+Writing PE file
+Signing file with strong name
+Operation completed successfully
+</code></pre>
+
+<p>Open up <em>Foo</em>'s project, remove and re-add the reference to <em>Bar.dll</em>, making sure you point to the new version that you just created. <em>Foo.dll</em> will not only build, but this time it will run!</p>
+
+<h2>Disclaimer</h2>
+
+<p>"Hacking" third-party binaries in this manner <strong><em>may</em> breach the license agreement</strong> of those binaries. Please make sure that you are not breaking the license agreement before adopting this technique.</p>
+
+<p>I hope this helps!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Microsoft want to Annoy you, Cancel or Allow?]]></title>
+    <link href="http://buffered.io/posts/microsoft-want-to-annoy-you-cancel-or-allow/"/>
+    <updated>2008-04-12T21:43:00+10:00</updated>
+    <id>http://buffered.io/posts/microsoft-want-to-annoy-you-cancel-or-allow</id>
+    <content type="html"><![CDATA[<p>Before I even started using Vista, I hated <a href="http://technet2.microsoft.com/WindowsVista/en/library/0d75f774-8514-4c9e-ac08-4c21f5c6c2d91033.mspx" title="User Access Control">UAC</a>. I read about it all over the place, and laughed at the stupidity involved in asking users to constantly "cancel or allow" every action they wanted to take. As soon as I was forced to use Vista for work (both on my work laptop and on site with the client) I turned off UAC on both installations.</p>
+
+<!--more-->
+
+
+<p>UAC has been a nagging frustration for a lot of Vista users, and has also been a <a href="http://www.youtube.com/watch?v=VKM1cAtAdtQ" title="Get a Mac ad">joke to the Apple fans</a> as well:</p>
+
+<object width="425" height="355"><param name="movie" value="http://www.youtube.com/v/VKM1cAtAdtQ&hl=en"></param><param name="wmode" value="transparent"></param><embed src="http://www.youtube.com/v/VKM1cAtAdtQ&hl=en" type="application/x-shockwave-flash" wmode="transparent" width="425" height="355"></embed></object>
+
+
+<p>Yeah, I laughed too.</p>
+
+<p>But I didn't really give UAC any credit. I didn't think about why it was there, all I thought was that MS were being stupid. That was until a couple of days ago when I was thinking about it (don't ask me why ;) ).</p>
+
+<p>After deliberating on it for a day or so, trying to come up with the motivation behind it, <a href="http://arstechnica.com/news.ars/post/20080411-vistas-uac-security-prompt-was-designed-to-annoy-you.html" title="Vista's UAC security prompt was designed to annoy you">this landed in my RSS feed reader</a> and made it clear. MS are taking a hit in the hope that devs will sort their shit out!</p>
+
+<p>Windows users have had a long history of being administrators of their own machines by default. In general, most users do not login using an account with low levels of privileges. In Windows it has been too much of a pain in the butt to get anything done if you <em>don't</em>. Is that the fault of MS and Windows? Yes it is, but it's not their fault alone.</p>
+
+<p>Looking back through history, developers who write software for Windows haven't really been particularly brilliant when it comes to being mindful of security. This is something that needs to change. Some really basic applications, office applications, editors and even games have require administrator privileges to run. It's no wonder that everyone decides to give themselves an admin account. Why would you want to face constant issues with security when all the things you're trying to use need the elevated access?</p>
+
+<p>The fault lies with the developers. They need to get into the habit of writing software that doesn't require elevated privileges. UAC is part of MS's effort to force the plebian developers to sort their shit out. By the looks of it, it's beginning to work. It's a brave move on MS's part, as pissing off users to force developers to be mindful of security is not necessarily the smartest thing to do. Vista has enough pitfalls as it is without having something that's designed to being annoying popping up in your face all the time.</p>
+
+<p>Let's hope the trend continues. In a perfect world it'd be fine to have something like UAC running all the time, so long as it doesn't appear all the time!</p>
+
+<p>Note for those who care: sorry for the poorly written post :) I couldn't be bothered fixing it up, it's late and it's time for bed!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[How to be an Idiot]]></title>
+    <link href="http://buffered.io/posts/how-to-be-an-idiot/"/>
+    <updated>2008-03-17T15:45:00+10:00</updated>
+    <id>http://buffered.io/posts/how-to-be-an-idiot</id>
+    <content type="html"><![CDATA[<p>I've just done something stupid. I attempted to install a new plugin for Wordpress without verifying the contents of the package. The result? I lost most of the file system under this website. From what I can see in the script, it also attempted to various other nasty things such as deleting files from outside the web root, and emailing certain files to other websites. It's a good job I have file permissions set up so that the web server can't access the file system outside of its root. I'm lucky it didn't attempt to trash the database too!</p>
+
+<p>I've requested a partial restore of content from our web host so that I don't have to go through the pain of adding all the content again. Hopefully it'll be back up soon.</p>
+
+<p>I'm not happy, but I only have myself to blame. Whatever you do, unless you're grabbing from the official Wordpress plugin repo, make sure you check out the contents of the plugin before you attempt to install it!</p>
+]]></content>
+  </entry>
+  
+</feed>

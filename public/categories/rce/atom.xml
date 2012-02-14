@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: RCE | OJ's rants]]></title>
+  <link href="http://buffered.io/categories/rce/atom.xml" rel="self"/>
+  <link href="http://buffered.io/"/>
+  <updated>2012-02-14T09:57:08+10:00</updated>
+  <id>http://buffered.io/</id>
+  <author>
+    <name><![CDATA[OJ Reeves]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Reversing DirectX &amp; Blowfish]]></title>
+    <link href="http://buffered.io/posts/reversing-directx-blowfish/"/>
+    <updated>2007-04-09T06:31:00+10:00</updated>
+    <id>http://buffered.io/posts/reversing-directx-blowfish</id>
+    <content type="html"><![CDATA[<p>This tutorial has been on the boil for quite a while.  I got close to nailing the problem late last month, but didn't end up finding the time to finish it until this weekend.  This tutorial is a solution to another Crackme, but this time it's really not for the faint-hearted.  Information on reversing fullscreen <a href="http://www.microsoft.com/directx/" title="DirectX">DirectX (Direct3D)</a> applications and playing around with <a href="http://www.schneier.com/blowfish.html" title="Blowfish">Blowfish</a> can be found in this tutorial, and it's a bit of a mind-job - it also weighs in at nearly 40 pages (with some nice pictures thrown in)!</p>
+
+<p>Take a look at the <a href="/uploads/2007/04/silverdxcrackme1.zip">Crackme</a> and then <a href="/uploads/2007/04/Silver-DirectX-Solution-TheColonial.zip">my solution</a>. Enjoy.</p>
+
+<h3>Update: 9th Feb 2012</h3>
+
+<p>This tutorial was originally posted and hosted on <a href="http://www.crackmes.de/">Crackmes.de</a> alongside the crackme itself. Unfortunately Crackems.de had been taken offline for quite a while for legal reasons and hence the tutorial wasn't available there.</p>
+
+<p>Thanks to issues with webhosts and backup failures, this tutorial was completely unavailable for a long time. Thankfully that site is back up now and I finally have a copy of the tutorial again.</p>
+
+<p>You can still reference the material over on that <a href="http://www.crackmes.de/users/silver/silvers_dx_crackme_1/">site</a>, but I have decided to host a copy of it here as well.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Another Lesson in Software Reversing]]></title>
+    <link href="http://buffered.io/posts/another-lesson-in-software-reversing/"/>
+    <updated>2007-03-08T21:10:00+10:00</updated>
+    <id>http://buffered.io/posts/another-lesson-in-software-reversing</id>
+    <content type="html"><![CDATA[<p><a href="http://www.iitac.org/" title="IITAC.org" target="_blank"><img src="http://certification.iitac.org/templates/default/images/HeaderIcon.png" class="InlineImageLeft" alt="IITAC.org" /></a>Yes, you can (most probably) consider this to be a fairly regular segment from this point on :) As I said before I've always been partial to RCE, and I don't think I'll ever get sick of it.  Today's installment is another tutorial that I felt shouldn't be published.  The reason is because it's a tutorial on how to solve an example reversing challenge for the <a href="http://certification.iitac.org/goto.php?target=cat_384&client_id=iitac" title="" target="_blank">IITAC online RCE adacemy</a>, and I generally don't think it's a good move to show other people how to do this stuff when they can get certified for it. However, this is just a <em>training</em> example so I think I'm safe.</p>
+
+<p>The challenge consists of a few tasks:<ol><li>Removing a nag-screen</li><li>Finding a hard-coded serial number</li><li>Finding a valid name/serial combination</li><li>Writing a key generator</li></ol>You'll notice from the tutorial that the full source code is included written in 32-bit ASM.  Again, I would appreciate the feedback on the quality from anyone who wishes to give it (that includes you Alister ;) ) as I'm always looking to improve what I write.</p>
+
+<p>You can grab it from <a href="http://buffered.io/uploads/2007/03/01-course-splish-2.zip" title="Course 01 - Splish 2 reversing solution">here</a>.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[More RCE Goodness]]></title>
+    <link href="http://buffered.io/posts/more-rce-goodness/"/>
+    <updated>2007-03-06T12:45:00+10:00</updated>
+    <id>http://buffered.io/posts/more-rce-goodness</id>
+    <content type="html"><![CDATA[<p>I'm quite excited.  My previous RCE solution and tutorial has been <a href="http://www.crackmes.de/users/cyclops/nts_crackme10/" title="My Solution">approved</a>!</p>
+
+<p>Plus, the first keygenme that I've ever written is now <a href="http://www.crackmes.de/users/thecolonial/thecolonials_keygenme01_x64/" title="My Keygenme">approved and available for download</a>.  So if you're up for a 64-bit RCE challenge, go check it out (or download it directly from <a href="http://buffered.io/uploads/2007/03/thecolonial_keygenme01_winx64.zip" title="My Keygenme">here</a>).</p>
+
+<p>Feel free to let me know how good/bad/ugly you think this stuff is!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[A Reversing Tutorial]]></title>
+    <link href="http://buffered.io/posts/a-reversing-tutorial/"/>
+    <updated>2007-03-03T00:24:00+10:00</updated>
+    <id>http://buffered.io/posts/a-reversing-tutorial</id>
+    <content type="html"><![CDATA[<p>For a long time I've been interested in the lovely and exciting art of <a href="http://en.wikipedia.org/wiki/Reverse_engineering" title="Reverse Engineering" target="_blank">Reverse Code Engineering</a> (RCE) and on more than one occasion I've been sucked in to spending hours and hours delving through pages of ASM code searching for the answer.</p>
+
+<p>Today is no different. With Amy feeling pretty crook due to a nasty headache, I thought I'd retire to my PC and do something quiet that I haven't done for ages. So I downloaded a <a href="http://en.wikipedia.org/wiki/Crackme" title="Crackme" target="_blank">crackme</a> from <a href="http://www.crackmes.de/" title="Crackmes.de" target="_blank">Crackmes.de</a> and started reversing. After nailing the problem to the wall, I decided to unleash my learnings on the world via a tutorial. When coders go through the rigmarole of producing these little apps for people like me to play with, it seems only fair that I give back with a bit of information on how I broke their protection scheme. Not just that, but it gives other wannabe-reversers something to read and learn from to.</p>
+
+<p>For those of you who are interested in reading and learning the basics, feel free to <a href="http://buffered.io/uploads/2007/03/nts-crackme10-solution-thecolonial.zip" title="Solution to a Crackme">download the goods</a>. Any feedback is appreciated (but only if it's good :D ).</p>
+]]></content>
+  </entry>
+  
+</feed>

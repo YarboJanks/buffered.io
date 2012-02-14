@@ -1,0 +1,533 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Project Euler #5 - OJ's rants</title>
+  <meta name="author" content="OJ Reeves">
+
+  
+  <meta name="description" content="WARNING! This post contains a spoiler for Problem #5 listed at Project Euler. Do not read the rest of this post if you&#8217;re planning to attempt &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's rants RSS 2.0" type="application/rss+xml">
+  <link rel="canonical" href="http://buffered.io/posts/project-euler-5">
+  <link href="/favicon.ico" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+
+  <script src="/javascripts/modernizr-2.0.js" type="text/javascript"></script>
+  <script src="/javascripts/ender.js" type="text/javascript"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+
+  <script type="text/javascript">
+    Modernizr.load([
+      { load: '//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js' },
+      { load: '/javascripts/jquery.lightbox.js', complete: function() {
+        $("a[rel^='lightbox']").lightbox();
+      } }
+    ]);
+  </script>
+
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-8648787-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">OJ's rants</a></h1>
+  
+    <h2>It's not about you, it's about the software</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/OjsRants" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:buffered.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/posts/archives">Archives</a></li>
+  <li><a href="/+">About</a></li>
+  <li><a href="http://www.google.com/recaptcha/mailhide/d?k=01KtoERsnUusX9vVliTm27uQ==&c=Be1wE57A4P96e6U9_HLCvw==">Contact</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Project Euler #5</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+
+<time datetime="2008-03-23T15:26:00+10:00" pubdate data-updated="true">23 Mar 2008</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p><strong>WARNING!</strong> This post contains a spoiler for Problem #5 listed at <a href="http://projecteuler.net/" title="Project Euler">Project Euler</a>. Do not read the rest of this post if you&#8217;re planning to attempt to solve the problem yourself.</p>
+
+<!--more-->
+
+
+<p><a href="http://projecteuler.net/index.php?section=problems&id=5">Problem #5</a> is a great little problem that requires a little maths knowledge to be able to solve in a reasonable period of time. Let&#8217;s take a look at the question:<blockquote><p>2520 is the smallest number that can be divided by each of the numbers from 1 to 10 without any remainder.</p>
+
+<p>What is the smallest number that is <u>evenly divisible</u> by all of the numbers from 1 to 20?</p></blockquote>
+Brute force? Hrm, I don&#8217;t think so :) It&#8217;d take an ice age. Nope, instead we need to do a bit of <a href="http://en.wikipedia.org/wiki/Least_common_multiple" title="Least common multiple">research</a> to help come up with a smarter solution.</p>
+
+<p>In short, the best way is to find the lowest common multiple (LCM) for each of the numbers respectively. Thankfully, Haskell comes with a couple of handy functions which make it really easy to iterate over a list and find the LCM of each pair of items:<ol><li><strong>lcm</strong> - finds the LCM of two numbers.</li><li><strong>fold*</strong> - iterates over a list and applies a function to each item pair iteratively using the result on the next item. There are many flavours, but we&#8217;ll use <a href="http://haskell.org/ghc/docs/latest/html/libraries/base/Prelude.html#v%3Afoldl1" title="foldl1">foldl1</a>.</li></ol>
+So here it is, the solution to the problem in all its glory:</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='haskell'><span class='line'><span class="nf">main</span> <span class="ow">::</span> <span class="kt">IO</span> <span class="nb">()</span>
+</span><span class='line'><span class="nf">main</span> <span class="ow">=</span> <span class="n">print</span> <span class="o">$</span> <span class="n">foldl1</span> <span class="p">(</span><span class="n">lcm</span><span class="p">)</span> <span class="p">[</span><span class="mi">2</span><span class="o">..</span><span class="mi">20</span><span class="p">]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Genius isn&#8217;t it :) We could actually avoid all the numbers from 2 to 10 if we wanted, because we know that multiples of those numbers appear from 11 to 20, so to reduce a bit of time we could do this:</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='haskell'><span class='line'><span class="nf">main</span> <span class="ow">::</span> <span class="kt">IO</span> <span class="nb">()</span>
+</span><span class='line'><span class="nf">main</span> <span class="ow">=</span> <span class="n">print</span> <span class="o">$</span> <span class="n">foldl1</span> <span class="p">(</span><span class="n">lcm</span><span class="p">)</span> <span class="p">[</span><span class="mi">11</span><span class="o">..</span><span class="mi">20</span><span class="p">]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>That gives the same result just a tiny bit quicker.</p>
+
+<p>Now it&#8217;s time for me to embarass myself a little. Before I came to the &#8220;neat&#8221; little conclusion above, I actually did a fair bit of work hand-coding my own solution. I was trying to be too tricky for my own good, and as a result I paid the price of wasting a lot of time. Having said that, I learned a lot about the language when I wrote this, so it wasn&#8217;t a <em>complete</em> waste of time. The code below is what happens when you attempt a problem without actually doing any research on it :) Enjoy!</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+</pre></td><td class='code'><pre><code class='haskell'><span class='line'><span class="kr">import</span> <span class="nn">List</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">-- Prime factor is a tuple where the first value is</span>
+</span><span class='line'><span class="c1">-- the number, and the second value is the power that</span>
+</span><span class='line'><span class="c1">-- the number is to be raised to. eg:</span>
+</span><span class='line'><span class="c1">-- (2, 4) = 2 ** 4</span>
+</span><span class='line'><span class="kr">type</span> <span class="kt">PrimeFactor</span> <span class="ow">=</span> <span class="p">(</span><span class="kt">Integer</span><span class="p">,</span> <span class="kt">Int</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">-- Function that factorises a number into a list of</span>
+</span><span class='line'><span class="c1">-- prime factors. eg:</span>
+</span><span class='line'><span class="c1">-- factorise 24 = [2, 2, 2, 3]</span>
+</span><span class='line'><span class="nf">factorise</span> <span class="ow">::</span> <span class="kt">Integer</span> <span class="ow">-&gt;</span> <span class="p">[</span><span class="kt">Integer</span><span class="p">]</span>
+</span><span class='line'><span class="nf">factorise</span> <span class="mi">1</span> <span class="ow">=</span> <span class="kt">[]</span>
+</span><span class='line'><span class="nf">factorise</span> <span class="n">n</span> <span class="o">|</span> <span class="n">even</span> <span class="n">n</span>    <span class="ow">=</span> <span class="mi">2</span> <span class="kt">:</span> <span class="n">factorise</span> <span class="p">(</span><span class="n">div</span> <span class="n">n</span> <span class="mi">2</span><span class="p">)</span>
+</span><span class='line'>            <span class="o">|</span> <span class="n">otherwise</span> <span class="ow">=</span> <span class="n">f</span> <span class="n">n</span> <span class="mi">3</span>
+</span><span class='line'>          <span class="kr">where</span>
+</span><span class='line'>            <span class="n">f</span> <span class="mi">1</span> <span class="kr">_</span> <span class="ow">=</span> <span class="kt">[]</span>
+</span><span class='line'>            <span class="n">f</span> <span class="n">n</span> <span class="n">d</span> <span class="o">|</span> <span class="n">mod</span> <span class="n">n</span> <span class="n">d</span> <span class="o">==</span> <span class="mi">0</span>  <span class="ow">=</span> <span class="n">d</span> <span class="kt">:</span> <span class="n">f</span> <span class="p">(</span><span class="n">div</span> <span class="n">n</span> <span class="n">d</span><span class="p">)</span> <span class="n">d</span>
+</span><span class='line'>                  <span class="o">|</span> <span class="n">otherwise</span>     <span class="ow">=</span> <span class="n">f</span> <span class="n">n</span> <span class="p">(</span><span class="n">d</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">-- Convert a list of factors into a list of prime factors. eg:</span>
+</span><span class='line'><span class="c1">-- power [2, 2, 2, 3] = [(2, 3), (3, 1)]</span>
+</span><span class='line'><span class="nf">power</span> <span class="ow">::</span> <span class="p">[</span><span class="kt">Integer</span><span class="p">]</span> <span class="ow">-&gt;</span> <span class="p">[</span><span class="kt">PrimeFactor</span><span class="p">]</span>
+</span><span class='line'><span class="nf">power</span> <span class="n">l</span> <span class="ow">=</span> <span class="n">map</span> <span class="p">(</span><span class="nf">\</span><span class="n">l</span> <span class="ow">-&gt;</span> <span class="p">(</span><span class="n">head</span> <span class="n">l</span><span class="p">,</span> <span class="n">length</span> <span class="n">l</span><span class="p">))</span> <span class="o">$</span> <span class="n">group</span> <span class="n">l</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">-- Convert a list of prime factors into a normalise list where</span>
+</span><span class='line'><span class="c1">-- we keep the instance of a number with the highest power. eg:</span>
+</span><span class='line'><span class="c1">-- normalise [(2, 1), (2, 2), (3, 3), (3, 2)] = [(2, 2), (3, 3)]</span>
+</span><span class='line'><span class="nf">normalise</span> <span class="ow">::</span> <span class="p">[</span><span class="kt">PrimeFactor</span><span class="p">]</span> <span class="ow">-&gt;</span> <span class="p">[</span><span class="kt">PrimeFactor</span><span class="p">]</span>
+</span><span class='line'><span class="nf">normalise</span> <span class="kt">[]</span>      <span class="ow">=</span> <span class="kt">[]</span>
+</span><span class='line'><span class="nf">normalise</span> <span class="p">(</span><span class="n">n</span><span class="kt">:</span><span class="n">ns</span><span class="p">)</span>  <span class="ow">=</span> <span class="p">[</span><span class="n">f</span> <span class="n">n</span> <span class="n">ns</span><span class="p">]</span> <span class="o">++</span> <span class="n">normalise</span> <span class="p">(</span><span class="n">filter</span> <span class="p">(</span><span class="nf">\</span><span class="n">x</span> <span class="ow">-&gt;</span> <span class="n">fst</span> <span class="n">x</span> <span class="o">/=</span> <span class="n">fst</span> <span class="n">n</span><span class="p">)</span> <span class="n">ns</span><span class="p">)</span>
+</span><span class='line'>          <span class="kr">where</span>
+</span><span class='line'>            <span class="n">f</span> <span class="n">n</span> <span class="kt">[]</span>          <span class="ow">=</span> <span class="n">n</span>
+</span><span class='line'>            <span class="n">f</span> <span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span> <span class="p">(</span><span class="n">l</span><span class="kt">:</span><span class="n">ls</span><span class="p">)</span> <span class="o">|</span> <span class="n">n</span> <span class="o">==</span> <span class="n">fst</span> <span class="n">l</span> <span class="o">&amp;&amp;</span> <span class="n">p</span> <span class="o">&lt;=</span> <span class="n">snd</span> <span class="n">l</span>  <span class="ow">=</span> <span class="n">f</span> <span class="n">l</span> <span class="n">ls</span>
+</span><span class='line'>                            <span class="o">|</span> <span class="n">otherwise</span>                 <span class="ow">=</span> <span class="n">f</span> <span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span> <span class="n">ls</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">-- expand the list of prime factors and multiply them all out. eg:</span>
+</span><span class='line'><span class="c1">-- expand [(2, 2), (3, 3)] = 2 ** 2 * 3 ** 3 = 8 * 9 = 72</span>
+</span><span class='line'><span class="nf">expand</span> <span class="ow">::</span> <span class="p">[</span><span class="kt">PrimeFactor</span><span class="p">]</span> <span class="ow">-&gt;</span> <span class="kt">Integer</span>
+</span><span class='line'><span class="nf">expand</span> <span class="kt">[]</span>           <span class="ow">=</span> <span class="mi">0</span>
+</span><span class='line'><span class="nf">expand</span> <span class="p">((</span><span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span><span class="kt">:[]</span><span class="p">)</span>  <span class="ow">=</span> <span class="n">n</span> <span class="o">^</span> <span class="n">p</span>
+</span><span class='line'><span class="nf">expand</span> <span class="p">((</span><span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span><span class="kt">:</span><span class="n">ls</span><span class="p">)</span>  <span class="ow">=</span> <span class="n">n</span> <span class="o">^</span> <span class="n">p</span> <span class="o">*</span> <span class="n">expand</span> <span class="n">ls</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">-- helper function that takes a list of prime factor lists and</span>
+</span><span class='line'><span class="c1">-- generates the resulting product number (as per the question)</span>
+</span><span class='line'><span class="nf">eval</span> <span class="ow">::</span> <span class="p">[[</span><span class="kt">PrimeFactor</span><span class="p">]]</span> <span class="ow">-&gt;</span> <span class="kt">Integer</span>
+</span><span class='line'><span class="nf">eval</span> <span class="ow">=</span> <span class="n">expand</span> <span class="o">.</span> <span class="n">normalise</span> <span class="o">.</span> <span class="n">concat</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">-- standard IO monad to solve and print to screen</span>
+</span><span class='line'><span class="c1">-- note, we don&#39;t need to include the numbers from 1 to 10</span>
+</span><span class='line'><span class="c1">-- because the numbers from 11 to 20 cover those values as</span>
+</span><span class='line'><span class="c1">-- factors!</span>
+</span><span class='line'><span class="nf">main</span> <span class="ow">::</span> <span class="kt">IO</span> <span class="nb">()</span>
+</span><span class='line'><span class="nf">main</span> <span class="ow">=</span> <span class="n">print</span> <span class="o">$</span> <span class="n">eval</span> <span class="o">$</span> <span class="n">map</span> <span class="p">(</span><span class="nf">\</span><span class="n">l</span> <span class="ow">-&gt;</span> <span class="n">power</span> <span class="p">(</span><span class="n">factorise</span> <span class="n">l</span><span class="p">))</span> <span class="p">[</span><span class="mi">11</span><span class="o">..</span><span class="mi">20</span><span class="p">]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Isn&#8217;t that just terrific :P Not only is it huge, but it just stinks of &#8220;n00b&#8221;. You can tell that it wasn&#8217;t written by an experienced Haskeller.</p>
+
+<p>Thoughts?</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">OJ Reeves</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+
+<time datetime="2008-03-23T15:26:00+10:00" pubdate data-updated="true">23 Mar 2008</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/categories/functional-programming/'>Functional Programming</a>, <a class='category' href='/categories/haskell/'>Haskell</a>, <a class='category' href='/categories/project-euler/'>Project Euler</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://buffered.io/posts/project-euler-5/" data-via="TheColonial" data-counturl="http://buffered.io/posts/project-euler-5/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/posts/tiger-administration/" title="Previous Post: Tiger Administration">&laquo; Tiger Administration</a>
+      
+      
+        <a class="basic-alignment right" href="/posts/project-euler-6/" title="next Post: Project Euler #6">Project Euler #6 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>OJ on the Web</h1>
+  <ul id="about_me">
+    <li class="post">
+      <a href="http://buffered.io/+" title="About OJ">About me</a>
+    </li>
+    <li class="post">
+      <a href="http://functional.io/" title="Functional IO">Functional IO</a>
+    </li>
+    <li class="post">
+      <a href="http://twitter.com/TheColonial" title="OJ @ Twitter">Twitter</a>
+    </li>
+    <li class="post">
+      <a href="http://github.com/OJ/" title="OJ @ Github">Github</a>
+    </li>
+    <li class="post">
+      <a href="http://bitbucket.org/OJ/" title="OJ @ Bitbucket">Bitbucket</a>
+    </li>
+    <li class="post">
+      <a href="http://stackoverflow.com/users/611/oj" title="OJ @ SO">StackOverflow</a>
+    </li>
+    <li><a href="http://www.erlang-factory.com/conference/SFBay2012"><img src="http://www.erlang-factory.com//upload/item/83/SF2012ImSpeaking.jpg" alt="I'm speaking at the 2012 San Francisco Erlang Factory!"></a>
+  </ul>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/posts/my-tools-list-2012/">My Tools List - 2012</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/an-expert-at-23/">An Expert at 23</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/reviews-theyre-all-you-need/">Reviews - They're all You need</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/why-i-use-twitter/">Why I use Twitter</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/corrugatediron-update-v0-1-1/">CorrugatedIron Update - v0.1.1</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("TheColonial", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/TheColonial" class="twitter-follow-button" data-show-count="false">Follow @TheColonial</a>
+  
+</section>
+
+<section>
+  <h1>Series</h1>
+  <ul id="series">
+    <li class='series'><a href='/series/project-euler/'>Project Euler (11)</a></li>
+<li class='series'><a href='/series/web-development-with-erlang/'>Web Development with Erlang (3)</a></li>
+
+  </ul>
+</section>
+<section>
+  <h1>Categories</h1>
+  <ul id="categories">
+    <li class='category'><a href='/categories/asm/'>ASM (3)</a></li>
+<li class='category'><a href='/categories/asp-net/'>ASP.NET (3)</a></li>
+<li class='category'><a href='/categories/agile/'>Agile (1)</a></li>
+<li class='category'><a href='/categories/algorithms/'>Algorithms (6)</a></li>
+<li class='category'><a href='/categories/apple/'>Apple (3)</a></li>
+<li class='category'><a href='/categories/being-in-the-industry/'>Being in the Industry (28)</a></li>
+<li class='category'><a href='/categories/blogging/'>Blogging (15)</a></li>
+<li class='category'><a href='/categories/c-/'>C# (15)</a></li>
+<li class='category'><a href='/categories/clr/'>CLR (3)</a></li>
+<li class='category'><a href='/categories/challenges/'>Challenges (7)</a></li>
+<li class='category'><a href='/categories/databases/'>Databases (6)</a></li>
+<li class='category'><a href='/categories/digital-rights/'>Digital Rights (7)</a></li>
+<li class='category'><a href='/categories/erlang/'>Erlang (6)</a></li>
+<li class='category'><a href='/categories/f-/'>F# (4)</a></li>
+<li class='category'><a href='/categories/fail/'>Fail (2)</a></li>
+<li class='category'><a href='/categories/food/'>Food (1)</a></li>
+<li class='category'><a href='/categories/freeware/'>Freeware (9)</a></li>
+<li class='category'><a href='/categories/functional-programming/'>Functional Programming (26)</a></li>
+<li class='category'><a href='/categories/funny/'>Funny (9)</a></li>
+<li class='category'><a href='/categories/games/'>Games (5)</a></li>
+<li class='category'><a href='/categories/google/'>Google (10)</a></li>
+<li class='category'><a href='/categories/guest-posts/'>Guest posts (1)</a></li>
+<li class='category'><a href='/categories/howto/'>HOWTO (16)</a></li>
+<li class='category'><a href='/categories/hardware/'>Hardware (9)</a></li>
+<li class='category'><a href='/categories/haskell/'>Haskell (20)</a></li>
+<li class='category'><a href='/categories/linux/'>Linux (10)</a></li>
+<li class='category'><a href='/categories/mac-os/'>Mac OS (2)</a></li>
+<li class='category'><a href='/categories/merb/'>Merb (1)</a></li>
+<li class='category'><a href='/categories/mercurial/'>Mercurial (3)</a></li>
+<li class='category'><a href='/categories/microsoft/'>Microsoft (18)</a></li>
+<li class='category'><a href='/categories/miscellaneous/'>Miscellaneous (56)</a></li>
+<li class='category'><a href='/categories/mono/'>Mono (2)</a></li>
+<li class='category'><a href='/categories/networks/'>Networks (2)</a></li>
+<li class='category'><a href='/categories/nosql/'>NoSQL (3)</a></li>
+<li class='category'><a href='/categories/open-source/'>Open Source (2)</a></li>
+<li class='category'><a href='/categories/privacy/'>Privacy (3)</a></li>
+<li class='category'><a href='/categories/productivity/'>Productivity (1)</a></li>
+<li class='category'><a href='/categories/project-euler/'>Project Euler (11)</a></li>
+<li class='category'><a href='/categories/rce/'>RCE (4)</a></li>
+<li class='category'><a href='/categories/riak/'>Riak (5)</a></li>
+<li class='category'><a href='/categories/ruby-on-rails/'>Ruby on Rails (1)</a></li>
+<li class='category'><a href='/categories/screencasts/'>Screencasts (1)</a></li>
+<li class='category'><a href='/categories/security/'>Security (10)</a></li>
+<li class='category'><a href='/categories/series/'>Series (1)</a></li>
+<li class='category'><a href='/categories/shortcuts/'>Shortcuts (4)</a></li>
+<li class='category'><a href='/categories/software/'>Software (31)</a></li>
+<li class='category'><a href='/categories/software-development/'>Software Development (65)</a></li>
+<li class='category'><a href='/categories/sorting/'>Sorting (5)</a></li>
+<li class='category'><a href='/categories/technology/'>Technology (40)</a></li>
+<li class='category'><a href='/categories/testing/'>Testing (1)</a></li>
+<li class='category'><a href='/categories/tips-tricks/'>Tips/Tricks (11)</a></li>
+<li class='category'><a href='/categories/twitter/'>Twitter (1)</a></li>
+<li class='category'><a href='/categories/wpf/'>WPF (1)</a></li>
+<li class='category'><a href='/categories/wtf/'>WTF (20)</a></li>
+<li class='category'><a href='/categories/webmachine/'>Webmachine (4)</a></li>
+<li class='category'><a href='/categories/windows/'>Windows (12)</a></li>
+
+  </ul>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+Copyright &copy; 2012 -
+<span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" property="dct:title" rel="dct:type">Blog content for OJ's rants</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://buffered.io/+" property="cc:attributionName" rel="cc:attributionURL">OJ Reeves</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License</a> -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'ojsrants';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://buffered.io/posts/project-euler-5/';
+        var disqus_url = 'http://buffered.io/posts/project-euler-5/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

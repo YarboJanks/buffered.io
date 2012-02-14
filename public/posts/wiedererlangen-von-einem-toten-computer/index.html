@@ -1,0 +1,448 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Wiedererlangen von einem toten Computer - OJ's rants</title>
+  <meta name="author" content="OJ Reeves">
+
+  
+  <meta name="description" content="Computer failures. We&#8217;ve all been bitten by them, and I&#8217;m pretty sure we&#8217;ll all be bitten by them again. Good quality HDD storage &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's rants RSS 2.0" type="application/rss+xml">
+  <link rel="canonical" href="http://buffered.io/posts/wiedererlangen-von-einem-toten-computer">
+  <link href="/favicon.ico" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+
+  <script src="/javascripts/modernizr-2.0.js" type="text/javascript"></script>
+  <script src="/javascripts/ender.js" type="text/javascript"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+
+  <script type="text/javascript">
+    Modernizr.load([
+      { load: '//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js' },
+      { load: '/javascripts/jquery.lightbox.js', complete: function() {
+        $("a[rel^='lightbox']").lightbox();
+      } }
+    ]);
+  </script>
+
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-8648787-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">OJ's rants</a></h1>
+  
+    <h2>It's not about you, it's about the software</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/OjsRants" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:buffered.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/posts/archives">Archives</a></li>
+  <li><a href="/+">About</a></li>
+  <li><a href="http://www.google.com/recaptcha/mailhide/d?k=01KtoERsnUusX9vVliTm27uQ==&c=Be1wE57A4P96e6U9_HLCvw==">Contact</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Wiedererlangen Von Einem Toten Computer</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+
+<time datetime="2006-09-20T16:20:00+10:00" pubdate data-updated="true">20 Sep 2006</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Computer failures. We&#8217;ve all been bitten by them, and I&#8217;m pretty sure we&#8217;ll all be bitten by them again. Good quality HDD storage is becoming more common, but despite the advances in technology, our drives still only have a <em>reliable</em> lifetime of a few years. Power supplies are becoming more solid, but they still blow up. Motherboards, while having more features than you poke a stick at, are still susceptable to being killed by something as simple as static electricity at the slightest touch.</p>
+
+<p>The result of losing <em>any</em> part of your computer half-way through a project is pretty devastating, especially if it&#8217;s the HDD. This isn&#8217;t just because of the loss of information, but also because of the loss of time that it takes to get things up to speed again. That time includes redoing all the work that was lost <em>and</em> getting a new machine built and ready to go so that development work can recommence.</p>
+
+<p>The purpose of this post is to explore the options reducing the impact of hardware failures on our geek lives. The reason I thought I&#8217;d rant was because Danny Ireland recently <a href="http://www.shiftperception.com/blog/posts/how-to-blow-up-2-computers-in-2-weeksthe-the-ballad-of-the-spare-computer/" title="How to blow up 2 computers in 2 weeks" target="_blank">experienced an event like this</a>.</p>
+
+<p>From this point on I&#8217;ll be using the term <strong>Virtual Machine</strong> (VM) as a meaning for having an operating system running inside a window :) So this might be using <a href="http://www.vmware.com" title="VMware" target="_blank">VMWare</a>, <a href="http://www.microsoft.com/windowsxp/virtualpc/" title="VirtualPC" target="_blank">Microsoft VirtualPC</a>, <a href="http://bochs.sourceforge.net/" title="Bochs" target="_blank">Bochs</a> or something similar.</p>
+
+<p>To start off with, I&#8217;m one of those guys who likes to have his computer running at a blistering/optimum speed even if he&#8217;s not going to be doing anything that requires it :) I know I&#8217;m not alone in this world either. As a result, the idea of doing my daily activities inside a VM isn&#8217;t that appealing. Not just that, but VMs tend to always have some form of refresh and response issues which just frustrate me.</p>
+
+<p>On the flip side of the coin, I don&#8217;t like the idea of having to reboot every time I want to fire up a new operating system, which is one of the things that VMs nail on the head. Another things is being able to have them all running at once if you really want.</p>
+
+<p>The argument for dual-booting vs VMs has no affect on the issues surrounding a hardware failure, I just thought I&#8217;d mention a couple issues surrounding the use of VMs.</p>
+
+<p>The main issue that needs to be covered is the minimal recovery time. Minimal recovery time relies on backups, and backups are always in short supply regardless of how good your backup scheme is, because you simply can&#8217;t back up real-time (well, you can, but is it something that you want to do given the overheads?). Let&#8217;s look at the areas of hardware failure and the impact it can have on your work.</p>
+
+<p><strong><u>Video Card / Monitor</u></strong></p>
+
+<p>Easy peasy. This has little do no impact on you as neither of these items are responsbile for retaining state. If either one of these kitties dies on you, replacing them should be a doddle. Most companies would (<em>should</em>?) have spares, and getting going again should take no more than a few minutes. If you&#8217;re good enough, you should still be able to save your work before shutting your PC down to make the changes required :)</p>
+
+<p><strong><u>Motherboard / CPU</u></strong></p>
+
+<p>Depending on the method of demise, this may or may not affect your work. Sure, it&#8217;s going to ditch whatever work you&#8217;ve done that&#8217;s volatile (ie. stuff you haven&#8217;t saved yet) as most CPU/motherboard failures result in the computer blue-screening, freezing, or totally shutting down. The time it takes to get the motherboard replaced varies greatly. This is due to the fact that figuring out that the motherboard is the problem is what takes the time. Replacing the mobo isn&#8217;t a huge task, but it does take a bit of time. CPUs are, again, a doddle to replace, and the time to replace is minimal - as soon as you know it&#8217;s the CPU that&#8217;s gone.</p>
+
+<p><strong><u>Power Supply Unit (PSU)</u></strong></p>
+
+<p>PSUs die in a similar way to what most drunk drivers do. That is, they waver around and end up crashing, and there&#8217;s always a chance that they&#8217;re going to take something else with them! The surges in power can kill any or all of the other bits that are unfortunate enough to be connected to the computer at the time. There&#8217;s no rule of thumb, you&#8217;re either luck or you&#8217;re not. Just pray that it doesn&#8217;t manage to take your HDD with it when it goes, as it&#8217;s the only thing in the machine that <em>really</em> hurts when it dies. Dan&#8217;s post contains some information on his PSU woes :)</p>
+
+<p><strong><u>Hard Disk Drive (HDD)</u></strong></p>
+
+<p>This is the real killer. Not only is it capable of bringing your system down, resulting in the loss of all your W.I.P, but it will probably end up taking a stack of other data with it that has already been persisted. This is where things should be put in place to reduce the impact of a failure.</p>
+
+<p>One way of doing this is to use <a href="http://en.wikipedia.org/wiki/Redundant_array_of_independent_disks" title="RAID" target="_blank">RAID</a> to store your information on multiple drives so that if one of the breaks you still have other copies lying around. This works well, and you&#8217;d be very unlucky to lose all your disks in one go. That doesn&#8217;t mean to say that it <em>won&#8217;t</em> happen (just ask my father-in-law who&#8217;s literally had a <strong>blast</strong> during a thunderstorm resulting in the loss of not just data, but his entire PC).</p>
+
+<p>Another way is to have all your work stored on a network drive, and have that network drive RAIDed and backed up. This at least puts the focus on the system administrator who should be responsible for a strong backup plan which will allow you to get to the data from the day before at the very least. There&#8217;s stacks of funky network storage solutions out there (check out Paul&#8217;s purchase of a <a href="http://pauleastabrook.spaces.live.com/blog/cns!46B5EF0BB06A216B!216.entry?_c11_blogpart_blogpart=blogview&_c=blogpart#permalink" title="2TB should do" target="_blank">2TB NAS</a> as an example). This will increase your network traffic a <em>lot</em> so you&#8217;d want to make sure that your network infrastructure can deal with it, especially if you deal in massive amounts of content (eg. like source-art for a computer game). If you deal with GBs of data on a daily basis you&#8217;d want to have a <a href="http://en.wikipedia.org/wiki/Storage_Area_Network" title="Storage Area Network" target="_blank">SAN</a> or something similar to handle the load.</p>
+
+<p><strong><u>Hardware aside - there&#8217;s more to worry about</u></strong></p>
+
+<p>If you lose your HDD, you&#8217;re going to have to rebuild your machine whether you like it or not. To some people this is exciting :) But those people are sick, and are usually recaptured very quickly. To most people, this is a dull and mundane task that they just don&#8217;t want to undertake. In the case of recovering from a hardware failure, I fit firmly into the latter category. Rebuilding a machine is painfully slow, but there are ways to help get back up to speed quickly:</p>
+
+<ul><li><strong>Imaging/Ghosting</strong> - When you first build your machine, get the OS installed and kill a day installing all the other bits and pieces that you need to do your work (Office, Visual Studio, Firefox, etc), you can use a utility such as <a href="http://en.wikipedia.org/wiki/Ghost_(software)" title="Ghost" target="_blank">Ghost</a> to take a snapshop of your set up and store it to disk. This image can be used to quickly create replica installations on other machines with the same hardware - which is exactly what you want to do when you rebuild your machine. Of course, this comes with the proviso that you have the same hardware when you rebuild. If there&#8217;s a consistant set of hardware across the organisation, this kind of utility really is a time saver. Unfortunately it&#8217;s not so fruitful when you have a mixture of hardware set ups.</li><li><strong>Oursourcing</strong> - I&#8217;m not a huge advocate of this, but it&#8217;s still an option. By this I mean either hire another company to make sure that there&#8217;s a replacement machine ready to rock in the case where something goes horribly wrong, or get a deal going with a company like DELL to just get another machine under warranty within 24 hours.</li></ul>
+
+
+<p>There are other options too.</p>
+
+<p>The common problem across all these solutions is that you generally can&#8217;t your environment back up to exactly how it was before the total dismemberment of your machine. It&#8217;d be lovely if snapshots of machines can be taken at arbitrary points through the day (without the pain of doing it through Ghost) and restored on arbitrary hardware at the drop of a hat, resulting in, not just your environment but your <em>data</em>, being restored. Yes, this is where those VMs come to the party. You can store your VM anywhere, and run it up on any machine that can boot (and that has a VM player on it).</p>
+
+<p>This sounds so fine and so dandy that it&#8217;s almost too good to be true - and to a point it is. You have to have some plan of managing the backups of the VM snapshots, and you need to cater for when they need to be copied. Most VM images are quite large due to the amount of software that needs to be installed (imagine how bad it&#8217;s going to be having to copy a VM of Vista, which without <em>any extra</em> software weighs in at a hefty <strong>9GB</strong>!?).</p>
+
+<p><strong><u>Conclusion</u></strong></p>
+
+<p>I like the idea of having my own VM that can follow me from machine to machine. I like the thought of being able to boot multiple operating systems at any time, and interact with them all at once. I also like the idea of getting the most out of my hardware with an installation that only has what it needs installed and running. The problem is that I don&#8217;t think given the current set of tools available, that you can have both of these at the same time. I&#8217;m not saying that the performance of a VM is woeful (far from it), but until I can&#8217;t notice a difference between playing a game in or out of a VM, I&#8217;ll probably end up sticking with a normal install.</p>
+
+<p>VMs are great for test environments (reverting to a pre-test state is a two-click process), they&#8217;re great for persistance of entire operating system state for easy use on multiple machines, and they&#8217;re even free now thanks to VMware!</p>
+
+<p>Even with all those positives, I think I&#8217;d still prefer to stick to a standard OS install for the main operating system and development environment, with VMs as test environments. I would have RAID in each of my machines with shared drives that are backed up over night so that data and more than a day old isn&#8217;t lost.</p>
+
+<p>At the end of the day, it&#8217;s down to the user or the copmany to choose what they think fits best for their scenario. I think in Dan&#8217;s case, he was particularly unlucky. Even if I was in his shoes, I&#8217;d stick to what I&#8217;ve just described in the previous paragraph.</p>
+
+<p>What would you guys do? Do you think your company has a strategy that gives you good coverage? I&#8217;d like to hear what procedures you guys have in place to cover for this - and I&#8217;m sure Dan would like to as well!</p>
+
+<p>PS. For those who care, the title of this blog post <em>should</em> translate to &#8221;<em>Recovering from a dead computer</em>&#8221;.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">OJ Reeves</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+
+<time datetime="2006-09-20T16:20:00+10:00" pubdate data-updated="true">20 Sep 2006</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/categories/hardware/'>Hardware</a>, <a class='category' href='/categories/technology/'>Technology</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://buffered.io/posts/wiedererlangen-von-einem-toten-computer/" data-via="TheColonial" data-counturl="http://buffered.io/posts/wiedererlangen-von-einem-toten-computer/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/posts/to-buntu-or-not-to-buntu-that-is-the-question/" title="Previous Post: To-buntu, or not to-buntu. That is the question.">&laquo; To-buntu, or not to-buntu. That is the question.</a>
+      
+      
+        <a class="basic-alignment right" href="/posts/all-joking-aside-i-have-to-have-a-wii/" title="next Post: All joking aside, I have to have a Wii">All joking aside, I have to have a Wii &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>OJ on the Web</h1>
+  <ul id="about_me">
+    <li class="post">
+      <a href="http://buffered.io/+" title="About OJ">About me</a>
+    </li>
+    <li class="post">
+      <a href="http://functional.io/" title="Functional IO">Functional IO</a>
+    </li>
+    <li class="post">
+      <a href="http://twitter.com/TheColonial" title="OJ @ Twitter">Twitter</a>
+    </li>
+    <li class="post">
+      <a href="http://github.com/OJ/" title="OJ @ Github">Github</a>
+    </li>
+    <li class="post">
+      <a href="http://bitbucket.org/OJ/" title="OJ @ Bitbucket">Bitbucket</a>
+    </li>
+    <li class="post">
+      <a href="http://stackoverflow.com/users/611/oj" title="OJ @ SO">StackOverflow</a>
+    </li>
+    <li><a href="http://www.erlang-factory.com/conference/SFBay2012"><img src="http://www.erlang-factory.com//upload/item/83/SF2012ImSpeaking.jpg" alt="I'm speaking at the 2012 San Francisco Erlang Factory!"></a>
+  </ul>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/posts/my-tools-list-2012/">My Tools List - 2012</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/an-expert-at-23/">An Expert at 23</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/reviews-theyre-all-you-need/">Reviews - They're all You need</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/why-i-use-twitter/">Why I use Twitter</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/corrugatediron-update-v0-1-1/">CorrugatedIron Update - v0.1.1</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("TheColonial", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/TheColonial" class="twitter-follow-button" data-show-count="false">Follow @TheColonial</a>
+  
+</section>
+
+<section>
+  <h1>Series</h1>
+  <ul id="series">
+    <li class='series'><a href='/series/project-euler/'>Project Euler (11)</a></li>
+<li class='series'><a href='/series/web-development-with-erlang/'>Web Development with Erlang (3)</a></li>
+
+  </ul>
+</section>
+<section>
+  <h1>Categories</h1>
+  <ul id="categories">
+    <li class='category'><a href='/categories/asm/'>ASM (3)</a></li>
+<li class='category'><a href='/categories/asp-net/'>ASP.NET (3)</a></li>
+<li class='category'><a href='/categories/agile/'>Agile (1)</a></li>
+<li class='category'><a href='/categories/algorithms/'>Algorithms (6)</a></li>
+<li class='category'><a href='/categories/apple/'>Apple (3)</a></li>
+<li class='category'><a href='/categories/being-in-the-industry/'>Being in the Industry (28)</a></li>
+<li class='category'><a href='/categories/blogging/'>Blogging (15)</a></li>
+<li class='category'><a href='/categories/c-/'>C# (15)</a></li>
+<li class='category'><a href='/categories/clr/'>CLR (3)</a></li>
+<li class='category'><a href='/categories/challenges/'>Challenges (7)</a></li>
+<li class='category'><a href='/categories/databases/'>Databases (6)</a></li>
+<li class='category'><a href='/categories/digital-rights/'>Digital Rights (7)</a></li>
+<li class='category'><a href='/categories/erlang/'>Erlang (6)</a></li>
+<li class='category'><a href='/categories/f-/'>F# (4)</a></li>
+<li class='category'><a href='/categories/fail/'>Fail (2)</a></li>
+<li class='category'><a href='/categories/food/'>Food (1)</a></li>
+<li class='category'><a href='/categories/freeware/'>Freeware (9)</a></li>
+<li class='category'><a href='/categories/functional-programming/'>Functional Programming (26)</a></li>
+<li class='category'><a href='/categories/funny/'>Funny (9)</a></li>
+<li class='category'><a href='/categories/games/'>Games (5)</a></li>
+<li class='category'><a href='/categories/google/'>Google (10)</a></li>
+<li class='category'><a href='/categories/guest-posts/'>Guest posts (1)</a></li>
+<li class='category'><a href='/categories/howto/'>HOWTO (16)</a></li>
+<li class='category'><a href='/categories/hardware/'>Hardware (9)</a></li>
+<li class='category'><a href='/categories/haskell/'>Haskell (20)</a></li>
+<li class='category'><a href='/categories/linux/'>Linux (10)</a></li>
+<li class='category'><a href='/categories/mac-os/'>Mac OS (2)</a></li>
+<li class='category'><a href='/categories/merb/'>Merb (1)</a></li>
+<li class='category'><a href='/categories/mercurial/'>Mercurial (3)</a></li>
+<li class='category'><a href='/categories/microsoft/'>Microsoft (18)</a></li>
+<li class='category'><a href='/categories/miscellaneous/'>Miscellaneous (56)</a></li>
+<li class='category'><a href='/categories/mono/'>Mono (2)</a></li>
+<li class='category'><a href='/categories/networks/'>Networks (2)</a></li>
+<li class='category'><a href='/categories/nosql/'>NoSQL (3)</a></li>
+<li class='category'><a href='/categories/open-source/'>Open Source (2)</a></li>
+<li class='category'><a href='/categories/privacy/'>Privacy (3)</a></li>
+<li class='category'><a href='/categories/productivity/'>Productivity (1)</a></li>
+<li class='category'><a href='/categories/project-euler/'>Project Euler (11)</a></li>
+<li class='category'><a href='/categories/rce/'>RCE (4)</a></li>
+<li class='category'><a href='/categories/riak/'>Riak (5)</a></li>
+<li class='category'><a href='/categories/ruby-on-rails/'>Ruby on Rails (1)</a></li>
+<li class='category'><a href='/categories/screencasts/'>Screencasts (1)</a></li>
+<li class='category'><a href='/categories/security/'>Security (10)</a></li>
+<li class='category'><a href='/categories/series/'>Series (1)</a></li>
+<li class='category'><a href='/categories/shortcuts/'>Shortcuts (4)</a></li>
+<li class='category'><a href='/categories/software/'>Software (31)</a></li>
+<li class='category'><a href='/categories/software-development/'>Software Development (65)</a></li>
+<li class='category'><a href='/categories/sorting/'>Sorting (5)</a></li>
+<li class='category'><a href='/categories/technology/'>Technology (40)</a></li>
+<li class='category'><a href='/categories/testing/'>Testing (1)</a></li>
+<li class='category'><a href='/categories/tips-tricks/'>Tips/Tricks (11)</a></li>
+<li class='category'><a href='/categories/twitter/'>Twitter (1)</a></li>
+<li class='category'><a href='/categories/wpf/'>WPF (1)</a></li>
+<li class='category'><a href='/categories/wtf/'>WTF (20)</a></li>
+<li class='category'><a href='/categories/webmachine/'>Webmachine (4)</a></li>
+<li class='category'><a href='/categories/windows/'>Windows (12)</a></li>
+
+  </ul>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+Copyright &copy; 2012 -
+<span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" property="dct:title" rel="dct:type">Blog content for OJ's rants</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://buffered.io/+" property="cc:attributionName" rel="cc:attributionURL">OJ Reeves</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License</a> -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'ojsrants';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://buffered.io/posts/wiedererlangen-von-einem-toten-computer/';
+        var disqus_url = 'http://buffered.io/posts/wiedererlangen-von-einem-toten-computer/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

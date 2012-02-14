@@ -1,0 +1,777 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>OJ's rants</title>
+  <meta name="author" content="OJ Reeves">
+
+  
+  <meta name="description" content="Earlier today I was having a chat with a friend of mine, who lives in Vancouver, about finding items that are stored in generic Lists. He flicked me &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's rants RSS 2.0" type="application/rss+xml">
+  <link rel="canonical" href="http://buffered.io/posts/page/4">
+  <link href="/favicon.ico" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+
+  <script src="/javascripts/modernizr-2.0.js" type="text/javascript"></script>
+  <script src="/javascripts/ender.js" type="text/javascript"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+
+  <script type="text/javascript">
+    Modernizr.load([
+      { load: '//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js' },
+      { load: '/javascripts/jquery.lightbox.js', complete: function() {
+        $("a[rel^='lightbox']").lightbox();
+      } }
+    ]);
+  </script>
+
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-8648787-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">OJ's rants</a></h1>
+  
+    <h2>It's not about you, it's about the software</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/OjsRants" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:buffered.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/posts/archives">Archives</a></li>
+  <li><a href="/+">About</a></li>
+  <li><a href="http://www.google.com/recaptcha/mailhide/d?k=01KtoERsnUusX9vVliTm27uQ==&c=Be1wE57A4P96e6U9_HLCvw==">Contact</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/posts/a-quirk-in-listfind/">A Quirk in List.Find()</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+
+<time datetime="2009-03-25T05:31:00+10:00" pubdate data-updated="true">25 Mar 2009</time>
+        
+         | <a href="/posts/a-quirk-in-listfind/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Earlier today I was having a chat with a <a href="http://doomkeeper.com/" title="Jimmy's Blog">friend of mine</a>, who lives in Vancouver, about finding items that are stored in <a href="http://msdn.microsoft.com/en-us/library/6sh2ey19.aspx" title="List(T)">generic Lists</a>. He flicked me a code snippet that looked something like this:</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="n">List</span><span class="p">&lt;</span><span class="n">foo</span><span class="p">&gt;</span> <span class="n">list</span> <span class="p">=</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">foo</span><span class="p">&gt;();</span>
+</span><span class='line'><span class="c1">// .. do some stuff</span>
+</span><span class='line'><span class="n">Foo</span> <span class="n">f</span> <span class="p">=</span> <span class="n">list</span><span class="p">.</span><span class="n">Find</span><span class="p">(</span><span class="k">delegate</span><span class="p">(</span><span class="n">Foo</span> <span class="n">f</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="n">foo</span><span class="p">.</span><span class="n">Name</span> <span class="p">==</span> <span class="s">&quot;Bar&quot;</span><span class="p">;</span> <span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Straight away I fired back with an update to the code which used <a href="http://msdn.microsoft.com/en-us/library/bb397687.aspx" title="Lambda Expressions (C# Programming Guide)">lambda expressions</a> instead, as I&#8217;m a fan of how concise they are ;)</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/posts/a-quirk-in-listfind/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/posts/damn-you-crystal-reports/">Damn You, Crystal Reports!</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+
+<time datetime="2009-03-24T18:27:00+10:00" pubdate data-updated="true">24 Mar 2009</time>
+        
+         | <a href="/posts/damn-you-crystal-reports/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I&#8217;ve had <a href="http://msdn.microsoft.com/en-us/vstudio/default.aspx" title="Visual Studio on MSDN">Visual Studio 2008</a> installed for quite a while. When I first installed it I decided not to install the <a href="http://www.sap.com/solutions/sapbusinessobjects/sme/reporting/crystalreports/index.epx" title="Crystal Reports">Crystal Reports</a> components because I was fairly certain that I&#8217;d never need them at home.</p>
+
+<p>Well, the worm has turned! On my new gig, I have the joy of working from home. It just so happens that I <em>also</em> need to use Crystal Reports. How silly of me to not bother installing a few extra components the first time so I didn&#8217;t have to go through the pain of going through another VS Setup.</p>
+
+<p>On the surface this doesn&#8217;t sound like a painful experience right? <strong>WRONG</strong>. It&#8217;s a lot more painful than you think.</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/posts/damn-you-crystal-reports/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/posts/n-things-you-dont-want-to-hear-when-starting-a-new-job-where-n-1/">N Things You Don&#8217;t Want to Hear When Starting a New Job (Where N &gt;= 1)</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+
+<time datetime="2009-02-23T21:29:00+10:00" pubdate data-updated="true">23 Feb 2009</time>
+        
+         | <a href="/posts/n-things-you-dont-want-to-hear-when-starting-a-new-job-where-n-1/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Here are a collection of quotes that can drive fear into the heart of every developer. They&#8217;re made worse when heard at the start of a new gig, as any hope of a brave new world is smashed before you even get a login!</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/posts/n-things-you-dont-want-to-hear-when-starting-a-new-job-where-n-1/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/posts/an-all-too-common-issue/">An All Too Common Issue</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+
+<time datetime="2009-02-18T16:47:00+10:00" pubdate data-updated="true">18 Feb 2009</time>
+        
+         | <a href="/posts/an-all-too-common-issue/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I think the following statement goes <strong>way</strong> deeper than it may have been intended (I might be wrong of course)&#8230;</p>
+
+<blockquote cite="Raymond Chen"><p>Engineering is about making tradeoffs. If you refuse to make the choice, then you&#8217;re taking the cowardly route and ultimately are creating more work for your team. Instead of solving problems, you&#8217;re <em>creating</em> them.
+
+All because you&#8217;re too chicken to make a hard decision.</p></blockquote>
+
+
+<p>Thank you, <a href="http://blogs.msdn.com/oldnewthing/archive/posts/9416485.aspx" title="The checkbox: The mating call of the loser">Raymond Chen</a>! You are a legend.</p>
+
+<p>Read the article :)</p>
+
+<!--adsense-->
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/posts/server-refresh/">Server Refresh</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+
+<time datetime="2009-02-16T07:24:00+10:00" pubdate data-updated="true">16 Feb 2009</time>
+        
+         | <a href="/posts/server-refresh/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Over the weekend I revamped the webserver. Over the last month or two I&#8217;ve been bummed about the amount of overhead in maintaining a <a href="Gentoo" title="http://www.gentoo.org/">Gentoo</a> install as my webserver. Now before any of you Gentoo zealots have a whinge, let me explain.</p>
+
+<p>Yes, <a href="Portage" title="http://en.wikipedia.org/wiki/Portage_(software)">Portage</a> is cool. It&#8217;s quick, it builds stuff from source, etc. While that power is great, it&#8217;s a pain in the butt at the same time. Especially when you&#8217;re running on a <a href="VPS" title="http://en.wikipedia.org/wiki/Virtual_private_server">VPS</a>. I am tired of the underlying bits and pieces changing constantly and me having to muck around with masking and unmasking packages just to get things to update and play nicely together.</p>
+
+<p>I made the decision to switch to <a href="Debian" title="http://www.debian.org/">Debian</a> and I am happy I did it. I don&#8217;t think the time I&#8217;ll have to spend maintaining the server will be as high as before. This is all about productivity and as far as I&#8217;m concerned this is going to reduce my workload. Given that my software installs don&#8217;t change once I&#8217;ve got the server up and running, I shouldn&#8217;t have to spend that amount of time keeping things running.</p>
+
+<p>As always, there&#8217;s a risk of teething problems when you do a full reinstall. So if anyone out there is having issues then please <a href="Contact me" title="/contact-me/">let me know</a>. Cheers! :)</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/posts/always-question-the-source-aka-dont-lock-on-type-objects/">Always Question the Source (Aka &#8220;Don&#8217;t Lock on Type Objects&#8221;)</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+
+<time datetime="2009-02-10T21:22:00+10:00" pubdate data-updated="true">10 Feb 2009</time>
+        
+         | <a href="/posts/always-question-the-source-aka-dont-lock-on-type-objects/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>For one reason or another, I recently found myself perusing some code based on the <a href="http://www.lhotka.net/cslanet/" title="CSLA">CSLA</a> framework. While nosing around I came upon a snippet of code that I found rather disturbing. An example can be found <a href="http://www.lhotka.net/cslacvs/viewvc.cgi/trunk/cslacs/Csla/Core/BusinessBase.cs?revision=3690&amp;view=markup" title="BusinessBase.cs">here</a> in the function called InitializeAuthorizationRules.</p>
+
+<p>For those who are lazy, here is the particular snippet of code that caught my eye:</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/posts/always-question-the-source-aka-dont-lock-on-type-objects/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/posts/assembly-signing-article-translated-into-italian/">Assembly Signing Article Translated Into Italian</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+
+<time datetime="2009-01-14T18:16:00+10:00" pubdate data-updated="true">14 Jan 2009</time>
+        
+         | <a href="/posts/assembly-signing-article-translated-into-italian/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>You may remember a little while ago I wrote a post on <a href="/posts/net-fu-signing-an-unsigned-assembly-without-delay-signing/" title=".NET-fu: Signing an Unsigned Assembly (without Delay Signing)">signing assemblies</a> that you don&#8217;t have the source code to. It got a bit of attention and was reproduced in full on <a href="http://dotnet.dzone.com/news/net-fu-zero-delay-signing-of-a" title=".NET-Fu: Zero Delay Signing Of An Unsigned Assembly">dzone&#8217;s dotnet site</a>. That was pretty exciting.</p>
+
+<p>This, however, I find <em>more</em> exciting. This article has now been <strong>translated into Italian</strong>! This is the first time an article of mine has been reproduced in another language, which I think is just fantastic.</p>
+
+<p>My colleague, <a href="http://www.otherbit.com/modules/blog/" title="otherbit - New Media & Software">Cosimo</a> has been hard at work making the Italian version for the last couple of weeks. From what I can see it looks like he&#8217;s done a marvellous job.</p>
+
+<p>So for those of you who are looking for the Italian version of this article, you can find it over <a href="http://www.otherbit.com/modules/blog/BlogContent.aspx?ID=174" title=".NET-FU : come trasformare in SIGNED un assembly UNSIGNED (senza ricorrere al DELAY SIGNING)">here on Cosimo&#8217;s blog: .NET-FU : come trasformare in SIGNED un assembly UNSIGNED (senza ricorrere al DELAY SIGNING)</a>. Thanks very much Cosimo!</p>
+
+<p>If there&#8217;s anyone else out there who is interested in translating articles into your home language then please feel free to contact me.</p>
+
+<p>Enjoy!</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/posts/the-sales-pipeline/">The Sales Pipeline</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+
+<time datetime="2009-01-13T19:21:00+10:00" pubdate data-updated="true">13 Jan 2009</time>
+        
+         | <a href="/posts/the-sales-pipeline/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Here&#8217;s a brief list of what&#8217;s coming down the pipe on this blog in the coming weeks. I thought I&#8217;d post this info as I&#8217;ve had a few people ask what&#8217;s up next and I&#8217;m tired of telling the same story over and over :) So here it is!</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/posts/the-sales-pipeline/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/posts/websites-are-hard-to-build-a-case-in-point/">Websites Are Hard to Build - a Case in Point</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+
+<time datetime="2009-01-01T14:03:00+10:00" pubdate data-updated="true">01 Jan 2009</time>
+        
+         | <a href="/posts/websites-are-hard-to-build-a-case-in-point/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>A short time ago I <a href="/posts/websites-are-hard-to-build/" title="Websites are Hard to Build">posted some thoughts</a> on issues faced when building websites that most people aren&#8217;t aware of when they decide to have one built. I posted from the perspective of someone who has, on many occasions, been asked to build a site for someone who really doesn&#8217;t have a clue about what is involved. More importantly, they don&#8217;t <em>want</em> to know.</p>
+
+<p>There are people out there who don&#8217;t know about the issues faced, but are still in need of a site to fulfil their needs. Should they learn about these issues themselves? Should they put their faith in a developer/designer and let them do their job and just send them a bill at the end? A mixture of the two?</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/posts/websites-are-hard-to-build-a-case-in-point/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/posts/random-resolutions/">Random Resolutions</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+
+<time datetime="2008-12-27T13:02:00+10:00" pubdate data-updated="true">27 Dec 2008</time>
+        
+         | <a href="/posts/random-resolutions/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I&#8217;ve never been one to make New Years Resolutions. I think they&#8217;re a bit of a wank to be honest. But I do love a good gimmick. So when I stumbled on <a href="http://resolutionrandomizer.pop.us/ecard.aspx" title="Resolution Randomizer">this</a> I both loved and hated it.</p>
+
+<p><a href="/uploads/2008/12/res_1.png" title="Resolution 1" rel="lightbox[resolutions]"><img src="/uploads/2008/12/res_1.png" alt="Resolution 1" style="border: 0; float: left; margin-right: 5px; margin-bottom: 5px;"/></a> This first attempt made me chuckle. I think all the time, let alone at inappropriate times. The bigger question is: <em>what should I be thinking about at inappropriate times?</em>.</p>
+
+<p>Who knows.</p>
+
+<div style="float:none; clear:both;"></div>
+
+
+<p><a href="/uploads/2008/12/res_2.png" title="Resolution 2" rel="lightbox[resolutions]"><img src="/uploads/2008/12/res_2.png" alt="Resolution 2" style="border: 0; float: right; margin-left: 5px; margin-bottom: 5px;"/></a>After this second one appeared I thought that this thing knew more about me than I felt comfortable about. So I stopped right there.</p>
+
+<p>This is quite a neat little Silverlight app. One that I think most people will get a kick out of, even if it&#8217;s just for a few minutes. Enjoy.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  <div class="pagination">
+    
+      <a class="prev" href="/posts/page/5/">&larr; Older</a>
+    
+    <a href="/posts/archives">Blog Archives</a>
+    
+    <a class="next" href="/posts/page/3/">Newer &rarr;</a>
+    
+  </div>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1>OJ on the Web</h1>
+  <ul id="about_me">
+    <li class="post">
+      <a href="http://buffered.io/+" title="About OJ">About me</a>
+    </li>
+    <li class="post">
+      <a href="http://functional.io/" title="Functional IO">Functional IO</a>
+    </li>
+    <li class="post">
+      <a href="http://twitter.com/TheColonial" title="OJ @ Twitter">Twitter</a>
+    </li>
+    <li class="post">
+      <a href="http://github.com/OJ/" title="OJ @ Github">Github</a>
+    </li>
+    <li class="post">
+      <a href="http://bitbucket.org/OJ/" title="OJ @ Bitbucket">Bitbucket</a>
+    </li>
+    <li class="post">
+      <a href="http://stackoverflow.com/users/611/oj" title="OJ @ SO">StackOverflow</a>
+    </li>
+    <li><a href="http://www.erlang-factory.com/conference/SFBay2012"><img src="http://www.erlang-factory.com//upload/item/83/SF2012ImSpeaking.jpg" alt="I'm speaking at the 2012 San Francisco Erlang Factory!"></a>
+  </ul>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/posts/my-tools-list-2012/">My Tools List - 2012</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/an-expert-at-23/">An Expert at 23</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/reviews-theyre-all-you-need/">Reviews - They&#8217;re all You need</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/why-i-use-twitter/">Why I use Twitter</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/corrugatediron-update-v0-1-1/">CorrugatedIron Update - v0.1.1</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("TheColonial", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/TheColonial" class="twitter-follow-button" data-show-count="false">Follow @TheColonial</a>
+  
+</section>
+
+<section>
+  <h1>Series</h1>
+  <ul id="series">
+    <li class='series'><a href='/series/project-euler/'>Project Euler (11)</a></li>
+<li class='series'><a href='/series/web-development-with-erlang/'>Web Development with Erlang (3)</a></li>
+
+  </ul>
+</section>
+<section>
+  <h1>Categories</h1>
+  <ul id="categories">
+    <li class='category'><a href='/categories/asm/'>ASM (3)</a></li>
+<li class='category'><a href='/categories/asp-net/'>ASP.NET (3)</a></li>
+<li class='category'><a href='/categories/agile/'>Agile (1)</a></li>
+<li class='category'><a href='/categories/algorithms/'>Algorithms (6)</a></li>
+<li class='category'><a href='/categories/apple/'>Apple (3)</a></li>
+<li class='category'><a href='/categories/being-in-the-industry/'>Being in the Industry (28)</a></li>
+<li class='category'><a href='/categories/blogging/'>Blogging (15)</a></li>
+<li class='category'><a href='/categories/c-/'>C# (15)</a></li>
+<li class='category'><a href='/categories/clr/'>CLR (3)</a></li>
+<li class='category'><a href='/categories/challenges/'>Challenges (7)</a></li>
+<li class='category'><a href='/categories/databases/'>Databases (6)</a></li>
+<li class='category'><a href='/categories/digital-rights/'>Digital Rights (7)</a></li>
+<li class='category'><a href='/categories/erlang/'>Erlang (6)</a></li>
+<li class='category'><a href='/categories/f-/'>F# (4)</a></li>
+<li class='category'><a href='/categories/fail/'>Fail (2)</a></li>
+<li class='category'><a href='/categories/food/'>Food (1)</a></li>
+<li class='category'><a href='/categories/freeware/'>Freeware (9)</a></li>
+<li class='category'><a href='/categories/functional-programming/'>Functional Programming (26)</a></li>
+<li class='category'><a href='/categories/funny/'>Funny (9)</a></li>
+<li class='category'><a href='/categories/games/'>Games (5)</a></li>
+<li class='category'><a href='/categories/google/'>Google (10)</a></li>
+<li class='category'><a href='/categories/guest-posts/'>Guest posts (1)</a></li>
+<li class='category'><a href='/categories/howto/'>HOWTO (16)</a></li>
+<li class='category'><a href='/categories/hardware/'>Hardware (9)</a></li>
+<li class='category'><a href='/categories/haskell/'>Haskell (20)</a></li>
+<li class='category'><a href='/categories/linux/'>Linux (10)</a></li>
+<li class='category'><a href='/categories/mac-os/'>Mac OS (2)</a></li>
+<li class='category'><a href='/categories/merb/'>Merb (1)</a></li>
+<li class='category'><a href='/categories/mercurial/'>Mercurial (3)</a></li>
+<li class='category'><a href='/categories/microsoft/'>Microsoft (18)</a></li>
+<li class='category'><a href='/categories/miscellaneous/'>Miscellaneous (56)</a></li>
+<li class='category'><a href='/categories/mono/'>Mono (2)</a></li>
+<li class='category'><a href='/categories/networks/'>Networks (2)</a></li>
+<li class='category'><a href='/categories/nosql/'>NoSQL (3)</a></li>
+<li class='category'><a href='/categories/open-source/'>Open Source (2)</a></li>
+<li class='category'><a href='/categories/privacy/'>Privacy (3)</a></li>
+<li class='category'><a href='/categories/productivity/'>Productivity (1)</a></li>
+<li class='category'><a href='/categories/project-euler/'>Project Euler (11)</a></li>
+<li class='category'><a href='/categories/rce/'>RCE (4)</a></li>
+<li class='category'><a href='/categories/riak/'>Riak (5)</a></li>
+<li class='category'><a href='/categories/ruby-on-rails/'>Ruby on Rails (1)</a></li>
+<li class='category'><a href='/categories/screencasts/'>Screencasts (1)</a></li>
+<li class='category'><a href='/categories/security/'>Security (10)</a></li>
+<li class='category'><a href='/categories/series/'>Series (1)</a></li>
+<li class='category'><a href='/categories/shortcuts/'>Shortcuts (4)</a></li>
+<li class='category'><a href='/categories/software/'>Software (31)</a></li>
+<li class='category'><a href='/categories/software-development/'>Software Development (65)</a></li>
+<li class='category'><a href='/categories/sorting/'>Sorting (5)</a></li>
+<li class='category'><a href='/categories/technology/'>Technology (40)</a></li>
+<li class='category'><a href='/categories/testing/'>Testing (1)</a></li>
+<li class='category'><a href='/categories/tips-tricks/'>Tips/Tricks (11)</a></li>
+<li class='category'><a href='/categories/twitter/'>Twitter (1)</a></li>
+<li class='category'><a href='/categories/wpf/'>WPF (1)</a></li>
+<li class='category'><a href='/categories/wtf/'>WTF (20)</a></li>
+<li class='category'><a href='/categories/webmachine/'>Webmachine (4)</a></li>
+<li class='category'><a href='/categories/windows/'>Windows (12)</a></li>
+
+  </ul>
+</section>
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+Copyright &copy; 2012 -
+<span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" property="dct:title" rel="dct:type">Blog content for OJ's rants</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://buffered.io/+" property="cc:attributionName" rel="cc:attributionURL">OJ Reeves</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License</a> -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'ojsrants';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

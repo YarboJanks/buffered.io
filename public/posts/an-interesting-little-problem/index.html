@@ -1,0 +1,530 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>An Interesting Little Problem - OJ's rants</title>
+  <meta name="author" content="OJ Reeves">
+
+  
+  <meta name="description" content="This post was inspired by a recent interview question that was posted over at fsharp.it. It&#8217;s one of those neat little questions which looks &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's rants RSS 2.0" type="application/rss+xml">
+  <link rel="canonical" href="http://buffered.io/posts/an-interesting-little-problem">
+  <link href="/favicon.ico" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+
+  <script src="/javascripts/modernizr-2.0.js" type="text/javascript"></script>
+  <script src="/javascripts/ender.js" type="text/javascript"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+
+  <script type="text/javascript">
+    Modernizr.load([
+      { load: '//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js' },
+      { load: '/javascripts/jquery.lightbox.js', complete: function() {
+        $("a[rel^='lightbox']").lightbox();
+      } }
+    ]);
+  </script>
+
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-8648787-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">OJ's rants</a></h1>
+  
+    <h2>It's not about you, it's about the software</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/OjsRants" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:buffered.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/posts/archives">Archives</a></li>
+  <li><a href="/+">About</a></li>
+  <li><a href="http://www.google.com/recaptcha/mailhide/d?k=01KtoERsnUusX9vVliTm27uQ==&c=Be1wE57A4P96e6U9_HLCvw==">Contact</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">An Interesting Little Problem</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+
+<time datetime="2008-06-14T20:39:00+10:00" pubdate data-updated="true">14 Jun 2008</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>This post was inspired by a recent interview question that was posted over at <a href="http://www.fsharp.it/posts/google-interview-question-product-of-other-elements-in-an-array-in-on/" title="Fsharp.it">fsharp.it</a>. It&#8217;s one of those neat little questions which looks really simple on the surface but is quite tricky.</p>
+
+<!--more-->
+
+
+<p>The question apparently originates from an interview that someone had with Google, and goes something like this:<blockquote><p>
+There is an array A[N] of N integers. You have to compose an array Output[N] such that Output[i] will be equal to the product of all the elements of A[] except A[i].</p>
+
+<p>Example:
+&nbsp;&nbsp;&nbsp;&nbsp;INPUT:[4, 3, 2, 1, 2]
+&nbsp;&nbsp;&nbsp;&nbsp;OUTPUT:[12, 16, 24, 48, 24]</p>
+
+<p><strong>Note:</strong> Solve it <em>without</em> the division operator and in O(n).
+</p></blockquote>
+Since I had a spare 10 minutes, I decided to give it a shot &#8230; in Haskell.</p>
+
+<p>I&#8217;ll cut to the chase, here&#8217;s the source to my solution:</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='haskell'><span class='line'><span class="nf">vals</span> <span class="ow">::</span> <span class="p">[</span><span class="kt">Int</span><span class="p">]</span>
+</span><span class='line'><span class="nf">vals</span> <span class="ow">=</span> <span class="p">[</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span> <span class="p">]</span>
+</span><span class='line'>
+</span><span class='line'><span class="nf">answers</span> <span class="ow">::</span> <span class="p">[</span><span class="kt">Int</span><span class="p">]</span>
+</span><span class='line'><span class="nf">answers</span> <span class="ow">=</span> <span class="p">[</span> <span class="n">front</span> <span class="o">!!</span> <span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">back</span> <span class="o">!!</span> <span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">|</span> <span class="n">x</span> <span class="ow">&lt;-</span> <span class="p">[</span><span class="mi">1</span><span class="o">..</span><span class="n">length</span> <span class="n">vals</span><span class="p">]</span> <span class="p">]</span>
+</span><span class='line'>  <span class="kr">where</span>
+</span><span class='line'>    <span class="n">front</span> <span class="ow">=</span> <span class="n">scanl1</span> <span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="n">temp</span>
+</span><span class='line'>    <span class="n">back</span> <span class="ow">=</span> <span class="n">scanr1</span> <span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="n">temp</span>
+</span><span class='line'>    <span class="n">temp</span> <span class="ow">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">++</span> <span class="n">vals</span> <span class="o">++</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I&#8217;m hoping that this is quite self-explanatory. But in case it&#8217;s not, I&#8217;ll cover some of the gory bits.</p>
+
+<p>The core of the problem is coming up with a way of determining the value of the product of numbers from the start of the list up to a given index, and to do the same at the other end of the list from that given index.</p>
+
+<p>I thought that the easiest way would be to create two lists: both of them containing the compounded products of the numbers in the list, but each of them in different directions. To generate those lists, I thought that I&#8217;d add the value of 1 to the list, both at the start and at the end, as it would allow me to do two things:<ol><li>Generate the lists using the <a href="http://haskell.org/ghc/docs/latest/html/libraries/base/Prelude.html#v%3Ascanl1" title="scanl1">scanl1</a> and scanr1 functions.</li><li>Index into the list using a counter that&#8217;s based on the size of the original values without having to worry about going past the bounds of the list.</li></ol>Yup, quite lazy, but very handy.</p>
+
+<p>Here&#8217;s the output when I execute <em>answers</em> in <a href="http://www.haskell.org/ghc/docs/latest/html/users_guide/ghci.html" title="GHCi">GHCi</a>:</p>
+
+<pre><code>Prelude&gt; :l google.hs
+[1 of 1] Compiling Main             ( google.hs, interpreted )
+Ok, modules loaded: Main.
+*Main&gt; answers
+[12,16,24,48,24]
+*Main&gt;
+</code></pre>
+
+<p>Problem solved in O(n). Neato! After feeling rather chuffed with myself I thought I&#8217;d go back to Fsharp.it and check out the answer posted there. The principle was similar, but the implementation listed was a little longer.</p>
+
+<p>So I thought I&#8217;d have a go at writing up my solution using F#. It didn&#8217;t seem like a stretch until I realised how little of the language I know (I&#8217;m currently reading through <a href="http://www.amazon.com/Expert-F-Experts-Voice-Net/dp/1590598504" title="Expert F#">Expert F#</a>, but I&#8217;m still far from being one myself). Here&#8217;s what I came up with:</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='ocaml'><span class='line'><span class="o">#</span><span class="n">light</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">let</span> <span class="n">vals</span> <span class="o">=</span> <span class="o">[</span> <span class="mi">4</span><span class="o">;</span> <span class="mi">3</span><span class="o">;</span> <span class="mi">2</span><span class="o">;</span> <span class="mi">1</span><span class="o">;</span> <span class="mi">2</span><span class="o">;</span> <span class="o">]</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">let</span> <span class="n">mul</span> <span class="n">a</span> <span class="n">b</span> <span class="o">=</span> <span class="n">a</span> <span class="o">*</span> <span class="n">b</span>
+</span><span class='line'><span class="k">let</span> <span class="o">(++)</span> <span class="o">=</span> <span class="nn">List</span><span class="p">.</span><span class="n">append</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">let</span> <span class="n">answers</span> <span class="o">=</span>
+</span><span class='line'>  <span class="k">let</span> <span class="n">temp</span> <span class="o">=</span> <span class="o">[</span><span class="mi">1</span><span class="o">]</span> <span class="o">++</span> <span class="n">vals</span> <span class="o">++</span> <span class="o">[</span><span class="mi">1</span><span class="o">]</span>
+</span><span class='line'>  <span class="k">let</span> <span class="n">front</span> <span class="o">=</span> <span class="nn">List</span><span class="p">.</span><span class="n">scan1_left</span> <span class="n">mul</span> <span class="n">temp</span> <span class="o">|&gt;</span> <span class="nn">List</span><span class="p">.</span><span class="n">to_array</span>
+</span><span class='line'>  <span class="k">let</span> <span class="n">back</span> <span class="o">=</span> <span class="nn">List</span><span class="p">.</span><span class="n">scan1_right</span> <span class="n">mul</span> <span class="n">temp</span> <span class="o">|&gt;</span> <span class="nn">List</span><span class="p">.</span><span class="n">to_array</span>
+</span><span class='line'>  <span class="n">seq</span> <span class="o">{</span> <span class="k">for</span> <span class="n">x</span> <span class="k">in</span> <span class="o">[</span><span class="mi">1</span> <span class="o">..</span> <span class="n">vals</span><span class="o">.</span><span class="nc">Length</span><span class="o">]</span> <span class="o">-&gt;</span> <span class="n">front</span><span class="o">.[</span><span class="n">x</span><span class="o">-</span><span class="mi">1</span><span class="o">]</span> <span class="o">*</span> <span class="n">back</span><span class="o">.[</span><span class="n">x</span><span class="o">+</span><span class="mi">1</span><span class="o">]</span> <span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>A few things you might notice:<ol><li>My syntax highlighter plugin doesn&#8217;t currently support F# :)</li><li>I use a similar method to the Haskell solution, but ended up having to convert the <em>front</em> and <em>back</em> lists to arrays. The reason was because I need to be able to index into the resulting integer set, and I can&#8217;t do that with lists (if I&#8217;m wrong, please let me know!)</li><li>I defined a function called <em>mul</em> which does a simple multiplication. I wanted to pass <em>(<em>)</em> as the first parameter to the scan1_</em> functions, but the interpreter took that as the start of a comment instead! So I had to resort to a dodgey hack. If you know a way around this, please let me know.</li><li>I wrote my own (++) operator because I didn&#8217;t want to have to write List.append more than once :)</li></ol>
+In other words, my F# version smells like n00b. I&#8217;m sure there are so many better ways to implement this using the built-in features of the language and supporting libraries, but I&#8217;m yet to get to the level when I can write it. I&#8217;d love for someone to show me how :)</p>
+
+<p>I did enjoy having a dabble with F# for the first time in ages, though I have to admit I much prefer using <a href="http://www.vim.org/" title="VIM">VIM</a> and <a href="http://research.microsoft.com/fsharp/manual/compiler.aspx" title="F# Interactive">fsi.exe</a> instead of <a href="http://msdn.microsoft.com/en-us/vstudio/default.aspx" title="Visual Studio">Visual Studio</a> and the <a href="http://blogs.msdn.com/dsyme/archive/posts/534925.aspx" title="A Taste of F# Interactive in Visual Studio">interactive F# add-in</a>.</p>
+
+<p>As always, feedback and criticism welcomed (and needed).</p>
+
+<h2>Update</h2>
+
+
+<p>After some great feedback (see below), I&#8217;ve come to realise that the !! operator in Haskell is actually O(n) itself. Hence it was a bad choice for inclusion. Back to the drawing board for me!</p>
+
+<p>Here are a couple of submitted Haskell solutions.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class='haskell'><span class='line'><span class="c1">-- by lf</span>
+</span><span class='line'><span class="nf">scanm</span> <span class="n">f</span> <span class="n">z</span> <span class="n">xs</span> <span class="ow">=</span> <span class="n">zipWith</span> <span class="n">f</span> <span class="p">(</span><span class="n">scanl</span> <span class="n">f</span> <span class="n">z</span> <span class="n">xs</span><span class="p">)</span> <span class="p">(</span><span class="n">tail</span> <span class="o">$</span> <span class="n">scanr</span> <span class="n">f</span> <span class="n">z</span> <span class="n">xs</span><span class="p">)</span>
+</span><span class='line'><span class="nf">main</span> <span class="ow">=</span> <span class="n">print</span> <span class="o">$</span> <span class="n">scanm</span> <span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="mi">1</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">-- by Henning</span>
+</span><span class='line'><span class="nf">answers</span> <span class="ow">::</span> <span class="p">[</span><span class="kt">Int</span><span class="p">]</span> <span class="ow">-&gt;</span> <span class="p">[</span><span class="kt">Int</span><span class="p">]</span>
+</span><span class='line'><span class="nf">answers</span> <span class="n">vals</span> <span class="ow">=</span> <span class="n">zipWith</span> <span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="n">front</span> <span class="p">(</span><span class="n">drop</span> <span class="mi">1</span> <span class="n">back</span><span class="p">)</span>
+</span><span class='line'>  <span class="kr">where</span>
+</span><span class='line'>  <span class="n">front</span> <span class="ow">=</span> <span class="n">scanl</span> <span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="mi">1</span> <span class="n">vals</span>
+</span><span class='line'>  <span class="n">back</span> <span class="ow">=</span> <span class="n">scanr</span> <span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="mi">1</span> <span class="n">vals</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">-- by desp</span>
+</span><span class='line'><span class="nf">problem</span> <span class="n">input</span> <span class="ow">=</span> <span class="n">zipWith</span> <span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="n">front</span> <span class="n">back</span> <span class="kr">where</span>
+</span><span class='line'>  <span class="n">front</span> <span class="ow">=</span> <span class="n">init</span> <span class="p">(</span><span class="n">scanl</span> <span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="mi">1</span> <span class="n">input</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">back</span> <span class="ow">=</span> <span class="n">tail</span> <span class="p">(</span><span class="n">scanr</span> <span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="mi">1</span> <span class="n">input</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">-- by foobar</span>
+</span><span class='line'><span class="nf">foo</span> <span class="kt">[]</span> <span class="kr">_</span> <span class="ow">=</span> <span class="p">(</span><span class="kt">[]</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</span><span class='line'><span class="nf">foo</span> <span class="p">(</span><span class="n">x</span><span class="kt">:</span><span class="n">xs</span><span class="p">)</span> <span class="n">acc</span> <span class="ow">=</span> <span class="kr">let</span> <span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">m</span><span class="p">)</span> <span class="ow">=</span> <span class="n">foo</span> <span class="n">xs</span> <span class="p">(</span><span class="n">acc</span><span class="o">*</span><span class="n">x</span><span class="p">)</span>
+</span><span class='line'>                 <span class="kr">in</span> <span class="p">((</span><span class="n">m</span><span class="o">*</span><span class="n">acc</span><span class="p">)</span><span class="kt">:</span><span class="n">l</span> <span class="p">,</span> <span class="n">m</span><span class="o">*</span><span class="n">x</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Thanks for the submissions guys :) Sorry for not including the imperative versions in the update.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">OJ Reeves</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+
+<time datetime="2008-06-14T20:39:00+10:00" pubdate data-updated="true">14 Jun 2008</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/categories/challenges/'>Challenges</a>, <a class='category' href='/categories/f-/'>F#</a>, <a class='category' href='/categories/functional-programming/'>Functional Programming</a>, <a class='category' href='/categories/google/'>Google</a>, <a class='category' href='/categories/haskell/'>Haskell</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://buffered.io/posts/an-interesting-little-problem/" data-via="TheColonial" data-counturl="http://buffered.io/posts/an-interesting-little-problem/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/posts/be-part-of-a-world-record/" title="Previous Post: Be Part of a World Record">&laquo; Be Part of a World Record</a>
+      
+      
+        <a class="basic-alignment right" href="/posts/project-euler-7/" title="next Post: Project Euler #7">Project Euler #7 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>OJ on the Web</h1>
+  <ul id="about_me">
+    <li class="post">
+      <a href="http://buffered.io/+" title="About OJ">About me</a>
+    </li>
+    <li class="post">
+      <a href="http://functional.io/" title="Functional IO">Functional IO</a>
+    </li>
+    <li class="post">
+      <a href="http://twitter.com/TheColonial" title="OJ @ Twitter">Twitter</a>
+    </li>
+    <li class="post">
+      <a href="http://github.com/OJ/" title="OJ @ Github">Github</a>
+    </li>
+    <li class="post">
+      <a href="http://bitbucket.org/OJ/" title="OJ @ Bitbucket">Bitbucket</a>
+    </li>
+    <li class="post">
+      <a href="http://stackoverflow.com/users/611/oj" title="OJ @ SO">StackOverflow</a>
+    </li>
+    <li><a href="http://www.erlang-factory.com/conference/SFBay2012"><img src="http://www.erlang-factory.com//upload/item/83/SF2012ImSpeaking.jpg" alt="I'm speaking at the 2012 San Francisco Erlang Factory!"></a>
+  </ul>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/posts/my-tools-list-2012/">My Tools List - 2012</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/an-expert-at-23/">An Expert at 23</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/reviews-theyre-all-you-need/">Reviews - They're all You need</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/why-i-use-twitter/">Why I use Twitter</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/corrugatediron-update-v0-1-1/">CorrugatedIron Update - v0.1.1</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("TheColonial", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/TheColonial" class="twitter-follow-button" data-show-count="false">Follow @TheColonial</a>
+  
+</section>
+
+<section>
+  <h1>Series</h1>
+  <ul id="series">
+    <li class='series'><a href='/series/project-euler/'>Project Euler (11)</a></li>
+<li class='series'><a href='/series/web-development-with-erlang/'>Web Development with Erlang (3)</a></li>
+
+  </ul>
+</section>
+<section>
+  <h1>Categories</h1>
+  <ul id="categories">
+    <li class='category'><a href='/categories/asm/'>ASM (3)</a></li>
+<li class='category'><a href='/categories/asp-net/'>ASP.NET (3)</a></li>
+<li class='category'><a href='/categories/agile/'>Agile (1)</a></li>
+<li class='category'><a href='/categories/algorithms/'>Algorithms (6)</a></li>
+<li class='category'><a href='/categories/apple/'>Apple (3)</a></li>
+<li class='category'><a href='/categories/being-in-the-industry/'>Being in the Industry (28)</a></li>
+<li class='category'><a href='/categories/blogging/'>Blogging (15)</a></li>
+<li class='category'><a href='/categories/c-/'>C# (15)</a></li>
+<li class='category'><a href='/categories/clr/'>CLR (3)</a></li>
+<li class='category'><a href='/categories/challenges/'>Challenges (7)</a></li>
+<li class='category'><a href='/categories/databases/'>Databases (6)</a></li>
+<li class='category'><a href='/categories/digital-rights/'>Digital Rights (7)</a></li>
+<li class='category'><a href='/categories/erlang/'>Erlang (6)</a></li>
+<li class='category'><a href='/categories/f-/'>F# (4)</a></li>
+<li class='category'><a href='/categories/fail/'>Fail (2)</a></li>
+<li class='category'><a href='/categories/food/'>Food (1)</a></li>
+<li class='category'><a href='/categories/freeware/'>Freeware (9)</a></li>
+<li class='category'><a href='/categories/functional-programming/'>Functional Programming (26)</a></li>
+<li class='category'><a href='/categories/funny/'>Funny (9)</a></li>
+<li class='category'><a href='/categories/games/'>Games (5)</a></li>
+<li class='category'><a href='/categories/google/'>Google (10)</a></li>
+<li class='category'><a href='/categories/guest-posts/'>Guest posts (1)</a></li>
+<li class='category'><a href='/categories/howto/'>HOWTO (16)</a></li>
+<li class='category'><a href='/categories/hardware/'>Hardware (9)</a></li>
+<li class='category'><a href='/categories/haskell/'>Haskell (20)</a></li>
+<li class='category'><a href='/categories/linux/'>Linux (10)</a></li>
+<li class='category'><a href='/categories/mac-os/'>Mac OS (2)</a></li>
+<li class='category'><a href='/categories/merb/'>Merb (1)</a></li>
+<li class='category'><a href='/categories/mercurial/'>Mercurial (3)</a></li>
+<li class='category'><a href='/categories/microsoft/'>Microsoft (18)</a></li>
+<li class='category'><a href='/categories/miscellaneous/'>Miscellaneous (56)</a></li>
+<li class='category'><a href='/categories/mono/'>Mono (2)</a></li>
+<li class='category'><a href='/categories/networks/'>Networks (2)</a></li>
+<li class='category'><a href='/categories/nosql/'>NoSQL (3)</a></li>
+<li class='category'><a href='/categories/open-source/'>Open Source (2)</a></li>
+<li class='category'><a href='/categories/privacy/'>Privacy (3)</a></li>
+<li class='category'><a href='/categories/productivity/'>Productivity (1)</a></li>
+<li class='category'><a href='/categories/project-euler/'>Project Euler (11)</a></li>
+<li class='category'><a href='/categories/rce/'>RCE (4)</a></li>
+<li class='category'><a href='/categories/riak/'>Riak (5)</a></li>
+<li class='category'><a href='/categories/ruby-on-rails/'>Ruby on Rails (1)</a></li>
+<li class='category'><a href='/categories/screencasts/'>Screencasts (1)</a></li>
+<li class='category'><a href='/categories/security/'>Security (10)</a></li>
+<li class='category'><a href='/categories/series/'>Series (1)</a></li>
+<li class='category'><a href='/categories/shortcuts/'>Shortcuts (4)</a></li>
+<li class='category'><a href='/categories/software/'>Software (31)</a></li>
+<li class='category'><a href='/categories/software-development/'>Software Development (65)</a></li>
+<li class='category'><a href='/categories/sorting/'>Sorting (5)</a></li>
+<li class='category'><a href='/categories/technology/'>Technology (40)</a></li>
+<li class='category'><a href='/categories/testing/'>Testing (1)</a></li>
+<li class='category'><a href='/categories/tips-tricks/'>Tips/Tricks (11)</a></li>
+<li class='category'><a href='/categories/twitter/'>Twitter (1)</a></li>
+<li class='category'><a href='/categories/wpf/'>WPF (1)</a></li>
+<li class='category'><a href='/categories/wtf/'>WTF (20)</a></li>
+<li class='category'><a href='/categories/webmachine/'>Webmachine (4)</a></li>
+<li class='category'><a href='/categories/windows/'>Windows (12)</a></li>
+
+  </ul>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+Copyright &copy; 2012 -
+<span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" property="dct:title" rel="dct:type">Blog content for OJ's rants</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://buffered.io/+" property="cc:attributionName" rel="cc:attributionURL">OJ Reeves</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License</a> -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'ojsrants';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://buffered.io/posts/an-interesting-little-problem/';
+        var disqus_url = 'http://buffered.io/posts/an-interesting-little-problem/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

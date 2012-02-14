@@ -1,0 +1,927 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Webmachine, ErlyDTL and Riak - Part 2 - OJ's rants</title>
+  <meta name="author" content="OJ Reeves">
+
+  
+  <meta name="description" content="In Part 1 of the series we covered the basics of getting the development environment up and running. We also looked at how to get a really simple &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's rants RSS 2.0" type="application/rss+xml">
+  <link rel="canonical" href="http://buffered.io/posts/webmachine-erlydtl-and-riak-part-2">
+  <link href="/favicon.ico" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+
+  <script src="/javascripts/modernizr-2.0.js" type="text/javascript"></script>
+  <script src="/javascripts/ender.js" type="text/javascript"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+
+  <script type="text/javascript">
+    Modernizr.load([
+      { load: '//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js' },
+      { load: '/javascripts/jquery.lightbox.js', complete: function() {
+        $("a[rel^='lightbox']").lightbox();
+      } }
+    ]);
+  </script>
+
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-8648787-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">OJ's rants</a></h1>
+  
+    <h2>It's not about you, it's about the software</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/OjsRants" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:buffered.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/posts/archives">Archives</a></li>
+  <li><a href="/+">About</a></li>
+  <li><a href="http://www.google.com/recaptcha/mailhide/d?k=01KtoERsnUusX9vVliTm27uQ==&c=Be1wE57A4P96e6U9_HLCvw==">Contact</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Webmachine, ErlyDTL and Riak - Part 2</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+
+<time datetime="2010-09-12T22:15:00+10:00" pubdate data-updated="true">12 Sep 2010</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p><img src="/uploads/2010/09/riak-logo.png" alt="Riak Logo" style="float:left;padding-right:5px;padding-bottom:5px;"/>In <a href="/posts/webmachine-erlydtl-and-riak-part-1/" title="Wembachine, ErlyDTL and Riak - Part 1">Part 1</a> of the series we covered the basics of getting the development environment up and running. We also looked at how to get a really simple ErlyDTL template rendering. If you haven&#8217;t yet gone through Part 1, I suggest you do that now. If you have, read on!</p>
+
+<p>There are a few reasons this series is targeting this technology stack. One of them is <strong>uptime</strong>. We&#8217;re aiming to build a site that stays up as much as possible. Given that, one of the things that I missed in the previous post was setting up a <a href="http://en.wikipedia.org/wiki/Load_balancing_(computing)" title="Load balancing">load balancer</a>. Hence this post will attempt to fill that gap.</p>
+
+<!--more-->
+
+
+<p>Any serious web-based application will have load-balancing in play somewhere. While not essential during development, it&#8217;s handy to have a similar set up in the hope that it exposes you to some potential issues you might face when the application reaches production.</p>
+
+<p>There are many high-quality load-balancing solutions out there to choose from. For this series, we shall be using <a href="http://haproxy.1wt.eu/" title="HAProxy">HAProxy</a>, which is a common choice amongst developers building scalable web applications. The rest of this post will cover how to set up HAProxy, verifying that the configuration is correct and confirming that it behaves appropriately when nodes in our cluster go down.</p>
+
+<p>Please note the goal is to demonstrate how HAProxy <em>can</em> be configured. When deploying to your production environments please make sure the configuration matches your needs.</p>
+
+<h3>HAProxy installation</h3>
+
+<p>Let&#8217;s start by pulling down the latest stable version of HAProxy&#8217;s source, extracting it and building it. Here&#8217;s a sample log of what you should expect:</p>
+
+<pre><code>oj@nix ~/blog $ wget http://haproxy.1wt.eu/download/1.4/src/haproxy-1.4.14.tar.gz
+
+  ... snip ...
+
+oj@nix ~/blog $ tar -xzf haproxy-1.4.14.tar.gz 
+
+  ... snip ...
+</code></pre>
+
+<p>At this point we&#8217;ve got the source and we&#8217;re ready to make. HAProxy requires a parameter in order to build, and this parameter varies depending on your target system:</p>
+
+<pre><code>oj@nix ~/blog $ cd haproxy-1.4.14
+oj@nix ~/blog/haproxy-1.4.14 $ make
+
+Due to too many reports of suboptimized setups, building without
+specifying the target is no longer supported. Please specify the
+target OS in the TARGET variable, in the following form:
+
+   make TARGET=xxx
+
+Please choose the target among the following supported list :
+
+   linux26, linux24, linux24e, linux22, solaris
+   freebsd, openbsd, cygwin, custom, generic
+
+Use "generic" if you don't want any optimization, "custom" if you
+want to precisely tweak every option, or choose the target which
+matches your OS the most in order to gain the maximum performance
+out of it. Please check the Makefile in case of doubts.
+make: *** [all] Error 1
+</code></pre>
+
+<p>According to <a href="http://en.wikipedia.org/wiki/Uname" title="uname">uname</a>, I&#8217;m running Linux Kernel 2.6:</p>
+
+<pre><code>oj@nix ~/blog/haproxy-1.4.14 $ uname -r
+2.6.31-21-generic
+</code></pre>
+
+<p>As a result, I&#8217;ll be passing in <strong>linux26</strong>. Make sure you specify the correct option depending on which system you are running. We&#8217;ll be building it <em>and</em> installing it so that it can be called from anywhere:</p>
+
+<pre><code>oj@nix ~/blog/haproxy-1.4.14 $ make TARGET=linux26
+
+    ... snip ...
+
+oj@nix ~/blog/haproxy-1.4.14 $ sudo make install
+
+   ... snip ...
+</code></pre>
+
+<p>Simple! We now need to create a configuration for HAProxy which we can use during development. Not surprisingly, HAProxy can be run as a daemon, but it can also be invoked from the command line with a configuration passed as a parameter. For our development, we&#8217;ll be executing from the command line as this will give us feedback/output on what&#8217;s going on.</p>
+
+<p>Let&#8217;s create a file called <code>dev.haproxy.conf</code> inside our application directory so that it can be included in our source:</p>
+
+<figure class='code'><figcaption><span>dev.haproxy.conf  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+<span class='line-number'>81</span>
+<span class='line-number'>82</span>
+<span class='line-number'>83</span>
+<span class='line-number'>84</span>
+<span class='line-number'>85</span>
+<span class='line-number'>86</span>
+<span class='line-number'>87</span>
+<span class='line-number'>88</span>
+<span class='line-number'>89</span>
+<span class='line-number'>90</span>
+<span class='line-number'>91</span>
+<span class='line-number'>92</span>
+<span class='line-number'>93</span>
+<span class='line-number'>94</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="c"># start with the global settings which will</span>
+</span><span class='line'><span class="c"># apply to all sections in the configuration.</span>
+</span><span class='line'>global
+</span><span class='line'>  <span class="c"># specify the maximum connections across the board</span>
+</span><span class='line'>  maxconn 2048
+</span><span class='line'>  <span class="c"># enable debug output</span>
+</span><span class='line'>  debug
+</span><span class='line'>
+</span><span class='line'><span class="c"># now set the default settings for each sub-section</span>
+</span><span class='line'>defaults
+</span><span class='line'>  <span class="c"># stick with http traffic</span>
+</span><span class='line'>  mode http
+</span><span class='line'>  <span class="c"># set the number of times HAProxy should attempt to</span>
+</span><span class='line'>  <span class="c"># connect to the target</span>
+</span><span class='line'>  retries 3
+</span><span class='line'>  <span class="c"># specify the number of connections per front and</span>
+</span><span class='line'>  <span class="c"># back end</span>
+</span><span class='line'>  maxconn 1024
+</span><span class='line'>  <span class="c"># specify some timeouts (all in milliseconds)</span>
+</span><span class='line'>  timeout connect 5000
+</span><span class='line'>  timeout client 50000
+</span><span class='line'>  timeout server 50000
+</span><span class='line'>
+</span><span class='line'><span class="c">########### Webmachine Configuration ###################</span>
+</span><span class='line'>
+</span><span class='line'><span class="c"># here is the first of the front-end sections.</span>
+</span><span class='line'><span class="c"># this is where we specify our webmachine instances.</span>
+</span><span class='line'><span class="c"># in our case we start with just one instance, but</span>
+</span><span class='line'><span class="c"># we can add more later</span>
+</span><span class='line'>frontend webfarm
+</span><span class='line'>  <span class="c"># listen on port 80 across all network interfaces</span>
+</span><span class='line'>  <span class="nb">bind</span> *:80
+</span><span class='line'>  <span class="c"># by default, point at our backend configuration</span>
+</span><span class='line'>  <span class="c"># which lists our webmachine instances (this is</span>
+</span><span class='line'>  <span class="c"># configured below in another section)</span>
+</span><span class='line'>  default_backend webmachines
+</span><span class='line'>
+</span><span class='line'><span class="c"># this section indicates how the connectivity to</span>
+</span><span class='line'><span class="c"># all the instances of webmachine should work.</span>
+</span><span class='line'><span class="c"># Again, for dev there is only one instance, but</span>
+</span><span class='line'><span class="c"># in production there would be more.</span>
+</span><span class='line'>backend webmachines
+</span><span class='line'>  <span class="c"># we&#39;ll specify a round-robin configuration in</span>
+</span><span class='line'>  <span class="c"># case we add nodes down the track.</span>
+</span><span class='line'>  balance roundrobin
+</span><span class='line'>  <span class="c"># enable the &quot;X-Forware-For&quot; header so that</span>
+</span><span class='line'>  <span class="c"># we can see the client&#39;s IP in Webmachine,</span>
+</span><span class='line'>  <span class="c"># not just the proxy&#39;s address</span>
+</span><span class='line'>  option forwardfor
+</span><span class='line'>  <span class="c"># later down the track we&#39;ll be making the use</span>
+</span><span class='line'>  <span class="c"># of cookies for various reasons. So we&#39;ll</span>
+</span><span class='line'>  <span class="c"># enable support for this while we&#39;re here.</span>
+</span><span class='line'>  cookie SERVERID insert nocache indirect
+</span><span class='line'>  <span class="c"># list the servers who are to be balanced</span>
+</span><span class='line'>  <span class="c"># (just the one in the case of dev)</span>
+</span><span class='line'>  server Webmachine1 127.0.0.1:8000
+</span><span class='line'>
+</span><span class='line'><span class="c">########### Riak Configuration ###################</span>
+</span><span class='line'>
+</span><span class='line'><span class="c"># We are yet to touch Riak so far, but given that</span>
+</span><span class='line'><span class="c"># this post is going to cover the basics of</span>
+</span><span class='line'><span class="c"># connectivity, we&#39;ll cover off the configuration</span>
+</span><span class='line'><span class="c"># now so we don&#39;t have to do it later.</span>
+</span><span class='line'>frontend dbcluster
+</span><span class='line'>  <span class="c"># We&#39;ll be using protocol buffers to talk to</span>
+</span><span class='line'>  <span class="c"># Riak, so we will change from the default mode</span>
+</span><span class='line'>  <span class="c"># and use tcp instead</span>
+</span><span class='line'>  mode tcp
+</span><span class='line'>  <span class="c"># we&#39;re only interested in allowing connections</span>
+</span><span class='line'>  <span class="c"># from internal sources (so that we don&#39;t expose</span>
+</span><span class='line'>  <span class="c"># ourselves to the web. so we shall only listen</span>
+</span><span class='line'>  <span class="c"># on an internal interface on port 8080</span>
+</span><span class='line'>  <span class="nb">bind </span>127.0.0.1:8080
+</span><span class='line'>  <span class="c"># Default to the riak cluster configuration</span>
+</span><span class='line'>  default_backend riaks
+</span><span class='line'>
+</span><span class='line'><span class="c"># Here is the magic bit which load balances across</span>
+</span><span class='line'><span class="c"># our three instances of riak which are clustered</span>
+</span><span class='line'><span class="c"># together</span>
+</span><span class='line'>backend riaks
+</span><span class='line'>  <span class="c"># again, make sure we specify tcp instead of</span>
+</span><span class='line'>  <span class="c"># the default http mode</span>
+</span><span class='line'>  mode tcp
+</span><span class='line'>  <span class="c"># use a standard round robin approach for load</span>
+</span><span class='line'>  <span class="c"># balancing</span>
+</span><span class='line'>  balance roundrobin
+</span><span class='line'>  <span class="c"># list the three servers as optional targets</span>
+</span><span class='line'>  <span class="c"># for load balancing - these are what we set</span>
+</span><span class='line'>  <span class="c"># up during Part 1. Add health-checking as</span>
+</span><span class='line'>  <span class="c"># well so that when nodes go down, HAProxy</span>
+</span><span class='line'>  <span class="c"># can remove them from the cluster</span>
+</span><span class='line'>  server Riak1 127.0.0.1:8081 check
+</span><span class='line'>  server Riak2 127.0.0.1:8082 check
+</span><span class='line'>  server Riak3 127.0.0.1:8083 check
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>In the configuration above the <code>backend riaks</code> section has three server nodes. Each one of them has the <code>check</code> option specified. This enables health-checking on the same address and port that the server instance is bound to. If you decided that you didn&#8217;t want to do health-checking in this manner you easily enable health-checking over HTTP, as Riak has a built-in URI which can be used to validate the state of the node. Change the <code>backend riaks</code> section in the configuration to look like this:</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="c"># Here is the magic bit which load balances across</span>
+</span><span class='line'><span class="c"># our three instances of riak which are clustered</span>
+</span><span class='line'><span class="c"># together</span>
+</span><span class='line'>backend riaks
+</span><span class='line'>  <span class="c"># again, make sure we specify tcp instead of</span>
+</span><span class='line'>  <span class="c"># the default http mode</span>
+</span><span class='line'>  mode tcp
+</span><span class='line'>  <span class="c"># use a standard round robin approach for load</span>
+</span><span class='line'>  <span class="c"># balancing</span>
+</span><span class='line'>  balance roundrobin
+</span><span class='line'>  <span class="c"># enable HTTP health checking using the GET method</span>
+</span><span class='line'>  <span class="c"># on the URI &quot;/ping&quot;. This URI is part of Riak and</span>
+</span><span class='line'>  <span class="c"># can be used to determine if the node is up.</span>
+</span><span class='line'>  <span class="c"># We specify that we want to use the GET action, and</span>
+</span><span class='line'>  <span class="c"># use the URI &quot;/ping&quot; - this is the RESTful health</span>
+</span><span class='line'>  <span class="c"># check URI that comes as part of Riak.</span>
+</span><span class='line'>  option httpchk GET /ping
+</span><span class='line'>  <span class="c"># list the three servers as optional targets</span>
+</span><span class='line'>  <span class="c"># for load balancing - these are what we set</span>
+</span><span class='line'>  <span class="c"># up during Part 1. Add health-checking as</span>
+</span><span class='line'>  <span class="c"># well so that when nodes go down, HAProxy</span>
+</span><span class='line'>  <span class="c"># can remove them from the cluster.</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c"># change the health-check address of the node to 127.0.0.0:8091</span>
+</span><span class='line'>  <span class="c"># which is the REST interface for the first Riak node</span>
+</span><span class='line'>  server Riak1 127.0.0.1:8081 check addr 127.0.0.1 port 8091
+</span><span class='line'>
+</span><span class='line'>  <span class="c"># change the health-check address of the node to 127.0.0.0:8092</span>
+</span><span class='line'>  <span class="c"># which is the REST interface for the second Riak node</span>
+</span><span class='line'>  server Riak2 127.0.0.1:8082 check addr 127.0.0.1 port 8092
+</span><span class='line'>
+</span><span class='line'>  <span class="c"># change the health-check address of the node to 127.0.0.0:8093</span>
+</span><span class='line'>  <span class="c"># which is the REST interface for the third Riak node</span>
+</span><span class='line'>  server Riak3 127.0.0.1:8083 check addr 127.0.0.1 port 8093
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>To make sure this is functioning correctly, we need to open two consoles and change our working directory to our <code>csd</code> application (for those who have forgotten, <code>csd</code> is the application we&#8217;re building - it was mentioned in <a href="/posts/webmachine-erlydtl-and-riak-part-1/" title="Wembachine, ErlyDTL and Riak - Part 1">Part 1</a>). In console 1:</p>
+
+<pre><code>oj@nix ~/blog/csd $ sudo haproxy -f dev.haproxy.conf -d
+Available polling systems :
+     sepoll : pref=400,  test result OK
+      epoll : pref=300,  test result OK
+       poll : pref=200,  test result OK
+     select : pref=150,  test result OK
+Total: 4 (4 usable), will use sepoll.
+Using sepoll() as the polling mechanism.
+</code></pre>
+
+<p>This indicates that HAProxy is up and running and waiting for connections. Let&#8217;s get Webmachine fired up in console 2:</p>
+
+<pre><code>oj@nix ~/blog/csd $ ./start.sh
+
+    ... snip ...
+
+=PROGRESS REPORT==== 4-Apr-2011::23:39:27 ===
+         application: csd
+          started_at: nonode@nohost
+</code></pre>
+
+<p>Now Webmachine is fired up with our application running. We should be able to hit our page, this time at <a href="http://localhost/" title="localhost">localhost</a>, and see exactly what we saw at the end of <a href="/posts/webmachine-erlydtl-and-riak-part-1/" title="Wembachine, ErlyDTL and Riak - Part 1">Part 1</a>.</p>
+
+<p><img src="/uploads/2010/09/haproxy-validation.png" /></p>
+
+<h3>Verification of HAProxy configuration</h3>
+
+<p>On the surface it appears that we haven&#8217;t broken anything. We also need to make sure that any communication with Riak that we have down the track is also functioning. So let&#8217;s validate that now.</p>
+
+<p>First, we have to make sure that Riak is running. If you have followed <a href="/posts/webmachine-erlydtl-and-riak-part-1/" title="Wembachine, ErlyDTL and Riak - Part 1">Part 1</a> already and your Riak cluster is running then you&#8217;re good to go. If not, please read <a href="/posts/webmachine-erlydtl-and-riak-part-1/" title="Wembachine, ErlyDTL and Riak - Part 1">Part 1</a> for information on how to install Riak and configure it to run as a cluster of 3 nodes.</p>
+
+<p>Next, let&#8217;s create 3 new connections and use the <a href="https://github.com/basho/riak-erlang-client/blob/master/src/riakc_pb_socket.erl#L181" title="riakc_pb_socket:get_server_info/1">get_server_info/1</a> function to find out which node we are connected to. To do this, we&#8217;ll need to use an Erlang console which has all the Riak dependencies ready to go. It just so happens that when we fired up our Webmachine instance, we got an Erlang console for free. Simply hit the <code>enter</code> key and you&#8217;ll be given a prompt. Notice that when we connect to Riak using the <a href="https://github.com/basho/riak-erlang-client/blob/master/src/riakc_pb_socket.erl#L97" title="riakc_pb_socket:start_link/2">start_link/2</a> function, we are passing in the IP address and port of the load-balanced cluster instead of one of the running Riak nodes:</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="mi">1</span><span class="o">&gt;</span> <span class="p">{</span><span class="n">ok</span><span class="p">,</span> <span class="nv">C1</span><span class="p">}</span> <span class="o">=</span> <span class="nn">riakc_pb_socket</span><span class="p">:</span><span class="n">start_link</span><span class="p">(</span><span class="s">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="mi">8080</span><span class="p">).</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">=</span><span class="nv">PROGRESS</span> <span class="nv">REPORT</span><span class="o">====</span> <span class="mi">4</span><span class="o">-</span><span class="nv">Apr</span><span class="o">-</span><span class="mi">2011</span><span class="p">::</span><span class="mi">23</span><span class="p">:</span><span class="mi">41</span><span class="p">:</span><span class="mi">18</span> <span class="o">===</span>
+</span><span class='line'>          <span class="nn">supervisor</span><span class="p">:</span> <span class="p">{</span><span class="n">local</span><span class="p">,</span><span class="n">inet_gethost_native_sup</span><span class="p">}</span>
+</span><span class='line'>             <span class="nn">started</span><span class="p">:</span> <span class="p">[{</span><span class="n">pid</span><span class="p">,</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">.</span><span class="mi">148</span><span class="p">.</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">},{</span><span class="n">mfa</span><span class="p">,{</span><span class="n">inet_gethost_native</span><span class="p">,</span><span class="n">init</span><span class="p">,[[]]}}]</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">=</span><span class="nv">PROGRESS</span> <span class="nv">REPORT</span><span class="o">====</span> <span class="mi">4</span><span class="o">-</span><span class="nv">Apr</span><span class="o">-</span><span class="mi">2011</span><span class="p">::</span><span class="mi">23</span><span class="p">:</span><span class="mi">41</span><span class="p">:</span><span class="mi">18</span> <span class="o">===</span>
+</span><span class='line'>          <span class="nn">supervisor</span><span class="p">:</span> <span class="p">{</span><span class="n">local</span><span class="p">,</span><span class="n">kernel_safe_sup</span><span class="p">}</span>
+</span><span class='line'>             <span class="nn">started</span><span class="p">:</span> <span class="p">[{</span><span class="n">pid</span><span class="p">,</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">.</span><span class="mi">147</span><span class="p">.</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">},</span>
+</span><span class='line'>                       <span class="p">{</span><span class="n">name</span><span class="p">,</span><span class="n">inet_gethost_native_sup</span><span class="p">},</span>
+</span><span class='line'>                       <span class="p">{</span><span class="n">mfargs</span><span class="p">,{</span><span class="n">inet_gethost_native</span><span class="p">,</span><span class="n">start_link</span><span class="p">,[]}},</span>
+</span><span class='line'>                       <span class="p">{</span><span class="n">restart_type</span><span class="p">,</span><span class="n">temporary</span><span class="p">},</span>
+</span><span class='line'>                       <span class="p">{</span><span class="n">shutdown</span><span class="p">,</span><span class="mi">1000</span><span class="p">},</span>
+</span><span class='line'>                       <span class="p">{</span><span class="n">child_type</span><span class="p">,</span><span class="n">worker</span><span class="p">}]</span>
+</span><span class='line'><span class="p">{</span><span class="n">ok</span><span class="p">,</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">.</span><span class="mi">146</span><span class="p">.</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">}</span>
+</span><span class='line'><span class="mi">2</span><span class="o">&gt;</span> <span class="nn">riakc_pb_socket</span><span class="p">:</span><span class="n">get_server_info</span><span class="p">(</span><span class="nv">C1</span><span class="p">).</span>
+</span><span class='line'><span class="p">{</span><span class="n">ok</span><span class="p">,[{</span><span class="nb">node</span><span class="p">,</span><span class="o">&lt;&lt;</span><span class="s">&quot;dev1@127.0.0.1&quot;</span><span class="o">&gt;&gt;</span><span class="p">},</span>
+</span><span class='line'>     <span class="p">{</span><span class="n">server_version</span><span class="p">,</span><span class="o">&lt;&lt;</span><span class="s">&quot;0.12.0&quot;</span><span class="o">&gt;&gt;</span><span class="p">}]}</span>
+</span><span class='line'><span class="mi">3</span><span class="o">&gt;</span> <span class="p">{</span><span class="n">ok</span><span class="p">,</span> <span class="nv">C2</span><span class="p">}</span> <span class="o">=</span> <span class="nn">riakc_pb_socket</span><span class="p">:</span><span class="n">start_link</span><span class="p">(</span><span class="s">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="mi">8080</span><span class="p">).</span>
+</span><span class='line'><span class="p">{</span><span class="n">ok</span><span class="p">,</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">.</span><span class="mi">151</span><span class="p">.</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">}</span>
+</span><span class='line'><span class="mi">4</span><span class="o">&gt;</span> <span class="nn">riakc_pb_socket</span><span class="p">:</span><span class="n">get_server_info</span><span class="p">(</span><span class="nv">C2</span><span class="p">).</span>
+</span><span class='line'><span class="p">{</span><span class="n">ok</span><span class="p">,[{</span><span class="nb">node</span><span class="p">,</span><span class="o">&lt;&lt;</span><span class="s">&quot;dev2@127.0.0.1&quot;</span><span class="o">&gt;&gt;</span><span class="p">},</span>
+</span><span class='line'>     <span class="p">{</span><span class="n">server_version</span><span class="p">,</span><span class="o">&lt;&lt;</span><span class="s">&quot;0.12.0&quot;</span><span class="o">&gt;&gt;</span><span class="p">}]}</span>
+</span><span class='line'><span class="mi">5</span><span class="o">&gt;</span> <span class="p">{</span><span class="n">ok</span><span class="p">,</span> <span class="nv">C3</span><span class="p">}</span> <span class="o">=</span> <span class="nn">riakc_pb_socket</span><span class="p">:</span><span class="n">start_link</span><span class="p">(</span><span class="s">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="mi">8080</span><span class="p">).</span>
+</span><span class='line'><span class="p">{</span><span class="n">ok</span><span class="p">,</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">.</span><span class="mi">154</span><span class="p">.</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">}</span>
+</span><span class='line'><span class="mi">6</span><span class="o">&gt;</span> <span class="nn">riakc_pb_socket</span><span class="p">:</span><span class="n">get_server_info</span><span class="p">(</span><span class="nv">C3</span><span class="p">).</span>
+</span><span class='line'><span class="p">{</span><span class="n">ok</span><span class="p">,[{</span><span class="nb">node</span><span class="p">,</span><span class="o">&lt;&lt;</span><span class="s">&quot;dev3@127.0.0.1&quot;</span><span class="o">&gt;&gt;</span><span class="p">},</span>
+</span><span class='line'>     <span class="p">{</span><span class="n">server_version</span><span class="p">,</span><span class="o">&lt;&lt;</span><span class="s">&quot;0.12.0&quot;</span><span class="o">&gt;&gt;</span><span class="p">}]}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>So we can see that the load balancer has allocated three different connections, each to a different node in the cluster. This is a good sign. So let&#8217;s kill off one of the nodes:</p>
+
+<pre><code>oj@nix ~/blog/riak/dev $ dev2/bin/riak stop
+ok
+</code></pre>
+
+<p>In a very short period of time, you should see output in the HAProxy console which looks something like this:</p>
+
+<pre><code>[WARNING] 253/235636 (11824) : Server riaks/Riak2 is DOWN, reason: Layer4 connection problem, info: "Connection refused", check duration: 0ms.
+</code></pre>
+
+<p>The load balancer noticed that the node has died. Let&#8217;s make sure it no longer attempts to allocate connections to <code>dev2</code>. Note that we call <a href="http://www.erlang.org/documentation/doc-5.2/doc/getting_started/getting_started.html" title="Getting started">f()</a> in our console before running the same script again, as this forces the shell to forget about any existing variable bindings:</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="mi">7</span><span class="o">&gt;</span> <span class="n">f</span><span class="p">().</span>
+</span><span class='line'><span class="n">ok</span>
+</span><span class='line'><span class="mi">8</span><span class="o">&gt;</span> <span class="p">{</span><span class="n">ok</span><span class="p">,</span> <span class="nv">C1</span><span class="p">}</span> <span class="o">=</span> <span class="nn">riakc_pb_socket</span><span class="p">:</span><span class="n">start_link</span><span class="p">(</span><span class="s">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="mi">8080</span><span class="p">).</span>
+</span><span class='line'><span class="p">{</span><span class="n">ok</span><span class="p">,</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">.</span><span class="mi">1951</span><span class="p">.</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">}</span>
+</span><span class='line'><span class="mi">9</span><span class="o">&gt;</span> <span class="nn">riakc_pb_socket</span><span class="p">:</span><span class="n">get_server_info</span><span class="p">(</span><span class="nv">C1</span><span class="p">).</span>
+</span><span class='line'><span class="p">{</span><span class="n">ok</span><span class="p">,[{</span><span class="nb">node</span><span class="p">,</span><span class="o">&lt;&lt;</span><span class="s">&quot;dev1@127.0.0.1&quot;</span><span class="o">&gt;&gt;</span><span class="p">},</span>
+</span><span class='line'>     <span class="p">{</span><span class="n">server_version</span><span class="p">,</span><span class="o">&lt;&lt;</span><span class="s">&quot;0.12.0&quot;</span><span class="o">&gt;&gt;</span><span class="p">}]}</span>
+</span><span class='line'><span class="mi">10</span><span class="o">&gt;</span> <span class="p">{</span><span class="n">ok</span><span class="p">,</span> <span class="nv">C2</span><span class="p">}</span> <span class="o">=</span> <span class="nn">riakc_pb_socket</span><span class="p">:</span><span class="n">start_link</span><span class="p">(</span><span class="s">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="mi">8080</span><span class="p">).</span>
+</span><span class='line'><span class="p">{</span><span class="n">ok</span><span class="p">,</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">.</span><span class="mi">1954</span><span class="p">.</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">}</span>
+</span><span class='line'><span class="mi">11</span><span class="o">&gt;</span> <span class="nn">riakc_pb_socket</span><span class="p">:</span><span class="n">get_server_info</span><span class="p">(</span><span class="nv">C2</span><span class="p">).</span>
+</span><span class='line'><span class="p">{</span><span class="n">ok</span><span class="p">,[{</span><span class="nb">node</span><span class="p">,</span><span class="o">&lt;&lt;</span><span class="s">&quot;dev3@127.0.0.1&quot;</span><span class="o">&gt;&gt;</span><span class="p">},</span>
+</span><span class='line'>     <span class="p">{</span><span class="n">server_version</span><span class="p">,</span><span class="o">&lt;&lt;</span><span class="s">&quot;0.12.0&quot;</span><span class="o">&gt;&gt;</span><span class="p">}]}</span>
+</span><span class='line'><span class="mi">12</span><span class="o">&gt;</span> <span class="p">{</span><span class="n">ok</span><span class="p">,</span> <span class="nv">C3</span><span class="p">}</span> <span class="o">=</span> <span class="nn">riakc_pb_socket</span><span class="p">:</span><span class="n">start_link</span><span class="p">(</span><span class="s">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="mi">8080</span><span class="p">).</span>
+</span><span class='line'><span class="p">{</span><span class="n">ok</span><span class="p">,</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">.</span><span class="mi">1957</span><span class="p">.</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">}</span>
+</span><span class='line'><span class="mi">13</span><span class="o">&gt;</span> <span class="nn">riakc_pb_socket</span><span class="p">:</span><span class="n">get_server_info</span><span class="p">(</span><span class="nv">C3</span><span class="p">).</span>
+</span><span class='line'><span class="p">{</span><span class="n">ok</span><span class="p">,[{</span><span class="nb">node</span><span class="p">,</span><span class="o">&lt;&lt;</span><span class="s">&quot;dev1@127.0.0.1&quot;</span><span class="o">&gt;&gt;</span><span class="p">},</span>
+</span><span class='line'>     <span class="p">{</span><span class="n">server_version</span><span class="p">,</span><span class="o">&lt;&lt;</span><span class="s">&quot;0.12.0&quot;</span><span class="o">&gt;&gt;</span><span class="p">}]}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>As we hoped, <code>dev2</code> is nowhere to be seen. Let&#8217;s fire it up again:</p>
+
+<pre><code>oj@nix ~/blog/riak/dev $ dev2/bin/riak start
+</code></pre>
+
+<p><strong>Note:</strong> It isn&#8217;t necessary to tell the node to rejoin the cluster. This happens automatically. Thanks to Siculars (see comment thread) for pointing that out.</p>
+
+<p>HAProxy&#8217;s console will show you that it has re-established a connection to <code>dev2</code></p>
+
+<pre><code>[WARNING] 253/235852 (11824) : Server riaks/Riak2 is UP, reason: Layer7 check passed, code: 200, info: "OK", check duration: 1ms.
+</code></pre>
+
+<p>As a final test, let&#8217;s make sure we see that node get connections when we attempt to connect:</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="mi">14</span><span class="o">&gt;</span> <span class="n">f</span><span class="p">().</span>
+</span><span class='line'><span class="n">ok</span>
+</span><span class='line'><span class="mi">15</span><span class="o">&gt;</span> <span class="p">{</span><span class="n">ok</span><span class="p">,</span> <span class="nv">C1</span><span class="p">}</span> <span class="o">=</span> <span class="nn">riakc_pb_socket</span><span class="p">:</span><span class="n">start_link</span><span class="p">(</span><span class="s">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="mi">8080</span><span class="p">).</span>
+</span><span class='line'><span class="p">{</span><span class="n">ok</span><span class="p">,</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">.</span><span class="mi">4203</span><span class="p">.</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">}</span>
+</span><span class='line'><span class="mi">16</span><span class="o">&gt;</span> <span class="nn">riakc_pb_socket</span><span class="p">:</span><span class="n">get_server_info</span><span class="p">(</span><span class="nv">C1</span><span class="p">).</span>
+</span><span class='line'><span class="p">{</span><span class="n">ok</span><span class="p">,[{</span><span class="nb">node</span><span class="p">,</span><span class="o">&lt;&lt;</span><span class="s">&quot;dev3@127.0.0.1&quot;</span><span class="o">&gt;&gt;</span><span class="p">},</span>
+</span><span class='line'>     <span class="p">{</span><span class="n">server_version</span><span class="p">,</span><span class="o">&lt;&lt;</span><span class="s">&quot;0.12.0&quot;</span><span class="o">&gt;&gt;</span><span class="p">}]}</span>
+</span><span class='line'><span class="mi">17</span><span class="o">&gt;</span> <span class="p">{</span><span class="n">ok</span><span class="p">,</span> <span class="nv">C2</span><span class="p">}</span> <span class="o">=</span> <span class="nn">riakc_pb_socket</span><span class="p">:</span><span class="n">start_link</span><span class="p">(</span><span class="s">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="mi">8080</span><span class="p">).</span>
+</span><span class='line'><span class="p">{</span><span class="n">ok</span><span class="p">,</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">.</span><span class="mi">4206</span><span class="p">.</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">}</span>
+</span><span class='line'><span class="mi">18</span><span class="o">&gt;</span> <span class="nn">riakc_pb_socket</span><span class="p">:</span><span class="n">get_server_info</span><span class="p">(</span><span class="nv">C2</span><span class="p">).</span>
+</span><span class='line'><span class="p">{</span><span class="n">ok</span><span class="p">,[{</span><span class="nb">node</span><span class="p">,</span><span class="o">&lt;&lt;</span><span class="s">&quot;dev1@127.0.0.1&quot;</span><span class="o">&gt;&gt;</span><span class="p">},</span>
+</span><span class='line'>     <span class="p">{</span><span class="n">server_version</span><span class="p">,</span><span class="o">&lt;&lt;</span><span class="s">&quot;0.12.0&quot;</span><span class="o">&gt;&gt;</span><span class="p">}]}</span>
+</span><span class='line'><span class="mi">19</span><span class="o">&gt;</span> <span class="p">{</span><span class="n">ok</span><span class="p">,</span> <span class="nv">C3</span><span class="p">}</span> <span class="o">=</span> <span class="nn">riakc_pb_socket</span><span class="p">:</span><span class="n">start_link</span><span class="p">(</span><span class="s">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="mi">8080</span><span class="p">).</span>
+</span><span class='line'><span class="p">{</span><span class="n">ok</span><span class="p">,</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">.</span><span class="mi">4209</span><span class="p">.</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">}</span>
+</span><span class='line'><span class="mi">20</span><span class="o">&gt;</span> <span class="nn">riakc_pb_socket</span><span class="p">:</span><span class="n">get_server_info</span><span class="p">(</span><span class="nv">C3</span><span class="p">).</span>
+</span><span class='line'><span class="p">{</span><span class="n">ok</span><span class="p">,[{</span><span class="nb">node</span><span class="p">,</span><span class="o">&lt;&lt;</span><span class="s">&quot;dev2@127.0.0.1&quot;</span><span class="o">&gt;&gt;</span><span class="p">},</span>
+</span><span class='line'>     <span class="p">{</span><span class="n">server_version</span><span class="p">,</span><span class="o">&lt;&lt;</span><span class="s">&quot;0.12.0&quot;</span><span class="o">&gt;&gt;</span><span class="p">}]}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Wrapping up</h3>
+
+<p>Excellent. Now that we&#8217;ve got our load-balancer set up in development, we&#8217;re ready to dive into connecting to Riak from our <code>csd</code> application. That will be the topic for the next post in this series.</p>
+
+<p>As always, comments and feedback are welcome and greatly appreciated. Suggestions on improvements and pointers on mistakes would be awesome. To anyone out there who has put HAProxy into production, we would love to hear your comments on your configuration!</p>
+
+<p><strong>Note:</strong> The code for Part 2 (this post) can be found on <a href="https://github.com/OJ/csd/tree/Part2-20110403" title="Source Code for Part 2">Github</a>.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">OJ Reeves</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+
+<time datetime="2011-04-04T23:54:00+10:00" class="updated">Updated 04 Apr 2011</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/categories/databases/'>Databases</a>, <a class='category' href='/categories/erlang/'>Erlang</a>, <a class='category' href='/categories/functional-programming/'>Functional Programming</a>, <a class='category' href='/categories/howto/'>HOWTO</a>, <a class='category' href='/categories/riak/'>Riak</a>, <a class='category' href='/categories/webmachine/'>Webmachine</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://buffered.io/posts/webmachine-erlydtl-and-riak-part-2/" data-via="TheColonial" data-counturl="http://buffered.io/posts/webmachine-erlydtl-and-riak-part-2/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/posts/webmachine-erlydtl-and-riak-part-1/" title="Previous Post: Webmachine, ErlyDTL and Riak - Part 1">&laquo; Webmachine, ErlyDTL and Riak - Part 1</a>
+      
+      
+        <a class="basic-alignment right" href="/posts/asp-net-mvc-2-random-sign-offs-and-tempdata-loss/" title="next Post: ASP.NET MVC 2, Random Sign-offs and TempData Loss">ASP.NET MVC 2, Random Sign-offs and TempData Loss &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>OJ on the Web</h1>
+  <ul id="about_me">
+    <li class="post">
+      <a href="http://buffered.io/+" title="About OJ">About me</a>
+    </li>
+    <li class="post">
+      <a href="http://functional.io/" title="Functional IO">Functional IO</a>
+    </li>
+    <li class="post">
+      <a href="http://twitter.com/TheColonial" title="OJ @ Twitter">Twitter</a>
+    </li>
+    <li class="post">
+      <a href="http://github.com/OJ/" title="OJ @ Github">Github</a>
+    </li>
+    <li class="post">
+      <a href="http://bitbucket.org/OJ/" title="OJ @ Bitbucket">Bitbucket</a>
+    </li>
+    <li class="post">
+      <a href="http://stackoverflow.com/users/611/oj" title="OJ @ SO">StackOverflow</a>
+    </li>
+    <li><a href="http://www.erlang-factory.com/conference/SFBay2012"><img src="http://www.erlang-factory.com//upload/item/83/SF2012ImSpeaking.jpg" alt="I'm speaking at the 2012 San Francisco Erlang Factory!"></a>
+  </ul>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/posts/my-tools-list-2012/">My Tools List - 2012</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/an-expert-at-23/">An Expert at 23</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/reviews-theyre-all-you-need/">Reviews - They're all You need</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/why-i-use-twitter/">Why I use Twitter</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/corrugatediron-update-v0-1-1/">CorrugatedIron Update - v0.1.1</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("TheColonial", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/TheColonial" class="twitter-follow-button" data-show-count="false">Follow @TheColonial</a>
+  
+</section>
+
+<section>
+  <h1>Series</h1>
+  <ul id="series">
+    <li class='series'><a href='/series/project-euler/'>Project Euler (11)</a></li>
+<li class='series'><a href='/series/web-development-with-erlang/'>Web Development with Erlang (3)</a></li>
+
+  </ul>
+</section>
+<section>
+  <h1>Categories</h1>
+  <ul id="categories">
+    <li class='category'><a href='/categories/asm/'>ASM (3)</a></li>
+<li class='category'><a href='/categories/asp-net/'>ASP.NET (3)</a></li>
+<li class='category'><a href='/categories/agile/'>Agile (1)</a></li>
+<li class='category'><a href='/categories/algorithms/'>Algorithms (6)</a></li>
+<li class='category'><a href='/categories/apple/'>Apple (3)</a></li>
+<li class='category'><a href='/categories/being-in-the-industry/'>Being in the Industry (28)</a></li>
+<li class='category'><a href='/categories/blogging/'>Blogging (15)</a></li>
+<li class='category'><a href='/categories/c-/'>C# (15)</a></li>
+<li class='category'><a href='/categories/clr/'>CLR (3)</a></li>
+<li class='category'><a href='/categories/challenges/'>Challenges (7)</a></li>
+<li class='category'><a href='/categories/databases/'>Databases (6)</a></li>
+<li class='category'><a href='/categories/digital-rights/'>Digital Rights (7)</a></li>
+<li class='category'><a href='/categories/erlang/'>Erlang (6)</a></li>
+<li class='category'><a href='/categories/f-/'>F# (4)</a></li>
+<li class='category'><a href='/categories/fail/'>Fail (2)</a></li>
+<li class='category'><a href='/categories/food/'>Food (1)</a></li>
+<li class='category'><a href='/categories/freeware/'>Freeware (9)</a></li>
+<li class='category'><a href='/categories/functional-programming/'>Functional Programming (26)</a></li>
+<li class='category'><a href='/categories/funny/'>Funny (9)</a></li>
+<li class='category'><a href='/categories/games/'>Games (5)</a></li>
+<li class='category'><a href='/categories/google/'>Google (10)</a></li>
+<li class='category'><a href='/categories/guest-posts/'>Guest posts (1)</a></li>
+<li class='category'><a href='/categories/howto/'>HOWTO (16)</a></li>
+<li class='category'><a href='/categories/hardware/'>Hardware (9)</a></li>
+<li class='category'><a href='/categories/haskell/'>Haskell (20)</a></li>
+<li class='category'><a href='/categories/linux/'>Linux (10)</a></li>
+<li class='category'><a href='/categories/mac-os/'>Mac OS (2)</a></li>
+<li class='category'><a href='/categories/merb/'>Merb (1)</a></li>
+<li class='category'><a href='/categories/mercurial/'>Mercurial (3)</a></li>
+<li class='category'><a href='/categories/microsoft/'>Microsoft (18)</a></li>
+<li class='category'><a href='/categories/miscellaneous/'>Miscellaneous (56)</a></li>
+<li class='category'><a href='/categories/mono/'>Mono (2)</a></li>
+<li class='category'><a href='/categories/networks/'>Networks (2)</a></li>
+<li class='category'><a href='/categories/nosql/'>NoSQL (3)</a></li>
+<li class='category'><a href='/categories/open-source/'>Open Source (2)</a></li>
+<li class='category'><a href='/categories/privacy/'>Privacy (3)</a></li>
+<li class='category'><a href='/categories/productivity/'>Productivity (1)</a></li>
+<li class='category'><a href='/categories/project-euler/'>Project Euler (11)</a></li>
+<li class='category'><a href='/categories/rce/'>RCE (4)</a></li>
+<li class='category'><a href='/categories/riak/'>Riak (5)</a></li>
+<li class='category'><a href='/categories/ruby-on-rails/'>Ruby on Rails (1)</a></li>
+<li class='category'><a href='/categories/screencasts/'>Screencasts (1)</a></li>
+<li class='category'><a href='/categories/security/'>Security (10)</a></li>
+<li class='category'><a href='/categories/series/'>Series (1)</a></li>
+<li class='category'><a href='/categories/shortcuts/'>Shortcuts (4)</a></li>
+<li class='category'><a href='/categories/software/'>Software (31)</a></li>
+<li class='category'><a href='/categories/software-development/'>Software Development (65)</a></li>
+<li class='category'><a href='/categories/sorting/'>Sorting (5)</a></li>
+<li class='category'><a href='/categories/technology/'>Technology (40)</a></li>
+<li class='category'><a href='/categories/testing/'>Testing (1)</a></li>
+<li class='category'><a href='/categories/tips-tricks/'>Tips/Tricks (11)</a></li>
+<li class='category'><a href='/categories/twitter/'>Twitter (1)</a></li>
+<li class='category'><a href='/categories/wpf/'>WPF (1)</a></li>
+<li class='category'><a href='/categories/wtf/'>WTF (20)</a></li>
+<li class='category'><a href='/categories/webmachine/'>Webmachine (4)</a></li>
+<li class='category'><a href='/categories/windows/'>Windows (12)</a></li>
+
+  </ul>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+Copyright &copy; 2012 -
+<span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" property="dct:title" rel="dct:type">Blog content for OJ's rants</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://buffered.io/+" property="cc:attributionName" rel="cc:attributionURL">OJ Reeves</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License</a> -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'ojsrants';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://buffered.io/posts/webmachine-erlydtl-and-riak-part-2/';
+        var disqus_url = 'http://buffered.io/posts/webmachine-erlydtl-and-riak-part-2/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

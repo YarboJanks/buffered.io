@@ -1,0 +1,445 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Shortcuts: Visual Studio 2005 - OJ's rants</title>
+  <meta name="author" content="OJ Reeves">
+
+  
+  <meta name="description" content="Welcome to the next in the series of posts on program shortcuts. This time round we&#8217;re talking Visual Studio. I&#8217;ll be assuming that you &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's rants RSS 2.0" type="application/rss+xml">
+  <link rel="canonical" href="http://buffered.io/posts/shortcuts-visual-studio-2005">
+  <link href="/favicon.ico" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+
+  <script src="/javascripts/modernizr-2.0.js" type="text/javascript"></script>
+  <script src="/javascripts/ender.js" type="text/javascript"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+
+  <script type="text/javascript">
+    Modernizr.load([
+      { load: '//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js' },
+      { load: '/javascripts/jquery.lightbox.js', complete: function() {
+        $("a[rel^='lightbox']").lightbox();
+      } }
+    ]);
+  </script>
+
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-8648787-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">OJ's rants</a></h1>
+  
+    <h2>It's not about you, it's about the software</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/OjsRants" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:buffered.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/posts/archives">Archives</a></li>
+  <li><a href="/+">About</a></li>
+  <li><a href="http://www.google.com/recaptcha/mailhide/d?k=01KtoERsnUusX9vVliTm27uQ==&c=Be1wE57A4P96e6U9_HLCvw==">Contact</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Shortcuts: Visual Studio 2005</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+
+<time datetime="2007-02-11T09:37:00+10:00" pubdate data-updated="true">11 Feb 2007</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Welcome to the next in the series of posts on program shortcuts. This time round we&#8217;re talking Visual Studio. I&#8217;ll be assuming that you don&#8217;t have the <a href="http://www.viemu.com/" title="ViEmu" target="_blank">ViEmu</a> plugin enabled and that you&#8217;re just using the IDE in the way it was intended without any other form of shortcut-based plugin installed.</p>
+
+<p>I&#8217;m using Visual Studio 2005 and I think I have the C# settings enabled by default. Most of these shortcuts will work regardless of the default setting that you have, but some of them will no doubt be different. Please note that I won&#8217;t be going through every single shortcut that Visual Studio supports, instead I&#8217;ll be going through the ones that I find very handy. If you&#8217;re looking to find a complete list, then you should check out <a href="http://msdn.microsoft.com/" title="MSDN" target="_blank">MSDN</a>.</p>
+
+<p>Basic text manipulation shortcuts are the same as what is posted in the <a href="/posts/shortcuts-windows/trackback/" title="Shortcuts: Windows">Windows shortcuts</a> entry that I posted. OK, on with the goodies.</p>
+
+<ul>
+<li><strong>CTRL + Space or CTRL + K, L</strong> - Display the Intellisense members drop-down based on the current cursor position, or auto-complete the current symbol.</li>
+<li><strong>CTRL + SHIFT + Space or CTRL + K, P</strong> - Display the Intellisense parameter list tool-tip based on the corrent curosr position (handy for when you&#8217;ve forgotten a function&#8217;s singature).</li>
+<li><strong>CTRL + F3</strong> - Find the next instance of the word under the cursor.</li>
+<li><strong>F3</strong> - Find the next instance of the search word.</li>
+<li><strong>SHIFT + F3</strong> - Find the previous instance of the search word.</li>
+<li><strong>F5</strong> - Run in the debugger.</li>
+<li><strong>SHIFT + F5</strong> - Run without the debugger.</li>
+<li><strong>F6</strong> - Build solution.</li>
+<li><strong>SHIFT + F6</strong> - Build current project.</li>
+<li><strong>F7</strong> - Show code for the current item.</li>
+<li><strong>CTRL + F7</strong> - Compile current file.</li>
+<li><strong>F9</strong> - Toggle breakpoint.</li>
+<li><strong>F10</strong> - Step over current line (while debugging).</li>
+<li><strong>F11</strong> - Step into the current function call (while debugging).</li>
+<li><strong>F12</strong> - Go to definition.</li>
+<li><strong>CTRL + SHIFT + B</strong> - Rebuild.</li>
+<li><strong>CTRL + SHIFT + F9</strong> - Remove all breakpoints.</li>
+<li><strong>CTRL + D, B</strong> - Show the breakpoints window.</li>
+<li><strong>CTRL + D, E</strong> - Show the exceptions window.</li>
+<li><strong>CTRL + D, N</strong> - Set breakpoint in a function call.</li>
+<li><strong>CTRL + D, I</strong> - Show the Immediate window.</li>
+<li><strong>CTRL + ALT + P</strong> - Attach the debugger to a currently running process.</li>
+<li><strong>CTRL + SHIFT + A</strong> - Add a new item to the project.</li>
+<li><strong>SHIFT + ALT + A</strong> - Add an existing item to the project.</li>
+<li><strong>SHIFT + ALT + C</strong> - Add a new class to the project.</li>
+<li><strong>CTRL + &#45;</strong> - Navigate to previous location. If you&#8217;ve gone to the definition of a function, or moved to the end of a file, this shortcut will take you back to where you were. Quite handy for when you need to do things like add #includes to the top of the file and then return to where you were before.</li>
+<li><strong>CTRL + SHIFT + &#45;</strong> - Same as the previous shortcut, but navigating forward again.</li>
+<li><strong>CTRL + F</strong> - Open the Quick Find dialog.</li>
+<li><strong>CTRL + SHIFT + F</strong> - Open the Find in Files dialog.</li>
+<li><strong>CTRL + H</strong> - Open the Replace dialog.</li>
+<li><strong>CTRL + SHIFT + H</strong> - Open the Replace in Files dialog.</li>
+<li><strong>ALT + F12</strong> - Open the Find Symbol dialog.</li>
+<li><strong>CTRL + SHIFT + V</strong> - Cycle through the clipboard ring.</li>
+<li><strong>CTRL + K, F</strong> - Auto-format current selection.</li>
+<li><strong>CTRL + K, D</strong> - Auto-format current document.</li>
+<li><strong>CTRL + K, S</strong> - Surround selection with a template/code snippet.</li>
+<li><strong>SHIFT + ALT + Enter</strong> - Toggle Fullscreen.</li>
+<li><strong>CTRL + K, K or CTRL + B, T</strong> - Toggle bookmark at the current location.</li>
+<li><strong>CTRL + K, N or CTRL + B, N</strong> - Move to the next bookmark.</li>
+<li><strong>CTRL + B, P</strong> - Move to the previous bookmark.</li>
+<li><strong>CTRL + B, C</strong> - Clear all bookmarks.</li>
+<li><strong>CTRL + K, C</strong> - Comment out selected text.</li>
+<li><strong>CTRL + K, U</strong> - Uncomment selected text.</li>
+<li><strong>CTRL + M, M</strong> - Toggle view of current fold.</li>
+<li><strong>CTRL + M, L</strong> - Toggle view of all folds.</li>
+<li><strong>CTRL + M, O</strong> - Collapse to definitions.</li>
+<li><strong>CTRL + M, H</strong> - Hide selected text (shows up as &#8216;&#8230;&#8217;).</li>
+<li><strong>CTRL + M, U</strong> - Unhide selected text.</li>
+</ul>
+
+
+<p>It&#8217;s far from an exhaustive list, but I think there may well be some in there that you haven&#8217;t seen before. There are a stack more, so check out the documentation if this little list doesn&#8217;t sort you out.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">OJ Reeves</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+
+<time datetime="2007-02-11T09:37:00+10:00" pubdate data-updated="true">11 Feb 2007</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/categories/shortcuts/'>Shortcuts</a>, <a class='category' href='/categories/software-development/'>Software Development</a>, <a class='category' href='/categories/tips-tricks/'>Tips/Tricks</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://buffered.io/posts/shortcuts-visual-studio-2005/" data-via="TheColonial" data-counturl="http://buffered.io/posts/shortcuts-visual-studio-2005/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/posts/shortcuts-windows/" title="Previous Post: Shortcuts: Windows">&laquo; Shortcuts: Windows</a>
+      
+      
+        <a class="basic-alignment right" href="/posts/sport-is-good-for-you/" title="next Post: Sport is Good For You">Sport is Good For You &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>OJ on the Web</h1>
+  <ul id="about_me">
+    <li class="post">
+      <a href="http://buffered.io/+" title="About OJ">About me</a>
+    </li>
+    <li class="post">
+      <a href="http://functional.io/" title="Functional IO">Functional IO</a>
+    </li>
+    <li class="post">
+      <a href="http://twitter.com/TheColonial" title="OJ @ Twitter">Twitter</a>
+    </li>
+    <li class="post">
+      <a href="http://github.com/OJ/" title="OJ @ Github">Github</a>
+    </li>
+    <li class="post">
+      <a href="http://bitbucket.org/OJ/" title="OJ @ Bitbucket">Bitbucket</a>
+    </li>
+    <li class="post">
+      <a href="http://stackoverflow.com/users/611/oj" title="OJ @ SO">StackOverflow</a>
+    </li>
+    <li><a href="http://www.erlang-factory.com/conference/SFBay2012"><img src="http://www.erlang-factory.com//upload/item/83/SF2012ImSpeaking.jpg" alt="I'm speaking at the 2012 San Francisco Erlang Factory!"></a>
+  </ul>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/posts/my-tools-list-2012/">My Tools List - 2012</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/an-expert-at-23/">An Expert at 23</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/reviews-theyre-all-you-need/">Reviews - They're all You need</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/why-i-use-twitter/">Why I use Twitter</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/corrugatediron-update-v0-1-1/">CorrugatedIron Update - v0.1.1</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("TheColonial", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/TheColonial" class="twitter-follow-button" data-show-count="false">Follow @TheColonial</a>
+  
+</section>
+
+<section>
+  <h1>Series</h1>
+  <ul id="series">
+    <li class='series'><a href='/series/project-euler/'>Project Euler (11)</a></li>
+<li class='series'><a href='/series/web-development-with-erlang/'>Web Development with Erlang (3)</a></li>
+
+  </ul>
+</section>
+<section>
+  <h1>Categories</h1>
+  <ul id="categories">
+    <li class='category'><a href='/categories/asm/'>ASM (3)</a></li>
+<li class='category'><a href='/categories/asp-net/'>ASP.NET (3)</a></li>
+<li class='category'><a href='/categories/agile/'>Agile (1)</a></li>
+<li class='category'><a href='/categories/algorithms/'>Algorithms (6)</a></li>
+<li class='category'><a href='/categories/apple/'>Apple (3)</a></li>
+<li class='category'><a href='/categories/being-in-the-industry/'>Being in the Industry (28)</a></li>
+<li class='category'><a href='/categories/blogging/'>Blogging (15)</a></li>
+<li class='category'><a href='/categories/c-/'>C# (15)</a></li>
+<li class='category'><a href='/categories/clr/'>CLR (3)</a></li>
+<li class='category'><a href='/categories/challenges/'>Challenges (7)</a></li>
+<li class='category'><a href='/categories/databases/'>Databases (6)</a></li>
+<li class='category'><a href='/categories/digital-rights/'>Digital Rights (7)</a></li>
+<li class='category'><a href='/categories/erlang/'>Erlang (6)</a></li>
+<li class='category'><a href='/categories/f-/'>F# (4)</a></li>
+<li class='category'><a href='/categories/fail/'>Fail (2)</a></li>
+<li class='category'><a href='/categories/food/'>Food (1)</a></li>
+<li class='category'><a href='/categories/freeware/'>Freeware (9)</a></li>
+<li class='category'><a href='/categories/functional-programming/'>Functional Programming (26)</a></li>
+<li class='category'><a href='/categories/funny/'>Funny (9)</a></li>
+<li class='category'><a href='/categories/games/'>Games (5)</a></li>
+<li class='category'><a href='/categories/google/'>Google (10)</a></li>
+<li class='category'><a href='/categories/guest-posts/'>Guest posts (1)</a></li>
+<li class='category'><a href='/categories/howto/'>HOWTO (16)</a></li>
+<li class='category'><a href='/categories/hardware/'>Hardware (9)</a></li>
+<li class='category'><a href='/categories/haskell/'>Haskell (20)</a></li>
+<li class='category'><a href='/categories/linux/'>Linux (10)</a></li>
+<li class='category'><a href='/categories/mac-os/'>Mac OS (2)</a></li>
+<li class='category'><a href='/categories/merb/'>Merb (1)</a></li>
+<li class='category'><a href='/categories/mercurial/'>Mercurial (3)</a></li>
+<li class='category'><a href='/categories/microsoft/'>Microsoft (18)</a></li>
+<li class='category'><a href='/categories/miscellaneous/'>Miscellaneous (56)</a></li>
+<li class='category'><a href='/categories/mono/'>Mono (2)</a></li>
+<li class='category'><a href='/categories/networks/'>Networks (2)</a></li>
+<li class='category'><a href='/categories/nosql/'>NoSQL (3)</a></li>
+<li class='category'><a href='/categories/open-source/'>Open Source (2)</a></li>
+<li class='category'><a href='/categories/privacy/'>Privacy (3)</a></li>
+<li class='category'><a href='/categories/productivity/'>Productivity (1)</a></li>
+<li class='category'><a href='/categories/project-euler/'>Project Euler (11)</a></li>
+<li class='category'><a href='/categories/rce/'>RCE (4)</a></li>
+<li class='category'><a href='/categories/riak/'>Riak (5)</a></li>
+<li class='category'><a href='/categories/ruby-on-rails/'>Ruby on Rails (1)</a></li>
+<li class='category'><a href='/categories/screencasts/'>Screencasts (1)</a></li>
+<li class='category'><a href='/categories/security/'>Security (10)</a></li>
+<li class='category'><a href='/categories/series/'>Series (1)</a></li>
+<li class='category'><a href='/categories/shortcuts/'>Shortcuts (4)</a></li>
+<li class='category'><a href='/categories/software/'>Software (31)</a></li>
+<li class='category'><a href='/categories/software-development/'>Software Development (65)</a></li>
+<li class='category'><a href='/categories/sorting/'>Sorting (5)</a></li>
+<li class='category'><a href='/categories/technology/'>Technology (40)</a></li>
+<li class='category'><a href='/categories/testing/'>Testing (1)</a></li>
+<li class='category'><a href='/categories/tips-tricks/'>Tips/Tricks (11)</a></li>
+<li class='category'><a href='/categories/twitter/'>Twitter (1)</a></li>
+<li class='category'><a href='/categories/wpf/'>WPF (1)</a></li>
+<li class='category'><a href='/categories/wtf/'>WTF (20)</a></li>
+<li class='category'><a href='/categories/webmachine/'>Webmachine (4)</a></li>
+<li class='category'><a href='/categories/windows/'>Windows (12)</a></li>
+
+  </ul>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+Copyright &copy; 2012 -
+<span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" property="dct:title" rel="dct:type">Blog content for OJ's rants</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://buffered.io/+" property="cc:attributionName" rel="cc:attributionURL">OJ Reeves</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License</a> -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'ojsrants';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://buffered.io/posts/shortcuts-visual-studio-2005/';
+        var disqus_url = 'http://buffered.io/posts/shortcuts-visual-studio-2005/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

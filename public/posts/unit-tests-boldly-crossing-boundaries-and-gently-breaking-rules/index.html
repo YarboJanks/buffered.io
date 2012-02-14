@@ -1,0 +1,465 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Unit Tests: Boldly Crossing Boundaries and Gently Breaking Rules - OJ's rants</title>
+  <meta name="author" content="OJ Reeves">
+
+  
+  <meta name="description" content="For the first time ever, OJ&#8217;s rants has a guest blogger! Long term friend and highly-respected geek, RobG has put together an interesting piece &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's rants RSS 2.0" type="application/rss+xml">
+  <link rel="canonical" href="http://buffered.io/posts/unit-tests-boldly-crossing-boundaries-and-gently-breaking-rules">
+  <link href="/favicon.ico" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+
+  <script src="/javascripts/modernizr-2.0.js" type="text/javascript"></script>
+  <script src="/javascripts/ender.js" type="text/javascript"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+
+  <script type="text/javascript">
+    Modernizr.load([
+      { load: '//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js' },
+      { load: '/javascripts/jquery.lightbox.js', complete: function() {
+        $("a[rel^='lightbox']").lightbox();
+      } }
+    ]);
+  </script>
+
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-8648787-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">OJ's rants</a></h1>
+  
+    <h2>It's not about you, it's about the software</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/OjsRants" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:buffered.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/posts/archives">Archives</a></li>
+  <li><a href="/+">About</a></li>
+  <li><a href="http://www.google.com/recaptcha/mailhide/d?k=01KtoERsnUusX9vVliTm27uQ==&c=Be1wE57A4P96e6U9_HLCvw==">Contact</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Unit Tests: Boldly Crossing Boundaries and Gently Breaking Rules</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+
+<time datetime="2008-07-29T01:07:00+10:00" pubdate data-updated="true">29 Jul 2008</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>For the first time ever, OJ&#8217;s rants has a guest blogger! Long term friend and highly-respected geek, RobG has put together an interesting piece on something that&#8217;s close to the hearts of most Geeks - Unit testing. This is his first post, and I hope it won&#8217;t be the last.</p>
+
+<p>Without further ado, here&#8217;s Rob!</p>
+
+<!--more-->
+
+
+<p>Firstly, a bit of context is required: I recently read <a href="http://haacked.com/">Phils</a> post regarding <a href="http://haacked.com/archive/posts/unit-test-boundaries.aspx">Unit Test Boundaries</a>, and wrote a decent comment there asking him a question or two that were never answered by him (or anyone else for that matter). Similar questions were also being asked by other users also left unanswered, and it seems that my follow-up comment there (meaning to answer some of those) was too long to be a comment, directly resulting in this article instead!</p>
+
+<p>Its highly likely that this article wont make much sense without reading the <a href="http://haacked.com/archive/posts/unit-test-boundaries.aspx">original post</a> first (so please do that), followed by Chris comment (question), which Ive copied below in case it disappears for some reason:</p>
+
+<blockquote cite="Chris B.">Chris B.
+Alright&#8230;clearly there are a lot of sharp people here, so I&#8217;d like to ask everyone&#8217;s opinion for the utterly perfect testing scenario for a couple of simple database operations.
+
+I need to test whether a customer which exists loads successfully from the database, loaded by a unique id. Do I preload the database in a setup script for the test harness, or do I have an entire db filled with test data from a backup, or what?
+
+I need to test whether a customer is saved successfully to the database. When I&#8217;m done, what&#8217;s the best way to clean up? Do I abort a transaction context, or throw away the entire db (I&#8217;ve done that before), or what? What&#8217;s the best way to verify that the customer is saved successfully? Direct queries or what?
+
+I&#8217;m amenable to the theoretical argument that this article makes, but it seems that pragmatically the kind test we&#8217;re saying you shouldn&#8217;t write is exactly the test that is most likely to reveal problems (in my experience). I&#8217;d love to hear some other ideas.</blockquote>
+
+
+<p>Just like Chris, I&#8217;m all for the theory, but as he pointed out, pragmatically, it&#8217;s a lot more like wading through thick syrup. He asked for some guidance, so I thought Id tell you what I usually do, and what has worked for me. It may or may not work for you, but at least you get to make that call: If youre a TDD practitioner, youll have hit the crux of the problem that we all end up facing eventually with unit testing: You&#8217;ve had to make a conscious choice to let your unit test reach into actual (not mock) data-land, because no matter how much you try and persuade yourself, you don&#8217;t actually believe that your database will in fact return that customer record you&#8217;re asking for until you&#8217;ve been able to test it for real  and I mean <em>really real</em>!</p>
+
+<p>So what I&#8217;ve done to solve this is setup a new test project for these (crossing the line) tests. This is so that you can run them independently of the <em>faster</em> unit tests. I call them Datastore or Repository tests or something of that nature. Then you have problem number two hit you in the face like a frying pan - <strong>How can I make these tests repeatable?</strong> I know that if I add a new customer to the database in one unit test, I&#8217;m going to need some way of restoring the database to its previous clean state right? I can&#8217;t have <em>&#8220;TestCustomer1&#8221;</em> running around in the database after I&#8217;m done with him, so I need to get rid of all that test data somehow.</p>
+
+<p>I&#8217;ve heard various strategies suggested in the past - some of which involve dropping and recreating the database each time. I can&#8217;t help thinking that&#8217;s like taking out a sledgehammer to smash an ant, but it definitely still works. I&#8217;ve also tried other options where you make sure any test data you insert has specific identifying properties like negative ID values (won&#8217;t help if you&#8217;re using GUIDs though), or prefix/suffix specific column values with something like <em>&#8220;test_&#8221;</em> or <em>&#8220;!test&#8221;</em> and running a cleanup script at the end that clears down any lagging data. This has worked pretty well in the past, and if you stick to the rules, the cleanup script can require very little maintenance and can be quite dynamic - but still, <em>I&#8217;ve always wanted a more elegant solution.</em></p>
+
+<p><strong>Finally, it hit me.</strong> It&#8217;s the solution I&#8217;ve been using for a few projects now, and it has worked very well. Only one problem - you have to break another cardinal rule of unit testing. <em>Hrmm&#8230;OK I hear you say, what the hell, we&#8217;ve already crossed the line, lets see if the ogre flinches when we spit in its eye?</em></p>
+
+<p>The rule we&#8217;re breaking now is that of <em>only testing ONE thing in a unit test</em>. Well, I don&#8217;t like to think of it as <em>breaking</em> - more like <em>gently taking apart</em> - that implies you&#8217;re being very careful about when you do it - and you&#8217;ve thought it through and not done it by accident.</p>
+
+<p>The unit test name gives it away completely:</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="n">ShouldCreateAndDeleteACustomer</span><span class="p">()</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>At this point, I can see many people wince violently while sucking air quickly through their teeth  but let me explain. It stands to reason that you&#8217;re going to implement the basic CRUD functions into your data strategy right? So why not exercise a couple of them at a time? Well, this is where my own warning bells go off! It&#8217;s a bit like walking the tight-rope, it&#8217;s dangerous, but if you&#8217;re careful and develop enough skill, you can get to the other side without doing any damage.</p>
+
+<p>Now that you&#8217;ve gotten over the initial shock, let me explain what the test does. For this one, you&#8217;re going to exercise the <em>Create, Retrieve and Delete</em> functions in CRUD, and all of this can be done in a TDD fashion. First you exercise the code that creates the customer:</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="n">Assert</span><span class="p">.</span><span class="n">True</span><span class="p">(</span><span class="n">customerRepository</span><span class="p">.</span><span class="n">SaveCustomer</span><span class="p">(</span><span class="n">customer</span><span class="p">));</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This line of code will fail (RED) because you haven&#8217;t written your data access code yet right&#8230;<em>right</em>?! I use LinqToSql, but ultimately you&#8217;ve just got to write enough code (SPROC or otherwise) that adds the record to the table (GREEN) so you can verify it with your eyes with a Query Analyser of sorts - then <strong>delete the row manually.</strong></p>
+
+<p>Remember, you&#8217;re still (<em>hopefully</em>) programming against an interface (<em>ICustomerRepository</em> for example), so it&#8217;s the same call that you would make from a Mock (Moq rocks!), and you can still use your favourite IoC Container (mine is StructureMap) for dependency injection - but instead, this time you&#8217;re hitting the actual database. My <em>SaveCustomer()</em> methods usually handle Create as well as Update depending on the ID field (I normally use GUIDs), but I&#8217;m trying to keep this simple.</p>
+
+<p>Next you exercise the retrieval code:</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="n">Assert</span><span class="p">.</span><span class="n">NotNull</span><span class="p">(</span><span class="n">customerRepository</span><span class="p">.</span><span class="n">GetCustomers</span><span class="p">.</span><span class="n">WithId</span><span class="p">(</span><span class="n">customer</span><span class="p">.</span><span class="n">ID</span><span class="p">));</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>In case youre wondering, <em>WithId</em> is an extention method to <em>IQueryable</em> because LinqToSql utilises deferred execution, and <em>WithId</em> triggers the actual DB call.
+Again, this will fail (RED) because you havent written your data access code yet right?! You write the code (as I said, I use LinqToSql, but you can use a call to a SPROC if you like), and <strong>viola</strong> it&#8217;s (GREEN), but the record is still in the database - so you <strong>delete it manually</strong>.</p>
+
+<p>Finally, you exercise the code that deletes the record:</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="n">Assert</span><span class="p">.</span><span class="n">True</span><span class="p">(</span><span class="n">customerRepository</span><span class="p">.</span><span class="n">DeleteCustomer</span><span class="p">.</span><span class="n">WithId</span><span class="p">(</span><span class="n">customer</span><span class="p">.</span><span class="n">ID</span><span class="p">));</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Once again, this will fail (RED) because you haven&#8217;t written the code yet right?! (Is this getting old yet?). So you write the code to delete the record and the test goes (GREEN).</p>
+
+<p>If you&#8217;re still a bit sceptical about your delete operation, you can run the retrieval code again and this time <em>Assert.Null</em> instead.</p>
+
+<p>Now what you&#8217;ve done in summary is test your Create, Retrieve, Delete and Retrieve (failure) cases in one test. The downside is that you&#8217;ve tested more than one operation in a single test, but the upside is you&#8217;ve left the database perfectly neat and tidy. With a bit of extra work, you can add a few more calls (hey&#8230;why stop there?) to include the &#8220;Update&#8221; function from CRUD, and what you&#8217;ll have is a neat unit test (10 to 15 lines of code) that exercises the entire &#8220;Customer&#8221; entity in your repository, and leaves no traces behind.</p>
+
+<p><strong>Now for a word of warning</strong> - try and make sure that, even if you can&#8217;t obey the <em>rules</em> of unit testing, that you at least obey the <em>spirit</em> of unit testing. By that, I mean keep the footprint of your test small and specific. If you&#8217;re working with the Customer entity - stick to that. If you&#8217;re working with the Order entity, stick to that. Don&#8217;t go writing tests that start messing with joins between the two. <strong>THAT&#8217;S WHAT YOUR &#8220;PROPER&#8221;</strong> unit tests are for - testing behaviour should not come into these - or else you&#8217;re heading for a world of pain. Your mocks and interfaces will take care of behaviour. These data tests are purely there to prove that your data methods do what they say they do - <em>for real!</em></p>
+
+<p>I hope that helps Chris and any other people looking for elegant solutions to sticky problems. If it does, I might consider blogging some more of the pragmatic techniques that have worked for me and my teams in follow up posts.</p>
+
+<p>Thats it from me for now  over and out!</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">OJ Reeves</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+
+<time datetime="2008-07-29T01:07:00+10:00" pubdate data-updated="true">29 Jul 2008</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/categories/guest-posts/'>Guest posts</a>, <a class='category' href='/categories/software-development/'>Software Development</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://buffered.io/posts/unit-tests-boldly-crossing-boundaries-and-gently-breaking-rules/" data-via="TheColonial" data-counturl="http://buffered.io/posts/unit-tests-boldly-crossing-boundaries-and-gently-breaking-rules/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/posts/a-better-nub/" title="Previous Post: A Better 'nub'">&laquo; A Better 'nub'</a>
+      
+      
+        <a class="basic-alignment right" href="/posts/epic-fail-cuil-search-engine/" title="next Post: Epic Fail - Cuil Search Engine">Epic Fail - Cuil Search Engine &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>OJ on the Web</h1>
+  <ul id="about_me">
+    <li class="post">
+      <a href="http://buffered.io/+" title="About OJ">About me</a>
+    </li>
+    <li class="post">
+      <a href="http://functional.io/" title="Functional IO">Functional IO</a>
+    </li>
+    <li class="post">
+      <a href="http://twitter.com/TheColonial" title="OJ @ Twitter">Twitter</a>
+    </li>
+    <li class="post">
+      <a href="http://github.com/OJ/" title="OJ @ Github">Github</a>
+    </li>
+    <li class="post">
+      <a href="http://bitbucket.org/OJ/" title="OJ @ Bitbucket">Bitbucket</a>
+    </li>
+    <li class="post">
+      <a href="http://stackoverflow.com/users/611/oj" title="OJ @ SO">StackOverflow</a>
+    </li>
+    <li><a href="http://www.erlang-factory.com/conference/SFBay2012"><img src="http://www.erlang-factory.com//upload/item/83/SF2012ImSpeaking.jpg" alt="I'm speaking at the 2012 San Francisco Erlang Factory!"></a>
+  </ul>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/posts/my-tools-list-2012/">My Tools List - 2012</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/an-expert-at-23/">An Expert at 23</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/reviews-theyre-all-you-need/">Reviews - They're all You need</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/why-i-use-twitter/">Why I use Twitter</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/corrugatediron-update-v0-1-1/">CorrugatedIron Update - v0.1.1</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("TheColonial", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/TheColonial" class="twitter-follow-button" data-show-count="false">Follow @TheColonial</a>
+  
+</section>
+
+<section>
+  <h1>Series</h1>
+  <ul id="series">
+    <li class='series'><a href='/series/project-euler/'>Project Euler (11)</a></li>
+<li class='series'><a href='/series/web-development-with-erlang/'>Web Development with Erlang (3)</a></li>
+
+  </ul>
+</section>
+<section>
+  <h1>Categories</h1>
+  <ul id="categories">
+    <li class='category'><a href='/categories/asm/'>ASM (3)</a></li>
+<li class='category'><a href='/categories/asp-net/'>ASP.NET (3)</a></li>
+<li class='category'><a href='/categories/agile/'>Agile (1)</a></li>
+<li class='category'><a href='/categories/algorithms/'>Algorithms (6)</a></li>
+<li class='category'><a href='/categories/apple/'>Apple (3)</a></li>
+<li class='category'><a href='/categories/being-in-the-industry/'>Being in the Industry (28)</a></li>
+<li class='category'><a href='/categories/blogging/'>Blogging (15)</a></li>
+<li class='category'><a href='/categories/c-/'>C# (15)</a></li>
+<li class='category'><a href='/categories/clr/'>CLR (3)</a></li>
+<li class='category'><a href='/categories/challenges/'>Challenges (7)</a></li>
+<li class='category'><a href='/categories/databases/'>Databases (6)</a></li>
+<li class='category'><a href='/categories/digital-rights/'>Digital Rights (7)</a></li>
+<li class='category'><a href='/categories/erlang/'>Erlang (6)</a></li>
+<li class='category'><a href='/categories/f-/'>F# (4)</a></li>
+<li class='category'><a href='/categories/fail/'>Fail (2)</a></li>
+<li class='category'><a href='/categories/food/'>Food (1)</a></li>
+<li class='category'><a href='/categories/freeware/'>Freeware (9)</a></li>
+<li class='category'><a href='/categories/functional-programming/'>Functional Programming (26)</a></li>
+<li class='category'><a href='/categories/funny/'>Funny (9)</a></li>
+<li class='category'><a href='/categories/games/'>Games (5)</a></li>
+<li class='category'><a href='/categories/google/'>Google (10)</a></li>
+<li class='category'><a href='/categories/guest-posts/'>Guest posts (1)</a></li>
+<li class='category'><a href='/categories/howto/'>HOWTO (16)</a></li>
+<li class='category'><a href='/categories/hardware/'>Hardware (9)</a></li>
+<li class='category'><a href='/categories/haskell/'>Haskell (20)</a></li>
+<li class='category'><a href='/categories/linux/'>Linux (10)</a></li>
+<li class='category'><a href='/categories/mac-os/'>Mac OS (2)</a></li>
+<li class='category'><a href='/categories/merb/'>Merb (1)</a></li>
+<li class='category'><a href='/categories/mercurial/'>Mercurial (3)</a></li>
+<li class='category'><a href='/categories/microsoft/'>Microsoft (18)</a></li>
+<li class='category'><a href='/categories/miscellaneous/'>Miscellaneous (56)</a></li>
+<li class='category'><a href='/categories/mono/'>Mono (2)</a></li>
+<li class='category'><a href='/categories/networks/'>Networks (2)</a></li>
+<li class='category'><a href='/categories/nosql/'>NoSQL (3)</a></li>
+<li class='category'><a href='/categories/open-source/'>Open Source (2)</a></li>
+<li class='category'><a href='/categories/privacy/'>Privacy (3)</a></li>
+<li class='category'><a href='/categories/productivity/'>Productivity (1)</a></li>
+<li class='category'><a href='/categories/project-euler/'>Project Euler (11)</a></li>
+<li class='category'><a href='/categories/rce/'>RCE (4)</a></li>
+<li class='category'><a href='/categories/riak/'>Riak (5)</a></li>
+<li class='category'><a href='/categories/ruby-on-rails/'>Ruby on Rails (1)</a></li>
+<li class='category'><a href='/categories/screencasts/'>Screencasts (1)</a></li>
+<li class='category'><a href='/categories/security/'>Security (10)</a></li>
+<li class='category'><a href='/categories/series/'>Series (1)</a></li>
+<li class='category'><a href='/categories/shortcuts/'>Shortcuts (4)</a></li>
+<li class='category'><a href='/categories/software/'>Software (31)</a></li>
+<li class='category'><a href='/categories/software-development/'>Software Development (65)</a></li>
+<li class='category'><a href='/categories/sorting/'>Sorting (5)</a></li>
+<li class='category'><a href='/categories/technology/'>Technology (40)</a></li>
+<li class='category'><a href='/categories/testing/'>Testing (1)</a></li>
+<li class='category'><a href='/categories/tips-tricks/'>Tips/Tricks (11)</a></li>
+<li class='category'><a href='/categories/twitter/'>Twitter (1)</a></li>
+<li class='category'><a href='/categories/wpf/'>WPF (1)</a></li>
+<li class='category'><a href='/categories/wtf/'>WTF (20)</a></li>
+<li class='category'><a href='/categories/webmachine/'>Webmachine (4)</a></li>
+<li class='category'><a href='/categories/windows/'>Windows (12)</a></li>
+
+  </ul>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+Copyright &copy; 2012 -
+<span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" property="dct:title" rel="dct:type">Blog content for OJ's rants</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://buffered.io/+" property="cc:attributionName" rel="cc:attributionURL">OJ Reeves</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License</a> -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'ojsrants';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://buffered.io/posts/unit-tests-boldly-crossing-boundaries-and-gently-breaking-rules/';
+        var disqus_url = 'http://buffered.io/posts/unit-tests-boldly-crossing-boundaries-and-gently-breaking-rules/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
