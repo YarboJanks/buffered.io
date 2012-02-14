@@ -12,7 +12,7 @@ use Rack::Rewrite do
     #      rack_env['SERVER_NAME'] != 'buffered.io'
     #}
 
-    #r301 %r{^/\d\d\d\d/\d\d/\d\d/(.*)/?}, '/posts/$1'
+    r301 %r{^/\d\d\d\d/\d\d/\d\d/(.*)$}, '/posts/$1'
     #r301 %r{^/(.*)/}, '/$1'
 end
 
