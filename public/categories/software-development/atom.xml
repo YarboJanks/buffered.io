@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Software Development | OJ's rants]]></title>
   <link href="http://buffered.io/categories/software-development/atom.xml" rel="self"/>
   <link href="http://buffered.io/"/>
-  <updated>2012-02-14T10:41:10+10:00</updated>
+  <updated>2012-02-14T21:37:23+10:00</updated>
   <id>http://buffered.io/</id>
   <author>
     <name><![CDATA[OJ Reeves]]></name>
@@ -620,39 +620,24 @@ RESPONSE 200<br/></p>
 
 <p>There are quite a few issues that were highlighted as a result, but the key one is this: <em>you can't assume that your users aren't using some form of Content Advisor which is hitting your server with unexpected requests</em>. In our case, the resolution was simple. We just had to add a couple of lines to our root action:</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">public</span> <span class="n">ActionResult</span> <span class="nf">SignOn</span><span class="p">()</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="k">if</span><span class="p">(</span><span class="n">Request</span><span class="p">.</span><span class="n">IsAuthenticated</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">{&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="p">&lt;</span><span class="n">pre</span><span class="p">&gt;&lt;</span><span class="n">code</span><span class="p">&gt;</span><span class="c1">// force the TempData dicionary to keep hold</span>
-</span><span class='line'><span class="c1">// of the information it has in case this</span>
-</span><span class='line'><span class="c1">// action is being hit by a Content Advisor.</span>
-</span><span class='line'><span class="n">TempData</span><span class="p">.</span><span class="n">Keep</span><span class="p">();</span>
-</span><span class='line'><span class="p">&lt;/</span><span class="n">code</span><span class="p">&gt;&lt;/</span><span class="n">pre</span><span class="p">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;</span>  <span class="p">}</span>
-</span><span class='line'>  <span class="c1">// rest of the action code</span>
-</span><span class='line'>  <span class="c1">// ...</span>
-</span><span class='line'>  <span class="k">return</span> <span class="nf">View</span><span class="p">(...);</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p>{% codeblock lang:csharp %}
+public ActionResult SignOn()
+{
+  if(Request.IsAuthenticated)
+  {</p>
+
+<pre><code>// force the TempData dicionary to keep hold
+// of the information it has in case this
+// action is being hit by a Content Advisor.
+TempData.Keep();
+</code></pre>
+
+<p>  }
+  // rest of the action code
+  // ...
+  return View(...);
+}
+{% endcodeblock %}</p>
 
 <h2>Conclusion</h2>
 
