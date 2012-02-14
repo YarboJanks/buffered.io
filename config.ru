@@ -13,7 +13,7 @@ use Rack::Rewrite do
     #}
 
     r301 %r{^/\d\d\d\d/\d\d/\d\d/(.*)$}, '/posts/$1'
-    #r301 %r{^/(.*)/}, '/$1'
+    r301 %r{^/(.*)/$}, '/$1'
 end
 
 class SinatraStaticServer < Sinatra::Base  
