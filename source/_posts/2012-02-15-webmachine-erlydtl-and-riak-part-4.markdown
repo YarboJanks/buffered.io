@@ -1,6 +1,5 @@
 ---
-published: false
-date: 2012-02-14 22:00
+date: 2012-02-15 20:50
 categories: [Riak, Functional Programming, HOWTO, Erlang, Webmachine, OAuth, Twitter, ErlyDTL]
 tags: [Riak, Functional Programming, HOWTO, Erlang, Webmachine, OAuth, Twitter, ErlyDTL]
 comments: true
@@ -9,7 +8,7 @@ title: "Webmachine, ErlyDTL and Riak - Part 4"
 series: "Web Development with Erlang"
 ---
 
-<img src="/uploads/2010/09/riak-logo.png" alt="Riak Logo" style="float:left;padding-right:5px;padding-bottom:5px;"/>For those of you who are new to the series, you may want to check out [Part 1][], [Part 2][] and [Part 3][] before reading this post. It will help give you some context as well as introduce you to some of the jargon and technology that I'm using. If you've already read then, or don't want to, then please read on!
+{% img left /uploads/2010/09/riak-logo.png 'Riak Logo' %}For those of you who are new to the series, you may want to check out [Part 1][], [Part 2][] and [Part 3][] before reading this post. It will help give you some context as well as introduce you to some of the jargon and technology that I'm using. If you've already read then, or don't want to, then please read on!
 
 Upon finishing [Part 3][] of the series we were finally able to read data from [Riak][] and see it appear in our web page. This was the first stage in seeing a full end-to-end web application functioning. Of course there is still a great deal to do!
 
@@ -27,12 +26,14 @@ In this post we're going to hit a few points of pain:
 
 There's little Riak-specific work going on this post as we're focusing on front-end user management. Other than a bit of refactoring the Riak code remains the same as in Part 3. In Part 5 (coming soon) we'll be writing snippets to Riak and associating them to users who have logged into the application via Twitter.
 
-Again, be warned, this post is a bit of a whopper! So get yourself a drink and get comfortable. Here we go!
+**NOTE**: I'll no longer be using `localhost` in URLs and will instead be using the loopback address, `127.0.0.1`. The main reason is because we'll be interacting with Twitter which requires a "proper" address to be used when setting up. A secondary reason is the use of cookies. If I accidentally leave `localhost` somewhere in the post (or in the images) please let me know.
+
+Again, be warned, this post is a bit of a whopper! So get yourself a drink and get comfortable. Here we go...
 
 Another Slight Refactor
 -----------------------
 
-Now that we're at the stage where Riak is going to get used more often we need to do a better job of handlng and managing the connections to the cluster. Ideally we should pool a bunch of connetions and reuse them across different requests. This reduces the overhead of creating and destroying connections all the time. Initially we're going to make use of Seth's [Pooler][] application (with a slight modification) to handle the pooling of Riak connections for us.
+Now that we're at the stage where Riak is going to get used more often we need to do a better job of handling and managing the connections to the cluster. Ideally we should pool a bunch of connections and reuse them across different requests. This reduces the overhead of creating and destroying connections all the time. Initially we're going to make use of Seth's [Pooler][] application (with a slight modification) to handle the pooling of Riak connections for us.
 
 ### Fixing HAProxy ###
 
@@ -50,7 +51,6 @@ defaults
   .
   .
 {% endcodeblock %}
-
 
 As you can see we've forced the timeout of connections which means that every connection that is made to the proxy will be killed off when it has been inactive for a long enough period of time. If you were paying attention to the output in the application console window you'd have seen something like this appear after making a request:
 
@@ -187,7 +187,7 @@ Compiled src/pooler.erl
    ... snip ... 
 {% endcodeblock %}
 
-Next we need to take the scalpel to `csd_core`. When we first created this application, it was intended to manage all of the interaction with Riak and to manage the intracacies of dealing with snippets and other objects without exposting Riak's inner workings to the `csd_web` application. To do this we put a [gen_server][] in place, called `csd_core_server`, which handled the incoming requests. It internally established connections to Riak and used them without destroying them.
+Next we need to take the scalpel to `csd_core`. When we first created this application, it was intended to manage all of the interaction with Riak and to manage the intricacies of dealing with snippets and other objects without exposing Riak's inner workings to the `csd_web` application. To do this we put a [gen_server][] in place, called `csd_core_server`, which handled the incoming requests. It internally established connections to Riak and used them without destroying them.
 
 For now, we'll be keeping this `gen_server` in place but we're going to make some modifications to it:
 
@@ -269,7 +269,7 @@ Let's start by creating a new file:
 ].
 {% endcodeblock %}
 
-`pooler` is smart enough to pool connections across multiple nodes. This is quite a nifty feature, but not one that we're making use of because we have HAProxy in place. Therefore, the configuration above is telling pooler to use just one single node/pool (ie. the proxy), to create 5 connections and to allow up to 30 to be created if required.
+`pooler` is smart enough to pool connections across multiple nodes. This is quite a nifty feature, but not one that we're making use of because we have HAProxy in place. Therefore, the configuration above is telling Pooler to use just one single node/pool (ie. the proxy), to create 5 connections and to allow up to 30 to be created if required.
 
 The last parameter in the configuration, `start_mfa`, tells `pooler` which module, function and arguments to invoke to create the Erlang process from. In our case we want it to create a pool of Riak client connections, hence why we've specified the `start_link` function in the `riakc_pb_socket` module.
 
@@ -386,7 +386,7 @@ code_change(_OldVsn, State, _Extra) ->
   {ok, State}.
 {% endcodeblock %}
 
-Here you can see we're making use of the [pooler:use_member][] function to easily wrap up the management of the connection's usage lifetime. All traces of the old configuration are gone. We can now rebuild the application using `make`, fire it up using `make webstart` and hit the [same page](http://localhost/snippet/B41kUQ==) as before resulting in the same content appearing on screen.
+Here you can see we're making use of the [pooler:use_member][] function to easily wrap up the management of the connection's usage lifetime. All traces of the old configuration are gone. We can now rebuild the application using `make`, fire it up using `make webstart` and hit the [same page](http://127.0.0.1/snippet/B41kUQ==) as before resulting in the same content appearing on screen.
 
 We have now successfully removed the old configuration and connection handling code, and we've replaced it with `pooler` to handle a pool of connections to the Riak proxy. The last part of our refactor is around configuration for the front-end web application.
 
@@ -510,7 +510,7 @@ Bearing in mind that we'll be making use of Twitter, via OAuth, to deal with the
 1. The server handles the request and negotiates a [request token][] with Twitter using OAuth.
 1. The application redirects the user to Twitter on a special URL which contains OAuth request information.
 1. The user is asked to sign in to Twitter, if they haven't already during the course of their browser session.
-1. Twitter then confirms that the user does intend to sign-in to CodeSmackdown using their Twitter credentials, and redirects the user back to the application.
+1. Twitter then confirms that the user does intend to sign-in to Code Smackdown using their Twitter credentials, and redirects the user back to the application.
 1. If the user approves the process, the application is handed a verification token which is then used to generate an OAuth [access token][] with Twitter. This access token is what is used to allow the user to easily sign in to the application from this point onward.
 
 Prepare yourself, you're about to learn how to do OAuth in Erlang! But before we can do that, we need to register our application with Twitter.
@@ -793,7 +793,7 @@ decode(CookieValue) ->
   end.
 {% endcodeblock %}
 
-The `decode` function does a little more than its counterpart as there's validation built-in as well as decrypting. Firstly we do the inverse of the final steps of the `encode` function in that we base64 decode the data into binary and conver the resulting binary back to Erlang terms. We then break this value up into its components.
+The `decode` function does a little more than its counterpart as there's validation built-in as well as decrypting. Firstly we do the inverse of the final steps of the `encode` function in that we base64 decode the data into binary and convert the resulting binary back to Erlang terms. We then break this value up into its components.
 
 We then validate that the cookie hasn't been tampered with by calculating the [SHA MAC][] of the data that was retrieved. If this value doesn't match what is expected we indicate that the value is invalid. If the value is valid, we then make sure that the internal cookie value hasn't expired. If it hasn't, we return `{ok, <data>}`.
 
@@ -868,7 +868,7 @@ to_html(ReqData, State) ->
 % ... snip ... %
 {% endcodeblock %}
 
-Yes this is quite a bit different to before. We are calling into our `cookie` module to find out if the user is logged in. If they are logged on we call `csd_view:home` with a single paramter `Name`, if they're not logged on the same function is called without any parameters.
+Yes this is quite a bit different to before. We are calling into our `cookie` module to find out if the user is logged in. If they are logged on we call `csd_view:home` with a single parameter `Name`, if they're not logged on the same function is called without any parameters.
 
 The `csd_view` module is new and was created to abstract the idea of template rendering. All the ErlyDTL handling happens in `csd_view`. Let's take a look at it now.
 
@@ -917,7 +917,7 @@ At this point we can build and run the application to see what the landing page 
 1. One for HAProxy. Run: `make proxystart`
 1. One for the CSD application. Run: `make webstart`
 
-When you browse to [http://localhost:4000](http://localhost:4000) you should see the following:
+When you browse to [http://127.0.0.1:4000](http://127.0.0.1:4000) you should see the following:
 
 ![Landing page when logged off][ImgHomeLoggedOff]
 
@@ -970,15 +970,11 @@ moved_temporarily(ReqData, State) ->
   {{ "{" }}{true, Url}, ReqData, State}.
 {% endcodeblock %}
 
-This module is quite lightweight, but has a little bit of magic in it that revolves around getting redirects to work. The Webmachine resource workflow starts with the `init` function, here we just say all is ok and specify `undefined` as our state because we don't have any requirements for state in this resource.
+This module is quite lightweight, but has a little bit of magic in it that revolves around getting redirects to work. If you're not familiar with how 307 redirects work in Webmachine, take a quick side-glance at my [Redirects with Webmachine][WebmachineRedirects] post.
 
-The next function that's invoked is `resource_exists`. Given that we actually want to redirect to Twitter to kick off the OAuth process, we want to tell Webmachine that the resource _does not_ exist, so we return `false` as the first parameter in the result tuple to indicate this.
+Back? Ok. The extra line of code in the `moved_temporarily` function is where we invoke `twitter:request_access()` which goes to Twitter.com and gets a request token. The URL generated by this call is then passed back to Webmachine which will tell the caller's browser where to redirect to.
 
-Webmachine then calls `previously_existed`. It's important to override this method and tell Webmachine that the resource has previously existed because, if we don't, Webmachine will return a 404 to the user. We don't want a 404, we want a redirect, so instead we return `true` as the first parameter in the return value to "pretend" that the resource used to exist, but doesn't any more.
-
-As a result of returning `true` in the `previously_existed` function, `moved_temporarily` is the next invoked function. Here is where we tell Webmachine that the resource has been moved to another location. This is where our OAuth stuff starts to kick in. We invoke `twitter:request_access()` which goes to Twitter.com and gets a request token. A URL is generated from that token and returned to this resource via the call. The return result from this function `{true, Url}` which tells Webmachine to redirect the user to the given Url. The effect of this is that the user is taken to Twitter.com and they are presented with the authentication request page.
-
-Build the app, fire up it up and click on the "Logon via Twitter" button and you should see a screen that resembles this (assuming you're already signed in to Twitter):
+Build the app, fire up it up and click on the "Sign in via Twitter" button and you should see a screen that resembles this (assuming you're already signed in to Twitter):
 
 ![Logging into CSD view Twitter][ImgTwitterLogon]
 
@@ -1035,9 +1031,25 @@ From that we glean their ID and Username. We then store that information, along 
 
 Now all we have to do is redirect the user back to the home page and pass on the new request data. Webmachine will take this data and push the cookie to the user's browser, then redirect the user to the `home` entry in the `urimap` section in `app.config`. In effect, we're redirected to the home page as a logged on user.
 
-Compile 
+Ignoring the `TODO` notes (which we'll cover in future posts in this series), we've got ourselves to the point where the application should function end-to-end. Finally.
 
+Compile the application and fire it up! Let's take a look at what happens.
 
+![Hitting the home page prior to logging on][ImgHomeLoggedOff]
+
+![Authenticating with Twitter][ImgTwitterLogon]
+
+![Back home after the redirect with successful sign-on][ImgHomeLoggedOn]
+
+## That's all ... for now ##
+
+Thanks for reading this post. If you managed to make it this far you've done well. In the next post we'll start to do some more meaningful things with our logged on users, such as allowing them to submit code snippets. This is where the end-to-end process becomes interesting.
+
+Comments, feedback and criticisms are as welcome as always.
+
+**Note:** The code for Part 4 (this post) can be found on [Github][Part4Code].
+
+[Part4Code]: https://github.com/OJ/csd/tree/Part4-20120215 "Source code for Part 4"
 [erlang-oauth]: https://github.com/tim/erlang-oauth "erlang-oauth"
 [erlang-oauth-fork]: https://github.com/OJ/erlang-oauth/tree/rebarise "erlang-oauth rebar fork"
 [HAProxy]: http://haproxy.1wt.eu/ "HAProxy"
@@ -1059,7 +1071,20 @@ Compile
 [Mochiweb]: https://github.com/mochi/mochiweb "Mochiweb"
 [OTP]: http://en.wikipedia.org/wiki/Open_Telecom_Platform "Open Telecom Platform"
 [cURL]: http://curl.haxx.se/ "cURL homepage"
+[WebmachineRedirects]: http://buffered.io/posts/redirects-with-webmachine/ "Redirects with Webmachine"
+[PoolerFork]: https://github.com/OJ/pooler "OJ's Pooler fork"
+[gen_server]: http://www.erlang.org/doc/man/gen_server.html "gen_server"
+[configuration]: http://www.erlang.org/doc/man/config.html "Erlang configuration"
+[pooler:use_member]: https://github.com/OJ/pooler/blob/master/src/pooler.erl#L125 "use_member"
+[request token]: http://oauth.net/core/1.0/#auth_step1 "Request tokens"
+[access token]: http://oauth.net/core/1.0/#auth_step3 "Access tokens"
+[SHA MAC]: http://en.wikipedia.org/wiki/HMAC "HMAC"
+[salt]: http://en.wikipedia.org/wiki/Salt_(cryptography) "Salt (crypto)"
+[request data]: http://wiki.basho.com/Webmachine-Request.html "Request data"
+[wrq]: http://wiki.basho.com/Webmachine-Request.html "Request data"
+[base64]: http://en.wikipedia.org/wiki/Base64 "Base64"
 
 [ImgTwitterAppCreate]: /uploads/2012/02/twitter-app-create.png "Twitter app creation"
 [ImgHomeLoggedOff]: /uploads/2012/02/home-loggedoff.png "Home - Logged Off"
+[ImgHomeLoggedOn]: /uploads/2012/02/home-loggedon.png "Home - Logged On"
 [ImgTwitterLogon]: /uploads/2012/02/twitter-logon.png "Twitter - Logon Page"
