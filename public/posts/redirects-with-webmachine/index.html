@@ -1,0 +1,492 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Redirects with Webmachine - OJ's rants</title>
+  <meta name="author" content="OJ Reeves">
+
+  
+  <meta name="description" content="Webmachine is currently my favourite tool for building websites. I&#8217;ve been lucky enough to use it on a few things now, some commercially some &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's rants RSS 2.0" type="application/rss+xml">
+  <link rel="canonical" href="http://buffered.io/posts/redirects-with-webmachine">
+  <link href="/favicon.ico" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+
+  <script src="/javascripts/modernizr-2.0.js" type="text/javascript"></script>
+  <script src="/javascripts/ender.js" type="text/javascript"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+
+  <script type="text/javascript">
+    Modernizr.load([
+      { load: '//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js' },
+      { load: '/javascripts/jquery.lightbox.js', complete: function() {
+        $("a[rel^='lightbox']").lightbox();
+      } }
+    ]);
+  </script>
+
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-8648787-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">OJ's rants</a></h1>
+  
+    <h2>It's not about you, it's about the software</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/OjsRants" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:buffered.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/posts/archives">Archives</a></li>
+  <li><a href="/+">About</a></li>
+  <li><a href="http://www.google.com/recaptcha/mailhide/d?k=01KtoERsnUusX9vVliTm27uQ==&c=Be1wE57A4P96e6U9_HLCvw==">Contact</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Redirects With Webmachine</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+
+<time datetime="2012-02-15T19:10:00+10:00" pubdate data-updated="true">15 Feb 2012</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p><a href="http://webmachine.basho.com/" title="Webmachine">Webmachine</a> is currently my favourite tool for building websites. I&#8217;ve been lucky enough to use it on a few things now, some commercially some personally. While working on my <a href="http://buffered.io/series/web-development-with-erlang/" title="Web development with Erlang">Erlang web development series</a> I had to handle the case where URLs redirected to other URLs. I found some basic documentation on this but wasn&#8217;t able to find a canonical example of how to do it.</p>
+
+<p>After a big of digging through blog posts and speaking to people on IRC I figured out how it was done. The goal of this post is to show how it&#8217;s done for 301 (permanent) and 307 (temporary) redirects.</p>
+
+<!--more-->
+
+
+<p>You&#8217;re probably already aware that Webmachine&#8217;s goal is to make easy to build <em>well behaved HTTP applications</em>. It does this by enforcing a workflow which guides you through the HTTP process. Your job, as the developer, is to build <strong>resources</strong> which override certain behaviours depending on what you want to achieve.</p>
+
+<p>In order to get your resource to return the appropriate redirect error codes, you need to provide custom implementations of three of four functions. Two of them are common to both 301 and 307 redirects, the developer must choose between the other two depending on the type of redirect required.</p>
+
+<h2><code>resource_exists</code></h2>
+
+<p>This function is the first of the functions that is called by the Webmachine pipeline and expects the results in the standard format of <code>{&lt;result&gt;, ReqData, State}</code>. The <code>&lt;result&gt;</code> needs to be a boolean atom (ie. <code>true</code> or <code>false</code>). The default behaviour of this function returns <code>{true, ReqData, State}</code>. To start off the process of redirecting, this function needs to tell Webmachine that the resource doesn&#8217;t exist by instead returning <code>{false, ReqData, State}</code>.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="nf">resource_exists</span><span class="p">(</span><span class="nv">ReqData</span><span class="p">,</span> <span class="nv">State</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="p">{</span><span class="n">false</span><span class="p">,</span> <span class="nv">ReqData</span><span class="p">,</span> <span class="nv">State</span><span class="p">}.</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2><code>previously_existed</code></h2>
+
+<p>This function tells Webmachine if the resource had, for some reason, existed in the past. The return value of this function takes the same format as the <code>resource_exists</code> function, but the default behaviour returns <code>{false, ReqData, State}</code> which tells Webmachine that the resource never existed. This results in a 404 (not found) error being returned to the caller.</p>
+
+<p>This isn&#8217;t the behaviour we want, so instead we need to override the function and instead return <code>{true, ReqData, State}</code>.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="nf">previously_existed</span><span class="p">(</span><span class="nv">ReqData</span><span class="p">,</span> <span class="nv">State</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="p">{</span><span class="n">true</span><span class="p">,</span> <span class="nv">ReqData</span><span class="p">,</span> <span class="nv">State</span><span class="p">}.</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2><code>moved_temporarily</code> - for 307 redirects</h2>
+
+<p>If you&#8217;re looking to get a 307 redirect, you need to override this function. The default return value of this function is the same as <code>previously_existed</code> which isn&#8217;t going to give us what we need. Instead we need to tell Webmachine that there is another URL which should be used instead. We do this by returning <code>{{true, &lt;URL&gt;}, ReqData, State}</code>. The URL that is returned is what Webmachine will pass back to the user along with the 307 redirect code.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="nf">moved_temporarily</span><span class="p">(</span><span class="nv">ReqData</span><span class="p">,</span> <span class="nv">State</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="p">{{</span><span class="n">true</span><span class="p">,</span> <span class="s">&quot;http://buffered.io&quot;</span><span class="p">},</span> <span class="nv">ReqData</span><span class="p">,</span> <span class="nv">State</span><span class="p">}.</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Do not override this function if you&#8217;re looking to do a permanent redirect.</p>
+
+<p>This is what happens if you hit a resource with this behaviour using <a href="http://curl.haxx.se/" title="cURL">cURL</a>.</p>
+
+<pre><code>oj@air ~/ $ curl -v http://localhost:8000/temporary
+* About to connect() to localhost port 8000 (#0)
+*   Trying 127.0.0.1... connected
+* Connected to localhost (127.0.0.1) port 8000 (#0)
+&gt; GET /temporary HTTP/1.1
+&gt; User-Agent: curl/7.21.4 (universal-apple-darwin11.0) libcurl/7.21.4 OpenSSL/0.9.8r zlib/1.2.5
+&gt; Host: localhost:8000
+&gt; Accept: */*
+&gt; 
+&lt; HTTP/1.1 307 Temporary Redirect
+&lt; Server: MochiWeb/1.1 WebMachine/1.9.0 (someone had painted it blue)
+&lt; Location: http://buffered.io/
+&lt; Date: Wed, 15 Feb 2012 09:05:16 GMT
+&lt; Content-Type: text/html
+&lt; Content-Length: 0
+&lt; 
+* Connection #0 to host localhost left intact
+* Closing connection #0
+</code></pre>
+
+<h2><code>moved_permanently</code> - for 301 redirects</h2>
+
+<p>If you&#8217;re aiming to deliver a 301 redirect then this is the function you should override. Again the default return value is the same as <code>previously_existed</code> (just like <code>moved_temporarily</code>) and we need to override it with the same detail as in <code>moved_temporarily</code>).</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="nf">moved_permanently</span><span class="p">(</span><span class="nv">ReqData</span><span class="p">,</span> <span class="nv">State</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="p">{{</span><span class="n">true</span><span class="p">,</span> <span class="s">&quot;http://buffered.io&quot;</span><span class="p">},</span> <span class="nv">ReqData</span><span class="p">,</span> <span class="nv">State</span><span class="p">}.</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Do not override this function if you&#8217;re looking to do a temporary redirect.</p>
+
+<p>This is what happens if you hit a resource with this behaviour using <a href="http://curl.haxx.se/" title="cURL">cURL</a>.</p>
+
+<pre><code>oj@air ~/code/riak $ curl -v http://localhost:8000/permanent
+* About to connect() to localhost port 8000 (#0)
+*   Trying 127.0.0.1... connected
+* Connected to localhost (127.0.0.1) port 8000 (#0)
+&gt; GET /permanent HTTP/1.1
+&gt; User-Agent: curl/7.21.4 (universal-apple-darwin11.0) libcurl/7.21.4 OpenSSL/0.9.8r zlib/1.2.5
+&gt; Host: localhost:8000
+&gt; Accept: */*
+&gt; 
+&lt; HTTP/1.1 301 Moved Permanently
+&lt; Server: MochiWeb/1.1 WebMachine/1.9.0 (someone had painted it blue)
+&lt; Location: http://buffered.io/
+&lt; Date: Wed, 15 Feb 2012 09:09:03 GMT
+&lt; Content-Type: text/html
+&lt; Content-Length: 0
+&lt; 
+* Connection #0 to host localhost left intact
+* Closing connection #0
+</code></pre>
+
+<h2>That&#8217;s all folks</h2>
+
+<p>For once it&#8217;s short and sweet. I hope you find it useful.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">OJ Reeves</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+
+<time datetime="2012-02-15T19:10:00+10:00" pubdate data-updated="true">15 Feb 2012</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/categories/software-development/'>Software Development</a>, <a class='category' href='/categories/webmachine/'>Webmachine</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://buffered.io/posts/redirects-with-webmachine/" data-via="TheColonial" data-counturl="http://buffered.io/posts/redirects-with-webmachine/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/posts/my-tools-list-2012/" title="Previous Post: My Tools List - 2012">&laquo; My Tools List - 2012</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>OJ on the Web</h1>
+  <ul id="about_me">
+    <li class="post">
+      <a href="http://buffered.io/+" title="About OJ">About me</a>
+    </li>
+    <li class="post">
+      <a href="http://functional.io/" title="Functional IO">Functional IO</a>
+    </li>
+    <li class="post">
+      <a href="http://twitter.com/TheColonial" title="OJ @ Twitter">Twitter</a>
+    </li>
+    <li class="post">
+      <a href="http://github.com/OJ/" title="OJ @ Github">Github</a>
+    </li>
+    <li class="post">
+      <a href="http://bitbucket.org/OJ/" title="OJ @ Bitbucket">Bitbucket</a>
+    </li>
+    <li class="post">
+      <a href="http://stackoverflow.com/users/611/oj" title="OJ @ SO">StackOverflow</a>
+    </li>
+    <li><a href="http://www.erlang-factory.com/conference/SFBay2012"><img src="http://www.erlang-factory.com//upload/item/83/SF2012ImSpeaking.jpg" alt="I'm speaking at the 2012 San Francisco Erlang Factory!"></a>
+  </ul>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/posts/redirects-with-webmachine/">Redirects with Webmachine</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/my-tools-list-2012/">My Tools List - 2012</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/an-expert-at-23/">An Expert at 23</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/reviews-theyre-all-you-need/">Reviews - They're all You need</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/why-i-use-twitter/">Why I use Twitter</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("TheColonial", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/TheColonial" class="twitter-follow-button" data-show-count="false">Follow @TheColonial</a>
+  
+</section>
+
+<section>
+  <h1>Series</h1>
+  <ul id="series">
+    <li class='series'><a href='/series/project-euler/'>Project Euler (11)</a></li>
+<li class='series'><a href='/series/web-development-with-erlang/'>Web Development with Erlang (3)</a></li>
+
+  </ul>
+</section>
+<section>
+  <h1>Categories</h1>
+  <ul id="categories">
+    <li class='category'><a href='/categories/asm/'>ASM (3)</a></li>
+<li class='category'><a href='/categories/asp-net/'>ASP.NET (3)</a></li>
+<li class='category'><a href='/categories/agile/'>Agile (1)</a></li>
+<li class='category'><a href='/categories/algorithms/'>Algorithms (6)</a></li>
+<li class='category'><a href='/categories/apple/'>Apple (3)</a></li>
+<li class='category'><a href='/categories/being-in-the-industry/'>Being in the Industry (28)</a></li>
+<li class='category'><a href='/categories/blogging/'>Blogging (15)</a></li>
+<li class='category'><a href='/categories/c-/'>C# (15)</a></li>
+<li class='category'><a href='/categories/clr/'>CLR (3)</a></li>
+<li class='category'><a href='/categories/challenges/'>Challenges (7)</a></li>
+<li class='category'><a href='/categories/databases/'>Databases (6)</a></li>
+<li class='category'><a href='/categories/digital-rights/'>Digital Rights (7)</a></li>
+<li class='category'><a href='/categories/erlang/'>Erlang (6)</a></li>
+<li class='category'><a href='/categories/f-/'>F# (4)</a></li>
+<li class='category'><a href='/categories/fail/'>Fail (2)</a></li>
+<li class='category'><a href='/categories/food/'>Food (1)</a></li>
+<li class='category'><a href='/categories/freeware/'>Freeware (9)</a></li>
+<li class='category'><a href='/categories/functional-programming/'>Functional Programming (26)</a></li>
+<li class='category'><a href='/categories/funny/'>Funny (9)</a></li>
+<li class='category'><a href='/categories/games/'>Games (5)</a></li>
+<li class='category'><a href='/categories/google/'>Google (10)</a></li>
+<li class='category'><a href='/categories/guest-posts/'>Guest posts (1)</a></li>
+<li class='category'><a href='/categories/howto/'>HOWTO (16)</a></li>
+<li class='category'><a href='/categories/hardware/'>Hardware (9)</a></li>
+<li class='category'><a href='/categories/haskell/'>Haskell (20)</a></li>
+<li class='category'><a href='/categories/linux/'>Linux (10)</a></li>
+<li class='category'><a href='/categories/mac-os/'>Mac OS (2)</a></li>
+<li class='category'><a href='/categories/merb/'>Merb (1)</a></li>
+<li class='category'><a href='/categories/mercurial/'>Mercurial (3)</a></li>
+<li class='category'><a href='/categories/microsoft/'>Microsoft (18)</a></li>
+<li class='category'><a href='/categories/miscellaneous/'>Miscellaneous (56)</a></li>
+<li class='category'><a href='/categories/mono/'>Mono (2)</a></li>
+<li class='category'><a href='/categories/networks/'>Networks (2)</a></li>
+<li class='category'><a href='/categories/nosql/'>NoSQL (3)</a></li>
+<li class='category'><a href='/categories/open-source/'>Open Source (2)</a></li>
+<li class='category'><a href='/categories/privacy/'>Privacy (3)</a></li>
+<li class='category'><a href='/categories/productivity/'>Productivity (1)</a></li>
+<li class='category'><a href='/categories/project-euler/'>Project Euler (11)</a></li>
+<li class='category'><a href='/categories/rce/'>RCE (4)</a></li>
+<li class='category'><a href='/categories/riak/'>Riak (5)</a></li>
+<li class='category'><a href='/categories/ruby-on-rails/'>Ruby on Rails (1)</a></li>
+<li class='category'><a href='/categories/screencasts/'>Screencasts (1)</a></li>
+<li class='category'><a href='/categories/security/'>Security (10)</a></li>
+<li class='category'><a href='/categories/series/'>Series (1)</a></li>
+<li class='category'><a href='/categories/shortcuts/'>Shortcuts (4)</a></li>
+<li class='category'><a href='/categories/software/'>Software (31)</a></li>
+<li class='category'><a href='/categories/software-development/'>Software Development (66)</a></li>
+<li class='category'><a href='/categories/sorting/'>Sorting (5)</a></li>
+<li class='category'><a href='/categories/technology/'>Technology (40)</a></li>
+<li class='category'><a href='/categories/testing/'>Testing (1)</a></li>
+<li class='category'><a href='/categories/tips-tricks/'>Tips/Tricks (11)</a></li>
+<li class='category'><a href='/categories/twitter/'>Twitter (1)</a></li>
+<li class='category'><a href='/categories/wpf/'>WPF (1)</a></li>
+<li class='category'><a href='/categories/wtf/'>WTF (20)</a></li>
+<li class='category'><a href='/categories/webmachine/'>Webmachine (5)</a></li>
+<li class='category'><a href='/categories/windows/'>Windows (12)</a></li>
+
+  </ul>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+Copyright &copy; 2012 -
+<span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" property="dct:title" rel="dct:type">Blog content for OJ's rants</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://buffered.io/+" property="cc:attributionName" rel="cc:attributionURL">OJ Reeves</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License</a> -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'ojsrants';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://buffered.io/posts/redirects-with-webmachine/';
+        var disqus_url = 'http://buffered.io/posts/redirects-with-webmachine/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

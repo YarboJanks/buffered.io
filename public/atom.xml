@@ -4,7 +4,7 @@
   <title><![CDATA[OJ's rants]]></title>
   <link href="http://buffered.io/atom.xml" rel="self"/>
   <link href="http://buffered.io/"/>
-  <updated>2012-02-14T21:35:15+10:00</updated>
+  <updated>2012-02-15T20:09:15+10:00</updated>
   <id>http://buffered.io/</id>
   <author>
     <name><![CDATA[OJ Reeves]]></name>
@@ -12,6 +12,122 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Redirects with Webmachine]]></title>
+    <link href="http://buffered.io/posts/redirects-with-webmachine/"/>
+    <updated>2012-02-15T19:10:00+10:00</updated>
+    <id>http://buffered.io/posts/redirects-with-webmachine</id>
+    <content type="html"><![CDATA[<p><a href="http://webmachine.basho.com/" title="Webmachine">Webmachine</a> is currently my favourite tool for building websites. I&#8217;ve been lucky enough to use it on a few things now, some commercially some personally. While working on my <a href="http://buffered.io/series/web-development-with-erlang/" title="Web development with Erlang">Erlang web development series</a> I had to handle the case where URLs redirected to other URLs. I found some basic documentation on this but wasn&#8217;t able to find a canonical example of how to do it.</p>
+
+<p>After a big of digging through blog posts and speaking to people on IRC I figured out how it was done. The goal of this post is to show how it&#8217;s done for 301 (permanent) and 307 (temporary) redirects.</p>
+
+<!--more-->
+
+
+<p>You&#8217;re probably already aware that Webmachine&#8217;s goal is to make easy to build <em>well behaved HTTP applications</em>. It does this by enforcing a workflow which guides you through the HTTP process. Your job, as the developer, is to build <strong>resources</strong> which override certain behaviours depending on what you want to achieve.</p>
+
+<p>In order to get your resource to return the appropriate redirect error codes, you need to provide custom implementations of three of four functions. Two of them are common to both 301 and 307 redirects, the developer must choose between the other two depending on the type of redirect required.</p>
+
+<h2><code>resource_exists</code></h2>
+
+<p>This function is the first of the functions that is called by the Webmachine pipeline and expects the results in the standard format of <code>{&lt;result&gt;, ReqData, State}</code>. The <code>&lt;result&gt;</code> needs to be a boolean atom (ie. <code>true</code> or <code>false</code>). The default behaviour of this function returns <code>{true, ReqData, State}</code>. To start off the process of redirecting, this function needs to tell Webmachine that the resource doesn&#8217;t exist by instead returning <code>{false, ReqData, State}</code>.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="nf">resource_exists</span><span class="p">(</span><span class="nv">ReqData</span><span class="p">,</span> <span class="nv">State</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="p">{</span><span class="n">false</span><span class="p">,</span> <span class="nv">ReqData</span><span class="p">,</span> <span class="nv">State</span><span class="p">}.</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2><code>previously_existed</code></h2>
+
+<p>This function tells Webmachine if the resource had, for some reason, existed in the past. The return value of this function takes the same format as the <code>resource_exists</code> function, but the default behaviour returns <code>{false, ReqData, State}</code> which tells Webmachine that the resource never existed. This results in a 404 (not found) error being returned to the caller.</p>
+
+<p>This isn&#8217;t the behaviour we want, so instead we need to override the function and instead return <code>{true, ReqData, State}</code>.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="nf">previously_existed</span><span class="p">(</span><span class="nv">ReqData</span><span class="p">,</span> <span class="nv">State</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="p">{</span><span class="n">true</span><span class="p">,</span> <span class="nv">ReqData</span><span class="p">,</span> <span class="nv">State</span><span class="p">}.</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2><code>moved_temporarily</code> - for 307 redirects</h2>
+
+<p>If you&#8217;re looking to get a 307 redirect, you need to override this function. The default return value of this function is the same as <code>previously_existed</code> which isn&#8217;t going to give us what we need. Instead we need to tell Webmachine that there is another URL which should be used instead. We do this by returning <code>{{true, &lt;URL&gt;}, ReqData, State}</code>. The URL that is returned is what Webmachine will pass back to the user along with the 307 redirect code.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="nf">moved_temporarily</span><span class="p">(</span><span class="nv">ReqData</span><span class="p">,</span> <span class="nv">State</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="p">{{</span><span class="n">true</span><span class="p">,</span> <span class="s">&quot;http://buffered.io&quot;</span><span class="p">},</span> <span class="nv">ReqData</span><span class="p">,</span> <span class="nv">State</span><span class="p">}.</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Do not override this function if you&#8217;re looking to do a permanent redirect.</p>
+
+<p>This is what happens if you hit a resource with this behaviour using <a href="http://curl.haxx.se/" title="cURL">cURL</a>.</p>
+
+<pre><code>oj@air ~/ $ curl -v http://localhost:8000/temporary
+* About to connect() to localhost port 8000 (#0)
+*   Trying 127.0.0.1... connected
+* Connected to localhost (127.0.0.1) port 8000 (#0)
+&gt; GET /temporary HTTP/1.1
+&gt; User-Agent: curl/7.21.4 (universal-apple-darwin11.0) libcurl/7.21.4 OpenSSL/0.9.8r zlib/1.2.5
+&gt; Host: localhost:8000
+&gt; Accept: */*
+&gt; 
+&lt; HTTP/1.1 307 Temporary Redirect
+&lt; Server: MochiWeb/1.1 WebMachine/1.9.0 (someone had painted it blue)
+&lt; Location: http://buffered.io/
+&lt; Date: Wed, 15 Feb 2012 09:05:16 GMT
+&lt; Content-Type: text/html
+&lt; Content-Length: 0
+&lt; 
+* Connection #0 to host localhost left intact
+* Closing connection #0
+</code></pre>
+
+<h2><code>moved_permanently</code> - for 301 redirects</h2>
+
+<p>If you&#8217;re aiming to deliver a 301 redirect then this is the function you should override. Again the default return value is the same as <code>previously_existed</code> (just like <code>moved_temporarily</code>) and we need to override it with the same detail as in <code>moved_temporarily</code>).</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="nf">moved_permanently</span><span class="p">(</span><span class="nv">ReqData</span><span class="p">,</span> <span class="nv">State</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="p">{{</span><span class="n">true</span><span class="p">,</span> <span class="s">&quot;http://buffered.io&quot;</span><span class="p">},</span> <span class="nv">ReqData</span><span class="p">,</span> <span class="nv">State</span><span class="p">}.</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Do not override this function if you&#8217;re looking to do a temporary redirect.</p>
+
+<p>This is what happens if you hit a resource with this behaviour using <a href="http://curl.haxx.se/" title="cURL">cURL</a>.</p>
+
+<pre><code>oj@air ~/code/riak $ curl -v http://localhost:8000/permanent
+* About to connect() to localhost port 8000 (#0)
+*   Trying 127.0.0.1... connected
+* Connected to localhost (127.0.0.1) port 8000 (#0)
+&gt; GET /permanent HTTP/1.1
+&gt; User-Agent: curl/7.21.4 (universal-apple-darwin11.0) libcurl/7.21.4 OpenSSL/0.9.8r zlib/1.2.5
+&gt; Host: localhost:8000
+&gt; Accept: */*
+&gt; 
+&lt; HTTP/1.1 301 Moved Permanently
+&lt; Server: MochiWeb/1.1 WebMachine/1.9.0 (someone had painted it blue)
+&lt; Location: http://buffered.io/
+&lt; Date: Wed, 15 Feb 2012 09:09:03 GMT
+&lt; Content-Type: text/html
+&lt; Content-Length: 0
+&lt; 
+* Connection #0 to host localhost left intact
+* Closing connection #0
+</code></pre>
+
+<h2>That&#8217;s all folks</h2>
+
+<p>For once it&#8217;s short and sweet. I hope you find it useful.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[My Tools List - 2012]]></title>
@@ -4139,40 +4255,6 @@ I&#8217;ll be posting the slides and demonstration code here on this blog as wel
 <p>So if you&#8217;re a non-tech person leading a team of techies, please PLEASE listen to what they have to say. Ask them what they think is the right approach and the right toolset. Don&#8217;t take control of the technical decisions. Let them do what you hired them to do: Solve the problem, and use the right tool for the job. If they don&#8217;t know the answer, or the answer is always the same, then you&#8217;ve got the wrong developers.</p>
 
 <p>Thanks for listening :)</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Katacast: Shopping Checkout in Erlang]]></title>
-    <link href="http://buffered.io/posts/katacast-shopping-checkout-in-erlang/"/>
-    <updated>2010-01-04T17:47:00+10:00</updated>
-    <id>http://buffered.io/posts/katacast-shopping-checkout-in-erlang</id>
-    <content type="html"><![CDATA[<p>I&#8217;ve recently discovered the joys of <a href="http://codekata.pragprog.com/" title="CodeKata">CodeKatas</a>. If you&#8217;re a geek looking for a way to <a href="http://en.wikipedia.org/wiki/The_Seven_Habits_of_Highly_Effective_People" title="The Seven Habits of Highly Effective People">sharpen the saw</a> then I highly recommend taking a look at these and trying a few out. They&#8217;re great fun and they&#8217;re a good way of getting your feet wet with new languages (especially if you&#8217;re tired of <a href="http://projecteuler.net/" title="Project Euler">Project Euler</a>).</p>
-
-<!--more-->
-
-
-<p>I can thank <a href="http://twitter.com/gabriellelana" title="Gabrielle Lana on Twitter">Gabrielle Lana</a> for this discovery, as it was <a href="http://www.vimeo.com/8206748" title="String Calculator in Erlang">his attempt at one of the katas</a> that got me into it. He&#8217;s also the reason I looked into <a href="http://www.katacasts.com/" title="Katacasts">Katacasts</a>, which are simply screencasted recordings of people attempting to solve Code Katas.</p>
-
-<p>This post is about my first Katacast, capturing my attempt at <a href="http://codekata.pragprog.com/2007/01/kata_nine_back_.html" title="Checkout">Code Kata #9</a> using <a href="http://erlang.org/" title="Erlang">Erlang</a> and <a href="http://www.vim.org/" title="VIM">VIM</a> with <a href="http://rake.rubyforge.org/" title="Ruby Make">Rake</a> as my build system. I&#8217;ve put the video up on <a href="http://vimeo.com/8513414" title="Katacast for Codekata #9 by OJ Reeves">Vimeo</a> for the world to see/share. It&#8217;s also embedded below for your convenience.</p>
-
-<p>Before watching, I&#8217;d like to point out a few things about the video, and things that I have learned from the experience:</p>
-
-<ul>
-<li>I captured the video on my Linux Mint install. For some reason, capturing quality video in Linux is proving to be a bit of a pain for me. As a result, the video quality isn&#8217;t that great. This partly due to the compression of the video, and partly due to the software failing to pick up some screen updates.</li>
-<li>I tried really hard to add a backing sound-track but all of my efforts failed in one way or another. If I did manage to get one to work it was either WAY too big (ie. > 1GB in size) or the quality was absolutely terrible.</li>
-<li>There were points during the process where I had to alt-tab out to a browser to do a bit of research on something that I didn&#8217;t know (such as an Erlang syntax quirk). This resulted in a few points where I don&#8217;t appear to be doing anything. In future, I&#8217;ll remember to hit pause on the recording when this happens.</li>
-<li>I captured it in a non-standard resolution. I&#8217;m not sure if that&#8217;s going to make it look bad or not. Feedback here is appreciated. I think in future I&#8217;ll capture at a 800x600 resolution.</li>
-<li>This video is best viewed in full-screen mode.</li>
-</ul>
-
-
-<p>So please excuse the lack of quality in this first Katacast. I&#8217;ll be sure to improve when I next create one. That being said, on with the show!</p>
-
-<div style="text-align: center"><iframe src="http://player.vimeo.com/video/8513414" width="400" height="335" frameborder="0"></iframe><p><a href="http://vimeo.com/8513414">Katacast for Codekata #9</a> from <a href="http://vimeo.com/thecolonial">OJ Reeves</a> on <a href="http://vimeo.com">Vimeo</a>.</p></div>
-
-
-<p>As always, feedback/criticism/etc is greatly appreciated. I&#8217;d love to hear what you guys do and use to capture and edit your screencasts, particularly in Linux.</p>
 ]]></content>
   </entry>
   

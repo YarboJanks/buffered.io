@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Software Development | OJ's rants]]></title>
   <link href="http://buffered.io/categories/software-development/atom.xml" rel="self"/>
   <link href="http://buffered.io/"/>
-  <updated>2012-02-14T21:37:23+10:00</updated>
+  <updated>2012-02-15T20:11:32+10:00</updated>
   <id>http://buffered.io/</id>
   <author>
     <name><![CDATA[OJ Reeves]]></name>
@@ -12,6 +12,114 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Redirects with Webmachine]]></title>
+    <link href="http://buffered.io/posts/redirects-with-webmachine/"/>
+    <updated>2012-02-15T19:10:00+10:00</updated>
+    <id>http://buffered.io/posts/redirects-with-webmachine</id>
+    <content type="html"><![CDATA[<p><a href="http://webmachine.basho.com/" title="Webmachine">Webmachine</a> is currently my favourite tool for building websites. I've been lucky enough to use it on a few things now, some commercially some personally. While working on my <a href="http://buffered.io/series/web-development-with-erlang/" title="Web development with Erlang">Erlang web development series</a> I had to handle the case where URLs redirected to other URLs. I found some basic documentation on this but wasn't able to find a canonical example of how to do it.</p>
+
+<p>After a big of digging through blog posts and speaking to people on IRC I figured out how it was done. The goal of this post is to show how it's done for 301 (permanent) and 307 (temporary) redirects.</p>
+
+<!--more-->
+
+
+<p>You're probably already aware that Webmachine's goal is to make easy to build <em>well behaved HTTP applications</em>. It does this by enforcing a workflow which guides you through the HTTP process. Your job, as the developer, is to build <strong>resources</strong> which override certain behaviours depending on what you want to achieve.</p>
+
+<p>In order to get your resource to return the appropriate redirect error codes, you need to provide custom implementations of three of four functions. Two of them are common to both 301 and 307 redirects, the developer must choose between the other two depending on the type of redirect required.</p>
+
+<h2><code>resource_exists</code></h2>
+
+<p>This function is the first of the functions that is called by the Webmachine pipeline and expects the results in the standard format of <code>{&lt;result&gt;, ReqData, State}</code>. The <code>&lt;result&gt;</code> needs to be a boolean atom (ie. <code>true</code> or <code>false</code>). The default behaviour of this function returns <code>{true, ReqData, State}</code>. To start off the process of redirecting, this function needs to tell Webmachine that the resource doesn't exist by instead returning <code>{false, ReqData, State}</code>.</p>
+
+<p>{% codeblock lang:erlang %}
+resource_exists(ReqData, State) ->
+  {false, ReqData, State}.
+{% endcodeblock %}</p>
+
+<h2><code>previously_existed</code></h2>
+
+<p>This function tells Webmachine if the resource had, for some reason, existed in the past. The return value of this function takes the same format as the <code>resource_exists</code> function, but the default behaviour returns <code>{false, ReqData, State}</code> which tells Webmachine that the resource never existed. This results in a 404 (not found) error being returned to the caller.</p>
+
+<p>This isn't the behaviour we want, so instead we need to override the function and instead return <code>{true, ReqData, State}</code>.</p>
+
+<p>{% codeblock lang:erlang %}
+previously_existed(ReqData, State) ->
+  {true, ReqData, State}.
+{% endcodeblock %}</p>
+
+<h2><code>moved_temporarily</code> - for 307 redirects</h2>
+
+<p>If you're looking to get a 307 redirect, you need to override this function. The default return value of this function is the same as <code>previously_existed</code> which isn't going to give us what we need. Instead we need to tell Webmachine that there is another URL which should be used instead. We do this by returning <code>{{ "{" }}{true, &lt;URL&gt;}, ReqData, State}</code>. The URL that is returned is what Webmachine will pass back to the user along with the 307 redirect code.</p>
+
+<p>{% codeblock lang:erlang %}
+moved_temporarily(ReqData, State) ->
+  {{ "{" }}{true, "http://buffered.io"}, ReqData, State}.
+{% endcodeblock %}</p>
+
+<p>Do not override this function if you're looking to do a permanent redirect.</p>
+
+<p>This is what happens if you hit a resource with this behaviour using <a href="http://curl.haxx.se/" title="cURL">cURL</a>.</p>
+
+<pre><code>oj@air ~/ $ curl -v http://localhost:8000/temporary
+* About to connect() to localhost port 8000 (#0)
+*   Trying 127.0.0.1... connected
+* Connected to localhost (127.0.0.1) port 8000 (#0)
+&gt; GET /temporary HTTP/1.1
+&gt; User-Agent: curl/7.21.4 (universal-apple-darwin11.0) libcurl/7.21.4 OpenSSL/0.9.8r zlib/1.2.5
+&gt; Host: localhost:8000
+&gt; Accept: */*
+&gt; 
+&lt; HTTP/1.1 307 Temporary Redirect
+&lt; Server: MochiWeb/1.1 WebMachine/1.9.0 (someone had painted it blue)
+&lt; Location: http://buffered.io/
+&lt; Date: Wed, 15 Feb 2012 09:05:16 GMT
+&lt; Content-Type: text/html
+&lt; Content-Length: 0
+&lt; 
+* Connection #0 to host localhost left intact
+* Closing connection #0
+</code></pre>
+
+<h2><code>moved_permanently</code> - for 301 redirects</h2>
+
+<p>If you're aiming to deliver a 301 redirect then this is the function you should override. Again the default return value is the same as <code>previously_existed</code> (just like <code>moved_temporarily</code>) and we need to override it with the same detail as in <code>moved_temporarily</code>).</p>
+
+<p>{% codeblock lang:erlang %}
+moved_permanently(ReqData, State) ->
+  {{ "{" }}{true, "http://buffered.io"}, ReqData, State}.
+{% endcodeblock %}</p>
+
+<p>Do not override this function if you're looking to do a temporary redirect.</p>
+
+<p>This is what happens if you hit a resource with this behaviour using <a href="http://curl.haxx.se/" title="cURL">cURL</a>.</p>
+
+<pre><code>oj@air ~/code/riak $ curl -v http://localhost:8000/permanent
+* About to connect() to localhost port 8000 (#0)
+*   Trying 127.0.0.1... connected
+* Connected to localhost (127.0.0.1) port 8000 (#0)
+&gt; GET /permanent HTTP/1.1
+&gt; User-Agent: curl/7.21.4 (universal-apple-darwin11.0) libcurl/7.21.4 OpenSSL/0.9.8r zlib/1.2.5
+&gt; Host: localhost:8000
+&gt; Accept: */*
+&gt; 
+&lt; HTTP/1.1 301 Moved Permanently
+&lt; Server: MochiWeb/1.1 WebMachine/1.9.0 (someone had painted it blue)
+&lt; Location: http://buffered.io/
+&lt; Date: Wed, 15 Feb 2012 09:09:03 GMT
+&lt; Content-Type: text/html
+&lt; Content-Length: 0
+&lt; 
+* Connection #0 to host localhost left intact
+* Closing connection #0
+</code></pre>
+
+<h2>That's all folks</h2>
+
+<p>For once it's short and sweet. I hope you find it useful.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[My Tools List - 2012]]></title>
@@ -690,35 +798,6 @@ I'll be posting the slides and demonstration code here on this blog as well as <
 
 
 <p>If you have issues reading the slide deck, or would like it in another format, then please <a href="http://buffered.io/contact-me">drop me a line</a>.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Dave Thomas at YOW! Nights Brisbane]]></title>
-    <link href="http://buffered.io/posts/dave-thomas-at-yow-nights-brisbane/"/>
-    <updated>2010-05-22T23:30:00+10:00</updated>
-    <id>http://buffered.io/posts/dave-thomas-at-yow-nights-brisbane</id>
-    <content type="html"><![CDATA[<p><img src="http://buffered.io/uploads/2010/05/haskell-logo-variation.png" alt="Haskell Logo" title="Haskell Logo" width="128" height="128" style="float:right;margin-left:5px;margin-bottom:5px" />Two nights ago I was fortunate enough to attend a <a href="http://yownightbrisbanemay.eventbrite.com/" title="YOW! Nights Brisbane - May 20th">YOW! Nights</a> conference held at the local Microsoft Office here in Brisbane. The speaker for the session was none other than <a href="http://www.davethomas.net/" title="Dave Thomas">Dave Thomas</a>, the man behind the likes of <a href="http://objectmentor.com/" title="Object Mentor">ObjectMentor</a>. Not only is this guy incredibly switched on, he is thought-provoking and very entertaining to boot. I've been to a few of these sessions in the past but I've never seen one as packed out as this one. It was great to see such a turn-out, which no doubt was boosted by the presence of both the <a href="http://www.qmsdnug.org/" title="QMSDNUG">Queensland MSDN Users Group</a> and the <a href="http://bfpg.org/" title="BFPG">Brisbane Functional Programming Group</a>.</p>
-
-<!--more-->
-
-
-<p>The talk was covering <a href="http://en.wikipedia.org/wiki/Functional_programming" title="Functional Programming">Functional Programming</a> and the <a href="http://en.wikipedia.org/wiki/NoSQL" title="NoSQL">NoSQL</a> movement (which, as Dave himself puts it, should be called <em>NoRDB</em>). These are two areas of computing that are currently key interests of mine, so it won't come as a surprise to find that I thoroughly enjoyed the talk. I certainly wasn't the only one. Dave did such a great job of covering the positives of these two movements that we're already seeing more and more people signing up for membership to <a href="http://bfpg.org/" title="BFPG">BFPG</a>.</p>
-
-<p>I'm not going to go into the gory details about what Dave covered in his talk as I don't want to spoil it for other people if he plans on doing it again elsewhere. There are a few things I would like to mention though:</p>
-
-<ul>
-  <li>Functional Programming is here to stay. If you're not familiar with it, or haven't yet taken a look at it, I suggest you get started!</li>
-  <li>If you're looking to get involved with FP and you're in or around the Brisbane area, be sure to come to one of our <a href="http://bfpg.org/" title="BFPG">BFPG</a> meetups.</li>
-  <li>Don't fall into the trap of assuming that if your system needs a back-end data store that an <a href="http://en.wikipedia.org/wiki/Relational_database_management_system" title="Relational Database Management System">RDBMS</a> is the only option, because it's not!</li>
-</ul>
-
-
-<p>This talk has inspired me to not only continue checking out the likes of <a href="http://haskell.org/" title="Haskell">Haskell</a>, <a href="http://erlang.org/" title="Erlang">Erlang</a> and <a href="http://riak.basho.com/" title="Riak">Riak</a>, it's pointed me at some languages that I never knew existed. Languages which are insanely powerful, very dense, yet still extremely useful. Some examples are <a href="http://en.wikipedia.org/wiki/J_(programming_language)" title="J">J</a>, <a href="http://en.wikipedia.org/wiki/K_(programming_language)" title="K">K</a> and <a href="http://en.wikipedia.org/wiki/Q_(programming_language_from_Kx_Systems)" title="Q">Q</a>. <a href="http://www.kx.com/products/database.php" title="KDB+">KDB+</a> in particular is very interesting as it ties in with the use of another type of technology that I was aware of but knew nothing about: <a href="http://en.wikipedia.org/wiki/Column-oriented_DBMS" title="Column Database">Column Databases</a>. Crazy stuff.</p>
-
-<p>After seeing so many people excited by the prospect of Functional Programming after Dave's talk had concluded, I decided to set up a new website for <a href="http://bfpg.org/" title="BFPG">BFPG</a> so that we had a proper home rather than just a spot on <a href="http://www.meetup.com/Brisbane-Functional-Programming-Group-BFG/" title="BFPG @ Meetup.com">Meetup.com</a>. Check it out and feel free to send through some feedback if you have any, or <a href="http://bfpg.org/contact/" title="Contact BFPG">drop us a line</a> if you have any ideas for talks or would like to present something yourself.</p>
-
-<p>That's it for today's brain-fart :)</p>
 ]]></content>
   </entry>
   

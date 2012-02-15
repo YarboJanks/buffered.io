@@ -1,8 +1,8 @@
 ---
 published: false
 date: 2012-02-14 22:00
-categories: [Riak, Databases, Functional Programming, HOWTO, Erlang, Webmachine]
-tags: [web development, Erlang, NoSQL, Webmachine, Riak, ErlyDTL, Twitter]
+categories: [Riak, Functional Programming, HOWTO, Erlang, Webmachine, OAuth, Twitter, ErlyDTL]
+tags: [Riak, Functional Programming, HOWTO, Erlang, Webmachine, OAuth, Twitter, ErlyDTL]
 comments: true
 layout: post
 title: "Webmachine, ErlyDTL and Riak - Part 4"
@@ -970,7 +970,72 @@ moved_temporarily(ReqData, State) ->
   {{ "{" }}{true, Url}, ReqData, State}.
 {% endcodeblock %}
 
-This module is quite lightweight, but has a little bit of magic in it.
+This module is quite lightweight, but has a little bit of magic in it that revolves around getting redirects to work. The Webmachine resource workflow starts with the `init` function, here we just say all is ok and specify `undefined` as our state because we don't have any requirements for state in this resource.
+
+The next function that's invoked is `resource_exists`. Given that we actually want to redirect to Twitter to kick off the OAuth process, we want to tell Webmachine that the resource _does not_ exist, so we return `false` as the first parameter in the result tuple to indicate this.
+
+Webmachine then calls `previously_existed`. It's important to override this method and tell Webmachine that the resource has previously existed because, if we don't, Webmachine will return a 404 to the user. We don't want a 404, we want a redirect, so instead we return `true` as the first parameter in the return value to "pretend" that the resource used to exist, but doesn't any more.
+
+As a result of returning `true` in the `previously_existed` function, `moved_temporarily` is the next invoked function. Here is where we tell Webmachine that the resource has been moved to another location. This is where our OAuth stuff starts to kick in. We invoke `twitter:request_access()` which goes to Twitter.com and gets a request token. A URL is generated from that token and returned to this resource via the call. The return result from this function `{true, Url}` which tells Webmachine to redirect the user to the given Url. The effect of this is that the user is taken to Twitter.com and they are presented with the authentication request page.
+
+Build the app, fire up it up and click on the "Logon via Twitter" button and you should see a screen that resembles this (assuming you're already signed in to Twitter):
+
+![Logging into CSD view Twitter][ImgTwitterLogon]
+
+Exciting! We're nearly there. Don't click "Sign In" just yet because we don't yet have the callback set up to handle the result. Let's do that now. Here's the resource:
+
+{% codeblock apps/csd_web/src/csd_web_callback_resource.erl lang:erlang %}
+%% @author OJ Reeves <oj@buffered.io>
+%% @copyright 2012 OJ Reeves
+
+-module(csd_web_callback_resource).
+
+-author('OJ Reeves <oj@buffered.io>').
+
+-export([init/1, resource_exists/2, previously_existed/2, moved_temporarily/2]).
+
+-include_lib("webmachine/include/webmachine.hrl").
+
+init([]) ->
+  {ok, undefined}.
+
+resource_exists(ReqData, State) ->
+  {false, ReqData, State}.
+
+previously_existed(ReqData, State) ->
+  {true, ReqData, State}.
+
+moved_temporarily(ReqData, State) ->
+  handle_callback(ReqData, State).
+
+handle_callback(ReqData, State) ->
+  ReqToken = wrq:get_qs_value("oauth_token", ReqData),
+  ReqTokenSecret = wrq:get_qs_value("oauth_token_secret", ReqData),
+  Verifier = wrq:get_qs_value("oauth_verifier", ReqData),
+
+  {ok, AccessToken, AccessTokenSecret} = twitter:verify_access(ReqToken, ReqTokenSecret, Verifier),
+  {ok, UserInfoJson} = twitter:get_current_user_info(AccessToken, AccessTokenSecret),
+  {struct, Json} = mochijson2:decode(UserInfoJson),
+  UserId = proplists:get_value(<<"id">>, Json),
+  UserName = proplists:get_value(<<"screen_name">>, Json),
+  NewReqData = cookie:store_auth(ReqData, UserId, UserName, AccessToken, AccessTokenSecret),
+
+  % TODO: store the 'session' in Riak in an ETS backend
+
+  % TODO: error handlng for when things don't go to plan
+  {{ "{" }}{true, conf:get_val(urimap, home)}, NewReqData, State}.
+
+{% endcodeblock %}
+
+The first few parts of this module should look familiar by now. We are overriding the `resource_exists`, `previously_existed` and `moved_temporarility` functions because we're going to be redirecting. For now we're going to assume that the user clicked "Sign In" and that everything went according to plan. Later on we'll worry about handling logon errors.
+
+When `moved_temporarily` is invoked we pass responsibility off to the `handle_callback` function. Here you can see we are taking three parameters out of the query string that Twitter sent through to us. Those parameters are the _request token_, _request token secret_ and the _verifier_. We take those values and pass them down to our `twittter` module to get it to verify the access with Twitter and to generate an _access token/access token secret_ pair. When that comes back we have our token information and we can assume that the user has authenticated via Twitter. At this point we can "log the user on" by storing a cookie, but before we do that we want to get their Twitter ID and Username, so we invoke the `twitter:get_current_user_info` function, passing in the OAuth credentials, which in return gives us a blob of [JSON][] which contains the user's Twitter information.
+
+From that we glean their ID and Username. We then store that information, along with the access token information, in a cookie using `cookie:store_ath` (which we've covered previously) and we get a new request data object out as a result.
+
+Now all we have to do is redirect the user back to the home page and pass on the new request data. Webmachine will take this data and push the cookie to the user's browser, then redirect the user to the `home` entry in the `urimap` section in `app.config`. In effect, we're redirected to the home page as a logged on user.
+
+Compile 
 
 
 [erlang-oauth]: https://github.com/tim/erlang-oauth "erlang-oauth"
@@ -997,3 +1062,4 @@ This module is quite lightweight, but has a little bit of magic in it.
 
 [ImgTwitterAppCreate]: /uploads/2012/02/twitter-app-create.png "Twitter app creation"
 [ImgHomeLoggedOff]: /uploads/2012/02/home-loggedoff.png "Home - Logged Off"
+[ImgTwitterLogon]: /uploads/2012/02/twitter-logon.png "Twitter - Logon Page"
