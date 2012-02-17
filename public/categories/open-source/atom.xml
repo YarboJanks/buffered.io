@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Open Source | OJ's rants]]></title>
   <link href="http://buffered.io/categories/open-source/atom.xml" rel="self"/>
   <link href="http://buffered.io/"/>
-  <updated>2012-02-15T21:21:25+10:00</updated>
+  <updated>2012-02-17T20:15:20+10:00</updated>
   <id>http://buffered.io/</id>
   <author>
     <name><![CDATA[OJ Reeves]]></name>
@@ -61,10 +61,11 @@
 
 <p>In short, you can wire-in CorrugatedIron's XML configuration as simply as:</p>
 
-<p>{% codeblock lang:csharp %}
-var cluster = RiakCluster.FromConfig("riakConfig");
-var client = cluster.CreateClient();
-{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="n">var</span> <span class="n">cluster</span> <span class="p">=</span> <span class="n">RiakCluster</span><span class="p">.</span><span class="n">FromConfig</span><span class="p">(</span><span class="s">&quot;riakConfig&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="n">var</span> <span class="n">client</span> <span class="p">=</span> <span class="n">cluster</span><span class="p">.</span><span class="n">CreateClient</span><span class="p">();</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <h2>That's it!</h2>
 

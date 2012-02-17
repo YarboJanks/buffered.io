@@ -1,5 +1,6 @@
 ---
 date: 2012-02-15 20:50
+updated: 2012-02-17 20:15
 categories: [Riak, Functional Programming, HOWTO, Erlang, Webmachine, OAuth, Twitter, ErlyDTL]
 tags: [Riak, Functional Programming, HOWTO, Erlang, Webmachine, OAuth, Twitter, ErlyDTL]
 comments: true
@@ -393,7 +394,7 @@ We have now successfully removed the old configuration and connection handling c
 Rewiring Configuration
 ----------------------
 
-Our configuration is going to get more complicated, so to make sure that we're able to better handle and manage it we're going to set up a similar structure to what we had set up in the `csd_core` application (in the previous section). The first thing we're going to change is the way that the **Webmachine** routes are loaded. Right now, they're stored in `apps/tr\_web/priv/dispatch.conf`. This configuration belongs alongside others, so we'll move that to an `app.config` file and re-jig the code to load it from there.
+Our configuration is going to get more complicated, so to make sure that we're able to better handle and manage it we're going to set up a similar structure to what we had set up in the `csd_core` application (in the previous section). The first thing we're going to change is the way that the **Webmachine** routes are loaded. Right now, they're stored in `apps/tr_web/priv/dispatch.conf`. This configuration belongs alongside others, so we'll move that to an `app.config` file and re-jig the code to load it from there.
 
 First up, rename the file:
 
@@ -536,6 +537,7 @@ Once you're registered, we're ready to take the OAuth configuration information 
           {consumer_secret, "< your application's secret goes here >"},
           {request_token_url, "https://twitter.com/oauth/request_token"},
           {access_token_url, "https://twitter.com/oauth/access_token"},
+          {authenticate_url, "https://twitter.com/oauth/authenticate"},
           {current_user_info_url, "https://twitter.com/account/verify_credentials.json"}
         ]
       }
@@ -1049,7 +1051,7 @@ Comments, feedback and criticisms are as welcome as always.
 
 **Note:** The code for Part 4 (this post) can be found on [Github][Part4Code].
 
-[Part4Code]: https://github.com/OJ/csd/tree/Part4-20120215 "Source code for Part 4"
+[Part4Code]: https://github.com/OJ/csd/tree/Part4-20120217 "Source code for Part 4"
 [erlang-oauth]: https://github.com/tim/erlang-oauth "erlang-oauth"
 [erlang-oauth-fork]: https://github.com/OJ/erlang-oauth/tree/rebarise "erlang-oauth rebar fork"
 [HAProxy]: http://haproxy.1wt.eu/ "HAProxy"

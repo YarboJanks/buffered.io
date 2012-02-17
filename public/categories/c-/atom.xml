@@ -4,7 +4,7 @@
   <title><![CDATA[Category: C# | OJ's rants]]></title>
   <link href="http://buffered.io/categories/c-/atom.xml" rel="self"/>
   <link href="http://buffered.io/"/>
-  <updated>2012-02-15T21:21:25+10:00</updated>
+  <updated>2012-02-17T20:15:20+10:00</updated>
   <id>http://buffered.io/</id>
   <author>
     <name><![CDATA[OJ Reeves]]></name>
@@ -61,10 +61,11 @@
 
 <p>In short, you can wire-in CorrugatedIron's XML configuration as simply as:</p>
 
-<p>{% codeblock lang:csharp %}
-var cluster = RiakCluster.FromConfig("riakConfig");
-var client = cluster.CreateClient();
-{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="n">var</span> <span class="n">cluster</span> <span class="p">=</span> <span class="n">RiakCluster</span><span class="p">.</span><span class="n">FromConfig</span><span class="p">(</span><span class="s">&quot;riakConfig&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="n">var</span> <span class="n">client</span> <span class="p">=</span> <span class="n">cluster</span><span class="p">.</span><span class="n">CreateClient</span><span class="p">();</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <h2>That's it!</h2>
 
@@ -204,22 +205,26 @@ MCITP: Database Developer, DBA</p></blockquote>
     <id>http://buffered.io/posts/a-quirk-in-listfind</id>
     <content type="html"><![CDATA[<p>Earlier today I was having a chat with a <a href="http://doomkeeper.com/" title="Jimmy's Blog">friend of mine</a>, who lives in Vancouver, about finding items that are stored in <a href="http://msdn.microsoft.com/en-us/library/6sh2ey19.aspx" title="List(T)">generic Lists</a>. He flicked me a code snippet that looked something like this:</p>
 
-<p>{% codeblock lang:csharp %}
-List<foo> list = new List<foo>();
-// .. do some stuff
-Foo f = list.Find(delegate(Foo f) { return foo.Name == "Bar"; });
-{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="n">List</span><span class="p">&lt;</span><span class="n">foo</span><span class="p">&gt;</span> <span class="n">list</span> <span class="p">=</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">foo</span><span class="p">&gt;();</span>
+</span><span class='line'><span class="c1">// .. do some stuff</span>
+</span><span class='line'><span class="n">Foo</span> <span class="n">f</span> <span class="p">=</span> <span class="n">list</span><span class="p">.</span><span class="n">Find</span><span class="p">(</span><span class="k">delegate</span><span class="p">(</span><span class="n">Foo</span> <span class="n">f</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="n">foo</span><span class="p">.</span><span class="n">Name</span> <span class="p">==</span> <span class="s">&quot;Bar&quot;</span><span class="p">;</span> <span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>Straight away I fired back with an update to the code which used <a href="http://msdn.microsoft.com/en-us/library/bb397687.aspx" title="Lambda Expressions (C# Programming Guide)">lambda expressions</a> instead, as I'm a fan of how concise they are ;)</p>
 
 <!--more-->
 
 
-<p>{% codeblock lang:csharp %}
-List<foo> list = new List<foo>();
-// .. do some stuff
-Foo f = list.Find(foo => foo.Name == "Bar");
-{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="n">List</span><span class="p">&lt;</span><span class="n">foo</span><span class="p">&gt;</span> <span class="n">list</span> <span class="p">=</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">foo</span><span class="p">&gt;();</span>
+</span><span class='line'><span class="c1">// .. do some stuff</span>
+</span><span class='line'><span class="n">Foo</span> <span class="n">f</span> <span class="p">=</span> <span class="n">list</span><span class="p">.</span><span class="n">Find</span><span class="p">(</span><span class="n">foo</span> <span class="p">=&gt;</span> <span class="n">foo</span><span class="p">.</span><span class="n">Name</span> <span class="p">==</span> <span class="s">&quot;Bar&quot;</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>My friend ran this code against a data set that he had constructed and found that when the call to <a href="http://msdn.microsoft.com/en-us/library/x0b5b5bc.aspx" title="List(T).Find">Find()</a> was made, a <a href="http://msdn.microsoft.com/en-us/library/system.nullreferenceexception.aspx" title="System.NullReferenceException">NullReferenceException</a> was being thrown. I found this odd as I hadn't seen that before. <em>list</em> was definitely a valid reference and the lambda expression was well-formed as well. So what was wrong?</p>
 
@@ -237,20 +242,24 @@ Foo f = list.Find(foo => foo.Name == "Bar");
 
 <p>It wasn't immediately obvious. So I tried something to see what would happen:</p>
 
-<p>{% codeblock lang:csharp %}
-List<int> list = new List<int>(new int[] { 1, 2, 3 });
-int i = list.Find(x => x > 3);
-// ....
-{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="n">List</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;</span> <span class="n">list</span> <span class="p">=</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;(</span><span class="k">new</span> <span class="kt">int</span><span class="p">[]</span> <span class="p">{</span> <span class="m">1</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="m">3</span> <span class="p">});</span>
+</span><span class='line'><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="n">list</span><span class="p">.</span><span class="n">Find</span><span class="p">(</span><span class="n">x</span> <span class="p">=&gt;</span> <span class="n">x</span> <span class="p">&gt;</span> <span class="m">3</span><span class="p">);</span>
+</span><span class='line'><span class="c1">// ....</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>So what do you think the value of <em>i</em> is after those first two lines? Yes, you guessed it: <strong>Zero</strong>. Why? Well, duh, it's because <a href="http://msdn.microsoft.com/en-us/library/xwth0h0d.aspx" title="default keyword">default(T)</a> for integers is Zero!</p>
 
 <p>This is where little alarm bells started to ring in my head. I immediately whipped up an example where this would be considered bad:
-{% codeblock lang:csharp %}
-List<int> list = new List<int>(new int[] { 0, 1, 2, 3 });
-int i = list.Find(x => x > 3);
-// ....
-{% endcodeblock %}</p>
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="n">List</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;</span> <span class="n">list</span> <span class="p">=</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;(</span><span class="k">new</span> <span class="kt">int</span><span class="p">[]</span> <span class="p">{</span> <span class="m">0</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="m">3</span> <span class="p">});</span>
+</span><span class='line'><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="n">list</span><span class="p">.</span><span class="n">Find</span><span class="p">(</span><span class="n">x</span> <span class="p">=&gt;</span> <span class="n">x</span> <span class="p">&gt;</span> <span class="m">3</span><span class="p">);</span>
+</span><span class='line'><span class="c1">// ....</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>Again, <em>i</em> is Zero when this code is executed, but the result is very misleading. Zero is contained in the collection but doesn't match the predicate, yet Zero is returned because that's the default value for this value-type.</p>
 
@@ -262,37 +271,55 @@ int i = list.Find(x => x > 3);
 
 <p>This was concerning for a couple of reasons. First of all, the designers have left it up to you to determine that this is the default behaviour. Yes I should be able to come to that conclusion myself, but I didn't until I got bitten :) So shut up! Secondly, you have to check your result value against your predicate <em>again</em> to be sure that it's not dodgey. For example:</p>
 
-<p>{% codeblock lang:csharp %}
-List<int> list = new List<int>(new int[] { 0, 1, 2, 3 });
-int i = list.Find(x => x > 3);
-if(i > 3)
-{
-  // .. valid value, do stuff ..
-}
-else
-{
-  // .. no item found
-}
-{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="n">List</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;</span> <span class="n">list</span> <span class="p">=</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;(</span><span class="k">new</span> <span class="kt">int</span><span class="p">[]</span> <span class="p">{</span> <span class="m">0</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="m">3</span> <span class="p">});</span>
+</span><span class='line'><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="n">list</span><span class="p">.</span><span class="n">Find</span><span class="p">(</span><span class="n">x</span> <span class="p">=&gt;</span> <span class="n">x</span> <span class="p">&gt;</span> <span class="m">3</span><span class="p">);</span>
+</span><span class='line'><span class="k">if</span><span class="p">(</span><span class="n">i</span> <span class="p">&gt;</span> <span class="m">3</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="c1">// .. valid value, do stuff ..</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="k">else</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="c1">// .. no item found</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>Do <em>you</em> want to do that? I certainly don't. After a bit of back-and-forth with Jimbo, I thought that the best option for a generic List Find() function would be one that is akin to the good old C++ days. It would look something like this:
-{% codeblock lang:csharp %}
-bool Find<t>(Predicate<t> predicate, ref T output);
-{% endcodeblock %}</p>
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="kt">bool</span> <span class="n">Find</span><span class="p">&lt;</span><span class="n">t</span><span class="p">&gt;(</span><span class="n">Predicate</span><span class="p">&lt;</span><span class="n">t</span><span class="p">&gt;</span> <span class="n">predicate</span><span class="p">,</span> <span class="k">ref</span> <span class="n">T</span> <span class="n">output</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>This would mean that you could change your code to something like the following:
-{% codeblock lang:csharp %}
-int i;
-List<int> list = new List<int>(new int[] { 0, 1, 2, 3 });
-if(list.Find(x => x > 3, ref i))
-{
-  // .. valid value, do stuff ..
-}
-else
-{
-  // .. no item found, or empty list!
-}
-{% endcodeblock %}</p>
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
+</span><span class='line'><span class="n">List</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;</span> <span class="n">list</span> <span class="p">=</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;(</span><span class="k">new</span> <span class="kt">int</span><span class="p">[]</span> <span class="p">{</span> <span class="m">0</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="m">3</span> <span class="p">});</span>
+</span><span class='line'><span class="k">if</span><span class="p">(</span><span class="n">list</span><span class="p">.</span><span class="n">Find</span><span class="p">(</span><span class="n">x</span> <span class="p">=&gt;</span> <span class="n">x</span> <span class="p">&gt;</span> <span class="m">3</span><span class="p">,</span> <span class="k">ref</span> <span class="n">i</span><span class="p">))</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="c1">// .. valid value, do stuff ..</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="k">else</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="c1">// .. no item found, or empty list!</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>Note how with this option you could easily support the case for empty lists at the same time. It would be helpful and meaningful. Only when the function returns true can you rely on the output parameter. It's very clear and caters for value-types and reference-types. It'd be easy to implement in an [extension method][] as well. I'd prefer this solution over using FindIndex().</p>
 
@@ -316,12 +343,15 @@ else
 <!--more-->
 
 
-<p>{% codeblock lang:csharp %}
-lock (this.GetType())
-{
-  // .. stuff ..
-}
-{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">lock</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="n">GetType</span><span class="p">())</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="c1">// .. stuff ..</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>If you want to see more, head over there and read up. There are quite a few instances of the code listed above.</p>
 

@@ -109,6 +109,8 @@
 
 
 
+  
+
 <time datetime="2012-02-15T20:50:00+10:00" pubdate data-updated="true">15 Feb 2012</time>
         
          | <a href="#disqus_thread">Comments</a>
@@ -707,7 +709,7 @@
 
 <h2>Rewiring Configuration</h2>
 
-<p>Our configuration is going to get more complicated, so to make sure that we&#8217;re able to better handle and manage it we&#8217;re going to set up a similar structure to what we had set up in the <code>csd_core</code> application (in the previous section). The first thing we&#8217;re going to change is the way that the <strong>Webmachine</strong> routes are loaded. Right now, they&#8217;re stored in <code>apps/tr\_web/priv/dispatch.conf</code>. This configuration belongs alongside others, so we&#8217;ll move that to an <code>app.config</code> file and re-jig the code to load it from there.</p>
+<p>Our configuration is going to get more complicated, so to make sure that we&#8217;re able to better handle and manage it we&#8217;re going to set up a similar structure to what we had set up in the <code>csd_core</code> application (in the previous section). The first thing we&#8217;re going to change is the way that the <strong>Webmachine</strong> routes are loaded. Right now, they&#8217;re stored in <code>apps/tr_web/priv/dispatch.conf</code>. This configuration belongs alongside others, so we&#8217;ll move that to an <code>app.config</code> file and re-jig the code to load it from there.</p>
 
 <p>First up, rename the file:</p>
 
@@ -934,6 +936,7 @@
 <span class='line-number'>14</span>
 <span class='line-number'>15</span>
 <span class='line-number'>16</span>
+<span class='line-number'>17</span>
 </pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="c">% ... snip ... %</span>
 </span><span class='line'>  <span class="p">{</span><span class="n">csd_web</span><span class="p">,</span>
 </span><span class='line'>    <span class="p">[</span>
@@ -944,6 +947,7 @@
 </span><span class='line'>          <span class="p">{</span><span class="n">consumer_secret</span><span class="p">,</span> <span class="s">&quot;&lt; your application&#39;s secret goes here &gt;&quot;</span><span class="p">},</span>
 </span><span class='line'>          <span class="p">{</span><span class="n">request_token_url</span><span class="p">,</span> <span class="s">&quot;https://twitter.com/oauth/request_token&quot;</span><span class="p">},</span>
 </span><span class='line'>          <span class="p">{</span><span class="n">access_token_url</span><span class="p">,</span> <span class="s">&quot;https://twitter.com/oauth/access_token&quot;</span><span class="p">},</span>
+</span><span class='line'>          <span class="p">{</span><span class="n">authenticate_url</span><span class="p">,</span> <span class="s">&quot;https://twitter.com/oauth/authenticate&quot;</span><span class="p">},</span>
 </span><span class='line'>          <span class="p">{</span><span class="n">current_user_info_url</span><span class="p">,</span> <span class="s">&quot;https://twitter.com/account/verify_credentials.json&quot;</span><span class="p">}</span>
 </span><span class='line'>        <span class="p">]</span>
 </span><span class='line'>      <span class="p">}</span>
@@ -1785,7 +1789,7 @@
 
 <p>Comments, feedback and criticisms are as welcome as always.</p>
 
-<p><strong>Note:</strong> The code for Part 4 (this post) can be found on <a href="https://github.com/OJ/csd/tree/Part4-20120215" title="Source code for Part 4">Github</a>.</p>
+<p><strong>Note:</strong> The code for Part 4 (this post) can be found on <a href="https://github.com/OJ/csd/tree/Part4-20120217" title="Source code for Part 4">Github</a>.</p>
 </div>
 
 
@@ -1809,7 +1813,9 @@
 
 
 
-<time datetime="2012-02-15T20:50:00+10:00" pubdate data-updated="true">15 Feb 2012</time>
+  
+
+<time datetime="2012-02-17T20:15:00+10:00" class="updated">Updated 17 Feb 2012</time>
       
 
 <span class="categories">
