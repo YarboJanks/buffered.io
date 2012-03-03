@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Databases | OJ's rants]]></title>
   <link href="http://buffered.io/categories/databases/atom.xml" rel="self"/>
   <link href="http://buffered.io/"/>
-  <updated>2012-02-17T20:15:20+10:00</updated>
+  <updated>2012-03-04T08:20:16+10:00</updated>
   <id>http://buffered.io/</id>
   <author>
     <name><![CDATA[OJ Reeves]]></name>
@@ -371,13 +371,13 @@ Writing src/csd_core_sup.erl
 <span class='line-number'>43</span>
 <span class='line-number'>44</span>
 <span class='line-number'>45</span>
-</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="c">%% @author OJ Reeves &lt;a href=&quot;&amp;#109;&amp;#x61;&amp;#105;&amp;#x6c;&amp;#x74;&amp;#111;&amp;#58;&amp;#x6f;&amp;#x6a;&amp;#x40;&amp;#98;&amp;#117;&amp;#102;&amp;#x66;&amp;#x65;&amp;#x72;&amp;#x65;&amp;#100;&amp;#46;&amp;#x69;&amp;#111;&quot;&gt;&amp;#111;&amp;#106;&amp;#x40;&amp;#98;&amp;#x75;&amp;#102;&amp;#102;&amp;#101;&amp;#114;&amp;#x65;&amp;#100;&amp;#46;&amp;#x69;&amp;#x6f;&lt;/a&gt;</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="c">%% @author OJ Reeves &lt;a href=&quot;&amp;#x6d;&amp;#x61;&amp;#105;&amp;#x6c;&amp;#x74;&amp;#111;&amp;#x3a;&amp;#x6f;&amp;#x6a;&amp;#x40;&amp;#98;&amp;#117;&amp;#102;&amp;#102;&amp;#x65;&amp;#114;&amp;#x65;&amp;#x64;&amp;#46;&amp;#x69;&amp;#x6f;&quot;&gt;&amp;#111;&amp;#x6a;&amp;#64;&amp;#98;&amp;#x75;&amp;#102;&amp;#x66;&amp;#101;&amp;#114;&amp;#101;&amp;#x64;&amp;#46;&amp;#105;&amp;#111;&lt;/a&gt;</span>
 </span><span class='line'><span class="c">%% @copyright 2011 OJ Reeves&lt;/p&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="c">%% @doc csd_core startup code&lt;/p&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;-</span><span class="n">module</span><span class="p">(</span><span class="n">csd_core</span><span class="p">).</span>
-</span><span class='line'><span class="p">-</span><span class="ni">author</span><span class="p">(</span><span class="n">&#39;OJ Reeves &lt;a href=&quot;&amp;#x6d;&amp;#97;&amp;#105;&amp;#x6c;&amp;#x74;&amp;#x6f;&amp;#x3a;&amp;#x6f;&amp;#x6a;&amp;#64;&amp;#98;&amp;#117;&amp;#x66;&amp;#x66;&amp;#x65;&amp;#x72;&amp;#x65;&amp;#x64;&amp;#x2e;&amp;#105;&amp;#x6f;&quot;&gt;&amp;#111;&amp;#106;&amp;#64;&amp;#x62;&amp;#x75;&amp;#x66;&amp;#x66;&amp;#x65;&amp;#114;&amp;#x65;&amp;#100;&amp;#46;&amp;#x69;&amp;#x6f;&lt;/a&gt;&#39;</span><span class="p">).</span>
+</span><span class='line'><span class="p">-</span><span class="ni">author</span><span class="p">(</span><span class="n">&#39;OJ Reeves &lt;a href=&quot;&amp;#x6d;&amp;#x61;&amp;#105;&amp;#x6c;&amp;#116;&amp;#x6f;&amp;#x3a;&amp;#x6f;&amp;#106;&amp;#64;&amp;#98;&amp;#117;&amp;#x66;&amp;#x66;&amp;#101;&amp;#114;&amp;#x65;&amp;#x64;&amp;#x2e;&amp;#x69;&amp;#x6f;&quot;&gt;&amp;#x6f;&amp;#x6a;&amp;#64;&amp;#x62;&amp;#117;&amp;#102;&amp;#102;&amp;#101;&amp;#x72;&amp;#x65;&amp;#x64;&amp;#46;&amp;#x69;&amp;#111;&lt;/a&gt;&#39;</span><span class="p">).</span>
 </span><span class='line'><span class="p">-</span><span class="ni">export</span><span class="p">([</span><span class="n">start</span><span class="o">/</span><span class="mi">0</span><span class="p">,</span> <span class="n">start_link</span><span class="o">/</span><span class="mi">0</span><span class="p">,</span> <span class="n">stop</span><span class="o">/</span><span class="mi">0</span><span class="p">]).</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">ensure_started</span><span class="p">(</span><span class="nv">App</span><span class="p">)</span> <span class="o">-&gt;&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
@@ -1343,12 +1343,12 @@ PROGRESS REPORT==== 4-Apr-2011::22:57:13 ===
 <span class='line-number'>17</span>
 <span class='line-number'>18</span>
 <span class='line-number'>19</span>
-</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="c">%% @author OJ Reeves &lt;a href=&quot;&amp;#x6d;&amp;#97;&amp;#x69;&amp;#108;&amp;#116;&amp;#x6f;&amp;#x3a;&amp;#111;&amp;#x6a;&amp;#64;&amp;#x62;&amp;#117;&amp;#x66;&amp;#102;&amp;#x65;&amp;#x72;&amp;#101;&amp;#100;&amp;#46;&amp;#105;&amp;#x6f;&quot;&gt;&amp;#x6f;&amp;#x6a;&amp;#64;&amp;#98;&amp;#x75;&amp;#x66;&amp;#102;&amp;#101;&amp;#114;&amp;#101;&amp;#x64;&amp;#x2e;&amp;#x69;&amp;#111;&lt;/a&gt;</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="c">%% @author OJ Reeves &lt;a href=&quot;&amp;#109;&amp;#97;&amp;#105;&amp;#x6c;&amp;#116;&amp;#111;&amp;#58;&amp;#x6f;&amp;#x6a;&amp;#x40;&amp;#x62;&amp;#x75;&amp;#102;&amp;#102;&amp;#x65;&amp;#x72;&amp;#x65;&amp;#100;&amp;#x2e;&amp;#x69;&amp;#x6f;&quot;&gt;&amp;#x6f;&amp;#106;&amp;#x40;&amp;#x62;&amp;#x75;&amp;#102;&amp;#102;&amp;#x65;&amp;#x72;&amp;#x65;&amp;#x64;&amp;#46;&amp;#x69;&amp;#x6f;&lt;/a&gt;</span>
 </span><span class='line'><span class="c">%% @copyright 2010 OJ Reeves</span>
 </span><span class='line'><span class="c">%% @doc Webmachine resource that handles snippet-related actions&lt;/p&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;-</span><span class="n">module</span><span class="p">(</span><span class="n">csd_web_snippet_resource</span><span class="p">).</span>
-</span><span class='line'><span class="p">-</span><span class="ni">author</span><span class="p">(</span><span class="n">&#39;OJ Reeves &lt;a href=&quot;&amp;#x6d;&amp;#97;&amp;#x69;&amp;#x6c;&amp;#x74;&amp;#x6f;&amp;#x3a;&amp;#x6f;&amp;#106;&amp;#x40;&amp;#x62;&amp;#x75;&amp;#x66;&amp;#x66;&amp;#x65;&amp;#x72;&amp;#101;&amp;#100;&amp;#46;&amp;#105;&amp;#111;&quot;&gt;&amp;#111;&amp;#106;&amp;#x40;&amp;#98;&amp;#117;&amp;#x66;&amp;#x66;&amp;#x65;&amp;#114;&amp;#x65;&amp;#100;&amp;#46;&amp;#105;&amp;#111;&lt;/a&gt;&#39;</span><span class="p">).</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'><span class="p">-</span><span class="ni">author</span><span class="p">(</span><span class="n">&#39;OJ Reeves &lt;a href=&quot;&amp;#109;&amp;#x61;&amp;#x69;&amp;#x6c;&amp;#116;&amp;#111;&amp;#x3a;&amp;#x6f;&amp;#x6a;&amp;#x40;&amp;#98;&amp;#117;&amp;#x66;&amp;#102;&amp;#x65;&amp;#114;&amp;#x65;&amp;#100;&amp;#46;&amp;#x69;&amp;#x6f;&quot;&gt;&amp;#x6f;&amp;#x6a;&amp;#64;&amp;#98;&amp;#x75;&amp;#x66;&amp;#102;&amp;#x65;&amp;#114;&amp;#x65;&amp;#x64;&amp;#x2e;&amp;#105;&amp;#x6f;&lt;/a&gt;&#39;</span><span class="p">).</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;-</span><span class="n">export</span><span class="p">([</span><span class="n">init</span><span class="o">/</span><span class="mi">1</span><span class="p">,</span> <span class="n">to_html</span><span class="o">/</span><span class="mi">2</span><span class="p">]).</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
 </span><span class='line'>
@@ -2505,7 +2505,7 @@ Compiled src/protobuffs_parser.erl
 
 <p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>templates/sample.dtl  </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;html&gt;&lt;body&gt;</span>Hello from inside ErlyDTL. You passed in .<span class="nt">&lt;/body&gt;&lt;/html&gt;</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;html&gt;&lt;body&gt;</span>Hello from inside ErlyDTL. You passed in {{ param }}.<span class="nt">&lt;/body&gt;&lt;/html&gt;</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>Then open up <code>src/csd_resource.erl</code> and search for the <code>to_html()</code> function. It should look like this:</p>

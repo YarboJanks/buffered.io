@@ -406,7 +406,7 @@ Rebar has built-in support for the compilation of ErlyDTL templates. It can be c
 Very handy. Let's create a very simple template by creating a `templates` folder, and editing a new file in that folder called `sample.dtl`
 
 {% codeblock templates/sample.dtl lang:html %}
-<html><body>Hello from inside ErlyDTL. You passed in {{ param }}.</body></html>
+<html><body>Hello from inside ErlyDTL. You passed in {{ "{" }}{ param }}.</body></html>
 {% endcodeblock %}
 
 
