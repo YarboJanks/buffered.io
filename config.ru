@@ -12,8 +12,8 @@ use Rack::Rewrite do
       rack_env['SERVER_NAME'] == 'functionalio.com' || rack_env['SERVER_NAME'] == 'functionalio.com.au' || rack_env['SERVER_NAME'] == 'www.functionalio.com' || rack_env['SERVER_NAME'] == 'www.functionalio.com.au'
     }
 
-    r301 %r{.*}, 'http://www.brosql.org$&', :if => Proc.new {|rack_env|
-      rack_env['SERVER_NAME'] == 'brosql.org'
+    r301 %r{.*}, 'http://www.bnosql.com$&', :if => Proc.new {|rack_env|
+      rack_env['SERVER_NAME'] == 'bnosql.com' || rack_env['SERVER_NAME'] == 'brosql.org'
     }
 
     r301 %r{.*}, 'http://www.bfpg.org$&', :if => Proc.new {|rack_env|
