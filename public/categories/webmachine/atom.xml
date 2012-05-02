@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Webmachine | OJ's rants]]></title>
   <link href="http://buffered.io/categories/webmachine/atom.xml" rel="self"/>
   <link href="http://buffered.io/"/>
-  <updated>2012-04-22T13:39:40+10:00</updated>
+  <updated>2012-05-02T18:49:49+10:00</updated>
   <id>http://buffered.io/</id>
   <author>
     <name><![CDATA[OJ Reeves]]></name>
@@ -12,6 +12,112 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Webmachine, ErlyDTL and Riak - Part 5]]></title>
+    <link href="http://buffered.io/posts/webmachine-erlydtl-and-riak-part-5/"/>
+    <updated>2012-05-01T21:30:00+10:00</updated>
+    <id>http://buffered.io/posts/webmachine-erlydtl-and-riak-part-5</id>
+    <content type="html"><![CDATA[<p>{% img right /uploads/2010/09/riak-logo.png 'Riak Logo' %}Newcomers to the series should first take a look at the previous four parts of the [series][] (<a href="/posts/webmachine-erlydtl-and-riak-part-1/" title="Wembachine, ErlyDTL and Riak - Part 1">Part 1</a>, <a href="/posts/webmachine-erlydtl-and-riak-part-2/" title="Wembachine, ErlyDTL and Riak - Part 2">Part 2</a>, <a href="/posts/webmachine-erlydtl-and-riak-part-3/" title="Wembachine, ErlyDTL and Riak - Part 3">Part 3</a>, <a href="/posts/webmachine-erlydtl-and-riak-part-2/" title="Wembachine, ErlyDTL and Riak - Part 4">Part 4</a>) first to make sure that you're up to speed. Feel free to read on if you feel comfortable with the general concepts in use.</p>
+
+<p>When we finished <a href="/posts/webmachine-erlydtl-and-riak-part-2/" title="Wembachine, ErlyDTL and Riak - Part 4">Part 4</a> we were able to authenticate users using <a href="http://twitter.com/" title="Twitter">Twitter</a> and <a href="http://oauth.net/" title="OAuth">OAuth</a>, which is great as we can delegate the responsibility of password management to an external entity.</p>
+
+<p>Now that we know who people are, we want them to be able to do something meanigful with their accounts. That's what this post is all about.</p>
+
+<!--more-->
+
+
+<h2>Agenda</h2>
+
+<p>This post is going to cover the following topics:</p>
+
+<ol>
+<li><em><a href="http://www.basho.com/developers.html#Riak" title="Riak">Riak</a> Secondary Indexes</em> - We'll be using these so that we can link code snippet submissions to the users who submitted them.</li>
+<li><em>Form submission with <a href="http://www.basho.com/developers.html#Webmachine" title="Webmachine">Webmachine</a></em> - Users will be able to submit code snippet pairs to the system once they're logged in.</li>
+<li><em>Site-wide authentication checks</em> - We'll be implementing authorisation checks in a way such that each protected resource will behave nicely and redirect users to the appropriate location.</li>
+<li><em>Listing of submissions per-user</em> - Viewing the submissions for a given user will pull out a list from Riak using the secondary indexes.</li>
+<li><em>Tidying up of templates</em> - Now that we've got some content to render, we'll put together some nicer templates to make the site a little nicer to look at.</li>
+</ol>
+
+
+<p>This post is shorter than <a href="/posts/webmachine-erlydtl-and-riak-part-2/" title="Wembachine, ErlyDTL and Riak - Part 4">Part 4</a>, but still a decent size. So, again, get yourself a drink and settle into your chair. Off we go!</p>
+
+<h2>But First ...</h2>
+
+<p>Prior to continuing you should make sure you have the latest version of <a href="http://www.basho.com/developers.html#Riak" title="Riak">Riak</a> installed. If you don't, please go and do this now (read <a href="/posts/webmachine-erlydtl-and-riak-part-1/" title="Wembachine, ErlyDTL and Riak - Part 1">Part 1</a> to learn how to build Riak from scratch).</p>
+
+<h2>Enabling Secondary Indexes</h2>
+
+<p>As already mentioned we're going to be storing data in Riak and using the [Secondary Index][] feature to make it easier to link data together and do certain types of queries over that data. Given this requirement the first thing we should do is enable secondary indexes on our cluster.</p>
+
+<p>As per the [Riak wiki entry][Secondary Index] ...</p>
+
+<blockquote><p>As of version 1.0, Secondary Indexes are enabled by configuring Riak to use the
+ELevelDB backend <code>riak_kv_eleveldb_backend</code>. Currently, the ELevelDB backend is the
+only index-capable backend.</p></blockquote>
+
+<p>So we need to go through our Riak development cluster configuration and make sure that our backend is set up correctly. We have to modify all the <code>app.config</code> files, so to do this easily we can run one simple command:</p>
+
+<p>-> TODO: add the two wildcards to the path below
+{% codeblock lang:bash %}
+vim /path/to/riak/dev/-wildcardsgohere-/app.config
+{% endcodeblock %}</p>
+
+<p>This will open [VIM][] with all of the <code>app.config</code> files open so that we can easily made the necessary modifications. In each of these files, find the <code>riak_kv</code> configuration section and change the backend like so:</p>
+
+<p>{% codeblock apps/csd_core/rebar.config lang:erlang %}
+... snip ...
+%% Riak KV config
+{riak_kv, [</p>
+
+<pre><code>      %% Storage_backend specifies the Erlang module defining the storage
+      %% mechanism that will be used on this node.
+      {storage_backend, riak_kv_eleveldb_backend},
+      ... snip ... ]}
+</code></pre>
+
+<p>... snip ...
+{% endcodeblock %}</p>
+
+<p>Done. Don't forget to make sure your dev cluster is running again before you continue.</p>
+
+<h2>Code Snippet Submission</h2>
+
+<p>In case you've forgotten, the application we're building (Code Smackdown - CSD), is a hot-or-not for code snippets with a twist. Users can submit two snippets of code which perform the same function and other users can vote for the snippet which they prefer. So what we need to do is allow (authenticated) users to post this kind of information. To do this, we need to understand how to do form submission using <a href="http://www.basho.com/developers.html#Webmachine" title="Webmachine">Webmachine</a>.</p>
+
+<p>Let's start by creating a new resource which we'll be using to handle the form submission. First, edit <code>app.config</code> and add a new dispatch rule like so:</p>
+
+<p>{% codeblock apps/csd_web/priv/app.config lang:erlang %}
+{csd_web,                                                                                                             <br/>
+  [</p>
+
+<pre><code>{web,                                                                                                               
+  [                                                                                                                 
+    ... snip ...
+    {dispatch,                                                                                                      
+      [                                                                                                             
+        ... snip ...
+        {["snippet"], csd_web_snippet_submit_resource, []},                                                         
+        ... snip ...
+      ]}                                                                                                            
+  ]                                                                                                                 
+},                                  
+... snip ...
+</code></pre>
+
+<p>  ]}
+{% endcodeblock %}</p>
+
+<p>Notice how we're using the same resource URI as the one used to GET snippets (as shown in <a href="/posts/webmachine-erlydtl-and-riak-part-3/" title="Wembachine, ErlyDTL and Riak - Part 3">Part 3</a>). This is to appear more RESTful. We'll be POSTing to <code>/snippet</code> to submit a new snippet while GETting from <code>/snippet/_snippet-id_</code> to read those which already exist.</p>
+
+<p>Now that the route is set up, we need to create the resource which will handle it. Here is the full listing which we'll go through in detail:</p>
+
+<p>{% codeblock apps/csd_web/src/csd_web_snippet_submit_resource.erl lang:erlang %}
+{% endcodeblock %}</p>
+
+<p><strong>Note:</strong> The code for Part 5 (this post) can be found on <a href="https://github.com/OJ/csd/tree/Part5-???" title="Source code for Part 5">Github</a>.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Webmachine, ErlyDTL and Riak - Part 4]]></title>
@@ -226,13 +332,13 @@ Compiled src/pooler.erl</p>
 <p>Given that we're using <code>pooler</code> the first thing we need to do is make sure that it loads and runs when <code>csd_core</code> fires up. To do this, we need to modify <code>csd_core.erl</code> so that it looks like this:</p>
 
 <p>{% codeblock apps/csd_core/src/csd_core.erl lang:erlang %}
-%% @author OJ Reeves <a href="&#x6d;&#x61;&#x69;&#108;&#x74;&#x6f;&#58;&#x6f;&#x6a;&#x40;&#x62;&#x75;&#x66;&#x66;&#x65;&#x72;&#101;&#x64;&#46;&#x69;&#x6f;">&#x6f;&#x6a;&#64;&#x62;&#x75;&#102;&#102;&#x65;&#x72;&#101;&#100;&#46;&#x69;&#111;</a>
+%% @author OJ Reeves <a href="&#x6d;&#x61;&#x69;&#x6c;&#116;&#111;&#x3a;&#x6f;&#x6a;&#64;&#x62;&#x75;&#102;&#x66;&#x65;&#114;&#x65;&#100;&#46;&#105;&#111;">&#x6f;&#106;&#x40;&#x62;&#117;&#x66;&#102;&#x65;&#x72;&#x65;&#100;&#46;&#105;&#x6f;</a>
 %% @copyright 2011 OJ Reeves</p>
 
 <p>%% @doc csd_core startup code</p>
 
 <p>-module(csd_core).
--author('OJ Reeves <a href="&#x6d;&#97;&#105;&#108;&#x74;&#x6f;&#58;&#111;&#106;&#x40;&#x62;&#117;&#x66;&#x66;&#101;&#114;&#101;&#100;&#x2e;&#105;&#x6f;">&#111;&#106;&#64;&#x62;&#x75;&#102;&#x66;&#x65;&#x72;&#x65;&#100;&#x2e;&#x69;&#x6f;</a>').
+-author('OJ Reeves <a href="&#x6d;&#97;&#x69;&#108;&#x74;&#x6f;&#x3a;&#x6f;&#x6a;&#64;&#98;&#117;&#x66;&#102;&#101;&#114;&#x65;&#100;&#46;&#105;&#x6f;">&#111;&#x6a;&#64;&#x62;&#117;&#x66;&#x66;&#101;&#x72;&#x65;&#x64;&#x2e;&#105;&#x6f;</a>').
 -export([start/0, start_link/0, stop/0]).</p>
 
 <p>ensure_started(App) -></p>
@@ -655,13 +761,13 @@ webstart: app</p>
 
 <p>{% codeblock apps/csd_web/src/csd_web.erl lang:erlang %}</p>
 
-<p>%% @author OJ Reeves <a href="&#109;&#97;&#x69;&#x6c;&#116;&#111;&#58;&#111;&#x6a;&#x40;&#x62;&#x75;&#x66;&#x66;&#101;&#x72;&#101;&#100;&#x2e;&#105;&#x6f;">&#111;&#106;&#64;&#x62;&#x75;&#x66;&#102;&#101;&#114;&#x65;&#x64;&#46;&#105;&#111;</a>
+<p>%% @author OJ Reeves <a href="&#x6d;&#x61;&#105;&#108;&#x74;&#111;&#58;&#x6f;&#106;&#x40;&#x62;&#117;&#102;&#x66;&#101;&#114;&#x65;&#100;&#x2e;&#x69;&#111;">&#x6f;&#106;&#x40;&#x62;&#x75;&#102;&#x66;&#101;&#114;&#101;&#x64;&#46;&#x69;&#x6f;</a>
 %% @copyright 2012 OJ Reeves.</p>
 
 <p>%% @doc csd_web startup code</p>
 
 <p>-module(csd_web).
--author('OJ Reeves <a href="&#109;&#97;&#105;&#x6c;&#x74;&#111;&#58;&#111;&#x6a;&#x40;&#98;&#x75;&#x66;&#102;&#101;&#114;&#x65;&#x64;&#46;&#x69;&#111;">&#111;&#106;&#64;&#98;&#117;&#x66;&#x66;&#101;&#x72;&#x65;&#100;&#x2e;&#105;&#x6f;</a>').
+-author('OJ Reeves <a href="&#x6d;&#x61;&#105;&#108;&#x74;&#x6f;&#x3a;&#x6f;&#x6a;&#x40;&#x62;&#x75;&#102;&#102;&#101;&#x72;&#101;&#x64;&#x2e;&#x69;&#111;">&#111;&#106;&#x40;&#98;&#117;&#102;&#102;&#101;&#x72;&#x65;&#x64;&#46;&#x69;&#x6f;</a>').
 -export([start/0, start_link/0, stop/0]).</p>
 
 <p>ensure_started(App) ->
@@ -714,12 +820,12 @@ stop() ->
 
 <p>{% codeblock apps/csd_web/src/csd_web.erl lang:erlang %}</p>
 
-<p>%% @author OJ Reeves <a href="&#109;&#97;&#x69;&#108;&#x74;&#111;&#58;&#111;&#106;&#64;&#x62;&#117;&#x66;&#102;&#101;&#114;&#101;&#100;&#46;&#x69;&#x6f;">&#111;&#106;&#64;&#98;&#117;&#102;&#x66;&#x65;&#114;&#101;&#100;&#46;&#105;&#111;</a>
+<p>%% @author OJ Reeves <a href="&#109;&#97;&#x69;&#x6c;&#x74;&#111;&#x3a;&#111;&#106;&#x40;&#98;&#x75;&#x66;&#x66;&#101;&#114;&#101;&#100;&#46;&#x69;&#111;">&#x6f;&#x6a;&#64;&#x62;&#117;&#102;&#x66;&#x65;&#x72;&#101;&#x64;&#46;&#x69;&#111;</a>
 %% @copyright 2012 OJ Reeves</p>
 
 <p>-module(twitter).</p>
 
-<p>-author('OJ Reeves <a href="&#x6d;&#97;&#x69;&#108;&#116;&#x6f;&#x3a;&#111;&#x6a;&#x40;&#x62;&#x75;&#x66;&#x66;&#101;&#114;&#101;&#100;&#x2e;&#x69;&#x6f;">&#x6f;&#x6a;&#64;&#98;&#x75;&#102;&#102;&#x65;&#114;&#x65;&#100;&#x2e;&#105;&#111;</a>').</p>
+<p>-author('OJ Reeves <a href="&#x6d;&#x61;&#x69;&#108;&#x74;&#111;&#58;&#111;&#x6a;&#64;&#98;&#117;&#102;&#102;&#101;&#x72;&#x65;&#x64;&#x2e;&#x69;&#x6f;">&#x6f;&#x6a;&#64;&#98;&#x75;&#102;&#x66;&#x65;&#114;&#101;&#100;&#x2e;&#x69;&#111;</a>').</p>
 
 <p>-export([request_access/0, verify_access/3, get_current_user_info/2]).</p>
 
@@ -786,12 +892,12 @@ call_json_service(UrlKey, AccessToken, AccessTokenSecret) ->
 
 <p>{% codeblock apps/csd_web/src/cookie.erl (partial) lang:erlang %}</p>
 
-<p>%% @author OJ Reeves <a href="&#x6d;&#x61;&#x69;&#108;&#116;&#111;&#x3a;&#111;&#106;&#64;&#98;&#117;&#x66;&#102;&#x65;&#114;&#x65;&#100;&#x2e;&#x69;&#x6f;">&#111;&#106;&#x40;&#x62;&#117;&#102;&#x66;&#x65;&#114;&#101;&#x64;&#46;&#x69;&#x6f;</a>
+<p>%% @author OJ Reeves <a href="&#x6d;&#97;&#x69;&#x6c;&#x74;&#x6f;&#58;&#x6f;&#x6a;&#64;&#98;&#117;&#x66;&#x66;&#x65;&#x72;&#101;&#x64;&#46;&#105;&#x6f;">&#x6f;&#x6a;&#x40;&#98;&#x75;&#x66;&#x66;&#101;&#114;&#x65;&#x64;&#46;&#105;&#x6f;</a>
 %% @copyright 2012 OJ Reeves</p>
 
 <p>-module(cookie).</p>
 
-<p>-author('OJ Reeves <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#111;&#x6a;&#x40;&#98;&#x75;&#102;&#102;&#101;&#114;&#x65;&#100;&#46;&#x69;&#x6f;">&#111;&#x6a;&#x40;&#98;&#117;&#x66;&#x66;&#101;&#114;&#101;&#100;&#46;&#105;&#x6f;</a>').</p>
+<p>-author('OJ Reeves <a href="&#109;&#x61;&#x69;&#x6c;&#116;&#x6f;&#x3a;&#x6f;&#x6a;&#x40;&#98;&#117;&#x66;&#x66;&#101;&#114;&#x65;&#100;&#x2e;&#105;&#111;">&#111;&#x6a;&#x40;&#98;&#x75;&#x66;&#102;&#101;&#x72;&#x65;&#100;&#x2e;&#105;&#x6f;</a>').</p>
 
 <p>-export([load_auth/1, store_auth/5]).</p>
 
@@ -988,12 +1094,12 @@ _ -&gt;
 <p>The <code>csd_view</code> module is new and was created to abstract the idea of template rendering. All the ErlyDTL handling happens in <code>csd_view</code>. Let's take a look at it now.</p>
 
 <p>{% codeblock apps/csd_web/src/csd_view.erl (partial) lang:erlang %}
-%% @author OJ Reeves <a href="&#109;&#97;&#x69;&#x6c;&#116;&#111;&#x3a;&#x6f;&#x6a;&#x40;&#98;&#x75;&#x66;&#102;&#x65;&#114;&#101;&#x64;&#x2e;&#x69;&#x6f;">&#x6f;&#106;&#64;&#x62;&#117;&#102;&#102;&#x65;&#114;&#x65;&#x64;&#x2e;&#105;&#111;</a>
+%% @author OJ Reeves <a href="&#x6d;&#x61;&#x69;&#108;&#116;&#111;&#x3a;&#111;&#x6a;&#64;&#x62;&#x75;&#x66;&#x66;&#101;&#x72;&#x65;&#100;&#46;&#x69;&#x6f;">&#111;&#106;&#x40;&#98;&#x75;&#102;&#102;&#101;&#114;&#x65;&#100;&#x2e;&#105;&#111;</a>
 %% @copyright 2012 OJ Reeves</p>
 
 <p>-module(csd_view).</p>
 
-<p>-author('OJ Reeves <a href="&#x6d;&#x61;&#x69;&#108;&#116;&#x6f;&#58;&#x6f;&#106;&#x40;&#98;&#117;&#x66;&#x66;&#x65;&#114;&#x65;&#x64;&#46;&#x69;&#111;">&#111;&#106;&#64;&#x62;&#117;&#x66;&#x66;&#x65;&#114;&#x65;&#100;&#x2e;&#x69;&#x6f;</a>').</p>
+<p>-author('OJ Reeves <a href="&#109;&#97;&#x69;&#108;&#116;&#111;&#x3a;&#x6f;&#x6a;&#64;&#98;&#x75;&#102;&#102;&#x65;&#x72;&#x65;&#x64;&#x2e;&#105;&#x6f;">&#111;&#106;&#x40;&#x62;&#117;&#x66;&#x66;&#101;&#x72;&#x65;&#100;&#46;&#x69;&#111;</a>').</p>
 
 <p>-export([home/0, home/1]).</p>
 
@@ -1069,12 +1175,12 @@ _ -&gt;
 <p>Easily done. Now let's look at the implementation of the first handler which handles the <code>/oauth/request</code> URI, <code>csd_web_request_resource</code>.</p>
 
 <p>{% codeblock apps/csd_web/src/csd_web_request_resource.erl lang:erlang %}
-%% @author OJ Reeves <a href="&#x6d;&#97;&#x69;&#108;&#116;&#111;&#58;&#111;&#x6a;&#x40;&#x62;&#x75;&#102;&#102;&#x65;&#114;&#x65;&#100;&#46;&#x69;&#x6f;">&#111;&#x6a;&#64;&#98;&#x75;&#102;&#102;&#101;&#x72;&#x65;&#x64;&#x2e;&#x69;&#x6f;</a>
+%% @author OJ Reeves <a href="&#109;&#x61;&#105;&#x6c;&#116;&#111;&#x3a;&#x6f;&#106;&#64;&#x62;&#x75;&#x66;&#102;&#101;&#114;&#101;&#x64;&#46;&#x69;&#111;">&#x6f;&#106;&#x40;&#x62;&#117;&#102;&#x66;&#101;&#x72;&#x65;&#100;&#46;&#x69;&#x6f;</a>
 %% @copyright 2012 OJ Reeves</p>
 
 <p>-module(csd_web_request_resource).</p>
 
-<p>-author('OJ Reeves <a href="&#x6d;&#x61;&#x69;&#x6c;&#x74;&#111;&#58;&#111;&#x6a;&#x40;&#98;&#x75;&#102;&#102;&#x65;&#x72;&#x65;&#x64;&#46;&#105;&#x6f;">&#x6f;&#106;&#64;&#x62;&#x75;&#x66;&#102;&#101;&#114;&#x65;&#x64;&#46;&#105;&#111;</a>').</p>
+<p>-author('OJ Reeves <a href="&#x6d;&#97;&#x69;&#108;&#116;&#x6f;&#x3a;&#111;&#106;&#64;&#98;&#117;&#102;&#x66;&#x65;&#x72;&#x65;&#100;&#46;&#105;&#x6f;">&#111;&#x6a;&#64;&#98;&#117;&#x66;&#102;&#x65;&#x72;&#x65;&#100;&#x2e;&#105;&#111;</a>').</p>
 
 <p>-export([init/1, resource_exists/2, previously_existed/2, moved_temporarily/2]).</p>
 
@@ -1105,12 +1211,12 @@ _ -&gt;
 <p>Exciting! We're nearly there. Don't click "Sign In" just yet because we don't yet have the callback set up to handle the result. Let's do that now. Here's the resource:</p>
 
 <p>{% codeblock apps/csd_web/src/csd_web_callback_resource.erl lang:erlang %}
-%% @author OJ Reeves <a href="&#x6d;&#x61;&#105;&#x6c;&#116;&#x6f;&#x3a;&#x6f;&#x6a;&#x40;&#98;&#x75;&#x66;&#x66;&#x65;&#x72;&#x65;&#x64;&#x2e;&#x69;&#111;">&#111;&#106;&#x40;&#98;&#x75;&#102;&#x66;&#x65;&#x72;&#x65;&#100;&#46;&#x69;&#x6f;</a>
+%% @author OJ Reeves <a href="&#x6d;&#x61;&#105;&#x6c;&#116;&#111;&#58;&#111;&#106;&#x40;&#x62;&#x75;&#x66;&#x66;&#x65;&#x72;&#101;&#x64;&#46;&#105;&#x6f;">&#x6f;&#106;&#x40;&#98;&#x75;&#x66;&#102;&#101;&#x72;&#101;&#x64;&#x2e;&#105;&#x6f;</a>
 %% @copyright 2012 OJ Reeves</p>
 
 <p>-module(csd_web_callback_resource).</p>
 
-<p>-author('OJ Reeves <a href="&#109;&#x61;&#x69;&#x6c;&#116;&#111;&#x3a;&#x6f;&#x6a;&#64;&#x62;&#117;&#x66;&#102;&#x65;&#114;&#101;&#x64;&#x2e;&#x69;&#x6f;">&#111;&#106;&#64;&#x62;&#x75;&#x66;&#x66;&#x65;&#x72;&#101;&#x64;&#46;&#x69;&#111;</a>').</p>
+<p>-author('OJ Reeves <a href="&#x6d;&#97;&#x69;&#x6c;&#116;&#111;&#x3a;&#111;&#x6a;&#64;&#x62;&#x75;&#x66;&#x66;&#x65;&#x72;&#101;&#100;&#x2e;&#105;&#111;">&#111;&#x6a;&#64;&#98;&#117;&#x66;&#102;&#x65;&#x72;&#x65;&#100;&#46;&#105;&#111;</a>').</p>
 
 <p>-export([init/1, resource_exists/2, previously_existed/2, moved_temporarily/2]).</p>
 
@@ -1290,7 +1396,7 @@ moved_permanently(ReqData, State) ->
     <id>http://buffered.io/posts/webmachine-erlydtl-and-riak-part-3</id>
     <content type="html"><![CDATA[<p><img src="http://buffered.io/uploads/2010/09/riak-logo.png" alt="Riak Logo" style="float:left;padding-right:5px;padding-bottom:5px;"/>For those of you who are new to the series, you may want to check out <a href="/posts/webmachine-erlydtl-and-riak-part-1/" title="Wembachine, ErlyDTL and Riak - Part 1">Part 1</a> and <a href="/posts/webmachine-erlydtl-and-riak-part-2/" title="Wembachine, ErlyDTL and Riak - Part 2">Part 2</a> before reading this post. It will help give you some context as well as introduce you to some of the jargon and technology that I'm using. If you've already read then, or don't want to, then please read on!</p>
 
-<p>This post builds on the previous two, but not without a few little modifications. If you're interested in following along step by step with your own version of the code running, then get yourself a copy of <a href="https://bitbucket.org/OJ/csd/changeset/df62880d12a8" title="Source code for Part 2">this changeset</a> before doing so.</p>
+<p>This post builds on the previous two, but not without a few little modifications. If you're interested in following along step by step with your own version of the code running, then get yourself a copy of <a href="https://github.com/OJ/csd/tree/Part2-20110403" title="Source code for Part 2">this changeset</a> before doing so.</p>
 
 <p>In this post we're going to cover:</p>
 
@@ -1481,7 +1587,7 @@ APP = csd</p>
   @./rebar delete-deps</p>
 
 <p>webstart: app
-  exec erl -pa $(PWD)/apps/*/ebin -pa $(PWD)/deps/*/ebin -boot start_sasl -s reloader -s csd_web</p>
+  exec erl -pa $(PWD)/apps/<em>/ebin -pa $(PWD)/deps/</em>/ebin -boot start_sasl -s reloader -s csd_web</p>
 
 <p>proxystart:
   @haproxy -f dev.haproxy.conf
@@ -1536,13 +1642,13 @@ Writing src/csd_core_sup.erl
 <p>We have a very simple application shell set up, but we need to do a bit more work to get it ready. First, let's create our base <code>csd_core.erl</code> module which is used to fire up our application. For this we will use <code>csd_web.erl</code> (the one which is part of our Webmachine application) as a template. Note that I've shuffled things around and removed some things that are not relevant:</p>
 
 <p>{% codeblock apps/csd_core/src/csd_core.erl lang:erlang %}
-%% @author OJ Reeves <a href="&#109;&#97;&#x69;&#108;&#x74;&#x6f;&#x3a;&#111;&#x6a;&#x40;&#x62;&#x75;&#x66;&#x66;&#101;&#x72;&#101;&#100;&#x2e;&#x69;&#x6f;">&#111;&#106;&#64;&#x62;&#x75;&#x66;&#102;&#x65;&#114;&#101;&#100;&#46;&#x69;&#111;</a>
+%% @author OJ Reeves <a href="&#109;&#97;&#x69;&#108;&#116;&#x6f;&#58;&#x6f;&#106;&#x40;&#98;&#117;&#x66;&#x66;&#x65;&#x72;&#x65;&#100;&#46;&#105;&#111;">&#x6f;&#x6a;&#64;&#98;&#117;&#x66;&#x66;&#101;&#x72;&#x65;&#x64;&#46;&#105;&#x6f;</a>
 %% @copyright 2011 OJ Reeves</p>
 
 <p>%% @doc csd_core startup code</p>
 
 <p>-module(csd_core).
--author('OJ Reeves <a href="&#109;&#97;&#x69;&#108;&#x74;&#111;&#x3a;&#x6f;&#x6a;&#64;&#x62;&#117;&#x66;&#102;&#x65;&#114;&#x65;&#x64;&#46;&#105;&#111;">&#111;&#x6a;&#64;&#x62;&#x75;&#102;&#x66;&#101;&#x72;&#x65;&#100;&#46;&#105;&#111;</a>').
+-author('OJ Reeves <a href="&#109;&#x61;&#x69;&#x6c;&#116;&#111;&#x3a;&#111;&#106;&#64;&#x62;&#x75;&#102;&#x66;&#101;&#114;&#101;&#x64;&#x2e;&#105;&#x6f;">&#x6f;&#106;&#64;&#98;&#x75;&#x66;&#x66;&#x65;&#x72;&#101;&#x64;&#x2e;&#105;&#111;</a>').
 -export([start/0, start_link/0, stop/0]).</p>
 
 <p>ensure_started(App) -></p>
@@ -2191,12 +2297,12 @@ fetch(RiakPid, Key) ->
 <p>In order to gain access to our data in Riak from the web we need to create a new resource. This resource will respond to any URI of the form <code>/snippet/&lt;key&gt;</code>. We shall call this resource <code>csd_web_snippet_resource</code> and we'll be putting this in our web application. It looks like this:</p>
 
 <p>{% codeblock apps/csd_web/src/csd_web_snippet_resource.erl lang:erlang %}
-%% @author OJ Reeves <a href="&#x6d;&#97;&#x69;&#108;&#116;&#111;&#58;&#111;&#x6a;&#64;&#98;&#x75;&#x66;&#x66;&#x65;&#x72;&#101;&#x64;&#46;&#105;&#x6f;">&#111;&#x6a;&#64;&#98;&#117;&#102;&#102;&#101;&#114;&#101;&#100;&#x2e;&#x69;&#111;</a>
+%% @author OJ Reeves <a href="&#x6d;&#97;&#105;&#x6c;&#116;&#111;&#58;&#111;&#106;&#64;&#98;&#117;&#102;&#x66;&#x65;&#114;&#101;&#x64;&#46;&#x69;&#x6f;">&#111;&#106;&#64;&#x62;&#117;&#102;&#x66;&#x65;&#114;&#x65;&#100;&#x2e;&#x69;&#x6f;</a>
 %% @copyright 2010 OJ Reeves
 %% @doc Webmachine resource that handles snippet-related actions</p>
 
 <p>-module(csd_web_snippet_resource).
--author('OJ Reeves <a href="&#x6d;&#x61;&#105;&#x6c;&#116;&#111;&#x3a;&#x6f;&#106;&#x40;&#x62;&#x75;&#x66;&#102;&#101;&#x72;&#x65;&#100;&#46;&#105;&#111;">&#x6f;&#106;&#64;&#x62;&#117;&#102;&#x66;&#x65;&#x72;&#101;&#100;&#x2e;&#105;&#111;</a>').</p>
+-author('OJ Reeves <a href="&#x6d;&#97;&#x69;&#x6c;&#116;&#x6f;&#x3a;&#x6f;&#x6a;&#64;&#98;&#117;&#x66;&#x66;&#101;&#114;&#101;&#100;&#46;&#105;&#111;">&#111;&#x6a;&#x40;&#x62;&#x75;&#102;&#x66;&#101;&#114;&#101;&#100;&#46;&#105;&#x6f;</a>').</p>
 
 <p>-export([init/1, to_html/2]).</p>
 
@@ -2258,7 +2364,7 @@ fetch(RiakPid, Key) ->
 
 <p>As always, comments and feedback is welcomed and greatly appreciated. As are suggestions on improvements, pitfalls and blatant mistakes :)</p>
 
-<p><strong>Note:</strong> The code for Part 3 (this post) can be found on <a href="https://bitbucket.org/OJ/csd/src/55fec468488c" title="Source code for Part 3">Github</a>.</p>
+<p><strong>Note:</strong> The code for Part 3 (this post) can be found on <a href="https://github.com/OJ/csd/tree/Part3-20110405" title="Source code for Part 3">Github</a>.</p>
 ]]></content>
   </entry>
   
@@ -2664,480 +2770,6 @@ ok
 <p>As always, comments and feedback are welcome and greatly appreciated. Suggestions on improvements and pointers on mistakes would be awesome. To anyone out there who has put HAProxy into production, we would love to hear your comments on your configuration!</p>
 
 <p><strong>Note:</strong> The code for Part 2 (this post) can be found on <a href="https://github.com/OJ/csd/tree/Part2-20110403" title="Source Code for Part 2">Github</a>.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Webmachine, ErlyDTL and Riak - Part 1]]></title>
-    <link href="http://buffered.io/posts/webmachine-erlydtl-and-riak-part-1/"/>
-    <updated>2010-09-01T23:29:00+10:00</updated>
-    <id>http://buffered.io/posts/webmachine-erlydtl-and-riak-part-1</id>
-    <content type="html"><![CDATA[<p><img src="http://buffered.io/uploads/2010/09/riak-logo.png" alt="Riak Logo" style="float:left;padding-right:5px;padding-bottom:5px;"/>It has been a long time coming, but the first post is finally here! This is the first in a series of post, as <a href="/posts/the-future-is-erlang/" title="The Future is Erlang">promised a while ago</a>, covering off web development using <a href="http://erlang.org/" title="Erlang">Erlang</a>. This post is the ubiquitous "get up and running" post, which aims to get your environment set up so that you can dive in to development. The next post will detail how to handle a basic end-to-end web request.</p>
-
-<p><img src="http://buffered.io/uploads/2010/09/Erlang_logo.png" width="150" style="float:right;margin-left:5px;margin-bottom:5px;"/>First up, a few things we need to be aware of before we begin:</p>
-
-<ol>
-<li>The information in this post has only been verified on Linux (<a href="http://linuxmint.com/" title="Linux Mint">Mint</a> to be exact). It <em>should</em> work just fine on Mac OSX. I'm almost certain that it <em>won't</em> work on a Windows machine. So if you're a Windows developer, you'll have to wait for another post down the track which covers off how to get your environment ready to rock.</li>
-<li>We'll be downloading, building and installing <a href="http://erlang.org/" title="Erlang">Erlang</a>, <a href="http://github.com/evanmiller/erlydtl" title="ErlyDTL">ErlyDTL</a>, <a href="http://www.basho.com/developers.html#Riak" title="Riak">Riak</a> and <a href="http://www.basho.com/developers.html#Webmachine" title="Webmachine">Webmachine</a>.</li>
-<li><a href="http://www.basho.com/developers.html#Rebar" title="Rebar">Rebar</a> is the tool we'll be using to handle builds, but I won't be covering it in any depth.</li>
-<li>You will need the latest versions of both <a href="http://hg-scm.com/" title="Mercurial">Mercurial</a> and <a href="http://git-scm.com/" title="Git">Git</a> so make sure they're downloaded and installed before you follow this article.</li>
-<li>We'll be doing <em>some</em> interaction with Riak via <a href="http://curl.haxx.se/" title="cURL and libcurl">curl</a>, so make sure you have it downloaded and installed as well.</li>
-<li>This is intended to be a step-by-step guide targeted at those who are very new to web development in Erlang. This may not be the most ideal set up, nor the best way of doing certain things. I am hoping that those people who are more experienced than I will be able to provide feedback and guidance in areas where I am lacking.</li>
-<li>Over the course of this series I'll be attempting to build an Erlang version of the <a href="http://bitbucket.org/OJ/codesmackdown" title="Code Smackdown">Code Smackdown</a> site that I've been working on here and there with a <a href="http://secretgeek.net/" title="secretGeek">mate of mine</a>. You'll see that the sample application we're working on is called "csd" for obvious reasons.</li>
-</ol>
-
-
-<p>OK, let's get into it. First up, Erlang.</p>
-
-<!--more-->
-
-
-<h3>Installing Erlang R14B02</h3>
-
-<p>Download and installation is fairly simple. Right now we're not worried about enabling all of the features of Erlang, such as interfacing with Java and providing support for GTK. So the boilerplate functionality is enough. Here are the steps to follow:</p>
-
-<pre><code>oj@nix ~/blog $ wget http://erlang.org/download/otp_src_R14B02.tar.gz
-
-  ... snip ...
-
-oj@nix ~/blog $ tar -xzf otp_src_R14B02.tar.gz 
-oj@nix ~/blog $ cd otp_src_R14B02/
-oj@nix ~/blog/otp_src_R14B02 $ ./configure 
-
-  ... snip ...
-
-oj@nix ~/blog/otp_src_R14B02 $ make
-
-  ... snip ...
-
-oj@nix ~/blog/otp_src_R14B02 $ sudo make install
-
-  ... snip ...
-</code></pre>
-
-<p>Done! Let's confirm that it has been set up correctly:</p>
-
-<pre><code>oj@nix ~/blog $ erl
-Erlang R14B02 (erts-5.8.3) [source] [64-bit] [smp:2:2] [rq:2] [async-threads:0] [hipe] [kernel-poll:false]
-
-Eshell V5.8.3  (abort with ^G)
-1&gt; q().
-ok
-</code></pre>
-
-<p>Excellent. Next let's get Riak going.</p>
-
-<h3>Installing Riak 0.14</h3>
-
-<p>Considering the power of the software you are about to set up, it is absolutely insane how easy it is to get it running. If any of you have tried to get <a href="http://couchdb.apache.org/" title="CouchDB">CouchDB</a> running you'll no doubt have experienced a few quirks and a bit of pain getting it rolling. Not so with Riak. As mentioned at the start of the article, make sure you have a recent version of <a href="http://hg-scm.com/" title="Mercurial">Mercurial</a> and <a href="http://git-scm.com/" title="Git">Git</a> installed.</p>
-
-<pre><code>oj@nix ~/blog$ hg --version
-Mercurial Distributed SCM (version 1.7.3)
-(see http://mercurial.selenic.com for more information)
-
-Copyright (C) 2005-2010 Matt Mackall and others
-This is free software; see the source for copying conditions. There is NO
-warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-
-oj@nix ~/blog$ git --version
-git version 1.7.3.5
-
-oj@nix ~/blog $ git clone git://github.com/basho/riak
-Cloning into riak...
-remote: Counting objects: 10812, done.
-remote: Compressing objects: 100% (3468/3468), done.
-remote: Total 10812 (delta 7217), reused 10469 (delta 7020)
-Receiving objects: 100% (10812/10812), 8.83 MiB | 729 KiB/s, done.
-Resolving deltas: 100% (7217/7217), done.
-
-oj@nix ~/blog $ cd riak
-oj@nix ~/blog/riak $ make
-./rebar get-deps
-==&gt; rel (get-deps)
-==&gt; riak (get-deps)
-Pulling cluster_info from {git,"git://github.com/basho/cluster_info",
-                               {branch,"master"}}
-Cloning into cluster_info...
-Pulling luwak from {git,"git://github.com/basho/luwak",{branch,"master"}}
-Cloning into luwak...
-Pulling riak_kv from {git,"git://github.com/basho/riak_kv",{branch,"master"}}
-Cloning into riak_kv...
-Pulling riak_err from {git,"git://github.com/basho/riak_err",
-                           {branch,"master"}}
-Cloning into riak_err...
-==&gt; cluster_info (get-deps)
-==&gt; riak_kv (get-deps)
-Pulling riak_core from {git,"git://github.com/basho/riak_core",
-                            {branch,"master"}}
-Cloning into riak_core...
-Pulling riakc from {git,"git://github.com/basho/riak-erlang-client",
-                        {tag,"riakc-1.0.2"}}
-Cloning into riakc...
-Pulling luke from {git,"git://github.com/basho/luke",{tag,"luke-0.2.3"}}
-Cloning into luke...
-Pulling erlang_js from {git,"git://github.com/basho/erlang_js",
-                            {tag,"erlang_js-0.5.0"}}
-Cloning into erlang_js...
-Pulling bitcask from {git,"git://github.com/basho/bitcask",{branch,"master"}}
-Cloning into bitcask...
-Pulling ebloom from {git,"git://github.com/basho/ebloom",{branch,"master"}}
-Cloning into ebloom...
-Pulling eper from {git,"git://github.com/dizzyd/eper.git",{branch,"master"}}
-Cloning into eper...
-==&gt; riak_core (get-deps)
-Pulling protobuffs from {git,"git://github.com/basho/erlang_protobuffs",
-                             {tag,"protobuffs-0.5.1"}}
-Cloning into protobuffs...
-Pulling basho_stats from {git,"git://github.com/basho/basho_stats","HEAD"}
-Cloning into basho_stats...
-Pulling riak_sysmon from {git,"git://github.com/basho/riak_sysmon",
-                              {branch,"master"}}
-Cloning into riak_sysmon...
-Pulling webmachine from {git,"git://github.com/basho/webmachine",
-                             {tag,"webmachine-1.8.0"}}
-Cloning into webmachine...
-==&gt; protobuffs (get-deps)
-==&gt; basho_stats (get-deps)
-==&gt; riak_sysmon (get-deps)
-==&gt; webmachine (get-deps)
-Pulling mochiweb from {git,"git://github.com/basho/mochiweb",
-                           {tag,"mochiweb-1.7.1"}}
-Cloning into mochiweb...
-==&gt; mochiweb (get-deps)
-==&gt; riakc (get-deps)
-==&gt; luke (get-deps)
-==&gt; erlang_js (get-deps)
-==&gt; ebloom (get-deps)
-==&gt; bitcask (get-deps)
-==&gt; eper (get-deps)
-==&gt; luwak (get-deps)
-Pulling skerl from {git,"git://github.com/basho/skerl",{tag,"skerl-1.0.1"}}
-Cloning into skerl...
-==&gt; skerl (get-deps)
-==&gt; riak_err (get-deps)
-./rebar compile
-==&gt; cluster_info (compile)
-Compiled src/cluster_info_ex.erl
-
-
-  ... snip ...
-</code></pre>
-
-<p>I snipped a lot of the make output for obvious reasons. Let's build a few development nodes of Riak and cluster them together as indicated in the <a href="https://wiki.basho.com/display/RIAK/The+Riak+Fast+Track" title="Riak Fast Track">Riak Fast Track</a>:</p>
-
-<pre><code>oj@nix ~/blog/riak $ make devrel
-mkdir -p dev
-(cd rel &amp;&amp; ../rebar generate target_dir=../dev/dev1 overlay_vars=vars/dev1_vars.config)
-==&gt; rel (generate)
-mkdir -p dev
-(cd rel &amp;&amp; ../rebar generate target_dir=../dev/dev2 overlay_vars=vars/dev2_vars.config)
-==&gt; rel (generate)
-mkdir -p dev
-(cd rel &amp;&amp; ../rebar generate target_dir=../dev/dev3 overlay_vars=vars/dev3_vars.config)
-==&gt; rel (generate)
-
-oj@nix ~/blog/riak $ cd dev
-oj@nix ~/blog/riak/dev $ dev1/bin/riak start
-oj@nix ~/blog/riak/dev $ dev2/bin/riak start
-oj@nix ~/blog/riak/dev $ dev3/bin/riak start
-oj@nix ~/blog/riak/dev $ dev2/bin/riak-admin join dev1
-Sent join request to dev1
-
-oj@nix ~/blog/riak/dev $ dev3/bin/riak-admin join dev1
-Sent join request to dev1
-
-oj@nix ~/blog/riak/dev $ curl -H "Accept: text/plain" http://127.0.0.1:8091/stats
-{
-  ... snip ...
-
-  "nodename": "dev1@127.0.0.1",
-    "connected_nodes": [
-    "dev2@127.0.0.1",
-    "dev3@127.0.0.1"
-  ],
-
-  ... snip ...
-
-  "ring_members": [
-    "dev1@127.0.0.1",
-    "dev2@127.0.0.1",
-    "dev3@127.0.0.1"
-  ],
-  "ring_num_partitions": 64,
-  "ring_ownership": "[{'dev3@127.0.0.1',21},{'dev2@127.0.0.1',21},{'dev1@127.0.0.1',22}]",
-
-  ... snip ...
-}
-</code></pre>
-
-<p>As we can see from the curl output, we now have a 3-node Riak cluster up and running. Those three nodes have the following traits:</p>
-
-<table border="1">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Protobuf Port</th>
-      <th>HTTP Port</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>dev1@127.0.0.1</td>
-      <td>8081</td>
-      <td>8091</td>
-    </tr>
-    <tr>
-      <td>dev2@127.0.0.1</td>
-      <td>8082</td>
-      <td>8092</td>
-    </tr>
-    <tr>
-      <td>dev3@127.0.0.1</td>
-      <td>8083</td>
-      <td>8093</td>
-    </tr>
-  </tbody>
-</table>
-
-
-<p>We can talk to any of these nodes and they will replicate their data to the other nodes. Nifty! Now that we have a Riak cluster running for development, let's get Webmachine ready.</p>
-
-<h3>Installing Webmachine 0.8</h3>
-
-<p>Again, the process is very simple:</p>
-
-<pre><code>oj@nix ~/blog $ git clone git://github.com/basho/webmachine
-loning into webmachine...
-remote: Counting objects: 1183, done.
-remote: Compressing objects: 100% (484/484), done.
-remote: Total 1183 (delta 735), reused 1063 (delta 668)
-Receiving objects: 100% (1183/1183), 1.17 MiB | 294 KiB/s, done.
-Resolving deltas: 100% (735/735), done.
-
-oj@nix ~/blog $ cd webmachine/
-oj@nix ~/blog/webmachine $ make
-==&gt; webmachine (get-deps)
-Pulling mochiweb from {git,"git://github.com/mochi/mochiweb",{tag,"1.5.1"}}
-Cloning into mochiweb...
-==&gt; mochiweb (get-deps)
-==&gt; mochiweb (compile)
-Compiled src/mochiglobal.erl
-Compiled src/mochiweb_sup.erl
-
-  ... snip ...
-</code></pre>
-
-<p>As you can see, Webmachine sits on top of the <a href="http://github.com/mochi/mochiweb" title="Mochiweb">Mochiweb</a> web server.</p>
-
-<p>To create our own application which sits on top of Webmachine, we can utilise the <code>new_webmachine.sh</code> script. So let's do that to create our Code Smackdown (csd) site:</p>
-
-<pre><code>oj@nix ~/blog/webmachine $ scripts/new_webmachine.sh
-usage: new_webmachine.sh name [destdir]
-oj@nix ~/blog/webmachine $ scripts/new_webmachine.sh csd ..
-==&gt; priv (create)
-Writing /home/oj/blog/csd/README
-Writing /home/oj/blog/csd/Makefile
-Writing /home/oj/blog/csd/rebar.config
-Writing /home/oj/blog/csd/rebar
-Writing /home/oj/blog/csd/start.sh
-Writing /home/oj/blog/csd/src/csd.app.src
-Writing /home/oj/blog/csd/src/csd.erl
-Writing /home/oj/blog/csd/src/csd_app.erl
-Writing /home/oj/blog/csd/src/csd_sup.erl
-Writing /home/oj/blog/csd/src/csd_resource.erl
-Writing /home/oj/blog/csd/priv/dispatch.conf
-</code></pre>
-
-<p>Webmachine generates a fully functional website out of the box. So we should be able to build it, fire it up and see it in action:</p>
-
-<pre><code>oj@nix ~/blog/webmachine $ cd ../csd
-oj@nix ~/blog/csd $ make
-==&gt; csd (get-deps)
-Pulling webmachine from {git,"git://github.com/basho/webmachine","HEAD"}
-Cloning into webmachine...
-==&gt; webmachine (get-deps)
-Pulling mochiweb from {git,"git://github.com/mochi/mochiweb",{tag,"1.5.1"}}
-Cloning into mochiweb...
-==&gt; mochiweb (get-deps)
-==&gt; mochiweb (compile)
-Compiled src/mochiglobal.erl
-
-  ... snip ...
-
-oj@nix ~/blog/csd $ ./start.sh
-Erlang R14B02 (erts-5.8.3) [source] [64-bit] [smp:2:2] [rq:2] [async-threads:0] [hipe] [kernel-poll:false]
-
-  ... snip ...
-
-PROGRESS REPORT==== 3-Apr-2011::22:38:36 ===
-          supervisor: {local,csd_sup}
-             started: [{pid,&lt;0.76.0&gt;},
-                       {name,webmachine_mochiweb},
-                       {mfargs,
-                           {webmachine_mochiweb,start,
-                               [[{ip,"0.0.0.0"},
-                                 {port,8000},
-                                 {log_dir,"priv/log"},
-                                 {dispatch,[{[],csd_resource,[]}]}]]}},
-                       {restart_type,permanent},
-                       {shutdown,5000},
-                       {child_type,worker}]
-
-=PROGRESS REPORT==== 3-Apr-2011::22:38:36 ===
-         application: csd
-          started_at: nonode@nohost
-</code></pre>
-
-<p>The application is now up and running. As you can see from the output, our csd application has been fired up and is listening on port 8000. Let's fire it up in a web browser to see if it works.</p>
-
-<p><img src="http://buffered.io/uploads/2010/09/wm_default.png"/></p>
-
-<p>It's alive! We're almost done. Before we finish up, let's get set up our build to include some dependencies.</p>
-
-<h3>Adding ErlyDTL and Riak Client Dependencies</h3>
-
-<p>Rebar makes this bit a walk in the park (thanks <a href="http://dizzyd.com/" title="Gradual Epiphany">Dave</a>, you rock!). Just make sure you stop your Webmachine node before continuing by typing <code>q().</code> into your Erlang console.</p>
-
-<p>The <code>rebar.config</code> file is what drives rebar's dependency mechanism. We need to open this file and add the entries we need to include in our application. Webmachine's <code>start.sh</code> script by default includes all of the dependencies on start up, so after modifying the configuration, we don't have to do anything else (other than use the library of course).</p>
-
-<p>Open up <code>rebar.config</code> in your <a href="http://www.vim.org/" title="VIM">favourite editor</a>, it should look something like this:</p>
-
-<p>{% codeblock rebar.config lang:erlang %}
-%%-<em>- mode: erlang -</em>-</p>
-
-<p>{deps, [{webmachine, "1.8.*", {git, "git://github.com/basho/webmachine", "HEAD"}}]}.
-{% endcodeblock %}</p>
-
-<p>Edit the file so that it includes both ErlyDTL and the Riak Client:</p>
-
-<p>{% codeblock rebar.config lang:erlang %}
-%%-<em>- mode: erlang -</em>-
-{deps,
-  [</p>
-
-<pre><code>{webmachine, "1.8.*", {git, "git://github.com/basho/webmachine", "HEAD"}},
-{riakc, ".*", {git, "git://github.com/basho/riak-erlang-client", "HEAD"}},
-{erlydtl, "0.6.1", {git, "git://github.com/OJ/erlydtl.git", "HEAD"}}
-</code></pre>
-
-<p>  ]
-}.
-{% endcodeblock %}</p>
-
-<p>You'll notice that the <code>erlydtl</code> reference points at my own fork of the ErlyDTL project. This is because I have made it compile cleanly with rebar so that any dependent projects are also able to be build with rebar. Feel free to use your own fork if you like, but mine is there if you can't be bothered :)</p>
-
-<p>Save the file and build!</p>
-
-<pre><code>oj@nix ~/blog/csd $ make
-==&gt; mochiweb (get-deps)
-==&gt; webmachine (get-deps)
-==&gt; csd (get-deps)
-Pulling riakc from {git,"git://github.com/basho/riak-erlang-client","HEAD"}
-Cloning into riakc...
-Pulling erlydtl from {git,"git://github.com/OJ/erlydtl.git","HEAD"}
-Cloning into erlydtl...
-==&gt; riakc (get-deps)
-Pulling protobuffs from {git,"git://github.com/basho/erlang_protobuffs",
-                             {tag,"protobuffs-0.5.1"}}
-Cloning into protobuffs...
-==&gt; protobuffs (get-deps)
-==&gt; erlydtl (get-deps)
-==&gt; mochiweb (compile)
-==&gt; webmachine (compile)
-==&gt; protobuffs (compile)
-Compiled src/pokemon_pb.erl
-Compiled src/protobuffs_parser.erl
-
-  ... snip ...
-</code></pre>
-
-<p>Dependencies sorted. For the final part of this blog post, we'll include a basic ErlyDTL template and use it to render the page so we can see how it works.</p>
-
-<h3>Rendering an ErlyDTL Template</h3>
-
-<p>Rebar has built-in support for the compilation of ErlyDTL templates. It can be configured to behave how you want it to, but out of the box it...</p>
-
-<ul>
-<li>... looks for <code>*.dtl</code> files in the <code>./templates</code> folder</li>
-<li>... compiles each of the found templates into a module called <code>filename_dtl</code> (eg. <code>base.dtl</code> becomes the module base_dtl)</li>
-<li>... puts the module beam files into the <code>ebin</code> directory</li>
-</ul>
-
-
-<p>Very handy. Let's create a very simple template by creating a <code>templates</code> folder, and editing a new file in that folder called <code>sample.dtl</code></p>
-
-<p>{% codeblock templates/sample.dtl lang:html %}
-<html><body>Hello from inside ErlyDTL. You passed in {{ "{" }}{ param }}.</body></html>
-{% endcodeblock %}</p>
-
-<p>Then open up <code>src/csd_resource.erl</code> and search for the <code>to_html()</code> function. It should look like this:</p>
-
-<p>{% codeblock src/csd_resource.erl lang:erlang %}
-to_html(ReqData, State) -></p>
-
-<pre><code>{"&lt;html&gt;&lt;body&gt;Hello, new world&lt;/body&gt;&lt;/html&gt;", ReqData, State}.
-</code></pre>
-
-<p>{% endcodeblock %}</p>
-
-<p>Modify it to look like this:</p>
-
-<p>{% codeblock src/csd_resource.erl lang:erlang %}
-to_html(ReqData, State) -></p>
-
-<pre><code>{ok, Content} = sample_dtl:render([{param, "Slartibartfast"}]),
-{Content, ReqData, State}.
-</code></pre>
-
-<p>{% endcodeblock %}</p>
-
-<p>For now, don't worry about the content of this file. I will cover this off in a future post.</p>
-
-<p>In the past, we had to manually modify <code>ebin/csd.app</code> to include the template that we've just created. Thankfully, <code>rebar</code> has been updated so that it generates the <code>ebin/csd.app</code> file from the <code>src/csd.app.src</code> file automatically when the application is built. <code>rebar</code> adds the required modules from the <code>src</code> folder <em>and</em> includes the templates from the <code>templates</code> folder. Therefore, with our template and module ready to go, all we need to do is build and run:</p>
-
-<pre><code>oj@nix ~/blog/csd $ make
-==&gt; mochiweb (get-deps)
-==&gt; webmachine (get-deps)
-==&gt; protobuffs (get-deps)
-==&gt; riakc (get-deps)
-==&gt; erlydtl (get-deps)
-==&gt; csd (get-deps)
-==&gt; mochiweb (compile)
-==&gt; webmachine (compile)
-==&gt; protobuffs (compile)
-==&gt; riakc (compile)
-==&gt; erlydtl (compile)
-==&gt; csd (compile)
-Compiled src/csd_resource.erl
-Compiled templates/sample.dtl
-
-oj@nix ~/blog/csd $ ./start.sh 
-Erlang R14B02 (erts-5.8.3) [source] [64-bit] [smp:2:2] [rq:2] [async-threads:0] [hipe] [kernel-poll:false]
-
-  ... snip ...
-
-** Found 0 name clashes in code paths 
-
-  ... snip ...
-
-=PROGRESS REPORT==== 3-Apr-2011::22:54:50 ===
-         application: csd
-          started_at: nonode@nohost
-</code></pre>
-
-<p>Notice how ErlyDTL outputs some information to indicate that no template names have clashed with any other modules.</p>
-
-<p>The application is now running, let's see what it looks like:</p>
-
-<p><img src="http://buffered.io/uploads/2010/09/wm_erlydtl.png"/></p>
-
-<h3>The End</h3>
-
-<p>We now have a working environment in which to do our development. In the next post, I'll cover some of the basics required to get Webmachine talking to Riak via <a href="http://en.wikipedia.org/wiki/Protocol_Buffers" title="Protocol Buffers">Protocol Buffers</a>.</p>
-
-<p>Feedback and criticism welcome!</p>
-
-<p><strong>Note:</strong> The code for Part 1 (this post) can be found on <a href="https://github.com/OJ/csd/tree/Part1-20110403" title="Source Code for Part 1">Github</a>.</p>
 ]]></content>
   </entry>
   

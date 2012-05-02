@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Databases | OJ's rants]]></title>
   <link href="http://buffered.io/categories/databases/atom.xml" rel="self"/>
   <link href="http://buffered.io/"/>
-  <updated>2012-04-22T13:39:40+10:00</updated>
+  <updated>2012-05-02T18:49:49+10:00</updated>
   <id>http://buffered.io/</id>
   <author>
     <name><![CDATA[OJ Reeves]]></name>
@@ -20,7 +20,7 @@
     <id>http://buffered.io/posts/webmachine-erlydtl-and-riak-part-3</id>
     <content type="html"><![CDATA[<p><img src="http://buffered.io/uploads/2010/09/riak-logo.png" alt="Riak Logo" style="float:left;padding-right:5px;padding-bottom:5px;"/>For those of you who are new to the series, you may want to check out <a href="/posts/webmachine-erlydtl-and-riak-part-1/" title="Wembachine, ErlyDTL and Riak - Part 1">Part 1</a> and <a href="/posts/webmachine-erlydtl-and-riak-part-2/" title="Wembachine, ErlyDTL and Riak - Part 2">Part 2</a> before reading this post. It will help give you some context as well as introduce you to some of the jargon and technology that I'm using. If you've already read then, or don't want to, then please read on!</p>
 
-<p>This post builds on the previous two, but not without a few little modifications. If you're interested in following along step by step with your own version of the code running, then get yourself a copy of <a href="https://bitbucket.org/OJ/csd/changeset/df62880d12a8" title="Source code for Part 2">this changeset</a> before doing so.</p>
+<p>This post builds on the previous two, but not without a few little modifications. If you're interested in following along step by step with your own version of the code running, then get yourself a copy of <a href="https://github.com/OJ/csd/tree/Part2-20110403" title="Source code for Part 2">this changeset</a> before doing so.</p>
 
 <p>In this post we're going to cover:</p>
 
@@ -211,7 +211,7 @@ APP = csd</p>
   @./rebar delete-deps</p>
 
 <p>webstart: app
-  exec erl -pa $(PWD)/apps/*/ebin -pa $(PWD)/deps/*/ebin -boot start_sasl -s reloader -s csd_web</p>
+  exec erl -pa $(PWD)/apps/<em>/ebin -pa $(PWD)/deps/</em>/ebin -boot start_sasl -s reloader -s csd_web</p>
 
 <p>proxystart:
   @haproxy -f dev.haproxy.conf
@@ -266,13 +266,13 @@ Writing src/csd_core_sup.erl
 <p>We have a very simple application shell set up, but we need to do a bit more work to get it ready. First, let's create our base <code>csd_core.erl</code> module which is used to fire up our application. For this we will use <code>csd_web.erl</code> (the one which is part of our Webmachine application) as a template. Note that I've shuffled things around and removed some things that are not relevant:</p>
 
 <p>{% codeblock apps/csd_core/src/csd_core.erl lang:erlang %}
-%% @author OJ Reeves <a href="&#109;&#97;&#x69;&#x6c;&#116;&#x6f;&#58;&#x6f;&#x6a;&#64;&#x62;&#x75;&#102;&#102;&#101;&#x72;&#101;&#100;&#x2e;&#105;&#x6f;">&#x6f;&#106;&#x40;&#98;&#x75;&#x66;&#x66;&#101;&#x72;&#101;&#100;&#x2e;&#x69;&#111;</a>
+%% @author OJ Reeves <a href="&#x6d;&#97;&#105;&#108;&#116;&#111;&#58;&#x6f;&#x6a;&#64;&#x62;&#x75;&#x66;&#102;&#x65;&#114;&#x65;&#100;&#x2e;&#105;&#x6f;">&#111;&#x6a;&#x40;&#x62;&#117;&#102;&#102;&#x65;&#x72;&#x65;&#100;&#x2e;&#105;&#111;</a>
 %% @copyright 2011 OJ Reeves</p>
 
 <p>%% @doc csd_core startup code</p>
 
 <p>-module(csd_core).
--author('OJ Reeves <a href="&#x6d;&#x61;&#105;&#108;&#116;&#111;&#x3a;&#111;&#106;&#64;&#98;&#x75;&#102;&#102;&#101;&#114;&#x65;&#x64;&#46;&#105;&#111;">&#x6f;&#x6a;&#x40;&#x62;&#117;&#x66;&#102;&#101;&#x72;&#101;&#x64;&#46;&#105;&#111;</a>').
+-author('OJ Reeves <a href="&#x6d;&#97;&#x69;&#108;&#x74;&#x6f;&#x3a;&#111;&#106;&#64;&#x62;&#x75;&#x66;&#x66;&#101;&#114;&#101;&#100;&#x2e;&#x69;&#x6f;">&#x6f;&#x6a;&#64;&#x62;&#117;&#x66;&#x66;&#x65;&#x72;&#101;&#x64;&#x2e;&#x69;&#x6f;</a>').
 -export([start/0, start_link/0, stop/0]).</p>
 
 <p>ensure_started(App) -></p>
@@ -921,12 +921,12 @@ fetch(RiakPid, Key) ->
 <p>In order to gain access to our data in Riak from the web we need to create a new resource. This resource will respond to any URI of the form <code>/snippet/&lt;key&gt;</code>. We shall call this resource <code>csd_web_snippet_resource</code> and we'll be putting this in our web application. It looks like this:</p>
 
 <p>{% codeblock apps/csd_web/src/csd_web_snippet_resource.erl lang:erlang %}
-%% @author OJ Reeves <a href="&#109;&#97;&#x69;&#108;&#116;&#x6f;&#58;&#x6f;&#x6a;&#64;&#x62;&#117;&#x66;&#x66;&#101;&#114;&#x65;&#100;&#x2e;&#105;&#x6f;">&#111;&#106;&#x40;&#98;&#x75;&#x66;&#x66;&#x65;&#x72;&#x65;&#x64;&#x2e;&#x69;&#111;</a>
+%% @author OJ Reeves <a href="&#109;&#97;&#x69;&#108;&#x74;&#x6f;&#x3a;&#111;&#106;&#x40;&#98;&#117;&#x66;&#102;&#x65;&#x72;&#x65;&#x64;&#46;&#x69;&#111;">&#x6f;&#x6a;&#x40;&#98;&#117;&#x66;&#x66;&#101;&#114;&#x65;&#100;&#x2e;&#105;&#x6f;</a>
 %% @copyright 2010 OJ Reeves
 %% @doc Webmachine resource that handles snippet-related actions</p>
 
 <p>-module(csd_web_snippet_resource).
--author('OJ Reeves <a href="&#x6d;&#97;&#105;&#108;&#116;&#x6f;&#58;&#111;&#106;&#x40;&#98;&#117;&#102;&#102;&#101;&#114;&#101;&#100;&#46;&#x69;&#111;">&#x6f;&#x6a;&#x40;&#98;&#117;&#x66;&#102;&#101;&#114;&#101;&#x64;&#46;&#105;&#111;</a>').</p>
+-author('OJ Reeves <a href="&#109;&#x61;&#105;&#108;&#x74;&#x6f;&#58;&#111;&#x6a;&#64;&#x62;&#117;&#x66;&#102;&#101;&#x72;&#101;&#x64;&#46;&#105;&#111;">&#111;&#x6a;&#x40;&#98;&#117;&#102;&#x66;&#x65;&#114;&#101;&#x64;&#x2e;&#105;&#x6f;</a>').</p>
 
 <p>-export([init/1, to_html/2]).</p>
 
@@ -988,7 +988,7 @@ fetch(RiakPid, Key) ->
 
 <p>As always, comments and feedback is welcomed and greatly appreciated. As are suggestions on improvements, pitfalls and blatant mistakes :)</p>
 
-<p><strong>Note:</strong> The code for Part 3 (this post) can be found on <a href="https://bitbucket.org/OJ/csd/src/55fec468488c" title="Source code for Part 3">Github</a>.</p>
+<p><strong>Note:</strong> The code for Part 3 (this post) can be found on <a href="https://github.com/OJ/csd/tree/Part3-20110405" title="Source code for Part 3">Github</a>.</p>
 ]]></content>
   </entry>
   

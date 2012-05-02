@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Dealing with the CRUD - OJ's rants</title>
+  <title>Webmachine, ErlyDTL and Riak - Part 5 - OJ's rants</title>
   <meta name="author" content="OJ Reeves">
 
   <link rel="openid.server" href="http://www.myopenid.com/server" />
@@ -16,7 +16,7 @@
 
 
   
-  <meta name="description" content="One of the things that I think every web developer on the planet is sick of doing is building CRUD methods for their applications. It&#8217;s the &hellip;">
+  <meta name="description" content="Newcomers to the series should first take a look at the previous four parts of the [series][] (Part 1, Part 2, Part 3, Part 4) first to make sure &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -26,7 +26,7 @@
 
   
   <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's rants RSS 2.0" type="application/rss+xml">
-  <link rel="canonical" href="http://buffered.io/posts/dealing-with-the-crud">
+  <link rel="canonical" href="http://buffered.io/posts/webmachine-erlydtl-and-riak-part-5">
   <link href="/favicon.ico" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
 
@@ -99,7 +99,7 @@
   
   <header>
     
-      <h1 class="entry-title">Dealing With the CRUD</h1>
+      <h1 class="entry-title">Webmachine, ErlyDTL and Riak - Part 5</h1>
     
     
       <p class="meta">
@@ -116,7 +116,7 @@
 
 
 
-<time datetime="2006-09-21T16:12:00+10:00" pubdate data-updated="true">21 Sep 2006</time>
+<time datetime="2012-05-01T21:30:00+10:00" pubdate data-updated="true">01 May 2012</time>
         
          | <a href="#disqus_thread">Comments</a>
         
@@ -125,44 +125,128 @@
   </header>
 
 
-<div class="entry-content"><p>One of the things that I think every web developer on the planet is sick of doing is building <a href="http://en.wikipedia.org/wiki/CRUD_%28acronym%29" title="CRUD" target="_blank">CRUD</a> methods for their applications. It&#8217;s the kind of thing that we seem to do as developers over and over again despite the fact that this task is essentially monkey work.</p>
+<div class="entry-content"><p><img class="right" src="/uploads/2010/09/riak-logo.png" title="'Riak Logo'" >Newcomers to the series should first take a look at the previous four parts of the [series][] (<a href="/posts/webmachine-erlydtl-and-riak-part-1/" title="Wembachine, ErlyDTL and Riak - Part 1">Part 1</a>, <a href="/posts/webmachine-erlydtl-and-riak-part-2/" title="Wembachine, ErlyDTL and Riak - Part 2">Part 2</a>, <a href="/posts/webmachine-erlydtl-and-riak-part-3/" title="Wembachine, ErlyDTL and Riak - Part 3">Part 3</a>, <a href="/posts/webmachine-erlydtl-and-riak-part-2/" title="Wembachine, ErlyDTL and Riak - Part 4">Part 4</a>) first to make sure that you&#8217;re up to speed. Feel free to read on if you feel comfortable with the general concepts in use.</p>
 
-<p>There have been quite a few attempts to nail this issue on the head in various programming camps, and it&#8217;s these attempts that I&#8217;d like to go over - partly because I&#8217;m also sick of CRUD, and partly because I don&#8217;t know enough about <em>all</em> of these solutions to know which one&#8217;s work best in what scenario (hopefully this is where you guys come to the rescue :)).</p>
+<p>When we finished <a href="/posts/webmachine-erlydtl-and-riak-part-2/" title="Wembachine, ErlyDTL and Riak - Part 4">Part 4</a> we were able to authenticate users using <a href="http://twitter.com/" title="Twitter">Twitter</a> and <a href="http://oauth.net/" title="OAuth">OAuth</a>, which is great as we can delegate the responsibility of password management to an external entity.</p>
 
-<p>I have to make sure that I&#8217;m clear - I am not talking about creation of supporting object-graph loading or anything funky like recursive deletion in code (rather than as a DB setting). I&#8217;m simply talking CRUD and CRUD alone :)</p>
+<p>Now that we know who people are, we want them to be able to do something meanigful with their accounts. That&#8217;s what this post is all about.</p>
 
-<p><strong><u>1. Code Generation</u></strong></p>
-
-<p>This is quite a common solution to the problem. One of the developers either builds a tool, suggests a tool, or downloads a tool that can be used to generate a stack of CRUD methods off some form of data definition. Some of these utilities are able to read the database schema directly, some of them need XML definitions, others do neither and require some other form of manual intervention. The good utilities simple provide a basic interface to the database&#8217;s definition and allow you to wrap your own templates around them.</p>
-
-<p>The thing I don&#8217;t get with this solution is that there&#8217;s still a hefty chunk of work to be done to get the templates for the code <em>and</em> the stored procedures ready and bug-free.</p>
-
-<p><strong><u>2. Hibernation</u></strong></p>
-
-<p>This is something I know very little about at the moment. From what I can see on the surface, Hibernation refers to the handling of the persistence of objects (eg. in <a href="http://www.hibernate.org/343.html" title="NHibernate" target="_blank">.NET</a> or <a href="http://www.hibernate.org/" title="Hibernate" target="_blank">Java</a>) to and from relational databases such as MS SQL Server or MySQL. It attempts to decouple the database implementation and schema from the system&#8217;s <a href="http://en.wikipedia.org/wiki/Domain_model" title="Domain Model" target="_blank">domain model</a> - which is a good practice that aids us in preventing the domain model from being polluted with details of the underlying data store. Apart from that, the framework handles the mapping of objects to the data model and vice versa - I liiiiike, it is niiiiiice.</p>
-
-<p>This sounds very nice, but I have to reserve judgement as I&#8217;m yet to give it a spin myself. If it does what it says on the tin, then we&#8217;re all in happy joy joy land. I&#8217;ll try and get round to having a play with it in the next couple of weeks and see how easy it is to get going. If I can, I&#8217;ll try and benchmark it a bit too so we can get an idea of the performance. I&#8217;m interested to know how well this solution scales.</p>
-
-<p>Apparently Microsoft are looking to create something similar to this (or are in the process of creating it). I believe they&#8217;re calling it &#8220;ObjectSpaces&#8221;, but don&#8217;t quote me on that :)</p>
-
-<p><strong><u>3. Object Databases</u></strong></p>
-
-<p>I haven&#8217;t really kept up to speed with the advances in the field of object databases, but I&#8217;ve recently been handed a link to something that looks quite interesting called <a href="http://www.db4o.com/" title="db4objects">db4o</a> which looks to be a Java and .NET implementation of an object database. The idea of an object database isn&#8217;t new, but this framework looks like it&#8217;s making good ground.</p>
-
-<p>Unfortunately, in this case, it looks like the performance isn&#8217;t too crash hot and it&#8217;s not really scaling that well. Not just that, but I&#8217;m not sure if the issues of concurrency and data reporting have been nailed either. Again, this is something I&#8217;m yet to really play with, and I&#8217;ll give it a fair go before dismissing it. At the moment my gut feeling is that it&#8217;s not yet a viable solution for anything more than a hobby project, despite the apparent ease of use. I love the way it&#8217;s so easy to persist things and retrieve them again, but until the above issues start being nailed there&#8217;s no way it can be considered for anything of a larger scale.</p>
-
-<p><strong><u>What are the others</u></strong></p>
-
-<p>This is a question for you guys? I&#8217;m sure there are stacks out there which are worthy of mention, and I just have no idea what they are. Feel free to send over some links to other viable solutions and let me know what you think of them.</p>
-
-<hr/>
+<!--more-->
 
 
-<p><strong>EDIT &#8211;</strong></p>
+<h2>Agenda</h2>
 
-<p>I&#8217;d just like to add a quick follow-up to this. Christof over at <a href="http:/www.db4o.com/" title="db4objects">db4o</a> did me a favour and brought to my attention the current purpose of db4o, which is something I didn&#8217;t really know before (his comment can be read in the comments section). My focus while writing this blog post was to explore the options for the replacment of the issues faced in an &#8220;enterprise&#8221; system where there are potentially hundreds of thousands (if not millions) of records and a large amount of simultaneous transactions taking place. It looks like, at least for now, db4o isn&#8217;t intended to be used in such a scenario. Perhaps in the future this is something that will be targetted? Also, when I stated that it looked like it was handy for a hobby project, I wasn&#8217;t implying that hobbyists are the only people who would find it useful. Clearly it already has a use in embedded environments - I simply meant as a back-end DB for people building systems they may be using at home as part of a hobby project.</p>
+<p>This post is going to cover the following topics:</p>
 
-<p>I&#8217;m sure there&#8217;s stacks of information on this on their site and users forums, so I should get my butt over there and do a bit more reading :)</p>
+<ol>
+<li><em><a href="http://www.basho.com/developers.html#Riak" title="Riak">Riak</a> Secondary Indexes</em> - We&#8217;ll be using these so that we can link code snippet submissions to the users who submitted them.</li>
+<li><em>Form submission with <a href="http://www.basho.com/developers.html#Webmachine" title="Webmachine">Webmachine</a></em> - Users will be able to submit code snippet pairs to the system once they&#8217;re logged in.</li>
+<li><em>Site-wide authentication checks</em> - We&#8217;ll be implementing authorisation checks in a way such that each protected resource will behave nicely and redirect users to the appropriate location.</li>
+<li><em>Listing of submissions per-user</em> - Viewing the submissions for a given user will pull out a list from Riak using the secondary indexes.</li>
+<li><em>Tidying up of templates</em> - Now that we&#8217;ve got some content to render, we&#8217;ll put together some nicer templates to make the site a little nicer to look at.</li>
+</ol>
+
+
+<p>This post is shorter than <a href="/posts/webmachine-erlydtl-and-riak-part-2/" title="Wembachine, ErlyDTL and Riak - Part 4">Part 4</a>, but still a decent size. So, again, get yourself a drink and settle into your chair. Off we go!</p>
+
+<h2>But First &#8230;</h2>
+
+<p>Prior to continuing you should make sure you have the latest version of <a href="http://www.basho.com/developers.html#Riak" title="Riak">Riak</a> installed. If you don&#8217;t, please go and do this now (read <a href="/posts/webmachine-erlydtl-and-riak-part-1/" title="Wembachine, ErlyDTL and Riak - Part 1">Part 1</a> to learn how to build Riak from scratch).</p>
+
+<h2>Enabling Secondary Indexes</h2>
+
+<p>As already mentioned we&#8217;re going to be storing data in Riak and using the [Secondary Index][] feature to make it easier to link data together and do certain types of queries over that data. Given this requirement the first thing we should do is enable secondary indexes on our cluster.</p>
+
+<p>As per the [Riak wiki entry][Secondary Index] &#8230;</p>
+
+<blockquote><p>As of version 1.0, Secondary Indexes are enabled by configuring Riak to use the
+ELevelDB backend <code>riak_kv_eleveldb_backend</code>. Currently, the ELevelDB backend is the
+only index-capable backend.</p></blockquote>
+
+<p>So we need to go through our Riak development cluster configuration and make sure that our backend is set up correctly. We have to modify all the <code>app.config</code> files, so to do this easily we can run one simple command:</p>
+
+<p>-> TODO: add the two wildcards to the path below</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>vim /path/to/riak/dev/-wildcardsgohere-/app.config
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This will open [VIM][] with all of the <code>app.config</code> files open so that we can easily made the necessary modifications. In each of these files, find the <code>riak_kv</code> configuration section and change the backend like so:</p>
+
+<figure class='code'><figcaption><span>apps/csd_core/rebar.config  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="p">...</span> <span class="n">snip</span> <span class="p">...</span>
+</span><span class='line'><span class="c">%% Riak KV config</span>
+</span><span class='line'><span class="p">{</span><span class="n">riak_kv</span><span class="p">,</span> <span class="p">[</span>
+</span><span class='line'>          <span class="c">%% Storage_backend specifies the Erlang module defining the storage</span>
+</span><span class='line'>          <span class="c">%% mechanism that will be used on this node.</span>
+</span><span class='line'>          <span class="p">{</span><span class="n">storage_backend</span><span class="p">,</span> <span class="n">riak_kv_eleveldb_backend</span><span class="p">},</span>
+</span><span class='line'>          <span class="p">...</span> <span class="n">snip</span> <span class="p">...</span> <span class="p">]}</span>
+</span><span class='line'><span class="p">...</span> <span class="n">snip</span> <span class="p">...</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Done. Don&#8217;t forget to make sure your dev cluster is running again before you continue.</p>
+
+<h2>Code Snippet Submission</h2>
+
+<p>In case you&#8217;ve forgotten, the application we&#8217;re building (Code Smackdown - CSD), is a hot-or-not for code snippets with a twist. Users can submit two snippets of code which perform the same function and other users can vote for the snippet which they prefer. So what we need to do is allow (authenticated) users to post this kind of information. To do this, we need to understand how to do form submission using <a href="http://www.basho.com/developers.html#Webmachine" title="Webmachine">Webmachine</a>.</p>
+
+<p>Let&#8217;s start by creating a new resource which we&#8217;ll be using to handle the form submission. First, edit <code>app.config</code> and add a new dispatch rule like so:</p>
+
+<figure class='code'><figcaption><span>apps/csd_web/priv/app.config  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="p">{</span><span class="n">csd_web</span><span class="p">,</span>
+</span><span class='line'>  <span class="p">[</span>
+</span><span class='line'>    <span class="p">{</span><span class="n">web</span><span class="p">,</span>
+</span><span class='line'>      <span class="p">[</span>
+</span><span class='line'>        <span class="p">...</span> <span class="n">snip</span> <span class="p">...</span>
+</span><span class='line'>        <span class="p">{</span><span class="n">dispatch</span><span class="p">,</span>
+</span><span class='line'>          <span class="p">[</span>
+</span><span class='line'>            <span class="p">...</span> <span class="n">snip</span> <span class="p">...</span>
+</span><span class='line'>            <span class="p">{[</span><span class="s">&quot;snippet&quot;</span><span class="p">],</span> <span class="n">csd_web_snippet_submit_resource</span><span class="p">,</span> <span class="p">[]},</span>
+</span><span class='line'>            <span class="p">...</span> <span class="n">snip</span> <span class="p">...</span>
+</span><span class='line'>          <span class="p">]}</span>
+</span><span class='line'>      <span class="p">]</span>
+</span><span class='line'>    <span class="p">},</span>
+</span><span class='line'>    <span class="p">...</span> <span class="n">snip</span> <span class="p">...</span>
+</span><span class='line'>  <span class="p">]}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Notice how we&#8217;re using the same resource URI as the one used to GET snippets (as shown in <a href="/posts/webmachine-erlydtl-and-riak-part-3/" title="Wembachine, ErlyDTL and Riak - Part 3">Part 3</a>). This is to appear more RESTful. We&#8217;ll be POSTing to <code>/snippet</code> to submit a new snippet while GETting from <code>/snippet/_snippet-id_</code> to read those which already exist.</p>
+
+<p>Now that the route is set up, we need to create the resource which will handle it. Here is the full listing which we&#8217;ll go through in detail:</p>
+
+<figure class='code'><figcaption><span>apps/csd_web/src/csd_web_snippet_submit_resource.erl  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>Note:</strong> The code for Part 5 (this post) can be found on <a href="https://github.com/OJ/csd/tree/Part5-???" title="Source code for Part 5">Github</a>.</p>
 </div>
 
 
@@ -186,12 +270,12 @@
 
 
 
-<time datetime="2006-09-21T16:12:00+10:00" pubdate data-updated="true">21 Sep 2006</time>
+<time datetime="2012-05-01T21:30:00+10:00" pubdate data-updated="true">01 May 2012</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/categories/databases/'>Databases</a>, <a class='category' href='/categories/software-development/'>Software Development</a>, <a class='category' href='/categories/technology/'>Technology</a>
+    <a class='category' href='/categories/erlang/'>Erlang</a>, <a class='category' href='/categories/erlydtl/'>ErlyDTL</a>, <a class='category' href='/categories/functional-programming/'>Functional Programming</a>, <a class='category' href='/categories/howto/'>HOWTO</a>, <a class='category' href='/categories/oauth/'>OAuth</a>, <a class='category' href='/categories/riak/'>Riak</a>, <a class='category' href='/categories/twitter/'>Twitter</a>, <a class='category' href='/categories/webmachine/'>Webmachine</a>
   
 </span>
 
@@ -200,7 +284,7 @@
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://buffered.io/posts/dealing-with-the-crud/" data-via="TheColonial" data-counturl="http://buffered.io/posts/dealing-with-the-crud/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://buffered.io/posts/webmachine-erlydtl-and-riak-part-5/" data-via="TheColonial" data-counturl="http://buffered.io/posts/webmachine-erlydtl-and-riak-part-5/" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -211,10 +295,8 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/posts/list-o-software/" title="Previous Post: List o' Software">&laquo; List o' Software</a>
+        <a class="basic-alignment left" href="/posts/webmachine-erlydtl-and-riak-part-4/" title="Previous Post: Webmachine, ErlyDTL and Riak - Part 4">&laquo; Webmachine, ErlyDTL and Riak - Part 4</a>
       
-      
-        <a class="basic-alignment right" href="/posts/yarr-me-hearties/" title="next Post: Yarr me hearties!">Yarr me hearties! &raquo;</a>
       
     </p>
   </footer>
@@ -389,8 +471,8 @@ Copyright &copy; 2012 -
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://buffered.io/posts/dealing-with-the-crud/';
-        var disqus_url = 'http://buffered.io/posts/dealing-with-the-crud/';
+        var disqus_identifier = 'http://buffered.io/posts/webmachine-erlydtl-and-riak-part-5/';
+        var disqus_url = 'http://buffered.io/posts/webmachine-erlydtl-and-riak-part-5/';
         var disqus_script = 'embed.js';
       
     (function () {

@@ -187,7 +187,7 @@ distclean: clean
   @./rebar delete-deps
 
 webstart: app
-  exec erl -pa $(PWD)/apps/\*/ebin -pa $(PWD)/deps/\*/ebin -boot start_sasl -s reloader -s csd_web
+  exec erl -pa $(PWD)/apps/*/ebin -pa $(PWD)/deps/*/ebin -boot start_sasl -s reloader -s csd_web
 
 proxystart:
   @haproxy -f dev.haproxy.conf
@@ -921,7 +921,7 @@ As always, comments and feedback is welcomed and greatly appreciated. As are sug
   [JSON]: http://json.org/ "JavaScript Object Notation"
   [Part 1]: /posts/webmachine-erlydtl-and-riak-part-1/ "Wembachine, ErlyDTL and Riak - Part 1"
   [Part 2]: /posts/webmachine-erlydtl-and-riak-part-2/ "Wembachine, ErlyDTL and Riak - Part 2"
-  [Part2Code]: https://bitbucket.org/OJ/csd/changeset/df62880d12a8 "Source code for Part 2"
+  [Part2Code]: https://github.com/OJ/csd/tree/Part2-20110403 "Source code for Part 2"
   [Riak]: http://www.basho.com/developers.html#Riak "Riak"
   [ErlyDTL]: http://github.com/evanmiller/erlydtl "ErlyDTL"
   [SJMackenzie]: http://twitter.com/sj_mackenzie "Stewart Mackenzie on Twitter"
@@ -946,4 +946,4 @@ As always, comments and feedback is welcomed and greatly appreciated. As are sug
   [MononcQc]: http://twitter.com/mononcqc "Ferd T-H on Twitter"
   [LearnYouSomeErlang]: http://learnyousomeerlang.com/ "Learng you some erlang"
   [dict]: http://www.erlang.org/doc/man/dict.html "Erlang dict"
-  [Part3Code]: https://bitbucket.org/OJ/csd/src/55fec468488c "Source code for Part 3"
+  [Part3Code]: https://github.com/OJ/csd/tree/Part3-20110405 "Source code for Part 3"

@@ -4,7 +4,7 @@
   <title><![CDATA[OJ's rants]]></title>
   <link href="http://buffered.io/atom.xml" rel="self"/>
   <link href="http://buffered.io/"/>
-  <updated>2012-04-22T13:37:51+10:00</updated>
+  <updated>2012-05-02T18:46:40+10:00</updated>
   <id>http://buffered.io/</id>
   <author>
     <name><![CDATA[OJ Reeves]]></name>
@@ -12,6 +12,136 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Webmachine, ErlyDTL and Riak - Part 5]]></title>
+    <link href="http://buffered.io/posts/webmachine-erlydtl-and-riak-part-5/"/>
+    <updated>2012-05-01T21:30:00+10:00</updated>
+    <id>http://buffered.io/posts/webmachine-erlydtl-and-riak-part-5</id>
+    <content type="html"><![CDATA[<p><img class="right" src="http://buffered.io/uploads/2010/09/riak-logo.png" title="'Riak Logo'" >Newcomers to the series should first take a look at the previous four parts of the [series][] (<a href="http://buffered.io/posts/webmachine-erlydtl-and-riak-part-1/" title="Wembachine, ErlyDTL and Riak - Part 1">Part 1</a>, <a href="http://buffered.io/posts/webmachine-erlydtl-and-riak-part-2/" title="Wembachine, ErlyDTL and Riak - Part 2">Part 2</a>, <a href="http://buffered.io/posts/webmachine-erlydtl-and-riak-part-3/" title="Wembachine, ErlyDTL and Riak - Part 3">Part 3</a>, <a href="http://buffered.io/posts/webmachine-erlydtl-and-riak-part-2/" title="Wembachine, ErlyDTL and Riak - Part 4">Part 4</a>) first to make sure that you&#8217;re up to speed. Feel free to read on if you feel comfortable with the general concepts in use.</p>
+
+<p>When we finished <a href="http://buffered.io/posts/webmachine-erlydtl-and-riak-part-2/" title="Wembachine, ErlyDTL and Riak - Part 4">Part 4</a> we were able to authenticate users using <a href="http://twitter.com/" title="Twitter">Twitter</a> and <a href="http://oauth.net/" title="OAuth">OAuth</a>, which is great as we can delegate the responsibility of password management to an external entity.</p>
+
+<p>Now that we know who people are, we want them to be able to do something meanigful with their accounts. That&#8217;s what this post is all about.</p>
+
+<!--more-->
+
+
+<h2>Agenda</h2>
+
+<p>This post is going to cover the following topics:</p>
+
+<ol>
+<li><em><a href="http://www.basho.com/developers.html#Riak" title="Riak">Riak</a> Secondary Indexes</em> - We&#8217;ll be using these so that we can link code snippet submissions to the users who submitted them.</li>
+<li><em>Form submission with <a href="http://www.basho.com/developers.html#Webmachine" title="Webmachine">Webmachine</a></em> - Users will be able to submit code snippet pairs to the system once they&#8217;re logged in.</li>
+<li><em>Site-wide authentication checks</em> - We&#8217;ll be implementing authorisation checks in a way such that each protected resource will behave nicely and redirect users to the appropriate location.</li>
+<li><em>Listing of submissions per-user</em> - Viewing the submissions for a given user will pull out a list from Riak using the secondary indexes.</li>
+<li><em>Tidying up of templates</em> - Now that we&#8217;ve got some content to render, we&#8217;ll put together some nicer templates to make the site a little nicer to look at.</li>
+</ol>
+
+
+<p>This post is shorter than <a href="http://buffered.io/posts/webmachine-erlydtl-and-riak-part-2/" title="Wembachine, ErlyDTL and Riak - Part 4">Part 4</a>, but still a decent size. So, again, get yourself a drink and settle into your chair. Off we go!</p>
+
+<h2>But First &#8230;</h2>
+
+<p>Prior to continuing you should make sure you have the latest version of <a href="http://www.basho.com/developers.html#Riak" title="Riak">Riak</a> installed. If you don&#8217;t, please go and do this now (read <a href="http://buffered.io/posts/webmachine-erlydtl-and-riak-part-1/" title="Wembachine, ErlyDTL and Riak - Part 1">Part 1</a> to learn how to build Riak from scratch).</p>
+
+<h2>Enabling Secondary Indexes</h2>
+
+<p>As already mentioned we&#8217;re going to be storing data in Riak and using the [Secondary Index][] feature to make it easier to link data together and do certain types of queries over that data. Given this requirement the first thing we should do is enable secondary indexes on our cluster.</p>
+
+<p>As per the [Riak wiki entry][Secondary Index] &#8230;</p>
+
+<blockquote><p>As of version 1.0, Secondary Indexes are enabled by configuring Riak to use the
+ELevelDB backend <code>riak_kv_eleveldb_backend</code>. Currently, the ELevelDB backend is the
+only index-capable backend.</p></blockquote>
+
+<p>So we need to go through our Riak development cluster configuration and make sure that our backend is set up correctly. We have to modify all the <code>app.config</code> files, so to do this easily we can run one simple command:</p>
+
+<p>-> TODO: add the two wildcards to the path below</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>vim /path/to/riak/dev/-wildcardsgohere-/app.config
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This will open [VIM][] with all of the <code>app.config</code> files open so that we can easily made the necessary modifications. In each of these files, find the <code>riak_kv</code> configuration section and change the backend like so:</p>
+
+<figure class='code'><figcaption><span>apps/csd_core/rebar.config  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="p">...</span> <span class="n">snip</span> <span class="p">...</span>
+</span><span class='line'><span class="c">%% Riak KV config</span>
+</span><span class='line'><span class="p">{</span><span class="n">riak_kv</span><span class="p">,</span> <span class="p">[</span>
+</span><span class='line'>          <span class="c">%% Storage_backend specifies the Erlang module defining the storage</span>
+</span><span class='line'>          <span class="c">%% mechanism that will be used on this node.</span>
+</span><span class='line'>          <span class="p">{</span><span class="n">storage_backend</span><span class="p">,</span> <span class="n">riak_kv_eleveldb_backend</span><span class="p">},</span>
+</span><span class='line'>          <span class="p">...</span> <span class="n">snip</span> <span class="p">...</span> <span class="p">]}</span>
+</span><span class='line'><span class="p">...</span> <span class="n">snip</span> <span class="p">...</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Done. Don&#8217;t forget to make sure your dev cluster is running again before you continue.</p>
+
+<h2>Code Snippet Submission</h2>
+
+<p>In case you&#8217;ve forgotten, the application we&#8217;re building (Code Smackdown - CSD), is a hot-or-not for code snippets with a twist. Users can submit two snippets of code which perform the same function and other users can vote for the snippet which they prefer. So what we need to do is allow (authenticated) users to post this kind of information. To do this, we need to understand how to do form submission using <a href="http://www.basho.com/developers.html#Webmachine" title="Webmachine">Webmachine</a>.</p>
+
+<p>Let&#8217;s start by creating a new resource which we&#8217;ll be using to handle the form submission. First, edit <code>app.config</code> and add a new dispatch rule like so:</p>
+
+<figure class='code'><figcaption><span>apps/csd_web/priv/app.config  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="p">{</span><span class="n">csd_web</span><span class="p">,</span>
+</span><span class='line'>  <span class="p">[</span>
+</span><span class='line'>    <span class="p">{</span><span class="n">web</span><span class="p">,</span>
+</span><span class='line'>      <span class="p">[</span>
+</span><span class='line'>        <span class="p">...</span> <span class="n">snip</span> <span class="p">...</span>
+</span><span class='line'>        <span class="p">{</span><span class="n">dispatch</span><span class="p">,</span>
+</span><span class='line'>          <span class="p">[</span>
+</span><span class='line'>            <span class="p">...</span> <span class="n">snip</span> <span class="p">...</span>
+</span><span class='line'>            <span class="p">{[</span><span class="s">&quot;snippet&quot;</span><span class="p">],</span> <span class="n">csd_web_snippet_submit_resource</span><span class="p">,</span> <span class="p">[]},</span>
+</span><span class='line'>            <span class="p">...</span> <span class="n">snip</span> <span class="p">...</span>
+</span><span class='line'>          <span class="p">]}</span>
+</span><span class='line'>      <span class="p">]</span>
+</span><span class='line'>    <span class="p">},</span>
+</span><span class='line'>    <span class="p">...</span> <span class="n">snip</span> <span class="p">...</span>
+</span><span class='line'>  <span class="p">]}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Notice how we&#8217;re using the same resource URI as the one used to GET snippets (as shown in <a href="http://buffered.io/posts/webmachine-erlydtl-and-riak-part-3/" title="Wembachine, ErlyDTL and Riak - Part 3">Part 3</a>). This is to appear more RESTful. We&#8217;ll be POSTing to <code>/snippet</code> to submit a new snippet while GETting from <code>/snippet/_snippet-id_</code> to read those which already exist.</p>
+
+<p>Now that the route is set up, we need to create the resource which will handle it. Here is the full listing which we&#8217;ll go through in detail:</p>
+
+<figure class='code'><figcaption><span>apps/csd_web/src/csd_web_snippet_submit_resource.erl  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>Note:</strong> The code for Part 5 (this post) can be found on <a href="https://github.com/OJ/csd/tree/Part5-???" title="Source code for Part 5">Github</a>.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Webmachine, ErlyDTL and Riak - Part 4]]></title>
@@ -3065,7 +3195,7 @@ sure.. start with this:<br />
     <id>http://buffered.io/posts/webmachine-erlydtl-and-riak-part-3</id>
     <content type="html"><![CDATA[<p><img src="http://buffered.io/uploads/2010/09/riak-logo.png" alt="Riak Logo" style="float:left;padding-right:5px;padding-bottom:5px;"/>For those of you who are new to the series, you may want to check out <a href="http://buffered.io/posts/webmachine-erlydtl-and-riak-part-1/" title="Wembachine, ErlyDTL and Riak - Part 1">Part 1</a> and <a href="http://buffered.io/posts/webmachine-erlydtl-and-riak-part-2/" title="Wembachine, ErlyDTL and Riak - Part 2">Part 2</a> before reading this post. It will help give you some context as well as introduce you to some of the jargon and technology that I&#8217;m using. If you&#8217;ve already read then, or don&#8217;t want to, then please read on!</p>
 
-<p>This post builds on the previous two, but not without a few little modifications. If you&#8217;re interested in following along step by step with your own version of the code running, then get yourself a copy of <a href="https://bitbucket.org/OJ/csd/changeset/df62880d12a8" title="Source code for Part 2">this changeset</a> before doing so.</p>
+<p>This post builds on the previous two, but not without a few little modifications. If you&#8217;re interested in following along step by step with your own version of the code running, then get yourself a copy of <a href="https://github.com/OJ/csd/tree/Part2-20110403" title="Source code for Part 2">this changeset</a> before doing so.</p>
 
 <p>In this post we&#8217;re going to cover:</p>
 
@@ -3314,7 +3444,7 @@ oj@spawn-link ~/blog/csd/apps/csd_web $ cp ../../src/csd.app.src ./src/csd_web.a
 </span><span class='line'>  @./rebar delete-deps
 </span><span class='line'>
 </span><span class='line'>webstart: app
-</span><span class='line'>  exec erl -pa $(PWD)/apps/\*/ebin -pa $(PWD)/deps/\*/ebin -boot start_sasl -s reloader -s csd_web
+</span><span class='line'>  exec erl -pa $(PWD)/apps/*/ebin -pa $(PWD)/deps/*/ebin -boot start_sasl -s reloader -s csd_web
 </span><span class='line'>
 </span><span class='line'>proxystart:
 </span><span class='line'>  @haproxy -f dev.haproxy.conf</span></code></pre></td></tr></table></div></figure>
@@ -4416,7 +4546,7 @@ PROGRESS REPORT==== 4-Apr-2011::22:57:13 ===
 
 <p>As always, comments and feedback is welcomed and greatly appreciated. As are suggestions on improvements, pitfalls and blatant mistakes :)</p>
 
-<p><strong>Note:</strong> The code for Part 3 (this post) can be found on <a href="https://bitbucket.org/OJ/csd/src/55fec468488c" title="Source code for Part 3">Github</a>.</p>
+<p><strong>Note:</strong> The code for Part 3 (this post) can be found on <a href="https://github.com/OJ/csd/tree/Part3-20110405" title="Source code for Part 3">Github</a>.</p>
 ]]></content>
   </entry>
   
@@ -5878,23 +6008,6 @@ I&#8217;ll be posting the slides and demonstration code here on this blog as wel
 <p>So if you&#8217;re reading this, give me a few good reasons as to why permanent work is better than contract work. Why should I consider it? Would you consider it? If you&#8217;re a permy, are you looking to go contracting, and why?</p>
 
 <p>Feedback and comments are appreciated :)</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Truncated Pages]]></title>
-    <link href="http://buffered.io/posts/truncated-pages/"/>
-    <updated>2010-02-05T21:42:00+10:00</updated>
-    <id>http://buffered.io/posts/truncated-pages</id>
-    <content type="html"><![CDATA[<p>Not too long ago I mentioned that I&#8217;d <a href="http://buffered.io/posts/now-running-nginx/" title="Now Running Nginx">setup and installed Nginx</a> on this server. All seemed well to start off with, then on certain occasions I started to notice that some pages were being served truncated while I was at work. I thought that the issue was work-related, as they have a fairly draconian security policy in place and I thought that it had something to do with severing the connection.</p>
-
-<p>This assumption was proved false a few days ago when I received an email about my <a href="http://buffered.io/posts/setting-up-trac-mercurial-and-ssh-on-windows/">Trac/Mercurial/SSH</a> post not rendering properly in someone else&#8217;s browser. Dammit!</p>
-
-<p>So this time I actually did a bit of research by delving into the log files (yes, I know.. genius isn&#8217;t it!) and determined that there was indeed a problem. Thankfully it was fairly simple to resolve. For some reason the <em>fastcgi</em> instances were failing to function periodically when attempting to access a folder on disk. In short, some of the temp folders were owned by the right user, and some of them weren&#8217;t. After modifying the ownership of the appropriate folders, everything seems to be running nicely.</p>
-
-<p>Yet more proof that <a href="http://buffered.io/posts/the-admin-is-an-idiot/" title="The Admin is an Idiot">the admin is an idiot</a>.</p>
-
-<p>If after I post this you notice any truncation at all across the site, please let me know! Cheers!</p>
 ]]></content>
   </entry>
   
