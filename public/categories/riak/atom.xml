@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Riak | OJ's rants]]></title>
   <link href="http://buffered.io/categories/riak/atom.xml" rel="self"/>
   <link href="http://buffered.io/"/>
-  <updated>2012-05-02T18:49:49+10:00</updated>
+  <updated>2012-05-03T17:01:50+10:00</updated>
   <id>http://buffered.io/</id>
   <author>
     <name><![CDATA[OJ Reeves]]></name>
@@ -12,112 +12,6 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
-  
-  <entry>
-    <title type="html"><![CDATA[Webmachine, ErlyDTL and Riak - Part 5]]></title>
-    <link href="http://buffered.io/posts/webmachine-erlydtl-and-riak-part-5/"/>
-    <updated>2012-05-01T21:30:00+10:00</updated>
-    <id>http://buffered.io/posts/webmachine-erlydtl-and-riak-part-5</id>
-    <content type="html"><![CDATA[<p>{% img right /uploads/2010/09/riak-logo.png 'Riak Logo' %}Newcomers to the series should first take a look at the previous four parts of the [series][] (<a href="/posts/webmachine-erlydtl-and-riak-part-1/" title="Wembachine, ErlyDTL and Riak - Part 1">Part 1</a>, <a href="/posts/webmachine-erlydtl-and-riak-part-2/" title="Wembachine, ErlyDTL and Riak - Part 2">Part 2</a>, <a href="/posts/webmachine-erlydtl-and-riak-part-3/" title="Wembachine, ErlyDTL and Riak - Part 3">Part 3</a>, <a href="/posts/webmachine-erlydtl-and-riak-part-2/" title="Wembachine, ErlyDTL and Riak - Part 4">Part 4</a>) first to make sure that you're up to speed. Feel free to read on if you feel comfortable with the general concepts in use.</p>
-
-<p>When we finished <a href="/posts/webmachine-erlydtl-and-riak-part-2/" title="Wembachine, ErlyDTL and Riak - Part 4">Part 4</a> we were able to authenticate users using <a href="http://twitter.com/" title="Twitter">Twitter</a> and <a href="http://oauth.net/" title="OAuth">OAuth</a>, which is great as we can delegate the responsibility of password management to an external entity.</p>
-
-<p>Now that we know who people are, we want them to be able to do something meanigful with their accounts. That's what this post is all about.</p>
-
-<!--more-->
-
-
-<h2>Agenda</h2>
-
-<p>This post is going to cover the following topics:</p>
-
-<ol>
-<li><em><a href="http://www.basho.com/developers.html#Riak" title="Riak">Riak</a> Secondary Indexes</em> - We'll be using these so that we can link code snippet submissions to the users who submitted them.</li>
-<li><em>Form submission with <a href="http://www.basho.com/developers.html#Webmachine" title="Webmachine">Webmachine</a></em> - Users will be able to submit code snippet pairs to the system once they're logged in.</li>
-<li><em>Site-wide authentication checks</em> - We'll be implementing authorisation checks in a way such that each protected resource will behave nicely and redirect users to the appropriate location.</li>
-<li><em>Listing of submissions per-user</em> - Viewing the submissions for a given user will pull out a list from Riak using the secondary indexes.</li>
-<li><em>Tidying up of templates</em> - Now that we've got some content to render, we'll put together some nicer templates to make the site a little nicer to look at.</li>
-</ol>
-
-
-<p>This post is shorter than <a href="/posts/webmachine-erlydtl-and-riak-part-2/" title="Wembachine, ErlyDTL and Riak - Part 4">Part 4</a>, but still a decent size. So, again, get yourself a drink and settle into your chair. Off we go!</p>
-
-<h2>But First ...</h2>
-
-<p>Prior to continuing you should make sure you have the latest version of <a href="http://www.basho.com/developers.html#Riak" title="Riak">Riak</a> installed. If you don't, please go and do this now (read <a href="/posts/webmachine-erlydtl-and-riak-part-1/" title="Wembachine, ErlyDTL and Riak - Part 1">Part 1</a> to learn how to build Riak from scratch).</p>
-
-<h2>Enabling Secondary Indexes</h2>
-
-<p>As already mentioned we're going to be storing data in Riak and using the [Secondary Index][] feature to make it easier to link data together and do certain types of queries over that data. Given this requirement the first thing we should do is enable secondary indexes on our cluster.</p>
-
-<p>As per the [Riak wiki entry][Secondary Index] ...</p>
-
-<blockquote><p>As of version 1.0, Secondary Indexes are enabled by configuring Riak to use the
-ELevelDB backend <code>riak_kv_eleveldb_backend</code>. Currently, the ELevelDB backend is the
-only index-capable backend.</p></blockquote>
-
-<p>So we need to go through our Riak development cluster configuration and make sure that our backend is set up correctly. We have to modify all the <code>app.config</code> files, so to do this easily we can run one simple command:</p>
-
-<p>-> TODO: add the two wildcards to the path below
-{% codeblock lang:bash %}
-vim /path/to/riak/dev/-wildcardsgohere-/app.config
-{% endcodeblock %}</p>
-
-<p>This will open [VIM][] with all of the <code>app.config</code> files open so that we can easily made the necessary modifications. In each of these files, find the <code>riak_kv</code> configuration section and change the backend like so:</p>
-
-<p>{% codeblock apps/csd_core/rebar.config lang:erlang %}
-... snip ...
-%% Riak KV config
-{riak_kv, [</p>
-
-<pre><code>      %% Storage_backend specifies the Erlang module defining the storage
-      %% mechanism that will be used on this node.
-      {storage_backend, riak_kv_eleveldb_backend},
-      ... snip ... ]}
-</code></pre>
-
-<p>... snip ...
-{% endcodeblock %}</p>
-
-<p>Done. Don't forget to make sure your dev cluster is running again before you continue.</p>
-
-<h2>Code Snippet Submission</h2>
-
-<p>In case you've forgotten, the application we're building (Code Smackdown - CSD), is a hot-or-not for code snippets with a twist. Users can submit two snippets of code which perform the same function and other users can vote for the snippet which they prefer. So what we need to do is allow (authenticated) users to post this kind of information. To do this, we need to understand how to do form submission using <a href="http://www.basho.com/developers.html#Webmachine" title="Webmachine">Webmachine</a>.</p>
-
-<p>Let's start by creating a new resource which we'll be using to handle the form submission. First, edit <code>app.config</code> and add a new dispatch rule like so:</p>
-
-<p>{% codeblock apps/csd_web/priv/app.config lang:erlang %}
-{csd_web,                                                                                                             <br/>
-  [</p>
-
-<pre><code>{web,                                                                                                               
-  [                                                                                                                 
-    ... snip ...
-    {dispatch,                                                                                                      
-      [                                                                                                             
-        ... snip ...
-        {["snippet"], csd_web_snippet_submit_resource, []},                                                         
-        ... snip ...
-      ]}                                                                                                            
-  ]                                                                                                                 
-},                                  
-... snip ...
-</code></pre>
-
-<p>  ]}
-{% endcodeblock %}</p>
-
-<p>Notice how we're using the same resource URI as the one used to GET snippets (as shown in <a href="/posts/webmachine-erlydtl-and-riak-part-3/" title="Wembachine, ErlyDTL and Riak - Part 3">Part 3</a>). This is to appear more RESTful. We'll be POSTing to <code>/snippet</code> to submit a new snippet while GETting from <code>/snippet/_snippet-id_</code> to read those which already exist.</p>
-
-<p>Now that the route is set up, we need to create the resource which will handle it. Here is the full listing which we'll go through in detail:</p>
-
-<p>{% codeblock apps/csd_web/src/csd_web_snippet_submit_resource.erl lang:erlang %}
-{% endcodeblock %}</p>
-
-<p><strong>Note:</strong> The code for Part 5 (this post) can be found on <a href="https://github.com/OJ/csd/tree/Part5-???" title="Source code for Part 5">Github</a>.</p>
-]]></content>
-  </entry>
   
   <entry>
     <title type="html"><![CDATA[Webmachine, ErlyDTL and Riak - Part 4]]></title>
@@ -332,13 +226,13 @@ Compiled src/pooler.erl</p>
 <p>Given that we're using <code>pooler</code> the first thing we need to do is make sure that it loads and runs when <code>csd_core</code> fires up. To do this, we need to modify <code>csd_core.erl</code> so that it looks like this:</p>
 
 <p>{% codeblock apps/csd_core/src/csd_core.erl lang:erlang %}
-%% @author OJ Reeves <a href="&#109;&#x61;&#x69;&#x6c;&#x74;&#x6f;&#58;&#x6f;&#106;&#x40;&#x62;&#117;&#102;&#102;&#x65;&#114;&#101;&#x64;&#x2e;&#x69;&#x6f;">&#x6f;&#x6a;&#64;&#x62;&#x75;&#x66;&#x66;&#x65;&#x72;&#x65;&#100;&#46;&#105;&#x6f;</a>
+%% @author OJ Reeves <a href="&#109;&#97;&#105;&#108;&#x74;&#x6f;&#58;&#x6f;&#x6a;&#x40;&#98;&#x75;&#x66;&#x66;&#x65;&#x72;&#x65;&#100;&#x2e;&#x69;&#x6f;">&#x6f;&#106;&#x40;&#98;&#117;&#102;&#102;&#x65;&#114;&#101;&#x64;&#46;&#x69;&#111;</a>
 %% @copyright 2011 OJ Reeves</p>
 
 <p>%% @doc csd_core startup code</p>
 
 <p>-module(csd_core).
--author('OJ Reeves <a href="&#x6d;&#x61;&#x69;&#108;&#116;&#x6f;&#58;&#111;&#x6a;&#64;&#x62;&#x75;&#102;&#x66;&#x65;&#x72;&#101;&#100;&#46;&#105;&#x6f;">&#111;&#x6a;&#x40;&#x62;&#117;&#102;&#x66;&#x65;&#114;&#x65;&#100;&#x2e;&#105;&#x6f;</a>').
+-author('OJ Reeves <a href="&#x6d;&#97;&#105;&#x6c;&#x74;&#111;&#x3a;&#111;&#x6a;&#64;&#x62;&#x75;&#102;&#102;&#101;&#x72;&#x65;&#x64;&#x2e;&#x69;&#111;">&#111;&#x6a;&#64;&#x62;&#x75;&#x66;&#x66;&#x65;&#114;&#x65;&#x64;&#46;&#x69;&#111;</a>').
 -export([start/0, start_link/0, stop/0]).</p>
 
 <p>ensure_started(App) -></p>
@@ -761,13 +655,13 @@ webstart: app</p>
 
 <p>{% codeblock apps/csd_web/src/csd_web.erl lang:erlang %}</p>
 
-<p>%% @author OJ Reeves <a href="&#x6d;&#x61;&#x69;&#108;&#116;&#x6f;&#x3a;&#111;&#x6a;&#64;&#x62;&#117;&#102;&#x66;&#101;&#x72;&#101;&#100;&#46;&#x69;&#111;">&#x6f;&#x6a;&#x40;&#98;&#x75;&#102;&#102;&#x65;&#x72;&#x65;&#100;&#46;&#105;&#111;</a>
+<p>%% @author OJ Reeves <a href="&#109;&#x61;&#x69;&#108;&#x74;&#111;&#58;&#111;&#106;&#64;&#98;&#x75;&#x66;&#102;&#101;&#114;&#101;&#100;&#46;&#105;&#111;">&#x6f;&#x6a;&#x40;&#x62;&#x75;&#102;&#102;&#101;&#x72;&#101;&#100;&#x2e;&#x69;&#111;</a>
 %% @copyright 2012 OJ Reeves.</p>
 
 <p>%% @doc csd_web startup code</p>
 
 <p>-module(csd_web).
--author('OJ Reeves <a href="&#x6d;&#x61;&#105;&#x6c;&#116;&#111;&#58;&#111;&#x6a;&#x40;&#x62;&#117;&#x66;&#x66;&#101;&#x72;&#x65;&#x64;&#46;&#x69;&#x6f;">&#111;&#x6a;&#64;&#x62;&#117;&#x66;&#x66;&#x65;&#114;&#101;&#100;&#x2e;&#105;&#x6f;</a>').
+-author('OJ Reeves <a href="&#109;&#x61;&#105;&#108;&#x74;&#111;&#58;&#111;&#106;&#64;&#x62;&#117;&#102;&#x66;&#101;&#x72;&#x65;&#100;&#46;&#105;&#x6f;">&#111;&#106;&#x40;&#98;&#117;&#x66;&#102;&#x65;&#114;&#101;&#x64;&#46;&#x69;&#x6f;</a>').
 -export([start/0, start_link/0, stop/0]).</p>
 
 <p>ensure_started(App) ->
@@ -820,12 +714,12 @@ stop() ->
 
 <p>{% codeblock apps/csd_web/src/csd_web.erl lang:erlang %}</p>
 
-<p>%% @author OJ Reeves <a href="&#109;&#97;&#x69;&#108;&#x74;&#111;&#x3a;&#x6f;&#x6a;&#x40;&#98;&#117;&#102;&#x66;&#x65;&#x72;&#x65;&#x64;&#x2e;&#x69;&#111;">&#x6f;&#106;&#x40;&#98;&#117;&#x66;&#102;&#101;&#x72;&#x65;&#100;&#46;&#105;&#111;</a>
+<p>%% @author OJ Reeves <a href="&#x6d;&#x61;&#x69;&#108;&#x74;&#111;&#x3a;&#111;&#106;&#64;&#98;&#x75;&#102;&#102;&#101;&#114;&#x65;&#100;&#x2e;&#105;&#111;">&#x6f;&#x6a;&#64;&#98;&#117;&#102;&#x66;&#101;&#x72;&#101;&#x64;&#x2e;&#x69;&#x6f;</a>
 %% @copyright 2012 OJ Reeves</p>
 
 <p>-module(twitter).</p>
 
-<p>-author('OJ Reeves <a href="&#x6d;&#97;&#105;&#x6c;&#116;&#x6f;&#x3a;&#111;&#x6a;&#64;&#x62;&#x75;&#x66;&#102;&#101;&#114;&#101;&#x64;&#x2e;&#105;&#111;">&#x6f;&#x6a;&#64;&#x62;&#x75;&#102;&#x66;&#x65;&#114;&#101;&#100;&#x2e;&#105;&#x6f;</a>').</p>
+<p>-author('OJ Reeves <a href="&#109;&#x61;&#105;&#108;&#116;&#x6f;&#x3a;&#x6f;&#x6a;&#x40;&#x62;&#x75;&#x66;&#x66;&#101;&#x72;&#x65;&#x64;&#x2e;&#x69;&#x6f;">&#x6f;&#106;&#64;&#x62;&#x75;&#102;&#102;&#101;&#114;&#101;&#x64;&#x2e;&#105;&#x6f;</a>').</p>
 
 <p>-export([request_access/0, verify_access/3, get_current_user_info/2]).</p>
 
@@ -892,12 +786,12 @@ call_json_service(UrlKey, AccessToken, AccessTokenSecret) ->
 
 <p>{% codeblock apps/csd_web/src/cookie.erl (partial) lang:erlang %}</p>
 
-<p>%% @author OJ Reeves <a href="&#x6d;&#x61;&#105;&#x6c;&#116;&#x6f;&#x3a;&#x6f;&#106;&#x40;&#x62;&#x75;&#102;&#x66;&#101;&#114;&#x65;&#x64;&#x2e;&#x69;&#x6f;">&#111;&#x6a;&#64;&#x62;&#117;&#102;&#102;&#x65;&#114;&#x65;&#100;&#x2e;&#105;&#x6f;</a>
+<p>%% @author OJ Reeves <a href="&#x6d;&#x61;&#105;&#x6c;&#116;&#111;&#58;&#111;&#x6a;&#64;&#98;&#117;&#x66;&#102;&#x65;&#x72;&#x65;&#100;&#x2e;&#105;&#x6f;">&#111;&#106;&#64;&#x62;&#117;&#102;&#102;&#101;&#114;&#x65;&#x64;&#46;&#105;&#111;</a>
 %% @copyright 2012 OJ Reeves</p>
 
 <p>-module(cookie).</p>
 
-<p>-author('OJ Reeves <a href="&#109;&#x61;&#105;&#x6c;&#x74;&#111;&#x3a;&#111;&#106;&#64;&#98;&#117;&#x66;&#102;&#x65;&#114;&#x65;&#100;&#46;&#x69;&#x6f;">&#111;&#106;&#x40;&#x62;&#117;&#x66;&#x66;&#101;&#x72;&#101;&#100;&#46;&#x69;&#x6f;</a>').</p>
+<p>-author('OJ Reeves <a href="&#109;&#97;&#x69;&#108;&#x74;&#x6f;&#x3a;&#x6f;&#106;&#x40;&#x62;&#x75;&#102;&#x66;&#101;&#114;&#x65;&#x64;&#x2e;&#x69;&#111;">&#x6f;&#x6a;&#64;&#x62;&#x75;&#x66;&#x66;&#x65;&#x72;&#x65;&#100;&#x2e;&#105;&#111;</a>').</p>
 
 <p>-export([load_auth/1, store_auth/5]).</p>
 
@@ -1094,12 +988,12 @@ _ -&gt;
 <p>The <code>csd_view</code> module is new and was created to abstract the idea of template rendering. All the ErlyDTL handling happens in <code>csd_view</code>. Let's take a look at it now.</p>
 
 <p>{% codeblock apps/csd_web/src/csd_view.erl (partial) lang:erlang %}
-%% @author OJ Reeves <a href="&#x6d;&#x61;&#105;&#108;&#x74;&#111;&#58;&#x6f;&#x6a;&#64;&#98;&#117;&#x66;&#102;&#101;&#x72;&#101;&#100;&#x2e;&#x69;&#x6f;">&#x6f;&#106;&#64;&#x62;&#x75;&#102;&#x66;&#x65;&#x72;&#x65;&#x64;&#46;&#x69;&#x6f;</a>
+%% @author OJ Reeves <a href="&#109;&#x61;&#x69;&#108;&#116;&#111;&#x3a;&#x6f;&#x6a;&#64;&#98;&#x75;&#x66;&#x66;&#101;&#114;&#x65;&#100;&#x2e;&#x69;&#x6f;">&#x6f;&#106;&#64;&#98;&#117;&#102;&#102;&#x65;&#114;&#x65;&#100;&#46;&#105;&#111;</a>
 %% @copyright 2012 OJ Reeves</p>
 
 <p>-module(csd_view).</p>
 
-<p>-author('OJ Reeves <a href="&#x6d;&#97;&#x69;&#108;&#x74;&#111;&#x3a;&#x6f;&#x6a;&#x40;&#x62;&#117;&#x66;&#x66;&#x65;&#x72;&#101;&#x64;&#x2e;&#105;&#111;">&#x6f;&#x6a;&#64;&#98;&#117;&#x66;&#x66;&#x65;&#114;&#101;&#100;&#46;&#105;&#x6f;</a>').</p>
+<p>-author('OJ Reeves <a href="&#109;&#x61;&#x69;&#x6c;&#116;&#x6f;&#x3a;&#x6f;&#x6a;&#64;&#98;&#x75;&#x66;&#102;&#x65;&#114;&#x65;&#100;&#x2e;&#105;&#111;">&#x6f;&#106;&#x40;&#98;&#117;&#102;&#102;&#101;&#114;&#101;&#100;&#x2e;&#x69;&#111;</a>').</p>
 
 <p>-export([home/0, home/1]).</p>
 
@@ -1175,12 +1069,12 @@ _ -&gt;
 <p>Easily done. Now let's look at the implementation of the first handler which handles the <code>/oauth/request</code> URI, <code>csd_web_request_resource</code>.</p>
 
 <p>{% codeblock apps/csd_web/src/csd_web_request_resource.erl lang:erlang %}
-%% @author OJ Reeves <a href="&#109;&#97;&#105;&#x6c;&#x74;&#x6f;&#x3a;&#111;&#x6a;&#64;&#x62;&#117;&#x66;&#102;&#x65;&#x72;&#x65;&#100;&#46;&#x69;&#x6f;">&#x6f;&#106;&#64;&#98;&#117;&#x66;&#102;&#x65;&#x72;&#x65;&#x64;&#x2e;&#x69;&#111;</a>
+%% @author OJ Reeves <a href="&#x6d;&#x61;&#x69;&#x6c;&#116;&#111;&#x3a;&#x6f;&#x6a;&#x40;&#98;&#117;&#102;&#102;&#x65;&#114;&#x65;&#100;&#46;&#105;&#111;">&#x6f;&#106;&#x40;&#x62;&#117;&#x66;&#102;&#101;&#x72;&#101;&#x64;&#46;&#x69;&#111;</a>
 %% @copyright 2012 OJ Reeves</p>
 
 <p>-module(csd_web_request_resource).</p>
 
-<p>-author('OJ Reeves <a href="&#109;&#x61;&#x69;&#108;&#116;&#111;&#58;&#111;&#x6a;&#64;&#x62;&#117;&#x66;&#102;&#x65;&#114;&#x65;&#100;&#46;&#x69;&#111;">&#x6f;&#106;&#64;&#98;&#x75;&#102;&#x66;&#101;&#x72;&#x65;&#x64;&#46;&#x69;&#x6f;</a>').</p>
+<p>-author('OJ Reeves <a href="&#109;&#x61;&#x69;&#x6c;&#x74;&#111;&#58;&#x6f;&#x6a;&#64;&#98;&#x75;&#x66;&#102;&#101;&#x72;&#101;&#x64;&#x2e;&#x69;&#111;">&#111;&#x6a;&#64;&#98;&#117;&#102;&#x66;&#101;&#114;&#101;&#100;&#x2e;&#x69;&#x6f;</a>').</p>
 
 <p>-export([init/1, resource_exists/2, previously_existed/2, moved_temporarily/2]).</p>
 
@@ -1211,12 +1105,12 @@ _ -&gt;
 <p>Exciting! We're nearly there. Don't click "Sign In" just yet because we don't yet have the callback set up to handle the result. Let's do that now. Here's the resource:</p>
 
 <p>{% codeblock apps/csd_web/src/csd_web_callback_resource.erl lang:erlang %}
-%% @author OJ Reeves <a href="&#109;&#x61;&#x69;&#108;&#116;&#111;&#58;&#111;&#x6a;&#64;&#x62;&#117;&#x66;&#x66;&#101;&#114;&#x65;&#x64;&#x2e;&#105;&#x6f;">&#111;&#106;&#64;&#x62;&#x75;&#102;&#102;&#101;&#x72;&#x65;&#100;&#46;&#x69;&#x6f;</a>
+%% @author OJ Reeves <a href="&#109;&#97;&#x69;&#x6c;&#x74;&#111;&#x3a;&#111;&#x6a;&#x40;&#98;&#x75;&#102;&#x66;&#101;&#x72;&#101;&#100;&#46;&#105;&#111;">&#111;&#x6a;&#64;&#98;&#x75;&#102;&#102;&#101;&#x72;&#101;&#x64;&#x2e;&#x69;&#111;</a>
 %% @copyright 2012 OJ Reeves</p>
 
 <p>-module(csd_web_callback_resource).</p>
 
-<p>-author('OJ Reeves <a href="&#109;&#x61;&#x69;&#108;&#116;&#x6f;&#58;&#111;&#106;&#x40;&#x62;&#117;&#x66;&#102;&#x65;&#x72;&#101;&#100;&#x2e;&#105;&#x6f;">&#111;&#106;&#x40;&#98;&#x75;&#102;&#x66;&#x65;&#x72;&#101;&#x64;&#46;&#x69;&#111;</a>').</p>
+<p>-author('OJ Reeves <a href="&#109;&#x61;&#105;&#x6c;&#x74;&#x6f;&#x3a;&#111;&#x6a;&#x40;&#98;&#x75;&#x66;&#x66;&#x65;&#x72;&#x65;&#100;&#46;&#x69;&#111;">&#x6f;&#x6a;&#x40;&#98;&#x75;&#x66;&#x66;&#101;&#114;&#x65;&#x64;&#46;&#x69;&#111;</a>').</p>
 
 <p>-export([init/1, resource_exists/2, previously_existed/2, moved_temporarily/2]).</p>
 
@@ -1718,13 +1612,13 @@ Writing src/csd_core_sup.erl
 <p>We have a very simple application shell set up, but we need to do a bit more work to get it ready. First, let's create our base <code>csd_core.erl</code> module which is used to fire up our application. For this we will use <code>csd_web.erl</code> (the one which is part of our Webmachine application) as a template. Note that I've shuffled things around and removed some things that are not relevant:</p>
 
 <p>{% codeblock apps/csd_core/src/csd_core.erl lang:erlang %}
-%% @author OJ Reeves <a href="&#x6d;&#97;&#105;&#x6c;&#116;&#x6f;&#58;&#111;&#106;&#x40;&#98;&#x75;&#x66;&#102;&#101;&#x72;&#x65;&#x64;&#46;&#105;&#x6f;">&#x6f;&#106;&#64;&#x62;&#117;&#102;&#102;&#101;&#x72;&#101;&#x64;&#x2e;&#105;&#x6f;</a>
+%% @author OJ Reeves <a href="&#x6d;&#x61;&#x69;&#x6c;&#116;&#111;&#x3a;&#x6f;&#x6a;&#64;&#x62;&#x75;&#102;&#x66;&#x65;&#x72;&#x65;&#x64;&#x2e;&#105;&#x6f;">&#111;&#x6a;&#64;&#98;&#117;&#x66;&#x66;&#101;&#x72;&#x65;&#x64;&#46;&#x69;&#111;</a>
 %% @copyright 2011 OJ Reeves</p>
 
 <p>%% @doc csd_core startup code</p>
 
 <p>-module(csd_core).
--author('OJ Reeves <a href="&#x6d;&#97;&#x69;&#108;&#116;&#111;&#58;&#111;&#x6a;&#64;&#98;&#x75;&#x66;&#x66;&#x65;&#x72;&#x65;&#100;&#x2e;&#x69;&#x6f;">&#x6f;&#106;&#64;&#98;&#x75;&#102;&#x66;&#x65;&#x72;&#101;&#100;&#x2e;&#105;&#111;</a>').
+-author('OJ Reeves <a href="&#109;&#x61;&#x69;&#108;&#x74;&#111;&#x3a;&#111;&#106;&#64;&#x62;&#x75;&#x66;&#102;&#101;&#114;&#x65;&#100;&#x2e;&#x69;&#x6f;">&#x6f;&#x6a;&#64;&#x62;&#117;&#102;&#102;&#101;&#x72;&#101;&#100;&#46;&#105;&#111;</a>').
 -export([start/0, start_link/0, stop/0]).</p>
 
 <p>ensure_started(App) -></p>
@@ -2373,12 +2267,12 @@ fetch(RiakPid, Key) ->
 <p>In order to gain access to our data in Riak from the web we need to create a new resource. This resource will respond to any URI of the form <code>/snippet/&lt;key&gt;</code>. We shall call this resource <code>csd_web_snippet_resource</code> and we'll be putting this in our web application. It looks like this:</p>
 
 <p>{% codeblock apps/csd_web/src/csd_web_snippet_resource.erl lang:erlang %}
-%% @author OJ Reeves <a href="&#x6d;&#97;&#105;&#x6c;&#116;&#111;&#58;&#x6f;&#x6a;&#x40;&#98;&#117;&#102;&#102;&#101;&#114;&#101;&#x64;&#46;&#105;&#x6f;">&#x6f;&#106;&#x40;&#98;&#x75;&#x66;&#x66;&#101;&#x72;&#x65;&#100;&#46;&#105;&#x6f;</a>
+%% @author OJ Reeves <a href="&#x6d;&#97;&#x69;&#x6c;&#116;&#x6f;&#x3a;&#x6f;&#x6a;&#x40;&#98;&#x75;&#x66;&#102;&#101;&#114;&#x65;&#100;&#x2e;&#105;&#x6f;">&#x6f;&#106;&#64;&#x62;&#x75;&#102;&#102;&#x65;&#114;&#101;&#x64;&#46;&#105;&#111;</a>
 %% @copyright 2010 OJ Reeves
 %% @doc Webmachine resource that handles snippet-related actions</p>
 
 <p>-module(csd_web_snippet_resource).
--author('OJ Reeves <a href="&#109;&#97;&#x69;&#x6c;&#116;&#x6f;&#x3a;&#111;&#x6a;&#x40;&#98;&#x75;&#x66;&#102;&#x65;&#x72;&#x65;&#x64;&#46;&#105;&#x6f;">&#x6f;&#106;&#64;&#98;&#x75;&#102;&#102;&#x65;&#114;&#x65;&#x64;&#46;&#x69;&#111;</a>').</p>
+-author('OJ Reeves <a href="&#109;&#x61;&#x69;&#108;&#116;&#x6f;&#58;&#x6f;&#106;&#64;&#98;&#117;&#102;&#102;&#101;&#114;&#x65;&#x64;&#46;&#x69;&#x6f;">&#x6f;&#106;&#x40;&#98;&#117;&#x66;&#x66;&#x65;&#x72;&#101;&#x64;&#x2e;&#x69;&#x6f;</a>').</p>
 
 <p>-export([init/1, to_html/2]).</p>
 
@@ -2441,6 +2335,411 @@ fetch(RiakPid, Key) ->
 <p>As always, comments and feedback is welcomed and greatly appreciated. As are suggestions on improvements, pitfalls and blatant mistakes :)</p>
 
 <p><strong>Note:</strong> The code for Part 3 (this post) can be found on <a href="https://github.com/OJ/csd/tree/Part3-20110405" title="Source code for Part 3">Github</a>.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Webmachine, ErlyDTL and Riak - Part 2]]></title>
+    <link href="http://buffered.io/posts/webmachine-erlydtl-and-riak-part-2/"/>
+    <updated>2010-09-12T22:15:00+10:00</updated>
+    <id>http://buffered.io/posts/webmachine-erlydtl-and-riak-part-2</id>
+    <content type="html"><![CDATA[<p><img src="http://buffered.io/uploads/2010/09/riak-logo.png" alt="Riak Logo" style="float:left;padding-right:5px;padding-bottom:5px;"/>In <a href="/posts/webmachine-erlydtl-and-riak-part-1/" title="Wembachine, ErlyDTL and Riak - Part 1">Part 1</a> of the series we covered the basics of getting the development environment up and running. We also looked at how to get a really simple ErlyDTL template rendering. If you haven't yet gone through Part 1, I suggest you do that now. If you have, read on!</p>
+
+<p>There are a few reasons this series is targeting this technology stack. One of them is <strong>uptime</strong>. We're aiming to build a site that stays up as much as possible. Given that, one of the things that I missed in the previous post was setting up a <a href="http://en.wikipedia.org/wiki/Load_balancing_(computing)" title="Load balancing">load balancer</a>. Hence this post will attempt to fill that gap.</p>
+
+<!--more-->
+
+
+<p>Any serious web-based application will have load-balancing in play somewhere. While not essential during development, it's handy to have a similar set up in the hope that it exposes you to some potential issues you might face when the application reaches production.</p>
+
+<p>There are many high-quality load-balancing solutions out there to choose from. For this series, we shall be using <a href="http://haproxy.1wt.eu/" title="HAProxy">HAProxy</a>, which is a common choice amongst developers building scalable web applications. The rest of this post will cover how to set up HAProxy, verifying that the configuration is correct and confirming that it behaves appropriately when nodes in our cluster go down.</p>
+
+<p>Please note the goal is to demonstrate how HAProxy <em>can</em> be configured. When deploying to your production environments please make sure the configuration matches your needs.</p>
+
+<h3>HAProxy installation</h3>
+
+<p>Let's start by pulling down the latest stable version of HAProxy's source, extracting it and building it. Here's a sample log of what you should expect:</p>
+
+<pre><code>oj@nix ~/blog $ wget http://haproxy.1wt.eu/download/1.4/src/haproxy-1.4.14.tar.gz
+
+  ... snip ...
+
+oj@nix ~/blog $ tar -xzf haproxy-1.4.14.tar.gz 
+
+  ... snip ...
+</code></pre>
+
+<p>At this point we've got the source and we're ready to make. HAProxy requires a parameter in order to build, and this parameter varies depending on your target system:</p>
+
+<pre><code>oj@nix ~/blog $ cd haproxy-1.4.14
+oj@nix ~/blog/haproxy-1.4.14 $ make
+
+Due to too many reports of suboptimized setups, building without
+specifying the target is no longer supported. Please specify the
+target OS in the TARGET variable, in the following form:
+
+   make TARGET=xxx
+
+Please choose the target among the following supported list :
+
+   linux26, linux24, linux24e, linux22, solaris
+   freebsd, openbsd, cygwin, custom, generic
+
+Use "generic" if you don't want any optimization, "custom" if you
+want to precisely tweak every option, or choose the target which
+matches your OS the most in order to gain the maximum performance
+out of it. Please check the Makefile in case of doubts.
+make: *** [all] Error 1
+</code></pre>
+
+<p>According to <a href="http://en.wikipedia.org/wiki/Uname" title="uname">uname</a>, I'm running Linux Kernel 2.6:</p>
+
+<pre><code>oj@nix ~/blog/haproxy-1.4.14 $ uname -r
+2.6.31-21-generic
+</code></pre>
+
+<p>As a result, I'll be passing in <strong>linux26</strong>. Make sure you specify the correct option depending on which system you are running. We'll be building it <em>and</em> installing it so that it can be called from anywhere:</p>
+
+<pre><code>oj@nix ~/blog/haproxy-1.4.14 $ make TARGET=linux26
+
+    ... snip ...
+
+oj@nix ~/blog/haproxy-1.4.14 $ sudo make install
+
+   ... snip ...
+</code></pre>
+
+<p>Simple! We now need to create a configuration for HAProxy which we can use during development. Not surprisingly, HAProxy can be run as a daemon, but it can also be invoked from the command line with a configuration passed as a parameter. For our development, we'll be executing from the command line as this will give us feedback/output on what's going on.</p>
+
+<p>Let's create a file called <code>dev.haproxy.conf</code> inside our application directory so that it can be included in our source:</p>
+
+<p>{% codeblock dev.haproxy.conf lang:bash %}</p>
+
+<h1>start with the global settings which will</h1>
+
+<h1>apply to all sections in the configuration.</h1>
+
+<p>global
+  # specify the maximum connections across the board
+  maxconn 2048
+  # enable debug output
+  debug</p>
+
+<h1>now set the default settings for each sub-section</h1>
+
+<p>defaults
+  # stick with http traffic
+  mode http
+  # set the number of times HAProxy should attempt to
+  # connect to the target
+  retries 3
+  # specify the number of connections per front and
+  # back end
+  maxconn 1024
+  # specify some timeouts (all in milliseconds)
+  timeout connect 5000
+  timeout client 50000
+  timeout server 50000</p>
+
+<h6>##### Webmachine Configuration</h6>
+
+<h1>here is the first of the front-end sections.</h1>
+
+<h1>this is where we specify our webmachine instances.</h1>
+
+<h1>in our case we start with just one instance, but</h1>
+
+<h1>we can add more later</h1>
+
+<p>frontend webfarm
+  # listen on port 80 across all network interfaces
+  bind *:80
+  # by default, point at our backend configuration
+  # which lists our webmachine instances (this is
+  # configured below in another section)
+  default_backend webmachines</p>
+
+<h1>this section indicates how the connectivity to</h1>
+
+<h1>all the instances of webmachine should work.</h1>
+
+<h1>Again, for dev there is only one instance, but</h1>
+
+<h1>in production there would be more.</h1>
+
+<p>backend webmachines
+  # we'll specify a round-robin configuration in
+  # case we add nodes down the track.
+  balance roundrobin
+  # enable the "X-Forware-For" header so that
+  # we can see the client's IP in Webmachine,
+  # not just the proxy's address
+  option forwardfor
+  # later down the track we'll be making the use
+  # of cookies for various reasons. So we'll
+  # enable support for this while we're here.
+  cookie SERVERID insert nocache indirect
+  # list the servers who are to be balanced
+  # (just the one in the case of dev)
+  server Webmachine1 127.0.0.1:8000</p>
+
+<h6>##### Riak Configuration</h6>
+
+<h1>We are yet to touch Riak so far, but given that</h1>
+
+<h1>this post is going to cover the basics of</h1>
+
+<h1>connectivity, we'll cover off the configuration</h1>
+
+<h1>now so we don't have to do it later.</h1>
+
+<p>frontend dbcluster
+  # We'll be using protocol buffers to talk to
+  # Riak, so we will change from the default mode
+  # and use tcp instead
+  mode tcp
+  # we're only interested in allowing connections
+  # from internal sources (so that we don't expose
+  # ourselves to the web. so we shall only listen
+  # on an internal interface on port 8080
+  bind 127.0.0.1:8080
+  # Default to the riak cluster configuration
+  default_backend riaks</p>
+
+<h1>Here is the magic bit which load balances across</h1>
+
+<h1>our three instances of riak which are clustered</h1>
+
+<h1>together</h1>
+
+<p>backend riaks
+  # again, make sure we specify tcp instead of
+  # the default http mode
+  mode tcp
+  # use a standard round robin approach for load
+  # balancing
+  balance roundrobin
+  # list the three servers as optional targets
+  # for load balancing - these are what we set
+  # up during Part 1. Add health-checking as
+  # well so that when nodes go down, HAProxy
+  # can remove them from the cluster
+  server Riak1 127.0.0.1:8081 check
+  server Riak2 127.0.0.1:8082 check
+  server Riak3 127.0.0.1:8083 check
+{% endcodeblock %}</p>
+
+<p>In the configuration above the <code>backend riaks</code> section has three server nodes. Each one of them has the <code>check</code> option specified. This enables health-checking on the same address and port that the server instance is bound to. If you decided that you didn't want to do health-checking in this manner you easily enable health-checking over HTTP, as Riak has a built-in URI which can be used to validate the state of the node. Change the <code>backend riaks</code> section in the configuration to look like this:
+{% codeblock lang:bash %}</p>
+
+<h1>Here is the magic bit which load balances across</h1>
+
+<h1>our three instances of riak which are clustered</h1>
+
+<h1>together</h1>
+
+<p>backend riaks
+  # again, make sure we specify tcp instead of
+  # the default http mode
+  mode tcp
+  # use a standard round robin approach for load
+  # balancing
+  balance roundrobin
+  # enable HTTP health checking using the GET method
+  # on the URI "/ping". This URI is part of Riak and
+  # can be used to determine if the node is up.
+  # We specify that we want to use the GET action, and
+  # use the URI "/ping" - this is the RESTful health
+  # check URI that comes as part of Riak.
+  option httpchk GET /ping
+  # list the three servers as optional targets
+  # for load balancing - these are what we set
+  # up during Part 1. Add health-checking as
+  # well so that when nodes go down, HAProxy
+  # can remove them from the cluster.</p>
+
+<p>  # change the health-check address of the node to 127.0.0.0:8091
+  # which is the REST interface for the first Riak node
+  server Riak1 127.0.0.1:8081 check addr 127.0.0.1 port 8091</p>
+
+<p>  # change the health-check address of the node to 127.0.0.0:8092
+  # which is the REST interface for the second Riak node
+  server Riak2 127.0.0.1:8082 check addr 127.0.0.1 port 8092</p>
+
+<p>  # change the health-check address of the node to 127.0.0.0:8093
+  # which is the REST interface for the third Riak node
+  server Riak3 127.0.0.1:8083 check addr 127.0.0.1 port 8093
+{% endcodeblock %}</p>
+
+<p>To make sure this is functioning correctly, we need to open two consoles and change our working directory to our <code>csd</code> application (for those who have forgotten, <code>csd</code> is the application we're building - it was mentioned in <a href="/posts/webmachine-erlydtl-and-riak-part-1/" title="Wembachine, ErlyDTL and Riak - Part 1">Part 1</a>). In console 1:</p>
+
+<pre><code>oj@nix ~/blog/csd $ sudo haproxy -f dev.haproxy.conf -d
+Available polling systems :
+     sepoll : pref=400,  test result OK
+      epoll : pref=300,  test result OK
+       poll : pref=200,  test result OK
+     select : pref=150,  test result OK
+Total: 4 (4 usable), will use sepoll.
+Using sepoll() as the polling mechanism.
+</code></pre>
+
+<p>This indicates that HAProxy is up and running and waiting for connections. Let's get Webmachine fired up in console 2:</p>
+
+<pre><code>oj@nix ~/blog/csd $ ./start.sh
+
+    ... snip ...
+
+=PROGRESS REPORT==== 4-Apr-2011::23:39:27 ===
+         application: csd
+          started_at: nonode@nohost
+</code></pre>
+
+<p>Now Webmachine is fired up with our application running. We should be able to hit our page, this time at <a href="http://localhost/" title="localhost">localhost</a>, and see exactly what we saw at the end of <a href="/posts/webmachine-erlydtl-and-riak-part-1/" title="Wembachine, ErlyDTL and Riak - Part 1">Part 1</a>.</p>
+
+<p><img src="http://buffered.io/uploads/2010/09/haproxy-validation.png" /></p>
+
+<h3>Verification of HAProxy configuration</h3>
+
+<p>On the surface it appears that we haven't broken anything. We also need to make sure that any communication with Riak that we have down the track is also functioning. So let's validate that now.</p>
+
+<p>First, we have to make sure that Riak is running. If you have followed <a href="/posts/webmachine-erlydtl-and-riak-part-1/" title="Wembachine, ErlyDTL and Riak - Part 1">Part 1</a> already and your Riak cluster is running then you're good to go. If not, please read <a href="/posts/webmachine-erlydtl-and-riak-part-1/" title="Wembachine, ErlyDTL and Riak - Part 1">Part 1</a> for information on how to install Riak and configure it to run as a cluster of 3 nodes.</p>
+
+<p>Next, let's create 3 new connections and use the <a href="https://github.com/basho/riak-erlang-client/blob/master/src/riakc_pb_socket.erl#L181" title="riakc_pb_socket:get_server_info/1">get_server_info/1</a> function to find out which node we are connected to. To do this, we'll need to use an Erlang console which has all the Riak dependencies ready to go. It just so happens that when we fired up our Webmachine instance, we got an Erlang console for free. Simply hit the <code>enter</code> key and you'll be given a prompt. Notice that when we connect to Riak using the <a href="https://github.com/basho/riak-erlang-client/blob/master/src/riakc_pb_socket.erl#L97" title="riakc_pb_socket:start_link/2">start_link/2</a> function, we are passing in the IP address and port of the load-balanced cluster instead of one of the running Riak nodes:
+{% codeblock lang:erlang %}
+1> {ok, C1} = riakc_pb_socket:start_link("127.0.0.1", 8080).</p>
+
+<p>=PROGRESS REPORT==== 4-Apr-2011::23:41:18 ===</p>
+
+<pre><code>      supervisor: {local,inet_gethost_native_sup}
+         started: [{pid,&lt;0.148.0&gt;},{mfa,{inet_gethost_native,init,[[]]}}]
+</code></pre>
+
+<p>=PROGRESS REPORT==== 4-Apr-2011::23:41:18 ===</p>
+
+<pre><code>      supervisor: {local,kernel_safe_sup}
+         started: [{pid,&lt;0.147.0&gt;},
+                   {name,inet_gethost_native_sup},
+                   {mfargs,{inet_gethost_native,start_link,[]}},
+                   {restart_type,temporary},
+                   {shutdown,1000},
+                   {child_type,worker}]
+</code></pre>
+
+<p>{ok,&lt;0.146.0>}
+2> riakc_pb_socket:get_server_info(C1).
+{ok,[{node,&lt;&lt;"dev1@127.0.0.1">>},</p>
+
+<pre><code> {server_version,&lt;&lt;"0.12.0"&gt;&gt;}]}
+</code></pre>
+
+<p>3> {ok, C2} = riakc_pb_socket:start_link("127.0.0.1", 8080).
+{ok,&lt;0.151.0>}
+4> riakc_pb_socket:get_server_info(C2).
+{ok,[{node,&lt;&lt;"dev2@127.0.0.1">>},</p>
+
+<pre><code> {server_version,&lt;&lt;"0.12.0"&gt;&gt;}]}
+</code></pre>
+
+<p>5> {ok, C3} = riakc_pb_socket:start_link("127.0.0.1", 8080).
+{ok,&lt;0.154.0>}
+6> riakc_pb_socket:get_server_info(C3).
+{ok,[{node,&lt;&lt;"dev3@127.0.0.1">>},</p>
+
+<pre><code> {server_version,&lt;&lt;"0.12.0"&gt;&gt;}]}
+</code></pre>
+
+<p>{% endcodeblock %}</p>
+
+<p>So we can see that the load balancer has allocated three different connections, each to a different node in the cluster. This is a good sign. So let's kill off one of the nodes:</p>
+
+<pre><code>oj@nix ~/blog/riak/dev $ dev2/bin/riak stop
+ok
+</code></pre>
+
+<p>In a very short period of time, you should see output in the HAProxy console which looks something like this:</p>
+
+<pre><code>[WARNING] 253/235636 (11824) : Server riaks/Riak2 is DOWN, reason: Layer4 connection problem, info: "Connection refused", check duration: 0ms.
+</code></pre>
+
+<p>The load balancer noticed that the node has died. Let's make sure it no longer attempts to allocate connections to <code>dev2</code>. Note that we call <a href="http://www.erlang.org/documentation/doc-5.2/doc/getting_started/getting_started.html" title="Getting started">f()</a> in our console before running the same script again, as this forces the shell to forget about any existing variable bindings:
+{% codeblock lang:erlang %}
+7> f().
+ok
+8> {ok, C1} = riakc_pb_socket:start_link("127.0.0.1", 8080).
+{ok,&lt;0.1951.0>}
+9> riakc_pb_socket:get_server_info(C1).
+{ok,[{node,&lt;&lt;"dev1@127.0.0.1">>},</p>
+
+<pre><code> {server_version,&lt;&lt;"0.12.0"&gt;&gt;}]}
+</code></pre>
+
+<p>10> {ok, C2} = riakc_pb_socket:start_link("127.0.0.1", 8080).
+{ok,&lt;0.1954.0>}
+11> riakc_pb_socket:get_server_info(C2).
+{ok,[{node,&lt;&lt;"dev3@127.0.0.1">>},</p>
+
+<pre><code> {server_version,&lt;&lt;"0.12.0"&gt;&gt;}]}
+</code></pre>
+
+<p>12> {ok, C3} = riakc_pb_socket:start_link("127.0.0.1", 8080).
+{ok,&lt;0.1957.0>}
+13> riakc_pb_socket:get_server_info(C3).
+{ok,[{node,&lt;&lt;"dev1@127.0.0.1">>},</p>
+
+<pre><code> {server_version,&lt;&lt;"0.12.0"&gt;&gt;}]}
+</code></pre>
+
+<p>{% endcodeblock %}</p>
+
+<p>As we hoped, <code>dev2</code> is nowhere to be seen. Let's fire it up again:</p>
+
+<pre><code>oj@nix ~/blog/riak/dev $ dev2/bin/riak start
+</code></pre>
+
+<p><strong>Note:</strong> It isn't necessary to tell the node to rejoin the cluster. This happens automatically. Thanks to Siculars (see comment thread) for pointing that out.</p>
+
+<p>HAProxy's console will show you that it has re-established a connection to <code>dev2</code></p>
+
+<pre><code>[WARNING] 253/235852 (11824) : Server riaks/Riak2 is UP, reason: Layer7 check passed, code: 200, info: "OK", check duration: 1ms.
+</code></pre>
+
+<p>As a final test, let's make sure we see that node get connections when we attempt to connect:
+{% codeblock lang:erlang %}
+14> f().
+ok
+15> {ok, C1} = riakc_pb_socket:start_link("127.0.0.1", 8080).
+{ok,&lt;0.4203.0>}
+16> riakc_pb_socket:get_server_info(C1).
+{ok,[{node,&lt;&lt;"dev3@127.0.0.1">>},</p>
+
+<pre><code> {server_version,&lt;&lt;"0.12.0"&gt;&gt;}]}
+</code></pre>
+
+<p>17> {ok, C2} = riakc_pb_socket:start_link("127.0.0.1", 8080).
+{ok,&lt;0.4206.0>}
+18> riakc_pb_socket:get_server_info(C2).
+{ok,[{node,&lt;&lt;"dev1@127.0.0.1">>},</p>
+
+<pre><code> {server_version,&lt;&lt;"0.12.0"&gt;&gt;}]}
+</code></pre>
+
+<p>19> {ok, C3} = riakc_pb_socket:start_link("127.0.0.1", 8080).
+{ok,&lt;0.4209.0>}
+20> riakc_pb_socket:get_server_info(C3).
+{ok,[{node,&lt;&lt;"dev2@127.0.0.1">>},</p>
+
+<pre><code> {server_version,&lt;&lt;"0.12.0"&gt;&gt;}]}
+</code></pre>
+
+<p>{% endcodeblock %}</p>
+
+<h3>Wrapping up</h3>
+
+<p>Excellent. Now that we've got our load-balancer set up in development, we're ready to dive into connecting to Riak from our <code>csd</code> application. That will be the topic for the next post in this series.</p>
+
+<p>As always, comments and feedback are welcome and greatly appreciated. Suggestions on improvements and pointers on mistakes would be awesome. To anyone out there who has put HAProxy into production, we would love to hear your comments on your configuration!</p>
+
+<p><strong>Note:</strong> The code for Part 2 (this post) can be found on <a href="https://github.com/OJ/csd/tree/Part2-20110403" title="Source Code for Part 2">Github</a>.</p>
 ]]></content>
   </entry>
   
