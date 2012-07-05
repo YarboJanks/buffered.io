@@ -123,7 +123,7 @@ Finally, we are going to need to store some more meaningful information about a 
 
 Here's a visual of what we should end up with:
 
-{% img /uploads/2012/06/part5-db-schema.png 'CSD Schema' %}
+{% img /uploads/2012/07/part5-db-schema.png 'CSD Schema' %}
 
 Now that we have the basics of the schema out of the way, the first thing we should do is adjust our Riak module to include the new features we'll need to do with secondary indexing and map/reduce.
 
@@ -358,7 +358,7 @@ Abstraction purists might argue that this is a positive as it gives us the abili
 
 Rather than show the module here in its entirity, we'll break it up into chunks: snippets, users and votes. Each of these chunks will be looked at when we dive into storage of those individual bits of data. To give an idea of the purpose that it serves see the following diagram:
 
-{% img /uploads/2012/06/part5-db-modules.png 'Database Module Interaction' %}
+{% img /uploads/2012/07/part5-db-modules.png 'Database Module Interaction' %}
 
 The modules on the left invoke functions on `csd_db` which then invokes functions on the respective store modules passing in an extra parameter which is a `RiakPid` so that the store modules can talk to Riak. Simple!
 
@@ -978,13 +978,464 @@ We're done with the handling module, next we need to dive into how these are sto
 
 ### <a id="csd_vote_store"></a>`csd_vote_store` module
 
+This module follows the same pattern as the snippet storage module. Let's take a look at the code, starting with the defines. This is where we start to get into more interesting map/reduce jobs.
+
+{% codeblock apps/csd_core/src/csd_vote_store.erl (partial) lang:erlang %}
+-module(csd_vote_store).
+-author('OJ Reeves <oj@buffered.io>').
+
+-define(BUCKET, <<"vote">>).
+-define(SNIPPET_INDEX, <<"snippetid">>).
+-define(USER_INDEX, <<"userid">>).
+-define(COUNT_VOTE_MAP_JS, <<"function(v){var d=Riak.mapValuesJson(v)[0];if(d.which===\"left\"){return[[1,0]];}return[[0,1]];}">>).
+-define(COUNT_VOTE_RED_JS, <<"function(vals,arg){if(vals.length===0){return[[0,0]];}return[vals.reduce(function(a,v){return[a[0]+v[0],a[1]+v[1]];})];}">>).
+-define(COUNT_VOTE_USER_MAP_JS, <<"function(v,k,a){var d=Riak.mapValuesJson(v)[0];var which=d.user_id===a?d.which:\"\";if(d.which===\"left\"){return[[1,0,which]];}return[[0,1,which]];}">>).
+-define(COUNT_VOTE_USER_RED_JS, <<"function(vals,arg){if(vals.length===0){return[[0,0,\"\"]];}return[vals.reduce(function(a,v){return[a[0]+v[0],a[1]+v[1],a[2].length>0?a[2]:v[2]];})];}">>).
+
+% ... snip ...
+{% endcodeblock %}
+
+The first few -- `BUCKET`, `SNIPPET_INDEX` and `USER_INDEX` -- speak for themselves and probably don't need explanation. The rest of them do. These are all JavaScript map/reduce job phases condensed into single strings. Let's expand them out.
+
+{% codeblock COUNT_VOTE_MAP_JS lang:javascript %}
+function(v) {
+  var d = Riak.mapValuesJson(v)[0];
+  if (d.which === "left") {
+    return [[1, 0]];
+  }
+
+  return [[0, 1]];
+}
+{% endcodeblock %}
+
+As the name of the snippet suggests, this is the map phase of the job which performs a count. The first line of this function is extracting the value of the JSON object out of the Riak object as we have done in the past in other phases. Remember that each vote contains a value which indicates which side of the snippet the vote counts towards. This function checks to see which side a given vote and returns two values. Each value that is parsed in this map phase will result in either `[[1, 0]]` or `[[0, 1]]`. We'll see how this is useful after taking a look at the reduce phase.
+
+{% codeblock COUNT_VOTE_RED_JS lang:javascript %}
+function(vals, arg) {
+  if (vals.length === 0) {
+    return[[0, 0]];
+  }
+
+  return [vals.reduce(function(a, v) {
+      return [a[0] + v[0], a[1] + v[1]];
+    }
+  )];
+}
+{% endcodeblock %}
+
+When this reduce phase is run we check the existing list of values from any previous reductions and if there aren't any we default to `[[0, 0]]`. This acts as the seed for our accumulation of values. Otherwise, we reduce across all the values that are given, which will come in the form `[[L0, R0], [L1, R1], ... [Ln, Rn]]`. During our reduction we simply add the two values in the arrays together based on index, resulting in us totalling both the number of `left` and `right` votes at the same time. We return the result again as another array of values.
+
+When the reduce is finished we end up with a single nested array in the form `[[L, R]]` where `L` is the total number of votes cast for the `left` side and `R` is the total for the `right`.
+
+With these two phases we now have a map/reduce job which is able to tally up all the votes for a given snippet and tell is which side was voted for.
+
+Next up is a bit of boilerplate with the vote fetch function:
+
+{% codeblock apps/csd_core/src/csd_vote_store.erl (partial) lang:erlang %}
+% ... snip ...
+
+%% --------------------------------------------------------------------------------------
+%% API Function Exports
+%% --------------------------------------------------------------------------------------
+
+-export([fetch/2, save/2, count_for_snippet/2, count_for_snippet/3]).
+
+%% --------------------------------------------------------------------------------------
+%% API Function Definitions
+%% --------------------------------------------------------------------------------------
+
+fetch(RiakPid, VoteId) ->
+  case csd_riak:fetch(RiakPid, ?BUCKET, VoteId) of
+    {ok, RiakObj} ->
+      VoteJson = csd_riak:get_value(RiakObj),
+      Vote = csd_vote:from_json(VoteJson),
+      {ok, Vote};
+    {error, Reason} ->
+      {error, Reason}
+  end.
+
+% ... snip ...
+{% endcodeblock %}
+
+There shouldn't be anything new about this fetch function at this stage. It's the same as what we've done for the snippet loader, but specific to votes. Let's take a look at something a little more interesting.
+
+{% codeblock apps/csd_core/src/csd_vote_store.erl (partial) lang:erlang %}
+% ... snip ...
+
+count_for_snippet(RiakPid, SnippetId) ->
+  MR1 = csd_riak_mr:add_input_index(csd_riak_mr:create(), ?BUCKET, bin,
+    ?SNIPPET_INDEX, SnippetId),
+  MR2 = csd_riak_mr:add_map_js(MR1, ?COUNT_VOTE_MAP_JS, false),
+  MR3 = csd_riak_mr:add_reduce_js(MR2, ?COUNT_VOTE_RED_JS),
+  case csd_riak_mr:run(RiakPid, MR3) of
+    {ok, [{1, [[Left, Right]]}]} -> {ok, {Left, Right}};
+    Error -> Error
+  end.
+
+% ... snip ...
+{% endcodeblock %}
+
+In the first line of the function we are creating a new map/reduce job. This job is passed into the `add_input_index` function which adds an input to the job with an index. This index is a _binary_ index (`bin`) called `?SNIPPET_INDEX` and we're passing in the value of `SnippetId` which will tell Riak to pull out all vote entries that have a secondary index which contains the key of the snippet.
+
+We then add another phase to this job that contains the javascript function that maps over the votes and counts them. Here we're not interested in pulling the results of the phase so we're passing in `false` in as the last parameter. Finally we add our last phase, which is the reduce phase that counts up all the votes.
+
+Upon executing the map/reduce job we there are a number of possible results. Just like we saw with the map/reduce job in the `snippet` module, we are able to pattern match directly against the exact format of the result because we are only expecting a single phase result.
+
+If the result comes out in this format we just return a tuple that contains the counts for the `left` and `right` sections. If not, we just return whatever it was that came out of Riak (which should be an error).
+
+Next we'll see a very similar function with a very slight difference.
+
+{% codeblock apps/csd_core/src/csd_vote_store.erl (partial) lang:erlang %}
+% ... snip ...
+
+count_for_snippet(RiakPid, SnippetId, UserId) ->
+  MR1 = csd_riak_mr:add_input_index(csd_riak_mr:create(), ?BUCKET, bin,
+    ?SNIPPET_INDEX, SnippetId),
+  MR2 = csd_riak_mr:add_map_js(MR1, ?COUNT_VOTE_USER_MAP_JS, false, UserId),
+  MR3 = csd_riak_mr:add_reduce_js(MR2, ?COUNT_VOTE_USER_RED_JS),
+  case csd_riak_mr:run(RiakPid, MR3) of
+    {ok, [{1, [[Left, Right, Which]]}]} -> {ok, {Left, Right, Which}};
+    Error -> Error
+  end.
+
+% ... snip ...
+{% endcodeblock %}
+
+This function differs from the previous `count_for_snippet` only in that it accepts another parameter, `UserId`, which indicates the Id of the user initiating the query. The phases are included in the same way, but the functions invoked are `UserId`-aware. The result varies from before in that it returns another parameter in the reduce phase result, `Which`. This value indicates which side the user voted for, if at all.
+
+Lastly, we're back to a bit more boilerplate.
+
+{% codeblock apps/csd_core/src/csd_vote_store.erl (partial) lang:erlang %}
+% ... snip ...
+
+save(RiakPid, Vote) ->
+  VoteId = csd_vote:get_id(Vote),
+  UserId = csd_vote:get_user_id(Vote),
+  SnippetId = csd_vote:get_snippet_id(Vote),
+
+  case csd_riak:fetch(RiakPid, ?BUCKET, VoteId) of
+    {ok, _RiakObj} ->
+      {error, "User has already voted on this snippet."};
+    {error, notfound} ->
+      RiakObj = csd_riak:create(?BUCKET, VoteId, csd_vote:to_json(Vote)),
+      Indexes = [
+        {bin, ?SNIPPET_INDEX, SnippetId},
+        {int, ?USER_INDEX, UserId}
+      ],
+
+      NewRiakObj = csd_riak:set_indexes(RiakObj, Indexes),
+      ok = csd_riak:save(RiakPid, NewRiakObj),
+      {ok, Vote}
+  end.
+{% endcodeblock %}
+
+Here you can see the indexes being added when the item is being saved. Those indexes are the most important part, otherwise the vote won't be counted.
+
+The only other thing that is really worth mentioning here is there is validation that the user hasn't already voted for a given snippet. My design choice here was to make it so that people can't change their mind. I reserve the right to change _my_ mind on this design later.
+
+Let's save a vote and execute a map/reduce job to find votes to make sure our functionality works.
+
+{% codeblock lang:erlang %}
+1> V = csd_vote:to_vote(12345, "ABCDE", "left").
+{vote,12345,"ABCDE","left",<<"2012-07-02T09:37:21.332Z">>}
+2> csd_vote:save(V).
+{ok,{vote,12345,"ABCDE","left",
+          <<"2012-07-02T09:37:21.332Z">>}}
+3> csd_vote:count_for_snippet("ABCDE").
+{ok,{count,1,0,<<>>}}
+4> csd_vote:count_for_snippet("ABCDE", 12345).
+{ok,{count,1,0,<<"left">>}}
+{% endcodeblock %}
+
+Excellent. We can see that storage is working and that when we do map/reduce with and without the `UserId` specified we get the expected results.
+
 That's votes done. The last thing we're going to store is a bit of user information.
 
 ## <a id="storing-users"></a>Storing Users
 
-### <a id="csd_vote"></a>`csd_vote` module
+At this point in the game we're not interesting in too much stuff with respect to the user. We're putting this in place now because down the track we will be storing more. To start with we're just going to track the user's Twitter name, their Twitter ID (which we'll use as their ID in our system too) and the date in which they joined CSD.
+
+### <a id="csd_user"></a>`csd_user` module
+
+This should be routine by now. Let's take a look at the file as a whole.
+
+{% codeblock apps/csd_core/src/csd_user.erl lang:erlang %}
+-module(csd_user).
+-author('OJ Reeves <oj@buffered.io>').
+
+%% --------------------------------------------------------------------------------------
+%% API Function Exports
+%% --------------------------------------------------------------------------------------
+
+-export([
+    get_id/1,
+    get_name/1,
+    fetch/1,
+    save/1,
+    to_user/2,
+    from_json/1,
+    to_json/1]).
+
+%% --------------------------------------------------------------------------------------
+%% Internal Record Definitions
+%% --------------------------------------------------------------------------------------
+
+-record(user, {
+    id,
+    name,
+    joined
+  }).
+
+%% --------------------------------------------------------------------------------------
+%% API Function Definitions
+%% --------------------------------------------------------------------------------------
+
+to_user(Id, Name) ->
+  #user{
+    name = Name,
+    id = Id,
+    joined = csd_date:utc_now()
+  }.
+
+get_id(#user{id=Id}) ->
+  Id.
+
+get_name(#user{name=Name}) ->
+  Name.
+
+fetch(Id) ->
+  csd_db:get_user(Id).
+
+save(User=#user{}) ->
+  csd_db:save_user(User).
+
+to_json(#user{name=N, id=T, joined=J}) ->
+  csd_json:to_json([{name, N}, {id, T}, {joined, J}], fun is_string/1).
+
+from_json(UserJson) ->
+  User = csd_json:from_json(UserJson, fun is_string/1),
+  #user{
+    id = proplists:get_value(id, User),
+    name = proplists:get_value(name, User),
+    joined = proplists:get_value(joined, User)
+  }.
+
+%% --------------------------------------------------------------------------------------
+%% Internal Function Definitions
+%% --------------------------------------------------------------------------------------
+
+is_string(name) -> true;
+is_string(joined) -> true;
+is_string(_) -> false.
+{% endcodeblock %}
+
+This entire module fits the pattern that we have already applied to both the `snippet` and `vote` functionality. Rather than waste more characters in this post I'm going to assume that you guys are able to digest this without any explanation. Ping me a comment below if you get stuck.
+
+So what does the storage bit look like?
 
 ### <a id="csd_user_store"></a>`csd_user_store` module
+
+It looks like this!
+
+{% codeblock apps/csd_core/src/csd_user_store.erl lang:erlang %}
+-module(csd_user_store).
+-author('OJ Reeves <oj@buffered.io>').
+
+-define(BUCKET, <<"user">>).
+
+%% --------------------------------------------------------------------------------------
+%% API Function Exports
+%% --------------------------------------------------------------------------------------
+
+-export([fetch/2, save/2]).
+
+%% --------------------------------------------------------------------------------------
+%% API Function Definitions
+%% --------------------------------------------------------------------------------------
+
+fetch(RiakPid, UserId) when is_integer(UserId) ->
+  fetch(RiakPid, integer_to_list(UserId));
+fetch(RiakPid, UserId) when is_list(UserId) ->
+  fetch(RiakPid, list_to_binary(UserId));
+fetch(RiakPid, UserId) when is_binary(UserId) ->
+  case csd_riak:fetch(RiakPid, ?BUCKET, UserId) of
+    {ok, RiakObj} ->
+      UserJson = csd_riak:get_value(RiakObj),
+      User = csd_user:from_json(UserJson),
+      {ok, User};
+    {error, Reason} ->
+      {error, Reason}
+  end.
+
+save(RiakPid, User) ->
+  IntId = csd_user:get_id(User),
+
+  % Id is int, so we need to conver to a binary
+  UserId = list_to_binary(integer_to_list(IntId)),
+
+  case csd_riak:fetch(RiakPid, ?BUCKET, UserId) of
+    {ok, _RiakObj} ->
+      % user already exists, we don't need to save anything.
+      {ok, User};
+    {error, notfound} ->
+      NewRiakObj = csd_riak:create(?BUCKET, UserId, csd_user:to_json(User)),
+      ok = csd_riak:save(RiakPid, NewRiakObj),
+      {ok, User}
+  end.
+{% endcodeblock %}
+
+User management is really easy at this stage. We're doing basic store and retrieve operations without any real complexity. After seeing the `vote` and `snippet` functionality I'm fairly certain that you'll be more than comfortable with this code.
+
+For brevity I'm going to skip going through a sample of storing/retrieving users via the Erlang shell and move on to something completely new. But first...
+
+## <a id="take-a-breath"></a>Take a Breath
+
+Phew! That was quite a bit to take in. Thanks for reading this far. Posts this long do take a bit of effort to get through. If you're not scared yet you should be as we've now only covered the back-end stuff. We've still got the Webmachine end to deal with. There's a bit to cover here as too, so fill that glass back up, do some Pilates and when you're refreshed come back and dive into the next section.
+
+Ready? Good. Here we go.
+
+## <a id="save-user-on-login"></a>Saving User on Login
+
+Now that we have the ability to store the details of a user the first thing we're going to do is make a call to this new functionality when a user signs in successfully. For that we need to edit the `csd_web_callback_resource` module in the `csd_web` application. This is the module that is invoked when Twitter responds via OAuth. For the most part the module is the same, except for one function which looks like this:
+
+{% codeblock apps/csd_web/src/csd_web_callback_resource.erl (partial) lang:erlang %}
+% ... snip ...
+
+moved_temporarily(ReqData, State) ->
+  ReqToken = wrq:get_qs_value("oauth_token", ReqData),
+  ReqTokenSecret = wrq:get_qs_value("oauth_token_secret", ReqData),
+  Verifier = wrq:get_qs_value("oauth_verifier", ReqData),
+
+  {ok, AccessToken, AccessTokenSecret} = twitter:verify_access(ReqToken, ReqTokenSecret, Verifier),
+  {ok, UserInfoJson} = twitter:get_current_user_info(AccessToken, AccessTokenSecret),
+  {struct, Json} = mochijson2:decode(UserInfoJson),
+  UserId = proplists:get_value(<<"id">>, Json),
+  UserName = proplists:get_value(<<"screen_name">>, Json),
+  NewReqData = cookie:store_auth(ReqData, UserId, UserName, AccessToken, AccessTokenSecret),
+
+  User = csd_user:to_user(UserId, UserName),   %% -- new functionality
+  {ok, _} = csd_user:save(User),               %% -- new functionality
+
+  % TODO: error handlng for when things don't go to plan
+  {{ "{" }}{true, conf:get_val(urimap, home)}, NewReqData, State}.
+{% endcodeblock %}
+
+The two new lines are highlighted with comments. You can see we're just creating a new user record by specifying the id and password, and then persisting this to Riak through the `csd_user` module. Simple stuff! User details will now be persisted when the user successfully signs in. We're not yet handling the case where the user decides not to sign in, or if the process fails, but we'll get to that in a future post.
+
+## <a id="post-sign-in"></a>Post Sign-In
+
+To briefly recap, when a user hits our site for the first time want to ask them to sign in. Once they have done so, we know who they are and we want to show a different view. the `moved_temporarily` function above redirects them back to this page after a successful sign in. Given that we have the ability to find out who they are, we need to respond differently on the home page view. When a recognised user signs in we're going to show them a landing page with a list of the snippets that they have submitted. To do this, we're going to need to know their Twitter Id, as that's what we're using to identify the owner of a snippet.
+
+We need to make a very slight adjustment to our main `csd_web_resource` module so that we extract the user's Id at the same time as their name.
+
+{% codeblock apps/csd_web/src/csd_web_resource.erl (partial) lang:erlang %}
+% ... snip ...
+
+to_html(ReqData, State) ->
+  Content = case cookie:load_auth(ReqData) of
+    {ok, {UserId, Name, _, _}} ->       %% -- this is what we changed
+      csd_view:home(UserId, Name);
+    _ ->
+      csd_view:home()
+  end,
+  {Content, ReqData, State}.
+
+% ... snip ...
+{% endcodeblock %}
+
+In the [last post][Part4] we had already stored a few details about the user in their auth cookie, but we were only extracting their name. To get their Id as well we just needed to change our pattern match from `{_, Name, _, _}` to `{UserId, Name, _, _}`. We then pass this extra detail into the call to `csd_view:home` so that we can utilise that down the track. This new parameter needs to be handled by `csd_view` so let's take a look at the changes there.
+
+{% codeblock apps/csd_web/src/csd_view.erl (partial) lang:erlang %}
+% ... snip ...
+
+home(UserId, Name) ->
+  Params = [{logged_in, true}, {user_id, UserId}, {user_name, Name}],
+  {ok, Content} = home_dtl:render(Params),
+  Content.
+
+% ... snip ...
+{% endcodeblock %}
+
+The only difference here is that we're now passing `{user_id, UserId}` down to the template renderer as well as other detail. This means the view can do something useful with it. We'll go over that a bit later when we cover off the UI, but for now let's take a look at what happens when the user's "profile" page is rendered.
+
+## <a id="user-profile"></a>User Profile
+
+The user profile page is what is displayed when the user signs in or comes back to the site while their cookie is still valid. This page contains a list of snippets that the user submitted listed in reverse chronological order. As a sneak preview, this is what we're striving for:
+
+{% img /uploads/2012/07/part5-user-profile.png 'User profile page' %}
+
+Please excuse my obvious test data, but you should get the idea. Each snippet listed on the page is shown as a link which gives the user direct access to the page specific to that snippet. So let's take a look at the resource code which provides the data for this view. This is an entirely new module called `csd_web_user_detail_resource`.
+
+I've trimmed out some of the usual cruft for brevity and am showing just the interesting bits. The full source is available on Github and linked at the bottom of the post.
+
+{% codeblock apps/csd_web/priv/app.config lang:erlang %}
+% ... snip ...
+
+content_types_provided(ReqData, State) ->
+  Types = [
+    {"application/json", to_json}
+  ],
+  {Types, ReqData, State}.
+
+% ... snip ...
+{% endcodeblock %}
+
+Why is this interesting? Because the resource will only serve JSON. The JSON is accessed via Ajax in the view and rendered in a custom template in the browser. More on this detail a bit later.
+
+{% codeblock apps/csd_web/priv/app.config lang:erlang %}
+% ... snip ...
+
+to_json(ReqData, State) ->
+  PathInfo = wrq:path_info(ReqData),
+  {ok, UserId} = dict:find(user_id, PathInfo),
+
+  % We need to render a username, but don't hit the DB
+  % if the user is the same as the one looking at the
+  % page.
+  UserName = case cookie:load_auth(ReqData) of
+    {ok, {UserId, Name, _, _}} ->
+      Name;
+    _ ->
+      {ok, UserInfo} = csd_user:fetch(UserId),
+      list_to_binary(csd_user:get_name(UserInfo))
+  end,
+
+  {ok, Snippets} = csd_snippet:list_for_user(UserId),
+  UserData = {struct, [
+      {user_name, UserName},
+      {snippets, Snippets}
+    ]},
+  Json = mochijson2:encode(UserData),
+  {Json, ReqData, State}.
+
+{% endcodeblock %}
+
+Here you can see that we're getting the id of the user from the URI. From the browser we're hitting this resource via a URI which takes the form of `/userdetail/<user-id>`, so we access the request data and pull the id out from the path information.
+
+The next bit of code needs a bit of background information. When a user views a profile page the goal was to render the user's name on screen. If a user goes to their own profile page it makes more sense to not render the user's name but instead make it more personal. To do this we pass in the Twitter name of the current user as well as the user that is being viewed back to the JavaScript that made the call to the resource. If those values are the same then the view can be rendered differently.
+
+As a result there was a need to find out who is viewing the page. So what we do is access the authentication information in the request and directly pattern match against the `UserId` that we pulled from the URI. If we get a match, then we return the name of the current user directly. This means that we can avoid going to the database as we already know the name, but if the user being viewed is different we go to Riak to pull out the name of the user.
+
+Once we have the user name, we then list all the snippets for the user and combine those two bits information into a blob of JSON before returning this to the browser.
+
+So now that the browser has the payload it can render the view that we saw above, including links to the snippets. What happens when a snippet is viewed? Let's a look now.
+
+## <a id="snippet-view"></a>Snippet View
+
+Snippet viewing is the most interesting part of the site so far (in my opinion). So before we dive into the code, let's see what it looks like when we open a snippet.
+
+{% img /uploads/2012/07/part5-snippet-view.png 'The Snippet View' %}
+
+Hopefully this screenshot will finally give you a vivid image as to what this application is all about. A snippet has two sides which do similar things in slightly different wants. Votes are cast by the users of the site to indicate which option they prefer. At the bottom you can see the current tally of votes, the side with the most votes is rendered in green and the side with the least is rendered in red. Both sides are rendered in blue if the the vote count is even.
+
+When a user has voted for a given snippet, the view changes to look like this:
+
+{% img /uploads/2012/07/part5-voted-snippet-view.png 'The Voted Snippet View' %}
+
+Finally, when the user returns to the same snippet down the track, the view looks like this:
+
+{% img /uploads/2012/07/part5-voted-snippet-view-return.png 'The Voted Snippet View on return' %}
+
 
 ## <a id="snippet-submission"></a>Code Snippet Submission
 
@@ -1016,10 +1467,19 @@ Now that the route is set up, we need to create the resource which will handle i
 {% endcodeblock %}
 
 
+Known Issues
+------------
+
+* Some IDs that are generated might come out with slashes in them. When this happens the site is unable to render the page for the snippet. Two solutions: 1) fix the key generation, 2) fix the URL handling. Fixes for this will come in a future post.
+* The Twitter OAuth integration relies on something that is specific to Twitter. The implementation doesn't currently work with other OAuth providers. Again, this will be fixed in a future post.
+* The sign in process doesn't handle cases where OAuth fails or the user says "no" to signing in.
+* In general, handling failures isn't covered. This will happen over the course of future posts.
+
 TODO BEFORE POSTING
 -------------------
 
 **Note:** The code for Part 5 (this post) can be found on [Github][Part5Code].
+
 
 [Part5Code]: https://github.com/OJ/csd/tree/Part5-??? "Source code for Part 5"
 [Twitter]: http://twitter.com/ "Twitter"
