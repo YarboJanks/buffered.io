@@ -1432,43 +1432,473 @@ When a user has voted for a given snippet, the view changes to look like this:
 
 {% img /uploads/2012/07/part5-voted-snippet-view.png 'The Voted Snippet View' %}
 
-Finally, when the user returns to the same snippet down the track, the view looks like this:
+When the user returns to the same snippet down the track, the view looks like this:
 
 {% img /uploads/2012/07/part5-voted-snippet-view-return.png 'The Voted Snippet View on return' %}
 
+While we're at it, let's take a look at the view when a user is _not_ signed in:
+
+{% img /uploads/2012/07/part5-snippet-unknown-user.png 'The Voted Snippet View on return' %}
+
+As you can see there are a few things going on here:
+
+1. The main content of the snippet has to be loaded.
+1. The count of votes for the snippet has to be loaded.
+1. If the user is not logged in, show the vote count without any buttons which allow the user to vote.
+1. If the user is logged in and hasn't yet voted, show the vote buttons.
+1. Otherwise show the vote buttons.
+1. When the user votes, post a vote to the server, show a confirmation message and update the vote count on screen. When the vote count is updated, the numbers should reflect any additional votes that have been cast while the user has been viewing the page.
+
+Let's see what the snippet loading resource looks like (again, with boring stuff ommitted).
+
+{% codeblock apps/csd_web/src/csd_web_snippet_resource.erl (partial) lang:erlang %}
+% ... snip ...
+
+content_types_provided(ReqData, State) ->
+  Types = [
+    {"application/json", to_json}
+  ],
+  {Types, ReqData, State}.
+
+% ... snip ...
+{% endcodeblock %}
+
+Like before we're only providing JSON versions of the content. The client is responsible for the generation and handling of markup.
+
+{% codeblock apps/csd_web/src/csd_web_snippet_resource.erl (partial) lang:erlang %}
+% ... snip ...
+
+to_json(ReqData, State) ->
+  PathInfo = wrq:path_info(ReqData),
+  {ok, SnippetKey} = dict:find(key, PathInfo),
+  {ok, Snippet} = csd_snippet:fetch(list_to_binary(SnippetKey)),
+
+  {ok, Count} = case cookie:load_auth(ReqData) of
+    {ok, {UserId, _, _, _}} ->
+      csd_vote:count_for_snippet(SnippetKey, UserId);
+    _ ->
+      csd_vote:count_for_snippet(SnippetKey)
+  end,
+
+  Json = iolist_to_binary([
+      "{\"snippet\":",
+      csd_snippet:to_json(Snippet),
+      ",\"count\":",
+      csd_vote:to_json(Count),
+      "}"
+    ]),
+
+  {Json, ReqData, State}.
+{% endcodeblock %}
+
+The first part of this function is doing the same thing as with the user profile page. It's getting the Id of the snippet being viewed from the URI, which is in the form `/snippet/<snippet-id>`. Once this has been extracted, the body of the snippet is pulled out of Riak.
+
+After this we then take a look to see if the user is logged in via the auth cookie. If the user is logged in we invoke the vote counting functionality with the `UserId` as a parameter so that the map/reduce job can find which side they voted for. If the user isn't known, then the other version of the vote count is executed which doesn't rely on the user's Id.
+
+When these two bits of information have been pulled from Riak we combine them (in a rather rudimentary fashion) into a blob of JSON and return that to the client.
+
+Again it's worth noting that we aren't handling the case where the snippet isn't found (ie. returning a [404][Http404]). We'll be covering this off in a future blog post.
+
+From this blob of JSON the client-side code is able to infer quite a bit and can update the display to show the appropriate views depending on the state of the user and the votes. So how exactly do we handle the submission of a vote? Let's look at that now.
+
+{% codeblock apps/csd_web/src/csd_web_vote_submit_resource.erl (partial) lang:erlang %}
+% ... snip ...
+
+-record(state, {
+    user_data = undefined
+  }).
+
+% ... snip ...
+
+init([]) ->
+  {ok, #state{}}.
+
+allowed_methods(ReqData, State=#state{}) ->
+  {['POST'], ReqData, State}.
+
+% ... snip ...
+{% endcodeblock %}
+
+When processing vote submissions we use the user information in more that one of the Webmachine overloads, so rather than pull it out of the auth cookie each time we store it in the `State` blob that is threaded through each of the functions we overload. The above code declares the record that we're using and shows that for each request we create a new one when the resource is initialised.
+
+The other take-away from this bit of code is that we only accept `POST`s.
+
+{% codeblock apps/csd_web/src/csd_web_vote_submit_resource.erl (partial) lang:erlang %}
+% ... snip ...
+
+is_authorized(ReqData, State=#state{}) ->
+  case cookie:load_auth(ReqData) of
+    {ok, UserData} ->
+      {true, ReqData, State#state{user_data=UserData}};
+    _ ->
+      {false, ReqData, State}
+  end.
+
+% ... snip ...
+{% endcodeblock %}
+
+Given that we're processing the submission of votes we require that the user is signed in. If a non-authorised request comes in we want to return a [401][Http401]. If the user is signed in, we allow the processing to continue but we also store the user data in `State` so that it can be used in `process_post`.
+
+{% codeblock apps/csd_web/src/csd_web_vote_submit_resource.erl (partial) lang:erlang %}
+% ... snip ...
+
+process_post(ReqData, State=#state{user_data={UserId, _, _, _}}) ->
+  FormData = mochiweb_util:parse_qs(wrq:req_body(ReqData)),
+  SnippetId = proplists:get_value("snippet", FormData),
+  Which = proplists:get_value("which", FormData),
+  Vote = csd_vote:to_vote(UserId, SnippetId, Which),
+  {ok, _} = csd_vote:save(Vote),
+  {ok, Count} = csd_vote:count_for_snippet(SnippetId, UserId),
+  Json = csd_vote:to_json(Count),
+  NewReqData = wrq:set_resp_header("Content-type", "application/json", wrq:set_resp_body(Json, ReqData)),
+  {true, NewReqData, State}.
+{% endcodeblock %}
+
+The first thing you'll notice here is that `process_post` requires a pattern-match against valid `user_data` to extract the `UserId`. If it doesn't match the process will crash. This is ok because we shouldn't ever reach this function unless the user is authorised anyway.
+
+The body of the function is made up of a few simple steps. We parse out the content of the `POST` using `parse_qs` from Mochiweb's `mochiweb_util` module and then from that we extract `"snippet"` and `"which"` values which indicate the key of the snippet and the side of the snippet the user voted for (respectively). A new vote is then created using the extract form information and the `UserId` pulled from the authentication cookie.
+
+This new vote is then pushed into Riak via `csd_vote:save`. You'll notice we're not interested in the content of the result other than making sure that it succeeded (ie. the first part of the return tuple is `ok`).
+
+To facilitate the requirement that after voting the UI should be not only refreshed with that user's vote it should also contain any other votes that have been cast while the user has been on the page, we make a call to get the count of votes for the snippet. This is what we pass back to the UI so that it can be displayed.
+
+When I first came across the `process_post` overload in Webmachine I was a little bit confused as to why the return value of the function wasn't the same as others like `to_html` or `to_json`. You'll notice that this function instead returns `true` to indicate that the `POST` has been processesd, but the setting of the content type and the body is done in a different way. It does actually make sense given that processing posts doesn't fit the same flow as with, say, a `GET`. The content type that is returned could be anything (including nothing). In our case we're returning JSON, so we use the `wrq` API to set the content of the response.
+
+When done, we pass in the new request information as part of the return value and Webmachine does the rest. On the client side, the vote submission response is handled by the JavaScript and the vote count is updated inline (with a little animated effect, which I'll show you shortly).
+
+We are now able to submit votes to snippets. That's all well and good, but we need to be able submit snippets before we can vote on them. Let's look at that process now.
 
 ## <a id="snippet-submission"></a>Code Snippet Submission
 
-Let's start by creating a new resource which we'll be using to handle the form submission. First, edit `app.config` and add a new dispatch rule like so:
+The first thing to note here is that we're going to use a different resource to handle submissions. This is because we want to keep our code clean. Given that we're also going to be handling POSTs on a URI _without_ a snippet key, we can easily handle this in our URI dispatch without having to resort to using guards.
 
-{% codeblock apps/csd_web/priv/app.config lang:erlang %}
-{csd_web,
-  [
-    {web,
-      [
-        ... snip ...
-        {dispatch,
-          [
-            ... snip ...
-            {["snippet"], csd_web_snippet_submit_resource, []},
-            ... snip ...
-          ]}
-      ]
-    },
-    ... snip ...
-  ]}
+Let's wade through the important bits of `csd_web_snippet_submit_resource` now.
+
+{% codeblock apps/csd_web/src/csd_web_snippet_submit_resource.erl (partial) lang:erlang %}
+% ... snip ...
+
+%% --------------------------------------------------------------------------------------
+%% Internal Record Definitions
+%% --------------------------------------------------------------------------------------
+
+-record(state, {
+    user_data = undefined,
+    key
+  }).
+
+is_authorized(ReqData, State=#state{}) ->
+  case cookie:load_auth(ReqData) of
+    {ok, UserData} ->
+      {true, ReqData, State#state{user_data=UserData}};
+    _ ->
+      {false, ReqData, State}
+  end.
+
+% ... snip ...
 {% endcodeblock %}
 
-Notice how we're using the same resource URI as the one used to GET snippets (as shown in [Part 3][]). This is to appear more RESTful. We'll be POSTing to `/snippet` to submit a new snippet while GETting from `/snippet/_snippet-id_` to read those which already exist.
+When processing snippet submissions there are a few details we need to keep track of along the way. Firstly we need to make sure that the request is authorised, but we'll also need to use that User's information when creating the snippet so rather than process the authorisation cookie twice, we'll carry the detail along as part of the request state.
 
-Now that the route is set up, we need to create the resource which will handle it. Here is the full listing which we'll go through in detail:
+Secondly we're going to need to create a key for the new snippet since we're handling posts. In a true RESTful fashion, we should return the location of the new snippet in the `Location` response header. Given that this key is used in two Webmachine overloads we'll keep track of the key as well.
 
-{% codeblock apps/csd_web/src/csd_web_snippet_submit_resource.erl lang:erlang %}
+Moving on!
+
+{% codeblock apps/csd_web/src/csd_web_snippet_submit_resource.erl (partial) lang:erlang %}
+% ... snip ...
+
+init([]) ->
+  {ok, #state{}}.
+
+content_types_accepted(ReqData, State=#state{}) ->
+  Types = [
+    {"application/x-www-form-urlencoded", process_form}
+  ],
+  {Types, ReqData, State}.
+
+allowed_methods(ReqData, State=#state{}) ->
+  {['POST'], ReqData, State}.
+
+post_is_create(ReqData, State=#state{}) ->
+  {true, ReqData, State}.
+
+% ... snip ...
 {% endcodeblock %}
 
+Those of you more familiar with Webmachine will note that when processing posts you don't actually have to override the `content_types_accepted` function and can instead simply provide an implementation of `process_post`. This is fine for when you're not interested in creating resources. But if you are interested in creation of resources, as we are, then we need to take a different path through Webmachine's state machine by implementing `post_is_create` and returning `true` as the result. We also need to define a function, which we call `process_form`, which can be invoked for form posts.
 
-Known Issues
-------------
+Given that we've returned `true` from `post_is_create`, we also need to provide an implementation for `create_path`, like so:
+
+{% codeblock apps/csd_web/src/csd_web_snippet_submit_resource.erl (partial) lang:erlang %}
+% ... snip ...
+
+create_path(ReqData, State=#state{}) ->
+  Key = csd_riak:new_key(),
+  Path = "/snippet/" ++ binary_to_list(Key),
+  {Path, ReqData, State#state{key=Key}}.
+
+% ... snip ...
+{% endcodeblock %}
+
+Here you can see that we're generating a new key for the snippet data. We generate a new path, which will contain the location of the new snippet once created, and we also save the key in `State` so that it can be used later.
+
+Finally, all we need to do is implement `process_form` which pulls the form apart and stores the snippet data in Riak.
+
+{% codeblock apps/csd_web/src/csd_web_snippet_submit_resource.erl (partial) lang:erlang %}
+% ... snip ...
+
+process_form(ReqData, State=#state{}) ->
+  % get the detail from the form
+  FormData = mochiweb_util:parse_qs(wrq:req_body(ReqData)),
+  Snippet = to_snippet(FormData, State),
+  {ok, SavedSnippet} = csd_snippet:save(Snippet),
+  Key = csd_snippet:get_key(SavedSnippet),
+
+  % Return the key of the snippet as the payload
+  NewBody = wrq:set_resp_body(Key, ReqData),
+  NewReqData = wrq:set_resp_header("Content-type", "text/plain", NewBody),
+  {true, NewReqData, State}.
+
+%% --------------------------------------------------------------------------------------
+%% Private Function Definitions
+%% --------------------------------------------------------------------------------------
+
+to_snippet(FormData, #state{key=Key, user_data={UserId, _, _, _}}) ->
+  Title = proplists:get_value("title", FormData),
+  Left = proplists:get_value("left", FormData),
+  Right = proplists:get_value("right", FormData),
+  Snippet = csd_snippet:to_snippet(Title, Left, Right, UserId),
+  csd_snippet:set_key(Snippet, Key).
+{% endcodeblock %}
+
+Processing the form is just the same as when we did it for votes. We tease the form apart into a dictionary and call our own `to_snippet` function which accesses the dictionary to get the important bits of the snippet detail. At the same time, it utilises the key and the Id of the user to create a proper snippet object, which is returned to the caller.
+
+Once this has been done, the snippet is pushed into Riak and we return the new key of the snippet in plain text format back to the client. The reason I chose this approach was so that the JavaScript on the client could simply redirect to a URI based on that key. JSON parsing on the client isn't needed as a result.
+
+With that done, we're down to the last resource modification before we wire up dispatches and cover the UI.
+
+## <a id="logging-off"></a>Logging off
+
+This isn't part of the core workflow but it's a nice feature to have as it makes the site feel a little more rounded/polished. We want users to be able to sign off if they want to. We need to be able to handle a `POST` without a body, and remove the user's authentication information cookie by forcing it to expire.
+
+Firstly we need to make this slight adjustment in the `cookie` module like so:
+
+{% codeblock apps/csd_web/src/cookie.erl (partial) lang:erlang %}
+% ... snip ...
+
+remove_auth(ReqData) ->
+  store_auth_cookie(ReqData, "", -1).
+
+% ... snip ...
+
+store_auth(ReqData, Id, Name, Token, TokenSecret) ->
+  Value = mochiweb_util:quote_plus(encode(Id, Name, Token, TokenSecret)),
+  store_auth_cookie(ReqData, Value, 3600 * 24 * ?AUTH_EXPIRY_DAYS).
+
+%% --------------------------------------------------------------------------------------
+%% Private Function Definitions
+%% --------------------------------------------------------------------------------------
+
+store_auth_cookie(ReqData, Value, Expiry) ->
+  Options = [
+    %{domain, "codesmackdown.com"},
+    {max_age, Expiry},
+    {path, "/"},
+    {http_only, true}
+  ],
+  CookieHeader = mochiweb_cookies:cookie(?AUTH_COOKIE, Value, Options),
+  wrq:merge_resp_headers([CookieHeader], ReqData).
+
+% ... snip ...
+{% endcodeblock %}
+
+We've created a helper function, `store_auth_cookie`, which does as it says. It stores an auth cookie in the response based on the given `Value` of the cookie and the `Expiry`. This used to be part of the `store_auth` function, but we've pulled it out into a method that can be reused. The `store_auth` function now calls this function when creating the authentication cookie like we used to. We also make a call via the `remove_auth` function, which sets the body of the token to a blank string and sets the expiry to -1 which forces the cookie to expire immediately when it hits the browser.
+
+With this out of the way, we need to expose a resource which invokes it. Here it is without the boring bits included.
+
+{% codeblock apps/csd_web/src/csd_web_logoff_resource.erl (partial) lang:erlang %}
+% ... snip ...
+
+allowed_methods(ReqData, State) ->
+  {['POST'], ReqData, State}.
+
+process_post(ReqData, State) ->
+  NewReqData = cookie:remove_auth(ReqData),
+  {true, NewReqData, State}.
+{% endcodeblock %}
+
+Simple right? Handle a `POST` in the usual fashion and remove the authentication token during processing. It doesnt' get easier than that.
+
+## <a id="serving-static-content"></a>Serving Static Content
+
+We're now at a point where we're going to be serving up some content straight from disk. This includes CSS files, JavaScript source files and HTML templates. There are a large number of ways in which we can do this.
+
+For the sake of this blog series we're going to keep this functionality within the application. If this application were to make it to production, this approach wouldn't be used. As great as Webmachine is, serving static content at break-neck speeds isn't one of its strong points. Instead it would be better to use something which is good at this kind of thing. [Nginx][] is a good example, but there are many others.
+
+The static file serving resource is not something that I wrote (though I've tweaked it a bit). I blatantly purloined it from somewhere on the web (quite a while ago I might add) and I can no longer find a reference to it. If anyone out there recognises it, please let me know and I shall give proper kudos/credit to the original author.
+
+This resource works, but I say again it's not something that should be used in production.  Here it is in its entirity.
+
+{% codeblock apps/csd_web/src/csd_web_static_resource.erl lang:erlang %}
+-module(csd_web_static_resource).
+-author('OJ Reeves <oj@buffered.io>').
+
+%% --------------------------------------------------------------------------------------
+%% API Function Exports
+%% --------------------------------------------------------------------------------------
+
+-export([
+    init/1,
+    allowed_methods/2,
+    resource_exists/2,
+    content_types_provided/2,
+    provide_content/2,
+    file_exists/2
+  ]).
+
+%% --------------------------------------------------------------------------------------
+%% Required Includes
+%% --------------------------------------------------------------------------------------
+
+-include_lib("webmachine/include/webmachine.hrl").
+-include_lib("kernel/include/file.hrl").
+
+%% --------------------------------------------------------------------------------------
+%% Record definitions
+%% --------------------------------------------------------------------------------------
+
+-record(context, {docroot, fullpath, fileinfo, response_body}).
+
+%% --------------------------------------------------------------------------------------
+%% API Function Definitions
+%% --------------------------------------------------------------------------------------
+
+init([ContentDir]) ->
+  {ok, App}= application:get_application(),
+  PrivDir = code:priv_dir(App),
+  SourceDir = filename:join([PrivDir, ContentDir]),
+  {ok, #context{docroot=SourceDir}}.
+
+allowed_methods(ReqData, Context) ->
+  {['HEAD', 'GET'], ReqData, Context}.
+
+resource_exists(ReqData, Ctx) ->
+  {true, ReqData, Ctx}.
+
+content_types_provided(ReqData, Ctx) ->
+  Path = wrq:disp_path(ReqData),
+  Mime = webmachine_util:guess_mime(Path),
+  {[{Mime, provide_content}], ReqData, Ctx}.
+
+provide_content(ReqData, Context) ->
+  % if returns {true, NewContext} then NewContext has response_body
+  case Context#context.response_body of
+    undefined ->
+      case file_exists(Context, wrq:disp_path(ReqData)) of
+        {true, FullPath} ->
+          {ok, Value} = file:read_file(FullPath),
+          {Value, ReqData, Context#context{response_body=Value}};
+        false ->
+          {error, ReqData, Context}
+      end;
+    _Body ->
+      {Context#context.response_body, ReqData, Context}
+  end.
+
+file_exists(Context, Path) ->
+  FullPath = get_full_path(Context, Path),
+  case filelib:is_regular(filename:absname(FullPath)) of
+    true ->
+      {true, FullPath};
+    false ->
+      false
+  end.
+
+get_full_path(Context, Path) ->
+  Root = Context#context.docroot,
+  Result = case mochiweb_util:safe_relative_path(Path) of
+    undefined ->
+      undefined;
+    RelPath ->
+      FullPath = filename:join([Root, RelPath]),
+      case filelib:is_dir(FullPath) of
+        true ->
+          filename:join([FullPath, "index.html"]);
+        false ->
+          FullPath
+      end
+  end,
+  Result.
+{% endcodeblock %}
+
+There's a lot here to cover, but most of it could be understood quit easily by following the code path.
+
+To sum it up this is how it works. The resource is configured in the dispatch list and in that list a location is specified as a parameter. This location is the folder in which the files will be located. This value is passed into the `init` function so that the resource knows the root folder to search the files for.
+
+When a request is made the resource attempts to guess the [MIME][] type based on the file extension using a built-in Mochiweb function. It then attempts to load the file from disk and if found it returns the file content as the body of the response.
+
+With that out of the way, now is the perfect time to wire in all the new resources in the dispatch list.
+
+## <a id="updating-dispatch"></a>Updating Dispatch
+
+We need to modify our `app.config` which contains our dispatch list so that it correctly routes all the URIs to the appropriate resources. Let's take a look at the updated list
+
+{% codeblock apps/csd_web/priv/app.config (partial) %}
+% ... snip ...
+
+  {csd_web,
+    [
+      {web,
+        [
+          % ... snip ...
+          {dispatch,
+            [
+              {[], csd_web_resource, []},
+              {["css", '*'], csd_web_static_resource, ["www/static/css"]},
+              {["js", '*'], csd_web_static_resource, ["www/static/js"]},
+              {["views", '*'], csd_web_static_resource, ["www/static/views"]},
+              {["img", '*'], csd_web_static_resource, ["www/static/img"]},
+              {["snippet"], csd_web_snippet_submit_resource, []},
+              {["snippet", key], csd_web_snippet_resource, []},
+              {["vote"], csd_web_vote_submit_resource, []},
+              {["userdetail", user_id], csd_web_user_detail_resource, []},
+              {["logoff"], csd_web_logoff_resource, []},
+              {["oauth", "request"], csd_web_request_resource, []},
+              {["oauth", "callback"], csd_web_callback_resource, []}
+            ]}
+        ]
+      }
+    ]
+  }
+
+% ... snip ...
+{% endcodeblock %}
+
+The first entry is as it was before, as are the last two. There are 4 routes which use `csd_web_static_resource` to handle different URIs that point to static files on disk. This allows us to have URIs like `"/js/csd.js"` and `"css/site.css"` without us having to add another path (such as `"/static/js/csd.js"` to each).
+
+The rest of the routes map directly to handlers based on a common-sense URI which should now make sense based on what we've implemented in this post.
+
+All that we have left to discuss is the new, fandangled user interface.
+
+## <a href="user-interface"></a>User Interface
+
+I stand by what I said on Twitter..
+
+> The problem with Twitter bootstrap is that everything
+> now looks like Twitter bootstrap.
+
+Despite this, I'm using Twitter bootstrap for the UI because I'm terrible at design and this was the easiest thing to use which makes me look non-terrible (though I'm sure I may have managed to make bootstrap terrible too).
+
+The goal of this series is to cover server-side programming of web applications using an Erlang tech stack. Heavy user-interface development is beyond the scope for this already lengthy blog post, so I won't be diving into the implementation. What I will say is:
+
+1. The front-end is quite JavaScript heavy and uses [Backbone.js][] to handle routing, models and view rendering.
+1. URIs make use of the hashtag quite a bit so that links can still be used to access particular snippets directly.
+1. For client-side template rendering I'm using [Handlebars][] which gives me really simple and relatively quick JavaScript template management.
+1. Handlebar templates are loaded via ajax calls as required.
+1. [jQuery][] is used heavily. What a surprise.
+
+So with all this in mind, and with the [source of the UI readily available][UiSource] for your review, check out the application in action via this little video. It shows the sign-in process, user profile view, adding of new snippets and voting on existing snippets.
+
+## <a id="known-issues"></a>Known Issues
 
 * Some IDs that are generated might come out with slashes in them. When this happens the site is unable to render the page for the snippet. Two solutions: 1) fix the key generation, 2) fix the URL handling. Fixes for this will come in a future post.
 * The Twitter OAuth integration relies on something that is specific to Twitter. The implementation doesn't currently work with other OAuth providers. Again, this will be fixed in a future post.
