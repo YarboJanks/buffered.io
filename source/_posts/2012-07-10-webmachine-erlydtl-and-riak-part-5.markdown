@@ -89,7 +89,7 @@ riak/dev $ dev3/bin/riak start
 
 Before we get going with any more of the implementation, we need to consider the design of the "schema" we're going to use when storing our data in Riak. We want our users to be able to:
 
-1. Submit snippets the system.
+1. Submit snippets to the system.
 1. See a list of snippets they have submitted to the system (and down the track see other lists using filters).
 1. Vote for the left- or right- hand snippets to indicate which they prefer.
 1. See that they have voted for a snippet before and be reminded of which one they voted for.

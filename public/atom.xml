@@ -4,7 +4,7 @@
   <title><![CDATA[OJ's rants]]></title>
   <link href="http://buffered.io/atom.xml" rel="self"/>
   <link href="http://buffered.io/"/>
-  <updated>2012-07-10T21:29:44+10:00</updated>
+  <updated>2012-07-10T21:45:04+10:00</updated>
   <id>http://buffered.io/</id>
   <author>
     <name><![CDATA[OJ Reeves]]></name>
@@ -125,7 +125,7 @@ only index-capable backend.</p></blockquote>
 <p>Before we get going with any more of the implementation, we need to consider the design of the &#8220;schema&#8221; we&#8217;re going to use when storing our data in Riak. We want our users to be able to:</p>
 
 <ol>
-<li>Submit snippets the system.</li>
+<li>Submit snippets to the system.</li>
 <li>See a list of snippets they have submitted to the system (and down the track see other lists using filters).</li>
 <li>Vote for the left- or right- hand snippets to indicate which they prefer.</li>
 <li>See that they have voted for a snippet before and be reminded of which one they voted for.</li>
