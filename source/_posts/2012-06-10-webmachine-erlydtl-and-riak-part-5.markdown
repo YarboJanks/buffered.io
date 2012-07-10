@@ -1,5 +1,5 @@
 ---
-date: 2012-06-10 21:30
+date: 2012-07-10 21:28
 categories: [Riak, Functional Programming, HOWTO, Erlang, Webmachine, ErlyDTL, BackboneJS, Bootstrap]
 tags: [Riak, Functional Programming, HOWTO, Erlang, Webmachine, ErlyDTL, BackboneJS, Bootstrap]
 comments: true
@@ -1920,7 +1920,7 @@ Thanks again. Until next time!
 
 **Note:** The code for Part 5 (this post) can be found on [Github][Part5Code].
 
-[Part5Code]: https://github.com/OJ/csd/tree/Part5-201207120 "Source code for Part 5"
+[Part5Code]: https://github.com/OJ/csd/tree/Part5-20120710 "Source code for Part 5"
 [Twitter]: http://twitter.com/ "Twitter"
 [OAuth]: http://oauth.net/ "OAuth"
 [Erlang]: http://erlang.org/ "Erlang"
