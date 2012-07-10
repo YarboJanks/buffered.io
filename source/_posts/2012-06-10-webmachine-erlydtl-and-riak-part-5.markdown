@@ -1,6 +1,6 @@
 ---
 date: 2012-06-10 21:30
-categories: [Riak, Functional Programming, HOWTO, Erlang, Webmachine, ErlyDTL, BackboneJS, Bootstrp]
+categories: [Riak, Functional Programming, HOWTO, Erlang, Webmachine, ErlyDTL, BackboneJS, Bootstrap]
 tags: [Riak, Functional Programming, HOWTO, Erlang, Webmachine, ErlyDTL, BackboneJS, Bootstrap]
 comments: true
 layout: post
@@ -12,7 +12,7 @@ series: "Web Development with Erlang"
 
 When we finished [Part 4][] we were able to authenticate users using [Twitter][] and [OAuth][], which is great as we can delegate the responsibility of password management to an external entity.
 
-Now that we know who people are, we want them to be able to do something meanigful with their accounts. That's what this post is all about.
+Now that we know who people are, we want them to be able to do something meaningful with their accounts. That's what this post is all about.
 
 <!--more-->
 
@@ -26,7 +26,7 @@ This post is going to cover the following topics:
 1. _[Map/Reduce][MapRed]_ - We're going to end up with data stored in our database and we're going to want to query it. Map/reduce is where it's at!
 1. _Form submission handling with [Webmachine][]_ - Users will be able to submit code snippet pairs to the system once they're logged in. They'll also be able to vote on submitted snippets.
 1. _Listing of submissions per-user_ - Viewing the submissions for a given user will pull out a list from Riak using the secondary indexes and map/reduce. This will allow a user to see what snippets they've submitted.
-1. _Static file serving_ - Our new UI will require the serving of static content. There are quite a few ways to do this, one of which is using a custom Webmachine resource. We won't be doing that, instead we'll use [Nginx][] which does a much better job.
+1. _Static file serving_ - Our new UI will require the serving of static content. There are quite a few ways to do this, one of which is using a custom Webmachine resource. While in production it's a great idea to use a tool like [Nginx][] for this purpose, but we'll go with the custom Webmachine resource just to keep things a little simpler.
 1. _Tidying up of templates/UI_ - Now that we've got some content to render, we'll put together some nicer templates and harness [Twitter Bootstrap][] to make the site a little nicer to look at. You'll notice that the emphasis will drop off from [ErlyDTL][] as we'll be doing more rendering of content on the client side using [Handlebars][] while using [Backbone.js][] for logic, routing and event handling.
 
 Lots of UI work has been done for this post, but most of that work will not be discussed in detail as there's already enough content to get through. As always the source code is available so you can read it and play with it. You'll find the link at the end of the post.
@@ -56,11 +56,10 @@ riak/dev $ dev3/bin/riak stop
 ok
 {% endcodeblock %}
 
-To modify all the `app.config` files easily we can run one simple command:
+To modify all the `app.config` files easily we can run one simple command from the `dev` (the parent folder which contains all the dev Riak instances):
 
--> TODO: add the two wildcards to the path below
 {% codeblock lang:bash %}
-riak/dev $ vim ./-wildcardsgohere-/app.config
+riak/dev $ vim ./**/app.config
 {% endcodeblock %}
 
 This will open [VIM][] with all of the `app.config` files open so that we can easily made the necessary modifications. In each of these files, find the `riak_kv` configuration section and change the backend like so:
@@ -334,7 +333,7 @@ add_reduce_sort_js(MR=#mr{phases=P}, CompareFun, Keep) ->
   }.
 {% endcodeblock %}
 
-Most of this code is (hopefully) self-explanatory but to cover things in general:
+Many of you will probably be able to digest this code without explanation. But just in case there's a little bit of confusion:
 
 * `#mr` is an internally defined record which will accumulate a set of inputs and phases to execute against riak. This is internal so that external callers are "forced" to use the module to construct a map/reduce job.
 * The `create/0` function simply creates an instance of a `#mr` record that the user can start to add map/reduce details to.
@@ -585,8 +584,8 @@ The first two defines are obvious. The next two are much more interesting. Here 
 {% codeblock LIST_MAP_JS lang:javascript %}
 function(v)
 {
-  var d = Riak.mapValuesJson(v)[0];
-  return [{ key: d.key, title: d.title, created: d.created }];
+    var d = Riak.mapValuesJson(v)[0];
+    return [{ key: d.key, title: d.title, created: d.created }];
 }
 {% endcodeblock %}
 
@@ -603,7 +602,7 @@ It's not yet obvious, though it will be, but this is the function that will be u
 {% codeblock REDUCE_SORT_JS lang:javascript %}
 function(a, b)
 {
-  return a.created < b.created ? 1 : (a.created > b.created ? -1 : 0);
+    return a.created < b.created ? 1 : (a.created > b.created ? -1 : 0);
 }
 {% endcodeblock %}
 
@@ -1842,7 +1841,7 @@ With that out of the way, now is the perfect time to wire in all the new resourc
 
 We need to modify our `app.config` which contains our dispatch list so that it correctly routes all the URIs to the appropriate resources. Let's take a look at the updated list
 
-{% codeblock apps/csd_web/priv/app.config (partial) %}
+{% codeblock apps/csd_web/priv/app.config (partial) lang:erlang %}
 % ... snip ...
 
   {csd_web,
@@ -1873,7 +1872,7 @@ We need to modify our `app.config` which contains our dispatch list so that it c
 % ... snip ...
 {% endcodeblock %}
 
-The first entry is as it was before, as are the last two. There are 4 routes which use `csd_web_static_resource` to handle different URIs that point to static files on disk. This allows us to have URIs like `"/js/csd.js"` and `"css/site.css"` without us having to add another path (such as `"/static/js/csd.js"` to each).
+The first entry is as it was before, as are the last two. There are 4 routes which use `csd_web_static_resource` to handle different URIs that point to static files on disk. This allows us to have URIs like `"/js/csd.js"` and `"css/site.css"` without us having to add another path (such as `"/static/js/csd.js"` to each). All our static content has been placed under the `apps/csd_web/priv/` and each of the static routes is relative to this folder.
 
 The rest of the routes map directly to handlers based on a common-sense URI which should now make sense based on what we've implemented in this post.
 
@@ -1888,7 +1887,7 @@ I stand by what I said on Twitter..
 
 Despite this, I'm using Twitter bootstrap for the UI because I'm terrible at design and this was the easiest thing to use which makes me look non-terrible (though I'm sure I may have managed to make bootstrap terrible too).
 
-The goal of this series is to cover server-side programming of web applications using an Erlang tech stack. Heavy user-interface development is beyond the scope for this already lengthy blog post, so I won't be diving into the implementation. What I will say is:
+The goal of this series is to cover server-side programming of web applications using an Erlang technology stack. Heavy user-interface development is beyond the scope for this already lengthy blog post, so I won't be diving into the implementation. What I will say is:
 
 1. The front-end is quite JavaScript heavy and uses [Backbone.js][] to handle routing, models and view rendering.
 1. URIs make use of the hashtag quite a bit so that links can still be used to access particular snippets directly.
@@ -1898,20 +1897,30 @@ The goal of this series is to cover server-side programming of web applications 
 
 So with all this in mind, and with the [source of the UI readily available][UiSource] for your review, check out the application in action via this little video. It shows the sign-in process, user profile view, adding of new snippets and voting on existing snippets.
 
+Feel free to go to [Vimeo](http://vimeo.com/45499170) and watch it full screen.
+
+<iframe src="http://player.vimeo.com/video/45499170" width="500" height="331" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe> <p><a href="http://vimeo.com/45499170">Code Smackdown</a> from <a href="http://vimeo.com/thecolonial">OJ Reeves</a> on <a href="http://vimeo.com">Vimeo</a>.</p>
+
+That should finally give you an idea of what we're trying to achieve. It's far from perfect and there's plenty more to be done which will see us through another number of parts in this series.
+
 ## <a id="known-issues"></a>Known Issues
 
-* Some IDs that are generated might come out with slashes in them. When this happens the site is unable to render the page for the snippet. Two solutions: 1) fix the key generation, 2) fix the URL handling. Fixes for this will come in a future post.
-* The Twitter OAuth integration relies on something that is specific to Twitter. The implementation doesn't currently work with other OAuth providers. Again, this will be fixed in a future post.
+In the interest of keeping it real it's worth highlighting a few things that we need to address as we progress through development.
+
+* Some IDs that are generated might come out with slashes in them. When this happens the site is unable to render the page for the snippet. The easy solution to this is to replace all slashes with something else but that's not really what I'd like to do. In a future post we're going to revamp the ID generation part of the application to use something a little more sensible (learning opportunities there for everyone, most of all me).
+* I was recently contacted by a nice bloke by the name of _Juan Felipe Garcia Catalan_ who had done me the honour of following [Part 4][] in fine detail. He had decided to try the implementation OAuth with another provider an found that it didn't work. It appears that Twitter's OAuth functions slightly differently. A future post will address this problem so that the OAuth integration works with other OAuth providers too. Thank you Juan for letting me know!
 * The sign in process doesn't handle cases where OAuth fails or the user says "no" to signing in.
 * In general, handling failures isn't covered. This will happen over the course of future posts.
 
-TODO BEFORE POSTING
--------------------
+## <a id="finished"></a>Finished!
+
+This post, to date, is the longest one I've written. Thanks for sticking with me. I hope you've learned something or at least enjoyed reading. Please let me know in the comments if I've made any mistakes. If you have ideas on how to better implement anything I'm all ears and would love to hear them. Feel free to point out my crappy typos, grammar issues etc as well.
+
+Thanks again. Until next time!
 
 **Note:** The code for Part 5 (this post) can be found on [Github][Part5Code].
 
-
-[Part5Code]: https://github.com/OJ/csd/tree/Part5-??? "Source code for Part 5"
+[Part5Code]: https://github.com/OJ/csd/tree/Part5-201207120 "Source code for Part 5"
 [Twitter]: http://twitter.com/ "Twitter"
 [OAuth]: http://oauth.net/ "OAuth"
 [Erlang]: http://erlang.org/ "Erlang"
@@ -1940,3 +1949,5 @@ TODO BEFORE POSTING
 [VIM]: http://www.vim.org/ "VIM"
 [gen_server]: http://www.erlang.org/doc/man/gen_server.html "Erlang gen_server"
 [Pooler]: https://github.com/OJ/pooler "Pooler"
+[jQuery]: http://www.jquery.com/ "jQuery"
+[UiSource]: https://github.com/OJ/csd/tree/Part5-20120710/apps/csd_web/priv/www/static "User Interface Source"
