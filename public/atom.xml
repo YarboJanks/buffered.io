@@ -4,7 +4,7 @@
   <title><![CDATA[OJ's rants]]></title>
   <link href="http://buffered.io/atom.xml" rel="self"/>
   <link href="http://buffered.io/"/>
-  <updated>2012-07-10T21:22:44+10:00</updated>
+  <updated>2012-07-10T21:29:44+10:00</updated>
   <id>http://buffered.io/</id>
   <author>
     <name><![CDATA[OJ Reeves]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Webmachine, ErlyDTL and Riak - Part 5]]></title>
     <link href="http://buffered.io/posts/webmachine-erlydtl-and-riak-part-5/"/>
-    <updated>2012-06-10T21:30:00+10:00</updated>
+    <updated>2012-07-10T21:28:00+10:00</updated>
     <id>http://buffered.io/posts/webmachine-erlydtl-and-riak-part-5</id>
     <content type="html"><![CDATA[<p><img class="right" src="http://buffered.io/uploads/2010/09/riak-logo.png" title="'Riak Logo'" >Newcomers to the series should first take a look at the previous four parts of the <a href="http://buffered.io/series/web-development-with-erlang/" title="Web Development with Erlang">series</a> (<a href="http://buffered.io/posts/webmachine-erlydtl-and-riak-part-1/" title="Wembachine, ErlyDTL and Riak - Part 1">Part 1</a>, <a href="http://buffered.io/posts/webmachine-erlydtl-and-riak-part-2/" title="Wembachine, ErlyDTL and Riak - Part 2">Part 2</a>, <a href="http://buffered.io/posts/webmachine-erlydtl-and-riak-part-3/" title="Wembachine, ErlyDTL and Riak - Part 3">Part 3</a>, <a href="http://buffered.io/posts/webmachine-erlydtl-and-riak-part-4/" title="Wembachine, ErlyDTL and Riak - Part 4">Part 4</a>) first to make sure that you&#8217;re up to speed. Feel free to read on if you feel comfortable with the general concepts in use.</p>
 
@@ -3181,7 +3181,7 @@ now looks like Twitter bootstrap.</p></blockquote>
 
 <p>Thanks again. Until next time!</p>
 
-<p><strong>Note:</strong> The code for Part 5 (this post) can be found on <a href="https://github.com/OJ/csd/tree/Part5-201207120" title="Source code for Part 5">Github</a>.</p>
+<p><strong>Note:</strong> The code for Part 5 (this post) can be found on <a href="https://github.com/OJ/csd/tree/Part5-20120710" title="Source code for Part 5">Github</a>.</p>
 ]]></content>
   </entry>
   
