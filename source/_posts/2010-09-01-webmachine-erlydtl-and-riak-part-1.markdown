@@ -1,7 +1,7 @@
 ---
 categories: [Riak, Databases, Functional Programming, HOWTO, Erlang, Webmachine]
 date: 2010-09-01 23:29
-updated: 2011-06-15 07:26:22
+updated: 2012-07-11 21:50
 tags: [web development, Erlang, NoSQL, Webmachine, Riak, ErlyDTL]
 comments: true
 layout: post
@@ -24,310 +24,371 @@ OK, let's get into it. First up, Erlang.
 
 <!--more-->
 
-### Installing Erlang R14B02 ###
+### Installing Erlang R15B01 ###
 
 Download and installation is fairly simple. Right now we're not worried about enabling all of the features of Erlang, such as interfacing with Java and providing support for GTK. So the boilerplate functionality is enough. Here are the steps to follow:
 
 
-    oj@nix ~/blog $ wget http://erlang.org/download/otp_src_R14B02.tar.gz
+{% codeblock %}
+oj@air ~/blog $ wget http://erlang.org/download/otp_src_R15B01.tar.gz
 
-      ... snip ...
+  ... snip ...
 
-    oj@nix ~/blog $ tar -xzf otp_src_R14B02.tar.gz 
-    oj@nix ~/blog $ cd otp_src_R14B02/
-    oj@nix ~/blog/otp_src_R14B02 $ ./configure 
+oj@air ~/blog $ tar -xzf otp_src_R15B01.tar.gz 
+oj@air ~/blog $ cd otp_src_R15B01/
+oj@air ~/blog/otp_src_R15B01 $ ./configure 
 
-      ... snip ...
+  ... snip ...
 
-    oj@nix ~/blog/otp_src_R14B02 $ make
+oj@air ~/blog/otp_src_R15B01 $ make
 
-      ... snip ...
+  ... snip ...
 
-    oj@nix ~/blog/otp_src_R14B02 $ sudo make install
+oj@air ~/blog/otp_src_R15B01 $ sudo make install
 
-      ... snip ...
-
-
+  ... snip ...
+{% endcodeblock %}
 
 Done! Let's confirm that it has been set up correctly:
 
+{% codeblock %}
+oj@air ~/blog $ erl
+Erlang R15B01 (erts-5.9.1) [source] [64-bit] [smp:2:2] [rq:2] [async-threads:0] [hipe] [kernel-poll:false]
 
-    oj@nix ~/blog $ erl
-    Erlang R14B02 (erts-5.8.3) [source] [64-bit] [smp:2:2] [rq:2] [async-threads:0] [hipe] [kernel-poll:false]
-
-    Eshell V5.8.3  (abort with ^G)
-    1> q().
-    ok
-
+Eshell V5.9.1  (abort with ^G)
+1> q().
+ok
+{% endcodeblock %}
 
 Excellent. Next let's get Riak going.
 
 
-### Installing Riak 0.14 ###
+### Installing Riak 1.1.4
 
 Considering the power of the software you are about to set up, it is absolutely insane how easy it is to get it running. If any of you have tried to get [CouchDB][] running you'll no doubt have experienced a few quirks and a bit of pain getting it rolling. Not so with Riak. As mentioned at the start of the article, make sure you have a recent version of [Mercurial][] and [Git][] installed.
 
+{% codeblock %}
+oj@air ~/blog $ git clone git://github.com/basho/riak
+Cloning into riak...
+remote: Counting objects: 12989, done.
+remote: Compressing objects: 100% (4210/4210), done.
+remote: Total 12989 (delta 8494), reused 12871 (delta 8386)
+Receiving objects: 100% (12989/12989), 9.82 MiB | 168 KiB/s, done.
+Resolving deltas: 100% (8494/8494), done.
 
-    oj@nix ~/blog$ hg --version
-    Mercurial Distributed SCM (version 1.7.3)
-    (see http://mercurial.selenic.com for more information)
+oj@air ~/blog $ cd riak
+oj@air ~/blog/riak $ make
 
-    Copyright (C) 2005-2010 Matt Mackall and others
-    This is free software; see the source for copying conditions. There is NO
-    warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-
-    oj@nix ~/blog$ git --version
-    git version 1.7.3.5
-
-    oj@nix ~/blog $ git clone git://github.com/basho/riak
-    Cloning into riak...
-    remote: Counting objects: 10812, done.
-    remote: Compressing objects: 100% (3468/3468), done.
-    remote: Total 10812 (delta 7217), reused 10469 (delta 7020)
-    Receiving objects: 100% (10812/10812), 8.83 MiB | 729 KiB/s, done.
-    Resolving deltas: 100% (7217/7217), done.
-
-    oj@nix ~/blog $ cd riak
-    oj@nix ~/blog/riak $ make
-    ./rebar get-deps
-    ==> rel (get-deps)
-    ==> riak (get-deps)
-    Pulling cluster_info from {git,"git://github.com/basho/cluster_info",
-                                   {branch,"master"}}
-    Cloning into cluster_info...
-    Pulling luwak from {git,"git://github.com/basho/luwak",{branch,"master"}}
-    Cloning into luwak...
-    Pulling riak_kv from {git,"git://github.com/basho/riak_kv",{branch,"master"}}
-    Cloning into riak_kv...
-    Pulling riak_err from {git,"git://github.com/basho/riak_err",
+./rebar get-deps
+==> rel (get-deps)
+==> riak (get-deps)
+Pulling cluster_info from {git,"git://github.com/basho/cluster_info",
                                {branch,"master"}}
-    Cloning into riak_err...
-    ==> cluster_info (get-deps)
-    ==> riak_kv (get-deps)
-    Pulling riak_core from {git,"git://github.com/basho/riak_core",
-                                {branch,"master"}}
-    Cloning into riak_core...
-    Pulling riakc from {git,"git://github.com/basho/riak-erlang-client",
-                            {tag,"riakc-1.0.2"}}
-    Cloning into riakc...
-    Pulling luke from {git,"git://github.com/basho/luke",{tag,"luke-0.2.3"}}
-    Cloning into luke...
-    Pulling erlang_js from {git,"git://github.com/basho/erlang_js",
-                                {tag,"erlang_js-0.5.0"}}
-    Cloning into erlang_js...
-    Pulling bitcask from {git,"git://github.com/basho/bitcask",{branch,"master"}}
-    Cloning into bitcask...
-    Pulling ebloom from {git,"git://github.com/basho/ebloom",{branch,"master"}}
-    Cloning into ebloom...
-    Pulling eper from {git,"git://github.com/dizzyd/eper.git",{branch,"master"}}
-    Cloning into eper...
-    ==> riak_core (get-deps)
-    Pulling protobuffs from {git,"git://github.com/basho/erlang_protobuffs",
-                                 {tag,"protobuffs-0.5.1"}}
-    Cloning into protobuffs...
-    Pulling basho_stats from {git,"git://github.com/basho/basho_stats","HEAD"}
-    Cloning into basho_stats...
-    Pulling riak_sysmon from {git,"git://github.com/basho/riak_sysmon",
-                                  {branch,"master"}}
-    Cloning into riak_sysmon...
-    Pulling webmachine from {git,"git://github.com/basho/webmachine",
-                                 {tag,"webmachine-1.8.0"}}
-    Cloning into webmachine...
-    ==> protobuffs (get-deps)
-    ==> basho_stats (get-deps)
-    ==> riak_sysmon (get-deps)
-    ==> webmachine (get-deps)
-    Pulling mochiweb from {git,"git://github.com/basho/mochiweb",
-                               {tag,"mochiweb-1.7.1"}}
-    Cloning into mochiweb...
-    ==> mochiweb (get-deps)
-    ==> riakc (get-deps)
-    ==> luke (get-deps)
-    ==> erlang_js (get-deps)
-    ==> ebloom (get-deps)
-    ==> bitcask (get-deps)
-    ==> eper (get-deps)
-    ==> luwak (get-deps)
-    Pulling skerl from {git,"git://github.com/basho/skerl",{tag,"skerl-1.0.1"}}
-    Cloning into skerl...
-    ==> skerl (get-deps)
-    ==> riak_err (get-deps)
-    ./rebar compile
-    ==> cluster_info (compile)
-    Compiled src/cluster_info_ex.erl
+Cloning into cluster_info...
+Pulling riak_kv from {git,"git://github.com/basho/riak_kv",{branch,"master"}}
+Cloning into riak_kv...
+Pulling riak_search from {git,"git://github.com/basho/riak_search",
+                              {branch,"master"}}
+Cloning into riak_search...
+Pulling riak_control from {git,"git://github.com/basho/riak_control",
+                               {branch,"master"}}
+Cloning into riak_control...
+==> cluster_info (get-deps)
+==> riak_kv (get-deps)
+Pulling riak_core from {git,"git://github.com/basho/riak_core","master"}
+Cloning into riak_core...
+Pulling luke from {git,"git://github.com/basho/luke","master"}
+Cloning into luke...
+Pulling erlang_js from {git,"git://github.com/basho/erlang_js","master"}
+Cloning into erlang_js...
+Pulling bitcask from {git,"git://github.com/basho/bitcask","master"}
+Cloning into bitcask...
+Pulling merge_index from {git,"git://github.com/basho/merge_index","master"}
+Cloning into merge_index...
+Pulling ebloom from {git,"git://github.com/basho/ebloom","master"}
+Cloning into ebloom...
+Pulling eper from {git,"git://github.com/basho/eper.git","master"}
+Cloning into eper...
+Pulling eleveldb from {git,"git://github.com/basho/eleveldb.git","master"}
+Cloning into eleveldb...
+Pulling sext from {git,"git://github.com/esl/sext","master"}
+Cloning into sext...
+Pulling riak_pipe from {git,"git://github.com/basho/riak_pipe.git","master"}
+Cloning into riak_pipe...
+Pulling riak_api from {git,"git://github.com/basho/riak_api.git","master"}
+Cloning into riak_api...
+==> riak_core (get-deps)
+Pulling lager from {git,"git://github.com/basho/lager",{branch,"master"}}
+Cloning into lager...
+Pulling poolboy from {git,"git://github.com/basho/poolboy",{branch,"master"}}
+Cloning into poolboy...
+Pulling protobuffs from {git,"git://github.com/basho/erlang_protobuffs",
+                             {branch,"master"}}
+Cloning into protobuffs...
+Pulling basho_stats from {git,"git://github.com/basho/basho_stats","HEAD"}
+Cloning into basho_stats...
+Pulling riak_sysmon from {git,"git://github.com/basho/riak_sysmon",
+                              {branch,"master"}}
+Cloning into riak_sysmon...
+Pulling webmachine from {git,"git://github.com/basho/webmachine",
+                             {branch,"master"}}
+Cloning into webmachine...
+Pulling folsom from {git,"git://github.com/basho/folsom.git",
+                         {branch,"master"}}
+Cloning into folsom...
+==> lager (get-deps)
+==> poolboy (get-deps)
+==> protobuffs (get-deps)
+Pulling meck from {git,"git://github.com/eproxus/meck",{branch,"master"}}
+Cloning into meck...
+==> meck (get-deps)
+==> basho_stats (get-deps)
+==> riak_sysmon (get-deps)
+==> webmachine (get-deps)
+Pulling mochiweb from {git,"git://github.com/basho/mochiweb",
+                           {tag,"1.5.1-riak-1.0.x-fixes"}}
+Cloning into mochiweb...
+==> mochiweb (get-deps)
+==> folsom (get-deps)
+Pulling bear from {git,"git://github.com/boundary/bear.git","master"}
+Cloning into bear...
+==> bear (get-deps)
+==> luke (get-deps)
+==> erlang_js (get-deps)
+==> bitcask (get-deps)
+==> merge_index (get-deps)
+==> ebloom (get-deps)
+==> eper (get-deps)
+Pulling getopt from {git,"git://github.com/jcomellas/getopt.git",
+                         {tag,"v0.4.3"}}
+Cloning into getopt...
+==> getopt (get-deps)
+==> eleveldb (get-deps)
+Cloning into leveldb...
+Note: checking out 'fbe66f44e9abeb4f2de3c89d91573b7879226e6c'.
 
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by performing another checkout.
 
-      ... snip ...
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -b with the checkout command again. Example:
 
+  git checkout -b new_branch_name
 
+HEAD is now at fbe66f4... Merge pull request #17 from basho/mv-compress-msg
+==> sext (get-deps)
+Pulling edown from {git,"git://github.com/esl/edown.git","HEAD"}
+Cloning into edown...
+==> edown (get-deps)
+==> riak_pipe (get-deps)
+==> riak_api (get-deps)
+Pulling riak_pb from {git,"git://github.com/basho/riak_pb.git","master"}
+Cloning into riak_pb...
+==> riak_pb (get-deps)
+==> lucene_parser (get-deps)
+==> riak_search (get-deps)
+==> riak_control (get-deps)
+./rebar compile
+==> cluster_info (compile)
+Compiled src/cluster_info_ex.erl
+
+   ... snip ...
+
+==> riak_core (compile)
+Compiling src/riak_core.proto
+
+=INFO REPORT==== 11-Jul-2012::22:06:02 ===
+Writing header file to "riak_core_pb.hrl"
+
+=INFO REPORT==== 11-Jul-2012::22:06:02 ===
+Writing beam file to "riak_core_pb.beam"
+Compiled src/gen_nb_server.erl
+
+   ... snip ...
+
+==> riak_pb (compile)
+Compiling src/riak.proto
+
+Compiled src/admin_gui.erl
+Compiled src/admin_cluster.erl
+==> rel (compile)
+==> riak (compile)
+Compiled src/etop_txt.erl
+{% endcodeblock %}
 
 I snipped a lot of the make output for obvious reasons. Let's build a few development nodes of Riak and cluster them together as indicated in the [Riak Fast Track][]:
 
+{% codeblock %}
+oj@air ~/blog/riak $ make devrel
+mkdir -p dev
+(cd rel && ../rebar generate target_dir=../dev/dev1 overlay_vars=vars/dev1_vars.config)
+==> rel (generate)
+mkdir -p dev
+(cd rel && ../rebar generate target_dir=../dev/dev2 overlay_vars=vars/dev2_vars.config)
+==> rel (generate)
+mkdir -p dev
+(cd rel && ../rebar generate target_dir=../dev/dev3 overlay_vars=vars/dev3_vars.config)
+==> rel (generate)
+mkdir -p dev
+(cd rel && ../rebar generate target_dir=../dev/dev4 overlay_vars=vars/dev4_vars.config)
+==> rel (generate)
 
-    oj@nix ~/blog/riak $ make devrel
-    mkdir -p dev
-    (cd rel && ../rebar generate target_dir=../dev/dev1 overlay_vars=vars/dev1_vars.config)
-    ==> rel (generate)
-    mkdir -p dev
-    (cd rel && ../rebar generate target_dir=../dev/dev2 overlay_vars=vars/dev2_vars.config)
-    ==> rel (generate)
-    mkdir -p dev
-    (cd rel && ../rebar generate target_dir=../dev/dev3 overlay_vars=vars/dev3_vars.config)
-    ==> rel (generate)
+oj@air ~/blog/riak $ cd dev
+oj@air ~/blog/riak/dev $ dev1/bin/riak start
+oj@air ~/blog/riak/dev $ dev2/bin/riak start
+oj@air ~/blog/riak/dev $ dev3/bin/riak start
+oj@air ~/blog/riak/dev $ dev4/bin/riak start
+oj@air ~/blog/riak/dev $ dev2/bin/riak-admin cluster join dev1
+Success: staged join request for 'dev2@127.0.0.1' to dev1
+oj@air ~/blog/riak/dev $ dev3/bin/riak-admin cluster join dev1
+Success: staged join request for 'dev3@127.0.0.1' to dev1
+oj@air ~/blog/riak/dev $ dev4/bin/riak-admin cluster join dev1
+Success: staged join request for 'dev4@127.0.0.1' to dev1
+{% endcodeblock %}
 
-    oj@nix ~/blog/riak $ cd dev
-    oj@nix ~/blog/riak/dev $ dev1/bin/riak start
-    oj@nix ~/blog/riak/dev $ dev2/bin/riak start
-    oj@nix ~/blog/riak/dev $ dev3/bin/riak start
-    oj@nix ~/blog/riak/dev $ dev2/bin/riak-admin join dev1
-    Sent join request to dev1
+At this point our Riak cluster should be up and running. Rather than assume let's make sure.
 
-    oj@nix ~/blog/riak/dev $ dev3/bin/riak-admin join dev1
-    Sent join request to dev1
+{% codeblock %}
+oj@air ~/blog/riak/dev $ dev4/bin/riak-admin ringready
+TRUE All nodes agree on the ring ['dev1@127.0.0.1','dev2@127.0.0.1',
+                                  'dev3@127.0.0.1','dev4@127.0.0.1']
+{% endcodeblock %}
 
-    oj@nix ~/blog/riak/dev $ curl -H "Accept: text/plain" http://127.0.0.1:8091/stats
-    {
-      ... snip ...
-
-      "nodename": "dev1@127.0.0.1",
-        "connected_nodes": [
-        "dev2@127.0.0.1",
-        "dev3@127.0.0.1"
-      ],
-
-      ... snip ...
-
-      "ring_members": [
-        "dev1@127.0.0.1",
-        "dev2@127.0.0.1",
-        "dev3@127.0.0.1"
-      ],
-      "ring_num_partitions": 64,
-      "ring_ownership": "[{'dev3@127.0.0.1',21},{'dev2@127.0.0.1',21},{'dev1@127.0.0.1',22}]",
-
-      ... snip ...
-    }
-
-
-As we can see from the curl output, we now have a 3-node Riak cluster up and running. Those three nodes have the following traits:
-<table border="1">
+As we can see from the output, we now have a 4-node Riak cluster up and running. Those four nodes have the following traits:
+<table style="border: 1px solid black; width:100%;">
   <thead>
     <tr>
-      <th>Name</th>
-      <th>Protobuf Port</th>
-      <th>HTTP Port</th>
+      <th style="border: 1px solid black; padding: 3px;">Name</th>
+      <th style="border: 1px solid black; padding: 3px;">Protobuf Port</th>
+      <th style="border: 1px solid black; padding: 3px;">HTTP Port</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td>dev1@127.0.0.1</td>
-      <td>8081</td>
-      <td>8091</td>
+      <td style="border: 1px solid black; padding: 3px;">dev1@127.0.0.1</td>
+      <td style="border: 1px solid black; padding: 3px;">8081</td>
+      <td style="border: 1px solid black; padding: 3px;">8091</td>
     </tr>
     <tr>
-      <td>dev2@127.0.0.1</td>
-      <td>8082</td>
-      <td>8092</td>
+      <td style="border: 1px solid black; padding: 3px;">dev2@127.0.0.1</td>
+      <td style="border: 1px solid black; padding: 3px;">8082</td>
+      <td style="border: 1px solid black; padding: 3px;">8092</td>
     </tr>
     <tr>
-      <td>dev3@127.0.0.1</td>
-      <td>8083</td>
-      <td>8093</td>
+      <td style="border: 1px solid black; padding: 3px;">dev3@127.0.0.1</td>
+      <td style="border: 1px solid black; padding: 3px;">8083</td>
+      <td style="border: 1px solid black; padding: 3px;">8093</td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid black; padding: 3px;">dev4@127.0.0.1</td>
+      <td style="border: 1px solid black; padding: 3px;">8084</td>
+      <td style="border: 1px solid black; padding: 3px;">8094</td>
     </tr>
   </tbody>
 </table>
+
 We can talk to any of these nodes and they will replicate their data to the other nodes. Nifty! Now that we have a Riak cluster running for development, let's get Webmachine ready.
 
-### Installing Webmachine 0.8 ###
+### Installing Webmachine 1.9.1 ###
 
 Again, the process is very simple:
 
+{% codeblock %}
+oj@air ~/blog $ git clone git://github.com/basho/webmachine
+Cloning into webmachine...
+remote: Counting objects: 1512, done.
+remote: Compressing objects: 100% (611/611), done.
+remote: Total 1512 (delta 957), reused 1409 (delta 869)
+Receiving objects: 100% (1512/1512), 1.32 MiB | 225 KiB/s, done.
+Resolving deltas: 100% (957/957), done.
 
-    oj@nix ~/blog $ git clone git://github.com/basho/webmachine
-    loning into webmachine...
-    remote: Counting objects: 1183, done.
-    remote: Compressing objects: 100% (484/484), done.
-    remote: Total 1183 (delta 735), reused 1063 (delta 668)
-    Receiving objects: 100% (1183/1183), 1.17 MiB | 294 KiB/s, done.
-    Resolving deltas: 100% (735/735), done.
+oj@air ~/blog $ cd webmachine
+oj@air ~/blog/webmachine $ make
+==> webmachine (get-deps)
+Pulling mochiweb from {git,"git://github.com/basho/mochiweb",
+                           {tag,"1.5.1-riak-1.0.x-fixes"}}
+Cloning into mochiweb...
+==> mochiweb (get-deps)
+==> mochiweb (compile)
+Compiled src/mochiweb_sup.erl
 
-    oj@nix ~/blog $ cd webmachine/
-    oj@nix ~/blog/webmachine $ make
-    ==> webmachine (get-deps)
-    Pulling mochiweb from {git,"git://github.com/mochi/mochiweb",{tag,"1.5.1"}}
-    Cloning into mochiweb...
-    ==> mochiweb (get-deps)
-    ==> mochiweb (compile)
-    Compiled src/mochiglobal.erl
-    Compiled src/mochiweb_sup.erl
+   ... snip ...
 
-      ... snip ...
+==> webmachine (compile)
+Compiled src/webmachine_util.erl
 
+   ... snip ...
 
+Compiled src/webmachine_request.erl
+{% endcodeblock %}
 
 As you can see, Webmachine sits on top of the [Mochiweb][] web server.
 
 To create our own application which sits on top of Webmachine, we can utilise the `new_webmachine.sh` script. So let's do that to create our Code Smackdown (csd) site:
 
-
-    oj@nix ~/blog/webmachine $ scripts/new_webmachine.sh
-    usage: new_webmachine.sh name [destdir]
-    oj@nix ~/blog/webmachine $ scripts/new_webmachine.sh csd ..
-    ==> priv (create)
-    Writing /home/oj/blog/csd/README
-    Writing /home/oj/blog/csd/Makefile
-    Writing /home/oj/blog/csd/rebar.config
-    Writing /home/oj/blog/csd/rebar
-    Writing /home/oj/blog/csd/start.sh
-    Writing /home/oj/blog/csd/src/csd.app.src
-    Writing /home/oj/blog/csd/src/csd.erl
-    Writing /home/oj/blog/csd/src/csd_app.erl
-    Writing /home/oj/blog/csd/src/csd_sup.erl
-    Writing /home/oj/blog/csd/src/csd_resource.erl
-    Writing /home/oj/blog/csd/priv/dispatch.conf
-
-
+{% codeblock %}
+oj@air ~/blog/webmachine $ scripts/new_webmachine.sh
+usage: new_webmachine.sh name [destdir]
+oj@air ~/blog/webmachine $ scripts/new_webmachine.sh csd ..
+==> priv (create)
+Writing /Users/oj/code/tmp/csd/README
+Writing /Users/oj/code/tmp/csd/Makefile
+Writing /Users/oj/code/tmp/csd/rebar.config
+Writing /Users/oj/code/tmp/csd/rebar
+Writing /Users/oj/code/tmp/csd/start.sh
+Writing /Users/oj/code/tmp/csd/src/csd.app.src
+Writing /Users/oj/code/tmp/csd/src/csd.erl
+Writing /Users/oj/code/tmp/csd/src/csd_app.erl
+Writing /Users/oj/code/tmp/csd/src/csd_sup.erl
+Writing /Users/oj/code/tmp/csd/src/csd_resource.erl
+Writing /Users/oj/code/tmp/csd/priv/dispatch.conf
+{% endcodeblock %}
 
 Webmachine generates a fully functional website out of the box. So we should be able to build it, fire it up and see it in action:
 
+{% codeblock %}
+oj@air ~/blog/webmachine $ cd ../csd
+oj@air ~/blog/csd $ make
+==> csd (get-deps)
+Pulling webmachine from {git,"git://github.com/basho/webmachine","HEAD"}
+Cloning into webmachine...
+==> webmachine (get-deps)
+Pulling mochiweb from {git,"git://github.com/basho/mochiweb",
+                           {tag,"1.5.1-riak-1.0.x-fixes"}}
+Cloning into mochiweb...
+==> mochiweb (get-deps)
+==> mochiweb (compile)
+Compiled src/mochiweb_sup.erl
 
-    oj@nix ~/blog/webmachine $ cd ../csd
-    oj@nix ~/blog/csd $ make
-    ==> csd (get-deps)
-    Pulling webmachine from {git,"git://github.com/basho/webmachine","HEAD"}
-    Cloning into webmachine...
-    ==> webmachine (get-deps)
-    Pulling mochiweb from {git,"git://github.com/mochi/mochiweb",{tag,"1.5.1"}}
-    Cloning into mochiweb...
-    ==> mochiweb (get-deps)
-    ==> mochiweb (compile)
-    Compiled src/mochiglobal.erl
+   ... snip ...
 
-      ... snip ...
+Compiled src/csd_sup.erl
 
-    oj@nix ~/blog/csd $ ./start.sh
-    Erlang R14B02 (erts-5.8.3) [source] [64-bit] [smp:2:2] [rq:2] [async-threads:0] [hipe] [kernel-poll:false]
+oj@air ~/blog/csd $ ./start.sh
+Erlang R15B01 (erts-5.9.1) [source] [64-bit] [smp:4:4] [async-threads:0] [hipe] [kernel-poll:false]
 
-      ... snip ...
+   ... snip ...
 
-    PROGRESS REPORT==== 3-Apr-2011::22:38:36 ===
-              supervisor: {local,csd_sup}
-                 started: [{pid,<0.76.0>},
-                           {name,webmachine_mochiweb},
-                           {mfargs,
-                               {webmachine_mochiweb,start,
-                                   [[{ip,"0.0.0.0"},
-                                     {port,8000},
-                                     {log_dir,"priv/log"},
-                                     {dispatch,[{[],csd_resource,[]}]}]]}},
-                           {restart_type,permanent},
-                           {shutdown,5000},
-                           {child_type,worker}]
+=PROGRESS REPORT==== 11-Jul-2012::22:31:27 ===
+          supervisor: {local,csd_sup}
+             started: [{pid,<0.75.0>},
+                       {name,webmachine_mochiweb},
+                       {mfargs,
+                           {webmachine_mochiweb,start,
+                               [[{ip,"0.0.0.0"},
+                                 {port,8000},
+                                 {log_dir,"priv/log"},
+                                 {dispatch,[{[],csd_resource,[]}]}]]}},
+                       {restart_type,permanent},
+                       {shutdown,5000},
+                       {child_type,worker}]
 
-    =PROGRESS REPORT==== 3-Apr-2011::22:38:36 ===
-             application: csd
-              started_at: nonode@nohost
+=PROGRESS REPORT==== 11-Jul-2012::22:31:27 ===
+         application: csd
+          started_at: nonode@nohost
 
+{% endcodeblock %}
 
 The application is now up and running. As you can see from the output, our csd application has been fired up and is listening on port 8000. Let's fire it up in a web browser to see if it works.
 
@@ -346,7 +407,7 @@ Open up `rebar.config` in your [favourite editor][VIM], it should look something
 {% codeblock rebar.config lang:erlang %}
 %%-*- mode: erlang -*-
 
-{deps, [{webmachine, "1.8.*", {git, "git://github.com/basho/webmachine", "HEAD"}}]}.
+{deps, [{webmachine, "1.9.*", {git, "git://github.com/basho/webmachine", "HEAD"}}]}.
 {% endcodeblock %}
 
 
@@ -356,9 +417,9 @@ Edit the file so that it includes both ErlyDTL and the Riak Client:
 %%-*- mode: erlang -*-
 {deps,
   [
-    {webmachine, "1.8.*", {git, "git://github.com/basho/webmachine", "HEAD"}},
+    {webmachine, ".*", {git, "git://github.com/basho/webmachine", "HEAD"}},
     {riakc, ".*", {git, "git://github.com/basho/riak-erlang-client", "HEAD"}},
-    {erlydtl, "0.6.1", {git, "git://github.com/OJ/erlydtl.git", "HEAD"}}
+    {erlydtl, ".*", {git, "git://github.com/OJ/erlydtl.git", "HEAD"}}
   ]
 }.
 {% endcodeblock %}
@@ -369,29 +430,16 @@ You'll notice that the `erlydtl` reference points at my own fork of the ErlyDTL 
 Save the file and build!
 
 
-    oj@nix ~/blog/csd $ make
-    ==> mochiweb (get-deps)
-    ==> webmachine (get-deps)
-    ==> csd (get-deps)
-    Pulling riakc from {git,"git://github.com/basho/riak-erlang-client","HEAD"}
-    Cloning into riakc...
-    Pulling erlydtl from {git,"git://github.com/OJ/erlydtl.git","HEAD"}
-    Cloning into erlydtl...
-    ==> riakc (get-deps)
-    Pulling protobuffs from {git,"git://github.com/basho/erlang_protobuffs",
-                                 {tag,"protobuffs-0.5.1"}}
-    Cloning into protobuffs...
-    ==> protobuffs (get-deps)
-    ==> erlydtl (get-deps)
-    ==> mochiweb (compile)
-    ==> webmachine (compile)
-    ==> protobuffs (compile)
-    Compiled src/pokemon_pb.erl
-    Compiled src/protobuffs_parser.erl
+{% codeblock %}
+oj@air ~/blog/csd $ make
+==> mochiweb (get-deps)
+==> webmachine (get-deps)
+==> csd (get-deps)
+Pulling riakc from {git,"git://github.com/basho/riak-erlang-client","HEAD"}
+Cloning into riakc...
 
-      ... snip ...
-
-
+  ... snip ...
+{% endcodeblock %}
 
 Dependencies sorted. For the final part of this blog post, we'll include a basic ErlyDTL template and use it to render the page so we can see how it works.
 
@@ -431,36 +479,36 @@ For now, don't worry about the content of this file. I will cover this off in a 
 
 In the past, we had to manually modify `ebin/csd.app` to include the template that we've just created. Thankfully, `rebar` has been updated so that it generates the `ebin/csd.app` file from the `src/csd.app.src` file automatically when the application is built. `rebar` adds the required modules from the `src` folder _and_ includes the templates from the `templates` folder. Therefore, with our template and module ready to go, all we need to do is build and run:
 
+{% codeblock %}
+oj@air ~/blog/csd $ make
+==> mochiweb (get-deps)
+==> webmachine (get-deps)
+==> protobuffs (get-deps)
+==> riakc (get-deps)
+==> erlydtl (get-deps)
+==> csd (get-deps)
+==> mochiweb (compile)
+==> webmachine (compile)
+==> protobuffs (compile)
+==> riakc (compile)
+==> erlydtl (compile)
+==> csd (compile)
+Compiled src/csd_resource.erl
+Compiled templates/sample.dtl
 
-    oj@nix ~/blog/csd $ make
-    ==> mochiweb (get-deps)
-    ==> webmachine (get-deps)
-    ==> protobuffs (get-deps)
-    ==> riakc (get-deps)
-    ==> erlydtl (get-deps)
-    ==> csd (get-deps)
-    ==> mochiweb (compile)
-    ==> webmachine (compile)
-    ==> protobuffs (compile)
-    ==> riakc (compile)
-    ==> erlydtl (compile)
-    ==> csd (compile)
-    Compiled src/csd_resource.erl
-    Compiled templates/sample.dtl
+oj@air ~/blog/csd $ ./start.sh 
+Erlang R15B01 (erts-5.9.1) [source] [64-bit] [smp:2:2] [rq:2] [async-threads:0] [hipe] [kernel-poll:false]
 
-    oj@nix ~/blog/csd $ ./start.sh 
-    Erlang R14B02 (erts-5.8.3) [source] [64-bit] [smp:2:2] [rq:2] [async-threads:0] [hipe] [kernel-poll:false]
+  ... snip ...
 
-      ... snip ...
+** Found 0 name clashes in code paths 
 
-    ** Found 0 name clashes in code paths 
+  ... snip ...
 
-      ... snip ...
-
-    =PROGRESS REPORT==== 3-Apr-2011::22:54:50 ===
-             application: csd
-              started_at: nonode@nohost
-
+=PROGRESS REPORT==== 11-Jul-2012::22:31:27 ===
+         application: csd
+          started_at: nonode@nohost
+{% endcodeblock %}
 
 Notice how ErlyDTL outputs some information to indicate that no template names have clashed with any other modules.
 

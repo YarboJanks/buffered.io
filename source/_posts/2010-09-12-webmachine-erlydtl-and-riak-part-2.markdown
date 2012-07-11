@@ -1,7 +1,7 @@
 ---
 categories: [Riak, Databases, Functional Programming, HOWTO, Erlang, Webmachine]
 date: 2010-09-12 22:15
-updated: 2011-04-04 23:54
+updated: 2012-07-11 21:50
 tags: [web development, Erlang, NoSQL, Webmachine, Riak, ErlyDTL, HAProxy]
 comments: true
 layout: post
@@ -23,11 +23,11 @@ Please note the goal is to demonstrate how HAProxy _can_ be configured. When dep
 ### HAProxy installation ###
 Let's start by pulling down the latest stable version of HAProxy's source, extracting it and building it. Here's a sample log of what you should expect:
 
-    oj@nix ~/blog $ wget http://haproxy.1wt.eu/download/1.4/src/haproxy-1.4.14.tar.gz
+    oj@nix ~/blog $ wget http://haproxy.1wt.eu/download/1.4/src/haproxy-1.4.20.tar.gz
 
       ... snip ...
 
-    oj@nix ~/blog $ tar -xzf haproxy-1.4.14.tar.gz 
+    oj@nix ~/blog $ tar -xzf haproxy-1.4.20.tar.gz 
 
       ... snip ...
 
@@ -36,8 +36,8 @@ Let's start by pulling down the latest stable version of HAProxy's source, extra
 At this point we've got the source and we're ready to make. HAProxy requires a parameter in order to build, and this parameter varies depending on your target system:
 
 
-    oj@nix ~/blog $ cd haproxy-1.4.14
-    oj@nix ~/blog/haproxy-1.4.14 $ make
+    oj@nix ~/blog $ cd haproxy-1.4.20
+    oj@nix ~/blog/haproxy-1.4.20 $ make
 
     Due to too many reports of suboptimized setups, building without
     specifying the target is no longer supported. Please specify the
@@ -60,23 +60,24 @@ At this point we've got the source and we're ready to make. HAProxy requires a p
 
 According to [uname][], I'm running Linux Kernel 2.6:
 
-    oj@nix ~/blog/haproxy-1.4.14 $ uname -r
+    oj@nix ~/blog/haproxy-1.4.20 $ uname -r
     2.6.31-21-generic
 
 
 As a result, I'll be passing in **linux26**. Make sure you specify the correct option depending on which system you are running. We'll be building it _and_ installing it so that it can be called from anywhere:
 
-    oj@nix ~/blog/haproxy-1.4.14 $ make TARGET=linux26
+    oj@nix ~/blog/haproxy-1.4.20 $ make TARGET=linux26
 
         ... snip ...
 
-    oj@nix ~/blog/haproxy-1.4.14 $ sudo make install
+    oj@nix ~/blog/haproxy-1.4.20 $ sudo make install
 
        ... snip ...
 
 
-
 Simple! We now need to create a configuration for HAProxy which we can use during development. Not surprisingly, HAProxy can be run as a daemon, but it can also be invoked from the command line with a configuration passed as a parameter. For our development, we'll be executing from the command line as this will give us feedback/output on what's going on.
+
+**Note:** If you're using Mac OSX, you can easily use brew to install haproxy with the command `brew install haproxy`
 
 Let's create a file called `dev.haproxy.conf` inside our application directory so that it can be included in our source:
 
@@ -101,8 +102,6 @@ defaults
   maxconn 1024
   # specify some timeouts (all in milliseconds)
   timeout connect 5000
-  timeout client 50000
-  timeout server 50000
 
 ########### Webmachine Configuration ###################
 
@@ -111,12 +110,16 @@ defaults
 # in our case we start with just one instance, but
 # we can add more later
 frontend webfarm
-  # listen on port 80 across all network interfaces
-  bind *:80
+  # listen on port 4000 across all network interfaces
+  bind *:4000
   # by default, point at our backend configuration
   # which lists our webmachine instances (this is
   # configured below in another section)
   default_backend webmachines
+  # indicate keep-alive
+  option http-server-close
+  # timeouts
+  timeout client 5000
 
 # this section indicates how the connectivity to
 # all the instances of webmachine should work.
@@ -137,6 +140,9 @@ backend webmachines
   # list the servers who are to be balanced
   # (just the one in the case of dev)
   server Webmachine1 127.0.0.1:8000
+  # timeouts
+  timeout server 1200000
+  timeout connect 3000
 
 ########### Riak Configuration ###################
 
@@ -156,9 +162,11 @@ frontend dbcluster
   bind 127.0.0.1:8080
   # Default to the riak cluster configuration
   default_backend riaks
+  # timeouts
+  timeout client 1200000
 
 # Here is the magic bit which load balances across
-# our three instances of riak which are clustered
+# our four instances of riak which are clustered
 # together
 backend riaks
   # again, make sure we specify tcp instead of
@@ -167,7 +175,10 @@ backend riaks
   # use a standard round robin approach for load
   # balancing
   balance roundrobin
-  # list the three servers as optional targets
+  # timeouts
+  timeout server 1200000
+  timeout connect 3000
+  # list the four servers as optional targets
   # for load balancing - these are what we set
   # up during Part 1. Add health-checking as
   # well so that when nodes go down, HAProxy
@@ -175,21 +186,14 @@ backend riaks
   server Riak1 127.0.0.1:8081 check
   server Riak2 127.0.0.1:8082 check
   server Riak3 127.0.0.1:8083 check
+  server Riak4 127.0.0.1:8084 check
 {% endcodeblock %}
 
 
-In the configuration above the `backend riaks` section has three server nodes. Each one of them has the `check` option specified. This enables health-checking on the same address and port that the server instance is bound to. If you decided that you didn't want to do health-checking in this manner you easily enable health-checking over HTTP, as Riak has a built-in URI which can be used to validate the state of the node. Change the `backend riaks` section in the configuration to look like this:
+In the configuration above the `backend riaks` section has four server nodes. Each one of them has the `check` option specified. This enables health-checking on the same address and port that the server instance is bound to. If you decided that you didn't want to do health-checking in this manner you easily enable health-checking over HTTP, as Riak has a built-in URI which can be used to validate the state of the node. Change the `backend riaks` section in the configuration to look like this:
 {% codeblock lang:bash %}
-# Here is the magic bit which load balances across
-# our three instances of riak which are clustered
-# together
-backend riaks
-  # again, make sure we specify tcp instead of
-  # the default http mode
-  mode tcp
-  # use a standard round robin approach for load
-  # balancing
-  balance roundrobin
+  ... snip ...
+
   # enable HTTP health checking using the GET method
   # on the URI "/ping". This URI is part of Riak and
   # can be used to determine if the node is up.
@@ -197,7 +201,7 @@ backend riaks
   # use the URI "/ping" - this is the RESTful health
   # check URI that comes as part of Riak.
   option httpchk GET /ping
-  # list the three servers as optional targets
+  # list the four servers as optional targets
   # for load balancing - these are what we set
   # up during Part 1. Add health-checking as
   # well so that when nodes go down, HAProxy
@@ -214,6 +218,10 @@ backend riaks
   # change the health-check address of the node to 127.0.0.0:8093
   # which is the REST interface for the third Riak node
   server Riak3 127.0.0.1:8083 check addr 127.0.0.1 port 8093
+
+  # change the health-check address of the node to 127.0.0.0:8094
+  # which is the REST interface for the third Riak node
+  server Riak4 127.0.0.1:8084 check addr 127.0.0.1 port 8094
 {% endcodeblock %}
 
 
@@ -235,7 +243,7 @@ This indicates that HAProxy is up and running and waiting for connections. Let's
 
         ... snip ...
 
-    =PROGRESS REPORT==== 4-Apr-2011::23:39:27 ===
+    =PROGRESS REPORT==== 11-Jul-2012::23:07:27 ===
              application: csd
               started_at: nonode@nohost
 
@@ -247,104 +255,114 @@ Now Webmachine is fired up with our application running. We should be able to hi
 ### Verification of HAProxy configuration ###
 On the surface it appears that we haven't broken anything. We also need to make sure that any communication with Riak that we have down the track is also functioning. So let's validate that now.
 
-First, we have to make sure that Riak is running. If you have followed [Part 1][] already and your Riak cluster is running then you're good to go. If not, please read [Part 1][] for information on how to install Riak and configure it to run as a cluster of 3 nodes.
+First, we have to make sure that Riak is running. If you have followed [Part 1][] already and your Riak cluster is running then you're good to go. If not, please read [Part 1][] for information on how to install Riak and configure it to run as a cluster of 4 nodes.
 
-Next, let's create 3 new connections and use the [get\_server\_info/1][riakc-getserverinfo] function to find out which node we are connected to. To do this, we'll need to use an Erlang console which has all the Riak dependencies ready to go. It just so happens that when we fired up our Webmachine instance, we got an Erlang console for free. Simply hit the `enter` key and you'll be given a prompt. Notice that when we connect to Riak using the [start_link/2][riakc-startlink] function, we are passing in the IP address and port of the load-balanced cluster instead of one of the running Riak nodes:
+Next, let's create 4 new connections and use the [get\_server\_info/1][riakc-getserverinfo] function to find out which node we are connected to. To do this, we'll need to use an Erlang console which has all the Riak dependencies ready to go. It just so happens that when we fired up our Webmachine instance, we got an Erlang console for free. Simply hit the `enter` key and you'll be given a prompt. Notice that when we connect to Riak using the [start_link/2][riakc-startlink] function, we are passing in the IP address and port of the load-balanced cluster instead of one of the running Riak nodes:
 {% codeblock lang:erlang %}
 1> {ok, C1} = riakc_pb_socket:start_link("127.0.0.1", 8080).
-
-=PROGRESS REPORT==== 4-Apr-2011::23:41:18 ===
-          supervisor: {local,inet_gethost_native_sup}
-             started: [{pid,<0.148.0>},{mfa,{inet_gethost_native,init,[[]]}}]
-
-=PROGRESS REPORT==== 4-Apr-2011::23:41:18 ===
-          supervisor: {local,kernel_safe_sup}
-             started: [{pid,<0.147.0>},
-                       {name,inet_gethost_native_sup},
-                       {mfargs,{inet_gethost_native,start_link,[]}},
-                       {restart_type,temporary},
-                       {shutdown,1000},
-                       {child_type,worker}]
-{ok,<0.146.0>}
+{ok,<0.113.0>}
 2> riakc_pb_socket:get_server_info(C1).
-{ok,[{node,<<"dev1@127.0.0.1">>},
-     {server_version,<<"0.12.0">>}]}
-3> {ok, C2} = riakc_pb_socket:start_link("127.0.0.1", 8080).
-{ok,<0.151.0>}
-4> riakc_pb_socket:get_server_info(C2).
 {ok,[{node,<<"dev2@127.0.0.1">>},
-     {server_version,<<"0.12.0">>}]}
-5> {ok, C3} = riakc_pb_socket:start_link("127.0.0.1", 8080).
-{ok,<0.154.0>}
-6> riakc_pb_socket:get_server_info(C3).
+     {server_version,<<"1.1.2">>}]}
+3> {ok, C2} = riakc_pb_socket:start_link("127.0.0.1", 8080).
+{ok,<0.116.0>}
+4> riakc_pb_socket:get_server_info(C2).                     
 {ok,[{node,<<"dev3@127.0.0.1">>},
-     {server_version,<<"0.12.0">>}]}
+     {server_version,<<"1.1.2">>}]}
+5> {ok, C3} = riakc_pb_socket:start_link("127.0.0.1", 8080).
+{ok,<0.119.0>}
+6> riakc_pb_socket:get_server_info(C3).                     
+{ok,[{node,<<"dev4@127.0.0.1">>},
+     {server_version,<<"1.1.2">>}]}
+7> {ok, C4} = riakc_pb_socket:start_link("127.0.0.1", 8080).
+{ok,<0.122.0>}
+8> riakc_pb_socket:get_server_info(C4).                     
+{ok,[{node,<<"dev1@127.0.0.1">>},
+     {server_version,<<"1.1.2">>}]}
 {% endcodeblock %}
 
 
-So we can see that the load balancer has allocated three different connections, each to a different node in the cluster. This is a good sign. So let's kill off one of the nodes:
+So we can see that the load balancer has allocated four different connections, each to a different node in the cluster. This is a good sign. So let's kill off one of the nodes:
 
-    oj@nix ~/blog/riak/dev $ dev2/bin/riak stop
-    ok
-
+{% codeblock %}
+oj@nix ~/blog/riak/dev $ dev3/bin/riak stop
+ok
+{% endcodeblock %}
 
 In a very short period of time, you should see output in the HAProxy console which looks something like this:
 
-    [WARNING] 253/235636 (11824) : Server riaks/Riak2 is DOWN, reason: Layer4 connection problem, info: "Connection refused", check duration: 0ms.
+{% codeblock %}
+WARNING] 192/231028 (33025) : Server riaks/Riak3 is DOWN, reason: Layer4 connection
+problem, info: "Connection refused", check duration: 0ms. 3 active and 0 backup
+servers left. 0 sessions active, 0 requeued, 0 remaining in queue. 
+{% endcodeblock %}
 
-
-The load balancer noticed that the node has died. Let's make sure it no longer attempts to allocate connections to `dev2`. Note that we call [f()][] in our console before running the same script again, as this forces the shell to forget about any existing variable bindings:
+The load balancer noticed that the node has died. Let's make sure it no longer attempts to allocate connections to `dev3`. Note that we call [f()][] in our console before running the same script again, as this forces the shell to forget about any existing variable bindings:
 {% codeblock lang:erlang %}
-7> f().
+9> f().
 ok
-8> {ok, C1} = riakc_pb_socket:start_link("127.0.0.1", 8080).
-{ok,<0.1951.0>}
-9> riakc_pb_socket:get_server_info(C1).
+10> {ok, C1} = riakc_pb_socket:start_link("127.0.0.1", 8080).
+{ok,<0.128.0>}
+11> riakc_pb_socket:get_server_info(C1).                     
+{ok,[{node,<<"dev4@127.0.0.1">>},
+     {server_version,<<"1.1.2">>}]}
+12> {ok, C2} = riakc_pb_socket:start_link("127.0.0.1", 8080).
+{ok,<0.131.0>}
+13> riakc_pb_socket:get_server_info(C2).                     
 {ok,[{node,<<"dev1@127.0.0.1">>},
-     {server_version,<<"0.12.0">>}]}
-10> {ok, C2} = riakc_pb_socket:start_link("127.0.0.1", 8080).
-{ok,<0.1954.0>}
-11> riakc_pb_socket:get_server_info(C2).
-{ok,[{node,<<"dev3@127.0.0.1">>},
-     {server_version,<<"0.12.0">>}]}
-12> {ok, C3} = riakc_pb_socket:start_link("127.0.0.1", 8080).
-{ok,<0.1957.0>}
-13> riakc_pb_socket:get_server_info(C3).
-{ok,[{node,<<"dev1@127.0.0.1">>},
-     {server_version,<<"0.12.0">>}]}
+     {server_version,<<"1.1.2">>}]}
+14> {ok, C3} = riakc_pb_socket:start_link("127.0.0.1", 8080).
+{ok,<0.134.0>}
+15> riakc_pb_socket:get_server_info(C3).                     
+{ok,[{node,<<"dev2@127.0.0.1">>},
+     {server_version,<<"1.1.2">>}]}
+16> {ok, C4} = riakc_pb_socket:start_link("127.0.0.1", 8080).
+{ok,<0.137.0>}
+17> riakc_pb_socket:get_server_info(C4).                     
+{ok,[{node,<<"dev4@127.0.0.1">>},
+     {server_version,<<"1.1.2">>}]}
 {% endcodeblock %}
 
 
-As we hoped, `dev2` is nowhere to be seen. Let's fire it up again:
+As we hoped, `dev3` is nowhere to be seen. Let's fire it up again:
 
-    oj@nix ~/blog/riak/dev $ dev2/bin/riak start
+{% codeblock %}
+oj@nix ~/blog/riak/dev $ dev3/bin/riak start
+{% endcodeblock %}
 
 **Note:** It isn't necessary to tell the node to rejoin the cluster. This happens automatically. Thanks to Siculars (see comment thread) for pointing that out.
 
-HAProxy's console will show you that it has re-established a connection to `dev2`
+HAProxy's console will show you that it has re-established a connection to `dev3`
 
-    [WARNING] 253/235852 (11824) : Server riaks/Riak2 is UP, reason: Layer7 check passed, code: 200, info: "OK", check duration: 1ms.
-
+{% codeblock %}
+[WARNING] 192/231536 (33025) : Server riaks/Riak3 is UP, reason: Layer4 check passed,
+check duration: 0 ms. 4 active and 0 backup servers online. 0 sessions requeued, 0 total in queue.
+{% endcodeblock %}
 
 As a final test, let's make sure we see that node get connections when we attempt to connect:
 {% codeblock lang:erlang %}
-14> f().
+18> f().
 ok
-15> {ok, C1} = riakc_pb_socket:start_link("127.0.0.1", 8080).
-{ok,<0.4203.0>}
-16> riakc_pb_socket:get_server_info(C1).
-{ok,[{node,<<"dev3@127.0.0.1">>},
-     {server_version,<<"0.12.0">>}]}
-17> {ok, C2} = riakc_pb_socket:start_link("127.0.0.1", 8080).
-{ok,<0.4206.0>}
-18> riakc_pb_socket:get_server_info(C2).
+19> {ok, C1} = riakc_pb_socket:start_link("127.0.0.1", 8080).
+{ok,<0.141.0>}
+20> riakc_pb_socket:get_server_info(C1).                     
 {ok,[{node,<<"dev1@127.0.0.1">>},
-     {server_version,<<"0.12.0">>}]}
-19> {ok, C3} = riakc_pb_socket:start_link("127.0.0.1", 8080).
-{ok,<0.4209.0>}
-20> riakc_pb_socket:get_server_info(C3).
+     {server_version,<<"1.1.2">>}]}
+21> {ok, C2} = riakc_pb_socket:start_link("127.0.0.1", 8080).
+{ok,<0.144.0>}
+22> riakc_pb_socket:get_server_info(C2).                     
 {ok,[{node,<<"dev2@127.0.0.1">>},
-     {server_version,<<"0.12.0">>}]}
+     {server_version,<<"1.1.2">>}]}
+23> {ok, C3} = riakc_pb_socket:start_link("127.0.0.1", 8080).
+{ok,<0.147.0>}
+24> riakc_pb_socket:get_server_info(C3).                     
+{ok,[{node,<<"dev3@127.0.0.1">>},
+     {server_version,<<"1.1.2">>}]}
+25> {ok, C4} = riakc_pb_socket:start_link("127.0.0.1", 8080).
+{ok,<0.150.0>}
+26> riakc_pb_socket:get_server_info(C4).                     
+{ok,[{node,<<"dev4@127.0.0.1">>},
+     {server_version,<<"1.1.2">>}]}
 {% endcodeblock %}
 
 ### Wrapping up ###

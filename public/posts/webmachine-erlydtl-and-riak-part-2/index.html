@@ -144,19 +144,19 @@
 
 <p>Let&#8217;s start by pulling down the latest stable version of HAProxy&#8217;s source, extracting it and building it. Here&#8217;s a sample log of what you should expect:</p>
 
-<pre><code>oj@nix ~/blog $ wget http://haproxy.1wt.eu/download/1.4/src/haproxy-1.4.14.tar.gz
+<pre><code>oj@nix ~/blog $ wget http://haproxy.1wt.eu/download/1.4/src/haproxy-1.4.20.tar.gz
 
   ... snip ...
 
-oj@nix ~/blog $ tar -xzf haproxy-1.4.14.tar.gz 
+oj@nix ~/blog $ tar -xzf haproxy-1.4.20.tar.gz 
 
   ... snip ...
 </code></pre>
 
 <p>At this point we&#8217;ve got the source and we&#8217;re ready to make. HAProxy requires a parameter in order to build, and this parameter varies depending on your target system:</p>
 
-<pre><code>oj@nix ~/blog $ cd haproxy-1.4.14
-oj@nix ~/blog/haproxy-1.4.14 $ make
+<pre><code>oj@nix ~/blog $ cd haproxy-1.4.20
+oj@nix ~/blog/haproxy-1.4.20 $ make
 
 Due to too many reports of suboptimized setups, building without
 specifying the target is no longer supported. Please specify the
@@ -178,22 +178,24 @@ make: *** [all] Error 1
 
 <p>According to <a href="http://en.wikipedia.org/wiki/Uname" title="uname">uname</a>, I&#8217;m running Linux Kernel 2.6:</p>
 
-<pre><code>oj@nix ~/blog/haproxy-1.4.14 $ uname -r
+<pre><code>oj@nix ~/blog/haproxy-1.4.20 $ uname -r
 2.6.31-21-generic
 </code></pre>
 
 <p>As a result, I&#8217;ll be passing in <strong>linux26</strong>. Make sure you specify the correct option depending on which system you are running. We&#8217;ll be building it <em>and</em> installing it so that it can be called from anywhere:</p>
 
-<pre><code>oj@nix ~/blog/haproxy-1.4.14 $ make TARGET=linux26
+<pre><code>oj@nix ~/blog/haproxy-1.4.20 $ make TARGET=linux26
 
     ... snip ...
 
-oj@nix ~/blog/haproxy-1.4.14 $ sudo make install
+oj@nix ~/blog/haproxy-1.4.20 $ sudo make install
 
    ... snip ...
 </code></pre>
 
 <p>Simple! We now need to create a configuration for HAProxy which we can use during development. Not surprisingly, HAProxy can be run as a daemon, but it can also be invoked from the command line with a configuration passed as a parameter. For our development, we&#8217;ll be executing from the command line as this will give us feedback/output on what&#8217;s going on.</p>
+
+<p><strong>Note:</strong> If you&#8217;re using Mac OSX, you can easily use brew to install haproxy with the command <code>brew install haproxy</code></p>
 
 <p>Let&#8217;s create a file called <code>dev.haproxy.conf</code> inside our application directory so that it can be included in our source:</p>
 
@@ -292,6 +294,17 @@ oj@nix ~/blog/haproxy-1.4.14 $ sudo make install
 <span class='line-number'>92</span>
 <span class='line-number'>93</span>
 <span class='line-number'>94</span>
+<span class='line-number'>95</span>
+<span class='line-number'>96</span>
+<span class='line-number'>97</span>
+<span class='line-number'>98</span>
+<span class='line-number'>99</span>
+<span class='line-number'>100</span>
+<span class='line-number'>101</span>
+<span class='line-number'>102</span>
+<span class='line-number'>103</span>
+<span class='line-number'>104</span>
+<span class='line-number'>105</span>
 </pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="c"># start with the global settings which will</span>
 </span><span class='line'><span class="c"># apply to all sections in the configuration.</span>
 </span><span class='line'>global
@@ -312,8 +325,6 @@ oj@nix ~/blog/haproxy-1.4.14 $ sudo make install
 </span><span class='line'>  maxconn 1024
 </span><span class='line'>  <span class="c"># specify some timeouts (all in milliseconds)</span>
 </span><span class='line'>  timeout connect 5000
-</span><span class='line'>  timeout client 50000
-</span><span class='line'>  timeout server 50000
 </span><span class='line'>
 </span><span class='line'><span class="c">########### Webmachine Configuration ###################</span>
 </span><span class='line'>
@@ -322,12 +333,16 @@ oj@nix ~/blog/haproxy-1.4.14 $ sudo make install
 </span><span class='line'><span class="c"># in our case we start with just one instance, but</span>
 </span><span class='line'><span class="c"># we can add more later</span>
 </span><span class='line'>frontend webfarm
-</span><span class='line'>  <span class="c"># listen on port 80 across all network interfaces</span>
-</span><span class='line'>  <span class="nb">bind</span> *:80
+</span><span class='line'>  <span class="c"># listen on port 4000 across all network interfaces</span>
+</span><span class='line'>  <span class="nb">bind</span> *:4000
 </span><span class='line'>  <span class="c"># by default, point at our backend configuration</span>
 </span><span class='line'>  <span class="c"># which lists our webmachine instances (this is</span>
 </span><span class='line'>  <span class="c"># configured below in another section)</span>
 </span><span class='line'>  default_backend webmachines
+</span><span class='line'>  <span class="c"># indicate keep-alive</span>
+</span><span class='line'>  option http-server-close
+</span><span class='line'>  <span class="c"># timeouts</span>
+</span><span class='line'>  timeout client 5000
 </span><span class='line'>
 </span><span class='line'><span class="c"># this section indicates how the connectivity to</span>
 </span><span class='line'><span class="c"># all the instances of webmachine should work.</span>
@@ -348,6 +363,9 @@ oj@nix ~/blog/haproxy-1.4.14 $ sudo make install
 </span><span class='line'>  <span class="c"># list the servers who are to be balanced</span>
 </span><span class='line'>  <span class="c"># (just the one in the case of dev)</span>
 </span><span class='line'>  server Webmachine1 127.0.0.1:8000
+</span><span class='line'>  <span class="c"># timeouts</span>
+</span><span class='line'>  timeout server 1200000
+</span><span class='line'>  timeout connect 3000
 </span><span class='line'>
 </span><span class='line'><span class="c">########### Riak Configuration ###################</span>
 </span><span class='line'>
@@ -367,9 +385,11 @@ oj@nix ~/blog/haproxy-1.4.14 $ sudo make install
 </span><span class='line'>  <span class="nb">bind </span>127.0.0.1:8080
 </span><span class='line'>  <span class="c"># Default to the riak cluster configuration</span>
 </span><span class='line'>  default_backend riaks
+</span><span class='line'>  <span class="c"># timeouts</span>
+</span><span class='line'>  timeout client 1200000
 </span><span class='line'>
 </span><span class='line'><span class="c"># Here is the magic bit which load balances across</span>
-</span><span class='line'><span class="c"># our three instances of riak which are clustered</span>
+</span><span class='line'><span class="c"># our four instances of riak which are clustered</span>
 </span><span class='line'><span class="c"># together</span>
 </span><span class='line'>backend riaks
 </span><span class='line'>  <span class="c"># again, make sure we specify tcp instead of</span>
@@ -378,7 +398,10 @@ oj@nix ~/blog/haproxy-1.4.14 $ sudo make install
 </span><span class='line'>  <span class="c"># use a standard round robin approach for load</span>
 </span><span class='line'>  <span class="c"># balancing</span>
 </span><span class='line'>  balance roundrobin
-</span><span class='line'>  <span class="c"># list the three servers as optional targets</span>
+</span><span class='line'>  <span class="c"># timeouts</span>
+</span><span class='line'>  timeout server 1200000
+</span><span class='line'>  timeout connect 3000
+</span><span class='line'>  <span class="c"># list the four servers as optional targets</span>
 </span><span class='line'>  <span class="c"># for load balancing - these are what we set</span>
 </span><span class='line'>  <span class="c"># up during Part 1. Add health-checking as</span>
 </span><span class='line'>  <span class="c"># well so that when nodes go down, HAProxy</span>
@@ -386,10 +409,11 @@ oj@nix ~/blog/haproxy-1.4.14 $ sudo make install
 </span><span class='line'>  server Riak1 127.0.0.1:8081 check
 </span><span class='line'>  server Riak2 127.0.0.1:8082 check
 </span><span class='line'>  server Riak3 127.0.0.1:8083 check
+</span><span class='line'>  server Riak4 127.0.0.1:8084 check
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>In the configuration above the <code>backend riaks</code> section has three server nodes. Each one of them has the <code>check</code> option specified. This enables health-checking on the same address and port that the server instance is bound to. If you decided that you didn&#8217;t want to do health-checking in this manner you easily enable health-checking over HTTP, as Riak has a built-in URI which can be used to validate the state of the node. Change the <code>backend riaks</code> section in the configuration to look like this:</p>
+<p>In the configuration above the <code>backend riaks</code> section has four server nodes. Each one of them has the <code>check</code> option specified. This enables health-checking on the same address and port that the server instance is bound to. If you decided that you didn&#8217;t want to do health-checking in this manner you easily enable health-checking over HTTP, as Riak has a built-in URI which can be used to validate the state of the node. Change the <code>backend riaks</code> section in the configuration to look like this:</p>
 
 <figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -421,20 +445,8 @@ oj@nix ~/blog/haproxy-1.4.14 $ sudo make install
 <span class='line-number'>28</span>
 <span class='line-number'>29</span>
 <span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="c"># Here is the magic bit which load balances across</span>
-</span><span class='line'><span class="c"># our three instances of riak which are clustered</span>
-</span><span class='line'><span class="c"># together</span>
-</span><span class='line'>backend riaks
-</span><span class='line'>  <span class="c"># again, make sure we specify tcp instead of</span>
-</span><span class='line'>  <span class="c"># the default http mode</span>
-</span><span class='line'>  mode tcp
-</span><span class='line'>  <span class="c"># use a standard round robin approach for load</span>
-</span><span class='line'>  <span class="c"># balancing</span>
-</span><span class='line'>  balance roundrobin
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>  ... snip ...
+</span><span class='line'>
 </span><span class='line'>  <span class="c"># enable HTTP health checking using the GET method</span>
 </span><span class='line'>  <span class="c"># on the URI &quot;/ping&quot;. This URI is part of Riak and</span>
 </span><span class='line'>  <span class="c"># can be used to determine if the node is up.</span>
@@ -442,7 +454,7 @@ oj@nix ~/blog/haproxy-1.4.14 $ sudo make install
 </span><span class='line'>  <span class="c"># use the URI &quot;/ping&quot; - this is the RESTful health</span>
 </span><span class='line'>  <span class="c"># check URI that comes as part of Riak.</span>
 </span><span class='line'>  option httpchk GET /ping
-</span><span class='line'>  <span class="c"># list the three servers as optional targets</span>
+</span><span class='line'>  <span class="c"># list the four servers as optional targets</span>
 </span><span class='line'>  <span class="c"># for load balancing - these are what we set</span>
 </span><span class='line'>  <span class="c"># up during Part 1. Add health-checking as</span>
 </span><span class='line'>  <span class="c"># well so that when nodes go down, HAProxy</span>
@@ -459,6 +471,10 @@ oj@nix ~/blog/haproxy-1.4.14 $ sudo make install
 </span><span class='line'>  <span class="c"># change the health-check address of the node to 127.0.0.0:8093</span>
 </span><span class='line'>  <span class="c"># which is the REST interface for the third Riak node</span>
 </span><span class='line'>  server Riak3 127.0.0.1:8083 check addr 127.0.0.1 port 8093
+</span><span class='line'>
+</span><span class='line'>  <span class="c"># change the health-check address of the node to 127.0.0.0:8094</span>
+</span><span class='line'>  <span class="c"># which is the REST interface for the third Riak node</span>
+</span><span class='line'>  server Riak4 127.0.0.1:8084 check addr 127.0.0.1 port 8094
 </span></code></pre></td></tr></table></div></figure>
 
 
@@ -480,7 +496,7 @@ Using sepoll() as the polling mechanism.
 
     ... snip ...
 
-=PROGRESS REPORT==== 4-Apr-2011::23:39:27 ===
+=PROGRESS REPORT==== 11-Jul-2012::23:07:27 ===
          application: csd
           started_at: nonode@nohost
 </code></pre>
@@ -493,9 +509,72 @@ Using sepoll() as the polling mechanism.
 
 <p>On the surface it appears that we haven&#8217;t broken anything. We also need to make sure that any communication with Riak that we have down the track is also functioning. So let&#8217;s validate that now.</p>
 
-<p>First, we have to make sure that Riak is running. If you have followed <a href="/posts/webmachine-erlydtl-and-riak-part-1/" title="Wembachine, ErlyDTL and Riak - Part 1">Part 1</a> already and your Riak cluster is running then you&#8217;re good to go. If not, please read <a href="/posts/webmachine-erlydtl-and-riak-part-1/" title="Wembachine, ErlyDTL and Riak - Part 1">Part 1</a> for information on how to install Riak and configure it to run as a cluster of 3 nodes.</p>
+<p>First, we have to make sure that Riak is running. If you have followed <a href="/posts/webmachine-erlydtl-and-riak-part-1/" title="Wembachine, ErlyDTL and Riak - Part 1">Part 1</a> already and your Riak cluster is running then you&#8217;re good to go. If not, please read <a href="/posts/webmachine-erlydtl-and-riak-part-1/" title="Wembachine, ErlyDTL and Riak - Part 1">Part 1</a> for information on how to install Riak and configure it to run as a cluster of 4 nodes.</p>
 
-<p>Next, let&#8217;s create 3 new connections and use the <a href="https://github.com/basho/riak-erlang-client/blob/master/src/riakc_pb_socket.erl#L181" title="riakc_pb_socket:get_server_info/1">get_server_info/1</a> function to find out which node we are connected to. To do this, we&#8217;ll need to use an Erlang console which has all the Riak dependencies ready to go. It just so happens that when we fired up our Webmachine instance, we got an Erlang console for free. Simply hit the <code>enter</code> key and you&#8217;ll be given a prompt. Notice that when we connect to Riak using the <a href="https://github.com/basho/riak-erlang-client/blob/master/src/riakc_pb_socket.erl#L97" title="riakc_pb_socket:start_link/2">start_link/2</a> function, we are passing in the IP address and port of the load-balanced cluster instead of one of the running Riak nodes:</p>
+<p>Next, let&#8217;s create 4 new connections and use the <a href="https://github.com/basho/riak-erlang-client/blob/master/src/riakc_pb_socket.erl#L181" title="riakc_pb_socket:get_server_info/1">get_server_info/1</a> function to find out which node we are connected to. To do this, we&#8217;ll need to use an Erlang console which has all the Riak dependencies ready to go. It just so happens that when we fired up our Webmachine instance, we got an Erlang console for free. Simply hit the <code>enter</code> key and you&#8217;ll be given a prompt. Notice that when we connect to Riak using the <a href="https://github.com/basho/riak-erlang-client/blob/master/src/riakc_pb_socket.erl#L97" title="riakc_pb_socket:start_link/2">start_link/2</a> function, we are passing in the IP address and port of the load-balanced cluster instead of one of the running Riak nodes:</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="mi">1</span><span class="o">&gt;</span> <span class="p">{</span><span class="n">ok</span><span class="p">,</span> <span class="nv">C1</span><span class="p">}</span> <span class="o">=</span> <span class="nn">riakc_pb_socket</span><span class="p">:</span><span class="n">start_link</span><span class="p">(</span><span class="s">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="mi">8080</span><span class="p">).</span>
+</span><span class='line'><span class="p">{</span><span class="n">ok</span><span class="p">,</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">.</span><span class="mi">113</span><span class="p">.</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">}</span>
+</span><span class='line'><span class="mi">2</span><span class="o">&gt;</span> <span class="nn">riakc_pb_socket</span><span class="p">:</span><span class="n">get_server_info</span><span class="p">(</span><span class="nv">C1</span><span class="p">).</span>
+</span><span class='line'><span class="p">{</span><span class="n">ok</span><span class="p">,[{</span><span class="nb">node</span><span class="p">,</span><span class="o">&lt;&lt;</span><span class="s">&quot;dev2@127.0.0.1&quot;</span><span class="o">&gt;&gt;</span><span class="p">},</span>
+</span><span class='line'>     <span class="p">{</span><span class="n">server_version</span><span class="p">,</span><span class="o">&lt;&lt;</span><span class="s">&quot;1.1.2&quot;</span><span class="o">&gt;&gt;</span><span class="p">}]}</span>
+</span><span class='line'><span class="mi">3</span><span class="o">&gt;</span> <span class="p">{</span><span class="n">ok</span><span class="p">,</span> <span class="nv">C2</span><span class="p">}</span> <span class="o">=</span> <span class="nn">riakc_pb_socket</span><span class="p">:</span><span class="n">start_link</span><span class="p">(</span><span class="s">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="mi">8080</span><span class="p">).</span>
+</span><span class='line'><span class="p">{</span><span class="n">ok</span><span class="p">,</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">.</span><span class="mi">116</span><span class="p">.</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">}</span>
+</span><span class='line'><span class="mi">4</span><span class="o">&gt;</span> <span class="nn">riakc_pb_socket</span><span class="p">:</span><span class="n">get_server_info</span><span class="p">(</span><span class="nv">C2</span><span class="p">).</span>
+</span><span class='line'><span class="p">{</span><span class="n">ok</span><span class="p">,[{</span><span class="nb">node</span><span class="p">,</span><span class="o">&lt;&lt;</span><span class="s">&quot;dev3@127.0.0.1&quot;</span><span class="o">&gt;&gt;</span><span class="p">},</span>
+</span><span class='line'>     <span class="p">{</span><span class="n">server_version</span><span class="p">,</span><span class="o">&lt;&lt;</span><span class="s">&quot;1.1.2&quot;</span><span class="o">&gt;&gt;</span><span class="p">}]}</span>
+</span><span class='line'><span class="mi">5</span><span class="o">&gt;</span> <span class="p">{</span><span class="n">ok</span><span class="p">,</span> <span class="nv">C3</span><span class="p">}</span> <span class="o">=</span> <span class="nn">riakc_pb_socket</span><span class="p">:</span><span class="n">start_link</span><span class="p">(</span><span class="s">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="mi">8080</span><span class="p">).</span>
+</span><span class='line'><span class="p">{</span><span class="n">ok</span><span class="p">,</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">.</span><span class="mi">119</span><span class="p">.</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">}</span>
+</span><span class='line'><span class="mi">6</span><span class="o">&gt;</span> <span class="nn">riakc_pb_socket</span><span class="p">:</span><span class="n">get_server_info</span><span class="p">(</span><span class="nv">C3</span><span class="p">).</span>
+</span><span class='line'><span class="p">{</span><span class="n">ok</span><span class="p">,[{</span><span class="nb">node</span><span class="p">,</span><span class="o">&lt;&lt;</span><span class="s">&quot;dev4@127.0.0.1&quot;</span><span class="o">&gt;&gt;</span><span class="p">},</span>
+</span><span class='line'>     <span class="p">{</span><span class="n">server_version</span><span class="p">,</span><span class="o">&lt;&lt;</span><span class="s">&quot;1.1.2&quot;</span><span class="o">&gt;&gt;</span><span class="p">}]}</span>
+</span><span class='line'><span class="mi">7</span><span class="o">&gt;</span> <span class="p">{</span><span class="n">ok</span><span class="p">,</span> <span class="nv">C4</span><span class="p">}</span> <span class="o">=</span> <span class="nn">riakc_pb_socket</span><span class="p">:</span><span class="n">start_link</span><span class="p">(</span><span class="s">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="mi">8080</span><span class="p">).</span>
+</span><span class='line'><span class="p">{</span><span class="n">ok</span><span class="p">,</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">.</span><span class="mi">122</span><span class="p">.</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">}</span>
+</span><span class='line'><span class="mi">8</span><span class="o">&gt;</span> <span class="nn">riakc_pb_socket</span><span class="p">:</span><span class="n">get_server_info</span><span class="p">(</span><span class="nv">C4</span><span class="p">).</span>
+</span><span class='line'><span class="p">{</span><span class="n">ok</span><span class="p">,[{</span><span class="nb">node</span><span class="p">,</span><span class="o">&lt;&lt;</span><span class="s">&quot;dev1@127.0.0.1&quot;</span><span class="o">&gt;&gt;</span><span class="p">},</span>
+</span><span class='line'>     <span class="p">{</span><span class="n">server_version</span><span class="p">,</span><span class="o">&lt;&lt;</span><span class="s">&quot;1.1.2&quot;</span><span class="o">&gt;&gt;</span><span class="p">}]}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>So we can see that the load balancer has allocated four different connections, each to a different node in the cluster. This is a good sign. So let&#8217;s kill off one of the nodes:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>oj@nix ~/blog/riak/dev $ dev3/bin/riak stop
+</span><span class='line'>ok</span></code></pre></td></tr></table></div></figure>
+
+
+<p>In a very short period of time, you should see output in the HAProxy console which looks something like this:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>WARNING] 192/231028 (33025) : Server riaks/Riak3 is DOWN, reason: Layer4 connection
+</span><span class='line'>problem, info: "Connection refused", check duration: 0ms. 3 active and 0 backup
+</span><span class='line'>servers left. 0 sessions active, 0 requeued, 0 remaining in queue.</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The load balancer noticed that the node has died. Let&#8217;s make sure it no longer attempts to allocate connections to <code>dev3</code>. Note that we call <a href="http://www.erlang.org/documentation/doc-5.2/doc/getting_started/getting_started.html" title="Getting started">f()</a> in our console before running the same script again, as this forces the shell to forget about any existing variable bindings:</p>
 
 <figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -519,104 +598,46 @@ Using sepoll() as the polling mechanism.
 <span class='line-number'>20</span>
 <span class='line-number'>21</span>
 <span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="mi">1</span><span class="o">&gt;</span> <span class="p">{</span><span class="n">ok</span><span class="p">,</span> <span class="nv">C1</span><span class="p">}</span> <span class="o">=</span> <span class="nn">riakc_pb_socket</span><span class="p">:</span><span class="n">start_link</span><span class="p">(</span><span class="s">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="mi">8080</span><span class="p">).</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">=</span><span class="nv">PROGRESS</span> <span class="nv">REPORT</span><span class="o">====</span> <span class="mi">4</span><span class="o">-</span><span class="nv">Apr</span><span class="o">-</span><span class="mi">2011</span><span class="p">::</span><span class="mi">23</span><span class="p">:</span><span class="mi">41</span><span class="p">:</span><span class="mi">18</span> <span class="o">===</span>
-</span><span class='line'>          <span class="nn">supervisor</span><span class="p">:</span> <span class="p">{</span><span class="n">local</span><span class="p">,</span><span class="n">inet_gethost_native_sup</span><span class="p">}</span>
-</span><span class='line'>             <span class="nn">started</span><span class="p">:</span> <span class="p">[{</span><span class="n">pid</span><span class="p">,</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">.</span><span class="mi">148</span><span class="p">.</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">},{</span><span class="n">mfa</span><span class="p">,{</span><span class="n">inet_gethost_native</span><span class="p">,</span><span class="n">init</span><span class="p">,[[]]}}]</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">=</span><span class="nv">PROGRESS</span> <span class="nv">REPORT</span><span class="o">====</span> <span class="mi">4</span><span class="o">-</span><span class="nv">Apr</span><span class="o">-</span><span class="mi">2011</span><span class="p">::</span><span class="mi">23</span><span class="p">:</span><span class="mi">41</span><span class="p">:</span><span class="mi">18</span> <span class="o">===</span>
-</span><span class='line'>          <span class="nn">supervisor</span><span class="p">:</span> <span class="p">{</span><span class="n">local</span><span class="p">,</span><span class="n">kernel_safe_sup</span><span class="p">}</span>
-</span><span class='line'>             <span class="nn">started</span><span class="p">:</span> <span class="p">[{</span><span class="n">pid</span><span class="p">,</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">.</span><span class="mi">147</span><span class="p">.</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">},</span>
-</span><span class='line'>                       <span class="p">{</span><span class="n">name</span><span class="p">,</span><span class="n">inet_gethost_native_sup</span><span class="p">},</span>
-</span><span class='line'>                       <span class="p">{</span><span class="n">mfargs</span><span class="p">,{</span><span class="n">inet_gethost_native</span><span class="p">,</span><span class="n">start_link</span><span class="p">,[]}},</span>
-</span><span class='line'>                       <span class="p">{</span><span class="n">restart_type</span><span class="p">,</span><span class="n">temporary</span><span class="p">},</span>
-</span><span class='line'>                       <span class="p">{</span><span class="n">shutdown</span><span class="p">,</span><span class="mi">1000</span><span class="p">},</span>
-</span><span class='line'>                       <span class="p">{</span><span class="n">child_type</span><span class="p">,</span><span class="n">worker</span><span class="p">}]</span>
-</span><span class='line'><span class="p">{</span><span class="n">ok</span><span class="p">,</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">.</span><span class="mi">146</span><span class="p">.</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">}</span>
-</span><span class='line'><span class="mi">2</span><span class="o">&gt;</span> <span class="nn">riakc_pb_socket</span><span class="p">:</span><span class="n">get_server_info</span><span class="p">(</span><span class="nv">C1</span><span class="p">).</span>
-</span><span class='line'><span class="p">{</span><span class="n">ok</span><span class="p">,[{</span><span class="nb">node</span><span class="p">,</span><span class="o">&lt;&lt;</span><span class="s">&quot;dev1@127.0.0.1&quot;</span><span class="o">&gt;&gt;</span><span class="p">},</span>
-</span><span class='line'>     <span class="p">{</span><span class="n">server_version</span><span class="p">,</span><span class="o">&lt;&lt;</span><span class="s">&quot;0.12.0&quot;</span><span class="o">&gt;&gt;</span><span class="p">}]}</span>
-</span><span class='line'><span class="mi">3</span><span class="o">&gt;</span> <span class="p">{</span><span class="n">ok</span><span class="p">,</span> <span class="nv">C2</span><span class="p">}</span> <span class="o">=</span> <span class="nn">riakc_pb_socket</span><span class="p">:</span><span class="n">start_link</span><span class="p">(</span><span class="s">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="mi">8080</span><span class="p">).</span>
-</span><span class='line'><span class="p">{</span><span class="n">ok</span><span class="p">,</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">.</span><span class="mi">151</span><span class="p">.</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">}</span>
-</span><span class='line'><span class="mi">4</span><span class="o">&gt;</span> <span class="nn">riakc_pb_socket</span><span class="p">:</span><span class="n">get_server_info</span><span class="p">(</span><span class="nv">C2</span><span class="p">).</span>
-</span><span class='line'><span class="p">{</span><span class="n">ok</span><span class="p">,[{</span><span class="nb">node</span><span class="p">,</span><span class="o">&lt;&lt;</span><span class="s">&quot;dev2@127.0.0.1&quot;</span><span class="o">&gt;&gt;</span><span class="p">},</span>
-</span><span class='line'>     <span class="p">{</span><span class="n">server_version</span><span class="p">,</span><span class="o">&lt;&lt;</span><span class="s">&quot;0.12.0&quot;</span><span class="o">&gt;&gt;</span><span class="p">}]}</span>
-</span><span class='line'><span class="mi">5</span><span class="o">&gt;</span> <span class="p">{</span><span class="n">ok</span><span class="p">,</span> <span class="nv">C3</span><span class="p">}</span> <span class="o">=</span> <span class="nn">riakc_pb_socket</span><span class="p">:</span><span class="n">start_link</span><span class="p">(</span><span class="s">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="mi">8080</span><span class="p">).</span>
-</span><span class='line'><span class="p">{</span><span class="n">ok</span><span class="p">,</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">.</span><span class="mi">154</span><span class="p">.</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">}</span>
-</span><span class='line'><span class="mi">6</span><span class="o">&gt;</span> <span class="nn">riakc_pb_socket</span><span class="p">:</span><span class="n">get_server_info</span><span class="p">(</span><span class="nv">C3</span><span class="p">).</span>
-</span><span class='line'><span class="p">{</span><span class="n">ok</span><span class="p">,[{</span><span class="nb">node</span><span class="p">,</span><span class="o">&lt;&lt;</span><span class="s">&quot;dev3@127.0.0.1&quot;</span><span class="o">&gt;&gt;</span><span class="p">},</span>
-</span><span class='line'>     <span class="p">{</span><span class="n">server_version</span><span class="p">,</span><span class="o">&lt;&lt;</span><span class="s">&quot;0.12.0&quot;</span><span class="o">&gt;&gt;</span><span class="p">}]}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>So we can see that the load balancer has allocated three different connections, each to a different node in the cluster. This is a good sign. So let&#8217;s kill off one of the nodes:</p>
-
-<pre><code>oj@nix ~/blog/riak/dev $ dev2/bin/riak stop
-ok
-</code></pre>
-
-<p>In a very short period of time, you should see output in the HAProxy console which looks something like this:</p>
-
-<pre><code>[WARNING] 253/235636 (11824) : Server riaks/Riak2 is DOWN, reason: Layer4 connection problem, info: "Connection refused", check duration: 0ms.
-</code></pre>
-
-<p>The load balancer noticed that the node has died. Let&#8217;s make sure it no longer attempts to allocate connections to <code>dev2</code>. Note that we call <a href="http://www.erlang.org/documentation/doc-5.2/doc/getting_started/getting_started.html" title="Getting started">f()</a> in our console before running the same script again, as this forces the shell to forget about any existing variable bindings:</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="mi">7</span><span class="o">&gt;</span> <span class="n">f</span><span class="p">().</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="mi">9</span><span class="o">&gt;</span> <span class="n">f</span><span class="p">().</span>
 </span><span class='line'><span class="n">ok</span>
-</span><span class='line'><span class="mi">8</span><span class="o">&gt;</span> <span class="p">{</span><span class="n">ok</span><span class="p">,</span> <span class="nv">C1</span><span class="p">}</span> <span class="o">=</span> <span class="nn">riakc_pb_socket</span><span class="p">:</span><span class="n">start_link</span><span class="p">(</span><span class="s">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="mi">8080</span><span class="p">).</span>
-</span><span class='line'><span class="p">{</span><span class="n">ok</span><span class="p">,</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">.</span><span class="mi">1951</span><span class="p">.</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">}</span>
-</span><span class='line'><span class="mi">9</span><span class="o">&gt;</span> <span class="nn">riakc_pb_socket</span><span class="p">:</span><span class="n">get_server_info</span><span class="p">(</span><span class="nv">C1</span><span class="p">).</span>
+</span><span class='line'><span class="mi">10</span><span class="o">&gt;</span> <span class="p">{</span><span class="n">ok</span><span class="p">,</span> <span class="nv">C1</span><span class="p">}</span> <span class="o">=</span> <span class="nn">riakc_pb_socket</span><span class="p">:</span><span class="n">start_link</span><span class="p">(</span><span class="s">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="mi">8080</span><span class="p">).</span>
+</span><span class='line'><span class="p">{</span><span class="n">ok</span><span class="p">,</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">.</span><span class="mi">128</span><span class="p">.</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">}</span>
+</span><span class='line'><span class="mi">11</span><span class="o">&gt;</span> <span class="nn">riakc_pb_socket</span><span class="p">:</span><span class="n">get_server_info</span><span class="p">(</span><span class="nv">C1</span><span class="p">).</span>
+</span><span class='line'><span class="p">{</span><span class="n">ok</span><span class="p">,[{</span><span class="nb">node</span><span class="p">,</span><span class="o">&lt;&lt;</span><span class="s">&quot;dev4@127.0.0.1&quot;</span><span class="o">&gt;&gt;</span><span class="p">},</span>
+</span><span class='line'>     <span class="p">{</span><span class="n">server_version</span><span class="p">,</span><span class="o">&lt;&lt;</span><span class="s">&quot;1.1.2&quot;</span><span class="o">&gt;&gt;</span><span class="p">}]}</span>
+</span><span class='line'><span class="mi">12</span><span class="o">&gt;</span> <span class="p">{</span><span class="n">ok</span><span class="p">,</span> <span class="nv">C2</span><span class="p">}</span> <span class="o">=</span> <span class="nn">riakc_pb_socket</span><span class="p">:</span><span class="n">start_link</span><span class="p">(</span><span class="s">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="mi">8080</span><span class="p">).</span>
+</span><span class='line'><span class="p">{</span><span class="n">ok</span><span class="p">,</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">.</span><span class="mi">131</span><span class="p">.</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">}</span>
+</span><span class='line'><span class="mi">13</span><span class="o">&gt;</span> <span class="nn">riakc_pb_socket</span><span class="p">:</span><span class="n">get_server_info</span><span class="p">(</span><span class="nv">C2</span><span class="p">).</span>
 </span><span class='line'><span class="p">{</span><span class="n">ok</span><span class="p">,[{</span><span class="nb">node</span><span class="p">,</span><span class="o">&lt;&lt;</span><span class="s">&quot;dev1@127.0.0.1&quot;</span><span class="o">&gt;&gt;</span><span class="p">},</span>
-</span><span class='line'>     <span class="p">{</span><span class="n">server_version</span><span class="p">,</span><span class="o">&lt;&lt;</span><span class="s">&quot;0.12.0&quot;</span><span class="o">&gt;&gt;</span><span class="p">}]}</span>
-</span><span class='line'><span class="mi">10</span><span class="o">&gt;</span> <span class="p">{</span><span class="n">ok</span><span class="p">,</span> <span class="nv">C2</span><span class="p">}</span> <span class="o">=</span> <span class="nn">riakc_pb_socket</span><span class="p">:</span><span class="n">start_link</span><span class="p">(</span><span class="s">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="mi">8080</span><span class="p">).</span>
-</span><span class='line'><span class="p">{</span><span class="n">ok</span><span class="p">,</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">.</span><span class="mi">1954</span><span class="p">.</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">}</span>
-</span><span class='line'><span class="mi">11</span><span class="o">&gt;</span> <span class="nn">riakc_pb_socket</span><span class="p">:</span><span class="n">get_server_info</span><span class="p">(</span><span class="nv">C2</span><span class="p">).</span>
-</span><span class='line'><span class="p">{</span><span class="n">ok</span><span class="p">,[{</span><span class="nb">node</span><span class="p">,</span><span class="o">&lt;&lt;</span><span class="s">&quot;dev3@127.0.0.1&quot;</span><span class="o">&gt;&gt;</span><span class="p">},</span>
-</span><span class='line'>     <span class="p">{</span><span class="n">server_version</span><span class="p">,</span><span class="o">&lt;&lt;</span><span class="s">&quot;0.12.0&quot;</span><span class="o">&gt;&gt;</span><span class="p">}]}</span>
-</span><span class='line'><span class="mi">12</span><span class="o">&gt;</span> <span class="p">{</span><span class="n">ok</span><span class="p">,</span> <span class="nv">C3</span><span class="p">}</span> <span class="o">=</span> <span class="nn">riakc_pb_socket</span><span class="p">:</span><span class="n">start_link</span><span class="p">(</span><span class="s">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="mi">8080</span><span class="p">).</span>
-</span><span class='line'><span class="p">{</span><span class="n">ok</span><span class="p">,</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">.</span><span class="mi">1957</span><span class="p">.</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">}</span>
-</span><span class='line'><span class="mi">13</span><span class="o">&gt;</span> <span class="nn">riakc_pb_socket</span><span class="p">:</span><span class="n">get_server_info</span><span class="p">(</span><span class="nv">C3</span><span class="p">).</span>
-</span><span class='line'><span class="p">{</span><span class="n">ok</span><span class="p">,[{</span><span class="nb">node</span><span class="p">,</span><span class="o">&lt;&lt;</span><span class="s">&quot;dev1@127.0.0.1&quot;</span><span class="o">&gt;&gt;</span><span class="p">},</span>
-</span><span class='line'>     <span class="p">{</span><span class="n">server_version</span><span class="p">,</span><span class="o">&lt;&lt;</span><span class="s">&quot;0.12.0&quot;</span><span class="o">&gt;&gt;</span><span class="p">}]}</span>
+</span><span class='line'>     <span class="p">{</span><span class="n">server_version</span><span class="p">,</span><span class="o">&lt;&lt;</span><span class="s">&quot;1.1.2&quot;</span><span class="o">&gt;&gt;</span><span class="p">}]}</span>
+</span><span class='line'><span class="mi">14</span><span class="o">&gt;</span> <span class="p">{</span><span class="n">ok</span><span class="p">,</span> <span class="nv">C3</span><span class="p">}</span> <span class="o">=</span> <span class="nn">riakc_pb_socket</span><span class="p">:</span><span class="n">start_link</span><span class="p">(</span><span class="s">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="mi">8080</span><span class="p">).</span>
+</span><span class='line'><span class="p">{</span><span class="n">ok</span><span class="p">,</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">.</span><span class="mi">134</span><span class="p">.</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">}</span>
+</span><span class='line'><span class="mi">15</span><span class="o">&gt;</span> <span class="nn">riakc_pb_socket</span><span class="p">:</span><span class="n">get_server_info</span><span class="p">(</span><span class="nv">C3</span><span class="p">).</span>
+</span><span class='line'><span class="p">{</span><span class="n">ok</span><span class="p">,[{</span><span class="nb">node</span><span class="p">,</span><span class="o">&lt;&lt;</span><span class="s">&quot;dev2@127.0.0.1&quot;</span><span class="o">&gt;&gt;</span><span class="p">},</span>
+</span><span class='line'>     <span class="p">{</span><span class="n">server_version</span><span class="p">,</span><span class="o">&lt;&lt;</span><span class="s">&quot;1.1.2&quot;</span><span class="o">&gt;&gt;</span><span class="p">}]}</span>
+</span><span class='line'><span class="mi">16</span><span class="o">&gt;</span> <span class="p">{</span><span class="n">ok</span><span class="p">,</span> <span class="nv">C4</span><span class="p">}</span> <span class="o">=</span> <span class="nn">riakc_pb_socket</span><span class="p">:</span><span class="n">start_link</span><span class="p">(</span><span class="s">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="mi">8080</span><span class="p">).</span>
+</span><span class='line'><span class="p">{</span><span class="n">ok</span><span class="p">,</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">.</span><span class="mi">137</span><span class="p">.</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">}</span>
+</span><span class='line'><span class="mi">17</span><span class="o">&gt;</span> <span class="nn">riakc_pb_socket</span><span class="p">:</span><span class="n">get_server_info</span><span class="p">(</span><span class="nv">C4</span><span class="p">).</span>
+</span><span class='line'><span class="p">{</span><span class="n">ok</span><span class="p">,[{</span><span class="nb">node</span><span class="p">,</span><span class="o">&lt;&lt;</span><span class="s">&quot;dev4@127.0.0.1&quot;</span><span class="o">&gt;&gt;</span><span class="p">},</span>
+</span><span class='line'>     <span class="p">{</span><span class="n">server_version</span><span class="p">,</span><span class="o">&lt;&lt;</span><span class="s">&quot;1.1.2&quot;</span><span class="o">&gt;&gt;</span><span class="p">}]}</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>As we hoped, <code>dev2</code> is nowhere to be seen. Let&#8217;s fire it up again:</p>
+<p>As we hoped, <code>dev3</code> is nowhere to be seen. Let&#8217;s fire it up again:</p>
 
-<pre><code>oj@nix ~/blog/riak/dev $ dev2/bin/riak start
-</code></pre>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>oj@nix ~/blog/riak/dev $ dev3/bin/riak start</span></code></pre></td></tr></table></div></figure>
+
 
 <p><strong>Note:</strong> It isn&#8217;t necessary to tell the node to rejoin the cluster. This happens automatically. Thanks to Siculars (see comment thread) for pointing that out.</p>
 
-<p>HAProxy&#8217;s console will show you that it has re-established a connection to <code>dev2</code></p>
+<p>HAProxy&#8217;s console will show you that it has re-established a connection to <code>dev3</code></p>
 
-<pre><code>[WARNING] 253/235852 (11824) : Server riaks/Riak2 is UP, reason: Layer7 check passed, code: 200, info: "OK", check duration: 1ms.
-</code></pre>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>[WARNING] 192/231536 (33025) : Server riaks/Riak3 is UP, reason: Layer4 check passed,
+</span><span class='line'>check duration: 0 ms. 4 active and 0 backup servers online. 0 sessions requeued, 0 total in queue.</span></code></pre></td></tr></table></div></figure>
+
 
 <p>As a final test, let&#8217;s make sure we see that node get connections when we attempt to connect:</p>
 
@@ -637,23 +658,33 @@ ok
 <span class='line-number'>15</span>
 <span class='line-number'>16</span>
 <span class='line-number'>17</span>
-</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="mi">14</span><span class="o">&gt;</span> <span class="n">f</span><span class="p">().</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="mi">18</span><span class="o">&gt;</span> <span class="n">f</span><span class="p">().</span>
 </span><span class='line'><span class="n">ok</span>
-</span><span class='line'><span class="mi">15</span><span class="o">&gt;</span> <span class="p">{</span><span class="n">ok</span><span class="p">,</span> <span class="nv">C1</span><span class="p">}</span> <span class="o">=</span> <span class="nn">riakc_pb_socket</span><span class="p">:</span><span class="n">start_link</span><span class="p">(</span><span class="s">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="mi">8080</span><span class="p">).</span>
-</span><span class='line'><span class="p">{</span><span class="n">ok</span><span class="p">,</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">.</span><span class="mi">4203</span><span class="p">.</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">}</span>
-</span><span class='line'><span class="mi">16</span><span class="o">&gt;</span> <span class="nn">riakc_pb_socket</span><span class="p">:</span><span class="n">get_server_info</span><span class="p">(</span><span class="nv">C1</span><span class="p">).</span>
-</span><span class='line'><span class="p">{</span><span class="n">ok</span><span class="p">,[{</span><span class="nb">node</span><span class="p">,</span><span class="o">&lt;&lt;</span><span class="s">&quot;dev3@127.0.0.1&quot;</span><span class="o">&gt;&gt;</span><span class="p">},</span>
-</span><span class='line'>     <span class="p">{</span><span class="n">server_version</span><span class="p">,</span><span class="o">&lt;&lt;</span><span class="s">&quot;0.12.0&quot;</span><span class="o">&gt;&gt;</span><span class="p">}]}</span>
-</span><span class='line'><span class="mi">17</span><span class="o">&gt;</span> <span class="p">{</span><span class="n">ok</span><span class="p">,</span> <span class="nv">C2</span><span class="p">}</span> <span class="o">=</span> <span class="nn">riakc_pb_socket</span><span class="p">:</span><span class="n">start_link</span><span class="p">(</span><span class="s">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="mi">8080</span><span class="p">).</span>
-</span><span class='line'><span class="p">{</span><span class="n">ok</span><span class="p">,</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">.</span><span class="mi">4206</span><span class="p">.</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">}</span>
-</span><span class='line'><span class="mi">18</span><span class="o">&gt;</span> <span class="nn">riakc_pb_socket</span><span class="p">:</span><span class="n">get_server_info</span><span class="p">(</span><span class="nv">C2</span><span class="p">).</span>
+</span><span class='line'><span class="mi">19</span><span class="o">&gt;</span> <span class="p">{</span><span class="n">ok</span><span class="p">,</span> <span class="nv">C1</span><span class="p">}</span> <span class="o">=</span> <span class="nn">riakc_pb_socket</span><span class="p">:</span><span class="n">start_link</span><span class="p">(</span><span class="s">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="mi">8080</span><span class="p">).</span>
+</span><span class='line'><span class="p">{</span><span class="n">ok</span><span class="p">,</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">.</span><span class="mi">141</span><span class="p">.</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">}</span>
+</span><span class='line'><span class="mi">20</span><span class="o">&gt;</span> <span class="nn">riakc_pb_socket</span><span class="p">:</span><span class="n">get_server_info</span><span class="p">(</span><span class="nv">C1</span><span class="p">).</span>
 </span><span class='line'><span class="p">{</span><span class="n">ok</span><span class="p">,[{</span><span class="nb">node</span><span class="p">,</span><span class="o">&lt;&lt;</span><span class="s">&quot;dev1@127.0.0.1&quot;</span><span class="o">&gt;&gt;</span><span class="p">},</span>
-</span><span class='line'>     <span class="p">{</span><span class="n">server_version</span><span class="p">,</span><span class="o">&lt;&lt;</span><span class="s">&quot;0.12.0&quot;</span><span class="o">&gt;&gt;</span><span class="p">}]}</span>
-</span><span class='line'><span class="mi">19</span><span class="o">&gt;</span> <span class="p">{</span><span class="n">ok</span><span class="p">,</span> <span class="nv">C3</span><span class="p">}</span> <span class="o">=</span> <span class="nn">riakc_pb_socket</span><span class="p">:</span><span class="n">start_link</span><span class="p">(</span><span class="s">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="mi">8080</span><span class="p">).</span>
-</span><span class='line'><span class="p">{</span><span class="n">ok</span><span class="p">,</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">.</span><span class="mi">4209</span><span class="p">.</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">}</span>
-</span><span class='line'><span class="mi">20</span><span class="o">&gt;</span> <span class="nn">riakc_pb_socket</span><span class="p">:</span><span class="n">get_server_info</span><span class="p">(</span><span class="nv">C3</span><span class="p">).</span>
+</span><span class='line'>     <span class="p">{</span><span class="n">server_version</span><span class="p">,</span><span class="o">&lt;&lt;</span><span class="s">&quot;1.1.2&quot;</span><span class="o">&gt;&gt;</span><span class="p">}]}</span>
+</span><span class='line'><span class="mi">21</span><span class="o">&gt;</span> <span class="p">{</span><span class="n">ok</span><span class="p">,</span> <span class="nv">C2</span><span class="p">}</span> <span class="o">=</span> <span class="nn">riakc_pb_socket</span><span class="p">:</span><span class="n">start_link</span><span class="p">(</span><span class="s">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="mi">8080</span><span class="p">).</span>
+</span><span class='line'><span class="p">{</span><span class="n">ok</span><span class="p">,</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">.</span><span class="mi">144</span><span class="p">.</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">}</span>
+</span><span class='line'><span class="mi">22</span><span class="o">&gt;</span> <span class="nn">riakc_pb_socket</span><span class="p">:</span><span class="n">get_server_info</span><span class="p">(</span><span class="nv">C2</span><span class="p">).</span>
 </span><span class='line'><span class="p">{</span><span class="n">ok</span><span class="p">,[{</span><span class="nb">node</span><span class="p">,</span><span class="o">&lt;&lt;</span><span class="s">&quot;dev2@127.0.0.1&quot;</span><span class="o">&gt;&gt;</span><span class="p">},</span>
-</span><span class='line'>     <span class="p">{</span><span class="n">server_version</span><span class="p">,</span><span class="o">&lt;&lt;</span><span class="s">&quot;0.12.0&quot;</span><span class="o">&gt;&gt;</span><span class="p">}]}</span>
+</span><span class='line'>     <span class="p">{</span><span class="n">server_version</span><span class="p">,</span><span class="o">&lt;&lt;</span><span class="s">&quot;1.1.2&quot;</span><span class="o">&gt;&gt;</span><span class="p">}]}</span>
+</span><span class='line'><span class="mi">23</span><span class="o">&gt;</span> <span class="p">{</span><span class="n">ok</span><span class="p">,</span> <span class="nv">C3</span><span class="p">}</span> <span class="o">=</span> <span class="nn">riakc_pb_socket</span><span class="p">:</span><span class="n">start_link</span><span class="p">(</span><span class="s">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="mi">8080</span><span class="p">).</span>
+</span><span class='line'><span class="p">{</span><span class="n">ok</span><span class="p">,</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">.</span><span class="mi">147</span><span class="p">.</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">}</span>
+</span><span class='line'><span class="mi">24</span><span class="o">&gt;</span> <span class="nn">riakc_pb_socket</span><span class="p">:</span><span class="n">get_server_info</span><span class="p">(</span><span class="nv">C3</span><span class="p">).</span>
+</span><span class='line'><span class="p">{</span><span class="n">ok</span><span class="p">,[{</span><span class="nb">node</span><span class="p">,</span><span class="o">&lt;&lt;</span><span class="s">&quot;dev3@127.0.0.1&quot;</span><span class="o">&gt;&gt;</span><span class="p">},</span>
+</span><span class='line'>     <span class="p">{</span><span class="n">server_version</span><span class="p">,</span><span class="o">&lt;&lt;</span><span class="s">&quot;1.1.2&quot;</span><span class="o">&gt;&gt;</span><span class="p">}]}</span>
+</span><span class='line'><span class="mi">25</span><span class="o">&gt;</span> <span class="p">{</span><span class="n">ok</span><span class="p">,</span> <span class="nv">C4</span><span class="p">}</span> <span class="o">=</span> <span class="nn">riakc_pb_socket</span><span class="p">:</span><span class="n">start_link</span><span class="p">(</span><span class="s">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="mi">8080</span><span class="p">).</span>
+</span><span class='line'><span class="p">{</span><span class="n">ok</span><span class="p">,</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">.</span><span class="mi">150</span><span class="p">.</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">}</span>
+</span><span class='line'><span class="mi">26</span><span class="o">&gt;</span> <span class="nn">riakc_pb_socket</span><span class="p">:</span><span class="n">get_server_info</span><span class="p">(</span><span class="nv">C4</span><span class="p">).</span>
+</span><span class='line'><span class="p">{</span><span class="n">ok</span><span class="p">,[{</span><span class="nb">node</span><span class="p">,</span><span class="o">&lt;&lt;</span><span class="s">&quot;dev4@127.0.0.1&quot;</span><span class="o">&gt;&gt;</span><span class="p">},</span>
+</span><span class='line'>     <span class="p">{</span><span class="n">server_version</span><span class="p">,</span><span class="o">&lt;&lt;</span><span class="s">&quot;1.1.2&quot;</span><span class="o">&gt;&gt;</span><span class="p">}]}</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
@@ -691,7 +722,7 @@ ok
 
   
 
-<time datetime="2011-04-04T23:54:00+10:00" class="updated">Updated 04 Apr 2011</time>
+<time datetime="2012-07-11T21:50:00+10:00" class="updated">Updated 11 Jul 2012</time>
       
 
 <span class="categories">

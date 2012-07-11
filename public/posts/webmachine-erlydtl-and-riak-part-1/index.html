@@ -147,209 +147,458 @@
 <!--more-->
 
 
-<h3>Installing Erlang R14B02</h3>
+<h3>Installing Erlang R15B01</h3>
 
 <p>Download and installation is fairly simple. Right now we&#8217;re not worried about enabling all of the features of Erlang, such as interfacing with Java and providing support for GTK. So the boilerplate functionality is enough. Here are the steps to follow:</p>
 
-<pre><code>oj@nix ~/blog $ wget http://erlang.org/download/otp_src_R14B02.tar.gz
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>oj@air ~/blog $ wget http://erlang.org/download/otp_src_R15B01.tar.gz
+</span><span class='line'>
+</span><span class='line'>  ... snip ...
+</span><span class='line'>
+</span><span class='line'>oj@air ~/blog $ tar -xzf otp_src_R15B01.tar.gz 
+</span><span class='line'>oj@air ~/blog $ cd otp_src_R15B01/
+</span><span class='line'>oj@air ~/blog/otp_src_R15B01 $ ./configure 
+</span><span class='line'>
+</span><span class='line'>  ... snip ...
+</span><span class='line'>
+</span><span class='line'>oj@air ~/blog/otp_src_R15B01 $ make
+</span><span class='line'>
+</span><span class='line'>  ... snip ...
+</span><span class='line'>
+</span><span class='line'>oj@air ~/blog/otp_src_R15B01 $ sudo make install
+</span><span class='line'>
+</span><span class='line'>  ... snip ...</span></code></pre></td></tr></table></div></figure>
 
-  ... snip ...
-
-oj@nix ~/blog $ tar -xzf otp_src_R14B02.tar.gz 
-oj@nix ~/blog $ cd otp_src_R14B02/
-oj@nix ~/blog/otp_src_R14B02 $ ./configure 
-
-  ... snip ...
-
-oj@nix ~/blog/otp_src_R14B02 $ make
-
-  ... snip ...
-
-oj@nix ~/blog/otp_src_R14B02 $ sudo make install
-
-  ... snip ...
-</code></pre>
 
 <p>Done! Let&#8217;s confirm that it has been set up correctly:</p>
 
-<pre><code>oj@nix ~/blog $ erl
-Erlang R14B02 (erts-5.8.3) [source] [64-bit] [smp:2:2] [rq:2] [async-threads:0] [hipe] [kernel-poll:false]
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>oj@air ~/blog $ erl
+</span><span class='line'>Erlang R15B01 (erts-5.9.1) [source] [64-bit] [smp:2:2] [rq:2] [async-threads:0] [hipe] [kernel-poll:false]
+</span><span class='line'>
+</span><span class='line'>Eshell V5.9.1  (abort with ^G)
+</span><span class='line'>1> q().
+</span><span class='line'>ok</span></code></pre></td></tr></table></div></figure>
 
-Eshell V5.8.3  (abort with ^G)
-1&gt; q().
-ok
-</code></pre>
 
 <p>Excellent. Next let&#8217;s get Riak going.</p>
 
-<h3>Installing Riak 0.14</h3>
+<h3>Installing Riak 1.1.4</h3>
 
 <p>Considering the power of the software you are about to set up, it is absolutely insane how easy it is to get it running. If any of you have tried to get <a href="http://couchdb.apache.org/" title="CouchDB">CouchDB</a> running you&#8217;ll no doubt have experienced a few quirks and a bit of pain getting it rolling. Not so with Riak. As mentioned at the start of the article, make sure you have a recent version of <a href="http://hg-scm.com/" title="Mercurial">Mercurial</a> and <a href="http://git-scm.com/" title="Git">Git</a> installed.</p>
 
-<pre><code>oj@nix ~/blog$ hg --version
-Mercurial Distributed SCM (version 1.7.3)
-(see http://mercurial.selenic.com for more information)
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+<span class='line-number'>81</span>
+<span class='line-number'>82</span>
+<span class='line-number'>83</span>
+<span class='line-number'>84</span>
+<span class='line-number'>85</span>
+<span class='line-number'>86</span>
+<span class='line-number'>87</span>
+<span class='line-number'>88</span>
+<span class='line-number'>89</span>
+<span class='line-number'>90</span>
+<span class='line-number'>91</span>
+<span class='line-number'>92</span>
+<span class='line-number'>93</span>
+<span class='line-number'>94</span>
+<span class='line-number'>95</span>
+<span class='line-number'>96</span>
+<span class='line-number'>97</span>
+<span class='line-number'>98</span>
+<span class='line-number'>99</span>
+<span class='line-number'>100</span>
+<span class='line-number'>101</span>
+<span class='line-number'>102</span>
+<span class='line-number'>103</span>
+<span class='line-number'>104</span>
+<span class='line-number'>105</span>
+<span class='line-number'>106</span>
+<span class='line-number'>107</span>
+<span class='line-number'>108</span>
+<span class='line-number'>109</span>
+<span class='line-number'>110</span>
+<span class='line-number'>111</span>
+<span class='line-number'>112</span>
+<span class='line-number'>113</span>
+<span class='line-number'>114</span>
+<span class='line-number'>115</span>
+<span class='line-number'>116</span>
+<span class='line-number'>117</span>
+<span class='line-number'>118</span>
+<span class='line-number'>119</span>
+<span class='line-number'>120</span>
+<span class='line-number'>121</span>
+<span class='line-number'>122</span>
+<span class='line-number'>123</span>
+<span class='line-number'>124</span>
+<span class='line-number'>125</span>
+<span class='line-number'>126</span>
+<span class='line-number'>127</span>
+<span class='line-number'>128</span>
+<span class='line-number'>129</span>
+<span class='line-number'>130</span>
+<span class='line-number'>131</span>
+<span class='line-number'>132</span>
+<span class='line-number'>133</span>
+<span class='line-number'>134</span>
+<span class='line-number'>135</span>
+<span class='line-number'>136</span>
+<span class='line-number'>137</span>
+<span class='line-number'>138</span>
+<span class='line-number'>139</span>
+<span class='line-number'>140</span>
+<span class='line-number'>141</span>
+<span class='line-number'>142</span>
+<span class='line-number'>143</span>
+<span class='line-number'>144</span>
+<span class='line-number'>145</span>
+<span class='line-number'>146</span>
+<span class='line-number'>147</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>oj@air ~/blog $ git clone git://github.com/basho/riak
+</span><span class='line'>Cloning into riak...
+</span><span class='line'>remote: Counting objects: 12989, done.
+</span><span class='line'>remote: Compressing objects: 100% (4210/4210), done.
+</span><span class='line'>remote: Total 12989 (delta 8494), reused 12871 (delta 8386)
+</span><span class='line'>Receiving objects: 100% (12989/12989), 9.82 MiB | 168 KiB/s, done.
+</span><span class='line'>Resolving deltas: 100% (8494/8494), done.
+</span><span class='line'>
+</span><span class='line'>oj@air ~/blog $ cd riak
+</span><span class='line'>oj@air ~/blog/riak $ make
+</span><span class='line'>
+</span><span class='line'>./rebar get-deps
+</span><span class='line'>==> rel (get-deps)
+</span><span class='line'>==> riak (get-deps)
+</span><span class='line'>Pulling cluster_info from {git,"git://github.com/basho/cluster_info",
+</span><span class='line'>                               {branch,"master"}}
+</span><span class='line'>Cloning into cluster_info...
+</span><span class='line'>Pulling riak_kv from {git,"git://github.com/basho/riak_kv",{branch,"master"}}
+</span><span class='line'>Cloning into riak_kv...
+</span><span class='line'>Pulling riak_search from {git,"git://github.com/basho/riak_search",
+</span><span class='line'>                              {branch,"master"}}
+</span><span class='line'>Cloning into riak_search...
+</span><span class='line'>Pulling riak_control from {git,"git://github.com/basho/riak_control",
+</span><span class='line'>                               {branch,"master"}}
+</span><span class='line'>Cloning into riak_control...
+</span><span class='line'>==> cluster_info (get-deps)
+</span><span class='line'>==> riak_kv (get-deps)
+</span><span class='line'>Pulling riak_core from {git,"git://github.com/basho/riak_core","master"}
+</span><span class='line'>Cloning into riak_core...
+</span><span class='line'>Pulling luke from {git,"git://github.com/basho/luke","master"}
+</span><span class='line'>Cloning into luke...
+</span><span class='line'>Pulling erlang_js from {git,"git://github.com/basho/erlang_js","master"}
+</span><span class='line'>Cloning into erlang_js...
+</span><span class='line'>Pulling bitcask from {git,"git://github.com/basho/bitcask","master"}
+</span><span class='line'>Cloning into bitcask...
+</span><span class='line'>Pulling merge_index from {git,"git://github.com/basho/merge_index","master"}
+</span><span class='line'>Cloning into merge_index...
+</span><span class='line'>Pulling ebloom from {git,"git://github.com/basho/ebloom","master"}
+</span><span class='line'>Cloning into ebloom...
+</span><span class='line'>Pulling eper from {git,"git://github.com/basho/eper.git","master"}
+</span><span class='line'>Cloning into eper...
+</span><span class='line'>Pulling eleveldb from {git,"git://github.com/basho/eleveldb.git","master"}
+</span><span class='line'>Cloning into eleveldb...
+</span><span class='line'>Pulling sext from {git,"git://github.com/esl/sext","master"}
+</span><span class='line'>Cloning into sext...
+</span><span class='line'>Pulling riak_pipe from {git,"git://github.com/basho/riak_pipe.git","master"}
+</span><span class='line'>Cloning into riak_pipe...
+</span><span class='line'>Pulling riak_api from {git,"git://github.com/basho/riak_api.git","master"}
+</span><span class='line'>Cloning into riak_api...
+</span><span class='line'>==> riak_core (get-deps)
+</span><span class='line'>Pulling lager from {git,"git://github.com/basho/lager",{branch,"master"}}
+</span><span class='line'>Cloning into lager...
+</span><span class='line'>Pulling poolboy from {git,"git://github.com/basho/poolboy",{branch,"master"}}
+</span><span class='line'>Cloning into poolboy...
+</span><span class='line'>Pulling protobuffs from {git,"git://github.com/basho/erlang_protobuffs",
+</span><span class='line'>                             {branch,"master"}}
+</span><span class='line'>Cloning into protobuffs...
+</span><span class='line'>Pulling basho_stats from {git,"git://github.com/basho/basho_stats","HEAD"}
+</span><span class='line'>Cloning into basho_stats...
+</span><span class='line'>Pulling riak_sysmon from {git,"git://github.com/basho/riak_sysmon",
+</span><span class='line'>                              {branch,"master"}}
+</span><span class='line'>Cloning into riak_sysmon...
+</span><span class='line'>Pulling webmachine from {git,"git://github.com/basho/webmachine",
+</span><span class='line'>                             {branch,"master"}}
+</span><span class='line'>Cloning into webmachine...
+</span><span class='line'>Pulling folsom from {git,"git://github.com/basho/folsom.git",
+</span><span class='line'>                         {branch,"master"}}
+</span><span class='line'>Cloning into folsom...
+</span><span class='line'>==> lager (get-deps)
+</span><span class='line'>==> poolboy (get-deps)
+</span><span class='line'>==> protobuffs (get-deps)
+</span><span class='line'>Pulling meck from {git,"git://github.com/eproxus/meck",{branch,"master"}}
+</span><span class='line'>Cloning into meck...
+</span><span class='line'>==> meck (get-deps)
+</span><span class='line'>==> basho_stats (get-deps)
+</span><span class='line'>==> riak_sysmon (get-deps)
+</span><span class='line'>==> webmachine (get-deps)
+</span><span class='line'>Pulling mochiweb from {git,"git://github.com/basho/mochiweb",
+</span><span class='line'>                           {tag,"1.5.1-riak-1.0.x-fixes"}}
+</span><span class='line'>Cloning into mochiweb...
+</span><span class='line'>==> mochiweb (get-deps)
+</span><span class='line'>==> folsom (get-deps)
+</span><span class='line'>Pulling bear from {git,"git://github.com/boundary/bear.git","master"}
+</span><span class='line'>Cloning into bear...
+</span><span class='line'>==> bear (get-deps)
+</span><span class='line'>==> luke (get-deps)
+</span><span class='line'>==> erlang_js (get-deps)
+</span><span class='line'>==> bitcask (get-deps)
+</span><span class='line'>==> merge_index (get-deps)
+</span><span class='line'>==> ebloom (get-deps)
+</span><span class='line'>==> eper (get-deps)
+</span><span class='line'>Pulling getopt from {git,"git://github.com/jcomellas/getopt.git",
+</span><span class='line'>                         {tag,"v0.4.3"}}
+</span><span class='line'>Cloning into getopt...
+</span><span class='line'>==> getopt (get-deps)
+</span><span class='line'>==> eleveldb (get-deps)
+</span><span class='line'>Cloning into leveldb...
+</span><span class='line'>Note: checking out 'fbe66f44e9abeb4f2de3c89d91573b7879226e6c'.
+</span><span class='line'>
+</span><span class='line'>You are in 'detached HEAD' state. You can look around, make experimental
+</span><span class='line'>changes and commit them, and you can discard any commits you make in this
+</span><span class='line'>state without impacting any branches by performing another checkout.
+</span><span class='line'>
+</span><span class='line'>If you want to create a new branch to retain commits you create, you may
+</span><span class='line'>do so (now or later) by using -b with the checkout command again. Example:
+</span><span class='line'>
+</span><span class='line'>  git checkout -b new_branch_name
+</span><span class='line'>
+</span><span class='line'>HEAD is now at fbe66f4... Merge pull request #17 from basho/mv-compress-msg
+</span><span class='line'>==> sext (get-deps)
+</span><span class='line'>Pulling edown from {git,"git://github.com/esl/edown.git","HEAD"}
+</span><span class='line'>Cloning into edown...
+</span><span class='line'>==> edown (get-deps)
+</span><span class='line'>==> riak_pipe (get-deps)
+</span><span class='line'>==> riak_api (get-deps)
+</span><span class='line'>Pulling riak_pb from {git,"git://github.com/basho/riak_pb.git","master"}
+</span><span class='line'>Cloning into riak_pb...
+</span><span class='line'>==> riak_pb (get-deps)
+</span><span class='line'>==> lucene_parser (get-deps)
+</span><span class='line'>==> riak_search (get-deps)
+</span><span class='line'>==> riak_control (get-deps)
+</span><span class='line'>./rebar compile
+</span><span class='line'>==> cluster_info (compile)
+</span><span class='line'>Compiled src/cluster_info_ex.erl
+</span><span class='line'>
+</span><span class='line'>   ... snip ...
+</span><span class='line'>
+</span><span class='line'>==> riak_core (compile)
+</span><span class='line'>Compiling src/riak_core.proto
+</span><span class='line'>
+</span><span class='line'>=INFO REPORT==== 11-Jul-2012::22:06:02 ===
+</span><span class='line'>Writing header file to "riak_core_pb.hrl"
+</span><span class='line'>
+</span><span class='line'>=INFO REPORT==== 11-Jul-2012::22:06:02 ===
+</span><span class='line'>Writing beam file to "riak_core_pb.beam"
+</span><span class='line'>Compiled src/gen_nb_server.erl
+</span><span class='line'>
+</span><span class='line'>   ... snip ...
+</span><span class='line'>
+</span><span class='line'>==> riak_pb (compile)
+</span><span class='line'>Compiling src/riak.proto
+</span><span class='line'>
+</span><span class='line'>Compiled src/admin_gui.erl
+</span><span class='line'>Compiled src/admin_cluster.erl
+</span><span class='line'>==> rel (compile)
+</span><span class='line'>==> riak (compile)
+</span><span class='line'>Compiled src/etop_txt.erl</span></code></pre></td></tr></table></div></figure>
 
-Copyright (C) 2005-2010 Matt Mackall and others
-This is free software; see the source for copying conditions. There is NO
-warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-
-oj@nix ~/blog$ git --version
-git version 1.7.3.5
-
-oj@nix ~/blog $ git clone git://github.com/basho/riak
-Cloning into riak...
-remote: Counting objects: 10812, done.
-remote: Compressing objects: 100% (3468/3468), done.
-remote: Total 10812 (delta 7217), reused 10469 (delta 7020)
-Receiving objects: 100% (10812/10812), 8.83 MiB | 729 KiB/s, done.
-Resolving deltas: 100% (7217/7217), done.
-
-oj@nix ~/blog $ cd riak
-oj@nix ~/blog/riak $ make
-./rebar get-deps
-==&gt; rel (get-deps)
-==&gt; riak (get-deps)
-Pulling cluster_info from {git,"git://github.com/basho/cluster_info",
-                               {branch,"master"}}
-Cloning into cluster_info...
-Pulling luwak from {git,"git://github.com/basho/luwak",{branch,"master"}}
-Cloning into luwak...
-Pulling riak_kv from {git,"git://github.com/basho/riak_kv",{branch,"master"}}
-Cloning into riak_kv...
-Pulling riak_err from {git,"git://github.com/basho/riak_err",
-                           {branch,"master"}}
-Cloning into riak_err...
-==&gt; cluster_info (get-deps)
-==&gt; riak_kv (get-deps)
-Pulling riak_core from {git,"git://github.com/basho/riak_core",
-                            {branch,"master"}}
-Cloning into riak_core...
-Pulling riakc from {git,"git://github.com/basho/riak-erlang-client",
-                        {tag,"riakc-1.0.2"}}
-Cloning into riakc...
-Pulling luke from {git,"git://github.com/basho/luke",{tag,"luke-0.2.3"}}
-Cloning into luke...
-Pulling erlang_js from {git,"git://github.com/basho/erlang_js",
-                            {tag,"erlang_js-0.5.0"}}
-Cloning into erlang_js...
-Pulling bitcask from {git,"git://github.com/basho/bitcask",{branch,"master"}}
-Cloning into bitcask...
-Pulling ebloom from {git,"git://github.com/basho/ebloom",{branch,"master"}}
-Cloning into ebloom...
-Pulling eper from {git,"git://github.com/dizzyd/eper.git",{branch,"master"}}
-Cloning into eper...
-==&gt; riak_core (get-deps)
-Pulling protobuffs from {git,"git://github.com/basho/erlang_protobuffs",
-                             {tag,"protobuffs-0.5.1"}}
-Cloning into protobuffs...
-Pulling basho_stats from {git,"git://github.com/basho/basho_stats","HEAD"}
-Cloning into basho_stats...
-Pulling riak_sysmon from {git,"git://github.com/basho/riak_sysmon",
-                              {branch,"master"}}
-Cloning into riak_sysmon...
-Pulling webmachine from {git,"git://github.com/basho/webmachine",
-                             {tag,"webmachine-1.8.0"}}
-Cloning into webmachine...
-==&gt; protobuffs (get-deps)
-==&gt; basho_stats (get-deps)
-==&gt; riak_sysmon (get-deps)
-==&gt; webmachine (get-deps)
-Pulling mochiweb from {git,"git://github.com/basho/mochiweb",
-                           {tag,"mochiweb-1.7.1"}}
-Cloning into mochiweb...
-==&gt; mochiweb (get-deps)
-==&gt; riakc (get-deps)
-==&gt; luke (get-deps)
-==&gt; erlang_js (get-deps)
-==&gt; ebloom (get-deps)
-==&gt; bitcask (get-deps)
-==&gt; eper (get-deps)
-==&gt; luwak (get-deps)
-Pulling skerl from {git,"git://github.com/basho/skerl",{tag,"skerl-1.0.1"}}
-Cloning into skerl...
-==&gt; skerl (get-deps)
-==&gt; riak_err (get-deps)
-./rebar compile
-==&gt; cluster_info (compile)
-Compiled src/cluster_info_ex.erl
-
-
-  ... snip ...
-</code></pre>
 
 <p>I snipped a lot of the make output for obvious reasons. Let&#8217;s build a few development nodes of Riak and cluster them together as indicated in the <a href="https://wiki.basho.com/display/RIAK/The+Riak+Fast+Track" title="Riak Fast Track">Riak Fast Track</a>:</p>
 
-<pre><code>oj@nix ~/blog/riak $ make devrel
-mkdir -p dev
-(cd rel &amp;&amp; ../rebar generate target_dir=../dev/dev1 overlay_vars=vars/dev1_vars.config)
-==&gt; rel (generate)
-mkdir -p dev
-(cd rel &amp;&amp; ../rebar generate target_dir=../dev/dev2 overlay_vars=vars/dev2_vars.config)
-==&gt; rel (generate)
-mkdir -p dev
-(cd rel &amp;&amp; ../rebar generate target_dir=../dev/dev3 overlay_vars=vars/dev3_vars.config)
-==&gt; rel (generate)
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>oj@air ~/blog/riak $ make devrel
+</span><span class='line'>mkdir -p dev
+</span><span class='line'>(cd rel && ../rebar generate target_dir=../dev/dev1 overlay_vars=vars/dev1_vars.config)
+</span><span class='line'>==> rel (generate)
+</span><span class='line'>mkdir -p dev
+</span><span class='line'>(cd rel && ../rebar generate target_dir=../dev/dev2 overlay_vars=vars/dev2_vars.config)
+</span><span class='line'>==> rel (generate)
+</span><span class='line'>mkdir -p dev
+</span><span class='line'>(cd rel && ../rebar generate target_dir=../dev/dev3 overlay_vars=vars/dev3_vars.config)
+</span><span class='line'>==> rel (generate)
+</span><span class='line'>mkdir -p dev
+</span><span class='line'>(cd rel && ../rebar generate target_dir=../dev/dev4 overlay_vars=vars/dev4_vars.config)
+</span><span class='line'>==> rel (generate)
+</span><span class='line'>
+</span><span class='line'>oj@air ~/blog/riak $ cd dev
+</span><span class='line'>oj@air ~/blog/riak/dev $ dev1/bin/riak start
+</span><span class='line'>oj@air ~/blog/riak/dev $ dev2/bin/riak start
+</span><span class='line'>oj@air ~/blog/riak/dev $ dev3/bin/riak start
+</span><span class='line'>oj@air ~/blog/riak/dev $ dev4/bin/riak start
+</span><span class='line'>oj@air ~/blog/riak/dev $ dev2/bin/riak-admin cluster join dev1
+</span><span class='line'>Success: staged join request for 'dev2@127.0.0.1' to dev1
+</span><span class='line'>oj@air ~/blog/riak/dev $ dev3/bin/riak-admin cluster join dev1
+</span><span class='line'>Success: staged join request for 'dev3@127.0.0.1' to dev1
+</span><span class='line'>oj@air ~/blog/riak/dev $ dev4/bin/riak-admin cluster join dev1
+</span><span class='line'>Success: staged join request for 'dev4@127.0.0.1' to dev1</span></code></pre></td></tr></table></div></figure>
 
-oj@nix ~/blog/riak $ cd dev
-oj@nix ~/blog/riak/dev $ dev1/bin/riak start
-oj@nix ~/blog/riak/dev $ dev2/bin/riak start
-oj@nix ~/blog/riak/dev $ dev3/bin/riak start
-oj@nix ~/blog/riak/dev $ dev2/bin/riak-admin join dev1
-Sent join request to dev1
 
-oj@nix ~/blog/riak/dev $ dev3/bin/riak-admin join dev1
-Sent join request to dev1
+<p>At this point our Riak cluster should be up and running. Rather than assume let&#8217;s make sure.</p>
 
-oj@nix ~/blog/riak/dev $ curl -H "Accept: text/plain" http://127.0.0.1:8091/stats
-{
-  ... snip ...
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>oj@air ~/blog/riak/dev $ dev4/bin/riak-admin ringready
+</span><span class='line'>TRUE All nodes agree on the ring ['dev1@127.0.0.1','dev2@127.0.0.1',
+</span><span class='line'>                                  'dev3@127.0.0.1','dev4@127.0.0.1']</span></code></pre></td></tr></table></div></figure>
 
-  "nodename": "dev1@127.0.0.1",
-    "connected_nodes": [
-    "dev2@127.0.0.1",
-    "dev3@127.0.0.1"
-  ],
 
-  ... snip ...
+<p>As we can see from the output, we now have a 4-node Riak cluster up and running. Those four nodes have the following traits:</p>
 
-  "ring_members": [
-    "dev1@127.0.0.1",
-    "dev2@127.0.0.1",
-    "dev3@127.0.0.1"
-  ],
-  "ring_num_partitions": 64,
-  "ring_ownership": "[{'dev3@127.0.0.1',21},{'dev2@127.0.0.1',21},{'dev1@127.0.0.1',22}]",
-
-  ... snip ...
-}
-</code></pre>
-
-<p>As we can see from the curl output, we now have a 3-node Riak cluster up and running. Those three nodes have the following traits:</p>
-
-<table border="1">
+<table style="border: 1px solid black; width:100%;">
   <thead>
     <tr>
-      <th>Name</th>
-      <th>Protobuf Port</th>
-      <th>HTTP Port</th>
+      <th style="border: 1px solid black; padding: 3px;">Name</th>
+      <th style="border: 1px solid black; padding: 3px;">Protobuf Port</th>
+      <th style="border: 1px solid black; padding: 3px;">HTTP Port</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td>dev1@127.0.0.1</td>
-      <td>8081</td>
-      <td>8091</td>
+      <td style="border: 1px solid black; padding: 3px;">dev1@127.0.0.1</td>
+      <td style="border: 1px solid black; padding: 3px;">8081</td>
+      <td style="border: 1px solid black; padding: 3px;">8091</td>
     </tr>
     <tr>
-      <td>dev2@127.0.0.1</td>
-      <td>8082</td>
-      <td>8092</td>
+      <td style="border: 1px solid black; padding: 3px;">dev2@127.0.0.1</td>
+      <td style="border: 1px solid black; padding: 3px;">8082</td>
+      <td style="border: 1px solid black; padding: 3px;">8092</td>
     </tr>
     <tr>
-      <td>dev3@127.0.0.1</td>
-      <td>8083</td>
-      <td>8093</td>
+      <td style="border: 1px solid black; padding: 3px;">dev3@127.0.0.1</td>
+      <td style="border: 1px solid black; padding: 3px;">8083</td>
+      <td style="border: 1px solid black; padding: 3px;">8093</td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid black; padding: 3px;">dev4@127.0.0.1</td>
+      <td style="border: 1px solid black; padding: 3px;">8084</td>
+      <td style="border: 1px solid black; padding: 3px;">8094</td>
     </tr>
   </tbody>
 </table>
@@ -357,91 +606,181 @@ oj@nix ~/blog/riak/dev $ curl -H "Accept: text/plain" http://127.0.0.1:8091/stat
 
 <p>We can talk to any of these nodes and they will replicate their data to the other nodes. Nifty! Now that we have a Riak cluster running for development, let&#8217;s get Webmachine ready.</p>
 
-<h3>Installing Webmachine 0.8</h3>
+<h3>Installing Webmachine 1.9.1</h3>
 
 <p>Again, the process is very simple:</p>
 
-<pre><code>oj@nix ~/blog $ git clone git://github.com/basho/webmachine
-loning into webmachine...
-remote: Counting objects: 1183, done.
-remote: Compressing objects: 100% (484/484), done.
-remote: Total 1183 (delta 735), reused 1063 (delta 668)
-Receiving objects: 100% (1183/1183), 1.17 MiB | 294 KiB/s, done.
-Resolving deltas: 100% (735/735), done.
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>oj@air ~/blog $ git clone git://github.com/basho/webmachine
+</span><span class='line'>Cloning into webmachine...
+</span><span class='line'>remote: Counting objects: 1512, done.
+</span><span class='line'>remote: Compressing objects: 100% (611/611), done.
+</span><span class='line'>remote: Total 1512 (delta 957), reused 1409 (delta 869)
+</span><span class='line'>Receiving objects: 100% (1512/1512), 1.32 MiB | 225 KiB/s, done.
+</span><span class='line'>Resolving deltas: 100% (957/957), done.
+</span><span class='line'>
+</span><span class='line'>oj@air ~/blog $ cd webmachine
+</span><span class='line'>oj@air ~/blog/webmachine $ make
+</span><span class='line'>==> webmachine (get-deps)
+</span><span class='line'>Pulling mochiweb from {git,"git://github.com/basho/mochiweb",
+</span><span class='line'>                           {tag,"1.5.1-riak-1.0.x-fixes"}}
+</span><span class='line'>Cloning into mochiweb...
+</span><span class='line'>==> mochiweb (get-deps)
+</span><span class='line'>==> mochiweb (compile)
+</span><span class='line'>Compiled src/mochiweb_sup.erl
+</span><span class='line'>
+</span><span class='line'>   ... snip ...
+</span><span class='line'>
+</span><span class='line'>==> webmachine (compile)
+</span><span class='line'>Compiled src/webmachine_util.erl
+</span><span class='line'>
+</span><span class='line'>   ... snip ...
+</span><span class='line'>
+</span><span class='line'>Compiled src/webmachine_request.erl</span></code></pre></td></tr></table></div></figure>
 
-oj@nix ~/blog $ cd webmachine/
-oj@nix ~/blog/webmachine $ make
-==&gt; webmachine (get-deps)
-Pulling mochiweb from {git,"git://github.com/mochi/mochiweb",{tag,"1.5.1"}}
-Cloning into mochiweb...
-==&gt; mochiweb (get-deps)
-==&gt; mochiweb (compile)
-Compiled src/mochiglobal.erl
-Compiled src/mochiweb_sup.erl
-
-  ... snip ...
-</code></pre>
 
 <p>As you can see, Webmachine sits on top of the <a href="http://github.com/mochi/mochiweb" title="Mochiweb">Mochiweb</a> web server.</p>
 
 <p>To create our own application which sits on top of Webmachine, we can utilise the <code>new_webmachine.sh</code> script. So let&#8217;s do that to create our Code Smackdown (csd) site:</p>
 
-<pre><code>oj@nix ~/blog/webmachine $ scripts/new_webmachine.sh
-usage: new_webmachine.sh name [destdir]
-oj@nix ~/blog/webmachine $ scripts/new_webmachine.sh csd ..
-==&gt; priv (create)
-Writing /home/oj/blog/csd/README
-Writing /home/oj/blog/csd/Makefile
-Writing /home/oj/blog/csd/rebar.config
-Writing /home/oj/blog/csd/rebar
-Writing /home/oj/blog/csd/start.sh
-Writing /home/oj/blog/csd/src/csd.app.src
-Writing /home/oj/blog/csd/src/csd.erl
-Writing /home/oj/blog/csd/src/csd_app.erl
-Writing /home/oj/blog/csd/src/csd_sup.erl
-Writing /home/oj/blog/csd/src/csd_resource.erl
-Writing /home/oj/blog/csd/priv/dispatch.conf
-</code></pre>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>oj@air ~/blog/webmachine $ scripts/new_webmachine.sh
+</span><span class='line'>usage: new_webmachine.sh name [destdir]
+</span><span class='line'>oj@air ~/blog/webmachine $ scripts/new_webmachine.sh csd ..
+</span><span class='line'>==> priv (create)
+</span><span class='line'>Writing /Users/oj/code/tmp/csd/README
+</span><span class='line'>Writing /Users/oj/code/tmp/csd/Makefile
+</span><span class='line'>Writing /Users/oj/code/tmp/csd/rebar.config
+</span><span class='line'>Writing /Users/oj/code/tmp/csd/rebar
+</span><span class='line'>Writing /Users/oj/code/tmp/csd/start.sh
+</span><span class='line'>Writing /Users/oj/code/tmp/csd/src/csd.app.src
+</span><span class='line'>Writing /Users/oj/code/tmp/csd/src/csd.erl
+</span><span class='line'>Writing /Users/oj/code/tmp/csd/src/csd_app.erl
+</span><span class='line'>Writing /Users/oj/code/tmp/csd/src/csd_sup.erl
+</span><span class='line'>Writing /Users/oj/code/tmp/csd/src/csd_resource.erl
+</span><span class='line'>Writing /Users/oj/code/tmp/csd/priv/dispatch.conf</span></code></pre></td></tr></table></div></figure>
+
 
 <p>Webmachine generates a fully functional website out of the box. So we should be able to build it, fire it up and see it in action:</p>
 
-<pre><code>oj@nix ~/blog/webmachine $ cd ../csd
-oj@nix ~/blog/csd $ make
-==&gt; csd (get-deps)
-Pulling webmachine from {git,"git://github.com/basho/webmachine","HEAD"}
-Cloning into webmachine...
-==&gt; webmachine (get-deps)
-Pulling mochiweb from {git,"git://github.com/mochi/mochiweb",{tag,"1.5.1"}}
-Cloning into mochiweb...
-==&gt; mochiweb (get-deps)
-==&gt; mochiweb (compile)
-Compiled src/mochiglobal.erl
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>oj@air ~/blog/webmachine $ cd ../csd
+</span><span class='line'>oj@air ~/blog/csd $ make
+</span><span class='line'>==> csd (get-deps)
+</span><span class='line'>Pulling webmachine from {git,"git://github.com/basho/webmachine","HEAD"}
+</span><span class='line'>Cloning into webmachine...
+</span><span class='line'>==> webmachine (get-deps)
+</span><span class='line'>Pulling mochiweb from {git,"git://github.com/basho/mochiweb",
+</span><span class='line'>                           {tag,"1.5.1-riak-1.0.x-fixes"}}
+</span><span class='line'>Cloning into mochiweb...
+</span><span class='line'>==> mochiweb (get-deps)
+</span><span class='line'>==> mochiweb (compile)
+</span><span class='line'>Compiled src/mochiweb_sup.erl
+</span><span class='line'>
+</span><span class='line'>   ... snip ...
+</span><span class='line'>
+</span><span class='line'>Compiled src/csd_sup.erl
+</span><span class='line'>
+</span><span class='line'>oj@air ~/blog/csd $ ./start.sh
+</span><span class='line'>Erlang R15B01 (erts-5.9.1) [source] [64-bit] [smp:4:4] [async-threads:0] [hipe] [kernel-poll:false]
+</span><span class='line'>
+</span><span class='line'>   ... snip ...
+</span><span class='line'>
+</span><span class='line'>=PROGRESS REPORT==== 11-Jul-2012::22:31:27 ===
+</span><span class='line'>          supervisor: {local,csd_sup}
+</span><span class='line'>             started: [{pid,&lt;0.75.0>},
+</span><span class='line'>                       {name,webmachine_mochiweb},
+</span><span class='line'>                       {mfargs,
+</span><span class='line'>                           {webmachine_mochiweb,start,
+</span><span class='line'>                               [[{ip,"0.0.0.0"},
+</span><span class='line'>                                 {port,8000},
+</span><span class='line'>                                 {log_dir,"priv/log"},
+</span><span class='line'>                                 {dispatch,[{[],csd_resource,[]}]}]]}},
+</span><span class='line'>                       {restart_type,permanent},
+</span><span class='line'>                       {shutdown,5000},
+</span><span class='line'>                       {child_type,worker}]
+</span><span class='line'>
+</span><span class='line'>=PROGRESS REPORT==== 11-Jul-2012::22:31:27 ===
+</span><span class='line'>         application: csd
+</span><span class='line'>          started_at: nonode@nohost</span></code></pre></td></tr></table></div></figure>
 
-  ... snip ...
-
-oj@nix ~/blog/csd $ ./start.sh
-Erlang R14B02 (erts-5.8.3) [source] [64-bit] [smp:2:2] [rq:2] [async-threads:0] [hipe] [kernel-poll:false]
-
-  ... snip ...
-
-PROGRESS REPORT==== 3-Apr-2011::22:38:36 ===
-          supervisor: {local,csd_sup}
-             started: [{pid,&lt;0.76.0&gt;},
-                       {name,webmachine_mochiweb},
-                       {mfargs,
-                           {webmachine_mochiweb,start,
-                               [[{ip,"0.0.0.0"},
-                                 {port,8000},
-                                 {log_dir,"priv/log"},
-                                 {dispatch,[{[],csd_resource,[]}]}]]}},
-                       {restart_type,permanent},
-                       {shutdown,5000},
-                       {child_type,worker}]
-
-=PROGRESS REPORT==== 3-Apr-2011::22:38:36 ===
-         application: csd
-          started_at: nonode@nohost
-</code></pre>
 
 <p>The application is now up and running. As you can see from the output, our csd application has been fired up and is listening on port 8000. Let&#8217;s fire it up in a web browser to see if it works.</p>
 
@@ -463,7 +802,7 @@ PROGRESS REPORT==== 3-Apr-2011::22:38:36 ===
 <span class='line-number'>3</span>
 </pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="c">%%-*- mode: erlang -*-</span>
 </span><span class='line'>
-</span><span class='line'><span class="p">{</span><span class="n">deps</span><span class="p">,</span> <span class="p">[{</span><span class="n">webmachine</span><span class="p">,</span> <span class="s">&quot;1.8.*&quot;</span><span class="p">,</span> <span class="p">{</span><span class="n">git</span><span class="p">,</span> <span class="s">&quot;git://github.com/basho/webmachine&quot;</span><span class="p">,</span> <span class="s">&quot;HEAD&quot;</span><span class="p">}}]}.</span>
+</span><span class='line'><span class="p">{</span><span class="n">deps</span><span class="p">,</span> <span class="p">[{</span><span class="n">webmachine</span><span class="p">,</span> <span class="s">&quot;1.9.*&quot;</span><span class="p">,</span> <span class="p">{</span><span class="n">git</span><span class="p">,</span> <span class="s">&quot;git://github.com/basho/webmachine&quot;</span><span class="p">,</span> <span class="s">&quot;HEAD&quot;</span><span class="p">}}]}.</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
@@ -481,9 +820,9 @@ PROGRESS REPORT==== 3-Apr-2011::22:38:36 ===
 </pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="c">%%-*- mode: erlang -*-</span>
 </span><span class='line'><span class="p">{</span><span class="n">deps</span><span class="p">,</span>
 </span><span class='line'>  <span class="p">[</span>
-</span><span class='line'>    <span class="p">{</span><span class="n">webmachine</span><span class="p">,</span> <span class="s">&quot;1.8.*&quot;</span><span class="p">,</span> <span class="p">{</span><span class="n">git</span><span class="p">,</span> <span class="s">&quot;git://github.com/basho/webmachine&quot;</span><span class="p">,</span> <span class="s">&quot;HEAD&quot;</span><span class="p">}},</span>
+</span><span class='line'>    <span class="p">{</span><span class="n">webmachine</span><span class="p">,</span> <span class="s">&quot;.*&quot;</span><span class="p">,</span> <span class="p">{</span><span class="n">git</span><span class="p">,</span> <span class="s">&quot;git://github.com/basho/webmachine&quot;</span><span class="p">,</span> <span class="s">&quot;HEAD&quot;</span><span class="p">}},</span>
 </span><span class='line'>    <span class="p">{</span><span class="n">riakc</span><span class="p">,</span> <span class="s">&quot;.*&quot;</span><span class="p">,</span> <span class="p">{</span><span class="n">git</span><span class="p">,</span> <span class="s">&quot;git://github.com/basho/riak-erlang-client&quot;</span><span class="p">,</span> <span class="s">&quot;HEAD&quot;</span><span class="p">}},</span>
-</span><span class='line'>    <span class="p">{</span><span class="n">erlydtl</span><span class="p">,</span> <span class="s">&quot;0.6.1&quot;</span><span class="p">,</span> <span class="p">{</span><span class="n">git</span><span class="p">,</span> <span class="s">&quot;git://github.com/OJ/erlydtl.git&quot;</span><span class="p">,</span> <span class="s">&quot;HEAD&quot;</span><span class="p">}}</span>
+</span><span class='line'>    <span class="p">{</span><span class="n">erlydtl</span><span class="p">,</span> <span class="s">&quot;.*&quot;</span><span class="p">,</span> <span class="p">{</span><span class="n">git</span><span class="p">,</span> <span class="s">&quot;git://github.com/OJ/erlydtl.git&quot;</span><span class="p">,</span> <span class="s">&quot;HEAD&quot;</span><span class="p">}}</span>
 </span><span class='line'>  <span class="p">]</span>
 </span><span class='line'><span class="p">}.</span>
 </span></code></pre></td></tr></table></div></figure>
@@ -493,28 +832,23 @@ PROGRESS REPORT==== 3-Apr-2011::22:38:36 ===
 
 <p>Save the file and build!</p>
 
-<pre><code>oj@nix ~/blog/csd $ make
-==&gt; mochiweb (get-deps)
-==&gt; webmachine (get-deps)
-==&gt; csd (get-deps)
-Pulling riakc from {git,"git://github.com/basho/riak-erlang-client","HEAD"}
-Cloning into riakc...
-Pulling erlydtl from {git,"git://github.com/OJ/erlydtl.git","HEAD"}
-Cloning into erlydtl...
-==&gt; riakc (get-deps)
-Pulling protobuffs from {git,"git://github.com/basho/erlang_protobuffs",
-                             {tag,"protobuffs-0.5.1"}}
-Cloning into protobuffs...
-==&gt; protobuffs (get-deps)
-==&gt; erlydtl (get-deps)
-==&gt; mochiweb (compile)
-==&gt; webmachine (compile)
-==&gt; protobuffs (compile)
-Compiled src/pokemon_pb.erl
-Compiled src/protobuffs_parser.erl
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>oj@air ~/blog/csd $ make
+</span><span class='line'>==> mochiweb (get-deps)
+</span><span class='line'>==> webmachine (get-deps)
+</span><span class='line'>==> csd (get-deps)
+</span><span class='line'>Pulling riakc from {git,"git://github.com/basho/riak-erlang-client","HEAD"}
+</span><span class='line'>Cloning into riakc...
+</span><span class='line'>
+</span><span class='line'>  ... snip ...</span></code></pre></td></tr></table></div></figure>
 
-  ... snip ...
-</code></pre>
 
 <p>Dependencies sorted. For the final part of this blog post, we&#8217;ll include a basic ErlyDTL template and use it to render the page so we can see how it works.</p>
 
@@ -563,35 +897,63 @@ Compiled src/protobuffs_parser.erl
 
 <p>In the past, we had to manually modify <code>ebin/csd.app</code> to include the template that we&#8217;ve just created. Thankfully, <code>rebar</code> has been updated so that it generates the <code>ebin/csd.app</code> file from the <code>src/csd.app.src</code> file automatically when the application is built. <code>rebar</code> adds the required modules from the <code>src</code> folder <em>and</em> includes the templates from the <code>templates</code> folder. Therefore, with our template and module ready to go, all we need to do is build and run:</p>
 
-<pre><code>oj@nix ~/blog/csd $ make
-==&gt; mochiweb (get-deps)
-==&gt; webmachine (get-deps)
-==&gt; protobuffs (get-deps)
-==&gt; riakc (get-deps)
-==&gt; erlydtl (get-deps)
-==&gt; csd (get-deps)
-==&gt; mochiweb (compile)
-==&gt; webmachine (compile)
-==&gt; protobuffs (compile)
-==&gt; riakc (compile)
-==&gt; erlydtl (compile)
-==&gt; csd (compile)
-Compiled src/csd_resource.erl
-Compiled templates/sample.dtl
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>oj@air ~/blog/csd $ make
+</span><span class='line'>==> mochiweb (get-deps)
+</span><span class='line'>==> webmachine (get-deps)
+</span><span class='line'>==> protobuffs (get-deps)
+</span><span class='line'>==> riakc (get-deps)
+</span><span class='line'>==> erlydtl (get-deps)
+</span><span class='line'>==> csd (get-deps)
+</span><span class='line'>==> mochiweb (compile)
+</span><span class='line'>==> webmachine (compile)
+</span><span class='line'>==> protobuffs (compile)
+</span><span class='line'>==> riakc (compile)
+</span><span class='line'>==> erlydtl (compile)
+</span><span class='line'>==> csd (compile)
+</span><span class='line'>Compiled src/csd_resource.erl
+</span><span class='line'>Compiled templates/sample.dtl
+</span><span class='line'>
+</span><span class='line'>oj@air ~/blog/csd $ ./start.sh 
+</span><span class='line'>Erlang R15B01 (erts-5.9.1) [source] [64-bit] [smp:2:2] [rq:2] [async-threads:0] [hipe] [kernel-poll:false]
+</span><span class='line'>
+</span><span class='line'>  ... snip ...
+</span><span class='line'>
+</span><span class='line'>** Found 0 name clashes in code paths 
+</span><span class='line'>
+</span><span class='line'>  ... snip ...
+</span><span class='line'>
+</span><span class='line'>=PROGRESS REPORT==== 11-Jul-2012::22:31:27 ===
+</span><span class='line'>         application: csd
+</span><span class='line'>          started_at: nonode@nohost</span></code></pre></td></tr></table></div></figure>
 
-oj@nix ~/blog/csd $ ./start.sh 
-Erlang R14B02 (erts-5.8.3) [source] [64-bit] [smp:2:2] [rq:2] [async-threads:0] [hipe] [kernel-poll:false]
-
-  ... snip ...
-
-** Found 0 name clashes in code paths 
-
-  ... snip ...
-
-=PROGRESS REPORT==== 3-Apr-2011::22:54:50 ===
-         application: csd
-          started_at: nonode@nohost
-</code></pre>
 
 <p>Notice how ErlyDTL outputs some information to indicate that no template names have clashed with any other modules.</p>
 
@@ -633,7 +995,7 @@ Erlang R14B02 (erts-5.8.3) [source] [64-bit] [smp:2:2] [rq:2] [async-threads:0] 
 
   
 
-<time datetime="2011-06-15T17:26:22+10:00" class="updated">Updated 15 Jun 2011</time>
+<time datetime="2012-07-11T21:50:00+10:00" class="updated">Updated 11 Jul 2012</time>
       
 
 <span class="categories">

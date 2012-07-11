@@ -964,11 +964,11 @@
     </url>
     <url>
         <loc>http://buffered.io/posts/webmachine-erlydtl-and-riak-part-1/</loc>
-        <lastmod>2012-07-11T21:43:25+10:00</lastmod>
+        <lastmod>2012-07-11T22:43:36+10:00</lastmod>
     </url>
     <url>
         <loc>http://buffered.io/posts/webmachine-erlydtl-and-riak-part-2/</loc>
-        <lastmod>2012-07-11T21:43:46+10:00</lastmod>
+        <lastmod>2012-07-11T23:20:10+10:00</lastmod>
     </url>
     <url>
         <loc>http://buffered.io/posts/asp-net-mvc-2-random-sign-offs-and-tempdata-loss/</loc>
@@ -976,7 +976,7 @@
     </url>
     <url>
         <loc>http://buffered.io/posts/webmachine-erlydtl-and-riak-part-3/</loc>
-        <lastmod>2012-07-11T21:44:03+10:00</lastmod>
+        <lastmod>2012-07-11T21:51:54+10:00</lastmod>
     </url>
     <url>
         <loc>http://buffered.io/posts/issue-with-google-reader/</loc>
@@ -1020,7 +1020,7 @@
     </url>
     <url>
         <loc>http://buffered.io/posts/webmachine-erlydtl-and-riak-part-4/</loc>
-        <lastmod>2012-07-11T21:44:19+10:00</lastmod>
+        <lastmod>2012-07-11T21:52:00+10:00</lastmod>
     </url>
     <url>
         <loc>http://buffered.io/posts/webmachine-erlydtl-and-riak-part-5/</loc>
@@ -1028,10 +1028,10 @@
     </url>
     <url>
         <loc>http://buffered.io/</loc>
-        <lastmod>2012-07-11T21:47:11+10:00</lastmod>
+        <lastmod>2012-07-11T23:20:10+10:00</lastmod>
     </url>
     <url>
         <loc>http://buffered.io/posts/archives/</loc>
-        <lastmod>2012-07-11T21:47:11+10:00</lastmod>
+        <lastmod>2012-07-11T23:20:10+10:00</lastmod>
     </url>
 </urlset>

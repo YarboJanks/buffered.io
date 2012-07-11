@@ -1,7 +1,7 @@
 ---
 categories: [Riak, Databases, Functional Programming, HOWTO, Erlang, Webmachine]
 date: 2010-10-13 06:31
-updated: 2011-05-03 08:55:43
+updated: 2012-07-11 21:50
 tags: [web development, Erlang, NoSQL, Webmachine, Riak, ErlyDTL, HAProxy]
 comments: true
 layout: post

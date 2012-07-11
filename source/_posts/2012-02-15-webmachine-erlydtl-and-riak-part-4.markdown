@@ -1,6 +1,6 @@
 ---
 date: 2012-02-15 20:50
-updated: 2012-02-17 20:15
+updated: 2012-07-11 21:50
 categories: [Riak, Functional Programming, HOWTO, Erlang, Webmachine, OAuth, Twitter, ErlyDTL]
 tags: [Riak, Functional Programming, HOWTO, Erlang, Webmachine, OAuth, Twitter, ErlyDTL]
 comments: true
