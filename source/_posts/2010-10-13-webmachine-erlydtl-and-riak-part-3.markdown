@@ -915,12 +915,15 @@ As always, comments and feedback is welcomed and greatly appreciated. As are sug
 
 **Note:** The code for Part 3 (this post) can be found on [Github][Part3Code].
 
+Other parts in this series: [Part 1][], [Part 2][], [Part 4][], [Part 5][]
 
+  [Part 1]: /posts/webmachine-erlydtl-and-riak-part-1/ "Wembachine, ErlyDTL and Riak - Part 1"
+  [Part 2]: /posts/webmachine-erlydtl-and-riak-part-2/ "Webmachine, ErlyDTL and Riak - Part 2"
+  [Part 4]: /posts/webmachine-erlydtl-and-riak-part-4/ "Webmachine, ErlyDTL and Riak - Part 4"
+  [Part 5]: /posts/webmachine-erlydtl-and-riak-part-5/ "Webmachine, ErlyDTL and Riak - Part 5"
   [Erlang]: http://erlang.org/ "Erlang"
   [Webmachine]: http://www.basho.com/developers.html#Webmachine "Webmachine"
   [JSON]: http://json.org/ "JavaScript Object Notation"
-  [Part 1]: /posts/webmachine-erlydtl-and-riak-part-1/ "Wembachine, ErlyDTL and Riak - Part 1"
-  [Part 2]: /posts/webmachine-erlydtl-and-riak-part-2/ "Wembachine, ErlyDTL and Riak - Part 2"
   [Part2Code]: https://github.com/OJ/csd/tree/Part2-20110403 "Source code for Part 2"
   [Riak]: http://www.basho.com/developers.html#Riak "Riak"
   [ErlyDTL]: http://github.com/evanmiller/erlydtl "ErlyDTL"

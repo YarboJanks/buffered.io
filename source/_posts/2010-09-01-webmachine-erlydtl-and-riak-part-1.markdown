@@ -476,6 +476,12 @@ Feedback and criticism welcome!
 
 **Note:** The code for Part 1 (this post) can be found on [Github][Part1Code].
 
+Other parts in this series: [Part 2][], [Part 3][], [Part 4][], [Part 5][]
+
+  [Part 2]: /posts/webmachine-erlydtl-and-riak-part-2/ "Webmachine, ErlyDTL and Riak - Part 2"
+  [Part 3]: /posts/webmachine-erlydtl-and-riak-part-3/ "Webmachine, ErlyDTL and Riak - Part 3"
+  [Part 4]: /posts/webmachine-erlydtl-and-riak-part-4/ "Webmachine, ErlyDTL and Riak - Part 4"
+  [Part 5]: /posts/webmachine-erlydtl-and-riak-part-5/ "Webmachine, ErlyDTL and Riak - Part 5"
   [ErlangPost]: /posts/the-future-is-erlang/ "The Future is Erlang"
   [Basho]: http://basho.com/ "Basho Technologies"
   [Code Smackdown]: http://bitbucket.org/OJ/codesmackdown "Code Smackdown"

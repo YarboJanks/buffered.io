@@ -258,7 +258,7 @@ only index-capable backend.</p></blockquote>
 
 <p>Next we need to store votes. In a typical RDMBS this problem is well-known and the solutions out there are also well-known. In a KV store this isn&#8217;t necessarily the case. What I propose in this post is <em>a possible way</em> of solving this problem. I do not in any way claim that this is <em>the best way</em>. With this, this is what we&#8217;re going to do&#8230;</p>
 
-<p>A <code>vote</code> needs to keep track of who submitted it along with the snippet it was put against. It also needs to have an indication of whether the user preferred the left or right hand side of the snippet. When these votes are stored, we also want to be able to query the in such a way so that, for a given snippet, we can quickly count the number of votes and which way those votes went. This is quite important as the tallying of the votes and displaying them on screen is a key part of the idea behind the application.</p>
+<p>A <code>vote</code> needs to keep track of who submitted it along with the snippet it was put against. It also needs to have an indication of whether the user preferred the left or right hand side of the snippet. When these votes are stored, we also want to be able to query them in such a way so that, for a given snippet, we can quickly count the number of votes and which way those votes went. This is quite important as the tallying of the votes and displaying them on screen is a key part of the idea behind the application.</p>
 
 <p>To identify a vote the key needs to be made up of both the <code>userid</code> of the person who submitted it and the <code>key</code> of the snippet the vote. Therefore, for the <code>vote</code> bucket we&#8217;ll create keys in the format: <em>userid-snippetkey</em></p>
 
@@ -669,7 +669,7 @@ only index-capable backend.</p></blockquote>
 
 <p>Abstraction purists might argue that this is a positive as it gives us the ability to swap our database out for something else and the consumers of <code>csd_db</code> wouldn&#8217;t even know. This might be true, but that&#8217;s not really the goal. The goal is to put all the <a href="https://github.com/OJ/pooler" title="Pooler">Pooler</a> interaction in a single spot.</p>
 
-<p>Rather than show the module here in its entirity, we&#8217;ll break it up into chunks: snippets, users and votes. Each of these chunks will be looked at when we dive into storage of those individual bits of data. To give an idea of the purpose that it serves see the following diagram:</p>
+<p>Rather than show the module here in its entirety, we&#8217;ll break it up into chunks: snippets, users and votes. Each of these chunks will be looked at when we dive into storage of those individual bits of data. To give an idea of the purpose that it serves see the following diagram:</p>
 
 <p><img src="/uploads/2012/07/part5-db-modules.png" title="'Database Module Interaction'" ></p>
 
@@ -793,7 +793,7 @@ only index-capable backend.</p></blockquote>
 
 <h2><a id="storing-snippets"></a>Storing Snippets</h2>
 
-<p>Until now we&#8217;ve only ever stored snippets and we haven&#8217;t really done anything complicated with them. The earlier versions of our <code>csd_snippet</code> module, the one which encapsulated the snippet functionaliy, contained methods which covered two concerns: construction/creation of the snippet and storing/retrieval of snippets. Rather than continuing to mix concerns, we&#8217;re going to break this module up into two: <code>csd_snippet</code> and <code>csd_snippet_store</code>. The aim is for the former to act like an API to the snippet functionality. This is the one that will be invoked from our web application. The latter will be invoked by the former in the cases where data needs to be written to or read from the data store.</p>
+<p>Until now we&#8217;ve only ever stored snippets and we haven&#8217;t really done anything complicated with them. The earlier versions of our <code>csd_snippet</code> module, the one which encapsulated the snippet functionality, contained methods which covered two concerns: construction/creation of the snippet and storing/retrieval of snippets. Rather than continuing to mix concerns, we&#8217;re going to break this module up into two: <code>csd_snippet</code> and <code>csd_snippet_store</code>. The aim is for the former to act like an API to the snippet functionality. This is the one that will be invoked from our web application. The latter will be invoked by the former in the cases where data needs to be written to or read from the data store.</p>
 
 <p>Hopefully now you can see where this fits into the diagram shown above. <code>csd_snippet</code> is paired with <code>csd_snippet_store</code> and <code>csd_db</code> is used as a bridge between the two which provides the connections to Riak.</p>
 
@@ -2977,7 +2977,7 @@ only index-capable backend.</p></blockquote>
 
 <p>The static file serving resource is not something that I wrote (though I&#8217;ve tweaked it a bit). I blatantly purloined it from somewhere on the web (quite a while ago I might add) and I can no longer find a reference to it. If anyone out there recognises it, please let me know and I shall give proper kudos/credit to the original author.</p>
 
-<p>This resource works, but I say again it&#8217;s not something that should be used in production.  Here it is in its entirity.</p>
+<p>This resource works, but I say again it&#8217;s not something that should be used in production.  Here it is in its entirety.</p>
 
 <figure class='code'><figcaption><span>apps/csd_web/src/csd_web_static_resource.erl  </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -3289,6 +3289,8 @@ now looks like Twitter bootstrap.</p></blockquote>
 <p>Thanks again. Until next time!</p>
 
 <p><strong>Note:</strong> The code for Part 5 (this post) can be found on <a href="https://github.com/OJ/csd/tree/Part5-20120710" title="Source code for Part 5">Github</a>.</p>
+
+<p>Other parts in this series: <a href="/posts/webmachine-erlydtl-and-riak-part-1/" title="Wembachine, ErlyDTL and Riak - Part 1">Part 1</a>, <a href="/posts/webmachine-erlydtl-and-riak-part-2/" title="Wembachine, ErlyDTL and Riak - Part 2">Part 2</a>, <a href="/posts/webmachine-erlydtl-and-riak-part-3/" title="Wembachine, ErlyDTL and Riak - Part 3">Part 3</a>, <a href="/posts/webmachine-erlydtl-and-riak-part-4/" title="Wembachine, ErlyDTL and Riak - Part 4">Part 4</a></p>
 </div>
 
 

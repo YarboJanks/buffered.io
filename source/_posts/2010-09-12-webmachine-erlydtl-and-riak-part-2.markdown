@@ -355,8 +355,13 @@ As always, comments and feedback are welcome and greatly appreciated. Suggestion
 
 **Note:** The code for Part 2 (this post) can be found on [Github][Part2Code].
 
-  [HAProxy]: http://haproxy.1wt.eu/ "HAProxy"
+Other parts in this series: [Part 1][], [Part 3][], [Part 4][], [Part 5][]
+
   [Part 1]: /posts/webmachine-erlydtl-and-riak-part-1/ "Wembachine, ErlyDTL and Riak - Part 1"
+  [Part 3]: /posts/webmachine-erlydtl-and-riak-part-3/ "Webmachine, ErlyDTL and Riak - Part 3"
+  [Part 4]: /posts/webmachine-erlydtl-and-riak-part-4/ "Webmachine, ErlyDTL and Riak - Part 4"
+  [Part 5]: /posts/webmachine-erlydtl-and-riak-part-5/ "Webmachine, ErlyDTL and Riak - Part 5"
+  [HAProxy]: http://haproxy.1wt.eu/ "HAProxy"
   [f()]: http://www.erlang.org/documentation/doc-5.2/doc/getting_started/getting_started.html "Getting started"
   [load balancer]: http://en.wikipedia.org/wiki/Load_balancing_(computing) "Load balancing"
   [localhost]: http://localhost/ "localhost"

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Databases | OJ's rants]]></title>
   <link href="http://buffered.io/categories/databases/atom.xml" rel="self"/>
   <link href="http://buffered.io/"/>
-  <updated>2012-07-10T21:45:04+10:00</updated>
+  <updated>2012-07-11T21:47:11+10:00</updated>
   <id>http://buffered.io/</id>
   <author>
     <name><![CDATA[OJ Reeves]]></name>
@@ -18,7 +18,7 @@
     <link href="http://buffered.io/posts/webmachine-erlydtl-and-riak-part-3/"/>
     <updated>2010-10-13T06:31:00+10:00</updated>
     <id>http://buffered.io/posts/webmachine-erlydtl-and-riak-part-3</id>
-    <content type="html"><![CDATA[<p><img src="http://buffered.io/uploads/2010/09/riak-logo.png" alt="Riak Logo" style="float:left;padding-right:5px;padding-bottom:5px;"/>For those of you who are new to the series, you may want to check out <a href="/posts/webmachine-erlydtl-and-riak-part-1/" title="Wembachine, ErlyDTL and Riak - Part 1">Part 1</a> and <a href="/posts/webmachine-erlydtl-and-riak-part-2/" title="Wembachine, ErlyDTL and Riak - Part 2">Part 2</a> before reading this post. It will help give you some context as well as introduce you to some of the jargon and technology that I'm using. If you've already read then, or don't want to, then please read on!</p>
+    <content type="html"><![CDATA[<p><img src="http://buffered.io/uploads/2010/09/riak-logo.png" alt="Riak Logo" style="float:left;padding-right:5px;padding-bottom:5px;"/>For those of you who are new to the series, you may want to check out <a href="/posts/webmachine-erlydtl-and-riak-part-1/" title="Wembachine, ErlyDTL and Riak - Part 1">Part 1</a> and <a href="/posts/webmachine-erlydtl-and-riak-part-2/" title="Webmachine, ErlyDTL and Riak - Part 2">Part 2</a> before reading this post. It will help give you some context as well as introduce you to some of the jargon and technology that I'm using. If you've already read then, or don't want to, then please read on!</p>
 
 <p>This post builds on the previous two, but not without a few little modifications. If you're interested in following along step by step with your own version of the code running, then get yourself a copy of <a href="https://github.com/OJ/csd/tree/Part2-20110403" title="Source code for Part 2">this changeset</a> before doing so.</p>
 
@@ -371,13 +371,13 @@ Writing src/csd_core_sup.erl
 <span class='line-number'>43</span>
 <span class='line-number'>44</span>
 <span class='line-number'>45</span>
-</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="c">%% @author OJ Reeves &lt;a href=&quot;&amp;#x6d;&amp;#x61;&amp;#x69;&amp;#108;&amp;#116;&amp;#x6f;&amp;#x3a;&amp;#x6f;&amp;#x6a;&amp;#64;&amp;#98;&amp;#x75;&amp;#102;&amp;#102;&amp;#101;&amp;#x72;&amp;#x65;&amp;#x64;&amp;#46;&amp;#x69;&amp;#x6f;&quot;&gt;&amp;#111;&amp;#x6a;&amp;#64;&amp;#x62;&amp;#117;&amp;#102;&amp;#102;&amp;#101;&amp;#114;&amp;#101;&amp;#100;&amp;#x2e;&amp;#x69;&amp;#111;&lt;/a&gt;</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="c">%% @author OJ Reeves &lt;a href=&quot;&amp;#x6d;&amp;#97;&amp;#105;&amp;#x6c;&amp;#116;&amp;#111;&amp;#58;&amp;#111;&amp;#x6a;&amp;#x40;&amp;#x62;&amp;#x75;&amp;#x66;&amp;#x66;&amp;#x65;&amp;#x72;&amp;#101;&amp;#100;&amp;#46;&amp;#105;&amp;#x6f;&quot;&gt;&amp;#x6f;&amp;#x6a;&amp;#64;&amp;#x62;&amp;#x75;&amp;#102;&amp;#102;&amp;#101;&amp;#x72;&amp;#101;&amp;#x64;&amp;#x2e;&amp;#105;&amp;#111;&lt;/a&gt;</span>
 </span><span class='line'><span class="c">%% @copyright 2011 OJ Reeves&lt;/p&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="c">%% @doc csd_core startup code&lt;/p&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;-</span><span class="n">module</span><span class="p">(</span><span class="n">csd_core</span><span class="p">).</span>
-</span><span class='line'><span class="p">-</span><span class="ni">author</span><span class="p">(</span><span class="n">&#39;OJ Reeves &lt;a href=&quot;&amp;#x6d;&amp;#x61;&amp;#x69;&amp;#108;&amp;#116;&amp;#111;&amp;#x3a;&amp;#111;&amp;#106;&amp;#x40;&amp;#98;&amp;#x75;&amp;#102;&amp;#x66;&amp;#101;&amp;#x72;&amp;#101;&amp;#100;&amp;#46;&amp;#x69;&amp;#x6f;&quot;&gt;&amp;#111;&amp;#x6a;&amp;#x40;&amp;#x62;&amp;#x75;&amp;#x66;&amp;#x66;&amp;#101;&amp;#x72;&amp;#x65;&amp;#100;&amp;#46;&amp;#105;&amp;#111;&lt;/a&gt;&#39;</span><span class="p">).</span>
+</span><span class='line'><span class="p">-</span><span class="ni">author</span><span class="p">(</span><span class="n">&#39;OJ Reeves &lt;a href=&quot;&amp;#x6d;&amp;#97;&amp;#105;&amp;#x6c;&amp;#x74;&amp;#111;&amp;#58;&amp;#111;&amp;#x6a;&amp;#64;&amp;#x62;&amp;#x75;&amp;#102;&amp;#102;&amp;#x65;&amp;#114;&amp;#x65;&amp;#100;&amp;#x2e;&amp;#x69;&amp;#x6f;&quot;&gt;&amp;#x6f;&amp;#x6a;&amp;#x40;&amp;#x62;&amp;#117;&amp;#x66;&amp;#102;&amp;#x65;&amp;#x72;&amp;#x65;&amp;#100;&amp;#x2e;&amp;#x69;&amp;#111;&lt;/a&gt;&#39;</span><span class="p">).</span>
 </span><span class='line'><span class="p">-</span><span class="ni">export</span><span class="p">([</span><span class="n">start</span><span class="o">/</span><span class="mi">0</span><span class="p">,</span> <span class="n">start_link</span><span class="o">/</span><span class="mi">0</span><span class="p">,</span> <span class="n">stop</span><span class="o">/</span><span class="mi">0</span><span class="p">]).</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">ensure_started</span><span class="p">(</span><span class="nv">App</span><span class="p">)</span> <span class="o">-&gt;&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
@@ -1343,12 +1343,12 @@ PROGRESS REPORT==== 4-Apr-2011::22:57:13 ===
 <span class='line-number'>17</span>
 <span class='line-number'>18</span>
 <span class='line-number'>19</span>
-</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="c">%% @author OJ Reeves &lt;a href=&quot;&amp;#109;&amp;#97;&amp;#x69;&amp;#108;&amp;#116;&amp;#111;&amp;#58;&amp;#111;&amp;#106;&amp;#x40;&amp;#98;&amp;#x75;&amp;#102;&amp;#102;&amp;#x65;&amp;#x72;&amp;#101;&amp;#100;&amp;#46;&amp;#x69;&amp;#x6f;&quot;&gt;&amp;#111;&amp;#x6a;&amp;#64;&amp;#98;&amp;#117;&amp;#x66;&amp;#102;&amp;#101;&amp;#x72;&amp;#x65;&amp;#100;&amp;#46;&amp;#105;&amp;#x6f;&lt;/a&gt;</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="c">%% @author OJ Reeves &lt;a href=&quot;&amp;#x6d;&amp;#x61;&amp;#105;&amp;#x6c;&amp;#x74;&amp;#111;&amp;#x3a;&amp;#111;&amp;#106;&amp;#x40;&amp;#x62;&amp;#117;&amp;#102;&amp;#x66;&amp;#101;&amp;#114;&amp;#101;&amp;#x64;&amp;#x2e;&amp;#x69;&amp;#111;&quot;&gt;&amp;#111;&amp;#106;&amp;#64;&amp;#x62;&amp;#x75;&amp;#x66;&amp;#102;&amp;#101;&amp;#x72;&amp;#101;&amp;#x64;&amp;#46;&amp;#105;&amp;#x6f;&lt;/a&gt;</span>
 </span><span class='line'><span class="c">%% @copyright 2010 OJ Reeves</span>
 </span><span class='line'><span class="c">%% @doc Webmachine resource that handles snippet-related actions&lt;/p&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;-</span><span class="n">module</span><span class="p">(</span><span class="n">csd_web_snippet_resource</span><span class="p">).</span>
-</span><span class='line'><span class="p">-</span><span class="ni">author</span><span class="p">(</span><span class="n">&#39;OJ Reeves &lt;a href=&quot;&amp;#109;&amp;#x61;&amp;#x69;&amp;#108;&amp;#x74;&amp;#x6f;&amp;#58;&amp;#x6f;&amp;#x6a;&amp;#x40;&amp;#98;&amp;#117;&amp;#x66;&amp;#102;&amp;#101;&amp;#114;&amp;#x65;&amp;#100;&amp;#x2e;&amp;#x69;&amp;#x6f;&quot;&gt;&amp;#x6f;&amp;#106;&amp;#x40;&amp;#x62;&amp;#117;&amp;#102;&amp;#102;&amp;#101;&amp;#x72;&amp;#x65;&amp;#100;&amp;#46;&amp;#105;&amp;#x6f;&lt;/a&gt;&#39;</span><span class="p">).</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'><span class="p">-</span><span class="ni">author</span><span class="p">(</span><span class="n">&#39;OJ Reeves &lt;a href=&quot;&amp;#x6d;&amp;#x61;&amp;#105;&amp;#x6c;&amp;#x74;&amp;#x6f;&amp;#58;&amp;#111;&amp;#x6a;&amp;#x40;&amp;#98;&amp;#x75;&amp;#x66;&amp;#x66;&amp;#x65;&amp;#114;&amp;#x65;&amp;#x64;&amp;#46;&amp;#x69;&amp;#111;&quot;&gt;&amp;#x6f;&amp;#x6a;&amp;#64;&amp;#98;&amp;#117;&amp;#102;&amp;#x66;&amp;#101;&amp;#x72;&amp;#101;&amp;#100;&amp;#46;&amp;#105;&amp;#x6f;&lt;/a&gt;&#39;</span><span class="p">).</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;-</span><span class="n">export</span><span class="p">([</span><span class="n">init</span><span class="o">/</span><span class="mi">1</span><span class="p">,</span> <span class="n">to_html</span><span class="o">/</span><span class="mi">2</span><span class="p">]).</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
 </span><span class='line'>
@@ -1431,6 +1431,8 @@ PROGRESS REPORT==== 4-Apr-2011::22:57:13 ===
 <p>As always, comments and feedback is welcomed and greatly appreciated. As are suggestions on improvements, pitfalls and blatant mistakes :)</p>
 
 <p><strong>Note:</strong> The code for Part 3 (this post) can be found on <a href="https://github.com/OJ/csd/tree/Part3-20110405" title="Source code for Part 3">Github</a>.</p>
+
+<p>Other parts in this series: <a href="/posts/webmachine-erlydtl-and-riak-part-1/" title="Wembachine, ErlyDTL and Riak - Part 1">Part 1</a>, <a href="/posts/webmachine-erlydtl-and-riak-part-2/" title="Webmachine, ErlyDTL and Riak - Part 2">Part 2</a>, <a href="/posts/webmachine-erlydtl-and-riak-part-4/" title="Webmachine, ErlyDTL and Riak - Part 4">Part 4</a>, <a href="/posts/webmachine-erlydtl-and-riak-part-5/" title="Webmachine, ErlyDTL and Riak - Part 5">Part 5</a></p>
 ]]></content>
   </entry>
   
@@ -2087,6 +2089,8 @@ ok
 <p>As always, comments and feedback are welcome and greatly appreciated. Suggestions on improvements and pointers on mistakes would be awesome. To anyone out there who has put HAProxy into production, we would love to hear your comments on your configuration!</p>
 
 <p><strong>Note:</strong> The code for Part 2 (this post) can be found on <a href="https://github.com/OJ/csd/tree/Part2-20110403" title="Source Code for Part 2">Github</a>.</p>
+
+<p>Other parts in this series: <a href="/posts/webmachine-erlydtl-and-riak-part-1/" title="Wembachine, ErlyDTL and Riak - Part 1">Part 1</a>, <a href="/posts/webmachine-erlydtl-and-riak-part-3/" title="Webmachine, ErlyDTL and Riak - Part 3">Part 3</a>, <a href="/posts/webmachine-erlydtl-and-riak-part-4/" title="Webmachine, ErlyDTL and Riak - Part 4">Part 4</a>, <a href="/posts/webmachine-erlydtl-and-riak-part-5/" title="Webmachine, ErlyDTL and Riak - Part 5">Part 5</a></p>
 ]]></content>
   </entry>
   
@@ -2591,6 +2595,8 @@ Erlang R14B02 (erts-5.8.3) [source] [64-bit] [smp:2:2] [rq:2] [async-threads:0] 
 <p>Feedback and criticism welcome!</p>
 
 <p><strong>Note:</strong> The code for Part 1 (this post) can be found on <a href="https://github.com/OJ/csd/tree/Part1-20110403" title="Source Code for Part 1">Github</a>.</p>
+
+<p>Other parts in this series: <a href="/posts/webmachine-erlydtl-and-riak-part-2/" title="Webmachine, ErlyDTL and Riak - Part 2">Part 2</a>, <a href="/posts/webmachine-erlydtl-and-riak-part-3/" title="Webmachine, ErlyDTL and Riak - Part 3">Part 3</a>, <a href="/posts/webmachine-erlydtl-and-riak-part-4/" title="Webmachine, ErlyDTL and Riak - Part 4">Part 4</a>, <a href="/posts/webmachine-erlydtl-and-riak-part-5/" title="Webmachine, ErlyDTL and Riak - Part 5">Part 5</a></p>
 ]]></content>
   </entry>
   

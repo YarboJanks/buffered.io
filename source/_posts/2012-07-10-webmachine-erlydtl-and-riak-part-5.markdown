@@ -110,7 +110,7 @@ In future posts we will probably include more indexes and/or fields, but for the
 
 Next we need to store votes. In a typical RDMBS this problem is well-known and the solutions out there are also well-known. In a KV store this isn't necessarily the case. What I propose in this post is _a possible way_ of solving this problem. I do not in any way claim that this is _the best way_. With this, this is what we're going to do...
 
-A `vote` needs to keep track of who submitted it along with the snippet it was put against. It also needs to have an indication of whether the user preferred the left or right hand side of the snippet. When these votes are stored, we also want to be able to query the in such a way so that, for a given snippet, we can quickly count the number of votes and which way those votes went. This is quite important as the tallying of the votes and displaying them on screen is a key part of the idea behind the application.
+A `vote` needs to keep track of who submitted it along with the snippet it was put against. It also needs to have an indication of whether the user preferred the left or right hand side of the snippet. When these votes are stored, we also want to be able to query them in such a way so that, for a given snippet, we can quickly count the number of votes and which way those votes went. This is quite important as the tallying of the votes and displaying them on screen is a key part of the idea behind the application.
 
 To identify a vote the key needs to be made up of both the `userid` of the person who submitted it and the `key` of the snippet the vote. Therefore, for the `vote` bucket we'll create keys in the format: *userid-snippetkey*
 
@@ -355,7 +355,7 @@ This concern has changed given that we are now using [Pooler][] to solve this pr
 
 Abstraction purists might argue that this is a positive as it gives us the ability to swap our database out for something else and the consumers of `csd_db` wouldn't even know. This might be true, but that's not really the goal. The goal is to put all the [Pooler][] interaction in a single spot.
 
-Rather than show the module here in its entirity, we'll break it up into chunks: snippets, users and votes. Each of these chunks will be looked at when we dive into storage of those individual bits of data. To give an idea of the purpose that it serves see the following diagram:
+Rather than show the module here in its entirety, we'll break it up into chunks: snippets, users and votes. Each of these chunks will be looked at when we dive into storage of those individual bits of data. To give an idea of the purpose that it serves see the following diagram:
 
 {% img /uploads/2012/07/part5-db-modules.png 'Database Module Interaction' %}
 
@@ -426,7 +426,7 @@ With that out of the way, let's dive into what the individual modules do.
 
 ## <a id="storing-snippets"></a>Storing Snippets
 
-Until now we've only ever stored snippets and we haven't really done anything complicated with them. The earlier versions of our `csd_snippet` module, the one which encapsulated the snippet functionaliy, contained methods which covered two concerns: construction/creation of the snippet and storing/retrieval of snippets. Rather than continuing to mix concerns, we're going to break this module up into two: `csd_snippet` and `csd_snippet_store`. The aim is for the former to act like an API to the snippet functionality. This is the one that will be invoked from our web application. The latter will be invoked by the former in the cases where data needs to be written to or read from the data store.
+Until now we've only ever stored snippets and we haven't really done anything complicated with them. The earlier versions of our `csd_snippet` module, the one which encapsulated the snippet functionality, contained methods which covered two concerns: construction/creation of the snippet and storing/retrieval of snippets. Rather than continuing to mix concerns, we're going to break this module up into two: `csd_snippet` and `csd_snippet_store`. The aim is for the former to act like an API to the snippet functionality. This is the one that will be invoked from our web application. The latter will be invoked by the former in the cases where data needs to be written to or read from the data store.
 
 Hopefully now you can see where this fits into the diagram shown above. `csd_snippet` is paired with `csd_snippet_store` and `csd_db` is used as a bridge between the two which provides the connections to Riak.
 
@@ -1735,7 +1735,7 @@ For the sake of this blog series we're going to keep this functionality within t
 
 The static file serving resource is not something that I wrote (though I've tweaked it a bit). I blatantly purloined it from somewhere on the web (quite a while ago I might add) and I can no longer find a reference to it. If anyone out there recognises it, please let me know and I shall give proper kudos/credit to the original author.
 
-This resource works, but I say again it's not something that should be used in production.  Here it is in its entirity.
+This resource works, but I say again it's not something that should be used in production.  Here it is in its entirety.
 
 {% codeblock apps/csd_web/src/csd_web_static_resource.erl lang:erlang %}
 -module(csd_web_static_resource).
@@ -1920,34 +1920,36 @@ Thanks again. Until next time!
 
 **Note:** The code for Part 5 (this post) can be found on [Github][Part5Code].
 
-[Part5Code]: https://github.com/OJ/csd/tree/Part5-20120710 "Source code for Part 5"
-[Twitter]: http://twitter.com/ "Twitter"
-[OAuth]: http://oauth.net/ "OAuth"
-[Erlang]: http://erlang.org/ "Erlang"
-[Webmachine]: http://www.basho.com/developers.html#Webmachine "Webmachine"
-[JSON]: http://json.org/ "JavaScript Object Notation"
-[Part 1]: /posts/webmachine-erlydtl-and-riak-part-1/ "Wembachine, ErlyDTL and Riak - Part 1"
-[Part 2]: /posts/webmachine-erlydtl-and-riak-part-2/ "Wembachine, ErlyDTL and Riak - Part 2"
-[Part 3]: /posts/webmachine-erlydtl-and-riak-part-3/ "Wembachine, ErlyDTL and Riak - Part 3"
-[Part 4]: /posts/webmachine-erlydtl-and-riak-part-4/ "Wembachine, ErlyDTL and Riak - Part 4"
-[Riak]: http://www.basho.com/developers.html#Riak "Riak"
-[ErlyDTL]: http://github.com/evanmiller/erlydtl "ErlyDTL"
-[Rebar]: http://www.basho.com/developers.html#Rebar "Rebar"
-[mochijson2]: https://github.com/mochi/mochiweb/blob/master/src/mochijson2.erl "Mochiweb's json module"
-[Mochiweb]: https://github.com/mochi/mochiweb "Mochiweb"
-[OTP]: http://en.wikipedia.org/wiki/Open_Telecom_Platform "Open Telecom Platform"
-[cURL]: http://curl.haxx.se/ "cURL homepage"
-[WebmachineRedirects]: http://buffered.io/posts/redirects-with-webmachine/ "Redirects with Webmachine"
-[wrq]: http://wiki.basho.com/Webmachine-Request.html "Request data"
-[MapRed]: http://wiki.basho.com/MapReduce.html "Riak Map/Reduce"
-[series]: http://buffered.io/series/web-development-with-erlang/ "Web Development with Erlang"
-[Nginx]: http://nginx.org/ "Nginx"
-[Twitter bootstrap]: http://twitter.github.com/bootstrap/ "Twitter Bootstrap"
-[Handlebars]: http://handlebarsjs.com/ "Handlebars templating"
-[Backbone.js]: http://documentcloud.github.com/backbone/ "Backbone.js"
-[Secondary Index]: http://wiki.basho.com/Secondary-Indexes.html "Secondary Indexes in Riak"
-[VIM]: http://www.vim.org/ "VIM"
-[gen_server]: http://www.erlang.org/doc/man/gen_server.html "Erlang gen_server"
-[Pooler]: https://github.com/OJ/pooler "Pooler"
-[jQuery]: http://www.jquery.com/ "jQuery"
-[UiSource]: https://github.com/OJ/csd/tree/Part5-20120710/apps/csd_web/priv/www/static "User Interface Source"
+Other parts in this series: [Part 1][], [Part 2][], [Part 3][], [Part 4][]
+
+  [Part 1]: /posts/webmachine-erlydtl-and-riak-part-1/ "Wembachine, ErlyDTL and Riak - Part 1"
+  [Part 2]: /posts/webmachine-erlydtl-and-riak-part-2/ "Wembachine, ErlyDTL and Riak - Part 2"
+  [Part 3]: /posts/webmachine-erlydtl-and-riak-part-3/ "Wembachine, ErlyDTL and Riak - Part 3"
+  [Part 4]: /posts/webmachine-erlydtl-and-riak-part-4/ "Wembachine, ErlyDTL and Riak - Part 4"
+  [Part5Code]: https://github.com/OJ/csd/tree/Part5-20120710 "Source code for Part 5"
+  [Twitter]: http://twitter.com/ "Twitter"
+  [OAuth]: http://oauth.net/ "OAuth"
+  [Erlang]: http://erlang.org/ "Erlang"
+  [Webmachine]: http://www.basho.com/developers.html#Webmachine "Webmachine"
+  [JSON]: http://json.org/ "JavaScript Object Notation"
+  [Riak]: http://www.basho.com/developers.html#Riak "Riak"
+  [ErlyDTL]: http://github.com/evanmiller/erlydtl "ErlyDTL"
+  [Rebar]: http://www.basho.com/developers.html#Rebar "Rebar"
+  [mochijson2]: https://github.com/mochi/mochiweb/blob/master/src/mochijson2.erl "Mochiweb's json module"
+  [Mochiweb]: https://github.com/mochi/mochiweb "Mochiweb"
+  [OTP]: http://en.wikipedia.org/wiki/Open_Telecom_Platform "Open Telecom Platform"
+  [cURL]: http://curl.haxx.se/ "cURL homepage"
+  [WebmachineRedirects]: http://buffered.io/posts/redirects-with-webmachine/ "Redirects with Webmachine"
+  [wrq]: http://wiki.basho.com/Webmachine-Request.html "Request data"
+  [MapRed]: http://wiki.basho.com/MapReduce.html "Riak Map/Reduce"
+  [series]: http://buffered.io/series/web-development-with-erlang/ "Web Development with Erlang"
+  [Nginx]: http://nginx.org/ "Nginx"
+  [Twitter bootstrap]: http://twitter.github.com/bootstrap/ "Twitter Bootstrap"
+  [Handlebars]: http://handlebarsjs.com/ "Handlebars templating"
+  [Backbone.js]: http://documentcloud.github.com/backbone/ "Backbone.js"
+  [Secondary Index]: http://wiki.basho.com/Secondary-Indexes.html "Secondary Indexes in Riak"
+  [VIM]: http://www.vim.org/ "VIM"
+  [gen_server]: http://www.erlang.org/doc/man/gen_server.html "Erlang gen_server"
+  [Pooler]: https://github.com/OJ/pooler "Pooler"
+  [jQuery]: http://www.jquery.com/ "jQuery"
+  [UiSource]: https://github.com/OJ/csd/tree/Part5-20120710/apps/csd_web/priv/www/static "User Interface Source"
