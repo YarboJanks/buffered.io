@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Guest posts | OJ's rants]]></title>
   <link href="http://buffered.io/categories/guest-posts/atom.xml" rel="self"/>
   <link href="http://buffered.io/"/>
-  <updated>2012-07-11T23:21:01+10:00</updated>
+  <updated>2012-07-19T18:21:15+10:00</updated>
   <id>http://buffered.io/</id>
   <author>
     <name><![CDATA[OJ Reeves]]></name>
@@ -50,33 +50,33 @@ I'm amenable to the theoretical argument that this article makes, but it seems t
 <p>The rule we're breaking now is that of <em>only testing ONE thing in a unit test</em>. Well, I don't like to think of it as <em>breaking</em> - more like <em>gently taking apart</em> - that implies you're being very careful about when you do it - and you've thought it through and not done it by accident.</p>
 
 <p>The unit test name gives it away completely:
-<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="n">ShouldCreateAndDeleteACustomer</span><span class="p">()</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+{% codeblock lang:csharp %}
+ShouldCreateAndDeleteACustomer()
+{% endcodeblock %}</p>
 
 <p>At this point, I can see many people wince violently while sucking air quickly through their teeth  but let me explain. It stands to reason that you're going to implement the basic CRUD functions into your data strategy right? So why not exercise a couple of them at a time? Well, this is where my own warning bells go off! It's a bit like walking the tight-rope, it's dangerous, but if you're careful and develop enough skill, you can get to the other side without doing any damage.</p>
 
 <p>Now that you've gotten over the initial shock, let me explain what the test does. For this one, you're going to exercise the <em>Create, Retrieve and Delete</em> functions in CRUD, and all of this can be done in a TDD fashion. First you exercise the code that creates the customer:
-<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="n">Assert</span><span class="p">.</span><span class="n">True</span><span class="p">(</span><span class="n">customerRepository</span><span class="p">.</span><span class="n">SaveCustomer</span><span class="p">(</span><span class="n">customer</span><span class="p">));</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+{% codeblock lang:csharp %}
+Assert.True(customerRepository.SaveCustomer(customer));
+{% endcodeblock %}</p>
 
 <p>This line of code will fail (RED) because you haven't written your data access code yet right...<em>right</em>?! I use LinqToSql, but ultimately you've just got to write enough code (SPROC or otherwise) that adds the record to the table (GREEN) so you can verify it with your eyes with a Query Analyser of sorts - then <strong>delete the row manually.</strong></p>
 
 <p>Remember, you're still (<em>hopefully</em>) programming against an interface (<em>ICustomerRepository</em> for example), so it's the same call that you would make from a Mock (Moq rocks!), and you can still use your favourite IoC Container (mine is StructureMap) for dependency injection - but instead, this time you're hitting the actual database. My <em>SaveCustomer()</em> methods usually handle Create as well as Update depending on the ID field (I normally use GUIDs), but I'm trying to keep this simple.</p>
 
 <p>Next you exercise the retrieval code:
-<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="n">Assert</span><span class="p">.</span><span class="n">NotNull</span><span class="p">(</span><span class="n">customerRepository</span><span class="p">.</span><span class="n">GetCustomers</span><span class="p">.</span><span class="n">WithId</span><span class="p">(</span><span class="n">customer</span><span class="p">.</span><span class="n">ID</span><span class="p">));</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+{% codeblock lang:csharp %}
+Assert.NotNull(customerRepository.GetCustomers.WithId(customer.ID));
+{% endcodeblock %}</p>
 
 <p>In case youre wondering, <em>WithId</em> is an extention method to <em>IQueryable</em> because LinqToSql utilises deferred execution, and <em>WithId</em> triggers the actual DB call.
 Again, this will fail (RED) because you havent written your data access code yet right?! You write the code (as I said, I use LinqToSql, but you can use a call to a SPROC if you like), and <strong>viola</strong> it's (GREEN), but the record is still in the database - so you <strong>delete it manually</strong>.</p>
 
 <p>Finally, you exercise the code that deletes the record:
-<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="n">Assert</span><span class="p">.</span><span class="n">True</span><span class="p">(</span><span class="n">customerRepository</span><span class="p">.</span><span class="n">DeleteCustomer</span><span class="p">.</span><span class="n">WithId</span><span class="p">(</span><span class="n">customer</span><span class="p">.</span><span class="n">ID</span><span class="p">));</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+{% codeblock lang:csharp %}
+Assert.True(customerRepository.DeleteCustomer.WithId(customer.ID));
+{% endcodeblock %}</p>
 
 <p>Once again, this will fail (RED) because you haven't written the code yet right?! (Is this getting old yet?). So you write the code to delete the record and the test goes (GREEN).</p>
 
