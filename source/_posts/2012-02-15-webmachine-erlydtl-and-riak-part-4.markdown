@@ -627,7 +627,7 @@ start_common() ->
 
 Interacting with Twitter now becomes quite simple. To handle talking to Twitter we'll create a new module, called `twitter.erl`, that does the dirty work. Let's take a look at the code then we'll walk through it.
 
-{% codeblock apps/csd_web/src/csd_web.erl lang:erlang %}
+{% codeblock apps/csd_web/src/twitter.erl lang:erlang %}
 
 %% @author OJ Reeves <oj@buffered.io>
 %% @copyright 2012 OJ Reeves
@@ -678,7 +678,7 @@ This might seem like a lot but there isn't much to it. Here's the run-down:
 
 *   `request_access`: This function is what handles the first step in the OAuth negotiation process. It starts by loading the `twitter` configuration from our `app.config` file. The `twitter` section contains all the URLs we need to talk to Twitter
 
-    First we need to get hole of a _request token_, which is an identifier for an authorisation request that Twitter generates when we first start talking OAuth. We get th `request_token_url` from the configuration and we connect to Twitter, using `oauth:get` to kick the process off. Note the use of the `consumer` function, which simply takes our local `twitter` configuration and populates an `erlang-oauth`-friendly tuple with the details required to make OAuth requests on behalf of our application. This tuple contains our _consumer key_, the _consumer secret_ and the signature method to use. We will always be using `hmac_sha1` as that's what Twitter currently requires.
+    First we need to get hole of a _request token_, which is an identifier for an authorisation request that Twitter generates when we first start talking OAuth. We get the `request_token_url` from the configuration and we connect to Twitter, using `oauth:get` to kick the process off. Note the use of the `consumer` function, which simply takes our local `twitter` configuration and populates an `erlang-oauth`-friendly tuple with the details required to make OAuth requests on behalf of our application. This tuple contains our _consumer key_, the _consumer secret_ and the signature method to use. We will always be using `hmac_sha1` as that's what Twitter currently requires.
 
     Twitter reponds with a payload which includes the generated request token. We take that request token out of the payload and generate an Authentication URL. This URL contains information about the request that we started in the previous steps, along with the `authenticate_url` value loaded from configuration. If you remember back to our configuration you'll see that this `authenticate_url` is one that Twitter told us to use when we first registered our application and it resolves to `https://twitter.com/oauth/authenticate`.
 

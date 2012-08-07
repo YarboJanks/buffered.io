@@ -1104,7 +1104,7 @@
 
 <p>Interacting with Twitter now becomes quite simple. To handle talking to Twitter we&#8217;ll create a new module, called <code>twitter.erl</code>, that does the dirty work. Let&#8217;s take a look at the code then we&#8217;ll walk through it.</p>
 
-<figure class='code'><figcaption><span>apps/csd_web/src/csd_web.erl  </span></figcaption>
+<figure class='code'><figcaption><span>apps/csd_web/src/twitter.erl  </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -1199,7 +1199,7 @@
 <ul>
 <li><p><code>request_access</code>: This function is what handles the first step in the OAuth negotiation process. It starts by loading the <code>twitter</code> configuration from our <code>app.config</code> file. The <code>twitter</code> section contains all the URLs we need to talk to Twitter</p>
 
-<p>First we need to get hole of a <em>request token</em>, which is an identifier for an authorisation request that Twitter generates when we first start talking OAuth. We get th <code>request_token_url</code> from the configuration and we connect to Twitter, using <code>oauth:get</code> to kick the process off. Note the use of the <code>consumer</code> function, which simply takes our local <code>twitter</code> configuration and populates an <code>erlang-oauth</code>-friendly tuple with the details required to make OAuth requests on behalf of our application. This tuple contains our <em>consumer key</em>, the <em>consumer secret</em> and the signature method to use. We will always be using <code>hmac_sha1</code> as that&#8217;s what Twitter currently requires.</p>
+<p>First we need to get hole of a <em>request token</em>, which is an identifier for an authorisation request that Twitter generates when we first start talking OAuth. We get the <code>request_token_url</code> from the configuration and we connect to Twitter, using <code>oauth:get</code> to kick the process off. Note the use of the <code>consumer</code> function, which simply takes our local <code>twitter</code> configuration and populates an <code>erlang-oauth</code>-friendly tuple with the details required to make OAuth requests on behalf of our application. This tuple contains our <em>consumer key</em>, the <em>consumer secret</em> and the signature method to use. We will always be using <code>hmac_sha1</code> as that&#8217;s what Twitter currently requires.</p>
 
 <p>Twitter reponds with a payload which includes the generated request token. We take that request token out of the payload and generate an Authentication URL. This URL contains information about the request that we started in the previous steps, along with the <code>authenticate_url</code> value loaded from configuration. If you remember back to our configuration you&#8217;ll see that this <code>authenticate_url</code> is one that Twitter told us to use when we first registered our application and it resolves to <code>https://twitter.com/oauth/authenticate</code>.</p>
 
