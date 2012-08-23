@@ -4,7 +4,7 @@
   <title><![CDATA[OJ's rants]]></title>
   <link href="http://buffered.io/atom.xml" rel="self"/>
   <link href="http://buffered.io/"/>
-  <updated>2012-07-19T18:31:53+10:00</updated>
+  <updated>2012-08-23T20:25:25+10:00</updated>
   <id>http://buffered.io/</id>
   <author>
     <name><![CDATA[OJ Reeves]]></name>
@@ -4169,7 +4169,7 @@ now looks like Twitter bootstrap.</p></blockquote>
 
 <p>Interacting with Twitter now becomes quite simple. To handle talking to Twitter we&#8217;ll create a new module, called <code>twitter.erl</code>, that does the dirty work. Let&#8217;s take a look at the code then we&#8217;ll walk through it.</p>
 
-<figure class='code'><figcaption><span>apps/csd_web/src/csd_web.erl  </span></figcaption>
+<figure class='code'><figcaption><span>apps/csd_web/src/twitter.erl  </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -4264,7 +4264,7 @@ now looks like Twitter bootstrap.</p></blockquote>
 <ul>
 <li><p><code>request_access</code>: This function is what handles the first step in the OAuth negotiation process. It starts by loading the <code>twitter</code> configuration from our <code>app.config</code> file. The <code>twitter</code> section contains all the URLs we need to talk to Twitter</p>
 
-<p>First we need to get hole of a <em>request token</em>, which is an identifier for an authorisation request that Twitter generates when we first start talking OAuth. We get th <code>request_token_url</code> from the configuration and we connect to Twitter, using <code>oauth:get</code> to kick the process off. Note the use of the <code>consumer</code> function, which simply takes our local <code>twitter</code> configuration and populates an <code>erlang-oauth</code>-friendly tuple with the details required to make OAuth requests on behalf of our application. This tuple contains our <em>consumer key</em>, the <em>consumer secret</em> and the signature method to use. We will always be using <code>hmac_sha1</code> as that&#8217;s what Twitter currently requires.</p>
+<p>First we need to get hole of a <em>request token</em>, which is an identifier for an authorisation request that Twitter generates when we first start talking OAuth. We get the <code>request_token_url</code> from the configuration and we connect to Twitter, using <code>oauth:get</code> to kick the process off. Note the use of the <code>consumer</code> function, which simply takes our local <code>twitter</code> configuration and populates an <code>erlang-oauth</code>-friendly tuple with the details required to make OAuth requests on behalf of our application. This tuple contains our <em>consumer key</em>, the <em>consumer secret</em> and the signature method to use. We will always be using <code>hmac_sha1</code> as that&#8217;s what Twitter currently requires.</p>
 
 <p>Twitter reponds with a payload which includes the generated request token. We take that request token out of the payload and generate an Authentication URL. This URL contains information about the request that we started in the previous steps, along with the <code>authenticate_url</code> value loaded from configuration. If you remember back to our configuration you&#8217;ll see that this <code>authenticate_url</code> is one that Twitter told us to use when we first registered our application and it resolves to <code>https://twitter.com/oauth/authenticate</code>.</p>
 
@@ -8369,7 +8369,7 @@ Using sepoll() as the polling mechanism.
 <li>The information in this post has only been verified on Linux (<a href="http://linuxmint.com/" title="Linux Mint">Mint</a> to be exact). It <em>should</em> work just fine on Mac OSX. I&#8217;m almost certain that it <em>won&#8217;t</em> work on a Windows machine. So if you&#8217;re a Windows developer, you&#8217;ll have to wait for another post down the track which covers off how to get your environment ready to rock.</li>
 <li>We&#8217;ll be downloading, building and installing <a href="http://erlang.org/" title="Erlang">Erlang</a>, <a href="http://github.com/evanmiller/erlydtl" title="ErlyDTL">ErlyDTL</a>, <a href="http://www.basho.com/developers.html#Riak" title="Riak">Riak</a> and <a href="http://www.basho.com/developers.html#Webmachine" title="Webmachine">Webmachine</a>.</li>
 <li><a href="http://www.basho.com/developers.html#Rebar" title="Rebar">Rebar</a> is the tool we&#8217;ll be using to handle builds, but I won&#8217;t be covering it in any depth.</li>
-<li>You will need the latest versions of both <a href="http://hg-scm.com/" title="Mercurial">Mercurial</a> and <a href="http://git-scm.com/" title="Git">Git</a> so make sure they&#8217;re downloaded and installed before you follow this article.</li>
+<li>You will need the latest version of <a href="http://git-scm.com/" title="Git">Git</a> so make sure it&#8217;s downloaded and installed before you follow this article.</li>
 <li>We&#8217;ll be doing <em>some</em> interaction with Riak via <a href="http://curl.haxx.se/" title="cURL and libcurl">curl</a>, so make sure you have it downloaded and installed as well.</li>
 <li>This is intended to be a step-by-step guide targeted at those who are very new to web development in Erlang. This may not be the most ideal set up, nor the best way of doing certain things. I am hoping that those people who are more experienced than I will be able to provide feedback and guidance in areas where I am lacking.</li>
 <li>Over the course of this series I&#8217;ll be attempting to build an Erlang version of the <a href="http://bitbucket.org/OJ/codesmackdown" title="Code Smackdown">Code Smackdown</a> site that I&#8217;ve been working on here and there with a <a href="http://secretgeek.net/" title="secretGeek">mate of mine</a>. You&#8217;ll see that the sample application we&#8217;re working on is called &#8220;csd&#8221; for obvious reasons.</li>
@@ -8439,9 +8439,9 @@ Using sepoll() as the polling mechanism.
 
 <p>Excellent. Next let&#8217;s get Riak going.</p>
 
-<h3>Installing Riak 1.1.4</h3>
+<h3>Installing Riak 1.2</h3>
 
-<p>Considering the power of the software you are about to set up, it is absolutely insane how easy it is to get it running. If any of you have tried to get <a href="http://couchdb.apache.org/" title="CouchDB">CouchDB</a> running you&#8217;ll no doubt have experienced a few quirks and a bit of pain getting it rolling. Not so with Riak. As mentioned at the start of the article, make sure you have a recent version of <a href="http://hg-scm.com/" title="Mercurial">Mercurial</a> and <a href="http://git-scm.com/" title="Git">Git</a> installed.</p>
+<p>Considering the power of the software you are about to set up, it is absolutely insane how easy it is to get it running. If any of you have tried to get <a href="http://couchdb.apache.org/" title="CouchDB">CouchDB</a> running you&#8217;ll no doubt have experienced a few quirks and a bit of pain getting it rolling. Not so with Riak. As mentioned at the start of the article, make sure you have a recent version of <a href="http://git-scm.com/" title="Git">Git</a> installed.</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -8466,130 +8466,6 @@ Using sepoll() as the polling mechanism.
 <span class='line-number'>21</span>
 <span class='line-number'>22</span>
 <span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-<span class='line-number'>40</span>
-<span class='line-number'>41</span>
-<span class='line-number'>42</span>
-<span class='line-number'>43</span>
-<span class='line-number'>44</span>
-<span class='line-number'>45</span>
-<span class='line-number'>46</span>
-<span class='line-number'>47</span>
-<span class='line-number'>48</span>
-<span class='line-number'>49</span>
-<span class='line-number'>50</span>
-<span class='line-number'>51</span>
-<span class='line-number'>52</span>
-<span class='line-number'>53</span>
-<span class='line-number'>54</span>
-<span class='line-number'>55</span>
-<span class='line-number'>56</span>
-<span class='line-number'>57</span>
-<span class='line-number'>58</span>
-<span class='line-number'>59</span>
-<span class='line-number'>60</span>
-<span class='line-number'>61</span>
-<span class='line-number'>62</span>
-<span class='line-number'>63</span>
-<span class='line-number'>64</span>
-<span class='line-number'>65</span>
-<span class='line-number'>66</span>
-<span class='line-number'>67</span>
-<span class='line-number'>68</span>
-<span class='line-number'>69</span>
-<span class='line-number'>70</span>
-<span class='line-number'>71</span>
-<span class='line-number'>72</span>
-<span class='line-number'>73</span>
-<span class='line-number'>74</span>
-<span class='line-number'>75</span>
-<span class='line-number'>76</span>
-<span class='line-number'>77</span>
-<span class='line-number'>78</span>
-<span class='line-number'>79</span>
-<span class='line-number'>80</span>
-<span class='line-number'>81</span>
-<span class='line-number'>82</span>
-<span class='line-number'>83</span>
-<span class='line-number'>84</span>
-<span class='line-number'>85</span>
-<span class='line-number'>86</span>
-<span class='line-number'>87</span>
-<span class='line-number'>88</span>
-<span class='line-number'>89</span>
-<span class='line-number'>90</span>
-<span class='line-number'>91</span>
-<span class='line-number'>92</span>
-<span class='line-number'>93</span>
-<span class='line-number'>94</span>
-<span class='line-number'>95</span>
-<span class='line-number'>96</span>
-<span class='line-number'>97</span>
-<span class='line-number'>98</span>
-<span class='line-number'>99</span>
-<span class='line-number'>100</span>
-<span class='line-number'>101</span>
-<span class='line-number'>102</span>
-<span class='line-number'>103</span>
-<span class='line-number'>104</span>
-<span class='line-number'>105</span>
-<span class='line-number'>106</span>
-<span class='line-number'>107</span>
-<span class='line-number'>108</span>
-<span class='line-number'>109</span>
-<span class='line-number'>110</span>
-<span class='line-number'>111</span>
-<span class='line-number'>112</span>
-<span class='line-number'>113</span>
-<span class='line-number'>114</span>
-<span class='line-number'>115</span>
-<span class='line-number'>116</span>
-<span class='line-number'>117</span>
-<span class='line-number'>118</span>
-<span class='line-number'>119</span>
-<span class='line-number'>120</span>
-<span class='line-number'>121</span>
-<span class='line-number'>122</span>
-<span class='line-number'>123</span>
-<span class='line-number'>124</span>
-<span class='line-number'>125</span>
-<span class='line-number'>126</span>
-<span class='line-number'>127</span>
-<span class='line-number'>128</span>
-<span class='line-number'>129</span>
-<span class='line-number'>130</span>
-<span class='line-number'>131</span>
-<span class='line-number'>132</span>
-<span class='line-number'>133</span>
-<span class='line-number'>134</span>
-<span class='line-number'>135</span>
-<span class='line-number'>136</span>
-<span class='line-number'>137</span>
-<span class='line-number'>138</span>
-<span class='line-number'>139</span>
-<span class='line-number'>140</span>
-<span class='line-number'>141</span>
-<span class='line-number'>142</span>
-<span class='line-number'>143</span>
-<span class='line-number'>144</span>
-<span class='line-number'>145</span>
-<span class='line-number'>146</span>
-<span class='line-number'>147</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>oj@air ~/blog $ git clone git://github.com/basho/riak
 </span><span class='line'>Cloning into riak...
 </span><span class='line'>remote: Counting objects: 12989, done.
@@ -8607,133 +8483,9 @@ Using sepoll() as the polling mechanism.
 </span><span class='line'>Pulling cluster_info from {git,"git://github.com/basho/cluster_info",
 </span><span class='line'>                               {branch,"master"}}
 </span><span class='line'>Cloning into cluster_info...
-</span><span class='line'>Pulling riak_kv from {git,"git://github.com/basho/riak_kv",{branch,"master"}}
-</span><span class='line'>Cloning into riak_kv...
-</span><span class='line'>Pulling riak_search from {git,"git://github.com/basho/riak_search",
-</span><span class='line'>                              {branch,"master"}}
-</span><span class='line'>Cloning into riak_search...
-</span><span class='line'>Pulling riak_control from {git,"git://github.com/basho/riak_control",
-</span><span class='line'>                               {branch,"master"}}
-</span><span class='line'>Cloning into riak_control...
-</span><span class='line'>==> cluster_info (get-deps)
-</span><span class='line'>==> riak_kv (get-deps)
-</span><span class='line'>Pulling riak_core from {git,"git://github.com/basho/riak_core","master"}
-</span><span class='line'>Cloning into riak_core...
-</span><span class='line'>Pulling luke from {git,"git://github.com/basho/luke","master"}
-</span><span class='line'>Cloning into luke...
-</span><span class='line'>Pulling erlang_js from {git,"git://github.com/basho/erlang_js","master"}
-</span><span class='line'>Cloning into erlang_js...
-</span><span class='line'>Pulling bitcask from {git,"git://github.com/basho/bitcask","master"}
-</span><span class='line'>Cloning into bitcask...
-</span><span class='line'>Pulling merge_index from {git,"git://github.com/basho/merge_index","master"}
-</span><span class='line'>Cloning into merge_index...
-</span><span class='line'>Pulling ebloom from {git,"git://github.com/basho/ebloom","master"}
-</span><span class='line'>Cloning into ebloom...
-</span><span class='line'>Pulling eper from {git,"git://github.com/basho/eper.git","master"}
-</span><span class='line'>Cloning into eper...
-</span><span class='line'>Pulling eleveldb from {git,"git://github.com/basho/eleveldb.git","master"}
-</span><span class='line'>Cloning into eleveldb...
-</span><span class='line'>Pulling sext from {git,"git://github.com/esl/sext","master"}
-</span><span class='line'>Cloning into sext...
-</span><span class='line'>Pulling riak_pipe from {git,"git://github.com/basho/riak_pipe.git","master"}
-</span><span class='line'>Cloning into riak_pipe...
-</span><span class='line'>Pulling riak_api from {git,"git://github.com/basho/riak_api.git","master"}
-</span><span class='line'>Cloning into riak_api...
-</span><span class='line'>==> riak_core (get-deps)
-</span><span class='line'>Pulling lager from {git,"git://github.com/basho/lager",{branch,"master"}}
-</span><span class='line'>Cloning into lager...
-</span><span class='line'>Pulling poolboy from {git,"git://github.com/basho/poolboy",{branch,"master"}}
-</span><span class='line'>Cloning into poolboy...
-</span><span class='line'>Pulling protobuffs from {git,"git://github.com/basho/erlang_protobuffs",
-</span><span class='line'>                             {branch,"master"}}
-</span><span class='line'>Cloning into protobuffs...
-</span><span class='line'>Pulling basho_stats from {git,"git://github.com/basho/basho_stats","HEAD"}
-</span><span class='line'>Cloning into basho_stats...
-</span><span class='line'>Pulling riak_sysmon from {git,"git://github.com/basho/riak_sysmon",
-</span><span class='line'>                              {branch,"master"}}
-</span><span class='line'>Cloning into riak_sysmon...
-</span><span class='line'>Pulling webmachine from {git,"git://github.com/basho/webmachine",
-</span><span class='line'>                             {branch,"master"}}
-</span><span class='line'>Cloning into webmachine...
-</span><span class='line'>Pulling folsom from {git,"git://github.com/basho/folsom.git",
-</span><span class='line'>                         {branch,"master"}}
-</span><span class='line'>Cloning into folsom...
-</span><span class='line'>==> lager (get-deps)
-</span><span class='line'>==> poolboy (get-deps)
-</span><span class='line'>==> protobuffs (get-deps)
-</span><span class='line'>Pulling meck from {git,"git://github.com/eproxus/meck",{branch,"master"}}
-</span><span class='line'>Cloning into meck...
-</span><span class='line'>==> meck (get-deps)
-</span><span class='line'>==> basho_stats (get-deps)
-</span><span class='line'>==> riak_sysmon (get-deps)
-</span><span class='line'>==> webmachine (get-deps)
-</span><span class='line'>Pulling mochiweb from {git,"git://github.com/basho/mochiweb",
-</span><span class='line'>                           {tag,"1.5.1-riak-1.0.x-fixes"}}
-</span><span class='line'>Cloning into mochiweb...
-</span><span class='line'>==> mochiweb (get-deps)
-</span><span class='line'>==> folsom (get-deps)
-</span><span class='line'>Pulling bear from {git,"git://github.com/boundary/bear.git","master"}
-</span><span class='line'>Cloning into bear...
-</span><span class='line'>==> bear (get-deps)
-</span><span class='line'>==> luke (get-deps)
-</span><span class='line'>==> erlang_js (get-deps)
-</span><span class='line'>==> bitcask (get-deps)
-</span><span class='line'>==> merge_index (get-deps)
-</span><span class='line'>==> ebloom (get-deps)
-</span><span class='line'>==> eper (get-deps)
-</span><span class='line'>Pulling getopt from {git,"git://github.com/jcomellas/getopt.git",
-</span><span class='line'>                         {tag,"v0.4.3"}}
-</span><span class='line'>Cloning into getopt...
-</span><span class='line'>==> getopt (get-deps)
-</span><span class='line'>==> eleveldb (get-deps)
-</span><span class='line'>Cloning into leveldb...
-</span><span class='line'>Note: checking out 'fbe66f44e9abeb4f2de3c89d91573b7879226e6c'.
 </span><span class='line'>
-</span><span class='line'>You are in 'detached HEAD' state. You can look around, make experimental
-</span><span class='line'>changes and commit them, and you can discard any commits you make in this
-</span><span class='line'>state without impacting any branches by performing another checkout.
+</span><span class='line'>   ... sniped LOTS of stuff ...
 </span><span class='line'>
-</span><span class='line'>If you want to create a new branch to retain commits you create, you may
-</span><span class='line'>do so (now or later) by using -b with the checkout command again. Example:
-</span><span class='line'>
-</span><span class='line'>  git checkout -b new_branch_name
-</span><span class='line'>
-</span><span class='line'>HEAD is now at fbe66f4... Merge pull request #17 from basho/mv-compress-msg
-</span><span class='line'>==> sext (get-deps)
-</span><span class='line'>Pulling edown from {git,"git://github.com/esl/edown.git","HEAD"}
-</span><span class='line'>Cloning into edown...
-</span><span class='line'>==> edown (get-deps)
-</span><span class='line'>==> riak_pipe (get-deps)
-</span><span class='line'>==> riak_api (get-deps)
-</span><span class='line'>Pulling riak_pb from {git,"git://github.com/basho/riak_pb.git","master"}
-</span><span class='line'>Cloning into riak_pb...
-</span><span class='line'>==> riak_pb (get-deps)
-</span><span class='line'>==> lucene_parser (get-deps)
-</span><span class='line'>==> riak_search (get-deps)
-</span><span class='line'>==> riak_control (get-deps)
-</span><span class='line'>./rebar compile
-</span><span class='line'>==> cluster_info (compile)
-</span><span class='line'>Compiled src/cluster_info_ex.erl
-</span><span class='line'>
-</span><span class='line'>   ... snip ...
-</span><span class='line'>
-</span><span class='line'>==> riak_core (compile)
-</span><span class='line'>Compiling src/riak_core.proto
-</span><span class='line'>
-</span><span class='line'>=INFO REPORT==== 11-Jul-2012::22:06:02 ===
-</span><span class='line'>Writing header file to "riak_core_pb.hrl"
-</span><span class='line'>
-</span><span class='line'>=INFO REPORT==== 11-Jul-2012::22:06:02 ===
-</span><span class='line'>Writing beam file to "riak_core_pb.beam"
-</span><span class='line'>Compiled src/gen_nb_server.erl
-</span><span class='line'>
-</span><span class='line'>   ... snip ...
-</span><span class='line'>
-</span><span class='line'>==> riak_pb (compile)
-</span><span class='line'>Compiling src/riak.proto
-</span><span class='line'>
-</span><span class='line'>Compiled src/admin_gui.erl
-</span><span class='line'>Compiled src/admin_cluster.erl
 </span><span class='line'>==> rel (compile)
 </span><span class='line'>==> riak (compile)
 </span><span class='line'>Compiled src/etop_txt.erl</span></code></pre></td></tr></table></div></figure>
@@ -8793,14 +8545,96 @@ Using sepoll() as the polling mechanism.
 </span><span class='line'>Success: staged join request for 'dev4@127.0.0.1' to dev1</span></code></pre></td></tr></table></div></figure>
 
 
-<p>At this point our Riak cluster should be up and running. Rather than assume let&#8217;s make sure.</p>
+<p>This is where things are a different compared to earlier versions of Riak (&lt;= 1.1.4). Here we have just planned to set up our cluster, we haven&#8217;t yet actually made any changes. To see the current state of the plan, we can use the new <code>cluster plan</code> command on any of the nodes:</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>oj@air ~/blog/riak/dev $ dev4/bin/riak-admin ringready
-</span><span class='line'>TRUE All nodes agree on the ring ['dev1@127.0.0.1','dev2@127.0.0.1',
-</span><span class='line'>                                  'dev3@127.0.0.1','dev4@127.0.0.1']</span></code></pre></td></tr></table></div></figure>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>oj@air ~/blog/riak/dev $ dev1/bin/riak-admin cluster plan
+</span><span class='line'>=============================== Staged Changes ================================
+</span><span class='line'>Action         Nodes(s)
+</span><span class='line'>-------------------------------------------------------------------------------
+</span><span class='line'>join           'dev2@127.0.0.1'
+</span><span class='line'>join           'dev3@127.0.0.1'
+</span><span class='line'>join           'dev4@127.0.0.1'
+</span><span class='line'>-------------------------------------------------------------------------------
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>NOTE: Applying these changes will result in 1 cluster transition
+</span><span class='line'>
+</span><span class='line'>###############################################################################
+</span><span class='line'>                         After cluster transition 1/1
+</span><span class='line'>###############################################################################
+</span><span class='line'>
+</span><span class='line'>================================= Membership ==================================
+</span><span class='line'>Status     Ring    Pending    Node
+</span><span class='line'>-------------------------------------------------------------------------------
+</span><span class='line'>valid     100.0%     25.0%    'dev1@127.0.0.1'
+</span><span class='line'>valid       0.0%     25.0%    'dev2@127.0.0.1'
+</span><span class='line'>valid       0.0%     25.0%    'dev3@127.0.0.1'
+</span><span class='line'>valid       0.0%     25.0%    'dev4@127.0.0.1'
+</span><span class='line'>-------------------------------------------------------------------------------
+</span><span class='line'>Valid:4 / Leaving:0 / Exiting:0 / Joining:0 / Down:0
+</span><span class='line'>
+</span><span class='line'>Transfers resulting from cluster changes: 48
+</span><span class='line'>  16 transfers from 'dev1@127.0.0.1' to 'dev4@127.0.0.1'
+</span><span class='line'>  16 transfers from 'dev1@127.0.0.1' to 'dev3@127.0.0.1'
+</span><span class='line'>  16 transfers from 'dev1@127.0.0.1' to 'dev2@127.0.0.1'</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Isn&#8217;t that awesome! We can plan our cluster set up before actually commiting changes. This gets a big thumbs up from me. In order to commit changes, we use <code>cluster commit</code>:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>oj@air ~/blog/riak/dev $ dev1/bin/riak-admin cluster commit
+</span><span class='line'>Cluster changes committed
+</span><span class='line'>oj@air ~/blog/riak/dev $ dev2/bin/riak-admin member-status
+</span><span class='line'>================================= Membership ==================================
+</span><span class='line'>Status     Ring    Pending    Node
+</span><span class='line'>-------------------------------------------------------------------------------
+</span><span class='line'>valid      25.0%      --      'dev1@127.0.0.1'
+</span><span class='line'>valid      25.0%      --      'dev2@127.0.0.1'
+</span><span class='line'>valid      25.0%      --      'dev3@127.0.0.1'
+</span><span class='line'>valid      25.0%      --      'dev4@127.0.0.1'
+</span><span class='line'>-------------------------------------------------------------------------------
+</span><span class='line'>Valid:4 / Leaving:0 / Exiting:0 / Joining:0 / Down:0</span></code></pre></td></tr></table></div></figure>
 
 
 <p>As we can see from the output, we now have a 4-node Riak cluster up and running. Those four nodes have the following traits:</p>

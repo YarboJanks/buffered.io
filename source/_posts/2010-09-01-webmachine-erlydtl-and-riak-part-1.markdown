@@ -1,7 +1,7 @@
 ---
 categories: [Riak, Databases, Functional Programming, HOWTO, Erlang, Webmachine]
 date: 2010-09-01 23:29
-updated: 2012-07-11 21:50
+updated: 2012-08-23 20:25
 tags: [web development, Erlang, NoSQL, Webmachine, Riak, ErlyDTL]
 comments: true
 layout: post
@@ -15,7 +15,7 @@ series: "Web Development with Erlang"
 1. The information in this post has only been verified on Linux ([Mint][] to be exact). It _should_ work just fine on Mac OSX. I'm almost certain that it _won't_ work on a Windows machine. So if you're a Windows developer, you'll have to wait for another post down the track which covers off how to get your environment ready to rock.
 1. We'll be downloading, building and installing [Erlang][], [ErlyDTL][], [Riak][] and [Webmachine][].
 1. [Rebar][] is the tool we'll be using to handle builds, but I won't be covering it in any depth.
-1. You will need the latest versions of both [Mercurial][] and [Git][] so make sure they're downloaded and installed before you follow this article.
+1. You will need the latest version of [Git][] so make sure it's downloaded and installed before you follow this article.
 1. We'll be doing _some_ interaction with Riak via [curl][], so make sure you have it downloaded and installed as well.
 1. This is intended to be a step-by-step guide targeted at those who are very new to web development in Erlang. This may not be the most ideal set up, nor the best way of doing certain things. I am hoping that those people who are more experienced than I will be able to provide feedback and guidance in areas where I am lacking.
 1. Over the course of this series I'll be attempting to build an Erlang version of the [Code Smackdown][] site that I've been working on here and there with a [mate of mine][secretGeek]. You'll see that the sample application we're working on is called "csd" for obvious reasons.
@@ -63,9 +63,9 @@ ok
 Excellent. Next let's get Riak going.
 
 
-### Installing Riak 1.1.4
+### Installing Riak 1.2
 
-Considering the power of the software you are about to set up, it is absolutely insane how easy it is to get it running. If any of you have tried to get [CouchDB][] running you'll no doubt have experienced a few quirks and a bit of pain getting it rolling. Not so with Riak. As mentioned at the start of the article, make sure you have a recent version of [Mercurial][] and [Git][] installed.
+Considering the power of the software you are about to set up, it is absolutely insane how easy it is to get it running. If any of you have tried to get [CouchDB][] running you'll no doubt have experienced a few quirks and a bit of pain getting it rolling. Not so with Riak. As mentioned at the start of the article, make sure you have a recent version of [Git][] installed.
 
 {% codeblock %}
 oj@air ~/blog $ git clone git://github.com/basho/riak
@@ -85,133 +85,9 @@ oj@air ~/blog/riak $ make
 Pulling cluster_info from {git,"git://github.com/basho/cluster_info",
                                {branch,"master"}}
 Cloning into cluster_info...
-Pulling riak_kv from {git,"git://github.com/basho/riak_kv",{branch,"master"}}
-Cloning into riak_kv...
-Pulling riak_search from {git,"git://github.com/basho/riak_search",
-                              {branch,"master"}}
-Cloning into riak_search...
-Pulling riak_control from {git,"git://github.com/basho/riak_control",
-                               {branch,"master"}}
-Cloning into riak_control...
-==> cluster_info (get-deps)
-==> riak_kv (get-deps)
-Pulling riak_core from {git,"git://github.com/basho/riak_core","master"}
-Cloning into riak_core...
-Pulling luke from {git,"git://github.com/basho/luke","master"}
-Cloning into luke...
-Pulling erlang_js from {git,"git://github.com/basho/erlang_js","master"}
-Cloning into erlang_js...
-Pulling bitcask from {git,"git://github.com/basho/bitcask","master"}
-Cloning into bitcask...
-Pulling merge_index from {git,"git://github.com/basho/merge_index","master"}
-Cloning into merge_index...
-Pulling ebloom from {git,"git://github.com/basho/ebloom","master"}
-Cloning into ebloom...
-Pulling eper from {git,"git://github.com/basho/eper.git","master"}
-Cloning into eper...
-Pulling eleveldb from {git,"git://github.com/basho/eleveldb.git","master"}
-Cloning into eleveldb...
-Pulling sext from {git,"git://github.com/esl/sext","master"}
-Cloning into sext...
-Pulling riak_pipe from {git,"git://github.com/basho/riak_pipe.git","master"}
-Cloning into riak_pipe...
-Pulling riak_api from {git,"git://github.com/basho/riak_api.git","master"}
-Cloning into riak_api...
-==> riak_core (get-deps)
-Pulling lager from {git,"git://github.com/basho/lager",{branch,"master"}}
-Cloning into lager...
-Pulling poolboy from {git,"git://github.com/basho/poolboy",{branch,"master"}}
-Cloning into poolboy...
-Pulling protobuffs from {git,"git://github.com/basho/erlang_protobuffs",
-                             {branch,"master"}}
-Cloning into protobuffs...
-Pulling basho_stats from {git,"git://github.com/basho/basho_stats","HEAD"}
-Cloning into basho_stats...
-Pulling riak_sysmon from {git,"git://github.com/basho/riak_sysmon",
-                              {branch,"master"}}
-Cloning into riak_sysmon...
-Pulling webmachine from {git,"git://github.com/basho/webmachine",
-                             {branch,"master"}}
-Cloning into webmachine...
-Pulling folsom from {git,"git://github.com/basho/folsom.git",
-                         {branch,"master"}}
-Cloning into folsom...
-==> lager (get-deps)
-==> poolboy (get-deps)
-==> protobuffs (get-deps)
-Pulling meck from {git,"git://github.com/eproxus/meck",{branch,"master"}}
-Cloning into meck...
-==> meck (get-deps)
-==> basho_stats (get-deps)
-==> riak_sysmon (get-deps)
-==> webmachine (get-deps)
-Pulling mochiweb from {git,"git://github.com/basho/mochiweb",
-                           {tag,"1.5.1-riak-1.0.x-fixes"}}
-Cloning into mochiweb...
-==> mochiweb (get-deps)
-==> folsom (get-deps)
-Pulling bear from {git,"git://github.com/boundary/bear.git","master"}
-Cloning into bear...
-==> bear (get-deps)
-==> luke (get-deps)
-==> erlang_js (get-deps)
-==> bitcask (get-deps)
-==> merge_index (get-deps)
-==> ebloom (get-deps)
-==> eper (get-deps)
-Pulling getopt from {git,"git://github.com/jcomellas/getopt.git",
-                         {tag,"v0.4.3"}}
-Cloning into getopt...
-==> getopt (get-deps)
-==> eleveldb (get-deps)
-Cloning into leveldb...
-Note: checking out 'fbe66f44e9abeb4f2de3c89d91573b7879226e6c'.
 
-You are in 'detached HEAD' state. You can look around, make experimental
-changes and commit them, and you can discard any commits you make in this
-state without impacting any branches by performing another checkout.
+   ... sniped LOTS of stuff ...
 
-If you want to create a new branch to retain commits you create, you may
-do so (now or later) by using -b with the checkout command again. Example:
-
-  git checkout -b new_branch_name
-
-HEAD is now at fbe66f4... Merge pull request #17 from basho/mv-compress-msg
-==> sext (get-deps)
-Pulling edown from {git,"git://github.com/esl/edown.git","HEAD"}
-Cloning into edown...
-==> edown (get-deps)
-==> riak_pipe (get-deps)
-==> riak_api (get-deps)
-Pulling riak_pb from {git,"git://github.com/basho/riak_pb.git","master"}
-Cloning into riak_pb...
-==> riak_pb (get-deps)
-==> lucene_parser (get-deps)
-==> riak_search (get-deps)
-==> riak_control (get-deps)
-./rebar compile
-==> cluster_info (compile)
-Compiled src/cluster_info_ex.erl
-
-   ... snip ...
-
-==> riak_core (compile)
-Compiling src/riak_core.proto
-
-=INFO REPORT==== 11-Jul-2012::22:06:02 ===
-Writing header file to "riak_core_pb.hrl"
-
-=INFO REPORT==== 11-Jul-2012::22:06:02 ===
-Writing beam file to "riak_core_pb.beam"
-Compiled src/gen_nb_server.erl
-
-   ... snip ...
-
-==> riak_pb (compile)
-Compiling src/riak.proto
-
-Compiled src/admin_gui.erl
-Compiled src/admin_cluster.erl
 ==> rel (compile)
 ==> riak (compile)
 Compiled src/etop_txt.erl
@@ -247,12 +123,56 @@ oj@air ~/blog/riak/dev $ dev4/bin/riak-admin cluster join dev1
 Success: staged join request for 'dev4@127.0.0.1' to dev1
 {% endcodeblock %}
 
-At this point our Riak cluster should be up and running. Rather than assume let's make sure.
+This is where things are a different compared to earlier versions of Riak (<= 1.1.4). Here we have just planned to set up our cluster, we haven't yet actually made any changes. To see the current state of the plan, we can use the new `cluster plan` command on any of the nodes:
 
 {% codeblock %}
-oj@air ~/blog/riak/dev $ dev4/bin/riak-admin ringready
-TRUE All nodes agree on the ring ['dev1@127.0.0.1','dev2@127.0.0.1',
-                                  'dev3@127.0.0.1','dev4@127.0.0.1']
+oj@air ~/blog/riak/dev $ dev1/bin/riak-admin cluster plan
+=============================== Staged Changes ================================
+Action         Nodes(s)
+-------------------------------------------------------------------------------
+join           'dev2@127.0.0.1'
+join           'dev3@127.0.0.1'
+join           'dev4@127.0.0.1'
+-------------------------------------------------------------------------------
+
+
+NOTE: Applying these changes will result in 1 cluster transition
+
+###############################################################################
+                         After cluster transition 1/1
+###############################################################################
+
+================================= Membership ==================================
+Status     Ring    Pending    Node
+-------------------------------------------------------------------------------
+valid     100.0%     25.0%    'dev1@127.0.0.1'
+valid       0.0%     25.0%    'dev2@127.0.0.1'
+valid       0.0%     25.0%    'dev3@127.0.0.1'
+valid       0.0%     25.0%    'dev4@127.0.0.1'
+-------------------------------------------------------------------------------
+Valid:4 / Leaving:0 / Exiting:0 / Joining:0 / Down:0
+
+Transfers resulting from cluster changes: 48
+  16 transfers from 'dev1@127.0.0.1' to 'dev4@127.0.0.1'
+  16 transfers from 'dev1@127.0.0.1' to 'dev3@127.0.0.1'
+  16 transfers from 'dev1@127.0.0.1' to 'dev2@127.0.0.1'
+{% endcodeblock %}
+
+Isn't that awesome! We can plan our cluster set up before actually commiting changes. This gets a big thumbs up from me. In order to commit changes, we use `cluster commit`:
+
+{% codeblock %}
+oj@air ~/blog/riak/dev $ dev1/bin/riak-admin cluster commit
+Cluster changes committed
+oj@air ~/blog/riak/dev $ dev2/bin/riak-admin member-status
+================================= Membership ==================================
+Status     Ring    Pending    Node
+-------------------------------------------------------------------------------
+valid      25.0%      --      'dev1@127.0.0.1'
+valid      25.0%      --      'dev2@127.0.0.1'
+valid      25.0%      --      'dev3@127.0.0.1'
+valid      25.0%      --      'dev4@127.0.0.1'
+-------------------------------------------------------------------------------
+Valid:4 / Leaving:0 / Exiting:0 / Joining:0 / Down:0
 {% endcodeblock %}
 
 As we can see from the output, we now have a 4-node Riak cluster up and running. Those four nodes have the following traits:
