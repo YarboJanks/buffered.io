@@ -4,7 +4,7 @@
   <title><![CDATA[Category: BackboneJS | OJ's rants]]></title>
   <link href="http://buffered.io/categories/backbonejs/atom.xml" rel="self"/>
   <link href="http://buffered.io/"/>
-  <updated>2012-08-26T16:47:20+10:00</updated>
+  <updated>2012-08-30T20:08:50+10:00</updated>
   <id>http://buffered.io/</id>
   <author>
     <name><![CDATA[OJ Reeves]]></name>
@@ -294,8 +294,8 @@ only index-capable backend.</p></blockquote>
 </span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">get_index</span><span class="p">(</span><span class="nv">RiakObj</span><span class="p">,</span> <span class="nv">Type</span><span class="p">,</span> <span class="nv">Name</span><span class="p">)</span> <span class="o">-&gt;</span>
 </span><span class='line'>  <span class="nv">Meta</span> <span class="o">=</span> <span class="nn">riakc_obj</span><span class="p">:</span><span class="n">get_metadata</span><span class="p">(</span><span class="nv">RiakObj</span><span class="p">),</span>
 </span><span class='line'>  <span class="nv">Indexes</span> <span class="o">=</span> <span class="nn">dict</span><span class="p">:</span><span class="n">fetch</span><span class="p">(</span><span class="no">?INDEX_KEY</span><span class="p">,</span> <span class="nv">Meta</span><span class="p">),</span>
-</span><span class='line'>  <span class="nv">IndexKey</span> <span class="o">=</span> <span class="nb">binary_to_list</span><span class="p">(</span><span class="n">index</span><span class="p">(</span><span class="nv">Type</span><span class="p">,</span> <span class="nv">Name</span><span class="p">)),</span>
-</span><span class='line'>  <span class="nv">Value</span> <span class="o">=</span> <span class="nn">proplists</span><span class="p">:</span><span class="n">get_value</span><span class="p">(</span><span class="nv">IndexKey</span><span class="p">,</span> <span class="nv">Indexes</span><span class="p">),</span>
+</span><span class='line'>  <span class="nv">IndexKey</span> <span class="o">=</span> <span class="n">index</span><span class="p">(</span><span class="nv">Type</span><span class="p">,</span> <span class="nv">Name</span><span class="p">),</span>
+</span><span class='line'>  <span class="nv">Value</span> <span class="o">=</span> <span class="nb">binary_to_list</span><span class="p">(</span><span class="nn">proplists</span><span class="p">:</span><span class="n">get_value</span><span class="p">(</span><span class="nv">IndexKey</span><span class="p">,</span> <span class="nv">Indexes</span><span class="p">)),</span>
 </span><span class='line'>  <span class="k">case</span> <span class="nv">Type</span> <span class="k">of</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">int</span> <span class="o">-</span><span class="err">&amp;</span><span class="n">gt</span><span class="p">;</span> <span class="nb">list_to_integer</span><span class="p">(</span><span class="nv">Value</span><span class="p">);</span>
@@ -315,7 +315,7 @@ only index-capable backend.</p></blockquote>
 
 <p>The second function, <code>set_indexes</code>, is an extended version of <code>set_index</code> in that it allows you to set more than one key at a time. Instead of a single type/name/value combination it accepts a list of tuples of <code>{type, name, value}</code>.</p>
 
-<p>The third function, <code>get_index</code>, is a helper function which is designed to get the value of certain index. Note how this function accesses <em>existing</em> metadata via <code>get_metadata/1</code> rather than <code>get_update_metadata/1</code>. This is due to us being interested in an existing index, not in one that is about to be updated when we next save. Note that we have to convert the index key from <code>binary</code> to a <code>string</code> because the proplist keys for the index values are all strings. While we're here, we do a converstion of the value to an integer if the index type is an integer.</p>
+<p>The third function, <code>get_index</code>, is a helper function which is designed to get the value of certain index. Note how this function accesses <em>existing</em> metadata via <code>get_metadata/1</code> rather than <code>get_update_metadata/1</code>. This is due to us being interested in an existing index, not in one that is about to be updated when we next save. While we're here, we do a converstion of the value to an integer if the index type is an integer.</p>
 
 <p>This code can be called like so: <code>UserId = csd_riak:get_index(RiakObj, int, "userid").</code></p>
 
@@ -476,7 +476,7 @@ only index-capable backend.</p></blockquote>
 <span class='line-number'>117</span>
 <span class='line-number'>118</span>
 </pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="p">-</span><span class="ni">module</span><span class="p">(</span><span class="n">csd_riak_mr</span><span class="p">).</span>
-</span><span class='line'><span class="p">-</span><span class="ni">author</span><span class="p">(</span><span class="n">&#39;OJ Reeves &lt;a href=&quot;&amp;#109;&amp;#97;&amp;#x69;&amp;#108;&amp;#116;&amp;#111;&amp;#58;&amp;#111;&amp;#106;&amp;#64;&amp;#x62;&amp;#117;&amp;#x66;&amp;#x66;&amp;#101;&amp;#x72;&amp;#101;&amp;#100;&amp;#46;&amp;#x69;&amp;#x6f;&quot;&gt;&amp;#111;&amp;#106;&amp;#64;&amp;#x62;&amp;#x75;&amp;#x66;&amp;#x66;&amp;#101;&amp;#x72;&amp;#x65;&amp;#100;&amp;#46;&amp;#105;&amp;#111;&lt;/a&gt;&#39;</span><span class="p">).</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'><span class="p">-</span><span class="ni">author</span><span class="p">(</span><span class="n">&#39;OJ Reeves &lt;a href=&quot;&amp;#109;&amp;#x61;&amp;#x69;&amp;#108;&amp;#116;&amp;#111;&amp;#58;&amp;#111;&amp;#106;&amp;#64;&amp;#x62;&amp;#117;&amp;#102;&amp;#x66;&amp;#101;&amp;#114;&amp;#x65;&amp;#100;&amp;#x2e;&amp;#105;&amp;#111;&quot;&gt;&amp;#x6f;&amp;#x6a;&amp;#x40;&amp;#x62;&amp;#117;&amp;#x66;&amp;#x66;&amp;#x65;&amp;#114;&amp;#x65;&amp;#x64;&amp;#46;&amp;#105;&amp;#x6f;&lt;/a&gt;&#39;</span><span class="p">).</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="c">%% ------------------------------------------------------------------</span>
 </span><span class='line'><span class="c">%% API Function Exports</span>
@@ -689,7 +689,7 @@ only index-capable backend.</p></blockquote>
 <span class='line-number'>58</span>
 <span class='line-number'>59</span>
 </pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="p">-</span><span class="ni">module</span><span class="p">(</span><span class="n">csd_db</span><span class="p">).</span>
-</span><span class='line'><span class="p">-</span><span class="ni">author</span><span class="p">(</span><span class="n">&#39;OJ Reeves &lt;a href=&quot;&amp;#109;&amp;#x61;&amp;#x69;&amp;#x6c;&amp;#x74;&amp;#x6f;&amp;#58;&amp;#x6f;&amp;#106;&amp;#x40;&amp;#98;&amp;#x75;&amp;#x66;&amp;#102;&amp;#x65;&amp;#114;&amp;#x65;&amp;#x64;&amp;#46;&amp;#105;&amp;#111;&quot;&gt;&amp;#x6f;&amp;#x6a;&amp;#64;&amp;#x62;&amp;#117;&amp;#x66;&amp;#x66;&amp;#101;&amp;#x72;&amp;#101;&amp;#x64;&amp;#46;&amp;#x69;&amp;#111;&lt;/a&gt;&#39;</span><span class="p">).</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'><span class="p">-</span><span class="ni">author</span><span class="p">(</span><span class="n">&#39;OJ Reeves &lt;a href=&quot;&amp;#109;&amp;#97;&amp;#105;&amp;#108;&amp;#116;&amp;#111;&amp;#x3a;&amp;#111;&amp;#106;&amp;#64;&amp;#x62;&amp;#117;&amp;#x66;&amp;#x66;&amp;#x65;&amp;#x72;&amp;#x65;&amp;#100;&amp;#46;&amp;#105;&amp;#x6f;&quot;&gt;&amp;#111;&amp;#x6a;&amp;#x40;&amp;#x62;&amp;#117;&amp;#102;&amp;#x66;&amp;#101;&amp;#114;&amp;#101;&amp;#100;&amp;#x2e;&amp;#105;&amp;#111;&lt;/a&gt;&#39;</span><span class="p">).</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="c">%% --------------------------------------------------------------------------------------</span>
 </span><span class='line'><span class="c">%% API Function Exports</span>
@@ -1034,7 +1034,7 @@ only index-capable backend.</p></blockquote>
 <span class='line-number'>8</span>
 <span class='line-number'>9</span>
 </pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="p">-</span><span class="ni">module</span><span class="p">(</span><span class="n">csd_snippet_store</span><span class="p">).</span>
-</span><span class='line'><span class="p">-</span><span class="ni">author</span><span class="p">(</span><span class="n">&#39;OJ Reeves &lt;a href=&quot;&amp;#x6d;&amp;#97;&amp;#105;&amp;#x6c;&amp;#116;&amp;#x6f;&amp;#x3a;&amp;#x6f;&amp;#106;&amp;#x40;&amp;#x62;&amp;#117;&amp;#x66;&amp;#102;&amp;#101;&amp;#x72;&amp;#x65;&amp;#x64;&amp;#46;&amp;#x69;&amp;#111;&quot;&gt;&amp;#111;&amp;#106;&amp;#x40;&amp;#x62;&amp;#x75;&amp;#x66;&amp;#102;&amp;#101;&amp;#114;&amp;#101;&amp;#x64;&amp;#46;&amp;#105;&amp;#111;&lt;/a&gt;&#39;</span><span class="p">).</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'><span class="p">-</span><span class="ni">author</span><span class="p">(</span><span class="n">&#39;OJ Reeves &lt;a href=&quot;&amp;#x6d;&amp;#97;&amp;#x69;&amp;#108;&amp;#116;&amp;#x6f;&amp;#x3a;&amp;#111;&amp;#106;&amp;#64;&amp;#98;&amp;#x75;&amp;#102;&amp;#102;&amp;#x65;&amp;#114;&amp;#101;&amp;#100;&amp;#46;&amp;#x69;&amp;#x6f;&quot;&gt;&amp;#111;&amp;#x6a;&amp;#64;&amp;#98;&amp;#x75;&amp;#x66;&amp;#102;&amp;#101;&amp;#x72;&amp;#101;&amp;#100;&amp;#46;&amp;#x69;&amp;#111;&lt;/a&gt;&#39;</span><span class="p">).</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;-</span><span class="n">define</span><span class="p">(</span><span class="nv">BUCKET</span><span class="p">,</span> <span class="err">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="err">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="s">&quot;snippet&quot;</span><span class="o">&gt;&gt;</span><span class="p">).</span>
 </span><span class='line'><span class="p">-</span><span class="ni">define</span><span class="p">(</span><span class="no">USERID_INDEX</span><span class="p">,</span> <span class="s">&quot;userid&quot;</span><span class="p">).</span>
@@ -1440,7 +1440,7 @@ only index-capable backend.</p></blockquote>
 <span class='line-number'>49</span>
 <span class='line-number'>50</span>
 </pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="p">-</span><span class="ni">module</span><span class="p">(</span><span class="n">csd_vote</span><span class="p">).</span>
-</span><span class='line'><span class="p">-</span><span class="ni">author</span><span class="p">(</span><span class="n">&#39;OJ Reeves &lt;a href=&quot;&amp;#109;&amp;#x61;&amp;#x69;&amp;#108;&amp;#x74;&amp;#x6f;&amp;#x3a;&amp;#x6f;&amp;#106;&amp;#x40;&amp;#x62;&amp;#x75;&amp;#102;&amp;#102;&amp;#x65;&amp;#x72;&amp;#101;&amp;#x64;&amp;#x2e;&amp;#x69;&amp;#111;&quot;&gt;&amp;#x6f;&amp;#x6a;&amp;#64;&amp;#x62;&amp;#x75;&amp;#102;&amp;#102;&amp;#101;&amp;#114;&amp;#x65;&amp;#100;&amp;#x2e;&amp;#105;&amp;#111;&lt;/a&gt;&#39;</span><span class="p">).</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'><span class="p">-</span><span class="ni">author</span><span class="p">(</span><span class="n">&#39;OJ Reeves &lt;a href=&quot;&amp;#109;&amp;#97;&amp;#x69;&amp;#x6c;&amp;#116;&amp;#x6f;&amp;#x3a;&amp;#x6f;&amp;#x6a;&amp;#x40;&amp;#98;&amp;#117;&amp;#x66;&amp;#102;&amp;#101;&amp;#114;&amp;#101;&amp;#100;&amp;#x2e;&amp;#105;&amp;#111;&quot;&gt;&amp;#x6f;&amp;#x6a;&amp;#64;&amp;#x62;&amp;#x75;&amp;#102;&amp;#x66;&amp;#x65;&amp;#x72;&amp;#x65;&amp;#x64;&amp;#x2e;&amp;#105;&amp;#111;&lt;/a&gt;&#39;</span><span class="p">).</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="c">%% --------------------------------------------------------------------------------------</span>
 </span><span class='line'><span class="c">%% API Function Exports</span>
@@ -1836,7 +1836,7 @@ only index-capable backend.</p></blockquote>
 <span class='line-number'>11</span>
 <span class='line-number'>12</span>
 </pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="p">-</span><span class="ni">module</span><span class="p">(</span><span class="n">csd_vote_store</span><span class="p">).</span>
-</span><span class='line'><span class="p">-</span><span class="ni">author</span><span class="p">(</span><span class="n">&#39;OJ Reeves &lt;a href=&quot;&amp;#109;&amp;#x61;&amp;#x69;&amp;#x6c;&amp;#x74;&amp;#x6f;&amp;#58;&amp;#111;&amp;#x6a;&amp;#64;&amp;#x62;&amp;#x75;&amp;#102;&amp;#x66;&amp;#101;&amp;#114;&amp;#x65;&amp;#x64;&amp;#x2e;&amp;#105;&amp;#111;&quot;&gt;&amp;#111;&amp;#106;&amp;#x40;&amp;#98;&amp;#x75;&amp;#102;&amp;#x66;&amp;#101;&amp;#114;&amp;#x65;&amp;#x64;&amp;#46;&amp;#x69;&amp;#111;&lt;/a&gt;&#39;</span><span class="p">).</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'><span class="p">-</span><span class="ni">author</span><span class="p">(</span><span class="n">&#39;OJ Reeves &lt;a href=&quot;&amp;#x6d;&amp;#97;&amp;#x69;&amp;#108;&amp;#x74;&amp;#x6f;&amp;#58;&amp;#x6f;&amp;#106;&amp;#x40;&amp;#x62;&amp;#x75;&amp;#x66;&amp;#x66;&amp;#101;&amp;#x72;&amp;#x65;&amp;#x64;&amp;#x2e;&amp;#x69;&amp;#x6f;&quot;&gt;&amp;#111;&amp;#x6a;&amp;#64;&amp;#x62;&amp;#117;&amp;#102;&amp;#102;&amp;#x65;&amp;#114;&amp;#x65;&amp;#100;&amp;#46;&amp;#105;&amp;#111;&lt;/a&gt;&#39;</span><span class="p">).</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;-</span><span class="n">define</span><span class="p">(</span><span class="nv">BUCKET</span><span class="p">,</span> <span class="err">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="err">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="s">&quot;vote&quot;</span><span class="o">&gt;&gt;</span><span class="p">).</span>
 </span><span class='line'><span class="p">-</span><span class="ni">define</span><span class="p">(</span><span class="no">SNIPPET_INDEX</span><span class="p">,</span> <span class="err">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="err">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="s">&quot;snippetid&quot;</span><span class="o">&gt;&gt;</span><span class="p">).</span>
@@ -2249,7 +2249,7 @@ only index-capable backend.</p></blockquote>
 <span class='line-number'>77</span>
 <span class='line-number'>78</span>
 </pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="p">-</span><span class="ni">module</span><span class="p">(</span><span class="n">csd_user</span><span class="p">).</span>
-</span><span class='line'><span class="p">-</span><span class="ni">author</span><span class="p">(</span><span class="n">&#39;OJ Reeves &lt;a href=&quot;&amp;#x6d;&amp;#97;&amp;#x69;&amp;#108;&amp;#x74;&amp;#x6f;&amp;#x3a;&amp;#111;&amp;#106;&amp;#64;&amp;#x62;&amp;#117;&amp;#102;&amp;#102;&amp;#x65;&amp;#114;&amp;#x65;&amp;#x64;&amp;#46;&amp;#105;&amp;#111;&quot;&gt;&amp;#x6f;&amp;#106;&amp;#x40;&amp;#98;&amp;#117;&amp;#102;&amp;#x66;&amp;#101;&amp;#x72;&amp;#x65;&amp;#100;&amp;#x2e;&amp;#105;&amp;#111;&lt;/a&gt;&#39;</span><span class="p">).</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'><span class="p">-</span><span class="ni">author</span><span class="p">(</span><span class="n">&#39;OJ Reeves &lt;a href=&quot;&amp;#109;&amp;#x61;&amp;#x69;&amp;#x6c;&amp;#116;&amp;#111;&amp;#x3a;&amp;#x6f;&amp;#x6a;&amp;#64;&amp;#x62;&amp;#117;&amp;#102;&amp;#x66;&amp;#x65;&amp;#x72;&amp;#101;&amp;#x64;&amp;#x2e;&amp;#105;&amp;#111;&quot;&gt;&amp;#x6f;&amp;#106;&amp;#x40;&amp;#x62;&amp;#x75;&amp;#102;&amp;#x66;&amp;#x65;&amp;#114;&amp;#101;&amp;#x64;&amp;#46;&amp;#x69;&amp;#x6f;&lt;/a&gt;&#39;</span><span class="p">).</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="c">%% --------------------------------------------------------------------------------------</span>
 </span><span class='line'><span class="c">%% API Function Exports</span>
@@ -2388,7 +2388,7 @@ only index-capable backend.</p></blockquote>
 <span class='line-number'>49</span>
 <span class='line-number'>50</span>
 </pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="p">-</span><span class="ni">module</span><span class="p">(</span><span class="n">csd_user_store</span><span class="p">).</span>
-</span><span class='line'><span class="p">-</span><span class="ni">author</span><span class="p">(</span><span class="n">&#39;OJ Reeves &lt;a href=&quot;&amp;#x6d;&amp;#97;&amp;#x69;&amp;#x6c;&amp;#116;&amp;#111;&amp;#58;&amp;#111;&amp;#106;&amp;#x40;&amp;#x62;&amp;#117;&amp;#102;&amp;#102;&amp;#101;&amp;#114;&amp;#101;&amp;#100;&amp;#46;&amp;#x69;&amp;#111;&quot;&gt;&amp;#111;&amp;#106;&amp;#x40;&amp;#x62;&amp;#x75;&amp;#102;&amp;#x66;&amp;#x65;&amp;#x72;&amp;#x65;&amp;#100;&amp;#x2e;&amp;#105;&amp;#x6f;&lt;/a&gt;&#39;</span><span class="p">).</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'><span class="p">-</span><span class="ni">author</span><span class="p">(</span><span class="n">&#39;OJ Reeves &lt;a href=&quot;&amp;#109;&amp;#x61;&amp;#105;&amp;#x6c;&amp;#116;&amp;#111;&amp;#58;&amp;#111;&amp;#106;&amp;#x40;&amp;#98;&amp;#117;&amp;#x66;&amp;#x66;&amp;#x65;&amp;#114;&amp;#101;&amp;#100;&amp;#46;&amp;#x69;&amp;#x6f;&quot;&gt;&amp;#x6f;&amp;#x6a;&amp;#x40;&amp;#x62;&amp;#x75;&amp;#x66;&amp;#102;&amp;#x65;&amp;#114;&amp;#x65;&amp;#x64;&amp;#x2e;&amp;#x69;&amp;#111;&lt;/a&gt;&#39;</span><span class="p">).</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;-</span><span class="n">define</span><span class="p">(</span><span class="nv">BUCKET</span><span class="p">,</span> <span class="err">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="err">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="s">&quot;user&quot;</span><span class="o">&gt;&gt;</span><span class="p">).</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
 </span><span class='line'>
@@ -3324,7 +3324,7 @@ only index-capable backend.</p></blockquote>
 <span class='line-number'>100</span>
 <span class='line-number'>101</span>
 </pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="p">-</span><span class="ni">module</span><span class="p">(</span><span class="n">csd_web_static_resource</span><span class="p">).</span>
-</span><span class='line'><span class="p">-</span><span class="ni">author</span><span class="p">(</span><span class="n">&#39;OJ Reeves &lt;a href=&quot;&amp;#x6d;&amp;#97;&amp;#105;&amp;#x6c;&amp;#116;&amp;#x6f;&amp;#58;&amp;#111;&amp;#x6a;&amp;#64;&amp;#x62;&amp;#x75;&amp;#x66;&amp;#x66;&amp;#x65;&amp;#114;&amp;#x65;&amp;#x64;&amp;#46;&amp;#105;&amp;#111;&quot;&gt;&amp;#111;&amp;#106;&amp;#x40;&amp;#x62;&amp;#x75;&amp;#102;&amp;#x66;&amp;#101;&amp;#x72;&amp;#101;&amp;#x64;&amp;#x2e;&amp;#105;&amp;#111;&lt;/a&gt;&#39;</span><span class="p">).</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'><span class="p">-</span><span class="ni">author</span><span class="p">(</span><span class="n">&#39;OJ Reeves &lt;a href=&quot;&amp;#x6d;&amp;#97;&amp;#x69;&amp;#x6c;&amp;#116;&amp;#111;&amp;#x3a;&amp;#111;&amp;#106;&amp;#x40;&amp;#x62;&amp;#117;&amp;#x66;&amp;#102;&amp;#101;&amp;#114;&amp;#x65;&amp;#100;&amp;#x2e;&amp;#105;&amp;#x6f;&quot;&gt;&amp;#111;&amp;#x6a;&amp;#x40;&amp;#98;&amp;#x75;&amp;#x66;&amp;#x66;&amp;#101;&amp;#114;&amp;#101;&amp;#x64;&amp;#46;&amp;#x69;&amp;#x6f;&lt;/a&gt;&#39;</span><span class="p">).</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="c">%% --------------------------------------------------------------------------------------</span>
 </span><span class='line'><span class="c">%% API Function Exports</span>
@@ -3529,7 +3529,7 @@ now looks like Twitter bootstrap.</p></blockquote>
 </ol>
 
 
-<p>So with all this in mind, and with the <a href="https://github.com/OJ/csd/tree/Part5-20120710/apps/csd_web/priv/www/static" title="User Interface Source">source of the UI readily available</a> for your review, check out the application in action via this little video. It shows the sign-in process, user profile view, adding of new snippets and voting on existing snippets.</p>
+<p>So with all this in mind, and with the <a href="https://github.com/OJ/csd/tree/Part5-20120830/apps/csd_web/priv/www/static" title="User Interface Source">source of the UI readily available</a> for your review, check out the application in action via this little video. It shows the sign-in process, user profile view, adding of new snippets and voting on existing snippets.</p>
 
 <p>Feel free to go to <a href="http://vimeo.com/45499170">Vimeo</a> and watch it full screen.</p>
 
@@ -3558,7 +3558,7 @@ now looks like Twitter bootstrap.</p></blockquote>
 
 <p>Thanks again. Until next time!</p>
 
-<p><strong>Note:</strong> The code for Part 5 (this post) can be found on <a href="https://github.com/OJ/csd/tree/Part5-20120710" title="Source code for Part 5">Github</a>.</p>
+<p><strong>Note:</strong> The code for Part 5 (this post) can be found on <a href="https://github.com/OJ/csd/tree/Part5-20120830" title="Source code for Part 5">Github</a>.</p>
 
 <p>Other parts in this series: <a href="/posts/webmachine-erlydtl-and-riak-part-1/" title="Wembachine, ErlyDTL and Riak - Part 1">Part 1</a>, <a href="/posts/webmachine-erlydtl-and-riak-part-2/" title="Wembachine, ErlyDTL and Riak - Part 2">Part 2</a>, <a href="/posts/webmachine-erlydtl-and-riak-part-3/" title="Wembachine, ErlyDTL and Riak - Part 3">Part 3</a>, <a href="/posts/webmachine-erlydtl-and-riak-part-4/" title="Wembachine, ErlyDTL and Riak - Part 4">Part 4</a></p>
 ]]></content>

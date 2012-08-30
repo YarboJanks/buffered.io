@@ -181,8 +181,8 @@ set_indexes(RiakObj, Indexes) ->
 get_index(RiakObj, Type, Name) ->
   Meta = riakc_obj:get_metadata(RiakObj),
   Indexes = dict:fetch(?INDEX_KEY, Meta),
-  IndexKey = binary_to_list(index(Type, Name)),
-  Value = proplists:get_value(IndexKey, Indexes),
+  IndexKey = index(Type, Name),
+  Value = binary_to_list(proplists:get_value(IndexKey, Indexes)),
   case Type of
     int -> list_to_integer(Value);
     bin -> Value
@@ -199,7 +199,7 @@ This code converts between lists and dictionaries because I want existing index 
 
 The second function, `set_indexes`, is an extended version of `set_index` in that it allows you to set more than one key at a time. Instead of a single type/name/value combination it accepts a list of tuples of `{type, name, value}`.
 
-The third function, `get_index`, is a helper function which is designed to get the value of certain index. Note how this function accesses _existing_ metadata via `get_metadata/1` rather than `get_update_metadata/1`. This is due to us being interested in an existing index, not in one that is about to be updated when we next save. Note that we have to convert the index key from `binary` to a `string` because the proplist keys for the index values are all strings. While we're here, we do a converstion of the value to an integer if the index type is an integer.
+The third function, `get_index`, is a helper function which is designed to get the value of certain index. Note how this function accesses _existing_ metadata via `get_metadata/1` rather than `get_update_metadata/1`. This is due to us being interested in an existing index, not in one that is about to be updated when we next save. While we're here, we do a converstion of the value to an integer if the index type is an integer.
 
 This code can be called like so: `UserId = csd_riak:get_index(RiakObj, int, "userid").`
 
@@ -1926,7 +1926,7 @@ Other parts in this series: [Part 1][], [Part 2][], [Part 3][], [Part 4][]
   [Part 2]: /posts/webmachine-erlydtl-and-riak-part-2/ "Wembachine, ErlyDTL and Riak - Part 2"
   [Part 3]: /posts/webmachine-erlydtl-and-riak-part-3/ "Wembachine, ErlyDTL and Riak - Part 3"
   [Part 4]: /posts/webmachine-erlydtl-and-riak-part-4/ "Wembachine, ErlyDTL and Riak - Part 4"
-  [Part5Code]: https://github.com/OJ/csd/tree/Part5-20120710 "Source code for Part 5"
+  [Part5Code]: https://github.com/OJ/csd/tree/Part5-20120830 "Source code for Part 5"
   [Twitter]: http://twitter.com/ "Twitter"
   [OAuth]: http://oauth.net/ "OAuth"
   [Erlang]: http://erlang.org/ "Erlang"
@@ -1952,4 +1952,4 @@ Other parts in this series: [Part 1][], [Part 2][], [Part 3][], [Part 4][]
   [gen_server]: http://www.erlang.org/doc/man/gen_server.html "Erlang gen_server"
   [Pooler]: https://github.com/OJ/pooler "Pooler"
   [jQuery]: http://www.jquery.com/ "jQuery"
-  [UiSource]: https://github.com/OJ/csd/tree/Part5-20120710/apps/csd_web/priv/www/static "User Interface Source"
+  [UiSource]: https://github.com/OJ/csd/tree/Part5-20120830/apps/csd_web/priv/www/static "User Interface Source"

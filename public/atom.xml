@@ -4,7 +4,7 @@
   <title><![CDATA[OJ's rants]]></title>
   <link href="http://buffered.io/atom.xml" rel="self"/>
   <link href="http://buffered.io/"/>
-  <updated>2012-08-26T16:47:20+10:00</updated>
+  <updated>2012-08-30T20:08:50+10:00</updated>
   <id>http://buffered.io/</id>
   <author>
     <name><![CDATA[OJ Reeves]]></name>
@@ -272,8 +272,8 @@ only index-capable backend.</p></blockquote>
 </span><span class='line'><span class="nf">get_index</span><span class="p">(</span><span class="nv">RiakObj</span><span class="p">,</span> <span class="nv">Type</span><span class="p">,</span> <span class="nv">Name</span><span class="p">)</span> <span class="o">-&gt;</span>
 </span><span class='line'>  <span class="nv">Meta</span> <span class="o">=</span> <span class="nn">riakc_obj</span><span class="p">:</span><span class="n">get_metadata</span><span class="p">(</span><span class="nv">RiakObj</span><span class="p">),</span>
 </span><span class='line'>  <span class="nv">Indexes</span> <span class="o">=</span> <span class="nn">dict</span><span class="p">:</span><span class="n">fetch</span><span class="p">(</span><span class="no">?INDEX_KEY</span><span class="p">,</span> <span class="nv">Meta</span><span class="p">),</span>
-</span><span class='line'>  <span class="nv">IndexKey</span> <span class="o">=</span> <span class="nb">binary_to_list</span><span class="p">(</span><span class="n">index</span><span class="p">(</span><span class="nv">Type</span><span class="p">,</span> <span class="nv">Name</span><span class="p">)),</span>
-</span><span class='line'>  <span class="nv">Value</span> <span class="o">=</span> <span class="nn">proplists</span><span class="p">:</span><span class="n">get_value</span><span class="p">(</span><span class="nv">IndexKey</span><span class="p">,</span> <span class="nv">Indexes</span><span class="p">),</span>
+</span><span class='line'>  <span class="nv">IndexKey</span> <span class="o">=</span> <span class="n">index</span><span class="p">(</span><span class="nv">Type</span><span class="p">,</span> <span class="nv">Name</span><span class="p">),</span>
+</span><span class='line'>  <span class="nv">Value</span> <span class="o">=</span> <span class="nb">binary_to_list</span><span class="p">(</span><span class="nn">proplists</span><span class="p">:</span><span class="n">get_value</span><span class="p">(</span><span class="nv">IndexKey</span><span class="p">,</span> <span class="nv">Indexes</span><span class="p">)),</span>
 </span><span class='line'>  <span class="k">case</span> <span class="nv">Type</span> <span class="k">of</span>
 </span><span class='line'>    <span class="n">int</span> <span class="o">-&gt;</span> <span class="nb">list_to_integer</span><span class="p">(</span><span class="nv">Value</span><span class="p">);</span>
 </span><span class='line'>    <span class="n">bin</span> <span class="o">-&gt;</span> <span class="nv">Value</span>
@@ -291,7 +291,7 @@ only index-capable backend.</p></blockquote>
 
 <p>The second function, <code>set_indexes</code>, is an extended version of <code>set_index</code> in that it allows you to set more than one key at a time. Instead of a single type/name/value combination it accepts a list of tuples of <code>{type, name, value}</code>.</p>
 
-<p>The third function, <code>get_index</code>, is a helper function which is designed to get the value of certain index. Note how this function accesses <em>existing</em> metadata via <code>get_metadata/1</code> rather than <code>get_update_metadata/1</code>. This is due to us being interested in an existing index, not in one that is about to be updated when we next save. Note that we have to convert the index key from <code>binary</code> to a <code>string</code> because the proplist keys for the index values are all strings. While we&#8217;re here, we do a converstion of the value to an integer if the index type is an integer.</p>
+<p>The third function, <code>get_index</code>, is a helper function which is designed to get the value of certain index. Note how this function accesses <em>existing</em> metadata via <code>get_metadata/1</code> rather than <code>get_update_metadata/1</code>. This is due to us being interested in an existing index, not in one that is about to be updated when we next save. While we&#8217;re here, we do a converstion of the value to an integer if the index type is an integer.</p>
 
 <p>This code can be called like so: <code>UserId = csd_riak:get_index(RiakObj, int, "userid").</code></p>
 
@@ -3152,7 +3152,7 @@ now looks like Twitter bootstrap.</p></blockquote>
 </ol>
 
 
-<p>So with all this in mind, and with the <a href="https://github.com/OJ/csd/tree/Part5-20120710/apps/csd_web/priv/www/static" title="User Interface Source">source of the UI readily available</a> for your review, check out the application in action via this little video. It shows the sign-in process, user profile view, adding of new snippets and voting on existing snippets.</p>
+<p>So with all this in mind, and with the <a href="https://github.com/OJ/csd/tree/Part5-20120830/apps/csd_web/priv/www/static" title="User Interface Source">source of the UI readily available</a> for your review, check out the application in action via this little video. It shows the sign-in process, user profile view, adding of new snippets and voting on existing snippets.</p>
 
 <p>Feel free to go to <a href="http://vimeo.com/45499170">Vimeo</a> and watch it full screen.</p>
 
@@ -3181,7 +3181,7 @@ now looks like Twitter bootstrap.</p></blockquote>
 
 <p>Thanks again. Until next time!</p>
 
-<p><strong>Note:</strong> The code for Part 5 (this post) can be found on <a href="https://github.com/OJ/csd/tree/Part5-20120710" title="Source code for Part 5">Github</a>.</p>
+<p><strong>Note:</strong> The code for Part 5 (this post) can be found on <a href="https://github.com/OJ/csd/tree/Part5-20120830" title="Source code for Part 5">Github</a>.</p>
 
 <p>Other parts in this series: <a href="http://buffered.io/posts/webmachine-erlydtl-and-riak-part-1/" title="Wembachine, ErlyDTL and Riak - Part 1">Part 1</a>, <a href="http://buffered.io/posts/webmachine-erlydtl-and-riak-part-2/" title="Wembachine, ErlyDTL and Riak - Part 2">Part 2</a>, <a href="http://buffered.io/posts/webmachine-erlydtl-and-riak-part-3/" title="Wembachine, ErlyDTL and Riak - Part 3">Part 3</a>, <a href="http://buffered.io/posts/webmachine-erlydtl-and-riak-part-4/" title="Wembachine, ErlyDTL and Riak - Part 4">Part 4</a></p>
 ]]></content>
