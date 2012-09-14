@@ -6,11 +6,14 @@ comments: true
 layout: post
 title: "Websites are Hard to Build"
 ---
-<img src="/uploads/2008/11/elope-harlequin-jester.jpg" alt="Uninformed client" title="Uninformed client" style="float: left; margin-right: 5px; margin-bottom: 5px;" /><blockquote><p>"It's just a small site, how hard can it be?"
+{% img right /uploads/2008/11/elope-harlequin-jster.jpg 'Uninformed client' %}
+> "It's just a small site, how hard can it be?"
+> 
+> "I thought you could do it for me as a favour. It's not a complicated site."
+> 
+> "This would take me an afternoon, but I don't have time, can you do it for me?"
 
-"I thought you could do it for me as a favour. It's not a complicated site."
-
-"This would take me an afternoon, but I don't have time, can you do it for me?"</p></blockquote>Have you ever heard these comments before? Have you heard ones that are similar? I've been hearing them a lot in the last few weeks and it's starting to get to me.
+Have you ever heard these comments before? Have you heard ones that are similar? I've been hearing them a lot in the last few weeks and it's starting to get to me.
 
 I have just had a chat with a mate who is also suffering this pain, and that conversation is what inspired me to write this, the first random rant in a while.
 
