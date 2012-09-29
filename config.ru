@@ -26,6 +26,7 @@ use Rack::Rewrite do
 
     r301 %r{^/\d\d\d\d/\d\d/\d\d/(.*)$}, '/posts/$1'
     r301 %r{^/\+$}, 'https://plus.google.com/109005609397751560350/about'
+    r301 %r{^/contact$}, 'http://www.google.com/recaptcha/mailhide/d?k=01KtoERsnUusX9vVliTm27uQ==&c=Be1wE57A4P96e6U9_HLCvw=='
 end
 
 class SinatraStaticServer < Sinatra::Base  

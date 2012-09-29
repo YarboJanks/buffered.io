@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Security | OJ's rants]]></title>
   <link href="http://buffered.io/categories/security/atom.xml" rel="self"/>
   <link href="http://buffered.io/"/>
-  <updated>2012-08-30T20:16:11+10:00</updated>
+  <updated>2012-09-29T20:30:35+10:00</updated>
   <id>http://buffered.io/</id>
   <author>
     <name><![CDATA[OJ Reeves]]></name>
@@ -18,11 +18,15 @@
     <link href="http://buffered.io/posts/websites-are-hard-to-build/"/>
     <updated>2008-11-26T21:08:00+10:00</updated>
     <id>http://buffered.io/posts/websites-are-hard-to-build</id>
-    <content type="html"><![CDATA[<p><img src="http://buffered.io/uploads/2008/11/elope-harlequin-jester.jpg" alt="Uninformed client" title="Uninformed client" style="float: left; margin-right: 5px; margin-bottom: 5px;" /><blockquote><p>"It's just a small site, how hard can it be?"</p>
+    <content type="html"><![CDATA[<p><img class="right" src="/uploads/2008/11/elope-harlequin-jster.jpg" title="'Uninformed client'" ></p>
+
+<blockquote><p>"It's just a small site, how hard can it be?"</p>
 
 <p>"I thought you could do it for me as a favour. It's not a complicated site."</p>
 
-<p>"This would take me an afternoon, but I don't have time, can you do it for me?"</p></blockquote>Have you ever heard these comments before? Have you heard ones that are similar? I've been hearing them a lot in the last few weeks and it's starting to get to me.</p>
+<p>"This would take me an afternoon, but I don't have time, can you do it for me?"</p></blockquote>
+
+<p>Have you ever heard these comments before? Have you heard ones that are similar? I've been hearing them a lot in the last few weeks and it's starting to get to me.</p>
 
 <p>I have just had a chat with a mate who is also suffering this pain, and that conversation is what inspired me to write this, the first random rant in a while.</p>
 
