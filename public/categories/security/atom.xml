@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Security | OJ's rants]]></title>
   <link href="http://buffered.io/categories/security/atom.xml" rel="self"/>
   <link href="http://buffered.io/"/>
-  <updated>2012-09-29T20:30:35+10:00</updated>
+  <updated>2012-09-29T21:14:19+10:00</updated>
   <id>http://buffered.io/</id>
   <author>
     <name><![CDATA[OJ Reeves]]></name>
@@ -18,7 +18,7 @@
     <link href="http://buffered.io/posts/websites-are-hard-to-build/"/>
     <updated>2008-11-26T21:08:00+10:00</updated>
     <id>http://buffered.io/posts/websites-are-hard-to-build</id>
-    <content type="html"><![CDATA[<p><img class="right" src="/uploads/2008/11/elope-harlequin-jster.jpg" title="'Uninformed client'" ></p>
+    <content type="html"><![CDATA[<p><img class="right" src="/uploads/2008/11/elope-harlequin-jester.jpg" title="'Uninformed client'" ></p>
 
 <blockquote><p>"It's just a small site, how hard can it be?"</p>
 
@@ -41,7 +41,6 @@
 
 <h2>Requirement Issues</h2>
 
-
 <p>Let's be fair ... you don't know what you want. You <em>think</em> you do, but you really don't. You have an idea for something that will either make your life easier or "be really cool", but as far as actually <strong>thinking</strong> about how it would function ... ? You haven't done that at all.</p>
 
 <p>Here lies the first of the big stumbling blocks. You want a website, because "everyone has a website these days" for almost everything. Started a new business? You must have a website! Released an album? You must have a website! Had a child? You must have a website! Never had a website? You must have a website!</p>
@@ -52,15 +51,13 @@
 
 <h2>Design Issues</h2>
 
+<p>We're coming to the end of 2008 and yet people still don't realise that development is <strong>not the same as design</strong>. Ask yourself the question: if design is part of development, then why do people make a living out of website design? The answer is simple: It's a big job, and it's very hard to do it right. I'm a developer, and I feel that there are very few (if any) areas of development that I couldn't work in, but I can tell you this for certain: I am <strong>not a designer</strong>. <a href="http://shiftperception.com/blog/" title="Shiftperception">Dan</a> will no doubt appreciate that.</p>
 
-<p>We're coming to the end of 2008 and yet people still don't realise that development is <strong>not the same as design</strong>. Ask yourself the question: if design is part of development, then why do people make a living out of website design? The answer is simple: It's a big job, and it's very hard to do it right. I'm a developer, and I feel that there are very few (if any) areas of development that I couldn't do well in (yes, I'm arrogant ;)), but I can tell you this for certain: I am <strong>not a designer</strong>. <a href="http://shiftperception.com/blog/" title="Shiftperception">Dan</a> will no doubt appreciate that comment ;)</p>
-
-<p>It's true, I am not a designer. I can not design websites. I can do the technical desing, the architecture and the implementation. I can not do the design. Creating the right design for a website isn't an easy thing to do. I can tell you when people get it right, and I can tell you when people get it wrong. I can't tell you why :)</p>
+<p>It's true, I am not a designer. I can not design websites. I can do the technical desing, the architecture and the implementation. I can not do the design. Creating the right design for a website isn't an easy thing to do. I can tell you when people get it right, and I can tell you when people get it wrong, I just can't tell you why.</p>
 
 <p>So, again, do yourself a favour. Get a proper web designer with a great portfolio of projects and go through the ideas you have with them. They will end up providing you an interface which makes sense for what you're trying to do. Do not fall into the trap of assuming that this part of the process isn't important. Yes, up front the cost most appear higher, but in the long run you will not regret it.</p>
 
 <h2>Technical Issues</h2>
-
 
 <p>Stumbling block number 3 is the lack of understanding of the technical issues. It's no surprise though, considering that most people wanting sites are not technical in nature. While it's fine for a client to not have (or want) an understanding of the technical issues, it's certainly <em>not</em> fine for them to ignore the fact that they even exist. Sticking your head in the sand and saying things like "well you'll figure it out" or "isn't that what I'm paying you for" doesn't really cut the mustard, particularly when you haven't thought about what you want in the first place.</p>
 
@@ -80,7 +77,6 @@
 
 <h2>Testing Issues</h2>
 
-
 <p>Testing? What's that?</p>
 
 <p>It's frightening that even in Enterprise software, testing is generally an afterthought. Recently I was fortunate enough to be part of a team where testing was a huge part of the development process. It was <em>really</em> good and the result was a seriously higher quality application.</p>
@@ -91,8 +87,11 @@
 
 <h2>Deployment Issues</h2>
 
+<p>Once you've worked with a development team, you'll become very familiar with the following phrase:</p>
 
-<p>Once you've worked with a development team, you'll become very familiar with the following phrase:<blockquote><p>It works on my machine.</p></blockquote>It's something that you'll hear constantly :)</p>
+<blockquote><p>It works on my machine.</p></blockquote>
+
+<p>It's something that you'll hear constantly. I'll admit to saying it on a regular basis.</p>
 
 <p>The point here is that it is very common for things to work in the development environment, but end up breaking when deployed to a production environment. Deployment is another often overlooked area of the process. When it <em>is</em> considered, it's underestimated.</p>
 
@@ -100,19 +99,17 @@
 
 <h2>Support Issues</h2>
 
-
 <p>So you've managed to ship your application. It's online, it's deployed and it's running. But something goes wrong. The site breaks every now and then. Users are having issues with the payment portal. People using Firefox on Mac OSX can't sign in. Reports are coming back with incorrect values.</p>
 
 <p>Do you have a plan in place to handle these requests? Do you have a <a href="http://en.wikipedia.org/wiki/Bugtracker" title="Bug tracker">bug tracking system</a>? Do you have a support team ready to handle requests? Have you kept any of the development team on board to help you with the support issues?</p>
 
-<p>Generally, the answer to all of these questions is: no. My advice would be to make it a yes. Put a plan in place to help you with the teething issues once you've gone live. Trust me, there <em>will</em> be issues.</p>
+<p>Generally, the answer to all of these questions is <em>no</em>. My advice would be to make it a <em>yes</em>. Put a plan in place to help you with the teething issues once you've gone live. Trust me, there <em>will</em> be issues.</p>
 
 <h2>Conclusion</h2>
 
-
 <p>I hope that the target audience have a little more visibility of the issues that are faced when building websites (and software in general). I hope that they learn from it and take some of the advice and do proper preparation before undertaking a development project.</p>
 
-<p>Finally, I really do hope that it stops some of you from coming out with the comments listed at the start of this post :)</p>
+<p>Finally, I really do hope that it stops some of you from coming out with the comments listed at the start of this post.</p>
 
 <p>As always, feedback and comments are welcomed and appreciated. Cheers!</p>
 ]]></content>
