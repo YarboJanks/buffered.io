@@ -4,7 +4,7 @@
   <title><![CDATA[OJ's rants]]></title>
   <link href="http://buffered.io/atom.xml" rel="self"/>
   <link href="http://buffered.io/"/>
-  <updated>2012-09-29T21:14:19+10:00</updated>
+  <updated>2012-10-30T23:37:42+10:00</updated>
   <id>http://buffered.io/</id>
   <author>
     <name><![CDATA[OJ Reeves]]></name>
@@ -12,6 +12,19 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Meaning]]></title>
+    <link href="http://buffered.io/posts/meaning/"/>
+    <updated>2012-10-30T23:32:00+10:00</updated>
+    <id>http://buffered.io/posts/meaning</id>
+    <content type="html"><![CDATA[<p>Life is way too short to be working on boring, uninteresting or meaningless stuff. Get out there and do what you love. Screw working for the dollar on something that you don&#8217;t enjoy. Don&#8217;t study in a field that doesn&#8217;t inspire you just because you got the marks or because people expect you to. Don&#8217;t do what you&#8217;ve always done just because it&#8217;s easy.</p>
+
+<p>Chase your passion. <em>Love your work</em>.</p>
+
+<p>Make sure you spend every day doing something that has meaning &#8230; something you feel is important and fulfilling. Remember, you&#8217;re <strong>trading one whole day of your life for it</strong>.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Webmachine, ErlyDTL and Riak - Part 5]]></title>
@@ -9255,38 +9268,6 @@ I&#8217;ll be posting the slides and demonstration code here on this blog as wel
 <p>Step up. Improve yourself for your own benefit, and you&#8217;ll find that the rest of the perception issues will go away.</p>
 
 <p>Thoughts, feedback, abuse and cheap-shots are, as always, very welcome :)</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[I'm so impressed I want to pay you less]]></title>
-    <link href="http://buffered.io/posts/im-so-impressed-i-want-to-pay-you-less/"/>
-    <updated>2010-03-02T12:27:00+10:00</updated>
-    <id>http://buffered.io/posts/im-so-impressed-i-want-to-pay-you-less</id>
-    <content type="html"><![CDATA[<p><a href="http://buffered.io/uploads/2010/03/statue-of-liberty_whip_ny-times.jpg" title="Slave driver" rel="lightbox[slave]"><img src="http://buffered.io/uploads/2010/03/statue-of-liberty_whip_ny-times.jpg" alt="Slave driver" title="Slave driver" width="150" style="float: left; margin-bottom: 5px; margin-right: 5px;"/></a>The title of this post is a statement that I&#8217;ve heard a few times in the past while at work. The people who said it might not have used those exact words, but the intent is the same. Usually I hear it in the following form:</p>
-
-<p><em>&#8220;We&#8217;re very happy with the work you&#8217;ve done for us as a contractor. We want to keep you on, but would like you to take a job as a permanent employee and continue to work on the project.&#8221;</em></p>
-
-<p>Once they&#8217;ve made this point, they then feel the need to harp on about the good points of becoming a permanent employee. Things such as job security, sick/annual leave and better hours tend to get mentioned. All of them are complete bullshit of course.</p>
-
-<p>There is <strong>no such thing as job security</strong>. Sick and/or annual leave isn&#8217;t enough to make up for the difference in pay. Hours tend to always be worse when you&#8217;re working for the man, because you&#8217;re expected to do whatever needs to be done regardless of the hours. This is worse if you&#8217;re working on mission-critical stuff.</p>
-
-<!--more-->
-
-
-<p>Now I have no aversion to doing my fair share of extra work and mission-critical stuff is way more interesting. I often enjoy it. What I don&#8217;t enjoy is the expectation for me to give away my free time to my employer for no reward. I don&#8217;t get extra time off in lieu. I don&#8217;t get overtime pay. I don&#8217;t get ownership of the software. I don&#8217;t get to see the result of the extra effort I put in. I&#8217;m just expected to do it. In other situations I&#8217;d be happy to do it, but 999 times out of 1000, the situation isn&#8217;t right.</p>
-
-<p>I&#8217;ve even worked for companies in the past who expect you to give up a lot of your personal time even if there isn&#8217;t anything critical that needs to be done. I was expected to write small applications and create other assets that the company could use in future projects. At first this seemed like it could be fun. But the cold hard reality was that all of the effort was totally wasted, because none of the things that were created ever got used.</p>
-
-<p>As a contractor, the view from the perspective of the client is different, especially if you&#8217;re on an hourly rate. Everything boils down to a financial cost. You&#8217;re more likely to get a fair deal as a contractor than you are as a permy (at least here in the Brisbane market) because you&#8217;re entitled to make them pay for the time and effort you put in.</p>
-
-<p><a href="http://buffered.io/uploads/2010/03/cartoon_farcus.gif" title="Slave of the month" rel="lightbox[slave]"><img src="http://buffered.io/uploads/2010/03/cartoon_farcus.gif" alt="Slave of the month" title="Slave of the month" width="150" style="float: right; margin-bottom: 5px; margin-left: 5px;"/></a>I realise that this makes me sound rather mercenary. In all honesty, I&#8217;m not mercenary. I love technology. I love building software. I don&#8217;t go to work just so that I can get paid. In many ways I would work for less pay if the conditions were right. Unfortunately, I am yet to come across a job where those conditions are right. I&#8217;ve certainly given it a shot in the past. I took a substantial pay-cut to work for Electronic Arts back in 2005 so that I could work on something that I really wanted to work on. I thoroughly enjoyed it. As far as the technology and the challenges are concerned, it&#8217;s the most fun I&#8217;ve ever had at work. Unfortunately, the experience I had there led me to believe that the lifestyle isn&#8217;t sustainable (at least not for me and my family).</p>
-
-<p>Would I do the same again for another job? Definitely. But the only company I would do it for would be <a href="http://basho.com/" title="Basho">Basho</a> and my <a href="http://erlang.org/" title="Erlang">Erlang-fu</a> is not yet up to scratch so I wouldn&#8217;t be considered. Outside of Basho I&#8217;m not aware of any other company or work that excites me as much. So for now I will probably remain a contractor, and try to move around and add as much value as I can on a variety of projects, keeping up to speed on many different types of technology.</p>
-
-<p>So if you&#8217;re reading this, give me a few good reasons as to why permanent work is better than contract work. Why should I consider it? Would you consider it? If you&#8217;re a permy, are you looking to go contracting, and why?</p>
-
-<p>Feedback and comments are appreciated :)</p>
 ]]></content>
   </entry>
   

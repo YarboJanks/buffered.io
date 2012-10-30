@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Life | OJ's rants]]></title>
+  <link href="http://buffered.io/categories/life/atom.xml" rel="self"/>
+  <link href="http://buffered.io/"/>
+  <updated>2012-10-30T23:38:25+10:00</updated>
+  <id>http://buffered.io/</id>
+  <author>
+    <name><![CDATA[OJ Reeves]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Meaning]]></title>
+    <link href="http://buffered.io/posts/meaning/"/>
+    <updated>2012-10-30T23:32:00+10:00</updated>
+    <id>http://buffered.io/posts/meaning</id>
+    <content type="html"><![CDATA[<p>Life is way too short to be working on boring, uninteresting or meaningless stuff. Get out there and do what you love. Screw working for the dollar on something that you don't enjoy. Don't study in a field that doesn't inspire you just because you got the marks or because people expect you to. Don't do what you've always done just because it's easy.</p>
+
+<p>Chase your passion. <em>Love your work</em>.</p>
+
+<p>Make sure you spend every day doing something that has meaning ... something you feel is important and fulfilling. Remember, you're <strong>trading one whole day of your life for it</strong>.</p>
+]]></content>
+  </entry>
+  
+</feed>
