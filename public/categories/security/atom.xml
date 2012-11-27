@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Security | OJ's rants]]></title>
   <link href="http://buffered.io/categories/security/atom.xml" rel="self"/>
   <link href="http://buffered.io/"/>
-  <updated>2012-10-30T23:38:25+10:00</updated>
+  <updated>2012-11-27T22:11:25+10:00</updated>
   <id>http://buffered.io/</id>
   <author>
     <name><![CDATA[OJ Reeves]]></name>
@@ -18,7 +18,7 @@
     <link href="http://buffered.io/posts/websites-are-hard-to-build/"/>
     <updated>2008-11-26T21:08:00+10:00</updated>
     <id>http://buffered.io/posts/websites-are-hard-to-build</id>
-    <content type="html"><![CDATA[<p>{% img right /uploads/2008/11/elope-harlequin-jester.jpg 'Uninformed client' %}</p>
+    <content type="html"><![CDATA[<p><img class="right" src="/uploads/2008/11/elope-harlequin-jester.jpg" title="'Uninformed client'" ></p>
 
 <blockquote><p>"It's just a small site, how hard can it be?"</p>
 

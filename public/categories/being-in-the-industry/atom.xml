@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Being in the Industry | OJ's rants]]></title>
   <link href="http://buffered.io/categories/being-in-the-industry/atom.xml" rel="self"/>
   <link href="http://buffered.io/"/>
-  <updated>2012-10-30T23:38:25+10:00</updated>
+  <updated>2012-11-27T22:11:25+10:00</updated>
   <id>http://buffered.io/</id>
   <author>
     <name><![CDATA[OJ Reeves]]></name>
@@ -12,6 +12,31 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Stepping Down]]></title>
+    <link href="http://buffered.io/posts/stepping-down/"/>
+    <updated>2012-11-27T21:46:00+10:00</updated>
+    <id>http://buffered.io/posts/stepping-down</id>
+    <content type="html"><![CDATA[<p>For the past two years I've been heavily involved with organising two user groups in Brisbane: <a href="http://www.bfpg.org/">BFPG</a> and <a href="http://www.bnosql.com/">BNoSQL</a>. Those of you out there who organise your own user groups no doubt know how much is involved in keeping these things going. My focus has been on building communities around the subject matter and trying to get attendance up. It was a tough gig.</p>
+
+<p>For the most part I think I succeeded in what I set out to achieve. We've seen a steady growth in memberships along with the usual fluctuations in attendance, but on the whole the net effect has been really positive. The development community here in Brisbane is very strong and has a lot of passionate people backing it. I think it'll continue to grow and flourish.</p>
+
+<p>During my time as an organiser I've had an immense amount of fun, learned a bucketload, met some amazing people and formed some great friendships. But I've got to a point where I think there's nothing more I can give to the groups as an organiser.</p>
+
+<p>For groups to remain successful they need many things; the key one being <em>change</em>.</p>
+
+<p>Organisers need to change. Focus needs to change. Ideas need to change. The group needs to get a fresh face periodically to stop it from stagnating. I feel that the time has come for me to step down as organiser and get other people to step up and make their mark, take the groups past where I can take them.</p>
+
+<p>I also have personal reasons for making this decision and most of them revolve around the lack of time. I won't bore you with all the details, but for my own sanity I need a break from it. I need to step down before I burn out and lose the desire to attend in any capacity. I've given it all I've got and I hope that in some way I've had a positive impact on the lives of the many techies that I know and respect here in sunny Brisbane.</p>
+
+<p>As of the end of this year I will no longer be a user group organiser in Brisbane. At this point I have no plans to get back involved down the track, but I won't say "never" either. I'll be investing time in building up my own business, spending more time with the family and generally enjoying the lack of stress put on myself twice a month.</p>
+
+<p>I want to thank this technical community for its support. It's been an absolute joy seeing people get together at the events that I've helped create and I look forward to being part of the crowd from here on in.</p>
+
+<p>Cheers!</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[An Expert at 23]]></title>
@@ -41,9 +66,9 @@
 
 <p>I tried to completely ignore the blatant mistakes but couldn't. Despite the use of the word "right" in the first sentence there was no picture of the interviewee to be found. There's a mention of "the University of Technology" but a failure to mention which one. If this person finished a degree, taking a minimum of 3 years to complete, that would mean that his one year placement finished at the ripe old age of 22 if we assume he started university at 18. This is best case. Working for another year, bringing him to 23 years old, caps his experience at 2 years maximum -- not much for someone considered to be an <em>I.T. expert</em>, in the "digital industry" no less!</p>
 
-<p>{% pullquote %}
-I've been working professionally as a software developer/engineer/whatever since 1999. During this time I've spent a great deal of time learning, growing, failing, constantly trying to improve, and earning scars along the way. I've been fortunate enough to experience a huge number of different domains within software and have managed to land jobs in other countries than the one that I live in. Now that I am starting my 14th year in the industry I think I might be able to say that I'm no longer a junior. {" At 23 years old I barely knew my object-oriented earhole from my procedural arsehole"}, let alone have the gall to call myself an expert or allow someone else to refer to me as one. Doing otherwise would be a lie. To grossly over-generalise: <em>nobody at the age of 23 can be called an I.T. expert</em>. Add at least ten years before you're no longer wet behind the ears.
-{% endpullquote %}</p>
+<p><span class='pullquote-right' data-pullquote='At 23 years old I barely knew my object-oriented earhole from my procedural arsehole'>
+I've been working professionally as a software developer/engineer/whatever since 1999. During this time I've spent a great deal of time learning, growing, failing, constantly trying to improve, and earning scars along the way. I've been fortunate enough to experience a huge number of different domains within software and have managed to land jobs in other countries than the one that I live in. Now that I am starting my 14th year in the industry I think I might be able to say that I'm no longer a junior. At 23 years old I barely knew my object-oriented earhole from my procedural arsehole, let alone have the gall to call myself an expert or allow someone else to refer to me as one. Doing otherwise would be a lie. To grossly over-generalise: <em>nobody at the age of 23 can be called an I.T. expert</em>. Add at least ten years before you're no longer wet behind the ears.
+</span></p>
 
 <p><a href="http://buffered.io/uploads/2012/01/senior-lead-expert.jpg" rel="lightbox"><img title="Senior Lead Expert" src="http://buffered.io/uploads/2012/01/senior-lead-expert.jpg" width="200" style="float:right;margin-left:5px;margin-bottom:5px" /></a>Even the people that I know and respect, who I consider to be amongst the best, would not think of themselves as experts in their field by that age. To think that is to be overly arrogant. To allow a newspaper to state it on your behalf is stupid and I would consider it more damaging to your reputation than anything else. Don't attempt to make yourself sound like more than you are, as more often than not you tend to come off looking like a fool (see the "Senior Lead Expert" to the right for another example).</p>
 
@@ -287,38 +312,6 @@ I've been working professionally as a software developer/engineer/whatever since
 <p>Step up. Improve yourself for your own benefit, and you'll find that the rest of the perception issues will go away.</p>
 
 <p>Thoughts, feedback, abuse and cheap-shots are, as always, very welcome :)</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[I'm so impressed I want to pay you less]]></title>
-    <link href="http://buffered.io/posts/im-so-impressed-i-want-to-pay-you-less/"/>
-    <updated>2010-03-02T12:27:00+10:00</updated>
-    <id>http://buffered.io/posts/im-so-impressed-i-want-to-pay-you-less</id>
-    <content type="html"><![CDATA[<p><a href="http://buffered.io/uploads/2010/03/statue-of-liberty_whip_ny-times.jpg" title="Slave driver" rel="lightbox[slave]"><img src="http://buffered.io/uploads/2010/03/statue-of-liberty_whip_ny-times.jpg" alt="Slave driver" title="Slave driver" width="150" style="float: left; margin-bottom: 5px; margin-right: 5px;"/></a>The title of this post is a statement that I've heard a few times in the past while at work. The people who said it might not have used those exact words, but the intent is the same. Usually I hear it in the following form:</p>
-
-<p><em>"We're very happy with the work you've done for us as a contractor. We want to keep you on, but would like you to take a job as a permanent employee and continue to work on the project."</em></p>
-
-<p>Once they've made this point, they then feel the need to harp on about the good points of becoming a permanent employee. Things such as job security, sick/annual leave and better hours tend to get mentioned. All of them are complete bullshit of course.</p>
-
-<p>There is <strong>no such thing as job security</strong>. Sick and/or annual leave isn't enough to make up for the difference in pay. Hours tend to always be worse when you're working for the man, because you're expected to do whatever needs to be done regardless of the hours. This is worse if you're working on mission-critical stuff.</p>
-
-<!--more-->
-
-
-<p>Now I have no aversion to doing my fair share of extra work and mission-critical stuff is way more interesting. I often enjoy it. What I don't enjoy is the expectation for me to give away my free time to my employer for no reward. I don't get extra time off in lieu. I don't get overtime pay. I don't get ownership of the software. I don't get to see the result of the extra effort I put in. I'm just expected to do it. In other situations I'd be happy to do it, but 999 times out of 1000, the situation isn't right.</p>
-
-<p>I've even worked for companies in the past who expect you to give up a lot of your personal time even if there isn't anything critical that needs to be done. I was expected to write small applications and create other assets that the company could use in future projects. At first this seemed like it could be fun. But the cold hard reality was that all of the effort was totally wasted, because none of the things that were created ever got used.</p>
-
-<p>As a contractor, the view from the perspective of the client is different, especially if you're on an hourly rate. Everything boils down to a financial cost. You're more likely to get a fair deal as a contractor than you are as a permy (at least here in the Brisbane market) because you're entitled to make them pay for the time and effort you put in.</p>
-
-<p><a href="http://buffered.io/uploads/2010/03/cartoon_farcus.gif" title="Slave of the month" rel="lightbox[slave]"><img src="http://buffered.io/uploads/2010/03/cartoon_farcus.gif" alt="Slave of the month" title="Slave of the month" width="150" style="float: right; margin-bottom: 5px; margin-left: 5px;"/></a>I realise that this makes me sound rather mercenary. In all honesty, I'm not mercenary. I love technology. I love building software. I don't go to work just so that I can get paid. In many ways I would work for less pay if the conditions were right. Unfortunately, I am yet to come across a job where those conditions are right. I've certainly given it a shot in the past. I took a substantial pay-cut to work for Electronic Arts back in 2005 so that I could work on something that I really wanted to work on. I thoroughly enjoyed it. As far as the technology and the challenges are concerned, it's the most fun I've ever had at work. Unfortunately, the experience I had there led me to believe that the lifestyle isn't sustainable (at least not for me and my family).</p>
-
-<p>Would I do the same again for another job? Definitely. But the only company I would do it for would be <a href="http://basho.com/" title="Basho">Basho</a> and my <a href="http://erlang.org/" title="Erlang">Erlang-fu</a> is not yet up to scratch so I wouldn't be considered. Outside of Basho I'm not aware of any other company or work that excites me as much. So for now I will probably remain a contractor, and try to move around and add as much value as I can on a variety of projects, keeping up to speed on many different types of technology.</p>
-
-<p>So if you're reading this, give me a few good reasons as to why permanent work is better than contract work. Why should I consider it? Would you consider it? If you're a permy, are you looking to go contracting, and why?</p>
-
-<p>Feedback and comments are appreciated :)</p>
 ]]></content>
   </entry>
   
