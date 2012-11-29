@@ -1035,11 +1035,17 @@
         <lastmod>2012-11-27T22:10:40+10:00</lastmod>
     </url>
     <url>
+        <loc>
+            http://buffered.io/posts/xss-flaws-via-mvc-model-binding-and-request.querystring-inconsistencies/
+        </loc>
+        <lastmod>2012-11-29T20:50:03+10:00</lastmod>
+    </url>
+    <url>
         <loc>http://buffered.io/</loc>
-        <lastmod>2012-11-27T22:10:40+10:00</lastmod>
+        <lastmod>2012-11-29T20:50:03+10:00</lastmod>
     </url>
     <url>
         <loc>http://buffered.io/posts/archives/</loc>
-        <lastmod>2012-11-27T22:10:40+10:00</lastmod>
+        <lastmod>2012-11-29T20:50:03+10:00</lastmod>
     </url>
 </urlset>

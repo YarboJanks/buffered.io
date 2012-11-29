@@ -16,7 +16,7 @@
 
 
   
-  <meta name="description" content="For the past two years I&#8217;ve been heavily involved with organising two user groups in Brisbane: BFPG and BNoSQL. Those of you out there who &hellip;">
+  <meta name="description" content="Forgive the title of the post, it was hard coming up with something succinct that captured the purpose of the post. This was inspired by a recent &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -96,6 +96,54 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/posts/xss-flaws-via-mvc-model-binding-and-request.querystring-inconsistencies/">XSS Flaws via MVC Model Binding and Request.QueryString Inconsistencies</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+
+<time datetime="2012-11-29T20:50:00+10:00" pubdate data-updated="true">29 Nov 2012</time>
+        
+         | <a href="/posts/xss-flaws-via-mvc-model-binding-and-request.querystring-inconsistencies/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Forgive the title of the post, it was hard coming up with something succinct that captured the purpose of the post. This was inspired by a recent experience with a client who had this exact problem with one of their production systems.</p>
+
+<h2>TL;DR</h2>
+
+<p>Never use <a href="http://msdn.microsoft.com/en-us/library/ms524784(v=vs.90).aspx">Request.QueryString</a> to access parameters in your views, even when you&#8217;re sure your actions have validated them. You may open your application up to <a href="http://en.wikipedia.org/wiki/Cross-site_scripting">XSS</a> attacks. Always, <em>always</em> use data that is passed to your views via the <code>Model</code> or the <a href="http://msdn.microsoft.com/en-us/library/system.web.mvc.viewpage.viewdata(v=vs.108).aspx">ViewData</a> dictionary. Under no circumstances should you trust data coming in from the web, that includes query string parameters.</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/posts/xss-flaws-via-mvc-model-binding-and-request.querystring-inconsistencies/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -539,54 +587,6 @@ different platforms.</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/posts/corrugatediron-update-v0-1-1/">CorrugatedIron Update - v0.1.1</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-
-<time datetime="2011-08-03T21:18:00+10:00" pubdate data-updated="true">03 Aug 2011</time>
-        
-         | <a href="/posts/corrugatediron-update-v0-1-1/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Last week <a href="http://facility9.com/" title="Jeremiah Peschka">JP</a> and I released our first Open Source project, <a href="http://corrugatediron.org/" title="CorrugatedIron">CorrugatedIron</a>. The release seemed to be fairly well received by those people who gave it a spin. We&#8217;ve had some good feedback along the way which we&#8217;ll be evaluating, and no doubt those suggestions and comments will be influencing the future of the library.</p>
-
-<p>In the interim, we wanted to get another version out which sorts out two main issues and that changes the <em>perceived</em> &#8220;norm&#8221; when building applications with CorrugatedIron. Those issues are listed below. We&#8217;ve also go the first pass of our <a href="http://corrugatediron.org/documentation/MapReduce.html" title="Map/Reduce">Map/Reduce</a> documentation ready.</p>
-
-<p>If you&#8217;re not interested in the detail, head on over to the <a href="http://corrugatediron.org/downloads.html" title="Downloads page">download page</a> to find out the many ways in which you can get access to the release. Otherwise, please read on!</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/posts/corrugatediron-update-v0-1-1/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/page/2/">&larr; Older</a>
@@ -626,6 +626,10 @@ different platforms.</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/posts/xss-flaws-via-mvc-model-binding-and-request.querystring-inconsistencies/">XSS Flaws via MVC Model Binding and Request.QueryString Inconsistencies</a>
+      </li>
+    
+      <li class="post">
         <a href="/posts/stepping-down/">Stepping Down</a>
       </li>
     
@@ -639,10 +643,6 @@ different platforms.</p>
     
       <li class="post">
         <a href="/posts/webmachine-erlydtl-and-riak-part-4/">Webmachine, ErlyDTL and Riak - Part 4</a>
-      </li>
-    
-      <li class="post">
-        <a href="/posts/redirects-with-webmachine/">Redirects with Webmachine</a>
       </li>
     
   </ul>
@@ -676,7 +676,7 @@ different platforms.</p>
   <h1>Categories</h1>
   <ul id="categories">
     <li class='category'><a href='/categories/asm/'>ASM (3)</a></li>
-<li class='category'><a href='/categories/asp-net/'>ASP.NET (3)</a></li>
+<li class='category'><a href='/categories/asp-net/'>ASP.NET (4)</a></li>
 <li class='category'><a href='/categories/agile/'>Agile (1)</a></li>
 <li class='category'><a href='/categories/algorithms/'>Algorithms (6)</a></li>
 <li class='category'><a href='/categories/apple/'>Apple (3)</a></li>
@@ -723,7 +723,7 @@ different platforms.</p>
 <li class='category'><a href='/categories/riak/'>Riak (7)</a></li>
 <li class='category'><a href='/categories/ruby-on-rails/'>Ruby on Rails (1)</a></li>
 <li class='category'><a href='/categories/screencasts/'>Screencasts (1)</a></li>
-<li class='category'><a href='/categories/security/'>Security (10)</a></li>
+<li class='category'><a href='/categories/security/'>Security (11)</a></li>
 <li class='category'><a href='/categories/series/'>Series (1)</a></li>
 <li class='category'><a href='/categories/shortcuts/'>Shortcuts (4)</a></li>
 <li class='category'><a href='/categories/software/'>Software (31)</a></li>
@@ -737,6 +737,7 @@ different platforms.</p>
 <li class='category'><a href='/categories/wtf/'>WTF (20)</a></li>
 <li class='category'><a href='/categories/webmachine/'>Webmachine (7)</a></li>
 <li class='category'><a href='/categories/windows/'>Windows (12)</a></li>
+<li class='category'><a href='/categories/xss/'>XSS (1)</a></li>
 
   </ul>
 </section>

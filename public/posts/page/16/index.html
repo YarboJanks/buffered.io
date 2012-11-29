@@ -16,7 +16,7 @@
 
 
   
-  <meta name="description" content="I was getting bored with the existing theme, so I decided to have a look at some others. I actually don&#8217;t mind this one, but the missus thinks &hellip;">
+  <meta name="description" content="As you all know, I recently moved the Blackapache site to a new server. We had some teething issues, as ya do when making the move, but all is now &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -96,6 +96,63 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/posts/moving-to-google-apps/">Moving to Google Apps</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+
+<time datetime="2007-05-06T09:04:00+10:00" pubdate data-updated="true">06 May 2007</time>
+        
+         | <a href="/posts/moving-to-google-apps/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>As you all know, I recently moved the Blackapache site to a new server. We had some teething issues, as ya do when making the move, but all is now well. One of the things that I hadn&#8217;t got round to fixing was my <a href="http://www.spamassassin.org/" title="SpamAssassin" target="_blank">SpamAssassin</a> installation.</p>
+
+<p>I&#8217;d already gone through the fun times of setting up email (POP3s, IMAP4s) with <a href="http://www.qmail.org/" target="_blank" title="Qmail">Qmail</a>, which after a bit of time (and a learning curve) was working fine (with SSL, hence the &#8216;s&#8217; at the end of the names ;) ) and all my users were able to send/receive without an issues. While trying to set it up, I was having issues getting both SpamAssassin and <a href="http://www.clamav.net/" title="Clam AV" target="_blank">Clam AntiVirus</a> working. Both of the daemons would run fine, but I just couldn&#8217;t quite get the configuration right.</p>
+
+<p>Thankfully, AV isn&#8217;t so much of an issue as my users all have AV protection on their local machines. Spam, while annoying, can be lived with until I find the time to get the filters working properly - so I basically left these two things alone for a while until I found the time after doing all the other <em>urgent</em> bits.</p>
+
+<p>I finally got round to making an attempt to fix the problem a weekend or so ago, but still couldn&#8217;t get it to behave. I read forum upon forum, blog upon blog, and readme upon readme, but for some reason the bloody thing just refused to work. I got frustrated, reverted all the settings back to how they were before, and gave up for the day.</p>
+
+<p>During the last week I was prepping myself for another attempt at getting it work, when I heard about <a href="http://www.google.com/a/" title="Google Apps" target="_blank">Google Apps</a>. I was a bit surprised when I first read all the details, because it was the first time I&#8217;d heard about it! Being a geek I thought I was pretty good with keeping up to speed, and I was a bit narked with myself for letting this golden nugget slip through the net.</p>
+
+<p>I&#8217;m not going to go through the ins and outs of what Google Apps is all about as there are already a <a href="http://www.google.com.au/search?hl=en&q=google+apps" title="Google Apps Search" target="_blank">stack</a> of pages out there already talking about it. What I will say is that I should have made the move earlier!</p>
+
+<p>Not only do I no longer have to worry about keeping my entire email configuration (Qmail with vpopmail and courier imap, SpamAssassin, ClamAV, Horde/SquirrelMail) up to date and patched, I don&#8217;t even have to have it running. The &#8220;precious&#8221; resources on the server can now be utilised for other things such as an <a href="http://subversion.tigris.org/" title="SubVersion" target="_blank">SVN</a> install. Each email user has 2GB of space, webmail comes for free and has the fantastic facilities that come with <a href="http://www.gmail.com/" target="_blank" title="Gmail">Gmail</a>. Users can easily configure their own accounts, handle their own password changes, etc. My administration of email has basically dropped to just above zero. The only thing I need to do as an administrator is get the account set up initially, the rest is up to the user.</p>
+
+<p>You can probably tell that I&#8217;m quite excited about this. It&#8217;s great that I don&#8217;t have to worry about this any more, and I can put more time and effort into other things.  Of course, my excitement only extends as far as email for now, but I&#8217;m pretty sure that over time I&#8217;ll also come to love the added features of <a href="http://calendar.google.com/" title="Google Calendar" target="_blank">Google Calendar</a> and <a href="http://docs.google.com/" title="Google Calendar" target="_blank">Google Calendar</a>.</p>
+
+<p>This service does come with its limitations, and with the possibility of Google Datamining, but for a home server which I use for a blog, having this facility to lighten the admin load is just fantastic.</p>
+
+<p>I highly recommend considering this as an option if you&#8217;re looking to sort out an email host! Give it a trial, at least for a while, and you may find you&#8217;re as happy as I am. If you don&#8217;t like it, you can always revert back to your old setup.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -536,53 +593,6 @@ Some valid questions at this point would be:<ul><li>Why not confront them and as
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/posts/net-mvc/">.NET MVC</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-
-<time datetime="2007-03-28T17:15:00+10:00" pubdate data-updated="true">28 Mar 2007</time>
-        
-         | <a href="/posts/net-mvc/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Isn&#8217;t it amazing how life can just hit turbo without prior warning, and your time seems to just disappear!  I need to find some way of sticking blogging back into my routine :)</p>
-
-<p>For the last couple of weeks I&#8217;ve been playing around a fair bit with <a href="http://www.ruby-lang.org/" title="Ruby" target="_blank">Ruby</a> and <a href="http://www.rubyonrails.org/" title="Ruby on Rails" target="_blank">Rails</a>.  I&#8217;ve been having a great deal of fun at the same time, and I recommend it to any of you who are thinking of taking up some of your own time with learning web development.  It&#8217;s really good fun, it&#8217;s interesting, and it&#8217;s a great platform for building web apps on.  Sure it has its pitfalls (as do all web development options), but it&#8217;s a worthy contender and it&#8217;s only going to get better.  More on that in another post ;)</p>
-
-<p>The reason I mentioned it is because of the news that ASP.NET has an <a href="http://codebetter.com/blogs/jeffrey.palermo/archive/posts/Big-News-_2D00_-MVC-framework-for-ASP.NET-in-the-works-_2D00_-level-300.aspx">MVC framework in the works</a>, which looks like it&#8217;s going to be very similar to the way Rails works.  I think this is a good thing as it&#8217;ll force people to move away from an (possibly) unnecessary <a href="http://msdn.microsoft.com/msdnmag/issues/06/08/DesignPatterns/default.aspx" title="MVP" target="_blank">MVP</a> approach (for most things) and work with a well-structured <a href="http://en.wikipedia.org/wiki/Model-view-controller" title="MVC" target="_blank">MVC</a> (which a surprising amount of developers don&#8217;t yet know about!).</p>
-
-<p>No doubt this is another effort by Microsoft to rip off some code from <a href="http://www.castleproject.org/monorail/index.html" title="MonoRail" target="_blank">another established project</a> and claim it as their own, but still if it works and works well, then I&#8217;m not really complaining.</p>
-
-<p>Anyway, what do you guys think? Is this a good or a bad thing?</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/page/17/">&larr; Older</a>
@@ -624,6 +634,10 @@ Some valid questions at this point would be:<ul><li>Why not confront them and as
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/posts/xss-flaws-via-mvc-model-binding-and-request.querystring-inconsistencies/">XSS Flaws via MVC Model Binding and Request.QueryString Inconsistencies</a>
+      </li>
+    
+      <li class="post">
         <a href="/posts/stepping-down/">Stepping Down</a>
       </li>
     
@@ -637,10 +651,6 @@ Some valid questions at this point would be:<ul><li>Why not confront them and as
     
       <li class="post">
         <a href="/posts/webmachine-erlydtl-and-riak-part-4/">Webmachine, ErlyDTL and Riak - Part 4</a>
-      </li>
-    
-      <li class="post">
-        <a href="/posts/redirects-with-webmachine/">Redirects with Webmachine</a>
       </li>
     
   </ul>
@@ -674,7 +684,7 @@ Some valid questions at this point would be:<ul><li>Why not confront them and as
   <h1>Categories</h1>
   <ul id="categories">
     <li class='category'><a href='/categories/asm/'>ASM (3)</a></li>
-<li class='category'><a href='/categories/asp-net/'>ASP.NET (3)</a></li>
+<li class='category'><a href='/categories/asp-net/'>ASP.NET (4)</a></li>
 <li class='category'><a href='/categories/agile/'>Agile (1)</a></li>
 <li class='category'><a href='/categories/algorithms/'>Algorithms (6)</a></li>
 <li class='category'><a href='/categories/apple/'>Apple (3)</a></li>
@@ -721,7 +731,7 @@ Some valid questions at this point would be:<ul><li>Why not confront them and as
 <li class='category'><a href='/categories/riak/'>Riak (7)</a></li>
 <li class='category'><a href='/categories/ruby-on-rails/'>Ruby on Rails (1)</a></li>
 <li class='category'><a href='/categories/screencasts/'>Screencasts (1)</a></li>
-<li class='category'><a href='/categories/security/'>Security (10)</a></li>
+<li class='category'><a href='/categories/security/'>Security (11)</a></li>
 <li class='category'><a href='/categories/series/'>Series (1)</a></li>
 <li class='category'><a href='/categories/shortcuts/'>Shortcuts (4)</a></li>
 <li class='category'><a href='/categories/software/'>Software (31)</a></li>
@@ -735,6 +745,7 @@ Some valid questions at this point would be:<ul><li>Why not confront them and as
 <li class='category'><a href='/categories/wtf/'>WTF (20)</a></li>
 <li class='category'><a href='/categories/webmachine/'>Webmachine (7)</a></li>
 <li class='category'><a href='/categories/windows/'>Windows (12)</a></li>
+<li class='category'><a href='/categories/xss/'>XSS (1)</a></li>
 
   </ul>
 </section>
