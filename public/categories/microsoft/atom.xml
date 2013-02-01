@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Microsoft | OJ's rants]]></title>
   <link href="http://buffered.io/categories/microsoft/atom.xml" rel="self"/>
   <link href="http://buffered.io/"/>
-  <updated>2013-02-01T11:40:11+10:00</updated>
+  <updated>2013-02-02T08:38:58+10:00</updated>
   <id>http://buffered.io/</id>
   <author>
     <name><![CDATA[OJ Reeves]]></name>
@@ -150,39 +150,24 @@ RESPONSE 200<br/></p>
 
 <p>There are quite a few issues that were highlighted as a result, but the key one is this: <em>you can't assume that your users aren't using some form of Content Advisor which is hitting your server with unexpected requests</em>. In our case, the resolution was simple. We just had to add a couple of lines to our root action:</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">public</span> <span class="n">ActionResult</span> <span class="nf">SignOn</span><span class="p">()</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="k">if</span><span class="p">(</span><span class="n">Request</span><span class="p">.</span><span class="n">IsAuthenticated</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">{&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="p">&lt;</span><span class="n">pre</span><span class="p">&gt;&lt;</span><span class="n">code</span><span class="p">&gt;</span><span class="c1">// force the TempData dicionary to keep hold</span>
-</span><span class='line'><span class="c1">// of the information it has in case this</span>
-</span><span class='line'><span class="c1">// action is being hit by a Content Advisor.</span>
-</span><span class='line'><span class="n">TempData</span><span class="p">.</span><span class="n">Keep</span><span class="p">();</span>
-</span><span class='line'><span class="p">&lt;/</span><span class="n">code</span><span class="p">&gt;&lt;/</span><span class="n">pre</span><span class="p">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;</span>  <span class="p">}</span>
-</span><span class='line'>  <span class="c1">// rest of the action code</span>
-</span><span class='line'>  <span class="c1">// ...</span>
-</span><span class='line'>  <span class="k">return</span> <span class="nf">View</span><span class="p">(...);</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p>{% codeblock lang:csharp %}
+public ActionResult SignOn()
+{
+  if(Request.IsAuthenticated)
+  {</p>
+
+<pre><code>// force the TempData dicionary to keep hold
+// of the information it has in case this
+// action is being hit by a Content Advisor.
+TempData.Keep();
+</code></pre>
+
+<p>  }
+  // rest of the action code
+  // ...
+  return View(...);
+}
+{% endcodeblock %}</p>
 
 <h2>Conclusion</h2>
 
@@ -205,26 +190,22 @@ RESPONSE 200<br/></p>
     <id>http://buffered.io/posts/a-quirk-in-listfind</id>
     <content type="html"><![CDATA[<p>Earlier today I was having a chat with a <a href="http://doomkeeper.com/" title="Jimmy's Blog">friend of mine</a>, who lives in Vancouver, about finding items that are stored in <a href="http://msdn.microsoft.com/en-us/library/6sh2ey19.aspx" title="List(T)">generic Lists</a>. He flicked me a code snippet that looked something like this:</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="n">List</span><span class="p">&lt;</span><span class="n">foo</span><span class="p">&gt;</span> <span class="n">list</span> <span class="p">=</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">foo</span><span class="p">&gt;();</span>
-</span><span class='line'><span class="c1">// .. do some stuff</span>
-</span><span class='line'><span class="n">Foo</span> <span class="n">f</span> <span class="p">=</span> <span class="n">list</span><span class="p">.</span><span class="n">Find</span><span class="p">(</span><span class="k">delegate</span><span class="p">(</span><span class="n">Foo</span> <span class="n">f</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="n">foo</span><span class="p">.</span><span class="n">Name</span> <span class="p">==</span> <span class="s">&quot;Bar&quot;</span><span class="p">;</span> <span class="p">});</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p>{% codeblock lang:csharp %}
+List<foo> list = new List<foo>();
+// .. do some stuff
+Foo f = list.Find(delegate(Foo f) { return foo.Name == "Bar"; });
+{% endcodeblock %}</p>
 
 <p>Straight away I fired back with an update to the code which used <a href="http://msdn.microsoft.com/en-us/library/bb397687.aspx" title="Lambda Expressions (C# Programming Guide)">lambda expressions</a> instead, as I'm a fan of how concise they are ;)</p>
 
 <!--more-->
 
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="n">List</span><span class="p">&lt;</span><span class="n">foo</span><span class="p">&gt;</span> <span class="n">list</span> <span class="p">=</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">foo</span><span class="p">&gt;();</span>
-</span><span class='line'><span class="c1">// .. do some stuff</span>
-</span><span class='line'><span class="n">Foo</span> <span class="n">f</span> <span class="p">=</span> <span class="n">list</span><span class="p">.</span><span class="n">Find</span><span class="p">(</span><span class="n">foo</span> <span class="p">=&gt;</span> <span class="n">foo</span><span class="p">.</span><span class="n">Name</span> <span class="p">==</span> <span class="s">&quot;Bar&quot;</span><span class="p">);</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p>{% codeblock lang:csharp %}
+List<foo> list = new List<foo>();
+// .. do some stuff
+Foo f = list.Find(foo => foo.Name == "Bar");
+{% endcodeblock %}</p>
 
 <p>My friend ran this code against a data set that he had constructed and found that when the call to <a href="http://msdn.microsoft.com/en-us/library/x0b5b5bc.aspx" title="List(T).Find">Find()</a> was made, a <a href="http://msdn.microsoft.com/en-us/library/system.nullreferenceexception.aspx" title="System.NullReferenceException">NullReferenceException</a> was being thrown. I found this odd as I hadn't seen that before. <em>list</em> was definitely a valid reference and the lambda expression was well-formed as well. So what was wrong?</p>
 
@@ -242,24 +223,20 @@ RESPONSE 200<br/></p>
 
 <p>It wasn't immediately obvious. So I tried something to see what would happen:</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="n">List</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;</span> <span class="n">list</span> <span class="p">=</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;(</span><span class="k">new</span> <span class="kt">int</span><span class="p">[]</span> <span class="p">{</span> <span class="m">1</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="m">3</span> <span class="p">});</span>
-</span><span class='line'><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="n">list</span><span class="p">.</span><span class="n">Find</span><span class="p">(</span><span class="n">x</span> <span class="p">=&gt;</span> <span class="n">x</span> <span class="p">&gt;</span> <span class="m">3</span><span class="p">);</span>
-</span><span class='line'><span class="c1">// ....</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p>{% codeblock lang:csharp %}
+List<int> list = new List<int>(new int[] { 1, 2, 3 });
+int i = list.Find(x => x > 3);
+// ....
+{% endcodeblock %}</p>
 
 <p>So what do you think the value of <em>i</em> is after those first two lines? Yes, you guessed it: <strong>Zero</strong>. Why? Well, duh, it's because <a href="http://msdn.microsoft.com/en-us/library/xwth0h0d.aspx" title="default keyword">default(T)</a> for integers is Zero!</p>
 
 <p>This is where little alarm bells started to ring in my head. I immediately whipped up an example where this would be considered bad:
-<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="n">List</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;</span> <span class="n">list</span> <span class="p">=</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;(</span><span class="k">new</span> <span class="kt">int</span><span class="p">[]</span> <span class="p">{</span> <span class="m">0</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="m">3</span> <span class="p">});</span>
-</span><span class='line'><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="n">list</span><span class="p">.</span><span class="n">Find</span><span class="p">(</span><span class="n">x</span> <span class="p">=&gt;</span> <span class="n">x</span> <span class="p">&gt;</span> <span class="m">3</span><span class="p">);</span>
-</span><span class='line'><span class="c1">// ....</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+{% codeblock lang:csharp %}
+List<int> list = new List<int>(new int[] { 0, 1, 2, 3 });
+int i = list.Find(x => x > 3);
+// ....
+{% endcodeblock %}</p>
 
 <p>Again, <em>i</em> is Zero when this code is executed, but the result is very misleading. Zero is contained in the collection but doesn't match the predicate, yet Zero is returned because that's the default value for this value-type.</p>
 
@@ -271,55 +248,37 @@ RESPONSE 200<br/></p>
 
 <p>This was concerning for a couple of reasons. First of all, the designers have left it up to you to determine that this is the default behaviour. Yes I should be able to come to that conclusion myself, but I didn't until I got bitten :) So shut up! Secondly, you have to check your result value against your predicate <em>again</em> to be sure that it's not dodgey. For example:</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="n">List</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;</span> <span class="n">list</span> <span class="p">=</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;(</span><span class="k">new</span> <span class="kt">int</span><span class="p">[]</span> <span class="p">{</span> <span class="m">0</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="m">3</span> <span class="p">});</span>
-</span><span class='line'><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="n">list</span><span class="p">.</span><span class="n">Find</span><span class="p">(</span><span class="n">x</span> <span class="p">=&gt;</span> <span class="n">x</span> <span class="p">&gt;</span> <span class="m">3</span><span class="p">);</span>
-</span><span class='line'><span class="k">if</span><span class="p">(</span><span class="n">i</span> <span class="p">&gt;</span> <span class="m">3</span><span class="p">)</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="c1">// .. valid value, do stuff ..</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'><span class="k">else</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="c1">// .. no item found</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p>{% codeblock lang:csharp %}
+List<int> list = new List<int>(new int[] { 0, 1, 2, 3 });
+int i = list.Find(x => x > 3);
+if(i > 3)
+{
+  // .. valid value, do stuff ..
+}
+else
+{
+  // .. no item found
+}
+{% endcodeblock %}</p>
 
 <p>Do <em>you</em> want to do that? I certainly don't. After a bit of back-and-forth with Jimbo, I thought that the best option for a generic List Find() function would be one that is akin to the good old C++ days. It would look something like this:
-<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="kt">bool</span> <span class="n">Find</span><span class="p">&lt;</span><span class="n">t</span><span class="p">&gt;(</span><span class="n">Predicate</span><span class="p">&lt;</span><span class="n">t</span><span class="p">&gt;</span> <span class="n">predicate</span><span class="p">,</span> <span class="k">ref</span> <span class="n">T</span> <span class="n">output</span><span class="p">);</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+{% codeblock lang:csharp %}
+bool Find<t>(Predicate<t> predicate, ref T output);
+{% endcodeblock %}</p>
 
 <p>This would mean that you could change your code to something like the following:
-<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
-</span><span class='line'><span class="n">List</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;</span> <span class="n">list</span> <span class="p">=</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;(</span><span class="k">new</span> <span class="kt">int</span><span class="p">[]</span> <span class="p">{</span> <span class="m">0</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="m">3</span> <span class="p">});</span>
-</span><span class='line'><span class="k">if</span><span class="p">(</span><span class="n">list</span><span class="p">.</span><span class="n">Find</span><span class="p">(</span><span class="n">x</span> <span class="p">=&gt;</span> <span class="n">x</span> <span class="p">&gt;</span> <span class="m">3</span><span class="p">,</span> <span class="k">ref</span> <span class="n">i</span><span class="p">))</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="c1">// .. valid value, do stuff ..</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'><span class="k">else</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="c1">// .. no item found, or empty list!</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+{% codeblock lang:csharp %}
+int i;
+List<int> list = new List<int>(new int[] { 0, 1, 2, 3 });
+if(list.Find(x => x > 3, ref i))
+{
+  // .. valid value, do stuff ..
+}
+else
+{
+  // .. no item found, or empty list!
+}
+{% endcodeblock %}</p>
 
 <p>Note how with this option you could easily support the case for empty lists at the same time. It would be helpful and meaningful. Only when the function returns true can you rely on the output parameter. It's very clear and caters for value-types and reference-types. It'd be easy to implement in an [extension method][] as well. I'd prefer this solution over using FindIndex().</p>
 
@@ -588,41 +547,24 @@ Operation completed successfully
 <p>When a binary component links against a DLL, such as <a href="http://www.microsoft.com/" title="Microsoft">MS</a>'s <a href="http://msdn.microsoft.com/en-us/library/abx4dbyh(VS.80).aspx" title="C Run-Time Libraries">CRT</a>, an entry for that dependant DLL is specified in the component's <a href="http://msdn.microsoft.com/en-us/library/aa375365.aspx" title="Manifests">manifest</a>. This tells Windows that the application can't run without those DLLs being present. If they're not present in WinSxS then the errors above are thrown in the user's face.</p>
 
 <p>To demonstrate the problem, consider the C++ program below.
-<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-</pre></td><td class='code'><pre><code class='cpp'><span class='line'><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">include</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="n">windows</span><span class="p">.</span><span class="n">h</span><span class="o">&gt;&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">include</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="n">tchar</span><span class="p">.</span><span class="n">h</span><span class="o">&gt;&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="kt">int</span> <span class="n">WINAPI</span> <span class="n">_tWinMain</span><span class="p">(</span><span class="n">HINSTANCE</span> <span class="n">instance</span><span class="p">,</span> <span class="n">HINSTANCE</span> <span class="n">prevInstance</span><span class="p">,</span> <span class="n">LPTSTR</span> <span class="n">cmdLine</span><span class="p">,</span> <span class="kt">int</span> <span class="n">cmdShow</span><span class="p">)</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="o">::</span><span class="n">MessageBox</span><span class="p">(</span><span class="nb">NULL</span><span class="p">,</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span>  <span class="n">_T</span><span class="p">(</span><span class="s">&quot;This is a text executable that links against a later version of the runtimes.&quot;</span><span class="p">),</span>
-</span><span class='line'>  <span class="n">_T</span><span class="p">(</span><span class="s">&quot;Test EXE&quot;</span><span class="p">),</span>
-</span><span class='line'>  <span class="n">MB_OK</span><span class="p">);</span>
-</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+{% codeblock lang:cpp %}</p>
+
+<h1>include &lt;windows.h></h1>
+
+<h1>include &lt;tchar.h></h1>
+
+<p>int WINAPI _tWinMain(HINSTANCE instance, HINSTANCE prevInstance, LPTSTR cmdLine, int cmdShow)
+{
+  ::MessageBox(NULL,</p>
+
+<pre><code>  _T("This is a text executable that links against a later version of the runtimes."),
+  _T("Test EXE"),
+  MB_OK);
+</code></pre>
+
+<p>  return 0;
+}
+{% endcodeblock %}</p>
 
 <p>Compile this on a machine with <a href="http://msdn.microsoft.com/en-us/vstudio/default.aspx" title="Visual Studio Developer Center">Vis Studio 2008</a> installed and the resulting EXE will be linked against version 9.0 of the CRT.</p>
 
@@ -697,90 +639,52 @@ Operation completed successfully
 </code></pre>
 
 <p>In case you don't find this very readable, here it is after extraction/formatting:
-<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-</pre></td><td class='code'><pre><code class='xml'><span class='line'><span class="nt">&lt;assembly</span> <span class="na">xmlns=</span><span class="s">&quot;urn:schemas-microsoft-com:asm.v1&quot;</span> <span class="na">manifestVersion=</span><span class="s">&quot;1.0&quot;</span><span class="nt">&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;trustInfo</span> <span class="na">xmlns=</span><span class="s">&quot;urn:schemas-microsoft-com:asm.v3&quot;</span><span class="nt">&gt;&lt;/p&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="nt">&lt;pre&gt;&lt;code&gt;</span><span class="ni">&amp;lt;</span>security<span class="ni">&amp;gt;</span>
-</span><span class='line'>  <span class="ni">&amp;lt;</span>requestedPrivileges<span class="ni">&amp;gt;</span>
-</span><span class='line'>  <span class="ni">&amp;lt;</span>requestedExecutionLevel
-</span><span class='line'>    level=&quot;asInvoker&quot;
-</span><span class='line'>    uiAccess=&quot;false&quot;<span class="ni">&amp;gt;&amp;lt;</span>/requestedExecutionLevel<span class="ni">&amp;gt;</span>
-</span><span class='line'>  <span class="ni">&amp;lt;</span>/requestedPrivileges<span class="ni">&amp;gt;</span>
-</span><span class='line'><span class="ni">&amp;lt;</span>/security<span class="ni">&amp;gt;</span>
-</span><span class='line'><span class="nt">&lt;/code&gt;&lt;/pre&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="nt">&lt;p&gt;</span>  <span class="nt">&lt;/trustInfo&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;dependency&gt;&lt;/p&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="nt">&lt;pre&gt;&lt;code&gt;</span><span class="ni">&amp;lt;</span>dependentAssembly<span class="ni">&amp;gt;</span>
-</span><span class='line'>  <span class="ni">&amp;lt;</span>assemblyIdentity
-</span><span class='line'>    type=&quot;win32&quot;
-</span><span class='line'>    name=&quot;Microsoft.VC90.CRT&quot;
-</span><span class='line'>    version=&quot;9.0.21022.8&quot;
-</span><span class='line'>    processorArchitecture=&quot;x86&quot;
-</span><span class='line'>    publicKeyToken=&quot;1fc8b3b9a1e18e3b&quot;<span class="ni">&amp;gt;</span>
-</span><span class='line'>  <span class="ni">&amp;lt;</span>/assemblyIdentity<span class="ni">&amp;gt;</span>
-</span><span class='line'><span class="ni">&amp;lt;</span>/dependentAssembly<span class="ni">&amp;gt;</span>
-</span><span class='line'><span class="nt">&lt;/code&gt;&lt;/pre&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="nt">&lt;p&gt;</span>  <span class="nt">&lt;/dependency&gt;</span>
-</span><span class='line'><span class="nt">&lt;/assembly&gt;</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+{% codeblock lang:xml %}
+<assembly xmlns="urn:schemas-microsoft-com:asm.v1" manifestVersion="1.0">
+  <trustInfo xmlns="urn:schemas-microsoft-com:asm.v3"></p>
+
+<pre><code>&lt;security&gt;
+  &lt;requestedPrivileges&gt;
+  &lt;requestedExecutionLevel
+    level="asInvoker"
+    uiAccess="false"&gt;&lt;/requestedExecutionLevel&gt;
+  &lt;/requestedPrivileges&gt;
+&lt;/security&gt;
+</code></pre>
+
+<p>  </trustInfo>
+  <dependency></p>
+
+<pre><code>&lt;dependentAssembly&gt;
+  &lt;assemblyIdentity
+    type="win32"
+    name="Microsoft.VC90.CRT"
+    version="9.0.21022.8"
+    processorArchitecture="x86"
+    publicKeyToken="1fc8b3b9a1e18e3b"&gt;
+  &lt;/assemblyIdentity&gt;
+&lt;/dependentAssembly&gt;
+</code></pre>
+
+<p>  </dependency>
+</assembly>
+{% endcodeblock %}</p>
 
 <p>The bit we're really interested in is:
-<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-</pre></td><td class='code'><pre><code class='xml'><span class='line'><span class="nt">&lt;dependentAssembly&gt;</span>
-</span><span class='line'>  <span class="ni">&amp;lt;</span>assemblyIdentity<span class="nt">&lt;/p&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="nt">&lt;pre&gt;&lt;code&gt;</span>type=&quot;win32&quot;
-</span><span class='line'>name=&quot;Microsoft.VC90.CRT&quot;
-</span><span class='line'>version=&quot;9.0.21022.8&quot;
-</span><span class='line'>processorArchitecture=&quot;x86&quot;
-</span><span class='line'>publicKeyToken=&quot;1fc8b3b9a1e18e3b&quot;<span class="ni">&amp;gt;</span>
-</span><span class='line'><span class="nt">&lt;/code&gt;&lt;/pre&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="nt">&lt;p&gt;</span>  <span class="nt">&lt;/assemblyIdentity&gt;</span>
-</span><span class='line'><span class="nt">&lt;/dependentAssembly&gt;</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+{% codeblock lang:xml %}
+<dependentAssembly>
+  &lt;assemblyIdentity</p>
+
+<pre><code>type="win32"
+name="Microsoft.VC90.CRT"
+version="9.0.21022.8"
+processorArchitecture="x86"
+publicKeyToken="1fc8b3b9a1e18e3b"&gt;
+</code></pre>
+
+<p>  </assemblyIdentity>
+</dependentAssembly>
+{% endcodeblock %}</p>
 
 <p>This tells us the exact component and version required for this application to run. You'll notice that it also mentions the processor architecture. In this case, we need to make sure that we have version 9.0.21022.8 of the Visual C Runtimes for x86 installed in the side-by-side folder. The WinSxS folder can be found at <em>%WINDIR%\WinSxS</em></p>
 
