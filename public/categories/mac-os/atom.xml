@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Mac OS | OJ's rants]]></title>
   <link href="http://buffered.io/categories/mac-os/atom.xml" rel="self"/>
   <link href="http://buffered.io/"/>
-  <updated>2013-02-02T08:38:58+10:00</updated>
+  <updated>2013-02-03T09:04:49+10:00</updated>
   <id>http://buffered.io/</id>
   <author>
     <name><![CDATA[OJ Reeves]]></name>
@@ -12,6 +12,34 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Irssi and SASL on OSX]]></title>
+    <link href="http://buffered.io/posts/irssi-and-sasl-on-osx/"/>
+    <updated>2013-02-03T08:37:00+10:00</updated>
+    <id>http://buffered.io/posts/irssi-and-sasl-on-osx</id>
+    <content type="html"><![CDATA[<p>Given my renewed focus on security I've been looking to lock down much of my communications so that I <em>feel</em> more secure online. One of the things that I use quite a lot to connect with people who know WTF they're talking about is IRC. <a href="https://freenode.net/" title="Freenode IRC network">#freenode</a> is my network of choice as it has a bunch of interesting places with fairly active communities. <a href="http://www.irssi.org/" title="irssi IRC client">irssi</a> is my current client of choice for a few reasons.</p>
+
+<p><a href="https://en.wikipedia.org/wiki/Simple_Authentication_and_Security_Layer" title="SASL">SASL</a>, among other things, is one thing that can be enabled to secure your communication on IRC. There's quite a bit of information out there already about how to <a href="https://freenode.net/sasl/sasl-irssi.shtml" title="Enabling SASL in irssi on Freenode">enable SASL for irssi on Freenode</a>. These instructions worked out of the box for me on Linux, but not on Mac OSX. After downloading <code>cap_sasl.pl</code> and putting it in <code>~/.irssi/scripts/autorun</code> and installing the required Perl modules I went through the steps to get SASL configured. When I attempted to enable it as per the instructions using the command <code>/sasl set network TheColonial &lt;password&gt; DH-BLOWFISH</code> I had the following error:</p>
+
+<blockquote><p>Can't locate object method "send_raw_now" via package "Irssi::Irc::Server"</p></blockquote>
+
+<p>This took a bit of Googling to nail. It turns out that, for some reason, on Mac OSX <code>irssi</code> actually requires an extra package to be included in the script. So open <code>cap_sasl.pl</code> and look for this (it's right at the top):</p>
+
+<pre><code>use strict;
+use Irssi;
+</code></pre>
+
+<p>Immediately below this, add the following:</p>
+
+<pre><code>use Irssi::Irc;
+</code></pre>
+
+<p>The script should now run fine and <code>irssi</code> should stop complaining.</p>
+
+<p>This might seem obvious to some, but it wasn't to me! From what I can tell other people around the traps have had the same problem so I thought I'd post this in the hope that it helps others.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[What About Going the Other Way?]]></title>

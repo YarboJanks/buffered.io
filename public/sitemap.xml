@@ -1041,8 +1041,12 @@
         <lastmod>2012-11-29T20:50:03+10:00</lastmod>
     </url>
     <url>
+        <loc>http://buffered.io/posts/irssi-and-sasl-on-osx/</loc>
+        <lastmod>2013-02-03T09:04:45+10:00</lastmod>
+    </url>
+    <url>
         <loc>http://buffered.io/</loc>
-        <lastmod>2012-11-29T20:50:03+10:00</lastmod>
+        <lastmod>2013-02-03T09:04:45+10:00</lastmod>
     </url>
     <url>
         <loc>http://buffered.io/key.asc</loc>
@@ -1050,6 +1054,6 @@
     </url>
     <url>
         <loc>http://buffered.io/posts/archives/</loc>
-        <lastmod>2012-11-29T20:50:03+10:00</lastmod>
+        <lastmod>2013-02-03T09:04:45+10:00</lastmod>
     </url>
 </urlset>

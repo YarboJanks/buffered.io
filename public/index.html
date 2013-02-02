@@ -15,7 +15,7 @@
   <meta http-equiv="X-XRDS-Location" content="http://thecolonial.myid.net/xrds" />
 
   
-  <meta name="description" content="Forgive the title of the post, it was hard coming up with something succinct that captured the purpose of the post. This was inspired by a recent &hellip;">
+  <meta name="description" content="Given my renewed focus on security I&#8217;ve been looking to lock down much of my communications so that I feel more secure online. One of the &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -95,6 +95,64 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/posts/irssi-and-sasl-on-osx/">Irssi and SASL on OSX</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+
+<time datetime="2013-02-03T08:37:00+10:00" pubdate data-updated="true">03 Feb 2013</time>
+        
+         | <a href="/posts/irssi-and-sasl-on-osx/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Given my renewed focus on security I&#8217;ve been looking to lock down much of my communications so that I <em>feel</em> more secure online. One of the things that I use quite a lot to connect with people who know WTF they&#8217;re talking about is IRC. <a href="https://freenode.net/" title="Freenode IRC network">#freenode</a> is my network of choice as it has a bunch of interesting places with fairly active communities. <a href="http://www.irssi.org/" title="irssi IRC client">irssi</a> is my current client of choice for a few reasons.</p>
+
+<p><a href="https://en.wikipedia.org/wiki/Simple_Authentication_and_Security_Layer" title="SASL">SASL</a>, among other things, is one thing that can be enabled to secure your communication on IRC. There&#8217;s quite a bit of information out there already about how to <a href="https://freenode.net/sasl/sasl-irssi.shtml" title="Enabling SASL in irssi on Freenode">enable SASL for irssi on Freenode</a>. These instructions worked out of the box for me on Linux, but not on Mac OSX. After downloading <code>cap_sasl.pl</code> and putting it in <code>~/.irssi/scripts/autorun</code> and installing the required Perl modules I went through the steps to get SASL configured. When I attempted to enable it as per the instructions using the command <code>/sasl set network TheColonial &lt;password&gt; DH-BLOWFISH</code> I had the following error:</p>
+
+<blockquote><p>Can&#8217;t locate object method &#8220;send_raw_now&#8221; via package &#8220;Irssi::Irc::Server&#8221;</p></blockquote>
+
+<p>This took a bit of Googling to nail. It turns out that, for some reason, on Mac OSX <code>irssi</code> actually requires an extra package to be included in the script. So open <code>cap_sasl.pl</code> and look for this (it&#8217;s right at the top):</p>
+
+<pre><code>use strict;
+use Irssi;
+</code></pre>
+
+<p>Immediately below this, add the following:</p>
+
+<pre><code>use Irssi::Irc;
+</code></pre>
+
+<p>The script should now run fine and <code>irssi</code> should stop complaining.</p>
+
+<p>This might seem obvious to some, but it wasn&#8217;t to me! From what I can tell other people around the traps have had the same problem so I thought I&#8217;d post this in the hope that it helps others.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -542,50 +600,6 @@ different platforms.</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/posts/why-i-use-twitter/">Why I Use Twitter</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-
-<time datetime="2012-01-16T07:04:00+10:00" pubdate data-updated="true">16 Jan 2012</time>
-        
-         | <a href="/posts/why-i-use-twitter/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>When I first signed up for <a href="http://www.twitter.com/" title="Twitter">Twitter</a> back in mid-2008 I didn&#8217;t really take it seriously. My view was that it was a toy and one that I intended to have a bit of fun with. I didn&#8217;t really think that it would turn into what it did. I certainly didn&#8217;t think it would be such an amazing source of information, nor did I expect it to give me contact with so many smart and interesting people.</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/posts/why-i-use-twitter/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/page/2/">&larr; Older</a>
@@ -631,6 +645,10 @@ different platforms.</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/posts/irssi-and-sasl-on-osx/">Irssi and SASL on OSX</a>
+      </li>
+    
+      <li class="post">
         <a href="/posts/xss-flaws-via-mvc-model-binding-and-request.querystring-inconsistencies/">XSS Flaws via MVC Model Binding and Request.QueryString Inconsistencies</a>
       </li>
     
@@ -644,10 +662,6 @@ different platforms.</p>
     
       <li class="post">
         <a href="/posts/webmachine-erlydtl-and-riak-part-5/">Webmachine, ErlyDTL and Riak - Part 5</a>
-      </li>
-    
-      <li class="post">
-        <a href="/posts/webmachine-erlydtl-and-riak-part-4/">Webmachine, ErlyDTL and Riak - Part 4</a>
       </li>
     
   </ul>
@@ -710,7 +724,7 @@ different platforms.</p>
 <li class='category'><a href='/categories/haskell/'>Haskell (20)</a></li>
 <li class='category'><a href='/categories/life/'>Life (2)</a></li>
 <li class='category'><a href='/categories/linux/'>Linux (10)</a></li>
-<li class='category'><a href='/categories/mac-os/'>Mac OS (2)</a></li>
+<li class='category'><a href='/categories/mac-os/'>Mac OS (3)</a></li>
 <li class='category'><a href='/categories/merb/'>Merb (1)</a></li>
 <li class='category'><a href='/categories/mercurial/'>Mercurial (3)</a></li>
 <li class='category'><a href='/categories/microsoft/'>Microsoft (18)</a></li>
@@ -728,7 +742,7 @@ different platforms.</p>
 <li class='category'><a href='/categories/riak/'>Riak (7)</a></li>
 <li class='category'><a href='/categories/ruby-on-rails/'>Ruby on Rails (1)</a></li>
 <li class='category'><a href='/categories/screencasts/'>Screencasts (1)</a></li>
-<li class='category'><a href='/categories/security/'>Security (11)</a></li>
+<li class='category'><a href='/categories/security/'>Security (12)</a></li>
 <li class='category'><a href='/categories/series/'>Series (1)</a></li>
 <li class='category'><a href='/categories/shortcuts/'>Shortcuts (4)</a></li>
 <li class='category'><a href='/categories/software/'>Software (31)</a></li>
@@ -736,7 +750,7 @@ different platforms.</p>
 <li class='category'><a href='/categories/sorting/'>Sorting (5)</a></li>
 <li class='category'><a href='/categories/technology/'>Technology (40)</a></li>
 <li class='category'><a href='/categories/testing/'>Testing (1)</a></li>
-<li class='category'><a href='/categories/tips-tricks/'>Tips/Tricks (11)</a></li>
+<li class='category'><a href='/categories/tips-tricks/'>Tips/Tricks (12)</a></li>
 <li class='category'><a href='/categories/twitter/'>Twitter (2)</a></li>
 <li class='category'><a href='/categories/wpf/'>WPF (1)</a></li>
 <li class='category'><a href='/categories/wtf/'>WTF (20)</a></li>

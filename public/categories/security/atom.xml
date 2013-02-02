@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Security | OJ's rants]]></title>
   <link href="http://buffered.io/categories/security/atom.xml" rel="self"/>
   <link href="http://buffered.io/"/>
-  <updated>2013-02-02T08:38:58+10:00</updated>
+  <updated>2013-02-03T09:04:49+10:00</updated>
   <id>http://buffered.io/</id>
   <author>
     <name><![CDATA[OJ Reeves]]></name>
@@ -12,6 +12,34 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Irssi and SASL on OSX]]></title>
+    <link href="http://buffered.io/posts/irssi-and-sasl-on-osx/"/>
+    <updated>2013-02-03T08:37:00+10:00</updated>
+    <id>http://buffered.io/posts/irssi-and-sasl-on-osx</id>
+    <content type="html"><![CDATA[<p>Given my renewed focus on security I've been looking to lock down much of my communications so that I <em>feel</em> more secure online. One of the things that I use quite a lot to connect with people who know WTF they're talking about is IRC. <a href="https://freenode.net/" title="Freenode IRC network">#freenode</a> is my network of choice as it has a bunch of interesting places with fairly active communities. <a href="http://www.irssi.org/" title="irssi IRC client">irssi</a> is my current client of choice for a few reasons.</p>
+
+<p><a href="https://en.wikipedia.org/wiki/Simple_Authentication_and_Security_Layer" title="SASL">SASL</a>, among other things, is one thing that can be enabled to secure your communication on IRC. There's quite a bit of information out there already about how to <a href="https://freenode.net/sasl/sasl-irssi.shtml" title="Enabling SASL in irssi on Freenode">enable SASL for irssi on Freenode</a>. These instructions worked out of the box for me on Linux, but not on Mac OSX. After downloading <code>cap_sasl.pl</code> and putting it in <code>~/.irssi/scripts/autorun</code> and installing the required Perl modules I went through the steps to get SASL configured. When I attempted to enable it as per the instructions using the command <code>/sasl set network TheColonial &lt;password&gt; DH-BLOWFISH</code> I had the following error:</p>
+
+<blockquote><p>Can't locate object method "send_raw_now" via package "Irssi::Irc::Server"</p></blockquote>
+
+<p>This took a bit of Googling to nail. It turns out that, for some reason, on Mac OSX <code>irssi</code> actually requires an extra package to be included in the script. So open <code>cap_sasl.pl</code> and look for this (it's right at the top):</p>
+
+<pre><code>use strict;
+use Irssi;
+</code></pre>
+
+<p>Immediately below this, add the following:</p>
+
+<pre><code>use Irssi::Irc;
+</code></pre>
+
+<p>The script should now run fine and <code>irssi</code> should stop complaining.</p>
+
+<p>This might seem obvious to some, but it wasn't to me! From what I can tell other people around the traps have had the same problem so I thought I'd post this in the hope that it helps others.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[XSS Flaws via MVC Model Binding and Request.QueryString Inconsistencies]]></title>
@@ -33,80 +61,125 @@
 
 <p>Let's see some code starting with the "details" of the person:</p>
 
-<p>{% codeblock Person.cs lang:csharp %}
-public class Person
-{</p>
-
-<pre><code>public string Name { get;set; }
-public int Age { get; set; }
-</code></pre>
-
-<p>}
-{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Person.cs  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">public</span> <span class="k">class</span> <span class="nc">Person</span>
+</span><span class='line'><span class="p">{&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">pre</span><span class="p">&gt;&lt;</span><span class="n">code</span><span class="p">&gt;</span><span class="k">public</span> <span class="kt">string</span> <span class="n">Name</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span><span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+</span><span class='line'><span class="k">public</span> <span class="kt">int</span> <span class="n">Age</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+</span><span class='line'><span class="p">&lt;/</span><span class="n">code</span><span class="p">&gt;&lt;/</span><span class="n">pre</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>Nothing too amazing there. Here's the parts of the page which renders the list of people:</p>
 
-<p>{% codeblock Index.aspx (partial) lang:html %}
-Please choose a person &lt;%= Html.DropDownList("people", Model) %></p>
-
-<script type="text/javascript">
-$(document).ready(function () {
-  $("#people").change(function () {
-    window.location = '<%= Url.Action("Detail", "Person") %>?index=' + $(this).val();
-  });
-});
-</script>
-
-
-<p>{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Index.aspx (partial)  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'>Please choose a person <span class="ni">&amp;lt;</span>%= Html.DropDownList(&quot;people&quot;, Model) %&gt;<span class="nt">&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'><span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">ready</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#people&quot;</span><span class="p">).</span><span class="nx">change</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nb">window</span><span class="p">.</span><span class="nx">location</span> <span class="o">=</span> <span class="s1">&#39;&lt;%= Url.Action(&quot;Detail&quot;, &quot;Person&quot;) %&gt;?index=&#39;</span> <span class="o">+</span> <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">val</span><span class="p">();</span>
+</span><span class='line'>  <span class="p">});</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'><span class="nt">&lt;/script&gt;</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;p&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>Again, nothing too mind boggling here either. We can see how the <code>change</code> event fires and updates the <code>window.location</code> and moves the user to the <code>Details</code> page. The <code>Model</code> for this page is of type <code>IEnumerable&lt;SelectListItem&gt;</code>.</p>
 
 <p>Next we'll take a look at the controller action which gets invoked when the drop-down is changed:</p>
 
-<p>{% codeblock PersonController.cs (Partial) lang:csharp %}
-public ActionResult Detail(int index)
-{</p>
-
-<pre><code>return View("Detail", Tuple.Create(People[index], GetPeople()));
-</code></pre>
-
-<p>}
-{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>PersonController.cs (Partial)  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">public</span> <span class="n">ActionResult</span> <span class="nf">Detail</span><span class="p">(</span><span class="kt">int</span> <span class="n">index</span><span class="p">)</span>
+</span><span class='line'><span class="p">{&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">pre</span><span class="p">&gt;&lt;</span><span class="n">code</span><span class="p">&gt;</span><span class="k">return</span> <span class="n">View</span><span class="p">(</span><span class="s">&quot;Detail&quot;</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">.</span><span class="n">Create</span><span class="p">(</span><span class="n">People</span><span class="p">[</span><span class="n">index</span><span class="p">],</span> <span class="n">GetPeople</span><span class="p">()));</span>
+</span><span class='line'><span class="p">&lt;/</span><span class="n">code</span><span class="p">&gt;&lt;/</span><span class="n">pre</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>We're using the <code>index</code> parameter (note the <em>type</em> of this parameter, it's important) to index into the list of people we have stashed somewhere to extract the user that is being viewed. This person, along with the full list of people in <code>SelectListItem</code> form, is being passed to the view.</p>
 
 <p>Let's see what the view does with this information:</p>
 
-<p>{% codeblock Detail.aspx (partial) lang:html %}
-Please choose a person &lt;%= Html.DropDownList("people", Model.Item2) %></p>
-
-<script type="text/javascript">
-$(document).ready(function () {
-  $("#people").val(<%= Request.QueryString["index"] %>);
-  $("#people").change(function () {
-    window.location = '<%= Url.Action("Detail", "Person") %>?index=' + $(this).val();
-  });
-});
-</script>
-
-
-
-
-<p>
-<%= Html.Encode(Model.Item1.Name) %> is a whopping <%= Model.Item1.Age %> years old!
-</p>
-{% endcodeblock %}
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Detail.aspx (partial)  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'>Please choose a person <span class="ni">&amp;lt;</span>%= Html.DropDownList(&quot;people&quot;, Model.Item2) %&gt;<span class="nt">&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'><span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">ready</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#people&quot;</span><span class="p">).</span><span class="nx">val</span><span class="p">(</span><span class="o">&lt;%=</span> <span class="nx">Request</span><span class="p">.</span><span class="nx">QueryString</span><span class="p">[</span><span class="s2">&quot;index&quot;</span><span class="p">]</span> <span class="o">%&gt;</span><span class="p">);</span>
+</span><span class='line'>  <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#people&quot;</span><span class="p">).</span><span class="nx">change</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nb">window</span><span class="p">.</span><span class="nx">location</span> <span class="o">=</span> <span class="s1">&#39;&lt;%= Url.Action(&quot;Detail&quot;, &quot;Person&quot;) %&gt;?index=&#39;</span> <span class="o">+</span> <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">val</span><span class="p">();</span>
+</span><span class='line'>  <span class="p">});</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'><span class="nt">&lt;/script&gt;</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;p&gt;</span>
+</span><span class='line'><span class="err">&lt;</span>%= Html.Encode(Model.Item1.Name) %&gt; is a whopping <span class="err">&lt;</span>%= Model.Item1.Age %&gt; years old!
+</span><span class='line'><span class="nt">&lt;/p&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 This is starting to get a bit more interesting. The rendering of the drop-down is the same as before, except it's pulling data from the [System.Tuple][] that was passed in as the `Model`. The event handler that's invoked on `change` is the same, and there's a bit of non-descript content rendering a the bottom. The subtle but important difference is the code that sets the currently selected person in the drop-down.
 
 I plugged this code into a standard MVC application and this is what it looks like:
 
-{% img /uploads/2012/11/xss-index.png 'Choosing a person' %}
+<img src="/uploads/2012/11/xss-index.png" title="'Choosing a person'" >
 
 After selecting a person from the drop down it looks like this:
 
-{% img /uploads/2012/11/xss-details.png 'Person details' %}
+<img src="/uploads/2012/11/xss-details.png" title="'Person details'" >
 
 A bad assumption
 ----------------
@@ -115,7 +188,7 @@ As you already know, ASP.NET MVC has the ability to automatically convert query 
 
 Let's see.
 
-{% img /uploads/2012/11/xss-type-fail.png 'Person details' %}
+<img src="/uploads/2012/11/xss-type-fail.png" title="'Person details'" >
 
 OK, so MVC will require that this value be an integer, otherwise the action will fail to be invoked. If that's the case, then the view won't be rendered and our code which directly accesses `Request.QueryString` will not be invoked and hence there's no risk.
 
@@ -144,11 +217,11 @@ Why is this bad? Well this means that code outside of controller actions may res
 
 Let's take a look at what might happen if we threw multiple instances via the query string at our dodgy MVC application:
 
-{% img /uploads/2012/11/xss-hpp-invalid.png 'HPP example' %}
+<img src="/uploads/2012/11/xss-hpp-invalid.png" title="'HPP example'" >
 
 The above screenshot shows both the query string and the page source when we do this. That's right, MVC used the first value, set to `0`, without any issues and invoked the view engine. The view's assumption that the `index` parameter has been sanitised by the controller has now been proven unsafe. Now we can see that we do have access to the source. Let's see what happens if we went a step further and passed in a more sinister value:
 
-{% img /uploads/2012/11/xss-hpp-valid.png 'HPP XSS exploit' %}
+<img src="/uploads/2012/11/xss-hpp-valid.png" title="'HPP XSS exploit'" >
 
 Pwned.
 
@@ -172,7 +245,7 @@ _Never_ trust unsanitised input, that includes stuff that gets passed in through
     <link href="http://buffered.io/posts/websites-are-hard-to-build/"/>
     <updated>2008-11-26T21:08:00+10:00</updated>
     <id>http://buffered.io/posts/websites-are-hard-to-build</id>
-    <content type="html"><![CDATA[<p>{% img right /uploads/2008/11/elope-harlequin-jester.jpg 'Uninformed client' %}</p>
+    <content type="html"><![CDATA[<p><img class="right" src="/uploads/2008/11/elope-harlequin-jester.jpg" title="'Uninformed client'" ></p>
 
 <blockquote><p>"It's just a small site, how hard can it be?"</p>
 
@@ -495,39 +568,6 @@ Operation completed successfully
 <p>"Hacking" third-party binaries in this manner <strong><em>may</em> breach the license agreement</strong> of those binaries. Please make sure that you are not breaking the license agreement before adopting this technique.</p>
 
 <p>I hope this helps!</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Microsoft want to Annoy you, Cancel or Allow?]]></title>
-    <link href="http://buffered.io/posts/microsoft-want-to-annoy-you-cancel-or-allow/"/>
-    <updated>2008-04-12T21:43:00+10:00</updated>
-    <id>http://buffered.io/posts/microsoft-want-to-annoy-you-cancel-or-allow</id>
-    <content type="html"><![CDATA[<p>Before I even started using Vista, I hated <a href="http://technet2.microsoft.com/WindowsVista/en/library/0d75f774-8514-4c9e-ac08-4c21f5c6c2d91033.mspx" title="User Access Control">UAC</a>. I read about it all over the place, and laughed at the stupidity involved in asking users to constantly "cancel or allow" every action they wanted to take. As soon as I was forced to use Vista for work (both on my work laptop and on site with the client) I turned off UAC on both installations.</p>
-
-<!--more-->
-
-
-<p>UAC has been a nagging frustration for a lot of Vista users, and has also been a <a href="http://www.youtube.com/watch?v=VKM1cAtAdtQ" title="Get a Mac ad">joke to the Apple fans</a> as well:</p>
-
-<object width="425" height="355"><param name="movie" value="http://www.youtube.com/v/VKM1cAtAdtQ&hl=en"></param><param name="wmode" value="transparent"></param><embed src="http://www.youtube.com/v/VKM1cAtAdtQ&hl=en" type="application/x-shockwave-flash" wmode="transparent" width="425" height="355"></embed></object>
-
-
-<p>Yeah, I laughed too.</p>
-
-<p>But I didn't really give UAC any credit. I didn't think about why it was there, all I thought was that MS were being stupid. That was until a couple of days ago when I was thinking about it (don't ask me why ;) ).</p>
-
-<p>After deliberating on it for a day or so, trying to come up with the motivation behind it, <a href="http://arstechnica.com/news.ars/post/20080411-vistas-uac-security-prompt-was-designed-to-annoy-you.html" title="Vista's UAC security prompt was designed to annoy you">this landed in my RSS feed reader</a> and made it clear. MS are taking a hit in the hope that devs will sort their shit out!</p>
-
-<p>Windows users have had a long history of being administrators of their own machines by default. In general, most users do not login using an account with low levels of privileges. In Windows it has been too much of a pain in the butt to get anything done if you <em>don't</em>. Is that the fault of MS and Windows? Yes it is, but it's not their fault alone.</p>
-
-<p>Looking back through history, developers who write software for Windows haven't really been particularly brilliant when it comes to being mindful of security. This is something that needs to change. Some really basic applications, office applications, editors and even games have require administrator privileges to run. It's no wonder that everyone decides to give themselves an admin account. Why would you want to face constant issues with security when all the things you're trying to use need the elevated access?</p>
-
-<p>The fault lies with the developers. They need to get into the habit of writing software that doesn't require elevated privileges. UAC is part of MS's effort to force the plebian developers to sort their shit out. By the looks of it, it's beginning to work. It's a brave move on MS's part, as pissing off users to force developers to be mindful of security is not necessarily the smartest thing to do. Vista has enough pitfalls as it is without having something that's designed to being annoying popping up in your face all the time.</p>
-
-<p>Let's hope the trend continues. In a perfect world it'd be fine to have something like UAC running all the time, so long as it doesn't appear all the time!</p>
-
-<p>Note for those who care: sorry for the poorly written post :) I couldn't be bothered fixing it up, it's late and it's time for bed!</p>
 ]]></content>
   </entry>
   

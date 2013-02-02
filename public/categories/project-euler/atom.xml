@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Project Euler | OJ's rants]]></title>
   <link href="http://buffered.io/categories/project-euler/atom.xml" rel="self"/>
   <link href="http://buffered.io/"/>
-  <updated>2013-02-02T08:38:58+10:00</updated>
+  <updated>2013-02-03T09:04:49+10:00</updated>
   <id>http://buffered.io/</id>
   <author>
     <name><![CDATA[OJ Reeves]]></name>
@@ -29,37 +29,65 @@
 Exciting stuff! Since we've already got ourselves a relatively nifty prime number generator from a <a title="Project Euler #7" href="http://buffered.io/posts/project-euler-7/">previous post</a>, we can simply reuse this, along with the sum function that comes in <a title="Prelude" href="http://www.haskell.org/ghc/docs/latest/html/libraries/base/Prelude.html">Prelude</a>, to generate the answer.</p>
 
 <p>Here is what the code looks like:
-{% codeblock lang:haskell %}
-merge :: (Ord a) => [a] -> [a] -> [a]
-merge xs@(x:xt) ys@(y:yt) =
-  case compare x y of</p>
-
-<pre><code>LT -&gt; x : (merge xt ys)
-EQ -&gt; x : (merge xt yt)
-GT -&gt; y : (merge xs yt)
-</code></pre>
-
-<p>diff :: (Ord a) => [a] -> [a] -> [a]
-diff xs@(x:xt) ys@(y:yt) =
-  case compare x y of</p>
-
-<pre><code>LT -&gt; x : (diff xt ys)
-EQ -&gt; diff xt yt
-GT -&gt; diff xs yt
-</code></pre>
-
-<p>primes, nonprimes :: [Integer]
-primes    = [2, 3, 5] ++ (diff [7, 9 ..] nonprimes)
-nonprimes = foldr1 f $ map g $ tail primes
-  where</p>
-
-<pre><code>f (x:xt) ys = x : (merge xt ys)
-g p         = [ n * p | n &lt;- [p, p + 2 ..]]
-</code></pre>
-
-<p>main :: IO ()
-main = print $ sum (takeWhile (&lt;2000000) primes)
-{% endcodeblock %}</p>
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+</pre></td><td class='code'><pre><code class='haskell'><span class='line'><span class="nf">merge</span> <span class="ow">::</span> <span class="p">(</span><span class="kt">Ord</span> <span class="n">a</span><span class="p">)</span> <span class="ow">=&gt;</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="ow">-&gt;</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="ow">-&gt;</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span>
+</span><span class='line'><span class="nf">merge</span> <span class="n">xs</span><span class="o">@</span><span class="p">(</span><span class="n">x</span><span class="kt">:</span><span class="n">xt</span><span class="p">)</span> <span class="n">ys</span><span class="o">@</span><span class="p">(</span><span class="n">y</span><span class="kt">:</span><span class="n">yt</span><span class="p">)</span> <span class="ow">=</span>
+</span><span class='line'>  <span class="kr">case</span> <span class="n">compare</span> <span class="n">x</span> <span class="n">y</span> <span class="kr">of</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="kt">LT</span> <span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span> <span class="n">x</span> <span class="kt">:</span> <span class="p">(</span><span class="n">merge</span> <span class="n">xt</span> <span class="n">ys</span><span class="p">)</span>
+</span><span class='line'><span class="kt">EQ</span> <span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span> <span class="n">x</span> <span class="kt">:</span> <span class="p">(</span><span class="n">merge</span> <span class="n">xt</span> <span class="n">yt</span><span class="p">)</span>
+</span><span class='line'><span class="kt">GT</span> <span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span> <span class="n">y</span> <span class="kt">:</span> <span class="p">(</span><span class="n">merge</span> <span class="n">xs</span> <span class="n">yt</span><span class="p">)</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">diff</span> <span class="ow">::</span> <span class="p">(</span><span class="kt">Ord</span> <span class="n">a</span><span class="p">)</span> <span class="ow">=&gt;</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="ow">-&gt;</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="ow">-&gt;</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span>
+</span><span class='line'><span class="nf">diff</span> <span class="n">xs</span><span class="o">@</span><span class="p">(</span><span class="n">x</span><span class="kt">:</span><span class="n">xt</span><span class="p">)</span> <span class="n">ys</span><span class="o">@</span><span class="p">(</span><span class="n">y</span><span class="kt">:</span><span class="n">yt</span><span class="p">)</span> <span class="ow">=</span>
+</span><span class='line'>  <span class="kr">case</span> <span class="n">compare</span> <span class="n">x</span> <span class="n">y</span> <span class="kr">of</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="kt">LT</span> <span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span> <span class="n">x</span> <span class="kt">:</span> <span class="p">(</span><span class="n">diff</span> <span class="n">xt</span> <span class="n">ys</span><span class="p">)</span>
+</span><span class='line'><span class="kt">EQ</span> <span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span> <span class="n">diff</span> <span class="n">xt</span> <span class="n">yt</span>
+</span><span class='line'><span class="kt">GT</span> <span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span> <span class="n">diff</span> <span class="n">xs</span> <span class="n">yt</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">primes</span><span class="p">,</span> <span class="n">nonprimes</span> <span class="ow">::</span> <span class="p">[</span><span class="kt">Integer</span><span class="p">]</span>
+</span><span class='line'><span class="nf">primes</span>    <span class="ow">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span> <span class="o">++</span> <span class="p">(</span><span class="n">diff</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">9</span> <span class="o">..</span><span class="p">]</span> <span class="n">nonprimes</span><span class="p">)</span>
+</span><span class='line'><span class="nf">nonprimes</span> <span class="ow">=</span> <span class="n">foldr1</span> <span class="n">f</span> <span class="o">$</span> <span class="n">map</span> <span class="n">g</span> <span class="o">$</span> <span class="n">tail</span> <span class="n">primes</span>
+</span><span class='line'>  <span class="kr">where</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">f</span> <span class="p">(</span><span class="n">x</span><span class="kt">:</span><span class="n">xt</span><span class="p">)</span> <span class="n">ys</span> <span class="ow">=</span> <span class="n">x</span> <span class="kt">:</span> <span class="p">(</span><span class="n">merge</span> <span class="n">xt</span> <span class="n">ys</span><span class="p">)</span>
+</span><span class='line'><span class="nf">g</span> <span class="n">p</span>         <span class="ow">=</span> <span class="p">[</span> <span class="n">n</span> <span class="o">*</span> <span class="n">p</span> <span class="o">|</span> <span class="n">n</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="o">-</span> <span class="p">[</span><span class="n">p</span><span class="p">,</span> <span class="n">p</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">..</span><span class="p">]]</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">main</span> <span class="ow">::</span> <span class="kt">IO</span> <span class="nb">()</span>
+</span><span class='line'><span class="nf">main</span> <span class="ow">=</span> <span class="n">print</span> <span class="o">$</span> <span class="n">sum</span> <span class="p">(</span><span class="n">takeWhile</span> <span class="p">(</span><span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="mi">2000000</span><span class="p">)</span> <span class="n">primes</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>I don't really have much else to say about this. I won't bother with the performance information because it's not really doing anything too exciting that hasn't already been discussed.</p>
 
@@ -89,17 +117,27 @@ Find the product abc.
 The first solution to this problem that I came up with was just atrocious :) It was long, bloated and extremely messy. But it worked. If you really want to see it then ask me nicely and I'll post it.</p>
 
 <p>For now I'm going to show you my second attempt, which is a little nicer on the eyes.
-{% codeblock lang:haskell %}
-main :: IO ()
-main = print $ head [ a * b * c</p>
-
-<pre><code>                | b &lt;- [1..400],
-                  a &lt;- [b..400],
-                  let c = 1000 - a - b,
-                  c^2 == a^2 + b^2 ]
-</code></pre>
-
-<p>{% endcodeblock %}</p>
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='haskell'><span class='line'><span class="nf">main</span> <span class="ow">::</span> <span class="kt">IO</span> <span class="nb">()</span>
+</span><span class='line'><span class="nf">main</span> <span class="ow">=</span> <span class="n">print</span> <span class="o">$</span> <span class="n">head</span> <span class="p">[</span> <span class="n">a</span> <span class="o">*</span> <span class="n">b</span> <span class="o">*</span> <span class="n">c</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span>                <span class="o">|</span> <span class="n">b</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="o">-</span> <span class="p">[</span><span class="mi">1</span><span class="o">..</span><span class="mi">400</span><span class="p">],</span>
+</span><span class='line'>                  <span class="n">a</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="o">-</span> <span class="p">[</span><span class="n">b</span><span class="o">..</span><span class="mi">400</span><span class="p">],</span>
+</span><span class='line'>                  <span class="kr">let</span> <span class="n">c</span> <span class="ow">=</span> <span class="mi">1000</span> <span class="o">-</span> <span class="n">a</span> <span class="o">-</span> <span class="n">b</span><span class="p">,</span>
+</span><span class='line'>                  <span class="n">c</span><span class="o">^</span><span class="mi">2</span> <span class="o">==</span> <span class="n">a</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="n">b</span><span class="o">^</span><span class="mi">2</span> <span class="p">]</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>It's a mini brute-forcer which uses two variables to count up to 400. I chose 400 as the end number because it seemed like a stupid idea to go as far as 500 when brute forcing since the first of the numbers that fit the criteria wouldn't be anywhere near that high. For each combination of numbers I pick what's left over and check to see if it fits the rules of a Pythagorean triplet. In this case there is only one that does (as per the question).</p>
 
@@ -178,56 +216,103 @@ MAIN          MAIN          1           0   0.0    0.0   100.0  100.0
 <p>I'm keeping with my <a href="http://haskell.org/" title="Haskell">Haskell</a> theme and abusing some of the nice feature of Functional Programming to nail this one.</p>
 
 <p>Here's my solution:
-{% codeblock lang:haskell %}
--- ord is required to convert chars to ints
-import Data.Char (ord)</p>
-
-<p>-- a string representation of the large number
-number :: String
-number =</p>
-
-<pre><code> "73167176531330624919225119674426574742355349194934"
-</code></pre>
-
-<p>  ++ "96983520312774506326239578318016984801869478851843"
-  ++ "85861560789112949495459501737958331952853208805511"
-  ++ "12540698747158523863050715693290963295227443043557"
-  ++ "66896648950445244523161731856403098711121722383113"
-  ++ "62229893423380308135336276614282806444486645238749"
-  ++ "30358907296290491560440772390713810515859307960866"
-  ++ "70172427121883998797908792274921901699720888093776"
-  ++ "65727333001053367881220235421809751254540594752243"
-  ++ "52584907711670556013604839586446706324415722155397"
-  ++ "53697817977846174064955149290862569321978468622482"
-  ++ "83972241375657056057490261407972968652414535100474"
-  ++ "82166370484403199890008895243450658541227588666881"
-  ++ "16427171479924442928230863465674813919123162824586"
-  ++ "17866458359124566529476545682848912883142607690042"
-  ++ "24219022671055626321111109370544217506941658960408"
-  ++ "07198403850962455444362981230987879927244284909188"
-  ++ "84580156166097919133875499200524063689912560717606"
-  ++ "05886116467109405077541002256983155200055935729725"
-  ++ "71636269561882670428252483600823257530420752963450"</p>
-
-<p>-- converts the number to a list of Int values
-numberList :: [Int]
-numberList = map (\n -> ord n - ord '0') number</p>
-
-<p>-- breaks up the number list into chunks of 5 digits
-chunks :: [[Int]]
-chunks = c' numberList 5 995
-  where</p>
-
-<pre><code>c' _ _ 0 = []
-c' l n c = (take n l) : c' (tail l) n (c - 1)
-</code></pre>
-
-<p>-- main function iterates over the list of chunks,
--- calculates the product of each of the chunks and
--- then determines the biggest result
-main :: IO ()
-main = print $ foldr1 max (map product chunks)
-{% endcodeblock %}</p>
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+</pre></td><td class='code'><pre><code class='haskell'><span class='line'><span class="c1">-- ord is required to convert chars to ints</span>
+</span><span class='line'><span class="kr">import</span> <span class="nn">Data.Char</span> <span class="p">(</span><span class="nf">ord</span><span class="p">)</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;--</span> <span class="n">a</span> <span class="n">string</span> <span class="n">representation</span> <span class="kr">of</span> <span class="n">the</span> <span class="n">large</span> <span class="n">number</span>
+</span><span class='line'><span class="nf">number</span> <span class="ow">::</span> <span class="kt">String</span>
+</span><span class='line'><span class="nf">number</span> <span class="o">=&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span> <span class="s">&quot;73167176531330624919225119674426574742355349194934&quot;</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="o">++</span> <span class="s">&quot;96983520312774506326239578318016984801869478851843&quot;</span>
+</span><span class='line'>  <span class="o">++</span> <span class="s">&quot;85861560789112949495459501737958331952853208805511&quot;</span>
+</span><span class='line'>  <span class="o">++</span> <span class="s">&quot;12540698747158523863050715693290963295227443043557&quot;</span>
+</span><span class='line'>  <span class="o">++</span> <span class="s">&quot;66896648950445244523161731856403098711121722383113&quot;</span>
+</span><span class='line'>  <span class="o">++</span> <span class="s">&quot;62229893423380308135336276614282806444486645238749&quot;</span>
+</span><span class='line'>  <span class="o">++</span> <span class="s">&quot;30358907296290491560440772390713810515859307960866&quot;</span>
+</span><span class='line'>  <span class="o">++</span> <span class="s">&quot;70172427121883998797908792274921901699720888093776&quot;</span>
+</span><span class='line'>  <span class="o">++</span> <span class="s">&quot;65727333001053367881220235421809751254540594752243&quot;</span>
+</span><span class='line'>  <span class="o">++</span> <span class="s">&quot;52584907711670556013604839586446706324415722155397&quot;</span>
+</span><span class='line'>  <span class="o">++</span> <span class="s">&quot;53697817977846174064955149290862569321978468622482&quot;</span>
+</span><span class='line'>  <span class="o">++</span> <span class="s">&quot;83972241375657056057490261407972968652414535100474&quot;</span>
+</span><span class='line'>  <span class="o">++</span> <span class="s">&quot;82166370484403199890008895243450658541227588666881&quot;</span>
+</span><span class='line'>  <span class="o">++</span> <span class="s">&quot;16427171479924442928230863465674813919123162824586&quot;</span>
+</span><span class='line'>  <span class="o">++</span> <span class="s">&quot;17866458359124566529476545682848912883142607690042&quot;</span>
+</span><span class='line'>  <span class="o">++</span> <span class="s">&quot;24219022671055626321111109370544217506941658960408&quot;</span>
+</span><span class='line'>  <span class="o">++</span> <span class="s">&quot;07198403850962455444362981230987879927244284909188&quot;</span>
+</span><span class='line'>  <span class="o">++</span> <span class="s">&quot;84580156166097919133875499200524063689912560717606&quot;</span>
+</span><span class='line'>  <span class="o">++</span> <span class="s">&quot;05886116467109405077541002256983155200055935729725&quot;</span>
+</span><span class='line'>  <span class="o">++</span> <span class="s">&quot;71636269561882670428252483600823257530420752963450&quot;</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;--</span> <span class="n">converts</span> <span class="n">the</span> <span class="n">number</span> <span class="n">to</span> <span class="n">a</span> <span class="n">list</span> <span class="kr">of</span> <span class="kt">Int</span> <span class="n">values</span>
+</span><span class='line'><span class="nf">numberList</span> <span class="ow">::</span> <span class="p">[</span><span class="kt">Int</span><span class="p">]</span>
+</span><span class='line'><span class="nf">numberList</span> <span class="ow">=</span> <span class="n">map</span> <span class="p">(</span><span class="nf">\</span><span class="n">n</span> <span class="ow">-&gt;</span> <span class="n">ord</span> <span class="n">n</span> <span class="o">-</span> <span class="n">ord</span> <span class="sc">&#39;0&#39;</span><span class="p">)</span> <span class="n">number</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;--</span> <span class="n">breaks</span> <span class="n">up</span> <span class="n">the</span> <span class="n">number</span> <span class="n">list</span> <span class="n">into</span> <span class="n">chunks</span> <span class="kr">of</span> <span class="mi">5</span> <span class="n">digits</span>
+</span><span class='line'><span class="nf">chunks</span> <span class="ow">::</span> <span class="p">[[</span><span class="kt">Int</span><span class="p">]]</span>
+</span><span class='line'><span class="nf">chunks</span> <span class="ow">=</span> <span class="n">c&#39;</span> <span class="n">numberList</span> <span class="mi">5</span> <span class="mi">995</span>
+</span><span class='line'>  <span class="kr">where</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">c&#39;</span> <span class="kr">_</span> <span class="kr">_</span> <span class="mi">0</span> <span class="ow">=</span> <span class="kt">[]</span>
+</span><span class='line'><span class="nf">c&#39;</span> <span class="n">l</span> <span class="n">n</span> <span class="n">c</span> <span class="ow">=</span> <span class="p">(</span><span class="n">take</span> <span class="n">n</span> <span class="n">l</span><span class="p">)</span> <span class="kt">:</span> <span class="n">c&#39;</span> <span class="p">(</span><span class="n">tail</span> <span class="n">l</span><span class="p">)</span> <span class="n">n</span> <span class="p">(</span><span class="n">c</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;--</span> <span class="n">main</span> <span class="n">function</span> <span class="n">iterates</span> <span class="n">over</span> <span class="n">the</span> <span class="n">list</span> <span class="kr">of</span> <span class="n">chunks</span><span class="p">,</span>
+</span><span class='line'><span class="c1">-- calculates the product of each of the chunks and</span>
+</span><span class='line'><span class="c1">-- then determines the biggest result</span>
+</span><span class='line'><span class="nf">main</span> <span class="ow">::</span> <span class="kt">IO</span> <span class="nb">()</span>
+</span><span class='line'><span class="nf">main</span> <span class="ow">=</span> <span class="n">print</span> <span class="o">$</span> <span class="n">foldr1</span> <span class="n">max</span> <span class="p">(</span><span class="n">map</span> <span class="n">product</span> <span class="n">chunks</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>The comments are pretty descriptive of what goes on. It turns out that the solution isn't that shabby in the performance stakes either:</p>
 
@@ -277,37 +362,65 @@ A simple search of the web reveals a million different ways of solving this prob
 <p>I browsed around the web a little bit after solving the problem because I was interested to see how others might have solved it using Haskell. Yes, I am aware that there is a <a href="" title="">whole page dedicated to it</a> but that wasn't enough.</p>
 
 <p>After a bit of a search, I stumbled across this little doozy. If you can make heads or tails of it you're a better man than I ;) It's quite a mind job to get your head around how this code works. This is an exercise I leave to the reader.
-{% codeblock lang:haskell %}
-merge :: (Ord a) => [a] -> [a] -> [a]
-merge xs@(x:xt) ys@(y:yt) =
-  case compare x y of</p>
-
-<pre><code>LT -&gt; x : (merge xt ys)
-EQ -&gt; x : (merge xt yt)
-GT -&gt; y : (merge xs yt)
-</code></pre>
-
-<p>diff :: (Ord a) => [a] -> [a] -> [a]
-diff xs@(x:xt) ys@(y:yt) =
-  case compare x y of</p>
-
-<pre><code>LT -&gt; x : (diff xt ys)
-EQ -&gt; diff xt yt
-GT -&gt; diff xs yt
-</code></pre>
-
-<p>primes, nonprimes :: [Integer]
-primes    = [2, 3, 5] ++ (diff [7, 9 ..] nonprimes)
-nonprimes = foldr1 f $ map g $ tail primes
-  where</p>
-
-<pre><code>f (x:xt) ys = x : (merge xt ys)
-g p         = [ n * p | n &lt;- [p, p + 2 ..]]
-</code></pre>
-
-<p>main :: IO ()
-main = print $ primes !! 10000
-{% endcodeblock %}</p>
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+</pre></td><td class='code'><pre><code class='haskell'><span class='line'><span class="nf">merge</span> <span class="ow">::</span> <span class="p">(</span><span class="kt">Ord</span> <span class="n">a</span><span class="p">)</span> <span class="ow">=&gt;</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="ow">-&gt;</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="ow">-&gt;</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span>
+</span><span class='line'><span class="nf">merge</span> <span class="n">xs</span><span class="o">@</span><span class="p">(</span><span class="n">x</span><span class="kt">:</span><span class="n">xt</span><span class="p">)</span> <span class="n">ys</span><span class="o">@</span><span class="p">(</span><span class="n">y</span><span class="kt">:</span><span class="n">yt</span><span class="p">)</span> <span class="ow">=</span>
+</span><span class='line'>  <span class="kr">case</span> <span class="n">compare</span> <span class="n">x</span> <span class="n">y</span> <span class="kr">of</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="kt">LT</span> <span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span> <span class="n">x</span> <span class="kt">:</span> <span class="p">(</span><span class="n">merge</span> <span class="n">xt</span> <span class="n">ys</span><span class="p">)</span>
+</span><span class='line'><span class="kt">EQ</span> <span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span> <span class="n">x</span> <span class="kt">:</span> <span class="p">(</span><span class="n">merge</span> <span class="n">xt</span> <span class="n">yt</span><span class="p">)</span>
+</span><span class='line'><span class="kt">GT</span> <span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span> <span class="n">y</span> <span class="kt">:</span> <span class="p">(</span><span class="n">merge</span> <span class="n">xs</span> <span class="n">yt</span><span class="p">)</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">diff</span> <span class="ow">::</span> <span class="p">(</span><span class="kt">Ord</span> <span class="n">a</span><span class="p">)</span> <span class="ow">=&gt;</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="ow">-&gt;</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="ow">-&gt;</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span>
+</span><span class='line'><span class="nf">diff</span> <span class="n">xs</span><span class="o">@</span><span class="p">(</span><span class="n">x</span><span class="kt">:</span><span class="n">xt</span><span class="p">)</span> <span class="n">ys</span><span class="o">@</span><span class="p">(</span><span class="n">y</span><span class="kt">:</span><span class="n">yt</span><span class="p">)</span> <span class="ow">=</span>
+</span><span class='line'>  <span class="kr">case</span> <span class="n">compare</span> <span class="n">x</span> <span class="n">y</span> <span class="kr">of</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="kt">LT</span> <span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span> <span class="n">x</span> <span class="kt">:</span> <span class="p">(</span><span class="n">diff</span> <span class="n">xt</span> <span class="n">ys</span><span class="p">)</span>
+</span><span class='line'><span class="kt">EQ</span> <span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span> <span class="n">diff</span> <span class="n">xt</span> <span class="n">yt</span>
+</span><span class='line'><span class="kt">GT</span> <span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span> <span class="n">diff</span> <span class="n">xs</span> <span class="n">yt</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">primes</span><span class="p">,</span> <span class="n">nonprimes</span> <span class="ow">::</span> <span class="p">[</span><span class="kt">Integer</span><span class="p">]</span>
+</span><span class='line'><span class="nf">primes</span>    <span class="ow">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span> <span class="o">++</span> <span class="p">(</span><span class="n">diff</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">9</span> <span class="o">..</span><span class="p">]</span> <span class="n">nonprimes</span><span class="p">)</span>
+</span><span class='line'><span class="nf">nonprimes</span> <span class="ow">=</span> <span class="n">foldr1</span> <span class="n">f</span> <span class="o">$</span> <span class="n">map</span> <span class="n">g</span> <span class="o">$</span> <span class="n">tail</span> <span class="n">primes</span>
+</span><span class='line'>  <span class="kr">where</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">f</span> <span class="p">(</span><span class="n">x</span><span class="kt">:</span><span class="n">xt</span><span class="p">)</span> <span class="n">ys</span> <span class="ow">=</span> <span class="n">x</span> <span class="kt">:</span> <span class="p">(</span><span class="n">merge</span> <span class="n">xt</span> <span class="n">ys</span><span class="p">)</span>
+</span><span class='line'><span class="nf">g</span> <span class="n">p</span>         <span class="ow">=</span> <span class="p">[</span> <span class="n">n</span> <span class="o">*</span> <span class="n">p</span> <span class="o">|</span> <span class="n">n</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="o">-</span> <span class="p">[</span><span class="n">p</span><span class="p">,</span> <span class="n">p</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">..</span><span class="p">]]</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">main</span> <span class="ow">::</span> <span class="kt">IO</span> <span class="nb">()</span>
+</span><span class='line'><span class="nf">main</span> <span class="ow">=</span> <span class="n">print</span> <span class="o">$</span> <span class="n">primes</span> <span class="o">!!</span> <span class="mi">10000</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>Enjoy :)</p>
 
@@ -336,10 +449,11 @@ main = print $ primes !! 10000
 <p>Find the difference between the sum of the squares of the first one hundred natural numbers and the square of the sum.</p></blockquote>Now there are two main ways of doing this. The first requires knowledge of the properties of each of the two "bits" that we need to determine. If you Google enough, you'll find information which leads you to two different formulae; one which gives you the sum of the squares, the other the square of the sums. These will tell you how to solve each in O(1) time. Combine the two and you'll have a magic formula for solving the problem in a single step.</p>
 
 <p>As for me, after doing the research I found no thrill in writing a function which took an integer and returned an integer that's the result of a basic equation. So instead, I wrote the following:
-{% codeblock lang:haskell %}
-main :: IO ()
-main = print $ (sum [1..100]) ^ 2 - sum [ x<sup>2</sup> | x &lt;- [1..100] ]
-{% endcodeblock %}</p>
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='haskell'><span class='line'><span class="nf">main</span> <span class="ow">::</span> <span class="kt">IO</span> <span class="nb">()</span>
+</span><span class='line'><span class="nf">main</span> <span class="ow">=</span> <span class="n">print</span> <span class="o">$</span> <span class="p">(</span><span class="n">sum</span> <span class="p">[</span><span class="mi">1</span><span class="o">..</span><span class="mi">100</span><span class="p">])</span> <span class="o">^</span> <span class="mi">2</span> <span class="o">-</span> <span class="n">sum</span> <span class="p">[</span> <span class="n">x</span><span class="o">&lt;</span><span class="n">sup</span><span class="o">&gt;</span><span class="mi">2</span><span class="o">&lt;/</span><span class="n">sup</span><span class="o">&gt;</span> <span class="o">|</span> <span class="n">x</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="o">-</span> <span class="p">[</span><span class="mi">1</span><span class="o">..</span><span class="mi">100</span><span class="p">]</span> <span class="p">]</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>Nice and concise. Sure it takes longer as the numbers increase, but what the hell! If I need to do it in the real world I'll use the method that I haven't posted :).</p>
 
