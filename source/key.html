@@ -1,3 +1,17 @@
+---
+layout: default
+---
+
+<div class="blog-index">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="/key.html">PGP Key</a>
+      </h1>
+    </header>
+    <div class="entry-content">
+      <pre>
+        <code>
 -----BEGIN PGP PUBLIC KEY BLOCK-----
 Version: GnuPG v1.4.11 (GNU/Linux)
 
@@ -190,3 +204,14 @@ DpU+dWgdr9rsgW71ZpklRmX7mDJQIGL4p86/Fv3jVBiJfJsMjRLi8CP3x5KIdNLi
 pE2iSV55D9l+
 =YXeo
 -----END PGP PUBLIC KEY BLOCK-----
+      </code>
+    </pre>
+  </article>
+</div>
+<aside class="sidebar">
+  {% if site.blog_index_asides.size %}
+    {% include_array blog_index_asides %}
+  {% else %}
+    {% include_array default_asides %}
+  {% endif %}
+</aside>
