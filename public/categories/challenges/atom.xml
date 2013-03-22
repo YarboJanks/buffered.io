@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Challenges | OJ's rants]]></title>
   <link href="http://buffered.io/categories/challenges/atom.xml" rel="self"/>
   <link href="http://buffered.io/"/>
-  <updated>2013-02-03T09:04:49+10:00</updated>
+  <updated>2013-03-22T19:57:41+10:00</updated>
   <id>http://buffered.io/</id>
   <author>
     <name><![CDATA[OJ Reeves]]></name>
@@ -107,58 +107,10 @@ MAIN          MAIN           1           0   0.0    0.0     0.0  100.0
 <p>Example of an illegal expression: ({&lt;)&gt;}.</p></blockquote>Is what I'm about to show the most efficient? No. Is it the most elegant? Hell no! But it works :)</p>
 
 <p>It's surprisingly similar to <a href="http://www.fsharp.it/posts/balanced-parenthesis/" title="Balanced Parenthesis">this solution</a> over at Fsharp.it. It is different in that it allows non-bracket characters to be entered into the string as well.
-<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-</pre></td><td class='code'><pre><code class='fsharp'><span class='line'><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">light</span><span class="o">&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="k">let</span> <span class="n">parens</span> <span class="o">=</span> <span class="o">[|</span> <span class="o">(</span><span class="sc">&#39;(&#39;</span><span class="o">,</span><span class="sc">&#39;)&#39;</span><span class="o">);(</span><span class="sc">&#39;[&#39;</span><span class="o">,</span><span class="sc">&#39;]&#39;</span><span class="o">);(</span><span class="sc">&#39;{&#39;</span><span class="o">,</span><span class="sc">&#39;}&#39;</span><span class="o">);(</span><span class="k">&#39;</span><span class="o">&amp;</span><span class="n">lt</span><span class="o">;</span><span class="sc">&#39;,&#39;</span><span class="o">&gt;</span><span class="k">&#39;</span><span class="o">)</span> <span class="o">|]</span>
-</span><span class='line'><span class="k">let</span> <span class="n">isOpen</span> <span class="n">l</span> <span class="o">=</span> <span class="nn">Array</span><span class="p">.</span><span class="n">exists</span> <span class="o">(</span><span class="k">fun</span><span class="o">(</span><span class="n">o</span><span class="o">,</span><span class="n">c</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">o</span> <span class="o">=</span> <span class="n">l</span><span class="o">)</span> <span class="n">parens</span>
-</span><span class='line'><span class="k">let</span> <span class="n">isClose</span> <span class="n">l</span> <span class="o">=</span> <span class="nn">Array</span><span class="p">.</span><span class="n">exists</span> <span class="o">(</span><span class="k">fun</span><span class="o">(</span><span class="n">o</span><span class="o">,</span><span class="n">c</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">c</span> <span class="o">=</span> <span class="n">l</span><span class="o">)</span> <span class="n">parens</span>
-</span><span class='line'><span class="k">let</span> <span class="n">isPair</span> <span class="n">p</span> <span class="o">=</span> <span class="nn">Array</span><span class="p">.</span><span class="n">exists</span> <span class="o">(</span><span class="k">fun</span> <span class="n">l</span> <span class="o">-&gt;</span> <span class="n">p</span> <span class="o">=</span> <span class="n">l</span><span class="o">)</span> <span class="n">parens</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="k">let</span> <span class="n">validate</span> <span class="n">inp</span> <span class="o">=</span>
-</span><span class='line'>  <span class="k">let</span> <span class="k">rec</span> <span class="n">v&#39;</span> <span class="n">str</span> <span class="n">stack</span> <span class="o">=&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="k">match</span> <span class="n">str</span> <span class="k">with</span>
-</span><span class='line'><span class="o">|</span> <span class="bp">[]</span> <span class="o">-&amp;</span><span class="n">gt</span><span class="o">;</span> <span class="n">stack</span> <span class="o">=</span> <span class="bp">[]</span>
-</span><span class='line'><span class="o">|</span> <span class="n">c</span> <span class="o">::</span> <span class="n">cs</span> <span class="k">when</span> <span class="n">isOpen</span> <span class="n">c</span> <span class="o">-&amp;</span><span class="n">gt</span><span class="o">;</span> <span class="n">v&#39;</span> <span class="n">cs</span> <span class="o">(</span><span class="n">c</span> <span class="o">::</span> <span class="n">stack</span><span class="o">)</span>
-</span><span class='line'><span class="o">|</span> <span class="n">c</span> <span class="o">::</span> <span class="n">cs</span> <span class="k">when</span> <span class="n">isClose</span> <span class="n">c</span> <span class="o">-&amp;</span><span class="n">gt</span><span class="o">;</span>
-</span><span class='line'>    <span class="k">if</span> <span class="n">isPair</span> <span class="o">((</span><span class="nn">List</span><span class="p">.</span><span class="n">hd</span> <span class="n">stack</span><span class="o">),</span> <span class="n">c</span><span class="o">)</span>
-</span><span class='line'>        <span class="k">then</span> <span class="n">v&#39;</span> <span class="n">cs</span> <span class="o">(</span><span class="nn">List</span><span class="p">.</span><span class="n">tl</span> <span class="n">stack</span><span class="o">)</span>
-</span><span class='line'>        <span class="k">else</span> <span class="bp">false</span>
-</span><span class='line'><span class="o">|</span> <span class="n">c</span> <span class="o">::</span> <span class="n">cs</span> <span class="o">-&amp;</span><span class="n">gt</span><span class="o">;</span> <span class="n">v&#39;</span> <span class="n">cs</span> <span class="n">stack</span>
-</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="n">v&#39;</span> <span class="o">(</span><span class="nn">List</span><span class="p">.</span><span class="n">of_seq</span> <span class="n">inp</span><span class="o">)</span> <span class="bp">[]</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+Liquid error: ClassNotFound: no lexer for alias 'fsharp' found</p>
 
 <p>Call the function like so:
-<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='fsharp'><span class='line'><span class="n">validate</span> <span class="s2">&quot;thisIsAFunction(int[] foo, delegate{}, bar()); // &amp;lt; testing &gt;&quot;</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+Liquid error: ClassNotFound: no lexer for alias 'fsharp' found</p>
 
 <p>In short, the function uses an internal "stack" (which is actually a list) to keep track of open brackets. When a closed bracket is found, it's validated against the open bracket at the top of the stack.</p>
 
