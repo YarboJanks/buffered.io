@@ -4,7 +4,7 @@
   <title><![CDATA[Category: CLR | OJ's rants]]></title>
   <link href="http://buffered.io/categories/clr/atom.xml" rel="self"/>
   <link href="http://buffered.io/"/>
-  <updated>2013-03-22T19:57:41+10:00</updated>
+  <updated>2013-03-23T10:58:06+10:00</updated>
   <id>http://buffered.io/</id>
   <author>
     <name><![CDATA[OJ Reeves]]></name>
@@ -61,11 +61,10 @@
 
 <p>In short, you can wire-in CorrugatedIron's XML configuration as simply as:</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="n">var</span> <span class="n">cluster</span> <span class="p">=</span> <span class="n">RiakCluster</span><span class="p">.</span><span class="n">FromConfig</span><span class="p">(</span><span class="s">&quot;riakConfig&quot;</span><span class="p">);</span>
-</span><span class='line'><span class="n">var</span> <span class="n">client</span> <span class="p">=</span> <span class="n">cluster</span><span class="p">.</span><span class="n">CreateClient</span><span class="p">();</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p>{% codeblock lang:csharp %}
+var cluster = RiakCluster.FromConfig("riakConfig");
+var client = cluster.CreateClient();
+{% endcodeblock %}</p>
 
 <h2>That's it!</h2>
 
@@ -216,47 +215,27 @@ MCITP: Database Developer, DBA</p></blockquote>
 <p>In the deep, dark depths of the web, I stumbled across this little nugget of information (thanks to <a href="http://www.extremeoptimization.com/resources/Articles/FPDotNetConceptsAndFormats.aspx#standards" title="FP .NET Concepts and Formats">ExtremeOptimization.com</a>):<blockquote><p>... the 'extended' format, for which the IEC 60559 standard defines minimum specifications, and which is used by the floating-point unit on Intel processors, and is also <strong>used internally by the CLR</strong>.</p></blockquote>Ah ha! You bastards :) So we're always dealing with 80-bit values when we use <em>double</em> in the <a href="http://en.wikipedia.org/wiki/Common_Language_Runtime" title="Common Language Runtime">CLR</a>.</p>
 
 <p>Now that we know this, we can take steps to sort it out. In a nutshell, we need to set the <a href="http://en.wikipedia.org/wiki/Floating_point_unit" title="Floating Point Unit">FPU</a> state to force the use of 64-bit values before invoking the unmanaged component. Thankfully there's an API function that we can use to do this, it's called <a href="http://msdn2.microsoft.com/en-us/library/e9b52ceh(VS.80).aspx" title="_controlfp"><em>controlfp()</a>. In VS 2005, this function is deprecated, so we're forced to use the 'secure' equivalent </em>controlfp_s(). Here's how you do it:
-<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-</pre></td><td class='code'><pre><code class='cpp'><span class='line'><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">include</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="kt">float</span><span class="p">.</span><span class="n">h</span><span class="o">&gt;&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">.</span>
-</span><span class='line'><span class="p">.</span>
-</span><span class='line'><span class="kt">void</span> <span class="n">ManagedClass</span><span class="o">::</span><span class="n">ManagedFunction</span><span class="p">()</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="kt">double</span> <span class="n">dooby</span><span class="p">[</span><span class="mi">128</span><span class="p">];</span>
-</span><span class='line'>  <span class="p">.</span>
-</span><span class='line'>  <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">prevState</span><span class="p">;</span>
-</span><span class='line'>  <span class="c1">// set the FPU state to 64-bit</span>
-</span><span class='line'>  <span class="o">&lt;</span><span class="n">em</span><span class="o">&gt;</span><span class="n">controlfp_s</span><span class="p">(</span> <span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span><span class="n">prevState</span><span class="p">,</span> <span class="o">&lt;/</span><span class="n">em</span><span class="o">&gt;</span><span class="n">PC_53</span><span class="p">,</span> <span class="n">MCW_PC</span><span class="p">);</span>
-</span><span class='line'>  <span class="p">.</span>
-</span><span class='line'>  <span class="c1">// invoke unmanaged DLL - these values wil be 64-bit, not 80-bit</span>
-</span><span class='line'>  <span class="n">ExternalFunction</span><span class="p">(</span> <span class="n">dooby</span> <span class="p">);</span>
-</span><span class='line'>  <span class="p">.</span>
-</span><span class='line'>  <span class="c1">// reset FPU state to previous value</span>
-</span><span class='line'>  <span class="n">_controlfp_s</span><span class="p">(</span> <span class="nb">NULL</span><span class="p">,</span> <span class="n">prevState</span><span class="p">,</span> <span class="n">MCW_PC</span><span class="p">);</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+{% codeblock lang:cpp %}</p>
+
+<h1>include &lt;float.h></h1>
+
+<p>.
+.
+void ManagedClass::ManagedFunction()
+{
+  double dooby[128];
+  .
+  unsigned int prevState;
+  // set the FPU state to 64-bit
+  <em>controlfp_s( &amp;prevState, </em>PC_53, MCW_PC);
+  .
+  // invoke unmanaged DLL - these values wil be 64-bit, not 80-bit
+  ExternalFunction( dooby );
+  .
+  // reset FPU state to previous value
+  _controlfp_s( NULL, prevState, MCW_PC);
+}
+{% endcodeblock %}</p>
 
 <p>So there you have it. I hope this information is useful :)</p>
 ]]></content>
