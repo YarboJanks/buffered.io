@@ -1045,8 +1045,12 @@
         <lastmod>2013-02-03T09:04:45+10:00</lastmod>
     </url>
     <url>
+        <loc>http://buffered.io/posts/levels-7-and-7_alt-io-at-sts/</loc>
+        <lastmod>2013-08-15T14:52:15+10:00</lastmod>
+    </url>
+    <url>
         <loc>http://buffered.io/</loc>
-        <lastmod>2013-02-03T09:04:45+10:00</lastmod>
+        <lastmod>2013-08-15T14:52:15+10:00</lastmod>
     </url>
     <url>
         <loc>http://buffered.io/key.html</loc>
@@ -1054,6 +1058,6 @@
     </url>
     <url>
         <loc>http://buffered.io/posts/archives/</loc>
-        <lastmod>2013-02-03T09:04:45+10:00</lastmod>
+        <lastmod>2013-08-15T14:52:15+10:00</lastmod>
     </url>
 </urlset>

@@ -15,7 +15,7 @@
   <meta http-equiv="X-XRDS-Location" content="http://thecolonial.myid.net/xrds" />
 
   
-  <meta name="description" content="The time has come for another meeting of the Functional Programming minds! This months BFPG Meetup, starting 6pm Monday 28th, is the first one at our &hellip;">
+  <meta name="description" content="It has been a long time coming, but the first post is finally here! This is the first in a series of post, as promised a while ago, covering off web &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -95,6 +95,67 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/posts/webmachine-erlydtl-and-riak-part-1/">Webmachine, ErlyDTL and Riak - Part 1</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+
+<time datetime="2010-09-01T23:29:00+10:00" pubdate data-updated="true">01 Sep 2010</time>
+        
+         | <a href="/posts/webmachine-erlydtl-and-riak-part-1/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><img src="/uploads/2010/09/riak-logo.png" alt="Riak Logo" style="float:left;padding-right:5px;padding-bottom:5px;"/>It has been a long time coming, but the first post is finally here! This is the first in a series of post, as <a href="/posts/the-future-is-erlang/" title="The Future is Erlang">promised a while ago</a>, covering off web development using <a href="http://erlang.org/" title="Erlang">Erlang</a>. This post is the ubiquitous &#8220;get up and running&#8221; post, which aims to get your environment set up so that you can dive in to development. The next post will detail how to handle a basic end-to-end web request.</p>
+
+<p><img src="/uploads/2010/09/Erlang_logo.png" width="150" style="float:right;margin-left:5px;margin-bottom:5px;"/>First up, a few things we need to be aware of before we begin:</p>
+
+<ol>
+<li>The information in this post has only been verified on Linux (<a href="http://linuxmint.com/" title="Linux Mint">Mint</a> to be exact). It <em>should</em> work just fine on Mac OSX. I&#8217;m almost certain that it <em>won&#8217;t</em> work on a Windows machine. So if you&#8217;re a Windows developer, you&#8217;ll have to wait for another post down the track which covers off how to get your environment ready to rock.</li>
+<li>We&#8217;ll be downloading, building and installing <a href="http://erlang.org/" title="Erlang">Erlang</a>, <a href="http://github.com/evanmiller/erlydtl" title="ErlyDTL">ErlyDTL</a>, <a href="http://www.basho.com/developers.html#Riak" title="Riak">Riak</a> and <a href="http://www.basho.com/developers.html#Webmachine" title="Webmachine">Webmachine</a>.</li>
+<li><a href="http://www.basho.com/developers.html#Rebar" title="Rebar">Rebar</a> is the tool we&#8217;ll be using to handle builds, but I won&#8217;t be covering it in any depth.</li>
+<li>You will need the latest version of <a href="http://git-scm.com/" title="Git">Git</a> so make sure it&#8217;s downloaded and installed before you follow this article.</li>
+<li>We&#8217;ll be doing <em>some</em> interaction with Riak via <a href="http://curl.haxx.se/" title="cURL and libcurl">curl</a>, so make sure you have it downloaded and installed as well.</li>
+<li>This is intended to be a step-by-step guide targeted at those who are very new to web development in Erlang. This may not be the most ideal set up, nor the best way of doing certain things. I am hoping that those people who are more experienced than I will be able to provide feedback and guidance in areas where I am lacking.</li>
+<li>Over the course of this series I&#8217;ll be attempting to build an Erlang version of the <a href="http://bitbucket.org/OJ/codesmackdown" title="Code Smackdown">Code Smackdown</a> site that I&#8217;ve been working on here and there with a <a href="http://secretgeek.net/" title="secretGeek">mate of mine</a>. You&#8217;ll see that the sample application we&#8217;re working on is called &#8220;csd&#8221; for obvious reasons.</li>
+</ol>
+
+
+<p>OK, let&#8217;s get into it. First up, Erlang.</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/posts/webmachine-erlydtl-and-riak-part-1/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -572,50 +633,6 @@ I&#8217;ll be posting the slides and demonstration code here on this blog as wel
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/posts/now-running-nginx/">Now Running Nginx</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-
-<time datetime="2009-09-10T17:52:00+10:00" pubdate data-updated="true">10 Sep 2009</time>
-        
-         | <a href="/posts/now-running-nginx/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="/uploads/2009/09/slow_snail.jpg" rel="lightbox"><img src="/uploads/2009/09/slow_snail.jpg" alt="clarkson_face" title="clarkson_face" width="150" style="float: right; margin-bottom: 5px; margin-left: 5px;" /></a>For the last couple of years, the server which has powered this site (and a few other sites) has been running the free version of <a href="http://litespeedtech.com/" title="Litespeed">Litespeed</a> web server. After feeling the resource burden of <a href="http://httpd.apache.org/" title="Apache Httpd">Apache</a>, Litespeed was a breath of fresh air! The fact that the &#8220;full&#8221; version wasn&#8217;t free didn&#8217;t bother me, I was happy to stick with the standard edition as it seemed more than capable of handling the meagre traffic that this site generates.</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/posts/now-running-nginx/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/page/4/">&larr; Older</a>
@@ -663,6 +680,10 @@ I&#8217;ll be posting the slides and demonstration code here on this blog as wel
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/posts/levels-7-and-7_alt-io-at-sts/">Levels 7 and 7_alt - IO at STS</a>
+      </li>
+    
+      <li class="post">
         <a href="/posts/irssi-and-sasl-on-osx/">Irssi and SASL on OSX</a>
       </li>
     
@@ -676,10 +697,6 @@ I&#8217;ll be posting the slides and demonstration code here on this blog as wel
     
       <li class="post">
         <a href="/posts/meaning/">Meaning</a>
-      </li>
-    
-      <li class="post">
-        <a href="/posts/webmachine-erlydtl-and-riak-part-5/">Webmachine, ErlyDTL and Riak - Part 5</a>
       </li>
     
   </ul>
@@ -760,9 +777,10 @@ I&#8217;ll be posting the slides and demonstration code here on this blog as wel
 <li class='category'><a href='/categories/riak/'>Riak (7)</a></li>
 <li class='category'><a href='/categories/ruby-on-rails/'>Ruby on Rails (1)</a></li>
 <li class='category'><a href='/categories/screencasts/'>Screencasts (1)</a></li>
-<li class='category'><a href='/categories/security/'>Security (12)</a></li>
+<li class='category'><a href='/categories/security/'>Security (13)</a></li>
 <li class='category'><a href='/categories/series/'>Series (1)</a></li>
 <li class='category'><a href='/categories/shortcuts/'>Shortcuts (4)</a></li>
+<li class='category'><a href='/categories/smashthestack-io/'>SmashTheStack-IO (1)</a></li>
 <li class='category'><a href='/categories/software/'>Software (31)</a></li>
 <li class='category'><a href='/categories/software-development/'>Software Development (66)</a></li>
 <li class='category'><a href='/categories/sorting/'>Sorting (5)</a></li>
