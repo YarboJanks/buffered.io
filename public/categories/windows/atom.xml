@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Windows | OJ's rants]]></title>
   <link href="http://buffered.io/categories/windows/atom.xml" rel="self"/>
   <link href="http://buffered.io/"/>
-  <updated>2013-03-23T10:58:06+10:00</updated>
+  <updated>2013-08-15T13:48:58+10:00</updated>
   <id>http://buffered.io/</id>
   <author>
     <name><![CDATA[OJ Reeves]]></name>
@@ -618,24 +618,41 @@ Have a look at <a href="http://buffered.io/posts/setting-up-trac-mercurial-and-s
 <p>When a binary component links against a DLL, such as <a href="http://www.microsoft.com/" title="Microsoft">MS</a>'s <a href="http://msdn.microsoft.com/en-us/library/abx4dbyh(VS.80).aspx" title="C Run-Time Libraries">CRT</a>, an entry for that dependant DLL is specified in the component's <a href="http://msdn.microsoft.com/en-us/library/aa375365.aspx" title="Manifests">manifest</a>. This tells Windows that the application can't run without those DLLs being present. If they're not present in WinSxS then the errors above are thrown in the user's face.</p>
 
 <p>To demonstrate the problem, consider the C++ program below.
-{% codeblock lang:cpp %}</p>
-
-<h1>include &lt;windows.h></h1>
-
-<h1>include &lt;tchar.h></h1>
-
-<p>int WINAPI _tWinMain(HINSTANCE instance, HINSTANCE prevInstance, LPTSTR cmdLine, int cmdShow)
-{
-  ::MessageBox(NULL,</p>
-
-<pre><code>  _T("This is a text executable that links against a later version of the runtimes."),
-  _T("Test EXE"),
-  MB_OK);
-</code></pre>
-
-<p>  return 0;
-}
-{% endcodeblock %}</p>
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='cpp'><span class='line'><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">include</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="n">windows</span><span class="p">.</span><span class="n">h</span><span class="o">&gt;&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">include</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="n">tchar</span><span class="p">.</span><span class="n">h</span><span class="o">&gt;&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="kt">int</span> <span class="n">WINAPI</span> <span class="n">_tWinMain</span><span class="p">(</span><span class="n">HINSTANCE</span> <span class="n">instance</span><span class="p">,</span> <span class="n">HINSTANCE</span> <span class="n">prevInstance</span><span class="p">,</span> <span class="n">LPTSTR</span> <span class="n">cmdLine</span><span class="p">,</span> <span class="kt">int</span> <span class="n">cmdShow</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="o">::</span><span class="n">MessageBox</span><span class="p">(</span><span class="nb">NULL</span><span class="p">,</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span>  <span class="n">_T</span><span class="p">(</span><span class="s">&quot;This is a text executable that links against a later version of the runtimes.&quot;</span><span class="p">),</span>
+</span><span class='line'>  <span class="n">_T</span><span class="p">(</span><span class="s">&quot;Test EXE&quot;</span><span class="p">),</span>
+</span><span class='line'>  <span class="n">MB_OK</span><span class="p">);</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>Compile this on a machine with <a href="http://msdn.microsoft.com/en-us/vstudio/default.aspx" title="Visual Studio Developer Center">Vis Studio 2008</a> installed and the resulting EXE will be linked against version 9.0 of the CRT.</p>
 
@@ -710,52 +727,90 @@ Have a look at <a href="http://buffered.io/posts/setting-up-trac-mercurial-and-s
 </code></pre>
 
 <p>In case you don't find this very readable, here it is after extraction/formatting:
-{% codeblock lang:xml %}
-<assembly xmlns="urn:schemas-microsoft-com:asm.v1" manifestVersion="1.0">
-  <trustInfo xmlns="urn:schemas-microsoft-com:asm.v3"></p>
-
-<pre><code>&lt;security&gt;
-  &lt;requestedPrivileges&gt;
-  &lt;requestedExecutionLevel
-    level="asInvoker"
-    uiAccess="false"&gt;&lt;/requestedExecutionLevel&gt;
-  &lt;/requestedPrivileges&gt;
-&lt;/security&gt;
-</code></pre>
-
-<p>  </trustInfo>
-  <dependency></p>
-
-<pre><code>&lt;dependentAssembly&gt;
-  &lt;assemblyIdentity
-    type="win32"
-    name="Microsoft.VC90.CRT"
-    version="9.0.21022.8"
-    processorArchitecture="x86"
-    publicKeyToken="1fc8b3b9a1e18e3b"&gt;
-  &lt;/assemblyIdentity&gt;
-&lt;/dependentAssembly&gt;
-</code></pre>
-
-<p>  </dependency>
-</assembly>
-{% endcodeblock %}</p>
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+</pre></td><td class='code'><pre><code class='xml'><span class='line'><span class="nt">&lt;assembly</span> <span class="na">xmlns=</span><span class="s">&quot;urn:schemas-microsoft-com:asm.v1&quot;</span> <span class="na">manifestVersion=</span><span class="s">&quot;1.0&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;trustInfo</span> <span class="na">xmlns=</span><span class="s">&quot;urn:schemas-microsoft-com:asm.v3&quot;</span><span class="nt">&gt;&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;pre&gt;&lt;code&gt;</span><span class="ni">&amp;lt;</span>security<span class="ni">&amp;gt;</span>
+</span><span class='line'>  <span class="ni">&amp;lt;</span>requestedPrivileges<span class="ni">&amp;gt;</span>
+</span><span class='line'>  <span class="ni">&amp;lt;</span>requestedExecutionLevel
+</span><span class='line'>    level=&quot;asInvoker&quot;
+</span><span class='line'>    uiAccess=&quot;false&quot;<span class="ni">&amp;gt;&amp;lt;</span>/requestedExecutionLevel<span class="ni">&amp;gt;</span>
+</span><span class='line'>  <span class="ni">&amp;lt;</span>/requestedPrivileges<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="ni">&amp;lt;</span>/security<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="nt">&lt;/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;p&gt;</span>  <span class="nt">&lt;/trustInfo&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;dependency&gt;&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;pre&gt;&lt;code&gt;</span><span class="ni">&amp;lt;</span>dependentAssembly<span class="ni">&amp;gt;</span>
+</span><span class='line'>  <span class="ni">&amp;lt;</span>assemblyIdentity
+</span><span class='line'>    type=&quot;win32&quot;
+</span><span class='line'>    name=&quot;Microsoft.VC90.CRT&quot;
+</span><span class='line'>    version=&quot;9.0.21022.8&quot;
+</span><span class='line'>    processorArchitecture=&quot;x86&quot;
+</span><span class='line'>    publicKeyToken=&quot;1fc8b3b9a1e18e3b&quot;<span class="ni">&amp;gt;</span>
+</span><span class='line'>  <span class="ni">&amp;lt;</span>/assemblyIdentity<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="ni">&amp;lt;</span>/dependentAssembly<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="nt">&lt;/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;p&gt;</span>  <span class="nt">&lt;/dependency&gt;</span>
+</span><span class='line'><span class="nt">&lt;/assembly&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>The bit we're really interested in is:
-{% codeblock lang:xml %}
-<dependentAssembly>
-  &lt;assemblyIdentity</p>
-
-<pre><code>type="win32"
-name="Microsoft.VC90.CRT"
-version="9.0.21022.8"
-processorArchitecture="x86"
-publicKeyToken="1fc8b3b9a1e18e3b"&gt;
-</code></pre>
-
-<p>  </assemblyIdentity>
-</dependentAssembly>
-{% endcodeblock %}</p>
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='xml'><span class='line'><span class="nt">&lt;dependentAssembly&gt;</span>
+</span><span class='line'>  <span class="ni">&amp;lt;</span>assemblyIdentity<span class="nt">&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;pre&gt;&lt;code&gt;</span>type=&quot;win32&quot;
+</span><span class='line'>name=&quot;Microsoft.VC90.CRT&quot;
+</span><span class='line'>version=&quot;9.0.21022.8&quot;
+</span><span class='line'>processorArchitecture=&quot;x86&quot;
+</span><span class='line'>publicKeyToken=&quot;1fc8b3b9a1e18e3b&quot;<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="nt">&lt;/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;p&gt;</span>  <span class="nt">&lt;/assemblyIdentity&gt;</span>
+</span><span class='line'><span class="nt">&lt;/dependentAssembly&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>This tells us the exact component and version required for this application to run. You'll notice that it also mentions the processor architecture. In this case, we need to make sure that we have version 9.0.21022.8 of the Visual C Runtimes for x86 installed in the side-by-side folder. The WinSxS folder can be found at <em>%WINDIR%\WinSxS</em></p>
 
