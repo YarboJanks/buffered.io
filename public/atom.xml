@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[OJ's rants]]></title>
+  <title><![CDATA[OJ's perspective]]></title>
   <link href="http://buffered.io/atom.xml" rel="self"/>
   <link href="http://buffered.io/"/>
-  <updated>2013-08-15T14:52:16+10:00</updated>
+  <updated>2013-08-20T20:14:36+10:00</updated>
   <id>http://buffered.io/</id>
   <author>
     <name><![CDATA[OJ Reeves]]></name>
@@ -12,6 +12,165 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[OSCP and Me]]></title>
+    <link href="http://buffered.io/posts/oscp-and-me/"/>
+    <updated>2013-08-16T20:33:00+10:00</updated>
+    <id>http://buffered.io/posts/oscp-and-me</id>
+    <content type="html"><![CDATA[<p>The <a href="http://www.offensive-security.com/information-security-training/penetration-testing-with-backtrack/" title="Penetration Testing with BackTrack">PWB</a> course by <a href="http://www.offensive-security.com/" title="Offensive Security">Offensive Security</a> is absolutely awesome, as is the exam which earns you the prized <a href="http://www.offensive-security.com/information-security-certifications/oscp-offensive-security-certified-professional/" title="Offensive Security Certified Professional">OSCP</a> certification. I took this course and exam recently; I loved it and I nailed it! I am now equipped with a much better understanding of the security world and am in a better position to help businesses improve the security of their application architecture and infrastructure.</p>
+
+<p><a href="http://buffered.io/contact" title="Contact OJ">Hit me up</a> and let&#8217;s talk about how I can help you make your applications more secure.</p>
+
+<p>What follows is the full story of my path through PWB and OSCP. Enjoy.</p>
+
+<!--more-->
+
+
+<h1>The Long Version</h1>
+
+<p>I started developing software professionally back in 1999, just shy of 15 years ago. Since then I&#8217;ve been fortunate enough to work in some pretty amazing domains, used a massive variety of technologies and have played a part in some <a href="http://burnoutrevenge.ea.com/360/player.asp?language=en" title="Burnout Revenge for Xbox 360">pretty</a> <a href="https://internetbanking.suncorpbank.com.au/" title="Suncorp Internet Banking">awesome</a> <a href="http://www.innovation.gov.au/Industry/Defence/CapabilityDirectories/Documents/JSFCapabilityDirectory/company%20profiles/ball_solutions/profile_3.html" title="Mission Data Planning Environment">software</a>. I&#8217;m proud of what I&#8217;ve achieved so far. However I&#8217;ve recently found myself looking for a new challenge. Something that will make me think, push me to learn new things, and hopefully keep my motivation levels up to a high level. Ultimately, I wanted to have a bit of a career change without really changing my career.</p>
+
+<p>Towards the end of last year, after some careful deliberation, I decided to follow a long-term passion of mine with a goal of incorporating it into my work. That passion is <a href="http://en.wikipedia.org/wiki/Information_security" title="Information Security">Information Security</a>. Infosec as a domain is made up of a <em>lot</em> of different areas, and hence making it a point of focus means that anyone looking to get involved needs to first learn the basics of a broad set of topics and then, perhaps, <em>specialise</em> in one of them.</p>
+
+<p>For many years I&#8217;ve <a href="http://buffered.io/categories/rce/" title="Category: RCE">dabbled with reverse engineering</a>, kept up-to-date with various security topics, and have been quite a <a href="http://buffered.io/posts/xss-flaws-via-mvc-model-binding-and-request.querystring-inconsistencies/" title="XSS Flaws via MVC Model Binding and Request.QueryString Inconsistencies">security-minded developer</a>. I didn&#8217;t want to just go and read up on the things that I already knew, but instead I wanted to throw myself in the deep end into an area that I wasn&#8217;t too familiar with but had a keen interest in.</p>
+
+<p>This led me to <a href="http://en.wikipedia.org/wiki/Penetration_test" title="Penetration Test">penetration testing</a> and ultimately to <a href="http://www.offensive-security.com/information-security-certifications/oscp-offensive-security-certified-professional/" title="Offensive Security Certified Professional">OSCP</a>.</p>
+
+<h1>Exploring OSCP</h1>
+
+<p>I spent quite a bit of time searching for courses and material that would get me going with the basics of penetration testing servers and web applications. There&#8217;s quite a lot out there, though much of it is rudimentary, is disjoint or lacks cohesion, or talks about &#8220;point and shoot&#8221; exploitation. While this might be helpful in becoming a <a href="http://en.wikipedia.org/wiki/Script_kiddie" title="Script Kiddie">script kiddie</a> it wasn&#8217;t what I was looking for. I wanted to be challenged.</p>
+
+<p>When I stumbled on <a href="http://www.offensive-security.com/information-security-certifications/oscp-offensive-security-certified-professional/" title="Offensive Security Certified Professional">OSCP</a> I was initially dubious as I am when it comes to any certification. Most developers out there are probably experienced with the certifications that exist in the world of software engineering and how they do not provide an indication of a person&#8217;s ability. Before knowing better I assumed this would be the same.</p>
+
+<p>However, after <a href="http://proactivedefender.blogspot.com/2012/01/oscp-my-review.html">reading</a> <a href="http://www.hackyeah.com/2010/12/brief-review-of-the-pwb-class-and-the-oscp-certification/">some</a> <a href="http://blog.nullmode.com/2013/05/penetration-testing-with-backtrack-oscp.html">reviews</a> from people who have achieved the certification, I started to realise that this is exactly the kind of thing I was looking for.</p>
+
+<p>Quotes from these reviews include lines such as:</p>
+
+<blockquote><p>The truism &#8220;anything worth having doesn&#8217;t come easy&#8221; is one I have often remembered when on a particularly difficult path to a goal. Never have the words rung quite so true when applied to my quest for [the] OSCP certification.</p></blockquote>
+
+<p>Others state:</p>
+
+<blockquote><p>The OSCP certification, in my opinion, proves that it&#8217;s holder is able to identify vulnerabilities, create and modify exploit code, exploit hosts, and successfully preform tasks on the compromised systems over various operating systems.</p></blockquote>
+
+<p>I was becoming convinced that OSCP was something that I had to do, despite not ever doing any form of penetration testing in the past (other than fumbling around my own web applications). At this point I reached out to a local security professional, <a href="http://security.crudtastic.com/" title="Security with added Cheese">Ash D</a> who is a seasoned Infosec guru, SANS mentor/teacher and who has passed the exam himself, and bribed him with a free lunch to come and talk to me about his experience. He turned out to be friendly, fun, informative and gave me just the confirmation I was looking for. Even if I failed miserably I&#8217;d already made a good friend out of the experience (a friend who later would keep encouraging me right through to the end <a href="http://security.crudtastic.com/?p=699">and beyond</a>, thanks Ash).</p>
+
+<p>OSCP requires you to spend a lot of time in a virtual lab practising the various techniques that you&#8217;ll need to master to do well in the exam. While the learning material from Offensive Security is good (more on this later), the lab is what makes the whole thing <strong>great</strong>. This was the last key point for me. I wasn&#8217;t just going to learn theory, I would actually learn to <em>do</em> things and have to <em>demonstrate</em> that in the exam to gain the certification.</p>
+
+<h1>Getting Started</h1>
+
+<p>It was early 2013 and I was working some longer hours for various clients which made it hard for me to find the time to put into some basic preparation. As a result it took me quite a while to sign up for the course as I wanted to make sure that I would be able to give it the time it deserves.</p>
+
+<p>As April 2013 approached I came to the realisation that it was <em>never</em> a good time to sign up for something like this and hence I should just go and make it happen. I spoke to my wife and kids about it and made sure they were OK with the idea of me being locked away to learn, and they gave me their full support (short interlude: my family is awesome).</p>
+
+<p>I jumped on the web and went to the <a href="http://www.offensive-security.com/information-security-training/penetration-testing-with-backtrack/" title="PWB sign up">sign-up</a> page and was presented with quite a few options. I needed to specify how much lab time I wanted prior to my exam. This was a bit like telling a mobile phone carrier how many calls you&#8217;re going to make; I really wasn&#8217;t sure! Instead of deliberating for too long, I decided to go with the 30-day option and extend my time if I felt that I needed more. No big deal.</p>
+
+<p>I signed up for the course, and locked in the date of June 16th to kick off my time in the labs.I was really excited, and couldn&#8217;t wait for it to start. In the following days I was contacted by Offsec and asked for proof of identity. Offsec require that you don&#8217;t use a &#8220;free&#8221; email address such as Gmail when signing up, however I don&#8217;t have any email addresses that aren&#8217;t Google Apps hosted (this will change soon) and hence I needed to verify my identity with them. This goes to show that they don&#8217;t just let any unknown person take up the course to learn things which can easily be misused.</p>
+
+<p>After what felt like an eternity, June 16th came around and my connection pack arrived in my inbox. Unfortunately for me, work and a few other things took over and I lost the first week of time. I was able to connect to the labs on the odd occasion but for very short periods of time. Given that I wasn&#8217;t yet across the material that time I spent in the labs wasn&#8217;t really fruitful.</p>
+
+<p>At day 8 things finally settled down to a level where I was able to dive into the material and begin fumbling my way through the lab. This is where things really started to become entertaining.</p>
+
+<h1>Initial Lab Time</h1>
+
+<p>My first few days in the lab were interesting. I popped the SYSTEM account on one of the Windows boxes in the first 4 hours of my lab time. This was not only surprising but it gave me a confidence boost which didn&#8217;t do me any favours. From there I failed repeatedly to compromise another machine. The second day yielded no results. The third day was also fruitless. By the end of the fourth day, when I still had just <em>one</em> machine on my tally, I was beginning to ask myself questions. Am I cut out for this? Have I bitten off more than I can chew?</p>
+
+<p>I stepped back for a while and pondered my approach. I realised that I wasn&#8217;t thinking and looking to learn. I wasn&#8217;t approaching the problems like a hacker would. I wasn&#8217;t doing enumeration properly. I was investing too much time looking for out-of-the-box exploits rather than trying to connect the dots myself. I gave myself a slap, and started again.</p>
+
+<p>This is when things started to change. Machines started to fall. I started to learn more. I improved in all the areas I was failing at before. It was wonderful.</p>
+
+<p>On the fifth day I managed to pop 7 machines. What a difference!</p>
+
+<h1>Proper Lab Time</h1>
+
+<p><em>Note: my coverage of the lab from here is &#8220;point in time&#8221;. Offsec change and upgrade the lab all the time, and hence details of the lab and what you&#8217;ll experience will change over time too.</em></p>
+
+<p>The lab was a wonderful place to play, practice and learn. I was constantly blown away by the mixture of operating systems, patch levels, kernel versions, system application and feature versions, third-party applications, and even custom applications that had been built which emulated the kind of things you&#8217;d expect a developer to throw together to help them do something a little easier and quicker as part of their day job. The effort that has gone into the design and set up of the lab environment is commendable. It really felt like I was in a real network with real machines and real people using those machines.</p>
+
+<p>It was made up of approximately 60 machines partitioned into a number of networks. Each machine has it&#8217;s own identity and story, some are interesting and some not so much. I&#8217;m not going to elaborate on the detail too much because discovering that is all part of the fun. But I will say that I experienced <code>Pain</code> and <code>Sufference</code> [sic] in ways I didn&#8217;t expect.</p>
+
+<p>The networks are connected together in interesting ways, and you as the penetration tester will need to work your way through the machines and networks, pivoting your attacks off compromised hosts as you go with the end goal of compromising all of the hosts and making it to the <strong>Admin</strong> network.</p>
+
+<p>As you would expect, some machines are very easy to break into and other machines are really quite hard. The beauty of the lab is that, depending on your background, exposure and interests, the machines that you find hard might not be hard for others and vice-versa. Some machines run applications you wouldn&#8217;t expect them to run. Some machines have very new or very old configurations of software. The mix is truly great; it keeps you thinking rather than giving you the luxury of slipping into a &#8220;routine&#8221;.</p>
+
+<p>The lab exposes you to a very large range of exploitations; too many to mention here. Chances are that if a type of exploit exists that you need to abuse, you&#8217;ll get the chance to use it in the lab.</p>
+
+<p>At this point I think it&#8217;s important to point out that in OSCP the focus is on knowing how to apply existing public exploits and known approaches to manual exploitation of vulnerabilities. While there is room for you to construct your own exploits if you choose to, there is another course offered by Offsec which covers that in more detail, and that&#8217;s <a href="http://www.offensive-security.com/information-security-certifications/osce-offensive-security-certified-expert/" title="Offensive Security Certified Expert">OSCE</a>.</p>
+
+<p>It took me a little bit of time before I realised that exploitation wasn&#8217;t the only thing that I needed to do while in the lab. <em>Post-exploitation</em> was very important. Looting the machines that I&#8217;d compromised was something that I didn&#8217;t consider doing in the early days, and I suffered as a result. When I came to realise that the keys to some of the machines were located on others, I had to go back through my list of popped hosts and loot them properly. If you&#8217;re going to do this course, make sure you do a good job of post-exploitation!</p>
+
+<p>While doing the lab, you are supposed to keep track of all the work you&#8217;ve done as you need to provide a deliverable at the end of it: a full penetration test document. This document has to contain the detail of what you did and how you did it. My advice is to not put this off until the end, but instead work on it as you go. This includes screenshots, dumps of console output, source code to exploits you&#8217;ve written and scripts you&#8217;ve used to automate tasks.</p>
+
+<p>Even though I was pretty good at taking notes, I had kept them all in markdown in a private <a href="http://git-scm.org/" title="Git">git</a> repository instead of putting them in a well-structured document. As a result, I had to do this after my exam, which made the experience more painful than it needed to be.</p>
+
+<h1>Post-Lab</h1>
+
+<p>By then time your lab time has ended, you <em>should</em> have managed to compromise/pop/pwn a large percentage of the networks, if not 100%. In my case, I ran out of time and I missed about 8 machines in total. While I was disappointed with the result, a discussion with various OSCP alumni led me to realise that I had managed to defeat the harder machines in the labs and hence the rest of them would be quite simple. I decided not to extend my lab time as spending extra money for the sake of a few more machines didn&#8217;t make sense. Instead, I booked in my exam for August 6th and used the lead-up time for practice, refining my documentation, and preparing my scripts and cheat sheets for the big day.</p>
+
+<p>There are some great resources out there for practising this kind of thing, but the main one that I want to point out is <a href="http://vulnhub.com/" title="Vulnhub">Vulnhub</a> (a pet project of <a href="http://blog.g0tmi1k.com/" title="g0tmi1k's blog">g0tmi1k</a>). That site contains downloadable <em>boot2root</em> images that you can use to practice on with the added benefit of it all being legal.</p>
+
+<h1>The Exam</h1>
+
+<p>The OSCP exam is a 24-hour &#8220;loser takes all&#8221; style exam. You are given access to a custom network, just like you are in the labs, and you have a number of machines assigned to you. The exam pack contains information on the machines, along with various rules that you must adhere to when attacking them. Each machine is worth a number of points and you earn those points if you:</p>
+
+<ul>
+<li>Compromise the host.</li>
+<li>Document your findings well enough with clear instructions on how it was done. This document should also contain the  &#8220;flags&#8221;; text files with what appears to be random characters in them which prove that you did what you did.</li>
+<li>Don&#8217;t break the rules.</li>
+</ul>
+
+
+<p>Points are allocated to you even if you don&#8217;t managed to get SYSTEM/root on the machine. All is not lost if you can&#8217;t do privilege escalation! However you <em>can not</em> break the rules. In my exam, for example, there was at least one machine which wasn&#8217;t allowed to be attacked at all using <a href="http://metasploit.org/" title="Metasploit">MSF</a>. Breaking this rule would have meant 0 points for that machine.</p>
+
+<p>Prior to the exam starting I focused on the areas that I felt I was weakest, with the main one being Linux privilege escalation. There&#8217;s a bit of material out there on it, and there&#8217;s also g0tmi1lk&#8217;s fantastic <a href="http://blog.g0tmi1k.com/2011/08/basic-linux-privilege-escalation.html" title="Basic Linux Privilege Escalation">cheat sheet</a>, but I still failed to connect some of the dots during my travels. It&#8217;s about now I must give a bit hat-tip to <a href="https://twitter.com/pipesec" title="Pipes on Twitter">Pipes</a> and <a href="https://twitter.com/metlstorm" title="Metlstorm on Twitter">Metlstorm</a>, both of <a href="http://www.insomniasec.com/" title="Insomnia Security">Insomnia Security</a>, for being two awesome mentors and providing me with fantastic insights on ways to get root. Those guys are awesome.</p>
+
+<p>I started my exam at 8am just as the family were leaving the house (taking son #1 to school). I was buzzing. I couldn&#8217;t sit still I was that excited. I realised how much I had missed my time in the labs and the thought of having another crack was making me twitchy.</p>
+
+<p>By 8:45am I had popped root on my first machine.</p>
+
+<p>By 10:00am the second had fallen. I was on a roll! I was riding high and felt really good.</p>
+
+<p>The third machine proved to be a little more difficult, but it fell just before 1:00pm.</p>
+
+<p>The last two machines, making a total of five, were quite a bit trickier. I&#8217;d say that the fourth was by far the hardest, but I loved it as it was yet another example of where I learned something new while doing something in an Offsec lab. I w00ted like a teenager when it fell and did a victory lap around the house.</p>
+
+<p>By 10pm I was done with all 5 machines. My notes were in the typical markdown/git repository structure but were quite thorough and had captured everything I had done in quite a lot of detail. With the exam out of the way, and 100 points in the bag, I went to bed.</p>
+
+<p>The following day I had the arguably arduous task of writing my exam document, which was supposed to be included with your lab report. All in all my document totalled 220 pages by the time it was done and I was glad to see the back of it! It was submitted late on Wednesday evening but with plenty of time to spare before the 8am Thursday cut-off.</p>
+
+<p>I was done. I was relieved, excited and sad that it was all over.</p>
+
+<h1>Confirmation</h1>
+
+<p>While I was pretty sure that I&#8217;d done a good enough job to get my certification, there is always some doubt that you might have missed something or done something silly. So until I received confirmation from Offsec I wasn&#8217;t sure if I had passed.</p>
+
+<p>It took less than 48 hours for me to receive the email:</p>
+
+<blockquote><p>Dear Oliver,</p>
+
+<p>We are happy to inform you that you have successfully completed the Penetration Testing with BackTrack certification challenge and have obtained your Offensive Security Certified Professional (OSCP) certification.</p>
+
+<p>You will receive the certification by mail within 80 days.</p></blockquote>
+
+<p>I was elated. What a journey! I really felt like I had achieved something. I truly felt, and still feel, that I&#8217;d be able to do a great job performing a penetration test for a client.</p>
+
+<h1>Summary &amp; Conclusion</h1>
+
+<p>There&#8217;s no denying it, OSCP was just fantastic. But same parts of it were <em>hard</em>. Not impossibly hard, but hard enough to make you question your own abilities. It broke my ego and then built it up again. I can&#8217;t recommend it strongly enough!</p>
+
+<p>However if you&#8217;re new to the security game, this probably isn&#8217;t the first thing you should attempt to tackle. I think I managed to get through thanks to my polyglot development background, my history with a mixture of operating systems, and my time reverse engineering various binaries. Without those things I would have had a very, <em>very</em> hard time.</p>
+
+<p>I&#8217;m very happy that I took this challenge on. I feel like I really achieved something and that I have a certification that means a whole more than the paper it&#8217;s written on. I can&#8217;t wait to see the official paperwork come through the mail.</p>
+
+<p>So what&#8217;s next? Certification-wise it has to be <a href="http://www.offensive-security.com/information-security-certifications/osce-offensive-security-certified-expert/" title="Offensive Security Certified Expert">OSCE</a>, but I will give my family a break before I take that on. Work-wise, I will be looking to engage with new and existing clients to determine how best I can help them with the security of their infrastructure and applications in the hope that this becomes a major part of my work longer term.</p>
+
+<p>If you&#8217;re out there reading this and you are looking for some help in this area, please <a href="http://buffered.io/contact" title="Contact OJ">drop me a line</a>.</p>
+
+<p>Thank you all for reading. Feel free to hit me with any questions and I&#8217;ll do my best to answer them.</p>
+
+<p><a href="https://twitter.com/TheColonial" title="OJ on Twitter">OJ</a></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Levels 7 and 7_alt - IO at STS]]></title>
@@ -1350,19 +1509,6 @@ use Irssi;
 <p>I want to thank this technical community for its support. It&#8217;s been an absolute joy seeing people get together at the events that I&#8217;ve helped create and I look forward to being part of the crowd from here on in.</p>
 
 <p>Cheers!</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Meaning]]></title>
-    <link href="http://buffered.io/posts/meaning/"/>
-    <updated>2012-10-30T23:32:00+10:00</updated>
-    <id>http://buffered.io/posts/meaning</id>
-    <content type="html"><![CDATA[<p>Life is way too short to be working on boring, uninteresting or meaningless stuff. Get out there and do what you love. Screw working for the dollar on something that you don&#8217;t enjoy. Don&#8217;t study in a field that doesn&#8217;t inspire you just because you got the marks or because people expect you to. Don&#8217;t do what you&#8217;ve always done just because it&#8217;s easy.</p>
-
-<p>Chase your passion. <em>Love your work</em>.</p>
-
-<p>Make sure you spend every day doing something that has meaning &#8230; something you feel is important and fulfilling. Remember, you&#8217;re <strong>trading one whole day of your life for it</strong>.</p>
 ]]></content>
   </entry>
   

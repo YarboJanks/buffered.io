@@ -3,11 +3,11 @@
 # ----------------------- #
 
 url: http://buffered.io
-title: OJ's rants
-subtitle: It's not about you, it's about the software
+title: OJ's perspective
+subtitle: Security and software development
 author: OJ Reeves
 simple_search: http://google.com/search
-description: Software development and technology blog site written by OJ Reeves in Brisbane, Australia.
+description: Security, software development and technology blog site written by OJ Reeves in Brisbane, Australia.
 
 # Default date format is "ordinal" (resulting in "July 22nd 2007")
 # You can customize the format as defined in

@@ -5,17 +5,17 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>OJ's rants</title>
+  <title>OJ's perspective</title>
   <meta name="author" content="OJ Reeves">
 
-  <link rel="openid.server" href="http://server.myid.net/server" />
-  <link rel="openid.delegate" href="http://thecolonial.myid.net/" />
-  <link rel="openid2.local_id" href="http://thecolonial.myid.net/" />
-  <link rel="openid2.provider" href="http://server.myid.net/server" />
-  <meta http-equiv="X-XRDS-Location" content="http://thecolonial.myid.net/xrds" />
+  <link rel="openid.server" href="http://pip.verisignlabs.com/server" />
+  <link rel="openid.delegate" href="http://thecolonial.pip.verisignlabs.com/" />
+  <link rel="openid2.provider" href="http://pip.verisignlabs.com/server" />
+  <link rel="openid2.local_id" href="http://thecolonial.pip.verisignlabs.com/" />
+  <meta http-equiv="X-XRDS-Location" content="http://pip.verisignlabs.com/thecolonial/yadixrds" />
 
   
-  <meta name="description" content="For the last couple of years, the server which has powered this site (and a few other sites) has been running the free version of Litespeed web &hellip;">
+  <meta name="description" content="For quite a while I&#8217;ve been using my spare cycles to chew over a problem. This problem is not one that hasn&#8217;t been solved before, but one &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -24,7 +24,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's rants RSS 2.0" type="application/rss+xml">
+  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's perspective RSS 2.0" type="application/rss+xml">
   <link rel="canonical" href="http://buffered.io/posts/page/4">
   <link href="/favicon.ico" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
@@ -64,9 +64,9 @@
 
 <body   >
   <header role="banner"><hgroup>
-  <h1><a href="/">OJ's rants</a></h1>
+  <h1><a href="/">OJ's perspective</a></h1>
   
-    <h2>It's not about you, it's about the software</h2>
+    <h2>Security and software development</h2>
   
 </hgroup>
 
@@ -95,6 +95,72 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/posts/the-future-is-erlang/">The Future Is Erlang</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+
+<time datetime="2009-10-31T20:28:00+10:00" pubdate data-updated="true">31 Oct 2009</time>
+        
+         | <a href="/posts/the-future-is-erlang/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><img src="/uploads/2009/10/erlang.png" alt="erlang" title="erlang" style="float:left;margin-right:5px;margin-bottom:5px;" />For quite a while I&#8217;ve been using my spare cycles to chew over a problem. This problem is not one that hasn&#8217;t been solved before, but one that I feel can be solved in a much better way. From the bit of research that I&#8217;ve done, I can see at least three areas which can be improved on dramatically. So I&#8217;ve decided, after a long period of deliberation, to go ahead and build my solution and release it to the world as a service!</p>
+
+<p>I know, this kind of thing happens thousands of times a day. Some arbitrary geek decided to build the next killer app and expects to make a crapload of cash out of it. While that would be nice, the ultimate goal isn&#8217;t the cash. The goal for me is to build something that gets used, and for me to begin to master an area of technology that I&#8217;ve had a quiet passion for for a long period of time now.</p>
+
+<p>My plan is simple. While learning the technologies that I will be using I&#8217;ll be building another application and blogging about it so that all of you can learn with me. Meanwhile, I shall use my learnings to build this other application at the same time.</p>
+
+<p>The final result should be a series of posts which help other people learn the technology stack, give better coverage and visibility to languages and technologies that a lot of the geek world doesn&#8217;t know about (and really should!), and for me to carve myself a bit of a niche here on the East coast of Ozland. I am hoping to be able to consult my services out to other businesses as a result.</p>
+
+<p>For those that are interested in following along, here is the full tech stack and toolset that I&#8217;ll be using:</p>
+
+<ul>
+<li><a href="http://erlang.org/" title="Erlang">Erlang</a> - A fantastic cross-platform functional programming language that has some amazing features.</li>
+<li><a href="http://bitbucket.org/justin/webmachine/" title="Webmachine HTTP toolkit">Webmachine</a> - A HTTP toolkit which sits on top of <a href="http://code.google.com/p/mochiweb/" title="Mochiweb">Mochiweb</a> that makes it easy to build well-behaved HTTP applications.</li>
+<li><a href="http://nitrogenproject.com/" title="Nitrogen Framework">Nitrogen</a> - An Erlang-based framework that makes it easy to build websites.</li>
+<li><a href="http://riak.basho.com/" title="Riak">Riak</a> or <a href="http://couchdb.apache.org/" title="CouchDB">CouchDB</a> - Both of these amazing pieces of tech are potential candidates for the back-end storage. I&#8217;m not yet sure which one I&#8217;ll go with.</li>
+<li><a href="http://jquery.com/" title="jQuery">jQuery</a> - A great JavaScript library for the front-end.</li>
+<li><a href="http://vim.org/" title="VIM text editor">VIM</a> - My favourite text editor :)</li>
+<li><a href="http://www.xubuntu.org/" title="Xubuntu">Xubuntu</a> - Ubuntu <a href="http://ubuntu.com/" title="Ubuntu 9.10">Karmic Koala</a> with <a href="http://www.xfce.org/" title="XFCE">XFCE</a> as the window manager.</li>
+<li><a href="http://mercurial-scm.org/" title="Mercurial SCM">Mercurial</a> - My favourite version control system.</li>
+<li><a href="http://trac.edgewall.org/" title="The Trac Project">Trac</a> - A project tracking tool.</li>
+<li><a href="http://www.virtualbox.org/" title="VirtualBox">VirtualBox</a> - My choice for virtualisation. I tend to run Windows 7 as my primary OS, so most of my dev will be in a VM. When I get my desktop machine back up and running (with all three monitors!) it&#8217;ll most likely multiboot Win 7 and Xubuntu.
+<li><a href="http://wave.google.com/" title="Google Wave">Google Wave</a> - I&#8217;ll be using this for communications with some really switched on people in the Erlang community who have kindly offered to help me with questions and whatnot specific to some of the areas of tech I&#8217;ve mentioned above.</li>
+</ul>
+
+
+<p>During the course of my blogging/learning I&#8217;ll be focussing on Webmachine, Riak/CouchDB, Erlang and Nitrogen. All the other tools will probably get mentioned along the way, but the primary goal is to focus on these things.</p>
+
+<p>I&#8217;m really excited! I&#8217;m currently in the process of documenting my goals and the design for the main application. Once that&#8217;s done, I&#8217;ll get started with the fun stuff. I&#8217;ve got a lot to do and it should be a fun ride. I hope you enjoy following along!</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -566,54 +632,6 @@ Me: *sigh*&#8230;</p></blockquote>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/posts/damn-you-crystal-reports/">Damn You, Crystal Reports!</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-
-<time datetime="2009-03-24T18:27:00+10:00" pubdate data-updated="true">24 Mar 2009</time>
-        
-         | <a href="/posts/damn-you-crystal-reports/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>I&#8217;ve had <a href="http://msdn.microsoft.com/en-us/vstudio/default.aspx" title="Visual Studio on MSDN">Visual Studio 2008</a> installed for quite a while. When I first installed it I decided not to install the <a href="http://www.sap.com/solutions/sapbusinessobjects/sme/reporting/crystalreports/index.epx" title="Crystal Reports">Crystal Reports</a> components because I was fairly certain that I&#8217;d never need them at home.</p>
-
-<p>Well, the worm has turned! On my new gig, I have the joy of working from home. It just so happens that I <em>also</em> need to use Crystal Reports. How silly of me to not bother installing a few extra components the first time so I didn&#8217;t have to go through the pain of going through another VS Setup.</p>
-
-<p>On the surface this doesn&#8217;t sound like a painful experience right? <strong>WRONG</strong>. It&#8217;s a lot more painful than you think.</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/posts/damn-you-crystal-reports/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/page/5/">&larr; Older</a>
@@ -627,6 +645,12 @@ Me: *sigh*&#8230;</p></blockquote>
 <aside class="sidebar">
   
     <section>
+  <h1>Certifications</h1>
+  <ul id="certifications">
+    <li class="post">
+      <a href="http://www.offensive-security.com/information-security-certifications/oscp-offensive-security-certified-professional/" title="Offensive Security Certified Professional"><img src="/images/oscp.png" alt="Offensive Security Certified Professional" /></a>
+    </li>
+  </ul>
   <h1>OJ on the Web</h1>
   <ul id="about_me">
     <li class="post">
@@ -661,6 +685,10 @@ Me: *sigh*&#8230;</p></blockquote>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/posts/oscp-and-me/">OSCP and Me</a>
+      </li>
+    
+      <li class="post">
         <a href="/posts/levels-7-and-7_alt-io-at-sts/">Levels 7 and 7_alt - IO at STS</a>
       </li>
     
@@ -674,10 +702,6 @@ Me: *sigh*&#8230;</p></blockquote>
     
       <li class="post">
         <a href="/posts/stepping-down/">Stepping Down</a>
-      </li>
-    
-      <li class="post">
-        <a href="/posts/meaning/">Meaning</a>
       </li>
     
   </ul>
@@ -749,6 +773,7 @@ Me: *sigh*&#8230;</p></blockquote>
 <li class='category'><a href='/categories/networks/'>Networks (2)</a></li>
 <li class='category'><a href='/categories/nosql/'>NoSQL (3)</a></li>
 <li class='category'><a href='/categories/oauth/'>OAuth (1)</a></li>
+<li class='category'><a href='/categories/oscp/'>OSCP (1)</a></li>
 <li class='category'><a href='/categories/open-source/'>Open Source (2)</a></li>
 <li class='category'><a href='/categories/privacy/'>Privacy (3)</a></li>
 <li class='category'><a href='/categories/productivity/'>Productivity (1)</a></li>
@@ -758,7 +783,7 @@ Me: *sigh*&#8230;</p></blockquote>
 <li class='category'><a href='/categories/riak/'>Riak (7)</a></li>
 <li class='category'><a href='/categories/ruby-on-rails/'>Ruby on Rails (1)</a></li>
 <li class='category'><a href='/categories/screencasts/'>Screencasts (1)</a></li>
-<li class='category'><a href='/categories/security/'>Security (13)</a></li>
+<li class='category'><a href='/categories/security/'>Security (14)</a></li>
 <li class='category'><a href='/categories/series/'>Series (1)</a></li>
 <li class='category'><a href='/categories/shortcuts/'>Shortcuts (4)</a></li>
 <li class='category'><a href='/categories/smashthestack-io/'>SmashTheStack-IO (1)</a></li>
@@ -785,7 +810,7 @@ Me: *sigh*&#8230;</p></blockquote>
   </div>
   <footer role="contentinfo"><p>
 Copyright &copy; 2013 -
-<span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" property="dct:title" rel="dct:type">Blog content for OJ's rants</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://buffered.io/+" property="cc:attributionName" rel="cc:attributionURL">OJ Reeves</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License</a> -
+<span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" property="dct:title" rel="dct:type">Blog content for OJ's perspective</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://buffered.io/+" property="cc:attributionName" rel="cc:attributionURL">OJ Reeves</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License</a> -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 

@@ -5,17 +5,17 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>OJ's rants</title>
+  <title>OJ's perspective</title>
   <meta name="author" content="OJ Reeves">
 
-  <link rel="openid.server" href="http://server.myid.net/server" />
-  <link rel="openid.delegate" href="http://thecolonial.myid.net/" />
-  <link rel="openid2.local_id" href="http://thecolonial.myid.net/" />
-  <link rel="openid2.provider" href="http://server.myid.net/server" />
-  <meta http-equiv="X-XRDS-Location" content="http://thecolonial.myid.net/xrds" />
+  <link rel="openid.server" href="http://pip.verisignlabs.com/server" />
+  <link rel="openid.delegate" href="http://thecolonial.pip.verisignlabs.com/" />
+  <link rel="openid2.provider" href="http://pip.verisignlabs.com/server" />
+  <link rel="openid2.local_id" href="http://thecolonial.pip.verisignlabs.com/" />
+  <meta http-equiv="X-XRDS-Location" content="http://pip.verisignlabs.com/thecolonial/yadixrds" />
 
   
-  <meta name="description" content="I came across some info on The Inquirer earlier today regarding Firefox&#8217;s logo (shown on the right) that&#8217;s being used for the Japanese &hellip;">
+  <meta name="description" content="I can no longer resist the temptation to talk about DRM (at least in part) after the issues that I faced over the weekend. I know I&#8217;m not the &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -24,7 +24,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's rants RSS 2.0" type="application/rss+xml">
+  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's perspective RSS 2.0" type="application/rss+xml">
   <link rel="canonical" href="http://buffered.io/posts/page/25">
   <link href="/favicon.ico" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
@@ -64,9 +64,9 @@
 
 <body   >
   <header role="banner"><hgroup>
-  <h1><a href="/">OJ's rants</a></h1>
+  <h1><a href="/">OJ's perspective</a></h1>
   
-    <h2>It's not about you, it's about the software</h2>
+    <h2>Security and software development</h2>
   
 </hgroup>
 
@@ -95,6 +95,65 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/posts/a-pox-on-your-drm/">A Pox on Your DRM</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+
+<time datetime="2006-09-25T12:53:00+10:00" pubdate data-updated="true">25 Sep 2006</time>
+        
+         | <a href="/posts/a-pox-on-your-drm/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I can no longer resist the temptation to talk about DRM (at least in part) after the issues that I faced over the weekend. I know I&#8217;m not the only one that has experienced the pain that I&#8217;m about to describe, and I&#8217;m pretty pissed off about it.</p>
+
+<p>I&#8217;m going to be getting married pretty soon, and as a result my fiance and I are both trying to finalise arrangements for the wedding. One of the things that we&#8217;re trying to get right is the music that we want to have playing at various points, and over the weekend we spent a bit of time going over quite a few options. After pretty lengthy discussions (which aren&#8217;t yet over) we got together a shortlist of albums with songs that we would like to have played. In order to make our lives a lot easier, we wanted to have the songs ripped to my PC so we could play with the order of songs in playlists to get the right feel/flow.</p>
+
+<p>This is where the pain started. <em>Most</em> of the CDs ripped perfectly fine to MP3 using <a href="http://cdexos.sourceforge.net/" title="CDex" target="_blank">CDex</a> and the LAME encoder that comes with it. There were a couple of CDs, however, that just didn&#8217;t want to behave. Out of the two CDs that didn&#8217;t want to play nice, I managed to get one of them to rip, but the second just refused to work. I think I might know how to solve the problem after doing a bit of research, but this obviously brought my thoughts on DRM to the front of my mind - which is why I&#8217;m posting.</p>
+
+<p>So why do we have <a href="http://en.wikipedia.org/wiki/Digital_Rights_Management" title="Digital Rights Management" target="_blank">DRM</a>? Why is it being rammed down our throats every time we buy a new CD? The answer is simple: the music production companies feel that they need to have some form of mechanism in place to prevent music from being ripped and shared across the world by pirates. While this is a knoble cause, it has nasty effects on those people who <em>do</em> pay for their music.</p>
+
+<p>One of those effects is that users are unable to play the music on their MP3 player. It makes me wonder what the point is of having an iPod or Network Walkman when you can&#8217;t rip CDs to be able to put the content on them anyway? What happens if I don&#8217;t own a normal standalone CD player, but instead only have an MP3 player and my computer which I use for the transfer? In short: I&#8217;m screwed.</p>
+
+<p>I feel that while there is a need to stop the pirating of music content, there is no way that legitimate consumers of music should suffer as a result of the extremely crap mechanisms that are currently in place. The worst of the crap mechanisms out there is one that <a href="http://www.sysinternals.com/blog/2005/10/sony-rootkits-and-digital-rights.html" title="Sony, Rootkits and Digital Rights Management Gone Too Far" target="_blank">Sony has used</a>. Not only does it go out of its way to hide itself so that you don&#8217;t even know it&#8217;s installed, it even goes as far as to provide a mechanism for other programs to hide themselves. This has been exploited already by malware, and Sony have copped a bit of a hiding as a result.</p>
+
+<p>Has this kind of thing made any difference? No not really. Companies are still putting mechanisms in place to stop people ripping their music. I&#8217;m bloody sick of it.</p>
+
+<p>Let&#8217;s be honest. If you really want to rip music, you will find a way. There&#8217;s a stack of information out there which will cover almost any scenario well enough to point you in the right direction. What does this mean to the average user? Well, those people who <em>do</em> buy their music are more likely to <strong>not</strong> know where to look to find this information out. Those people who deliberately pirate music are the kinds of people who not only know how to get round most copy-protection mechanisms, but are likely to circumvent them by themselves and let other people know how they did it.</p>
+
+<p>The net effect is not a reduction in piracy. Instead it&#8217;s the legitimate user who cops it. The pirates have it easy, as they always seem to be up to speed or one step ahead, and Joe Blow sits in front of his PC baffled and cursing his new purchase wishing he&#8217;d never wasted the money on the CD in the first place.</p>
+
+<p>I personally feel that in the long run DRM mechanisms like this are going to prevent people from buying. If I find a CD that I want to buy, then I&#8217;ll look for the information regarding the copy protection. If there is some in place, chances are I won&#8217;t bother buying it.</p>
+
+<p>When are the big companies going to wake up and stop slapping their clients with DRM software that does nothing but make their lives more difficult? We need more and more artists to get behind the consumer and stop the production companies from installing DRM on their albums. We should be free to play our purchased music on whatever the hell we want - and that includes PCs and MP3 players.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -658,47 +717,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/posts/weve-moved/">We&#8217;ve Moved!</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-
-<time datetime="2006-09-18T06:39:00+10:00" pubdate data-updated="true">18 Sep 2006</time>
-        
-         | <a href="/posts/weve-moved/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Boy that was quick! I&#8217;m sure there&#8217;s still some DNS servers out there that need to be updated, but things certainly moved quickly. Blackapache is now on a new server, and I&#8217;m pretty darned happy with the ease and speed of the move. Not just that, but this new location feels a heck of a lot faster than the old one.</p>
-
-<p>So we&#8217;re back online! Feel free to continue commenting/posting. I&#8217;ll be back later (possibly even later today) with some thoughts on episodic gaming.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/page/26/">&larr; Older</a>
@@ -712,6 +730,12 @@
 <aside class="sidebar">
   
     <section>
+  <h1>Certifications</h1>
+  <ul id="certifications">
+    <li class="post">
+      <a href="http://www.offensive-security.com/information-security-certifications/oscp-offensive-security-certified-professional/" title="Offensive Security Certified Professional"><img src="/images/oscp.png" alt="Offensive Security Certified Professional" /></a>
+    </li>
+  </ul>
   <h1>OJ on the Web</h1>
   <ul id="about_me">
     <li class="post">
@@ -746,6 +770,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/posts/oscp-and-me/">OSCP and Me</a>
+      </li>
+    
+      <li class="post">
         <a href="/posts/levels-7-and-7_alt-io-at-sts/">Levels 7 and 7_alt - IO at STS</a>
       </li>
     
@@ -759,10 +787,6 @@
     
       <li class="post">
         <a href="/posts/stepping-down/">Stepping Down</a>
-      </li>
-    
-      <li class="post">
-        <a href="/posts/meaning/">Meaning</a>
       </li>
     
   </ul>
@@ -834,6 +858,7 @@
 <li class='category'><a href='/categories/networks/'>Networks (2)</a></li>
 <li class='category'><a href='/categories/nosql/'>NoSQL (3)</a></li>
 <li class='category'><a href='/categories/oauth/'>OAuth (1)</a></li>
+<li class='category'><a href='/categories/oscp/'>OSCP (1)</a></li>
 <li class='category'><a href='/categories/open-source/'>Open Source (2)</a></li>
 <li class='category'><a href='/categories/privacy/'>Privacy (3)</a></li>
 <li class='category'><a href='/categories/productivity/'>Productivity (1)</a></li>
@@ -843,7 +868,7 @@
 <li class='category'><a href='/categories/riak/'>Riak (7)</a></li>
 <li class='category'><a href='/categories/ruby-on-rails/'>Ruby on Rails (1)</a></li>
 <li class='category'><a href='/categories/screencasts/'>Screencasts (1)</a></li>
-<li class='category'><a href='/categories/security/'>Security (13)</a></li>
+<li class='category'><a href='/categories/security/'>Security (14)</a></li>
 <li class='category'><a href='/categories/series/'>Series (1)</a></li>
 <li class='category'><a href='/categories/shortcuts/'>Shortcuts (4)</a></li>
 <li class='category'><a href='/categories/smashthestack-io/'>SmashTheStack-IO (1)</a></li>
@@ -870,7 +895,7 @@
   </div>
   <footer role="contentinfo"><p>
 Copyright &copy; 2013 -
-<span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" property="dct:title" rel="dct:type">Blog content for OJ's rants</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://buffered.io/+" property="cc:attributionName" rel="cc:attributionURL">OJ Reeves</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License</a> -
+<span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" property="dct:title" rel="dct:type">Blog content for OJ's perspective</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://buffered.io/+" property="cc:attributionName" rel="cc:attributionURL">OJ Reeves</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License</a> -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 
