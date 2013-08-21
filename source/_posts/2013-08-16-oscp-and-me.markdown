@@ -15,7 +15,7 @@ What follows is the full story of my path through PWB and OSCP. Enjoy.
 <!--more-->
 
 The Long Version
-================
+----------------
 
 I started developing software professionally back in 1999, just shy of 15 years ago. Since then I've been fortunate enough to work in some pretty amazing domains, used a massive variety of technologies and have played a part in some [pretty][burnout360] [awesome][internetbanking] [software][mdpe]. I'm proud of what I've achieved so far. However I've recently found myself looking for a new challenge. Something that will make me think, push me to learn new things, and hopefully keep my motivation levels up to a high level. Ultimately, I wanted to have a bit of a career change without really changing my career.
 
@@ -26,7 +26,7 @@ For many years I've [dabbled with reverse engineering][blog_rce], kept up-to-dat
 This led me to [penetration testing][] and ultimately to [OSCP][].
 
 Exploring OSCP
-==============
+--------------
 
 I spent quite a bit of time searching for courses and material that would get me going with the basics of penetration testing servers and web applications. There's quite a lot out there, though much of it is rudimentary, is disjoint or lacks cohesion, or talks about "point and shoot" exploitation. While this might be helpful in becoming a [script kiddie][] it wasn't what I was looking for. I wanted to be challenged.
 
@@ -47,7 +47,7 @@ I was becoming convinced that OSCP was something that I had to do, despite not e
 OSCP requires you to spend a lot of time in a virtual lab practising the various techniques that you'll need to master to do well in the exam. While the learning material from Offensive Security is good (more on this later), the lab is what makes the whole thing **great**. This was the last key point for me. I wasn't just going to learn theory, I would actually learn to _do_ things and have to _demonstrate_ that in the exam to gain the certification.
 
 Getting Started
-===============
+---------------
 
 It was early 2013 and I was working some longer hours for various clients which made it hard for me to find the time to put into some basic preparation. As a result it took me quite a while to sign up for the course as I wanted to make sure that I would be able to give it the time it deserves.
 
@@ -62,7 +62,7 @@ After what felt like an eternity, June 16th came around and my connection pack a
 At day 8 things finally settled down to a level where I was able to dive into the material and begin fumbling my way through the lab. This is where things really started to become entertaining.
 
 Initial Lab Time
-================
+----------------
 
 My first few days in the lab were interesting. I popped the SYSTEM account on one of the Windows boxes in the first 4 hours of my lab time. This was not only surprising but it gave me a confidence boost which didn't do me any favours. From there I failed repeatedly to compromise another machine. The second day yielded no results. The third day was also fruitless. By the end of the fourth day, when I still had just _one_ machine on my tally, I was beginning to ask myself questions. Am I cut out for this? Have I bitten off more than I can chew?
 
@@ -73,7 +73,7 @@ This is when things started to change. Machines started to fall. I started to le
 On the fifth day I managed to pop 7 machines. What a difference!
 
 Proper Lab Time
-===============
+---------------
 
 _Note: my coverage of the lab from here is "point in time". Offsec change and upgrade the lab all the time, and hence details of the lab and what you'll experience will change over time too._
 
@@ -96,14 +96,14 @@ While doing the lab, you are supposed to keep track of all the work you've done 
 Even though I was pretty good at taking notes, I had kept them all in markdown in a private [git][] repository instead of putting them in a well-structured document. As a result, I had to do this after my exam, which made the experience more painful than it needed to be.
 
 Post-Lab
-========
+--------
 
 By then time your lab time has ended, you _should_ have managed to compromise/pop/pwn a large percentage of the networks, if not 100%. In my case, I ran out of time and I missed about 8 machines in total. While I was disappointed with the result, a discussion with various OSCP alumni led me to realise that I had managed to defeat the harder machines in the labs and hence the rest of them would be quite simple. I decided not to extend my lab time as spending extra money for the sake of a few more machines didn't make sense. Instead, I booked in my exam for August 6th and used the lead-up time for practice, refining my documentation, and preparing my scripts and cheat sheets for the big day.
 
 There are some great resources out there for practising this kind of thing, but the main one that I want to point out is [Vulnhub][] (a pet project of [g0tmi1k][]). That site contains downloadable _boot2root_ images that you can use to practice on with the added benefit of it all being legal.
 
 The Exam
-========
+--------
 
 The OSCP exam is a 24-hour "loser takes all" style exam. You are given access to a custom network, just like you are in the labs, and you have a number of machines assigned to you. The exam pack contains information on the machines, along with various rules that you must adhere to when attacking them. Each machine is worth a number of points and you earn those points if you:
 
@@ -132,7 +132,7 @@ The following day I had the arguably arduous task of writing my exam document, w
 I was done. I was relieved, excited and sad that it was all over.
 
 Confirmation
-============
+------------
 
 While I was pretty sure that I'd done a good enough job to get my certification, there is always some doubt that you might have missed something or done something silly. So until I received confirmation from Offsec I wasn't sure if I had passed.
 
@@ -147,7 +147,7 @@ It took less than 48 hours for me to receive the email:
 I was elated. What a journey! I really felt like I had achieved something. I truly felt, and still feel, that I'd be able to do a great job performing a penetration test for a client.
 
 Summary & Conclusion
-====================
+--------------------
 
 There's no denying it, OSCP was just fantastic. But same parts of it were _hard_. Not impossibly hard, but hard enough to make you question your own abilities. It broke my ego and then built it up again. I can't recommend it strongly enough!
 
