@@ -102,6 +102,8 @@ By then time your lab time has ended, you _should_ have managed to compromise/po
 
 There are some great resources out there for practising this kind of thing, but the main one that I want to point out is [Vulnhub][] (a pet project of [g0tmi1k][]). That site contains downloadable _boot2root_ images that you can use to practice on with the added benefit of it all being legal.
 
+I really focused on the areas that I felt I was weakest, with the main one being Linux privilege escalation. There's a bit of material out there on it, and there's also g0tmi1lk's fantastic [cheat sheet][gotmilk_privesc], but I still failed to connect some of the dots during my travels. It's about now I must give a bit hat-tip to [Pipes][] and [Metlstorm][], both of [Insomnia Security][], for being two awesome mentors and providing me with fantastic insights on ways to get root. Those guys are awesome.
+
 The Exam
 --------
 
@@ -112,8 +114,6 @@ The OSCP exam is a 24-hour "loser takes all" style exam. You are given access to
 * Don't break the rules.
 
 Points are allocated to you even if you don't managed to get SYSTEM/root on the machine. All is not lost if you can't do privilege escalation! However you _can not_ break the rules. In my exam, for example, there was at least one machine which wasn't allowed to be attacked at all using [MSF][]. Breaking this rule would have meant 0 points for that machine.
-
-Prior to the exam starting I focused on the areas that I felt I was weakest, with the main one being Linux privilege escalation. There's a bit of material out there on it, and there's also g0tmi1lk's fantastic [cheat sheet][gotmilk_privesc], but I still failed to connect some of the dots during my travels. It's about now I must give a bit hat-tip to [Pipes][] and [Metlstorm][], both of [Insomnia Security][], for being two awesome mentors and providing me with fantastic insights on ways to get root. Those guys are awesome.
 
 I started my exam at 8am just as the family were leaving the house (taking son #1 to school). I was buzzing. I couldn't sit still I was that excited. I realised how much I had missed my time in the labs and the thought of having another crack was making me twitchy.
 
