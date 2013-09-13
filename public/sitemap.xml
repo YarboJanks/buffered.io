@@ -1053,8 +1053,16 @@
         <lastmod>2013-08-21T17:13:41+10:00</lastmod>
     </url>
     <url>
+        <loc>http://buffered.io/posts/64bit-pointer-truncation-in-meterpreter/</loc>
+        <lastmod>2013-09-14T07:27:04+10:00</lastmod>
+    </url>
+    <url>
         <loc>http://buffered.io/</loc>
-        <lastmod>2013-08-21T17:13:41+10:00</lastmod>
+        <lastmod>2013-09-14T07:27:04+10:00</lastmod>
+    </url>
+    <url>
+        <loc>http://buffered.io/key.asc</loc>
+        <lastmod>2013-09-05T12:47:37+10:00</lastmod>
     </url>
     <url>
         <loc>http://buffered.io/key.html</loc>
@@ -1062,6 +1070,6 @@
     </url>
     <url>
         <loc>http://buffered.io/posts/archives/</loc>
-        <lastmod>2013-08-21T17:13:41+10:00</lastmod>
+        <lastmod>2013-09-14T07:27:04+10:00</lastmod>
     </url>
 </urlset>

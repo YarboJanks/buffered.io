@@ -4,7 +4,7 @@
   <title><![CDATA[Category: OAuth | OJ's perspective]]></title>
   <link href="http://buffered.io/categories/oauth/atom.xml" rel="self"/>
   <link href="http://buffered.io/"/>
-  <updated>2013-08-25T11:40:28+10:00</updated>
+  <updated>2013-09-14T07:30:43+10:00</updated>
   <id>http://buffered.io/</id>
   <author>
     <name><![CDATA[OJ Reeves]]></name>
@@ -18,7 +18,7 @@
     <link href="http://buffered.io/posts/webmachine-erlydtl-and-riak-part-4/"/>
     <updated>2012-02-15T20:50:00+10:00</updated>
     <id>http://buffered.io/posts/webmachine-erlydtl-and-riak-part-4</id>
-    <content type="html"><![CDATA[<p>{% img left /uploads/2010/09/riak-logo.png 'Riak Logo' %}For those of you who are new to the series, you may want to check out <a href="/posts/webmachine-erlydtl-and-riak-part-1/" title="Wembachine, ErlyDTL and Riak - Part 1">Part 1</a>, <a href="/posts/webmachine-erlydtl-and-riak-part-2/" title="Wembachine, ErlyDTL and Riak - Part 2">Part 2</a> and <a href="/posts/webmachine-erlydtl-and-riak-part-3/" title="Wembachine, ErlyDTL and Riak - Part 3">Part 3</a> before reading this post. It will help give you some context as well as introduce you to some of the jargon and technology that I'm using. If you've already read then, or don't want to, then please read on!</p>
+    <content type="html"><![CDATA[<p><img class="left" src="/uploads/2010/09/riak-logo.png" title="'Riak Logo'" >For those of you who are new to the series, you may want to check out <a href="/posts/webmachine-erlydtl-and-riak-part-1/" title="Wembachine, ErlyDTL and Riak - Part 1">Part 1</a>, <a href="/posts/webmachine-erlydtl-and-riak-part-2/" title="Wembachine, ErlyDTL and Riak - Part 2">Part 2</a> and <a href="/posts/webmachine-erlydtl-and-riak-part-3/" title="Wembachine, ErlyDTL and Riak - Part 3">Part 3</a> before reading this post. It will help give you some context as well as introduce you to some of the jargon and technology that I'm using. If you've already read then, or don't want to, then please read on!</p>
 
 <p>Upon finishing <a href="/posts/webmachine-erlydtl-and-riak-part-3/" title="Wembachine, ErlyDTL and Riak - Part 3">Part 3</a> of the series we were finally able to read data from <a href="http://www.basho.com/developers.html#Riak" title="Riak">Riak</a> and see it appear in our web page. This was the first stage in seeing a full end-to-end web application functioning. Of course there is still a great deal to do!</p>
 
@@ -51,20 +51,34 @@
 
 <p>So now that we have a plan to pool connections, the first thing we need to fix is our load-balancer's configuration. At the moment we have configured <a href="http://haproxy.1wt.eu/" title="HAProxy">HAProxy</a> with the following settings:</p>
 
-<p>{% codeblock dev.haproxy.conf lang:bash %}</p>
-
-<h1>now set the default settings for each sub-section</h1>
-
-<p>defaults
-  .
-  .
-  # specify some timeouts (all in milliseconds)
-  timeout connect 5000
-  timeout client 50000
-  timeout server 50000
-  .
-  .
-{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>dev.haproxy.conf  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;h1&gt;now <span class="nb">set </span>the default settings <span class="k">for </span>each sub-section&lt;/h1&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;defaults
+</span><span class='line'>  .
+</span><span class='line'>  .
+</span><span class='line'>  <span class="c"># specify some timeouts (all in milliseconds)</span>
+</span><span class='line'>  timeout connect 5000
+</span><span class='line'>  timeout client 50000
+</span><span class='line'>  timeout server 50000
+</span><span class='line'>  .
+</span><span class='line'>  .
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>As you can see we've forced the timeout of connections which means that every connection that is made to the proxy will be killed off when it has been inactive for a long enough period of time. If you were paying attention to the output in the application console window you'd have seen something like this appear after making a request:</p>
 
@@ -145,20 +159,34 @@
 
 <p>For a connection pool this is not a good idea. Therefore we need to modify this configuration so that it doesn't kill off connections. Thankfully this is a very simple thing to do! We delete the lines that force <code>client</code> and <code>server</code> timeouts (I'm commenting the lines out to make it obvious which ones you need to remove):</p>
 
-<p>{% codeblock dev.haproxy.conf lang:bash %}</p>
-
-<h1>now set the default settings for each sub-section</h1>
-
-<p>defaults
-  .
-  .
-  # specify some timeouts (all in milliseconds)
-  timeout connect 5000
-  #timeout client 50000
-  #timeout server 50000
-  .
-  .
-{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>dev.haproxy.conf  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;h1&gt;now <span class="nb">set </span>the default settings <span class="k">for </span>each sub-section&lt;/h1&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;defaults
+</span><span class='line'>  .
+</span><span class='line'>  .
+</span><span class='line'>  <span class="c"># specify some timeouts (all in milliseconds)</span>
+</span><span class='line'>  timeout connect 5000
+</span><span class='line'>  <span class="c">#timeout client 50000</span>
+</span><span class='line'>  <span class="c">#timeout server 50000</span>
+</span><span class='line'>  .
+</span><span class='line'>  .
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>After making this change to the configuration, HAProxy will no longer kill off the connections. Therefore it's up to us to manage them.</p>
 
@@ -170,42 +198,70 @@
 
 <p>First up, we need to add another dependency in our <code>rebar.config</code> file which will pull this application in from Github at a dependency.</p>
 
-<p>{% codeblock apps/csd_core/rebar.config lang:erlang %}
-%%-<em>- mode: erlang -</em>-
-{deps,
-  [</p>
-
-<pre><code>{mochiweb, ".*", {git, "git://github.com/mochi/mochiweb", "HEAD"}},
-{riakc, ".*", {git, "git://github.com/basho/riak-erlang-client", "HEAD"}},
-{pooler, ".*", {git, "git://github.com/OJ/pooler", "HEAD"}}
-</code></pre>
-
-<p>  ]
-}.
-{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>apps/csd_core/rebar.config  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="c">%%-&lt;em&gt;- mode: erlang -&lt;/em&gt;-</span>
+</span><span class='line'><span class="p">{</span><span class="n">deps</span><span class="p">,</span>
+</span><span class='line'>  <span class="p">[</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="p">{</span><span class="n">mochiweb</span><span class="p">,</span> <span class="s">&quot;.*&quot;</span><span class="p">,</span> <span class="p">{</span><span class="n">git</span><span class="p">,</span> <span class="s">&quot;git://github.com/mochi/mochiweb&quot;</span><span class="p">,</span> <span class="s">&quot;HEAD&quot;</span><span class="p">}},</span>
+</span><span class='line'><span class="p">{</span><span class="n">riakc</span><span class="p">,</span> <span class="s">&quot;.*&quot;</span><span class="p">,</span> <span class="p">{</span><span class="n">git</span><span class="p">,</span> <span class="s">&quot;git://github.com/basho/riak-erlang-client&quot;</span><span class="p">,</span> <span class="s">&quot;HEAD&quot;</span><span class="p">}},</span>
+</span><span class='line'><span class="p">{</span><span class="n">pooler</span><span class="p">,</span> <span class="s">&quot;.*&quot;</span><span class="p">,</span> <span class="p">{</span><span class="n">git</span><span class="p">,</span> <span class="s">&quot;git://github.com/OJ/pooler&quot;</span><span class="p">,</span> <span class="s">&quot;HEAD&quot;</span><span class="p">}}</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="p">]</span>
+</span><span class='line'><span class="p">}.</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>Build the application so that the dependency is pulled and built:</p>
 
-<p>{% codeblock lang:bash %}
-oj@hitchens ~/code/csd $ make</p>
-
-<p>   ... snip ...</p>
-
-<p>Pulling pooler from {git,"git://github.com/OJ/pooler","HEAD"}
-Cloning into pooler...
-==> pooler (get-deps)</p>
-
-<p>   ... snip ...</p>
-
-<p>==> pooler (compile)
-Compiled src/pooler_app.erl
-Compiled src/pooler_pooled_worker_sup.erl
-Compiled src/pooler_pool_sup.erl
-Compiled src/pooler_sup.erl
-Compiled src/pooler.erl</p>
-
-<p>   ... snip ...
-{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>oj@hitchens ~/code/csd <span class="nv">$ </span>make&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;   ... snip ...&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;Pulling pooler from <span class="o">{</span>git,<span class="s2">&quot;git://github.com/OJ/pooler&quot;</span>,<span class="s2">&quot;HEAD&quot;</span><span class="o">}</span>
+</span><span class='line'>Cloning into pooler...
+</span><span class='line'><span class="o">==</span>&gt; pooler <span class="o">(</span>get-deps<span class="o">)</span>&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;   ... snip ...&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;<span class="o">==</span>&gt; pooler <span class="o">(</span>compile<span class="o">)</span>
+</span><span class='line'>Compiled src/pooler_app.erl
+</span><span class='line'>Compiled src/pooler_pooled_worker_sup.erl
+</span><span class='line'>Compiled src/pooler_pool_sup.erl
+</span><span class='line'>Compiled src/pooler_sup.erl
+</span><span class='line'>Compiled src/pooler.erl&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;   ... snip ...
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>Next we need to take the scalpel to <code>csd_core</code>. When we first created this application, it was intended to manage all of the interaction with Riak and to manage the intricacies of dealing with snippets and other objects without exposing Riak's inner workings to the <code>csd_web</code> application. To do this we put a <a href="http://www.erlang.org/doc/man/gen_server.html" title="gen_server">gen_server</a> in place, called <code>csd_core_server</code>, which handled the incoming requests. It internally established connections to Riak and used them without destroying them.</p>
 
@@ -225,60 +281,114 @@ Compiled src/pooler.erl</p>
 
 <p>Given that we're using <code>pooler</code> the first thing we need to do is make sure that it loads and runs when <code>csd_core</code> fires up. To do this, we need to modify <code>csd_core.erl</code> so that it looks like this:</p>
 
-<p>{% codeblock apps/csd_core/src/csd_core.erl lang:erlang %}
-%% @author OJ Reeves <a href="&#x6d;&#x61;&#x69;&#108;&#x74;&#111;&#x3a;&#111;&#106;&#x40;&#98;&#x75;&#102;&#x66;&#101;&#114;&#x65;&#100;&#46;&#x69;&#111;">&#111;&#106;&#x40;&#x62;&#x75;&#102;&#102;&#101;&#x72;&#x65;&#x64;&#46;&#x69;&#x6f;</a>
-%% @copyright 2011 OJ Reeves</p>
-
-<p>%% @doc csd_core startup code</p>
-
-<p>-module(csd_core).
--author('OJ Reeves <a href="&#x6d;&#x61;&#x69;&#x6c;&#x74;&#111;&#58;&#x6f;&#106;&#x40;&#x62;&#x75;&#102;&#x66;&#x65;&#114;&#x65;&#x64;&#46;&#105;&#111;">&#111;&#x6a;&#64;&#98;&#117;&#102;&#x66;&#101;&#x72;&#x65;&#x64;&#46;&#105;&#111;</a>').
--export([start/0, start_link/0, stop/0]).</p>
-
-<p>ensure_started(App) -></p>
-
-<pre><code>case application:start(App) of
-    ok -&gt;
-        ok;
-    {error, {already_started, App}} -&gt;
-        ok
-end.
-</code></pre>
-
-<p>%% @spec start_link() -> {ok,Pid::pid()}
-%% @doc Starts the app for inclusion in a supervisor tree
-start_link() -></p>
-
-<pre><code>start_common(),
-csd_core_sup:start_link().
-</code></pre>
-
-<p>%% @spec start() -> ok
-%% @doc Start the csd_core server.
-start() -></p>
-
-<pre><code>start_common(),
-application:start(csd_core).
-</code></pre>
-
-<p>%% @spec stop() -> ok
-%% @doc Stop the csd_core server.
-stop() -></p>
-
-<pre><code>Res = application:stop(csd_core),
-application:stop(pooler),
-application:stop(crypto),
-Res.
-</code></pre>
-
-<p>%% @private
-start_common() -></p>
-
-<pre><code>ensure_started(crypto),
-ensure_started(pooler).
-</code></pre>
-
-<p>{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>apps/csd_core/src/csd_core.erl  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="c">%% @author OJ Reeves &lt;a href=&quot;&amp;#109;&amp;#97;&amp;#105;&amp;#108;&amp;#116;&amp;#111;&amp;#x3a;&amp;#111;&amp;#106;&amp;#64;&amp;#x62;&amp;#x75;&amp;#x66;&amp;#102;&amp;#x65;&amp;#x72;&amp;#x65;&amp;#x64;&amp;#x2e;&amp;#x69;&amp;#111;&quot;&gt;&amp;#111;&amp;#x6a;&amp;#64;&amp;#x62;&amp;#117;&amp;#x66;&amp;#x66;&amp;#x65;&amp;#x72;&amp;#x65;&amp;#x64;&amp;#x2e;&amp;#x69;&amp;#111;&lt;/a&gt;</span>
+</span><span class='line'><span class="c">%% @copyright 2011 OJ Reeves&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="c">%% @doc csd_core startup code&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;-</span><span class="n">module</span><span class="p">(</span><span class="n">csd_core</span><span class="p">).</span>
+</span><span class='line'><span class="p">-</span><span class="ni">author</span><span class="p">(</span><span class="n">&#39;OJ Reeves &lt;a href=&quot;&amp;#x6d;&amp;#x61;&amp;#x69;&amp;#x6c;&amp;#x74;&amp;#111;&amp;#x3a;&amp;#x6f;&amp;#x6a;&amp;#x40;&amp;#98;&amp;#117;&amp;#x66;&amp;#102;&amp;#x65;&amp;#114;&amp;#101;&amp;#x64;&amp;#x2e;&amp;#105;&amp;#111;&quot;&gt;&amp;#x6f;&amp;#x6a;&amp;#64;&amp;#x62;&amp;#117;&amp;#x66;&amp;#102;&amp;#x65;&amp;#x72;&amp;#101;&amp;#x64;&amp;#46;&amp;#105;&amp;#111;&lt;/a&gt;&#39;</span><span class="p">).</span>
+</span><span class='line'><span class="p">-</span><span class="ni">export</span><span class="p">([</span><span class="n">start</span><span class="o">/</span><span class="mi">0</span><span class="p">,</span> <span class="n">start_link</span><span class="o">/</span><span class="mi">0</span><span class="p">,</span> <span class="n">stop</span><span class="o">/</span><span class="mi">0</span><span class="p">]).</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">ensure_started</span><span class="p">(</span><span class="nv">App</span><span class="p">)</span> <span class="o">-&gt;&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="k">case</span> <span class="nn">application</span><span class="p">:</span><span class="n">start</span><span class="p">(</span><span class="nv">App</span><span class="p">)</span> <span class="k">of</span>
+</span><span class='line'>    <span class="n">ok</span> <span class="o">-</span><span class="err">&amp;</span><span class="n">gt</span><span class="p">;</span>
+</span><span class='line'>        <span class="n">ok</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">{</span><span class="n">error</span><span class="p">,</span> <span class="p">{</span><span class="n">already_started</span><span class="p">,</span> <span class="nv">App</span><span class="p">}}</span> <span class="o">-</span><span class="err">&amp;</span><span class="n">gt</span><span class="p">;</span>
+</span><span class='line'>        <span class="n">ok</span>
+</span><span class='line'><span class="k">end</span><span class="p">.</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="c">%% @spec start_link() -&gt; {ok,Pid::pid()}</span>
+</span><span class='line'><span class="c">%% @doc Starts the app for inclusion in a supervisor tree</span>
+</span><span class='line'><span class="nf">start_link</span><span class="p">()</span> <span class="o">-&gt;&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">start_common</span><span class="p">(),</span>
+</span><span class='line'><span class="nn">csd_core_sup</span><span class="p">:</span><span class="n">start_link</span><span class="p">().</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="c">%% @spec start() -&gt; ok</span>
+</span><span class='line'><span class="c">%% @doc Start the csd_core server.</span>
+</span><span class='line'><span class="nf">start</span><span class="p">()</span> <span class="o">-&gt;&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">start_common</span><span class="p">(),</span>
+</span><span class='line'><span class="nn">application</span><span class="p">:</span><span class="n">start</span><span class="p">(</span><span class="n">csd_core</span><span class="p">).</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="c">%% @spec stop() -&gt; ok</span>
+</span><span class='line'><span class="c">%% @doc Stop the csd_core server.</span>
+</span><span class='line'><span class="nf">stop</span><span class="p">()</span> <span class="o">-&gt;&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="nv">Res</span> <span class="o">=</span> <span class="nn">application</span><span class="p">:</span><span class="n">stop</span><span class="p">(</span><span class="n">csd_core</span><span class="p">),</span>
+</span><span class='line'><span class="nn">application</span><span class="p">:</span><span class="n">stop</span><span class="p">(</span><span class="n">pooler</span><span class="p">),</span>
+</span><span class='line'><span class="nn">application</span><span class="p">:</span><span class="n">stop</span><span class="p">(</span><span class="n">crypto</span><span class="p">),</span>
+</span><span class='line'><span class="nv">Res</span><span class="p">.</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="c">%% @private</span>
+</span><span class='line'><span class="nf">start_common</span><span class="p">()</span> <span class="o">-&gt;&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">ensure_started</span><span class="p">(</span><span class="n">crypto</span><span class="p">),</span>
+</span><span class='line'><span class="nf">ensure_started</span><span class="p">(</span><span class="n">pooler</span><span class="p">).</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>This code will start and stop the <code>pooler</code> application along with our application. Exactly what we need!</p>
 
@@ -288,23 +398,38 @@ ensure_started(pooler).
 
 <p>Let's start by creating a new file:</p>
 
-<p>{% codeblock apps/csd_core/priv/app.config lang:erlang %}
-[
-  {pooler, [</p>
-
-<pre><code>  {pools, [
-      [
-        {name, "haproxy"},
-        {max_count, 30},
-        {init_count, 5},
-        {start_mfa, {riakc_pb_socket, start_link, ["127.0.0.1", 8080]}}
-      ]
-    ]}
-]}
-</code></pre>
-
-<p>].
-{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>apps/csd_core/priv/app.config  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="p">[</span>
+</span><span class='line'>  <span class="p">{</span><span class="n">pooler</span><span class="p">,</span> <span class="p">[</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span>  <span class="p">{</span><span class="n">pools</span><span class="p">,</span> <span class="p">[</span>
+</span><span class='line'>      <span class="p">[</span>
+</span><span class='line'>        <span class="p">{</span><span class="n">name</span><span class="p">,</span> <span class="s">&quot;haproxy&quot;</span><span class="p">},</span>
+</span><span class='line'>        <span class="p">{</span><span class="n">max_count</span><span class="p">,</span> <span class="mi">30</span><span class="p">},</span>
+</span><span class='line'>        <span class="p">{</span><span class="n">init_count</span><span class="p">,</span> <span class="mi">5</span><span class="p">},</span>
+</span><span class='line'>        <span class="p">{</span><span class="n">start_mfa</span><span class="p">,</span> <span class="p">{</span><span class="n">riakc_pb_socket</span><span class="p">,</span> <span class="n">start_link</span><span class="p">,</span> <span class="p">[</span><span class="s">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="mi">8080</span><span class="p">]}}</span>
+</span><span class='line'>      <span class="p">]</span>
+</span><span class='line'>    <span class="p">]}</span>
+</span><span class='line'><span class="p">]}</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">].</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p><code>pooler</code> is smart enough to pool connections across multiple nodes. This is quite a nifty feature, but not one that we're making use of because we have HAProxy in place. Therefore, the configuration above is telling Pooler to use just one single node/pool (ie. the proxy), to create 5 connections and to allow up to 30 to be created if required.</p>
 
@@ -312,133 +437,243 @@ ensure_started(pooler).
 
 <p>Next we modify our <code>Makefile</code> so that when we invoke <code>make webstart</code> the configuration is properly included:</p>
 
-<p>{% codeblock Makefile lang:bash %}
-.PHONY: deps</p>
-
-<p>REBAR=<code>which rebar || ./rebar</code></p>
-
-<p>all: deps compile</p>
-
-<p>compile:</p>
-
-<pre><code>@$(REBAR) compile
-</code></pre>
-
-<p>app:</p>
-
-<pre><code>@$(REBAR) compile skip_deps=true
-</code></pre>
-
-<p>deps:</p>
-
-<pre><code>@$(REBAR) get-deps
-</code></pre>
-
-<p>clean:</p>
-
-<pre><code>@$(REBAR) clean
-</code></pre>
-
-<p>distclean: clean</p>
-
-<pre><code>@$(REBAR) delete-deps
-</code></pre>
-
-<p>test: app</p>
-
-<pre><code>@$(REBAR) eunit skip_deps=true
-</code></pre>
-
-<p>webstart: app</p>
-
-<pre><code>exec erl -pa $(PWD)/apps/*/ebin -pa $(PWD)/deps/*/ebin -boot start_sasl -config $(PWD)/apps/csd_core/priv/app.config -s reloader -s csd_core -s csd_web
-</code></pre>
-
-<p>proxystart:</p>
-
-<pre><code>@haproxy -f dev.haproxy.conf
-</code></pre>
-
-<p>{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Makefile  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>.PHONY: deps&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;REBAR<span class="o">=</span>&lt;code&gt;which rebar <span class="o">||</span> ./rebar&lt;/code&gt;&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;all: deps compile&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;compile:&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;pre&gt;&lt;code&gt;@<span class="k">$(</span>REBAR<span class="k">)</span> compile
+</span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;app:&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;pre&gt;&lt;code&gt;@<span class="k">$(</span>REBAR<span class="k">)</span> compile <span class="nv">skip_deps</span><span class="o">=</span><span class="nb">true</span>
+</span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;deps:&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;pre&gt;&lt;code&gt;@<span class="k">$(</span>REBAR<span class="k">)</span> get-deps
+</span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;clean:&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;pre&gt;&lt;code&gt;@<span class="k">$(</span>REBAR<span class="k">)</span> clean
+</span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;distclean: clean&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;pre&gt;&lt;code&gt;@<span class="k">$(</span>REBAR<span class="k">)</span> delete-deps
+</span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;test: app&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;pre&gt;&lt;code&gt;@<span class="k">$(</span>REBAR<span class="k">)</span> eunit <span class="nv">skip_deps</span><span class="o">=</span><span class="nb">true</span>
+</span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;webstart: app&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;pre&gt;&lt;code&gt;exec erl -pa <span class="k">$(</span>PWD<span class="k">)</span>/apps/*/ebin -pa <span class="k">$(</span>PWD<span class="k">)</span>/deps/*/ebin -boot start_sasl -config <span class="k">$(</span>PWD<span class="k">)</span>/apps/csd_core/priv/app.config -s reloader -s csd_core -s csd_web
+</span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;proxystart:&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;pre&gt;&lt;code&gt;@haproxy -f dev.haproxy.conf
+</span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>At this point we are able to build and run the application just as we were before. The first thing you'll notice is that the HAProxy console immediately registers 5 new connections:</p>
 
-<p>{% codeblock lang:bash %}
-0000004:dbcluster.accept(0005)=0006 from [127.0.0.1:34536]
-00000005:dbcluster.accept(0005)=0008 from [127.0.0.1:58770]
-00000006:dbcluster.accept(0005)=000a from [127.0.0.1:44734]
-00000007:dbcluster.accept(0005)=000c from [127.0.0.1:33874]
-00000008:dbcluster.accept(0005)=000e from [127.0.0.1:35815]
-{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>0000004:dbcluster.accept<span class="o">(</span>0005<span class="o">)=</span>0006 from <span class="o">[</span>127.0.0.1:34536<span class="o">]</span>
+</span><span class='line'>00000005:dbcluster.accept<span class="o">(</span>0005<span class="o">)=</span>0008 from <span class="o">[</span>127.0.0.1:58770<span class="o">]</span>
+</span><span class='line'>00000006:dbcluster.accept<span class="o">(</span>0005<span class="o">)=</span>000a from <span class="o">[</span>127.0.0.1:44734<span class="o">]</span>
+</span><span class='line'>00000007:dbcluster.accept<span class="o">(</span>0005<span class="o">)=</span>000c from <span class="o">[</span>127.0.0.1:33874<span class="o">]</span>
+</span><span class='line'>00000008:dbcluster.accept<span class="o">(</span>0005<span class="o">)=</span>000e from <span class="o">[</span>127.0.0.1:35815<span class="o">]</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>This is evidence that <code>pooler</code> is doing its job and starting with 5 connections. Now that we have this in place, let's get rid of the old configuration:</p>
 
-<p>{% codeblock lang:bash %}
-oj@hitchens ~/code/csd $ rm apps/csd_core/src/csd_riak_config.erl
-{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>oj@hitchens ~/code/csd <span class="nv">$ </span>rm apps/csd_core/src/csd_riak_config.erl
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>That was easy! We now need to remove any references to this module, thankfully the only module that used was <code>csd_core_server.erl</code>, and that's the one we're going to fix up now. After removing references to the configuration, removing connection creation and replacing it with calls to <code>pooler</code>, <code>csd_core_server</code> now looks like this:</p>
 
-<p>{% codeblock apps/csd_core/src/csd_core_server.erl lang:erlang %}
--module(csd_core_server).
--behaviour(gen_server).
--define(SERVER, ?MODULE).</p>
-
-<p>%% ------------------------------------------------------------------
-%% API Function Exports
-%% ------------------------------------------------------------------</p>
-
-<p>-export([start_link/0, get_snippet/1, save_snippet/1]).</p>
-
-<p>%% ------------------------------------------------------------------
-%% gen_server Function Exports
-%% ------------------------------------------------------------------</p>
-
-<p>-export([init/1, handle_call/3, handle_cast/2, handle_info/2, terminate/2, code_change/3]).</p>
-
-<p>%% ------------------------------------------------------------------
-%% API Function Definitions
-%% ------------------------------------------------------------------</p>
-
-<p>start_link() ->
-  gen_server:start_link({local, ?SERVER}, ?MODULE, [], []).</p>
-
-<p>save_snippet(Snippet) ->
-  gen_server:call(?SERVER, {save_snippet, Snippet}, infinity).</p>
-
-<p>get_snippet(SnippetKey) ->
-  gen_server:call(?SERVER, {get_snippet, SnippetKey}, infinity).</p>
-
-<p>%% ------------------------------------------------------------------
-%% gen_server Function Definitions
-%% ------------------------------------------------------------------</p>
-
-<p>init([]) ->
-  {ok, undefined}.</p>
-
-<p>handle_call({save_snippet, Snippet}, _From, State) ->
-  SavedSnippet = pooler:use_member(fun(RiakPid) -> csd_snippet:save(RiakPid, Snippet) end),
-  {reply, SavedSnippet, State};</p>
-
-<p>handle_call({get_snippet, SnippetKey}, _From, State) ->
-  Snippet = pooler:use_member(fun(RiakPid) -> csd_snippet:fetch(RiakPid, SnippetKey) end),
-  {reply, Snippet, State};</p>
-
-<p>handle_call(<em>Request, </em>From, State) ->
-  {noreply, ok, State}.</p>
-
-<p>handle_cast(_Msg, State) ->
-  {noreply, State}.</p>
-
-<p>handle_info(_Info, State) ->
-  {noreply, State}.</p>
-
-<p>terminate(<em>Reason, </em>State) ->
-  ok.</p>
-
-<p>code_change(<em>OldVsn, State, </em>Extra) ->
-  {ok, State}.
-{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>apps/csd_core/src/csd_core_server.erl  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="p">-</span><span class="ni">module</span><span class="p">(</span><span class="n">csd_core_server</span><span class="p">).</span>
+</span><span class='line'><span class="p">-</span><span class="ni">behaviour</span><span class="p">(</span><span class="n">gen_server</span><span class="p">).</span>
+</span><span class='line'><span class="p">-</span><span class="ni">define</span><span class="p">(</span><span class="no">SERVER</span><span class="p">,</span> <span class="no">?MODULE</span><span class="p">).</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="c">%% ------------------------------------------------------------------</span>
+</span><span class='line'><span class="c">%% API Function Exports</span>
+</span><span class='line'><span class="c">%% ------------------------------------------------------------------&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;-</span><span class="n">export</span><span class="p">([</span><span class="n">start_link</span><span class="o">/</span><span class="mi">0</span><span class="p">,</span> <span class="n">get_snippet</span><span class="o">/</span><span class="mi">1</span><span class="p">,</span> <span class="n">save_snippet</span><span class="o">/</span><span class="mi">1</span><span class="p">]).</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="c">%% ------------------------------------------------------------------</span>
+</span><span class='line'><span class="c">%% gen_server Function Exports</span>
+</span><span class='line'><span class="c">%% ------------------------------------------------------------------&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;-</span><span class="n">export</span><span class="p">([</span><span class="n">init</span><span class="o">/</span><span class="mi">1</span><span class="p">,</span> <span class="n">handle_call</span><span class="o">/</span><span class="mi">3</span><span class="p">,</span> <span class="n">handle_cast</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">handle_info</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">terminate</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">code_change</span><span class="o">/</span><span class="mi">3</span><span class="p">]).</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="c">%% ------------------------------------------------------------------</span>
+</span><span class='line'><span class="c">%% API Function Definitions</span>
+</span><span class='line'><span class="c">%% ------------------------------------------------------------------&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">start_link</span><span class="p">()</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="nn">gen_server</span><span class="p">:</span><span class="n">start_link</span><span class="p">({</span><span class="n">local</span><span class="p">,</span> <span class="no">?SERVER</span><span class="p">},</span> <span class="no">?MODULE</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[]).</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">save_snippet</span><span class="p">(</span><span class="nv">Snippet</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="nn">gen_server</span><span class="p">:</span><span class="n">call</span><span class="p">(</span><span class="no">?SERVER</span><span class="p">,</span> <span class="p">{</span><span class="n">save_snippet</span><span class="p">,</span> <span class="nv">Snippet</span><span class="p">},</span> <span class="n">infinity</span><span class="p">).</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">get_snippet</span><span class="p">(</span><span class="nv">SnippetKey</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="nn">gen_server</span><span class="p">:</span><span class="n">call</span><span class="p">(</span><span class="no">?SERVER</span><span class="p">,</span> <span class="p">{</span><span class="n">get_snippet</span><span class="p">,</span> <span class="nv">SnippetKey</span><span class="p">},</span> <span class="n">infinity</span><span class="p">).</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="c">%% ------------------------------------------------------------------</span>
+</span><span class='line'><span class="c">%% gen_server Function Definitions</span>
+</span><span class='line'><span class="c">%% ------------------------------------------------------------------&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">init</span><span class="p">([])</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="p">{</span><span class="n">ok</span><span class="p">,</span> <span class="n">undefined</span><span class="p">}.</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">handle_call</span><span class="p">({</span><span class="n">save_snippet</span><span class="p">,</span> <span class="nv">Snippet</span><span class="p">},</span> <span class="p">_</span><span class="nv">From</span><span class="p">,</span> <span class="nv">State</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="nv">SavedSnippet</span> <span class="o">=</span> <span class="nn">pooler</span><span class="p">:</span><span class="n">use_member</span><span class="p">(</span><span class="k">fun</span><span class="p">(</span><span class="nv">RiakPid</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nn">csd_snippet</span><span class="p">:</span><span class="n">save</span><span class="p">(</span><span class="nv">RiakPid</span><span class="p">,</span> <span class="nv">Snippet</span><span class="p">)</span> <span class="k">end</span><span class="p">),</span>
+</span><span class='line'>  <span class="p">{</span><span class="n">reply</span><span class="p">,</span> <span class="nv">SavedSnippet</span><span class="p">,</span> <span class="nv">State</span><span class="p">};</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">handle_call</span><span class="p">({</span><span class="n">get_snippet</span><span class="p">,</span> <span class="nv">SnippetKey</span><span class="p">},</span> <span class="p">_</span><span class="nv">From</span><span class="p">,</span> <span class="nv">State</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="nv">Snippet</span> <span class="o">=</span> <span class="nn">pooler</span><span class="p">:</span><span class="n">use_member</span><span class="p">(</span><span class="k">fun</span><span class="p">(</span><span class="nv">RiakPid</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nn">csd_snippet</span><span class="p">:</span><span class="n">fetch</span><span class="p">(</span><span class="nv">RiakPid</span><span class="p">,</span> <span class="nv">SnippetKey</span><span class="p">)</span> <span class="k">end</span><span class="p">),</span>
+</span><span class='line'>  <span class="p">{</span><span class="n">reply</span><span class="p">,</span> <span class="nv">Snippet</span><span class="p">,</span> <span class="nv">State</span><span class="p">};</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">handle_call</span><span class="p">(</span><span class="o">&lt;</span><span class="n">em</span><span class="o">&gt;</span><span class="nv">Request</span><span class="p">,</span> <span class="o">&lt;/</span><span class="n">em</span><span class="o">&gt;</span><span class="nv">From</span><span class="p">,</span> <span class="nv">State</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="p">{</span><span class="n">noreply</span><span class="p">,</span> <span class="n">ok</span><span class="p">,</span> <span class="nv">State</span><span class="p">}.</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">handle_cast</span><span class="p">(_</span><span class="nv">Msg</span><span class="p">,</span> <span class="nv">State</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="p">{</span><span class="n">noreply</span><span class="p">,</span> <span class="nv">State</span><span class="p">}.</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">handle_info</span><span class="p">(_</span><span class="nv">Info</span><span class="p">,</span> <span class="nv">State</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="p">{</span><span class="n">noreply</span><span class="p">,</span> <span class="nv">State</span><span class="p">}.</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">terminate</span><span class="p">(</span><span class="o">&lt;</span><span class="n">em</span><span class="o">&gt;</span><span class="nv">Reason</span><span class="p">,</span> <span class="o">&lt;/</span><span class="n">em</span><span class="o">&gt;</span><span class="nv">State</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="n">ok</span><span class="p">.</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">code_change</span><span class="p">(</span><span class="o">&lt;</span><span class="n">em</span><span class="o">&gt;</span><span class="nv">OldVsn</span><span class="p">,</span> <span class="nv">State</span><span class="p">,</span> <span class="o">&lt;/</span><span class="n">em</span><span class="o">&gt;</span><span class="nv">Extra</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="p">{</span><span class="n">ok</span><span class="p">,</span> <span class="nv">State</span><span class="p">}.</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>Here you can see we're making use of the <a href="https://github.com/OJ/pooler/blob/master/src/pooler.erl#L125" title="use_member">pooler:use_member</a> function to easily wrap up the management of the connection's usage lifetime. All traces of the old configuration are gone. We can now rebuild the application using <code>make</code>, fire it up using <code>make webstart</code> and hit the <a href="http://127.0.0.1/snippet/B41kUQ==">same page</a> as before resulting in the same content appearing on screen.</p>
 
@@ -455,43 +690,78 @@ oj@hitchens ~/code/csd $ rm apps/csd_core/src/csd_riak_config.erl
 
 <p>Now let's edit it so that it takes the appropriate format:</p>
 
-<p>{% codeblock apps/csd_web/priv/app.config lang:erlang %}
-%%-<em>- mode: erlang -</em>-
-[
-  {sasl,</p>
-
-<pre><code>[
-  {sasl_error_logger, {file, "log/sasl-error.log"}},
-  {errlog_type, error},
-  {error_logger_mf_dir, "log/sasl"},      % Log directory
-  {error_logger_mf_maxbytes, 10485760},   % 10 MB max file size
-  {error_logger_mf_maxfiles, 5}           % 5 files max
-]
-</code></pre>
-
-<p>  },
-  {csd_web,</p>
-
-<pre><code>[
-  {web,
-    [
-      {ip, "0.0.0.0"},
-      {port, 8000},
-      {log_dir, "priv/log"},
-      {dispatch,
-        [
-          {[], csd_web_resource, []},
-          {["snippet", key], csd_web_snippet_resource, []}
-        ]
-      }
-    ]
-  }
-]
-</code></pre>
-
-<p>  }
-].
-{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>apps/csd_web/priv/app.config  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="c">%%-&lt;em&gt;- mode: erlang -&lt;/em&gt;-</span>
+</span><span class='line'><span class="p">[</span>
+</span><span class='line'>  <span class="p">{</span><span class="n">sasl</span><span class="p">,</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="p">[</span>
+</span><span class='line'>  <span class="p">{</span><span class="n">sasl_error_logger</span><span class="p">,</span> <span class="p">{</span><span class="n">file</span><span class="p">,</span> <span class="s">&quot;log/sasl-error.log&quot;</span><span class="p">}},</span>
+</span><span class='line'>  <span class="p">{</span><span class="n">errlog_type</span><span class="p">,</span> <span class="n">error</span><span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span><span class="n">error_logger_mf_dir</span><span class="p">,</span> <span class="s">&quot;log/sasl&quot;</span><span class="p">},</span>      <span class="c">% Log directory</span>
+</span><span class='line'>  <span class="p">{</span><span class="n">error_logger_mf_maxbytes</span><span class="p">,</span> <span class="mi">10485760</span><span class="p">},</span>   <span class="c">% 10 MB max file size</span>
+</span><span class='line'>  <span class="p">{</span><span class="n">error_logger_mf_maxfiles</span><span class="p">,</span> <span class="mi">5</span><span class="p">}</span>           <span class="c">% 5 files max</span>
+</span><span class='line'><span class="p">]</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span><span class="n">csd_web</span><span class="p">,</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="p">[</span>
+</span><span class='line'>  <span class="p">{</span><span class="n">web</span><span class="p">,</span>
+</span><span class='line'>    <span class="p">[</span>
+</span><span class='line'>      <span class="p">{</span><span class="n">ip</span><span class="p">,</span> <span class="s">&quot;0.0.0.0&quot;</span><span class="p">},</span>
+</span><span class='line'>      <span class="p">{</span><span class="n">port</span><span class="p">,</span> <span class="mi">8000</span><span class="p">},</span>
+</span><span class='line'>      <span class="p">{</span><span class="n">log_dir</span><span class="p">,</span> <span class="s">&quot;priv/log&quot;</span><span class="p">},</span>
+</span><span class='line'>      <span class="p">{</span><span class="n">dispatch</span><span class="p">,</span>
+</span><span class='line'>        <span class="p">[</span>
+</span><span class='line'>          <span class="p">{[],</span> <span class="n">csd_web_resource</span><span class="p">,</span> <span class="p">[]},</span>
+</span><span class='line'>          <span class="p">{[</span><span class="s">&quot;snippet&quot;</span><span class="p">,</span> <span class="n">key</span><span class="p">],</span> <span class="n">csd_web_snippet_resource</span><span class="p">,</span> <span class="p">[]}</span>
+</span><span class='line'>        <span class="p">]</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>    <span class="p">]</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">]</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="p">}</span>
+</span><span class='line'><span class="p">].</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>A few things to note here:</p>
 
@@ -504,69 +774,122 @@ oj@hitchens ~/code/csd $ rm apps/csd_core/src/csd_riak_config.erl
 
 <p>At this point we need to go and fiddle with the way Webmachine loads its configuration so that it picks up these details. We'll start by defining a helper which will make it easy to get access to configuration for the <code>csd_web</code> application.</p>
 
-<p>{% codeblock apps/csd_web/src/conf.erl lang:erlang %}
--module(conf).</p>
-
-<p>-export([get_section/1, get_section/2]).
--export([get_val/2, get_val/3]).</p>
-
-<p>get_section(Name) ->
-  get_section(Name, undefined).</p>
-
-<p>get_section(Name, Default) ->
-  case application:get_env(csd_web, Name) of</p>
-
-<pre><code>{ok, V} -&gt;
-  V;
-_ -&gt;
-  Default
-</code></pre>
-
-<p>  end.</p>
-
-<p>get_val(SectionName, Name) ->
-  get_val(SectionName, Name, undefined).</p>
-
-<p>get_val(SectionName, Name, Default) ->
-  case application:get_env(csd_web, SectionName) of</p>
-
-<pre><code>{ok, Section} -&gt;
-  proplists:get_value(Name, Section, Default);
-_ -&gt;
-  Default
-</code></pre>
-
-<p>  end.
-{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>apps/csd_web/src/conf.erl  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="p">-</span><span class="ni">module</span><span class="p">(</span><span class="n">conf</span><span class="p">).</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;-</span><span class="n">export</span><span class="p">([</span><span class="n">get_section</span><span class="o">/</span><span class="mi">1</span><span class="p">,</span> <span class="n">get_section</span><span class="o">/</span><span class="mi">2</span><span class="p">]).</span>
+</span><span class='line'><span class="p">-</span><span class="ni">export</span><span class="p">([</span><span class="n">get_val</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">get_val</span><span class="o">/</span><span class="mi">3</span><span class="p">]).</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">get_section</span><span class="p">(</span><span class="nv">Name</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="n">get_section</span><span class="p">(</span><span class="nv">Name</span><span class="p">,</span> <span class="n">undefined</span><span class="p">).</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">get_section</span><span class="p">(</span><span class="nv">Name</span><span class="p">,</span> <span class="nv">Default</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="k">case</span> <span class="nn">application</span><span class="p">:</span><span class="n">get_env</span><span class="p">(</span><span class="n">csd_web</span><span class="p">,</span> <span class="nv">Name</span><span class="p">)</span> <span class="k">of</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="p">{</span><span class="n">ok</span><span class="p">,</span> <span class="nv">V</span><span class="p">}</span> <span class="o">-</span><span class="err">&amp;</span><span class="n">gt</span><span class="p">;</span>
+</span><span class='line'>  <span class="nv">V</span><span class="p">;</span>
+</span><span class='line'><span class="p">_</span> <span class="o">-</span><span class="err">&amp;</span><span class="n">gt</span><span class="p">;</span>
+</span><span class='line'>  <span class="nv">Default</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="k">end</span><span class="p">.</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">get_val</span><span class="p">(</span><span class="nv">SectionName</span><span class="p">,</span> <span class="nv">Name</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="n">get_val</span><span class="p">(</span><span class="nv">SectionName</span><span class="p">,</span> <span class="nv">Name</span><span class="p">,</span> <span class="n">undefined</span><span class="p">).</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">get_val</span><span class="p">(</span><span class="nv">SectionName</span><span class="p">,</span> <span class="nv">Name</span><span class="p">,</span> <span class="nv">Default</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="k">case</span> <span class="nn">application</span><span class="p">:</span><span class="n">get_env</span><span class="p">(</span><span class="n">csd_web</span><span class="p">,</span> <span class="nv">SectionName</span><span class="p">)</span> <span class="k">of</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="p">{</span><span class="n">ok</span><span class="p">,</span> <span class="nv">Section</span><span class="p">}</span> <span class="o">-</span><span class="err">&amp;</span><span class="n">gt</span><span class="p">;</span>
+</span><span class='line'>  <span class="nn">proplists</span><span class="p">:</span><span class="n">get_value</span><span class="p">(</span><span class="nv">Name</span><span class="p">,</span> <span class="nv">Section</span><span class="p">,</span> <span class="nv">Default</span><span class="p">);</span>
+</span><span class='line'><span class="p">_</span> <span class="o">-</span><span class="err">&amp;</span><span class="n">gt</span><span class="p">;</span>
+</span><span class='line'>  <span class="nv">Default</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="k">end</span><span class="p">.</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>Configuration helpers are now in place, let's fix the Webmachine loader in <code>csd_web_sup.erl</code>.</p>
 
-<p>{% codeblock apps/csd_web/src/csd_web_sup.erl (partial) lang:erlang %}
-% ... snip ... %
-%% @spec init([]) -> SupervisorTree
-%% @doc supervisor callback.
-init([]) ->
-  WebConfig = conf:get_section(web),
-  Web = {webmachine_mochiweb,</p>
-
-<pre><code>{webmachine_mochiweb, start, [WebConfig]},
-permanent, 5000, worker, dynamic},
-</code></pre>
-
-<p>  Processes = [Web],
-  {ok, { {one_for_one, 10, 10}, Processes} }.
-% ... snip ... %
-{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>apps/csd_web/src/csd_web_sup.erl (partial)  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="c">% ... snip ... %</span>
+</span><span class='line'><span class="c">%% @spec init([]) -&gt; SupervisorTree</span>
+</span><span class='line'><span class="c">%% @doc supervisor callback.</span>
+</span><span class='line'><span class="nf">init</span><span class="p">([])</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="nv">WebConfig</span> <span class="o">=</span> <span class="nn">conf</span><span class="p">:</span><span class="n">get_section</span><span class="p">(</span><span class="n">web</span><span class="p">),</span>
+</span><span class='line'>  <span class="nv">Web</span> <span class="o">=</span> <span class="p">{</span><span class="n">webmachine_mochiweb</span><span class="p">,</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="p">{</span><span class="n">webmachine_mochiweb</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="p">[</span><span class="nv">WebConfig</span><span class="p">]},</span>
+</span><span class='line'><span class="n">permanent</span><span class="p">,</span> <span class="mi">5000</span><span class="p">,</span> <span class="n">worker</span><span class="p">,</span> <span class="n">dynamic</span><span class="p">},</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="nv">Processes</span> <span class="o">=</span> <span class="p">[</span><span class="nv">Web</span><span class="p">],</span>
+</span><span class='line'>  <span class="p">{</span><span class="n">ok</span><span class="p">,</span> <span class="p">{</span> <span class="p">{</span><span class="n">one_for_one</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">},</span> <span class="nv">Processes</span><span class="p">}</span> <span class="p">}.</span>
+</span><span class='line'><span class="c">% ... snip ... %</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>This little snippet delegates the responsibility of all Webmachine-related stuff to the <code>app.config</code> file. Let's include this in our <code>Makefile</code> when we start our application.</p>
 
-<p>{% codeblock Makefile (partial) lang:bash %}
-webstart: app</p>
-
-<pre><code>exec erl -pa $(PWD)/apps/*/ebin -pa $(PWD)/deps/*/ebin -boot start_sasl -config $(PWD)/apps/csd_web/priv/app.config -config $(PWD)/apps/csd_core/priv/app.config -s reloader -s csd_core -s csd_web
-</code></pre>
-
-<p>{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Makefile (partial)  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>webstart: app&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;pre&gt;&lt;code&gt;exec erl -pa <span class="k">$(</span>PWD<span class="k">)</span>/apps/*/ebin -pa <span class="k">$(</span>PWD<span class="k">)</span>/deps/*/ebin -boot start_sasl -config <span class="k">$(</span>PWD<span class="k">)</span>/apps/csd_web/priv/app.config -config <span class="k">$(</span>PWD<span class="k">)</span>/apps/csd_core/priv/app.config -s reloader -s csd_core -s csd_web
+</span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>All we've done here is add another <code>-config</code> parameter and pointed it at the new <code>app.config</code> file in the <code>csd_web/src</code> folder. Fire up the application and it <em>should</em> behave exactly as it did before.</p>
 
@@ -602,28 +925,48 @@ webstart: app</p>
 
 <p>Once you're registered, we're ready to take the OAuth configuration information from Twitter and plug it into our own configuration. Re-open <code>csd_web/priv/app.config</code> and create a new section called <code>twitter</code> under the <code>csd_web</code> section and add the following</p>
 
-<p>{% codeblock apps/csd_web/priv/app.config (partial) lang:erlang %}
-% ... snip ... %
-  {csd_web,</p>
-
-<pre><code>[
-  % ... snip ... %
-  {twitter,
-    [
-      {consumer_key, "&lt; your application's key goes here &gt;"},
-      {consumer_secret, "&lt; your application's secret goes here &gt;"},
-      {request_token_url, "https://twitter.com/oauth/request_token"},
-      {access_token_url, "https://twitter.com/oauth/access_token"},
-      {authenticate_url, "https://twitter.com/oauth/authenticate"},
-      {current_user_info_url, "https://twitter.com/account/verify_credentials.json"}
-    ]
-  }
-]
-</code></pre>
-
-<p>  }
-% ... snip ... %
-{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>apps/csd_web/priv/app.config (partial)  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="c">% ... snip ... %</span>
+</span><span class='line'>  <span class="p">{</span><span class="n">csd_web</span><span class="p">,</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="p">[</span>
+</span><span class='line'>  <span class="c">% ... snip ... %</span>
+</span><span class='line'>  <span class="p">{</span><span class="n">twitter</span><span class="p">,</span>
+</span><span class='line'>    <span class="p">[</span>
+</span><span class='line'>      <span class="p">{</span><span class="n">consumer_key</span><span class="p">,</span> <span class="s">&quot;&amp;lt; your application&#39;s key goes here &amp;gt;&quot;</span><span class="p">},</span>
+</span><span class='line'>      <span class="p">{</span><span class="n">consumer_secret</span><span class="p">,</span> <span class="s">&quot;&amp;lt; your application&#39;s secret goes here &amp;gt;&quot;</span><span class="p">},</span>
+</span><span class='line'>      <span class="p">{</span><span class="n">request_token_url</span><span class="p">,</span> <span class="s">&quot;https://twitter.com/oauth/request_token&quot;</span><span class="p">},</span>
+</span><span class='line'>      <span class="p">{</span><span class="n">access_token_url</span><span class="p">,</span> <span class="s">&quot;https://twitter.com/oauth/access_token&quot;</span><span class="p">},</span>
+</span><span class='line'>      <span class="p">{</span><span class="n">authenticate_url</span><span class="p">,</span> <span class="s">&quot;https://twitter.com/oauth/authenticate&quot;</span><span class="p">},</span>
+</span><span class='line'>      <span class="p">{</span><span class="n">current_user_info_url</span><span class="p">,</span> <span class="s">&quot;https://twitter.com/account/verify_credentials.json&quot;</span><span class="p">}</span>
+</span><span class='line'>    <span class="p">]</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">]</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="p">}</span>
+</span><span class='line'><span class="c">% ... snip ... %</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>The first two values come straight from Twitter and would have been given to you upon registering your application. The rest are URLs that we'll be using later on when doing the OAuth handshake.</p>
 
@@ -637,127 +980,240 @@ webstart: app</p>
 
 <p><a href="https://github.com/tim/erlang-oauth" title="erlang-oauth">erlang-oauth</a> is an Erlang application which makes it easy to deal with OAuth requests and is ideal for what we need to do. Given that it will be a dependency on our application we need it to work nicely with rebar. Out of the box this isn't the case, so I have made a <a href="https://github.com/OJ/erlang-oauth/tree/rebarise" title="erlang-oauth rebar fork">fork</a> with a topic branch that has rebar-friendliness in it. We'll use this fork and branch in our application.</p>
 
-<p>{% codeblock apps/csd_web/rebar.config lang:erlang %}
-%%-<em>- mode: erlang -</em>-
-{deps,
-  [</p>
-
-<pre><code>{oauth, ".*", {git, "git://github.com/OJ/erlang-oauth", {branch, "rebarise"}}},
-{webmachine, ".*", {git, "git://github.com/basho/webmachine", "HEAD"}},
-{erlydtl, ".*", {git, "git://github.com/OJ/erlydtl.git", "HEAD"}}
-</code></pre>
-
-<p>  ]
-}.
-{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>apps/csd_web/rebar.config  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="c">%%-&lt;em&gt;- mode: erlang -&lt;/em&gt;-</span>
+</span><span class='line'><span class="p">{</span><span class="n">deps</span><span class="p">,</span>
+</span><span class='line'>  <span class="p">[</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="p">{</span><span class="n">oauth</span><span class="p">,</span> <span class="s">&quot;.*&quot;</span><span class="p">,</span> <span class="p">{</span><span class="n">git</span><span class="p">,</span> <span class="s">&quot;git://github.com/OJ/erlang-oauth&quot;</span><span class="p">,</span> <span class="p">{</span><span class="n">branch</span><span class="p">,</span> <span class="s">&quot;rebarise&quot;</span><span class="p">}}},</span>
+</span><span class='line'><span class="p">{</span><span class="n">webmachine</span><span class="p">,</span> <span class="s">&quot;.*&quot;</span><span class="p">,</span> <span class="p">{</span><span class="n">git</span><span class="p">,</span> <span class="s">&quot;git://github.com/basho/webmachine&quot;</span><span class="p">,</span> <span class="s">&quot;HEAD&quot;</span><span class="p">}},</span>
+</span><span class='line'><span class="p">{</span><span class="n">erlydtl</span><span class="p">,</span> <span class="s">&quot;.*&quot;</span><span class="p">,</span> <span class="p">{</span><span class="n">git</span><span class="p">,</span> <span class="s">&quot;git://github.com/OJ/erlydtl.git&quot;</span><span class="p">,</span> <span class="s">&quot;HEAD&quot;</span><span class="p">}}</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="p">]</span>
+</span><span class='line'><span class="p">}.</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>The <code>erlang-oauth</code> application requires <code>ssl</code> and <code>public_key</code> applications to be running for it to function properly, so we need to kick those applications off during start-up. We can do that by editing <code>csd_web.erl</code> like so:</p>
 
-<p>{% codeblock apps/csd_web/src/csd_web.erl lang:erlang %}</p>
-
-<p>%% @author OJ Reeves <a href="&#109;&#97;&#105;&#x6c;&#x74;&#x6f;&#58;&#111;&#106;&#x40;&#x62;&#117;&#102;&#102;&#101;&#x72;&#101;&#100;&#46;&#x69;&#111;">&#111;&#x6a;&#64;&#98;&#117;&#x66;&#x66;&#101;&#x72;&#x65;&#100;&#x2e;&#105;&#x6f;</a>
-%% @copyright 2012 OJ Reeves.</p>
-
-<p>%% @doc csd_web startup code</p>
-
-<p>-module(csd_web).
--author('OJ Reeves <a href="&#109;&#x61;&#x69;&#108;&#x74;&#111;&#x3a;&#x6f;&#x6a;&#x40;&#98;&#117;&#102;&#102;&#101;&#x72;&#x65;&#100;&#46;&#x69;&#111;">&#111;&#106;&#x40;&#98;&#x75;&#102;&#x66;&#101;&#114;&#101;&#x64;&#46;&#105;&#x6f;</a>').
--export([start/0, start_link/0, stop/0]).</p>
-
-<p>ensure_started(App) ->
-  case application:start(App) of</p>
-
-<pre><code>ok -&gt;
-  ok;
-{error, {already_started, App}} -&gt;
-  ok
-</code></pre>
-
-<p>  end.</p>
-
-<p>%% @spec start_link() -> {ok,Pid::pid()}
-%% @doc Starts the app for inclusion in a supervisor tree
-start_link() ->
-  start_common(),
-  csd_web_sup:start_link().</p>
-
-<p>%% @spec start() -> ok
-%% @doc Start the csd_web server.
-start() ->
-  start_common(),
-  application:start(csd_web).</p>
-
-<p>%% @spec stop() -> ok
-%% @doc Stop the csd_web server.
-stop() ->
-  Res = application:stop(csd_web),
-  application:stop(webmachine),
-  application:stop(mochiweb),
-  application:stop(public_key), % stop new dependency
-  application:stop(ssl),        % stop new dependency
-  application:stop(crypto),
-  application:stop(inets),
-  Res.</p>
-
-<p>start_common() ->
-  ensure_started(inets),
-  ensure_started(crypto),
-  ensure_started(public_key), % start new dependency
-  ensure_started(ssl),        % start new dependency
-  ensure_started(mochiweb),
-  application:set_env(webmachine, webmachine_logger_module, webmachine_logger),
-  ensure_started(webmachine),
-  ok.
-{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>apps/csd_web/src/csd_web.erl  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="c">%% @author OJ Reeves &lt;a href=&quot;&amp;#109;&amp;#97;&amp;#x69;&amp;#x6c;&amp;#x74;&amp;#x6f;&amp;#x3a;&amp;#x6f;&amp;#106;&amp;#x40;&amp;#98;&amp;#117;&amp;#x66;&amp;#x66;&amp;#101;&amp;#x72;&amp;#101;&amp;#x64;&amp;#46;&amp;#105;&amp;#111;&quot;&gt;&amp;#111;&amp;#x6a;&amp;#x40;&amp;#98;&amp;#117;&amp;#x66;&amp;#x66;&amp;#x65;&amp;#x72;&amp;#x65;&amp;#x64;&amp;#x2e;&amp;#x69;&amp;#111;&lt;/a&gt;</span>
+</span><span class='line'><span class="c">%% @copyright 2012 OJ Reeves.&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="c">%% @doc csd_web startup code&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;-</span><span class="n">module</span><span class="p">(</span><span class="n">csd_web</span><span class="p">).</span>
+</span><span class='line'><span class="p">-</span><span class="ni">author</span><span class="p">(</span><span class="n">&#39;OJ Reeves &lt;a href=&quot;&amp;#109;&amp;#97;&amp;#x69;&amp;#x6c;&amp;#116;&amp;#x6f;&amp;#x3a;&amp;#111;&amp;#106;&amp;#x40;&amp;#98;&amp;#117;&amp;#x66;&amp;#102;&amp;#101;&amp;#x72;&amp;#101;&amp;#x64;&amp;#46;&amp;#x69;&amp;#x6f;&quot;&gt;&amp;#x6f;&amp;#x6a;&amp;#64;&amp;#98;&amp;#117;&amp;#x66;&amp;#x66;&amp;#101;&amp;#114;&amp;#x65;&amp;#100;&amp;#46;&amp;#105;&amp;#111;&lt;/a&gt;&#39;</span><span class="p">).</span>
+</span><span class='line'><span class="p">-</span><span class="ni">export</span><span class="p">([</span><span class="n">start</span><span class="o">/</span><span class="mi">0</span><span class="p">,</span> <span class="n">start_link</span><span class="o">/</span><span class="mi">0</span><span class="p">,</span> <span class="n">stop</span><span class="o">/</span><span class="mi">0</span><span class="p">]).</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">ensure_started</span><span class="p">(</span><span class="nv">App</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="k">case</span> <span class="nn">application</span><span class="p">:</span><span class="n">start</span><span class="p">(</span><span class="nv">App</span><span class="p">)</span> <span class="k">of</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">ok</span> <span class="o">-</span><span class="err">&amp;</span><span class="n">gt</span><span class="p">;</span>
+</span><span class='line'>  <span class="n">ok</span><span class="p">;</span>
+</span><span class='line'><span class="p">{</span><span class="n">error</span><span class="p">,</span> <span class="p">{</span><span class="n">already_started</span><span class="p">,</span> <span class="nv">App</span><span class="p">}}</span> <span class="o">-</span><span class="err">&amp;</span><span class="n">gt</span><span class="p">;</span>
+</span><span class='line'>  <span class="n">ok</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="k">end</span><span class="p">.</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="c">%% @spec start_link() -&gt; {ok,Pid::pid()}</span>
+</span><span class='line'><span class="c">%% @doc Starts the app for inclusion in a supervisor tree</span>
+</span><span class='line'><span class="nf">start_link</span><span class="p">()</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="n">start_common</span><span class="p">(),</span>
+</span><span class='line'>  <span class="nn">csd_web_sup</span><span class="p">:</span><span class="n">start_link</span><span class="p">().</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="c">%% @spec start() -&gt; ok</span>
+</span><span class='line'><span class="c">%% @doc Start the csd_web server.</span>
+</span><span class='line'><span class="nf">start</span><span class="p">()</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="n">start_common</span><span class="p">(),</span>
+</span><span class='line'>  <span class="nn">application</span><span class="p">:</span><span class="n">start</span><span class="p">(</span><span class="n">csd_web</span><span class="p">).</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="c">%% @spec stop() -&gt; ok</span>
+</span><span class='line'><span class="c">%% @doc Stop the csd_web server.</span>
+</span><span class='line'><span class="nf">stop</span><span class="p">()</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="nv">Res</span> <span class="o">=</span> <span class="nn">application</span><span class="p">:</span><span class="n">stop</span><span class="p">(</span><span class="n">csd_web</span><span class="p">),</span>
+</span><span class='line'>  <span class="nn">application</span><span class="p">:</span><span class="n">stop</span><span class="p">(</span><span class="n">webmachine</span><span class="p">),</span>
+</span><span class='line'>  <span class="nn">application</span><span class="p">:</span><span class="n">stop</span><span class="p">(</span><span class="n">mochiweb</span><span class="p">),</span>
+</span><span class='line'>  <span class="nn">application</span><span class="p">:</span><span class="n">stop</span><span class="p">(</span><span class="n">public_key</span><span class="p">),</span> <span class="c">% stop new dependency</span>
+</span><span class='line'>  <span class="nn">application</span><span class="p">:</span><span class="n">stop</span><span class="p">(</span><span class="n">ssl</span><span class="p">),</span>        <span class="c">% stop new dependency</span>
+</span><span class='line'>  <span class="nn">application</span><span class="p">:</span><span class="n">stop</span><span class="p">(</span><span class="n">crypto</span><span class="p">),</span>
+</span><span class='line'>  <span class="nn">application</span><span class="p">:</span><span class="n">stop</span><span class="p">(</span><span class="n">inets</span><span class="p">),</span>
+</span><span class='line'>  <span class="nv">Res</span><span class="p">.</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">start_common</span><span class="p">()</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="n">ensure_started</span><span class="p">(</span><span class="n">inets</span><span class="p">),</span>
+</span><span class='line'>  <span class="n">ensure_started</span><span class="p">(</span><span class="n">crypto</span><span class="p">),</span>
+</span><span class='line'>  <span class="n">ensure_started</span><span class="p">(</span><span class="n">public_key</span><span class="p">),</span> <span class="c">% start new dependency</span>
+</span><span class='line'>  <span class="n">ensure_started</span><span class="p">(</span><span class="n">ssl</span><span class="p">),</span>        <span class="c">% start new dependency</span>
+</span><span class='line'>  <span class="n">ensure_started</span><span class="p">(</span><span class="n">mochiweb</span><span class="p">),</span>
+</span><span class='line'>  <span class="nn">application</span><span class="p">:</span><span class="n">set_env</span><span class="p">(</span><span class="n">webmachine</span><span class="p">,</span> <span class="n">webmachine_logger_module</span><span class="p">,</span> <span class="n">webmachine_logger</span><span class="p">),</span>
+</span><span class='line'>  <span class="n">ensure_started</span><span class="p">(</span><span class="n">webmachine</span><span class="p">),</span>
+</span><span class='line'>  <span class="n">ok</span><span class="p">.</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>Interacting with Twitter now becomes quite simple. To handle talking to Twitter we'll create a new module, called <code>twitter.erl</code>, that does the dirty work. Let's take a look at the code then we'll walk through it.</p>
 
-<p>{% codeblock apps/csd_web/src/twitter.erl lang:erlang %}</p>
-
-<p>%% @author OJ Reeves <a href="&#x6d;&#97;&#x69;&#x6c;&#x74;&#111;&#x3a;&#x6f;&#106;&#x40;&#x62;&#x75;&#102;&#x66;&#x65;&#x72;&#x65;&#x64;&#x2e;&#105;&#111;">&#111;&#x6a;&#x40;&#x62;&#x75;&#x66;&#102;&#x65;&#x72;&#x65;&#x64;&#46;&#105;&#111;</a>
-%% @copyright 2012 OJ Reeves</p>
-
-<p>-module(twitter).</p>
-
-<p>-author('OJ Reeves <a href="&#x6d;&#x61;&#x69;&#x6c;&#x74;&#111;&#58;&#x6f;&#x6a;&#64;&#98;&#117;&#x66;&#102;&#101;&#114;&#101;&#100;&#x2e;&#x69;&#x6f;">&#111;&#106;&#x40;&#98;&#117;&#x66;&#x66;&#101;&#x72;&#x65;&#x64;&#46;&#105;&#111;</a>').</p>
-
-<p>-export([request_access/0, verify_access/3, get_current_user_info/2]).</p>
-
-<p>request_access() ->
-  TwitterConf = conf:get_section(twitter),
-  RequestTokenUrl = proplists:get_value(request_token_url, TwitterConf),
-  {ok, RequestResponse} = oauth:get(RequestTokenUrl, [], consumer(TwitterConf)),
-  RequestParams = oauth:params_decode(RequestResponse),
-  RequestToken = oauth:token(RequestParams),
-  AuthenticateUrl = proplists:get_value(authenticate_url, TwitterConf),
-  {ok, oauth:uri(AuthenticateUrl, [{"oauth_token", RequestToken}])}.</p>
-
-<p>verify_access(RequestToken, RequestTokenSecret, Verifier) ->
-  TwitterConf = conf:get_section(twitter),
-  AccessTokenUrl = proplists:get_value(access_token_url, TwitterConf),
-  {ok, AccessResponse} = oauth:get(AccessTokenUrl, [{"oauth_verifier", Verifier}], consumer(TwitterConf), RequestToken, RequestTokenSecret),
-  AccessParams = oauth:params_decode(AccessResponse),
-  AccessToken = oauth:token(AccessParams),
-  AccessTokenSecret = oauth:token_secret(AccessParams),
-  {ok, AccessToken, AccessTokenSecret}.</p>
-
-<p>get_current_user_info(AccessToken, AccessTokenSecret) ->
-  call_json_service(current_user_info_url, AccessToken, AccessTokenSecret).</p>
-
-<p>% Extract a oauth-formatted consumer tuple from the given Twitter configuration.
-consumer(TwitterConf) ->
-  ConsumerKey = proplists:get_value(consumer_key, TwitterConf),
-  ConsumerSecret = proplists:get_value(consumer_secret, TwitterConf),
-  {ConsumerKey, ConsumerSecret, hmac_sha1}.</p>
-
-<p>% Invoke a call to a JSON service on Twitter.
-call_json_service(UrlKey, AccessToken, AccessTokenSecret) ->
-  TwitterConf = conf:get_section(twitter),
-  Url = proplists:get_value(UrlKey, TwitterConf),
-  {ok, Response} = oauth:get(Url, [], consumer(TwitterConf), AccessToken, AccessTokenSecret),
-  {{ "{{" }}<em>Version, 200, "OK"}, </em>Headers, Json} = Response,
-  {ok, Json}.
-{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>apps/csd_web/src/twitter.erl  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="c">%% @author OJ Reeves &lt;a href=&quot;&amp;#109;&amp;#x61;&amp;#x69;&amp;#x6c;&amp;#116;&amp;#111;&amp;#x3a;&amp;#111;&amp;#x6a;&amp;#x40;&amp;#98;&amp;#117;&amp;#102;&amp;#x66;&amp;#x65;&amp;#x72;&amp;#101;&amp;#100;&amp;#46;&amp;#105;&amp;#111;&quot;&gt;&amp;#x6f;&amp;#106;&amp;#x40;&amp;#x62;&amp;#117;&amp;#102;&amp;#x66;&amp;#x65;&amp;#114;&amp;#x65;&amp;#x64;&amp;#46;&amp;#x69;&amp;#111;&lt;/a&gt;</span>
+</span><span class='line'><span class="c">%% @copyright 2012 OJ Reeves&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;-</span><span class="n">module</span><span class="p">(</span><span class="n">twitter</span><span class="p">).</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;-</span><span class="n">author</span><span class="p">(</span><span class="n">&#39;OJ Reeves &lt;a href=&quot;&amp;#109;&amp;#x61;&amp;#105;&amp;#108;&amp;#x74;&amp;#x6f;&amp;#58;&amp;#x6f;&amp;#x6a;&amp;#64;&amp;#98;&amp;#x75;&amp;#102;&amp;#102;&amp;#x65;&amp;#x72;&amp;#101;&amp;#100;&amp;#x2e;&amp;#x69;&amp;#x6f;&quot;&gt;&amp;#x6f;&amp;#x6a;&amp;#x40;&amp;#98;&amp;#117;&amp;#102;&amp;#102;&amp;#101;&amp;#x72;&amp;#101;&amp;#100;&amp;#x2e;&amp;#105;&amp;#111;&lt;/a&gt;&#39;</span><span class="p">).</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;-</span><span class="n">export</span><span class="p">([</span><span class="n">request_access</span><span class="o">/</span><span class="mi">0</span><span class="p">,</span> <span class="n">verify_access</span><span class="o">/</span><span class="mi">3</span><span class="p">,</span> <span class="n">get_current_user_info</span><span class="o">/</span><span class="mi">2</span><span class="p">]).</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">request_access</span><span class="p">()</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="nv">TwitterConf</span> <span class="o">=</span> <span class="nn">conf</span><span class="p">:</span><span class="n">get_section</span><span class="p">(</span><span class="n">twitter</span><span class="p">),</span>
+</span><span class='line'>  <span class="nv">RequestTokenUrl</span> <span class="o">=</span> <span class="nn">proplists</span><span class="p">:</span><span class="n">get_value</span><span class="p">(</span><span class="n">request_token_url</span><span class="p">,</span> <span class="nv">TwitterConf</span><span class="p">),</span>
+</span><span class='line'>  <span class="p">{</span><span class="n">ok</span><span class="p">,</span> <span class="nv">RequestResponse</span><span class="p">}</span> <span class="o">=</span> <span class="nn">oauth</span><span class="p">:</span><span class="nb">get</span><span class="p">(</span><span class="nv">RequestTokenUrl</span><span class="p">,</span> <span class="p">[],</span> <span class="n">consumer</span><span class="p">(</span><span class="nv">TwitterConf</span><span class="p">)),</span>
+</span><span class='line'>  <span class="nv">RequestParams</span> <span class="o">=</span> <span class="nn">oauth</span><span class="p">:</span><span class="n">params_decode</span><span class="p">(</span><span class="nv">RequestResponse</span><span class="p">),</span>
+</span><span class='line'>  <span class="nv">RequestToken</span> <span class="o">=</span> <span class="nn">oauth</span><span class="p">:</span><span class="n">token</span><span class="p">(</span><span class="nv">RequestParams</span><span class="p">),</span>
+</span><span class='line'>  <span class="nv">AuthenticateUrl</span> <span class="o">=</span> <span class="nn">proplists</span><span class="p">:</span><span class="n">get_value</span><span class="p">(</span><span class="n">authenticate_url</span><span class="p">,</span> <span class="nv">TwitterConf</span><span class="p">),</span>
+</span><span class='line'>  <span class="p">{</span><span class="n">ok</span><span class="p">,</span> <span class="nn">oauth</span><span class="p">:</span><span class="n">uri</span><span class="p">(</span><span class="nv">AuthenticateUrl</span><span class="p">,</span> <span class="p">[{</span><span class="s">&quot;oauth_token&quot;</span><span class="p">,</span> <span class="nv">RequestToken</span><span class="p">}])}.</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">verify_access</span><span class="p">(</span><span class="nv">RequestToken</span><span class="p">,</span> <span class="nv">RequestTokenSecret</span><span class="p">,</span> <span class="nv">Verifier</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="nv">TwitterConf</span> <span class="o">=</span> <span class="nn">conf</span><span class="p">:</span><span class="n">get_section</span><span class="p">(</span><span class="n">twitter</span><span class="p">),</span>
+</span><span class='line'>  <span class="nv">AccessTokenUrl</span> <span class="o">=</span> <span class="nn">proplists</span><span class="p">:</span><span class="n">get_value</span><span class="p">(</span><span class="n">access_token_url</span><span class="p">,</span> <span class="nv">TwitterConf</span><span class="p">),</span>
+</span><span class='line'>  <span class="p">{</span><span class="n">ok</span><span class="p">,</span> <span class="nv">AccessResponse</span><span class="p">}</span> <span class="o">=</span> <span class="nn">oauth</span><span class="p">:</span><span class="nb">get</span><span class="p">(</span><span class="nv">AccessTokenUrl</span><span class="p">,</span> <span class="p">[{</span><span class="s">&quot;oauth_verifier&quot;</span><span class="p">,</span> <span class="nv">Verifier</span><span class="p">}],</span> <span class="n">consumer</span><span class="p">(</span><span class="nv">TwitterConf</span><span class="p">),</span> <span class="nv">RequestToken</span><span class="p">,</span> <span class="nv">RequestTokenSecret</span><span class="p">),</span>
+</span><span class='line'>  <span class="nv">AccessParams</span> <span class="o">=</span> <span class="nn">oauth</span><span class="p">:</span><span class="n">params_decode</span><span class="p">(</span><span class="nv">AccessResponse</span><span class="p">),</span>
+</span><span class='line'>  <span class="nv">AccessToken</span> <span class="o">=</span> <span class="nn">oauth</span><span class="p">:</span><span class="n">token</span><span class="p">(</span><span class="nv">AccessParams</span><span class="p">),</span>
+</span><span class='line'>  <span class="nv">AccessTokenSecret</span> <span class="o">=</span> <span class="nn">oauth</span><span class="p">:</span><span class="n">token_secret</span><span class="p">(</span><span class="nv">AccessParams</span><span class="p">),</span>
+</span><span class='line'>  <span class="p">{</span><span class="n">ok</span><span class="p">,</span> <span class="nv">AccessToken</span><span class="p">,</span> <span class="nv">AccessTokenSecret</span><span class="p">}.</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">get_current_user_info</span><span class="p">(</span><span class="nv">AccessToken</span><span class="p">,</span> <span class="nv">AccessTokenSecret</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="n">call_json_service</span><span class="p">(</span><span class="n">current_user_info_url</span><span class="p">,</span> <span class="nv">AccessToken</span><span class="p">,</span> <span class="nv">AccessTokenSecret</span><span class="p">).</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="c">% Extract a oauth-formatted consumer tuple from the given Twitter configuration.</span>
+</span><span class='line'><span class="nf">consumer</span><span class="p">(</span><span class="nv">TwitterConf</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="nv">ConsumerKey</span> <span class="o">=</span> <span class="nn">proplists</span><span class="p">:</span><span class="n">get_value</span><span class="p">(</span><span class="n">consumer_key</span><span class="p">,</span> <span class="nv">TwitterConf</span><span class="p">),</span>
+</span><span class='line'>  <span class="nv">ConsumerSecret</span> <span class="o">=</span> <span class="nn">proplists</span><span class="p">:</span><span class="n">get_value</span><span class="p">(</span><span class="n">consumer_secret</span><span class="p">,</span> <span class="nv">TwitterConf</span><span class="p">),</span>
+</span><span class='line'>  <span class="p">{</span><span class="nv">ConsumerKey</span><span class="p">,</span> <span class="nv">ConsumerSecret</span><span class="p">,</span> <span class="n">hmac_sha1</span><span class="p">}.</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="c">% Invoke a call to a JSON service on Twitter.</span>
+</span><span class='line'><span class="nf">call_json_service</span><span class="p">(</span><span class="nv">UrlKey</span><span class="p">,</span> <span class="nv">AccessToken</span><span class="p">,</span> <span class="nv">AccessTokenSecret</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="nv">TwitterConf</span> <span class="o">=</span> <span class="nn">conf</span><span class="p">:</span><span class="n">get_section</span><span class="p">(</span><span class="n">twitter</span><span class="p">),</span>
+</span><span class='line'>  <span class="nv">Url</span> <span class="o">=</span> <span class="nn">proplists</span><span class="p">:</span><span class="n">get_value</span><span class="p">(</span><span class="nv">UrlKey</span><span class="p">,</span> <span class="nv">TwitterConf</span><span class="p">),</span>
+</span><span class='line'>  <span class="p">{</span><span class="n">ok</span><span class="p">,</span> <span class="nv">Response</span><span class="p">}</span> <span class="o">=</span> <span class="nn">oauth</span><span class="p">:</span><span class="nb">get</span><span class="p">(</span><span class="nv">Url</span><span class="p">,</span> <span class="p">[],</span> <span class="n">consumer</span><span class="p">(</span><span class="nv">TwitterConf</span><span class="p">),</span> <span class="nv">AccessToken</span><span class="p">,</span> <span class="nv">AccessTokenSecret</span><span class="p">),</span>
+</span><span class='line'>  <span class="p">{{</span><span class="o">&lt;</span><span class="n">em</span><span class="o">&gt;</span><span class="nv">Version</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="s">&quot;OK&quot;</span><span class="p">},</span> <span class="o">&lt;/</span><span class="n">em</span><span class="o">&gt;</span><span class="nv">Headers</span><span class="p">,</span> <span class="nv">Json</span><span class="p">}</span> <span class="o">=</span> <span class="nv">Response</span><span class="p">,</span>
+</span><span class='line'>  <span class="p">{</span><span class="n">ok</span><span class="p">,</span> <span class="nv">Json</span><span class="p">}.</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>This might seem like a lot but there isn't much to it. Here's the run-down:</p>
 
@@ -784,26 +1240,46 @@ call_json_service(UrlKey, AccessToken, AccessTokenSecret) ->
 
 <p>Let's create this new module, called <code>cookie.erl</code>, inside <code>csd_web</code>. I'll break it up into it's functions so you can see what it's doing.</p>
 
-<p>{% codeblock apps/csd_web/src/cookie.erl (partial) lang:erlang %}</p>
-
-<p>%% @author OJ Reeves <a href="&#109;&#97;&#x69;&#x6c;&#x74;&#x6f;&#x3a;&#111;&#106;&#x40;&#98;&#117;&#x66;&#102;&#x65;&#114;&#101;&#100;&#x2e;&#x69;&#111;">&#x6f;&#106;&#x40;&#x62;&#117;&#102;&#102;&#101;&#114;&#x65;&#100;&#46;&#105;&#x6f;</a>
-%% @copyright 2012 OJ Reeves</p>
-
-<p>-module(cookie).</p>
-
-<p>-author('OJ Reeves <a href="&#109;&#x61;&#x69;&#108;&#x74;&#111;&#58;&#111;&#106;&#64;&#x62;&#117;&#102;&#x66;&#x65;&#114;&#x65;&#100;&#46;&#105;&#x6f;">&#111;&#106;&#64;&#x62;&#117;&#x66;&#x66;&#x65;&#x72;&#x65;&#x64;&#46;&#105;&#x6f;</a>').</p>
-
-<p>-export([load_auth/1, store_auth/5]).</p>
-
-<p>-define(AUTH_COOKIE, "<strong>CodeSmackdown</strong>Auth").
--define(AUTH_SALT, "27ed2d041cdb4b8b2702").
--define(AUTH_SECRET, "2d0431cd9bda5ba4b98271edcb2e7102").
--define(AUTH_EXPIRY_DAYS, 7).
--define(ENC_IV, &lt;&lt;207,94,217,158,198,63,132,205,35,187,246,2,56,122,250,33>>).
--define(ENC_KEY,
-  &lt;&lt;110,56,121,28,235,159,77,154,160,5,130,210,204,32,26,224,255,86,101,71,61,3,
-  66,69,30,39,42,0,116,93,204,99>>).
-{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>apps/csd_web/src/cookie.erl (partial)  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="c">%% @author OJ Reeves &lt;a href=&quot;&amp;#109;&amp;#97;&amp;#105;&amp;#x6c;&amp;#x74;&amp;#111;&amp;#58;&amp;#111;&amp;#x6a;&amp;#64;&amp;#98;&amp;#117;&amp;#x66;&amp;#102;&amp;#x65;&amp;#114;&amp;#101;&amp;#100;&amp;#46;&amp;#x69;&amp;#x6f;&quot;&gt;&amp;#111;&amp;#x6a;&amp;#x40;&amp;#98;&amp;#x75;&amp;#x66;&amp;#102;&amp;#101;&amp;#114;&amp;#101;&amp;#100;&amp;#46;&amp;#105;&amp;#x6f;&lt;/a&gt;</span>
+</span><span class='line'><span class="c">%% @copyright 2012 OJ Reeves&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;-</span><span class="n">module</span><span class="p">(</span><span class="n">cookie</span><span class="p">).</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;-</span><span class="n">author</span><span class="p">(</span><span class="n">&#39;OJ Reeves &lt;a href=&quot;&amp;#x6d;&amp;#x61;&amp;#x69;&amp;#108;&amp;#116;&amp;#111;&amp;#58;&amp;#111;&amp;#x6a;&amp;#64;&amp;#x62;&amp;#x75;&amp;#102;&amp;#x66;&amp;#x65;&amp;#x72;&amp;#101;&amp;#x64;&amp;#x2e;&amp;#x69;&amp;#x6f;&quot;&gt;&amp;#111;&amp;#x6a;&amp;#x40;&amp;#98;&amp;#x75;&amp;#x66;&amp;#102;&amp;#x65;&amp;#114;&amp;#x65;&amp;#100;&amp;#x2e;&amp;#x69;&amp;#111;&lt;/a&gt;&#39;</span><span class="p">).</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;-</span><span class="n">export</span><span class="p">([</span><span class="n">load_auth</span><span class="o">/</span><span class="mi">1</span><span class="p">,</span> <span class="n">store_auth</span><span class="o">/</span><span class="mi">5</span><span class="p">]).</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;-</span><span class="n">define</span><span class="p">(</span><span class="nv">AUTH_COOKIE</span><span class="p">,</span> <span class="s">&quot;&lt;strong&gt;CodeSmackdown&lt;/strong&gt;Auth&quot;</span><span class="p">).</span>
+</span><span class='line'><span class="p">-</span><span class="ni">define</span><span class="p">(</span><span class="no">AUTH_SALT</span><span class="p">,</span> <span class="s">&quot;27ed2d041cdb4b8b2702&quot;</span><span class="p">).</span>
+</span><span class='line'><span class="p">-</span><span class="ni">define</span><span class="p">(</span><span class="no">AUTH_SECRET</span><span class="p">,</span> <span class="s">&quot;2d0431cd9bda5ba4b98271edcb2e7102&quot;</span><span class="p">).</span>
+</span><span class='line'><span class="p">-</span><span class="ni">define</span><span class="p">(</span><span class="no">AUTH_EXPIRY_DAYS</span><span class="p">,</span> <span class="mi">7</span><span class="p">).</span>
+</span><span class='line'><span class="p">-</span><span class="ni">define</span><span class="p">(</span><span class="no">ENC_IV</span><span class="p">,</span> <span class="err">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="err">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="mi">207</span><span class="p">,</span><span class="mi">94</span><span class="p">,</span><span class="mi">217</span><span class="p">,</span><span class="mi">158</span><span class="p">,</span><span class="mi">198</span><span class="p">,</span><span class="mi">63</span><span class="p">,</span><span class="mi">132</span><span class="p">,</span><span class="mi">205</span><span class="p">,</span><span class="mi">35</span><span class="p">,</span><span class="mi">187</span><span class="p">,</span><span class="mi">246</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">56</span><span class="p">,</span><span class="mi">122</span><span class="p">,</span><span class="mi">250</span><span class="p">,</span><span class="mi">33</span><span class="o">&gt;&gt;</span><span class="p">).</span>
+</span><span class='line'><span class="p">-</span><span class="ni">define</span><span class="p">(</span><span class="no">ENC_KEY</span><span class="p">,</span>
+</span><span class='line'>  <span class="err">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="err">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="mi">110</span><span class="p">,</span><span class="mi">56</span><span class="p">,</span><span class="mi">121</span><span class="p">,</span><span class="mi">28</span><span class="p">,</span><span class="mi">235</span><span class="p">,</span><span class="mi">159</span><span class="p">,</span><span class="mi">77</span><span class="p">,</span><span class="mi">154</span><span class="p">,</span><span class="mi">160</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">130</span><span class="p">,</span><span class="mi">210</span><span class="p">,</span><span class="mi">204</span><span class="p">,</span><span class="mi">32</span><span class="p">,</span><span class="mi">26</span><span class="p">,</span><span class="mi">224</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">86</span><span class="p">,</span><span class="mi">101</span><span class="p">,</span><span class="mi">71</span><span class="p">,</span><span class="mi">61</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span>
+</span><span class='line'>  <span class="mi">66</span><span class="p">,</span><span class="mi">69</span><span class="p">,</span><span class="mi">30</span><span class="p">,</span><span class="mi">39</span><span class="p">,</span><span class="mi">42</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">116</span><span class="p">,</span><span class="mi">93</span><span class="p">,</span><span class="mi">204</span><span class="p">,</span><span class="mi">99</span><span class="o">&gt;&gt;</span><span class="p">).</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>Ignoring the usual headers/setup for the module, we can see a stack of defines. They are:</p>
 
@@ -819,39 +1295,63 @@ call_json_service(UrlKey, AccessToken, AccessTokenSecret) ->
 
 <p>Pretty simple stuff. Now let's take a look at a function that does something interesting.</p>
 
-<p>{% codeblock apps/csd_web/src/cookie.erl (partial) lang:erlang %}
-load_auth(ReqData) ->
-  case wrq:get_cookie_value(?AUTH_COOKIE, ReqData) of</p>
-
-<pre><code>undefined -&gt;
-  {error, no_cookie};
-V -&gt;
-  Val = mochiweb_util:unquote(V),
-  decode(Val)
-</code></pre>
-
-<p>  end.
-{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>apps/csd_web/src/cookie.erl (partial)  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="nf">load_auth</span><span class="p">(</span><span class="nv">ReqData</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="k">case</span> <span class="nn">wrq</span><span class="p">:</span><span class="n">get_cookie_value</span><span class="p">(</span><span class="no">?AUTH_COOKIE</span><span class="p">,</span> <span class="nv">ReqData</span><span class="p">)</span> <span class="k">of</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">undefined</span> <span class="o">-</span><span class="err">&amp;</span><span class="n">gt</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">{</span><span class="n">error</span><span class="p">,</span> <span class="n">no_cookie</span><span class="p">};</span>
+</span><span class='line'><span class="nv">V</span> <span class="o">-</span><span class="err">&amp;</span><span class="n">gt</span><span class="p">;</span>
+</span><span class='line'>  <span class="nv">Val</span> <span class="o">=</span> <span class="nn">mochiweb_util</span><span class="p">:</span><span class="n">unquote</span><span class="p">(</span><span class="nv">V</span><span class="p">),</span>
+</span><span class='line'>  <span class="n">decode</span><span class="p">(</span><span class="nv">Val</span><span class="p">)</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="k">end</span><span class="p">.</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p><code>load_auth</code> is a function which attempts to load authentication information from the cookies stored in the <code>ReqData</code> parameter. <code>ReqData</code> is the <a href="http://wiki.basho.com/Webmachine-Request.html" title="Request data">request data</a> that comes from Webmachine. As you can see, the function attempts to read the cookie value from the request data using Webmachine's <a href="http://wiki.basho.com/Webmachine-Request.html" title="Request data">wrq</a> module. If it fails <code>undefined</code> is returned and we know that no cookie has been set. If a value is read, we munge the data into something usable and then attempt to decode it using the <code>decode</code> function explained further down.</p>
 
 <p>This function returns either <code>{ok, &lt;Cookie Information&gt;}</code> or <code>{error, &lt;Reason&gt;}</code>.</p>
 
-<p>{% codeblock apps/csd_web/src/cookie.erl (partial) lang:erlang %}
-store_auth(ReqData, Id, Name, Token, TokenSecret) ->
-  Value = mochiweb_util:quote_plus(encode(Id, Name, Token, TokenSecret)),
-  Options = [</p>
-
-<pre><code>%{domain, "codesmackdown.com"},
-{max_age, 3600 * 24 * ?AUTH_EXPIRY_DAYS},
-{path, "/"},
-{http_only, true}
-</code></pre>
-
-<p>  ],
-  CookieHeader = mochiweb_cookies:cookie(?AUTH_COOKIE, Value, Options),
-  wrq:merge_resp_headers([CookieHeader], ReqData).
-{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>apps/csd_web/src/cookie.erl (partial)  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="nf">store_auth</span><span class="p">(</span><span class="nv">ReqData</span><span class="p">,</span> <span class="nv">Id</span><span class="p">,</span> <span class="nv">Name</span><span class="p">,</span> <span class="nv">Token</span><span class="p">,</span> <span class="nv">TokenSecret</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="nv">Value</span> <span class="o">=</span> <span class="nn">mochiweb_util</span><span class="p">:</span><span class="n">quote_plus</span><span class="p">(</span><span class="n">encode</span><span class="p">(</span><span class="nv">Id</span><span class="p">,</span> <span class="nv">Name</span><span class="p">,</span> <span class="nv">Token</span><span class="p">,</span> <span class="nv">TokenSecret</span><span class="p">)),</span>
+</span><span class='line'>  <span class="nv">Options</span> <span class="o">=</span> <span class="p">[</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="c">%{domain, &quot;codesmackdown.com&quot;},</span>
+</span><span class='line'><span class="p">{</span><span class="n">max_age</span><span class="p">,</span> <span class="mi">3600</span> <span class="o">*</span> <span class="mi">24</span> <span class="o">*</span> <span class="no">?AUTH_EXPIRY_DAYS</span><span class="p">},</span>
+</span><span class='line'><span class="p">{</span><span class="n">path</span><span class="p">,</span> <span class="s">&quot;/&quot;</span><span class="p">},</span>
+</span><span class='line'><span class="p">{</span><span class="n">http_only</span><span class="p">,</span> <span class="n">true</span><span class="p">}</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="p">],</span>
+</span><span class='line'>  <span class="nv">CookieHeader</span> <span class="o">=</span> <span class="nn">mochiweb_cookies</span><span class="p">:</span><span class="n">cookie</span><span class="p">(</span><span class="no">?AUTH_COOKIE</span><span class="p">,</span> <span class="nv">Value</span><span class="p">,</span> <span class="nv">Options</span><span class="p">),</span>
+</span><span class='line'>  <span class="nn">wrq</span><span class="p">:</span><span class="n">merge_resp_headers</span><span class="p">([</span><span class="nv">CookieHeader</span><span class="p">],</span> <span class="nv">ReqData</span><span class="p">).</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p><code>store_auth</code> is the opposite to <code>load_auth</code> as it writes the user's information and token data to a cookie. The parameters to this function are:</p>
 
@@ -867,34 +1367,55 @@ store_auth(ReqData, Id, Name, Token, TokenSecret) ->
 
 <p>Lastly we take the generated cookie header and merge that with the headers that already part of <code>ReqData</code> and produce a new request data object which is returned to the caller.</p>
 
-<p>{% codeblock apps/csd_web/src/cookie.erl (partial) lang:erlang %}
-encode(Id, Name, Token, TokenSecret) ->
-  SecretInfo = encrypt({Token, TokenSecret}),
-  CookieValue = {Id, Name, get_expiry(), SecretInfo},
-  base64:encode(term_to_binary({CookieValue, ?AUTH_SALT, crypto:sha_mac(?AUTH_SECRET, term_to_binary([CookieValue, ?AUTH_SALT]))})).
-{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>apps/csd_web/src/cookie.erl (partial)  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="nf">encode</span><span class="p">(</span><span class="nv">Id</span><span class="p">,</span> <span class="nv">Name</span><span class="p">,</span> <span class="nv">Token</span><span class="p">,</span> <span class="nv">TokenSecret</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="nv">SecretInfo</span> <span class="o">=</span> <span class="n">encrypt</span><span class="p">({</span><span class="nv">Token</span><span class="p">,</span> <span class="nv">TokenSecret</span><span class="p">}),</span>
+</span><span class='line'>  <span class="nv">CookieValue</span> <span class="o">=</span> <span class="p">{</span><span class="nv">Id</span><span class="p">,</span> <span class="nv">Name</span><span class="p">,</span> <span class="n">get_expiry</span><span class="p">(),</span> <span class="nv">SecretInfo</span><span class="p">},</span>
+</span><span class='line'>  <span class="nn">base64</span><span class="p">:</span><span class="n">encode</span><span class="p">(</span><span class="nb">term_to_binary</span><span class="p">({</span><span class="nv">CookieValue</span><span class="p">,</span> <span class="no">?AUTH_SALT</span><span class="p">,</span> <span class="nn">crypto</span><span class="p">:</span><span class="n">sha_mac</span><span class="p">(</span><span class="no">?AUTH_SECRET</span><span class="p">,</span> <span class="nb">term_to_binary</span><span class="p">([</span><span class="nv">CookieValue</span><span class="p">,</span> <span class="no">?AUTH_SALT</span><span class="p">]))})).</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>The <code>encode</code> function is rather self-explanatory. We start by encrypting the OAuth token information, we then generate a tuple which includes all the data we want to keep, convert it to binary and <a href="http://en.wikipedia.org/wiki/Base64" title="Base64">base64</a> encode it.</p>
 
-<p>{% codeblock apps/csd_web/src/cookie.erl (partial) lang:erlang %}
-decode(CookieValue) ->
-  {Value={Id, Name, Expire, SecretInfo}, Salt, Sign} = binary_to_term(base64:decode(CookieValue)),
-  case crypto:sha_mac(?AUTH_SECRET, term_to_binary([Value, Salt])) of</p>
-
-<pre><code>Sign -&gt;
-  case Expire &gt;= calendar:local_time() of
-    true -&gt;
-      {Token, TokenSecret} = decrypt(SecretInfo),
-      {ok, {Id, Name, Token, TokenSecret}};
-    false -&gt;
-      {error, expired}
-  end;
-_ -&gt;
-  {error, invalid}
-</code></pre>
-
-<p>  end.
-{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>apps/csd_web/src/cookie.erl (partial)  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="nf">decode</span><span class="p">(</span><span class="nv">CookieValue</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="p">{</span><span class="nv">Value</span><span class="o">=</span><span class="p">{</span><span class="nv">Id</span><span class="p">,</span> <span class="nv">Name</span><span class="p">,</span> <span class="nv">Expire</span><span class="p">,</span> <span class="nv">SecretInfo</span><span class="p">},</span> <span class="nv">Salt</span><span class="p">,</span> <span class="nv">Sign</span><span class="p">}</span> <span class="o">=</span> <span class="nb">binary_to_term</span><span class="p">(</span><span class="nn">base64</span><span class="p">:</span><span class="n">decode</span><span class="p">(</span><span class="nv">CookieValue</span><span class="p">)),</span>
+</span><span class='line'>  <span class="k">case</span> <span class="nn">crypto</span><span class="p">:</span><span class="n">sha_mac</span><span class="p">(</span><span class="no">?AUTH_SECRET</span><span class="p">,</span> <span class="nb">term_to_binary</span><span class="p">([</span><span class="nv">Value</span><span class="p">,</span> <span class="nv">Salt</span><span class="p">]))</span> <span class="k">of</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="nv">Sign</span> <span class="o">-</span><span class="err">&amp;</span><span class="n">gt</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">case</span> <span class="nv">Expire</span> <span class="err">&amp;</span><span class="n">gt</span><span class="p">;</span><span class="o">=</span> <span class="nn">calendar</span><span class="p">:</span><span class="n">local_time</span><span class="p">()</span> <span class="k">of</span>
+</span><span class='line'>    <span class="n">true</span> <span class="o">-</span><span class="err">&amp;</span><span class="n">gt</span><span class="p">;</span>
+</span><span class='line'>      <span class="p">{</span><span class="nv">Token</span><span class="p">,</span> <span class="nv">TokenSecret</span><span class="p">}</span> <span class="o">=</span> <span class="n">decrypt</span><span class="p">(</span><span class="nv">SecretInfo</span><span class="p">),</span>
+</span><span class='line'>      <span class="p">{</span><span class="n">ok</span><span class="p">,</span> <span class="p">{</span><span class="nv">Id</span><span class="p">,</span> <span class="nv">Name</span><span class="p">,</span> <span class="nv">Token</span><span class="p">,</span> <span class="nv">TokenSecret</span><span class="p">}};</span>
+</span><span class='line'>    <span class="n">false</span> <span class="o">-</span><span class="err">&amp;</span><span class="n">gt</span><span class="p">;</span>
+</span><span class='line'>      <span class="p">{</span><span class="n">error</span><span class="p">,</span> <span class="n">expired</span><span class="p">}</span>
+</span><span class='line'>  <span class="k">end</span><span class="p">;</span>
+</span><span class='line'><span class="p">_</span> <span class="o">-</span><span class="err">&amp;</span><span class="n">gt</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">{</span><span class="n">error</span><span class="p">,</span> <span class="n">invalid</span><span class="p">}</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="k">end</span><span class="p">.</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>The <code>decode</code> function does a little more than its counterpart as there's validation built-in as well as decrypting. Firstly we do the inverse of the final steps of the <code>encode</code> function in that we base64 decode the data into binary and convert the resulting binary back to Erlang terms. We then break this value up into its components.</p>
 
@@ -902,130 +1423,221 @@ _ -&gt;
 
 <p>The rest of the functions are easy to understand, so here they are for the sake of completeness without explanation.</p>
 
-<p>{% codeblock apps/csd_web/src/cookie.erl (partial) lang:erlang %}
-get_expiry() ->
-  {Date, Time} = calendar:local_time(),
-  NewDate = calendar:gregorian_days_to_date(calendar:date_to_gregorian_days(Date) + ?AUTH_EXPIRY_DAYS),
-  {NewDate, Time}.</p>
-
-<p>encrypt(Value) ->
-  crypto:aes_ctr_encrypt(?ENC_KEY, ?ENC_IV, term_to_binary([Value, ?AUTH_SALT])).</p>
-
-<p>decrypt(Value) ->
-  [V, ?AUTH_SALT] = binary_to_term(crypto:aes_ctr_decrypt(?ENC_KEY, ?ENC_IV, Value)),
-  V.
-{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>apps/csd_web/src/cookie.erl (partial)  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="nf">get_expiry</span><span class="p">()</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="p">{</span><span class="nv">Date</span><span class="p">,</span> <span class="nv">Time</span><span class="p">}</span> <span class="o">=</span> <span class="nn">calendar</span><span class="p">:</span><span class="n">local_time</span><span class="p">(),</span>
+</span><span class='line'>  <span class="nv">NewDate</span> <span class="o">=</span> <span class="nn">calendar</span><span class="p">:</span><span class="n">gregorian_days_to_date</span><span class="p">(</span><span class="nn">calendar</span><span class="p">:</span><span class="n">date_to_gregorian_days</span><span class="p">(</span><span class="nv">Date</span><span class="p">)</span> <span class="o">+</span> <span class="no">?AUTH_EXPIRY_DAYS</span><span class="p">),</span>
+</span><span class='line'>  <span class="p">{</span><span class="nv">NewDate</span><span class="p">,</span> <span class="nv">Time</span><span class="p">}.</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">encrypt</span><span class="p">(</span><span class="nv">Value</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="nn">crypto</span><span class="p">:</span><span class="n">aes_ctr_encrypt</span><span class="p">(</span><span class="no">?ENC_KEY</span><span class="p">,</span> <span class="no">?ENC_IV</span><span class="p">,</span> <span class="nb">term_to_binary</span><span class="p">([</span><span class="nv">Value</span><span class="p">,</span> <span class="no">?AUTH_SALT</span><span class="p">])).</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">decrypt</span><span class="p">(</span><span class="nv">Value</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="p">[</span><span class="nv">V</span><span class="p">,</span> <span class="no">?AUTH_SALT</span><span class="p">]</span> <span class="o">=</span> <span class="nb">binary_to_term</span><span class="p">(</span><span class="nn">crypto</span><span class="p">:</span><span class="n">aes_ctr_decrypt</span><span class="p">(</span><span class="no">?ENC_KEY</span><span class="p">,</span> <span class="no">?ENC_IV</span><span class="p">,</span> <span class="nv">Value</span><span class="p">)),</span>
+</span><span class='line'>  <span class="nv">V</span><span class="p">.</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>Phew! Now that's out of the way we have some back-end glue which we can use to perform some more interesting tasks. One thing that we really need to do is update the landing page template with something more meaningful than what we have now.</p>
 
 <p>We'll start making use of <a href="http://github.com/evanmiller/erlydtl" title="ErlyDTL">ErlyDTL</a>'s hierarchical templates and implement a base template which our other templates will also make use of. Here it is in all its simplicity:</p>
 
-<p>{% codeblock apps/csd_web/templates/base.dtl lang:html %}
-&lt;!DOCTYPE html>
-<html lang="en">
-  <head></p>
-
-<pre><code>&lt;title&gt;Code Smackdown - {{ "{" }}% block page_title %}{{ "{" }}% endblock %}&lt;/title&gt;
-&lt;script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"&gt;&lt;/script&gt;
-&lt;script src="http://ajax.microsoft.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js" type="text/javascript"&gt;&lt;/script&gt;
-</code></pre>
-
-<p>  </head>
-  <body></p>
-
-<pre><code>{{ "{" }}% block body_content %}{{ "{" }}% endblock %}
-</code></pre>
-
-<p>  </body>
-</html>
-{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>apps/csd_web/templates/base.dtl  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="ni">&amp;lt;</span>!DOCTYPE html&gt;
+</span><span class='line'><span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">&quot;en&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;head&gt;&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;pre&gt;&lt;code&gt;</span><span class="ni">&amp;lt;</span>title<span class="ni">&amp;gt;</span>Code Smackdown - {% block page_title %}{% endblock %}<span class="ni">&amp;lt;</span>/title<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="ni">&amp;lt;</span>script src=&quot;https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js&quot; type=&quot;text/javascript&quot;<span class="ni">&amp;gt;&amp;lt;</span>/script<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="ni">&amp;lt;</span>script src=&quot;http://ajax.microsoft.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js&quot; type=&quot;text/javascript&quot;<span class="ni">&amp;gt;&amp;lt;</span>/script<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="nt">&lt;/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;p&gt;</span>  <span class="nt">&lt;/head&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;body&gt;&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;pre&gt;&lt;code&gt;</span>{% block body_content %}{% endblock %}
+</span><span class='line'><span class="nt">&lt;/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;p&gt;</span>  <span class="nt">&lt;/body&gt;</span>
+</span><span class='line'><span class="nt">&lt;/html&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>In this template we've included a couple of Javascript files that we'll be using later on as well as setting up a basic HTML5 page. <code>page_title</code> and <code>body_content</code> are the two sections that child templates can populate with their own content.</p>
 
 <p>With that, let's go ahead and modify our default template so that it has something a little more meaninful in it:</p>
 
-<p>{% codeblock apps/csd_web/templates/home.dtl lang:html %}
-{{ "{" }}% extends 'base.dtl' %}</p>
-
-<p>{{ "{" }}% block page_title %}Landing Page{{ "{" }}% endblock %}</p>
-
-<p>{{ "{" }}% block body_content %}</p>
-
-<pre><code>&lt;h1&gt;Welcome to Code Smackdown&lt;/h1&gt;
-{{ "{" }}% if logged_in %}
-&lt;p&gt;Welcome back {{ "{" }}{ user_name }}.&lt;/p&gt;
-{{ "{" }}% else %}
-&lt;p&gt;We require you to sign in via Twitter&lt;/p&gt;
-&lt;p&gt;&lt;a href="{{ "{" }}{ logon_url }}" title="Sign in with Twitter"&gt;&lt;img src="http://si0.twimg.com/images/dev/buttons/sign-in-with-twitter-d.png"/&gt;&lt;/a&gt;&lt;p&gt;
-{{ "{" }}% endif %}
-</code></pre>
-
-<p>{{ "{" }}% endblock %}
-{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>apps/csd_web/templates/home.dtl  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'>{% extends &#39;base.dtl&#39; %}<span class="nt">&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;p&gt;</span>{% block page_title %}Landing Page{% endblock %}<span class="nt">&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;p&gt;</span>{% block body_content %}<span class="nt">&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;pre&gt;&lt;code&gt;</span><span class="ni">&amp;lt;</span>h1<span class="ni">&amp;gt;</span>Welcome to Code Smackdown<span class="ni">&amp;lt;</span>/h1<span class="ni">&amp;gt;</span>
+</span><span class='line'>{% if logged_in %}
+</span><span class='line'><span class="ni">&amp;lt;</span>p<span class="ni">&amp;gt;</span>Welcome back {{ user_name }}.<span class="ni">&amp;lt;</span>/p<span class="ni">&amp;gt;</span>
+</span><span class='line'>{% else %}
+</span><span class='line'><span class="ni">&amp;lt;</span>p<span class="ni">&amp;gt;</span>We require you to sign in via Twitter<span class="ni">&amp;lt;</span>/p<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="ni">&amp;lt;</span>p<span class="ni">&amp;gt;&amp;lt;</span>a href=&quot;{{ logon_url }}&quot; title=&quot;Sign in with Twitter&quot;<span class="ni">&amp;gt;&amp;lt;</span>img src=&quot;http://si0.twimg.com/images/dev/buttons/sign-in-with-twitter-d.png&quot;/<span class="ni">&amp;gt;&amp;lt;</span>/a<span class="ni">&amp;gt;&amp;lt;</span>p<span class="ni">&amp;gt;</span>
+</span><span class='line'>{% endif %}
+</span><span class='line'><span class="nt">&lt;/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;p&gt;</span>{% endblock %}
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>Nothing sinister going on here, but there are a couple of things worth noting. The template now looks for a field called <code>logged_in</code>, and if it's <code>true</code> it renders a paragraph which contains the value in the <code>user_name</code> field. If the <code>logged_in</code> flag is false a link is provided which points to <code>logon_url</code> which ultimately points the user at the Twitter OAuth entry page.</p>
 
 <p>We'll need to pass these values in when we render the template. Let's have a look at the changed section of <code>csd_web_resource</code>:</p>
 
-<p>{% codeblock apps/csd_web/src/csd_web_resource.erl (partial) lang:erlang %}
-% ... snip ... %
-to_html(ReqData, State) ->
-  Content = case cookie:load_auth(ReqData) of</p>
-
-<pre><code>{ok, {_, Name, _, _}} -&gt;
-  csd_view:home(Name);
-_ -&gt;
-  csd_view:home()
-</code></pre>
-
-<p>  end,
-  {Content, ReqData, State}.
-% ... snip ... %
-{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>apps/csd_web/src/csd_web_resource.erl (partial)  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="c">% ... snip ... %</span>
+</span><span class='line'><span class="nf">to_html</span><span class="p">(</span><span class="nv">ReqData</span><span class="p">,</span> <span class="nv">State</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="nv">Content</span> <span class="o">=</span> <span class="k">case</span> <span class="nn">cookie</span><span class="p">:</span><span class="n">load_auth</span><span class="p">(</span><span class="nv">ReqData</span><span class="p">)</span> <span class="k">of</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="p">{</span><span class="n">ok</span><span class="p">,</span> <span class="p">{_,</span> <span class="nv">Name</span><span class="p">,</span> <span class="p">_,</span> <span class="p">_}}</span> <span class="o">-</span><span class="err">&amp;</span><span class="n">gt</span><span class="p">;</span>
+</span><span class='line'>  <span class="nn">csd_view</span><span class="p">:</span><span class="n">home</span><span class="p">(</span><span class="nv">Name</span><span class="p">);</span>
+</span><span class='line'><span class="p">_</span> <span class="o">-</span><span class="err">&amp;</span><span class="n">gt</span><span class="p">;</span>
+</span><span class='line'>  <span class="nn">csd_view</span><span class="p">:</span><span class="n">home</span><span class="p">()</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="k">end</span><span class="p">,</span>
+</span><span class='line'>  <span class="p">{</span><span class="nv">Content</span><span class="p">,</span> <span class="nv">ReqData</span><span class="p">,</span> <span class="nv">State</span><span class="p">}.</span>
+</span><span class='line'><span class="c">% ... snip ... %</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>Yes this is quite a bit different to before. We are calling into our <code>cookie</code> module to find out if the user is logged in. If they are logged on we call <code>csd_view:home</code> with a single parameter <code>Name</code>, if they're not logged on the same function is called without any parameters.</p>
 
 <p>The <code>csd_view</code> module is new and was created to abstract the idea of template rendering. All the ErlyDTL handling happens in <code>csd_view</code>. Let's take a look at it now.</p>
 
-<p>{% codeblock apps/csd_web/src/csd_view.erl (partial) lang:erlang %}
-%% @author OJ Reeves <a href="&#x6d;&#97;&#x69;&#x6c;&#116;&#x6f;&#x3a;&#x6f;&#106;&#64;&#98;&#117;&#102;&#x66;&#101;&#114;&#101;&#x64;&#x2e;&#105;&#111;">&#x6f;&#x6a;&#x40;&#98;&#117;&#102;&#x66;&#101;&#114;&#101;&#100;&#x2e;&#x69;&#x6f;</a>
-%% @copyright 2012 OJ Reeves</p>
-
-<p>-module(csd_view).</p>
-
-<p>-author('OJ Reeves <a href="&#x6d;&#x61;&#105;&#108;&#x74;&#x6f;&#x3a;&#x6f;&#x6a;&#64;&#x62;&#x75;&#102;&#102;&#101;&#x72;&#101;&#100;&#46;&#105;&#111;">&#x6f;&#106;&#64;&#x62;&#x75;&#102;&#x66;&#101;&#114;&#x65;&#x64;&#x2e;&#x69;&#111;</a>').</p>
-
-<p>-export([home/0, home/1]).</p>
-
-<p>home() ->
-  Params = [{logged_in, false}, {logon_url, conf:get_val(urimap, twitter_logon)}],
-  {ok, Content} = home_dtl:render(Params),
-  Content.</p>
-
-<p>home(Name) ->
-  Params = [{logged_in, true}, {user_name, Name}],
-  {ok, Content} = home_dtl:render(Params),
-  Content.
-{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>apps/csd_web/src/csd_view.erl (partial)  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="c">%% @author OJ Reeves &lt;a href=&quot;&amp;#x6d;&amp;#x61;&amp;#105;&amp;#x6c;&amp;#116;&amp;#x6f;&amp;#58;&amp;#x6f;&amp;#x6a;&amp;#x40;&amp;#x62;&amp;#x75;&amp;#102;&amp;#102;&amp;#101;&amp;#x72;&amp;#101;&amp;#100;&amp;#46;&amp;#x69;&amp;#111;&quot;&gt;&amp;#x6f;&amp;#x6a;&amp;#64;&amp;#98;&amp;#x75;&amp;#x66;&amp;#x66;&amp;#101;&amp;#114;&amp;#x65;&amp;#x64;&amp;#x2e;&amp;#105;&amp;#111;&lt;/a&gt;</span>
+</span><span class='line'><span class="c">%% @copyright 2012 OJ Reeves&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;-</span><span class="n">module</span><span class="p">(</span><span class="n">csd_view</span><span class="p">).</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;-</span><span class="n">author</span><span class="p">(</span><span class="n">&#39;OJ Reeves &lt;a href=&quot;&amp;#x6d;&amp;#x61;&amp;#105;&amp;#x6c;&amp;#116;&amp;#x6f;&amp;#58;&amp;#x6f;&amp;#x6a;&amp;#64;&amp;#x62;&amp;#x75;&amp;#102;&amp;#x66;&amp;#x65;&amp;#114;&amp;#x65;&amp;#x64;&amp;#x2e;&amp;#x69;&amp;#x6f;&quot;&gt;&amp;#111;&amp;#x6a;&amp;#64;&amp;#98;&amp;#x75;&amp;#102;&amp;#x66;&amp;#x65;&amp;#114;&amp;#x65;&amp;#100;&amp;#x2e;&amp;#x69;&amp;#x6f;&lt;/a&gt;&#39;</span><span class="p">).</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;-</span><span class="n">export</span><span class="p">([</span><span class="n">home</span><span class="o">/</span><span class="mi">0</span><span class="p">,</span> <span class="n">home</span><span class="o">/</span><span class="mi">1</span><span class="p">]).</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">home</span><span class="p">()</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="nv">Params</span> <span class="o">=</span> <span class="p">[{</span><span class="n">logged_in</span><span class="p">,</span> <span class="n">false</span><span class="p">},</span> <span class="p">{</span><span class="n">logon_url</span><span class="p">,</span> <span class="nn">conf</span><span class="p">:</span><span class="n">get_val</span><span class="p">(</span><span class="n">urimap</span><span class="p">,</span> <span class="n">twitter_logon</span><span class="p">)}],</span>
+</span><span class='line'>  <span class="p">{</span><span class="n">ok</span><span class="p">,</span> <span class="nv">Content</span><span class="p">}</span> <span class="o">=</span> <span class="nn">home_dtl</span><span class="p">:</span><span class="n">render</span><span class="p">(</span><span class="nv">Params</span><span class="p">),</span>
+</span><span class='line'>  <span class="nv">Content</span><span class="p">.</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">home</span><span class="p">(</span><span class="nv">Name</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="nv">Params</span> <span class="o">=</span> <span class="p">[{</span><span class="n">logged_in</span><span class="p">,</span> <span class="n">true</span><span class="p">},</span> <span class="p">{</span><span class="n">user_name</span><span class="p">,</span> <span class="nv">Name</span><span class="p">}],</span>
+</span><span class='line'>  <span class="p">{</span><span class="n">ok</span><span class="p">,</span> <span class="nv">Content</span><span class="p">}</span> <span class="o">=</span> <span class="nn">home_dtl</span><span class="p">:</span><span class="n">render</span><span class="p">(</span><span class="nv">Params</span><span class="p">),</span>
+</span><span class='line'>  <span class="nv">Content</span><span class="p">.</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>Here we can see the two functions called <code>home</code> which were invoked in the <code>csd_web_resource</code> module. Most of this module is simple and uninteresting except for the use of <code>conf:get_val</code>. Templates need to know about paths when generating URLs in the markup. In our case, we're rendering links which point to internal routes which are specified in the dispatch list. Rather than hard-code URLs in the templates I decided to create another section in the <code>app.config</code> called <code>urimap</code>. The goal is to have an easy-to-access location for addresses which lives alongside the routes so that the maintainer of the application can update both at the same time should something need to change. Here's what the new section looks like.</p>
 
-<p>{% codeblock apps/csd_web/priv/app.config (partial) lang:erlang %}
-% ... snip ... %
-  {csd_web,</p>
-
-<pre><code>[
-  % ... snip ... %
-  {urimap,
-    [
-      {home, "/"},
-      {twitter_logon, "/oauth/request"}
-    ]
-  },
-  % ... snip ... %
-</code></pre>
-
-<p>{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>apps/csd_web/priv/app.config (partial)  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="c">% ... snip ... %</span>
+</span><span class='line'>  <span class="p">{</span><span class="n">csd_web</span><span class="p">,</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="p">[</span>
+</span><span class='line'>  <span class="c">% ... snip ... %</span>
+</span><span class='line'>  <span class="p">{</span><span class="n">urimap</span><span class="p">,</span>
+</span><span class='line'>    <span class="p">[</span>
+</span><span class='line'>      <span class="p">{</span><span class="n">home</span><span class="p">,</span> <span class="s">&quot;/&quot;</span><span class="p">},</span>
+</span><span class='line'>      <span class="p">{</span><span class="n">twitter_logon</span><span class="p">,</span> <span class="s">&quot;/oauth/request&quot;</span><span class="p">}</span>
+</span><span class='line'>    <span class="p">]</span>
+</span><span class='line'>  <span class="p">},</span>
+</span><span class='line'>  <span class="c">% ... snip ... %</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>Accessing a link address is as simple as running <code>conf:get_val(urimap, &lt;link-id&gt;)</code>.</p>
 
@@ -1044,55 +1656,99 @@ _ -&gt;
 
 <p>Clicking the link will result in an error at this point, so don't do it yet! We need to implement more resources, but first let's just stick the routes into the dispatch in preparation.</p>
 
-<p>{% codeblock apps/csd_web/priv/app.config (partial) lang:erlang %}
-{csd_web,
-  [</p>
-
-<pre><code>{web,
-  [
-    % ... snip ... %
-    {dispatch,
-      [
-        {[], csd_web_resource, []},
-        {["snippet", key], csd_web_snippet_resource, []},
-        {["oauth", "request"], csd_web_request_resource, []},  % new route
-        {["oauth", "callback"], csd_web_callback_resource, []} % new route
-      ]
-    }
-  ]
-},
-% ... snip ... %
-</code></pre>
-
-<p>{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>apps/csd_web/priv/app.config (partial)  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="p">{</span><span class="n">csd_web</span><span class="p">,</span>
+</span><span class='line'>  <span class="p">[</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="p">{</span><span class="n">web</span><span class="p">,</span>
+</span><span class='line'>  <span class="p">[</span>
+</span><span class='line'>    <span class="c">% ... snip ... %</span>
+</span><span class='line'>    <span class="p">{</span><span class="n">dispatch</span><span class="p">,</span>
+</span><span class='line'>      <span class="p">[</span>
+</span><span class='line'>        <span class="p">{[],</span> <span class="n">csd_web_resource</span><span class="p">,</span> <span class="p">[]},</span>
+</span><span class='line'>        <span class="p">{[</span><span class="s">&quot;snippet&quot;</span><span class="p">,</span> <span class="n">key</span><span class="p">],</span> <span class="n">csd_web_snippet_resource</span><span class="p">,</span> <span class="p">[]},</span>
+</span><span class='line'>        <span class="p">{[</span><span class="s">&quot;oauth&quot;</span><span class="p">,</span> <span class="s">&quot;request&quot;</span><span class="p">],</span> <span class="n">csd_web_request_resource</span><span class="p">,</span> <span class="p">[]},</span>  <span class="c">% new route</span>
+</span><span class='line'>        <span class="p">{[</span><span class="s">&quot;oauth&quot;</span><span class="p">,</span> <span class="s">&quot;callback&quot;</span><span class="p">],</span> <span class="n">csd_web_callback_resource</span><span class="p">,</span> <span class="p">[]}</span> <span class="c">% new route</span>
+</span><span class='line'>      <span class="p">]</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>  <span class="p">]</span>
+</span><span class='line'><span class="p">},</span>
+</span><span class='line'><span class="c">% ... snip ... %</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>Easily done. Now let's look at the implementation of the first handler which handles the <code>/oauth/request</code> URI, <code>csd_web_request_resource</code>.</p>
 
-<p>{% codeblock apps/csd_web/src/csd_web_request_resource.erl lang:erlang %}
-%% @author OJ Reeves <a href="&#109;&#97;&#x69;&#x6c;&#x74;&#x6f;&#58;&#x6f;&#x6a;&#x40;&#x62;&#117;&#x66;&#x66;&#x65;&#x72;&#101;&#100;&#46;&#105;&#x6f;">&#x6f;&#106;&#x40;&#x62;&#117;&#102;&#102;&#x65;&#x72;&#101;&#x64;&#46;&#x69;&#111;</a>
-%% @copyright 2012 OJ Reeves</p>
-
-<p>-module(csd_web_request_resource).</p>
-
-<p>-author('OJ Reeves <a href="&#x6d;&#97;&#x69;&#108;&#116;&#111;&#58;&#111;&#x6a;&#x40;&#x62;&#x75;&#x66;&#x66;&#x65;&#x72;&#x65;&#100;&#46;&#105;&#x6f;">&#111;&#106;&#x40;&#98;&#x75;&#102;&#x66;&#x65;&#x72;&#101;&#x64;&#46;&#x69;&#x6f;</a>').</p>
-
-<p>-export([init/1, resource_exists/2, previously_existed/2, moved_temporarily/2]).</p>
-
-<p>-include_lib("webmachine/include/webmachine.hrl").</p>
-
-<p>init([]) ->
-  {ok, undefined}.</p>
-
-<p>resource_exists(ReqData, State) ->
-  {false, ReqData, State}.</p>
-
-<p>previously_existed(ReqData, State) ->
-  {true, ReqData, State}.</p>
-
-<p>moved_temporarily(ReqData, State) ->
-  {ok, Url} = twitter:request_access(),
-  {{ "{" }}{true, Url}, ReqData, State}.
-{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>apps/csd_web/src/csd_web_request_resource.erl  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="c">%% @author OJ Reeves &lt;a href=&quot;&amp;#x6d;&amp;#97;&amp;#x69;&amp;#x6c;&amp;#116;&amp;#111;&amp;#58;&amp;#x6f;&amp;#106;&amp;#64;&amp;#98;&amp;#117;&amp;#x66;&amp;#x66;&amp;#x65;&amp;#x72;&amp;#x65;&amp;#x64;&amp;#46;&amp;#x69;&amp;#x6f;&quot;&gt;&amp;#x6f;&amp;#x6a;&amp;#64;&amp;#98;&amp;#x75;&amp;#x66;&amp;#x66;&amp;#101;&amp;#114;&amp;#101;&amp;#100;&amp;#x2e;&amp;#105;&amp;#x6f;&lt;/a&gt;</span>
+</span><span class='line'><span class="c">%% @copyright 2012 OJ Reeves&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;-</span><span class="n">module</span><span class="p">(</span><span class="n">csd_web_request_resource</span><span class="p">).</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;-</span><span class="n">author</span><span class="p">(</span><span class="n">&#39;OJ Reeves &lt;a href=&quot;&amp;#x6d;&amp;#97;&amp;#x69;&amp;#108;&amp;#116;&amp;#x6f;&amp;#58;&amp;#x6f;&amp;#x6a;&amp;#64;&amp;#98;&amp;#117;&amp;#x66;&amp;#102;&amp;#101;&amp;#114;&amp;#x65;&amp;#x64;&amp;#46;&amp;#105;&amp;#111;&quot;&gt;&amp;#x6f;&amp;#x6a;&amp;#x40;&amp;#98;&amp;#117;&amp;#x66;&amp;#102;&amp;#x65;&amp;#x72;&amp;#x65;&amp;#100;&amp;#x2e;&amp;#105;&amp;#111;&lt;/a&gt;&#39;</span><span class="p">).</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;-</span><span class="n">export</span><span class="p">([</span><span class="n">init</span><span class="o">/</span><span class="mi">1</span><span class="p">,</span> <span class="n">resource_exists</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">previously_existed</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">moved_temporarily</span><span class="o">/</span><span class="mi">2</span><span class="p">]).</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;-</span><span class="n">include_lib</span><span class="p">(</span><span class="s">&quot;webmachine/include/webmachine.hrl&quot;</span><span class="p">).</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">init</span><span class="p">([])</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="p">{</span><span class="n">ok</span><span class="p">,</span> <span class="n">undefined</span><span class="p">}.</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">resource_exists</span><span class="p">(</span><span class="nv">ReqData</span><span class="p">,</span> <span class="nv">State</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="p">{</span><span class="n">false</span><span class="p">,</span> <span class="nv">ReqData</span><span class="p">,</span> <span class="nv">State</span><span class="p">}.</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">previously_existed</span><span class="p">(</span><span class="nv">ReqData</span><span class="p">,</span> <span class="nv">State</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="p">{</span><span class="n">true</span><span class="p">,</span> <span class="nv">ReqData</span><span class="p">,</span> <span class="nv">State</span><span class="p">}.</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">moved_temporarily</span><span class="p">(</span><span class="nv">ReqData</span><span class="p">,</span> <span class="nv">State</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="p">{</span><span class="n">ok</span><span class="p">,</span> <span class="nv">Url</span><span class="p">}</span> <span class="o">=</span> <span class="nn">twitter</span><span class="p">:</span><span class="n">request_access</span><span class="p">(),</span>
+</span><span class='line'>  <span class="p">{{</span><span class="n">true</span><span class="p">,</span> <span class="nv">Url</span><span class="p">},</span> <span class="nv">ReqData</span><span class="p">,</span> <span class="nv">State</span><span class="p">}.</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>This module is quite lightweight, but has a little bit of magic in it that revolves around getting redirects to work. If you're not familiar with how 307 redirects work in Webmachine, take a quick side-glance at my <a href="http://buffered.io/posts/redirects-with-webmachine/" title="Redirects with Webmachine">Redirects with Webmachine</a> post.</p>
 
@@ -1104,48 +1760,90 @@ _ -&gt;
 
 <p>Exciting! We're nearly there. Don't click "Sign In" just yet because we don't yet have the callback set up to handle the result. Let's do that now. Here's the resource:</p>
 
-<p>{% codeblock apps/csd_web/src/csd_web_callback_resource.erl lang:erlang %}
-%% @author OJ Reeves <a href="&#109;&#x61;&#x69;&#108;&#116;&#x6f;&#58;&#x6f;&#106;&#x40;&#98;&#117;&#102;&#102;&#101;&#114;&#x65;&#100;&#46;&#x69;&#111;">&#111;&#x6a;&#64;&#x62;&#117;&#102;&#102;&#101;&#x72;&#101;&#100;&#46;&#x69;&#x6f;</a>
-%% @copyright 2012 OJ Reeves</p>
-
-<p>-module(csd_web_callback_resource).</p>
-
-<p>-author('OJ Reeves <a href="&#109;&#97;&#x69;&#108;&#x74;&#111;&#58;&#x6f;&#x6a;&#x40;&#x62;&#x75;&#102;&#x66;&#101;&#x72;&#101;&#100;&#46;&#105;&#x6f;">&#x6f;&#106;&#64;&#x62;&#x75;&#102;&#102;&#x65;&#x72;&#x65;&#x64;&#46;&#105;&#x6f;</a>').</p>
-
-<p>-export([init/1, resource_exists/2, previously_existed/2, moved_temporarily/2]).</p>
-
-<p>-include_lib("webmachine/include/webmachine.hrl").</p>
-
-<p>init([]) ->
-  {ok, undefined}.</p>
-
-<p>resource_exists(ReqData, State) ->
-  {false, ReqData, State}.</p>
-
-<p>previously_existed(ReqData, State) ->
-  {true, ReqData, State}.</p>
-
-<p>moved_temporarily(ReqData, State) ->
-  handle_callback(ReqData, State).</p>
-
-<p>handle_callback(ReqData, State) ->
-  ReqToken = wrq:get_qs_value("oauth_token", ReqData),
-  ReqTokenSecret = wrq:get_qs_value("oauth_token_secret", ReqData),
-  Verifier = wrq:get_qs_value("oauth_verifier", ReqData),</p>
-
-<p>  {ok, AccessToken, AccessTokenSecret} = twitter:verify_access(ReqToken, ReqTokenSecret, Verifier),
-  {ok, UserInfoJson} = twitter:get_current_user_info(AccessToken, AccessTokenSecret),
-  {struct, Json} = mochijson2:decode(UserInfoJson),
-  UserId = proplists:get_value(&lt;&lt;"id">>, Json),
-  UserName = proplists:get_value(&lt;&lt;"screen_name">>, Json),
-  NewReqData = cookie:store_auth(ReqData, UserId, UserName, AccessToken, AccessTokenSecret),</p>
-
-<p>  % TODO: store the 'session' in Riak in an ETS backend</p>
-
-<p>  % TODO: error handlng for when things don't go to plan
-  {{ "{" }}{true, conf:get_val(urimap, home)}, NewReqData, State}.</p>
-
-<p>{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>apps/csd_web/src/csd_web_callback_resource.erl  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="c">%% @author OJ Reeves &lt;a href=&quot;&amp;#109;&amp;#97;&amp;#105;&amp;#x6c;&amp;#x74;&amp;#111;&amp;#x3a;&amp;#x6f;&amp;#x6a;&amp;#x40;&amp;#x62;&amp;#117;&amp;#x66;&amp;#102;&amp;#101;&amp;#x72;&amp;#101;&amp;#x64;&amp;#46;&amp;#x69;&amp;#x6f;&quot;&gt;&amp;#111;&amp;#x6a;&amp;#x40;&amp;#x62;&amp;#117;&amp;#102;&amp;#x66;&amp;#101;&amp;#x72;&amp;#x65;&amp;#100;&amp;#x2e;&amp;#105;&amp;#x6f;&lt;/a&gt;</span>
+</span><span class='line'><span class="c">%% @copyright 2012 OJ Reeves&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;-</span><span class="n">module</span><span class="p">(</span><span class="n">csd_web_callback_resource</span><span class="p">).</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;-</span><span class="n">author</span><span class="p">(</span><span class="n">&#39;OJ Reeves &lt;a href=&quot;&amp;#109;&amp;#97;&amp;#105;&amp;#x6c;&amp;#116;&amp;#111;&amp;#58;&amp;#111;&amp;#x6a;&amp;#64;&amp;#98;&amp;#117;&amp;#x66;&amp;#x66;&amp;#101;&amp;#114;&amp;#x65;&amp;#x64;&amp;#x2e;&amp;#105;&amp;#111;&quot;&gt;&amp;#111;&amp;#x6a;&amp;#64;&amp;#98;&amp;#117;&amp;#x66;&amp;#102;&amp;#x65;&amp;#x72;&amp;#x65;&amp;#x64;&amp;#46;&amp;#x69;&amp;#111;&lt;/a&gt;&#39;</span><span class="p">).</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;-</span><span class="n">export</span><span class="p">([</span><span class="n">init</span><span class="o">/</span><span class="mi">1</span><span class="p">,</span> <span class="n">resource_exists</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">previously_existed</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">moved_temporarily</span><span class="o">/</span><span class="mi">2</span><span class="p">]).</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;-</span><span class="n">include_lib</span><span class="p">(</span><span class="s">&quot;webmachine/include/webmachine.hrl&quot;</span><span class="p">).</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">init</span><span class="p">([])</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="p">{</span><span class="n">ok</span><span class="p">,</span> <span class="n">undefined</span><span class="p">}.</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">resource_exists</span><span class="p">(</span><span class="nv">ReqData</span><span class="p">,</span> <span class="nv">State</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="p">{</span><span class="n">false</span><span class="p">,</span> <span class="nv">ReqData</span><span class="p">,</span> <span class="nv">State</span><span class="p">}.</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">previously_existed</span><span class="p">(</span><span class="nv">ReqData</span><span class="p">,</span> <span class="nv">State</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="p">{</span><span class="n">true</span><span class="p">,</span> <span class="nv">ReqData</span><span class="p">,</span> <span class="nv">State</span><span class="p">}.</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">moved_temporarily</span><span class="p">(</span><span class="nv">ReqData</span><span class="p">,</span> <span class="nv">State</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="n">handle_callback</span><span class="p">(</span><span class="nv">ReqData</span><span class="p">,</span> <span class="nv">State</span><span class="p">).</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">handle_callback</span><span class="p">(</span><span class="nv">ReqData</span><span class="p">,</span> <span class="nv">State</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="nv">ReqToken</span> <span class="o">=</span> <span class="nn">wrq</span><span class="p">:</span><span class="n">get_qs_value</span><span class="p">(</span><span class="s">&quot;oauth_token&quot;</span><span class="p">,</span> <span class="nv">ReqData</span><span class="p">),</span>
+</span><span class='line'>  <span class="nv">ReqTokenSecret</span> <span class="o">=</span> <span class="nn">wrq</span><span class="p">:</span><span class="n">get_qs_value</span><span class="p">(</span><span class="s">&quot;oauth_token_secret&quot;</span><span class="p">,</span> <span class="nv">ReqData</span><span class="p">),</span>
+</span><span class='line'>  <span class="nv">Verifier</span> <span class="o">=</span> <span class="nn">wrq</span><span class="p">:</span><span class="n">get_qs_value</span><span class="p">(</span><span class="s">&quot;oauth_verifier&quot;</span><span class="p">,</span> <span class="nv">ReqData</span><span class="p">),</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="p">{</span><span class="n">ok</span><span class="p">,</span> <span class="nv">AccessToken</span><span class="p">,</span> <span class="nv">AccessTokenSecret</span><span class="p">}</span> <span class="o">=</span> <span class="nn">twitter</span><span class="p">:</span><span class="n">verify_access</span><span class="p">(</span><span class="nv">ReqToken</span><span class="p">,</span> <span class="nv">ReqTokenSecret</span><span class="p">,</span> <span class="nv">Verifier</span><span class="p">),</span>
+</span><span class='line'>  <span class="p">{</span><span class="n">ok</span><span class="p">,</span> <span class="nv">UserInfoJson</span><span class="p">}</span> <span class="o">=</span> <span class="nn">twitter</span><span class="p">:</span><span class="n">get_current_user_info</span><span class="p">(</span><span class="nv">AccessToken</span><span class="p">,</span> <span class="nv">AccessTokenSecret</span><span class="p">),</span>
+</span><span class='line'>  <span class="p">{</span><span class="n">struct</span><span class="p">,</span> <span class="nv">Json</span><span class="p">}</span> <span class="o">=</span> <span class="nn">mochijson2</span><span class="p">:</span><span class="n">decode</span><span class="p">(</span><span class="nv">UserInfoJson</span><span class="p">),</span>
+</span><span class='line'>  <span class="nv">UserId</span> <span class="o">=</span> <span class="nn">proplists</span><span class="p">:</span><span class="n">get_value</span><span class="p">(</span><span class="err">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="err">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="s">&quot;id&quot;</span><span class="o">&gt;&gt;</span><span class="p">,</span> <span class="nv">Json</span><span class="p">),</span>
+</span><span class='line'>  <span class="nv">UserName</span> <span class="o">=</span> <span class="nn">proplists</span><span class="p">:</span><span class="n">get_value</span><span class="p">(</span><span class="err">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="err">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="s">&quot;screen_name&quot;</span><span class="o">&gt;&gt;</span><span class="p">,</span> <span class="nv">Json</span><span class="p">),</span>
+</span><span class='line'>  <span class="nv">NewReqData</span> <span class="o">=</span> <span class="nn">cookie</span><span class="p">:</span><span class="n">store_auth</span><span class="p">(</span><span class="nv">ReqData</span><span class="p">,</span> <span class="nv">UserId</span><span class="p">,</span> <span class="nv">UserName</span><span class="p">,</span> <span class="nv">AccessToken</span><span class="p">,</span> <span class="nv">AccessTokenSecret</span><span class="p">),</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="c">% TODO: store the &#39;session&#39; in Riak in an ETS backend&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="c">% TODO: error handlng for when things don&#39;t go to plan</span>
+</span><span class='line'>  <span class="p">{{</span><span class="n">true</span><span class="p">,</span> <span class="nn">conf</span><span class="p">:</span><span class="n">get_val</span><span class="p">(</span><span class="n">urimap</span><span class="p">,</span> <span class="n">home</span><span class="p">)},</span> <span class="nv">NewReqData</span><span class="p">,</span> <span class="nv">State</span><span class="p">}.</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>The first few parts of this module should look familiar by now. We are overriding the <code>resource_exists</code>, <code>previously_existed</code> and <code>moved_temporarility</code> functions because we're going to be redirecting. For now we're going to assume that the user clicked "Sign In" and that everything went according to plan. Later on we'll worry about handling logon errors.</p>
 

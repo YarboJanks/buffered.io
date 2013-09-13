@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Software Development | OJ's perspective]]></title>
   <link href="http://buffered.io/categories/software-development/atom.xml" rel="self"/>
   <link href="http://buffered.io/"/>
-  <updated>2013-08-25T11:40:28+10:00</updated>
+  <updated>2013-09-14T07:30:43+10:00</updated>
   <id>http://buffered.io/</id>
   <author>
     <name><![CDATA[OJ Reeves]]></name>
@@ -33,10 +33,11 @@
 
 <p>This function is the first of the functions that is called by the Webmachine pipeline and expects the results in the standard format of <code>{&lt;result&gt;, ReqData, State}</code>. The <code>&lt;result&gt;</code> needs to be a boolean atom (ie. <code>true</code> or <code>false</code>). The default behaviour of this function returns <code>{true, ReqData, State}</code>. To start off the process of redirecting, this function needs to tell Webmachine that the resource doesn't exist by instead returning <code>{false, ReqData, State}</code>.</p>
 
-<p>{% codeblock lang:erlang %}
-resource_exists(ReqData, State) ->
-  {false, ReqData, State}.
-{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="nf">resource_exists</span><span class="p">(</span><span class="nv">ReqData</span><span class="p">,</span> <span class="nv">State</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="p">{</span><span class="n">false</span><span class="p">,</span> <span class="nv">ReqData</span><span class="p">,</span> <span class="nv">State</span><span class="p">}.</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <h2><code>previously_existed</code></h2>
 
@@ -44,19 +45,21 @@ resource_exists(ReqData, State) ->
 
 <p>This isn't the behaviour we want, so instead we need to override the function and instead return <code>{true, ReqData, State}</code>.</p>
 
-<p>{% codeblock lang:erlang %}
-previously_existed(ReqData, State) ->
-  {true, ReqData, State}.
-{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="nf">previously_existed</span><span class="p">(</span><span class="nv">ReqData</span><span class="p">,</span> <span class="nv">State</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="p">{</span><span class="n">true</span><span class="p">,</span> <span class="nv">ReqData</span><span class="p">,</span> <span class="nv">State</span><span class="p">}.</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <h2><code>moved_temporarily</code> - for 307 redirects</h2>
 
-<p>If you're looking to get a 307 redirect, you need to override this function. The default return value of this function is the same as <code>previously_existed</code> which isn't going to give us what we need. Instead we need to tell Webmachine that there is another URL which should be used instead. We do this by returning <code>{{ "{" }}{true, &lt;URL&gt;}, ReqData, State}</code>. The URL that is returned is what Webmachine will pass back to the user along with the 307 redirect code.</p>
+<p>If you're looking to get a 307 redirect, you need to override this function. The default return value of this function is the same as <code>previously_existed</code> which isn't going to give us what we need. Instead we need to tell Webmachine that there is another URL which should be used instead. We do this by returning <code>{{true, &lt;URL&gt;}, ReqData, State}</code>. The URL that is returned is what Webmachine will pass back to the user along with the 307 redirect code.</p>
 
-<p>{% codeblock lang:erlang %}
-moved_temporarily(ReqData, State) ->
-  {{ "{" }}{true, "http://buffered.io"}, ReqData, State}.
-{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="nf">moved_temporarily</span><span class="p">(</span><span class="nv">ReqData</span><span class="p">,</span> <span class="nv">State</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="p">{{</span><span class="n">true</span><span class="p">,</span> <span class="s">&quot;http://buffered.io&quot;</span><span class="p">},</span> <span class="nv">ReqData</span><span class="p">,</span> <span class="nv">State</span><span class="p">}.</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>Do not override this function if you're looking to do a permanent redirect.</p>
 
@@ -86,10 +89,11 @@ moved_temporarily(ReqData, State) ->
 
 <p>If you're aiming to deliver a 301 redirect then this is the function you should override. Again the default return value is the same as <code>previously_existed</code> (just like <code>moved_temporarily</code>) and we need to override it with the same detail as in <code>moved_temporarily</code>).</p>
 
-<p>{% codeblock lang:erlang %}
-moved_permanently(ReqData, State) ->
-  {{ "{" }}{true, "http://buffered.io"}, ReqData, State}.
-{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="nf">moved_permanently</span><span class="p">(</span><span class="nv">ReqData</span><span class="p">,</span> <span class="nv">State</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="p">{{</span><span class="n">true</span><span class="p">,</span> <span class="s">&quot;http://buffered.io&quot;</span><span class="p">},</span> <span class="nv">ReqData</span><span class="p">,</span> <span class="nv">State</span><span class="p">}.</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>Do not override this function if you're looking to do a temporary redirect.</p>
 
@@ -728,24 +732,39 @@ RESPONSE 200<br/></p>
 
 <p>There are quite a few issues that were highlighted as a result, but the key one is this: <em>you can't assume that your users aren't using some form of Content Advisor which is hitting your server with unexpected requests</em>. In our case, the resolution was simple. We just had to add a couple of lines to our root action:</p>
 
-<p>{% codeblock lang:csharp %}
-public ActionResult SignOn()
-{
-  if(Request.IsAuthenticated)
-  {</p>
-
-<pre><code>// force the TempData dicionary to keep hold
-// of the information it has in case this
-// action is being hit by a Content Advisor.
-TempData.Keep();
-</code></pre>
-
-<p>  }
-  // rest of the action code
-  // ...
-  return View(...);
-}
-{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">public</span> <span class="n">ActionResult</span> <span class="nf">SignOn</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="k">if</span><span class="p">(</span><span class="n">Request</span><span class="p">.</span><span class="n">IsAuthenticated</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">{&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">pre</span><span class="p">&gt;&lt;</span><span class="n">code</span><span class="p">&gt;</span><span class="c1">// force the TempData dicionary to keep hold</span>
+</span><span class='line'><span class="c1">// of the information it has in case this</span>
+</span><span class='line'><span class="c1">// action is being hit by a Content Advisor.</span>
+</span><span class='line'><span class="n">TempData</span><span class="p">.</span><span class="n">Keep</span><span class="p">();</span>
+</span><span class='line'><span class="p">&lt;/</span><span class="n">code</span><span class="p">&gt;&lt;/</span><span class="n">pre</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;</span>  <span class="p">}</span>
+</span><span class='line'>  <span class="c1">// rest of the action code</span>
+</span><span class='line'>  <span class="c1">// ...</span>
+</span><span class='line'>  <span class="k">return</span> <span class="nf">View</span><span class="p">(...);</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <h2>Conclusion</h2>
 
