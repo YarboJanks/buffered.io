@@ -301,8 +301,10 @@ Those two pointers were nowhere near each other! The more perceptive of you will
 
 But why? It wasn't immediately obvious to me what the reason was, but I was keen to validate that this was the case. To prove my theory, I hacked the code a little so that the higher-order DWORD of the `pReflectiveLoader` value was used as the higher-order DWORD of `pDllMain` as well. The hack looked something like this:
 
-    ULONG_PTR ulReflectiveLoaderBase = ((ULONG_PTR)pReflectiveLoader) & (((ULONG_PTR)-1) ^ (0xFFFFFFFF));
-    pDllMain = (DLLMAIN)(pReflectiveLoader() | ulReflectiveLoaderBase);
+{% codeblock lang:c %}
+ULONG_PTR ulReflectiveLoaderBase = ((ULONG_PTR)pReflectiveLoader) & (((ULONG_PTR)-1) ^ (0xFFFFFFFF));
+pDllMain = (DLLMAIN)(pReflectiveLoader() | ulReflectiveLoaderBase);
+{% endcodeblock %}
 
 After the above code, `pDllMain` would have the same higher-order DWORD value as `pReflectiveLoader`. I compiled, deployed, executed ...
 
@@ -323,22 +325,28 @@ So what was it?
 
 The `pReflectiveLoader` pointer is a function pointer of a type defined like so:
 
-    typedef DWORD (WINAPI * REFLECTIVELOADER)( VOID );
+{% codeblock lang:c %}
+typedef DWORD (WINAPI * REFLECTIVELOADER)( VOID );
+{% endcodeblock %}
 
 However, the `ReflectiveLoader()` function was defined in the source like so:
 
-    #ifdef REFLECTIVEDLLINJECTION_VIA_LOADREMOTELIBRARYR
-    DLLEXPORT ULONG_PTR WINAPI ReflectiveLoader( LPVOID lpParameter )
-    #else
-    DLLEXPORT ULONG_PTR WINAPI ReflectiveLoader( VOID )
-    #endif
-    {
-        // ... lots of code
-    }
+{% codeblock lang:c %}
+#ifdef REFLECTIVEDLLINJECTION_VIA_LOADREMOTELIBRARYR
+DLLEXPORT ULONG_PTR WINAPI ReflectiveLoader( LPVOID lpParameter )
+#else
+DLLEXPORT ULONG_PTR WINAPI ReflectiveLoader( VOID )
+#endif
+{
+    // ... snip ...
+}
+{% endcodeblock %}
 
 So the function returns a [ULONG_PTR][] (which is 64-bits) but the function pointer type returned a [DWORD][] (which is 32-bits). This is what was causing the truncation of the pointer and effectively zeroing out the higher-order DWORD of `pDllMain`. The fix was to simply change the return type of the function pointer to match:
 
-    typedef ULONG_PTR (WINAPI * REFLECTIVELOADER)( VOID );
+{% codeblock lang:c %}
+typedef ULONG_PTR (WINAPI * REFLECTIVELOADER)( VOID );
+{% endcodeblock %}
 
 Problem solved.
 
@@ -354,8 +362,61 @@ Earlier versions of Windows didn't have an ASLR implementation that resulted in 
 
 This was a really fun bug to analyse and track down. I'm glad we got to the bottom of it. Again I'd like to thank Stephen for his involvement in locating the source of the problem.
 
-The new and improved version of Meterpreter that contains this fix will be landing in Metasploit very soon (I hope). Thanks for reading. Comments and feedback are welcomed.
+The new and improved version of Meterpreter that contains this fix will be landing in Metasploit very soon (I hope). Thanks for reading. Comments and feedback are welcomed.  <a name="Edit15thSep"></a>
 
+Edit 15th September
+-------------------
+
+Today on Twitter [Luke Imhoff][KronicDeth] asked me a good question:
+
+<blockquote class="twitter-tweet"><p><a href="https://twitter.com/TheColonial">@TheColonial</a> why didn&#39;t the compiler issue a truncation warning?</p>&mdash; Luke Imhoff (@KronicDeth) <a href="https://twitter.com/KronicDeth/statuses/378878334249095168">September 14, 2013</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+I answered quickly but realised after that I was a bit hasty, so I'm going to clarify on here instead.
+
+We need to review a few snippets of code to understand why the compiler didn't complain. Firstly, the function-pointer type definition (prior to the fix):
+
+{% codeblock ReflectiveDllInjection.h (partial) lang:c %}
+typedef DWORD (WINAPI * REFLECTIVELOADER)( VOID );
+{% endcodeblock %}
+
+Second, the declaration of the `ReflectiveLoader()` function:
+
+{% codeblock ReflectiveLoader.c (partial) lang:c %}
+#ifdef REFLECTIVEDLLINJECTION_VIA_LOADREMOTELIBRARYR
+DLLEXPORT ULONG_PTR WINAPI ReflectiveLoader( LPVOID lpParameter )
+#else
+DLLEXPORT ULONG_PTR WINAPI ReflectiveLoader( VOID )
+#endif
+{
+   // ... snip ...
+}
+{% endcodeblock %}
+
+Third, the declaration of both `pDllMain` and `pReflectiveLoader`:
+
+{% codeblock LoadLibraryR.c (partial) lang:c %}
+REFLECTIVELOADER pReflectiveLoader = NULL;
+DLLMAIN pDllMain                   = NULL;
+{% endcodeblock %}
+
+Finally, the actual calls that use these pointers:
+
+{% codeblock LoadLibraryR.c (partial) lang:c %}
+pReflectiveLoader = (REFLECTIVELOADER)((UINT_PTR)lpBuffer + dwReflectiveLoaderOffset);
+// ... snip ...
+pDllMain = (DLLMAIN)pReflectiveLoader();
+{% endcodeblock %}
+
+As we can see, `pReflectiveLoader` is set via a cast from a `UINT_PTR` type, which maps to the right sized pointer for whatever platform it's compiled on. Casting a `UINT_PTR` to a `REFLECTIVELOADER` type doesn't change the size.
+
+At first I though the reason there was no compiler warning was because the result of calling `pReflectiveLoader` was cast to a `DLLMAIN` type, effectively hiding the problem, but that's not correct. If `pDllMain` was just a `ULONG_PTR` instead of `DLLMAIN` and no casting was used it still wouldn't have resulted in a problem because the return type of `REFLECTIVELOADER` is _smaller_, and hence an implicit cast would have turned this into a 64-bit value without complaining. The truncation has already happened because of the incorrect return type of `REFLECTIVELOADER`.
+
+Ultimately the problem is down to the disconnect between the function pointer type and the function implementation type.
+
+Thanks for the great question Luke.
+
+  [KronicDeth]: https://twitter.com/KronicDeth "Luke Imhoff @ Twitter"
   [met_native]: https://github.com/rapid7/meterpreter "Native Meterpreter"
   [Metasploit framework]: http://www.metasploit.com/ "Metasploit Framework"
   [penetration test]: http://en.wikipedia.org/wiki/Penetration_test "Penetration Testing"

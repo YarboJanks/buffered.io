@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Windows | OJ's perspective]]></title>
   <link href="http://buffered.io/categories/windows/atom.xml" rel="self"/>
   <link href="http://buffered.io/"/>
-  <updated>2013-09-14T07:30:43+10:00</updated>
+  <updated>2013-09-15T08:31:00+10:00</updated>
   <id>http://buffered.io/</id>
   <author>
     <name><![CDATA[OJ Reeves]]></name>
@@ -325,9 +325,11 @@ This exception may be expected and handled.
 
 <p>But why? It wasn't immediately obvious to me what the reason was, but I was keen to validate that this was the case. To prove my theory, I hacked the code a little so that the higher-order DWORD of the <code>pReflectiveLoader</code> value was used as the higher-order DWORD of <code>pDllMain</code> as well. The hack looked something like this:</p>
 
-<pre><code>ULONG_PTR ulReflectiveLoaderBase = ((ULONG_PTR)pReflectiveLoader) &amp; (((ULONG_PTR)-1) ^ (0xFFFFFFFF));
-pDllMain = (DLLMAIN)(pReflectiveLoader() | ulReflectiveLoaderBase);
-</code></pre>
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">ULONG_PTR</span> <span class="n">ulReflectiveLoaderBase</span> <span class="o">=</span> <span class="p">((</span><span class="n">ULONG_PTR</span><span class="p">)</span><span class="n">pReflectiveLoader</span><span class="p">)</span> <span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span> <span class="p">(((</span><span class="n">ULONG_PTR</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">^</span> <span class="p">(</span><span class="mh">0xFFFFFFFF</span><span class="p">));</span>
+</span><span class='line'><span class="n">pDllMain</span> <span class="o">=</span> <span class="p">(</span><span class="n">DLLMAIN</span><span class="p">)(</span><span class="n">pReflectiveLoader</span><span class="p">()</span> <span class="o">|</span> <span class="n">ulReflectiveLoaderBase</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>After the above code, <code>pDllMain</code> would have the same higher-order DWORD value as <code>pReflectiveLoader</code>. I compiled, deployed, executed ...</p>
 
@@ -347,25 +349,55 @@ pDllMain = (DLLMAIN)(pReflectiveLoader() | ulReflectiveLoaderBase);
 
 <p>The <code>pReflectiveLoader</code> pointer is a function pointer of a type defined like so:</p>
 
-<pre><code>typedef DWORD (WINAPI * REFLECTIVELOADER)( VOID );
-</code></pre>
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="k">typedef</span> <span class="n">DWORD</span> <span class="p">(</span><span class="n">WINAPI</span> <span class="o">*</span> <span class="n">REFLECTIVELOADER</span><span class="p">)(</span> <span class="n">VOID</span> <span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>However, the <code>ReflectiveLoader()</code> function was defined in the source like so:</p>
 
-<pre><code>#ifdef REFLECTIVEDLLINJECTION_VIA_LOADREMOTELIBRARYR
-DLLEXPORT ULONG_PTR WINAPI ReflectiveLoader( LPVOID lpParameter )
-#else
-DLLEXPORT ULONG_PTR WINAPI ReflectiveLoader( VOID )
-#endif
-{
-    // ... lots of code
-}
-</code></pre>
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">ifdef</span> <span class="n">REFLECTIVEDLLINJECTION_VIA_LOADREMOTELIBRARYR</span><span class="o">&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">DLLEXPORT</span> <span class="n">ULONG_PTR</span> <span class="n">WINAPI</span> <span class="n">ReflectiveLoader</span><span class="p">(</span> <span class="n">LPVOID</span> <span class="n">lpParameter</span> <span class="p">)</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="k">else</span><span class="o">&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">DLLEXPORT</span> <span class="n">ULONG_PTR</span> <span class="n">WINAPI</span> <span class="n">ReflectiveLoader</span><span class="p">(</span> <span class="n">VOID</span> <span class="p">)</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">endif</span><span class="o">&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="c1">// ... snip ...</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>So the function returns a <a href="http://msdn.microsoft.com/en-us/library/cc230394.aspx" title="ULONG_PTR">ULONG_PTR</a> (which is 64-bits) but the function pointer type returned a <a href="http://msdn.microsoft.com/en-us/library/cc230318.aspx" title="DWORD">DWORD</a> (which is 32-bits). This is what was causing the truncation of the pointer and effectively zeroing out the higher-order DWORD of <code>pDllMain</code>. The fix was to simply change the return type of the function pointer to match:</p>
 
-<pre><code>typedef ULONG_PTR (WINAPI * REFLECTIVELOADER)( VOID );
-</code></pre>
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="k">typedef</span> <span class="n">ULONG_PTR</span> <span class="p">(</span><span class="n">WINAPI</span> <span class="o">*</span> <span class="n">REFLECTIVELOADER</span><span class="p">)(</span> <span class="n">VOID</span> <span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>Problem solved.</p>
 
@@ -380,7 +412,89 @@ probably due to high entropy ASLR making allocations over the 4gig boundary.</p>
 
 <p>This was a really fun bug to analyse and track down. I'm glad we got to the bottom of it. Again I'd like to thank Stephen for his involvement in locating the source of the problem.</p>
 
-<p>The new and improved version of Meterpreter that contains this fix will be landing in Metasploit very soon (I hope). Thanks for reading. Comments and feedback are welcomed.</p>
+<p>The new and improved version of Meterpreter that contains this fix will be landing in Metasploit very soon (I hope). Thanks for reading. Comments and feedback are welcomed.  <a name="Edit15thSep"></a></p>
+
+<h2>Edit 15th September</h2>
+
+<p>Today on Twitter <a href="https://twitter.com/KronicDeth" title="Luke Imhoff @ Twitter">Luke Imhoff</a> asked me a good question:</p>
+
+<blockquote class="twitter-tweet"><p><a href="https://twitter.com/TheColonial">@TheColonial</a> why didn&#39;t the compiler issue a truncation warning?</p>&mdash; Luke Imhoff (@KronicDeth) <a href="https://twitter.com/KronicDeth/statuses/378878334249095168">September 14, 2013</a></blockquote>
+
+
+<script async src="http://buffered.io//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+
+<p>I answered quickly but realised after that I was a bit hasty, so I'm going to clarify on here instead.</p>
+
+<p>We need to review a few snippets of code to understand why the compiler didn't complain. Firstly, the function-pointer type definition (prior to the fix):</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>ReflectiveDllInjection.h (partial)  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="k">typedef</span> <span class="n">DWORD</span> <span class="p">(</span><span class="n">WINAPI</span> <span class="o">*</span> <span class="n">REFLECTIVELOADER</span><span class="p">)(</span> <span class="n">VOID</span> <span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Second, the declaration of the <code>ReflectiveLoader()</code> function:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>ReflectiveLoader.c (partial)  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">ifdef</span> <span class="n">REFLECTIVEDLLINJECTION_VIA_LOADREMOTELIBRARYR</span><span class="o">&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">DLLEXPORT</span> <span class="n">ULONG_PTR</span> <span class="n">WINAPI</span> <span class="n">ReflectiveLoader</span><span class="p">(</span> <span class="n">LPVOID</span> <span class="n">lpParameter</span> <span class="p">)</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="k">else</span><span class="o">&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">DLLEXPORT</span> <span class="n">ULONG_PTR</span> <span class="n">WINAPI</span> <span class="n">ReflectiveLoader</span><span class="p">(</span> <span class="n">VOID</span> <span class="p">)</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">endif</span><span class="o">&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">{</span>
+</span><span class='line'>   <span class="c1">// ... snip ...</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Third, the declaration of both <code>pDllMain</code> and <code>pReflectiveLoader</code>:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>LoadLibraryR.c (partial)  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">REFLECTIVELOADER</span> <span class="n">pReflectiveLoader</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+</span><span class='line'><span class="n">DLLMAIN</span> <span class="n">pDllMain</span>                   <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Finally, the actual calls that use these pointers:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>LoadLibraryR.c (partial)  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">pReflectiveLoader</span> <span class="o">=</span> <span class="p">(</span><span class="n">REFLECTIVELOADER</span><span class="p">)((</span><span class="n">UINT_PTR</span><span class="p">)</span><span class="n">lpBuffer</span> <span class="o">+</span> <span class="n">dwReflectiveLoaderOffset</span><span class="p">);</span>
+</span><span class='line'><span class="c1">// ... snip ...</span>
+</span><span class='line'><span class="n">pDllMain</span> <span class="o">=</span> <span class="p">(</span><span class="n">DLLMAIN</span><span class="p">)</span><span class="n">pReflectiveLoader</span><span class="p">();</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>As we can see, <code>pReflectiveLoader</code> is set via a cast from a <code>UINT_PTR</code> type, which maps to the right sized pointer for whatever platform it's compiled on. Casting a <code>UINT_PTR</code> to a <code>REFLECTIVELOADER</code> type doesn't change the size.</p>
+
+<p>At first I though the reason there was no compiler warning was because the result of calling <code>pReflectiveLoader</code> was cast to a <code>DLLMAIN</code> type, effectively hiding the problem, but that's not correct. If <code>pDllMain</code> was just a <code>ULONG_PTR</code> instead of <code>DLLMAIN</code> and no casting was used it still wouldn't have resulted in a problem because the return type of <code>REFLECTIVELOADER</code> is <em>smaller</em>, and hence an implicit cast would have turned this into a 64-bit value without complaining. The truncation has already happened because of the incorrect return type of <code>REFLECTIVELOADER</code>.</p>
+
+<p>Ultimately the problem is down to the disconnect between the function pointer type and the function implementation type.</p>
+
+<p>Thanks for the great question Luke.</p>
 ]]></content>
   </entry>
   
