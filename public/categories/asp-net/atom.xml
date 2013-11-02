@@ -4,7 +4,7 @@
   <title><![CDATA[Category: ASP.NET | OJ's perspective]]></title>
   <link href="http://buffered.io/categories/asp-net/atom.xml" rel="self"/>
   <link href="http://buffered.io/"/>
-  <updated>2013-09-15T18:09:14+10:00</updated>
+  <updated>2013-11-02T13:43:32+10:00</updated>
   <id>http://buffered.io/</id>
   <author>
     <name><![CDATA[OJ Reeves]]></name>
@@ -33,125 +33,80 @@
 
 <p>Let's see some code starting with the "details" of the person:</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Person.cs  </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">public</span> <span class="k">class</span> <span class="nc">Person</span>
-</span><span class='line'><span class="p">{&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="p">&lt;</span><span class="n">pre</span><span class="p">&gt;&lt;</span><span class="n">code</span><span class="p">&gt;</span><span class="k">public</span> <span class="kt">string</span> <span class="n">Name</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span><span class="k">set</span><span class="p">;</span> <span class="p">}</span>
-</span><span class='line'><span class="k">public</span> <span class="kt">int</span> <span class="n">Age</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
-</span><span class='line'><span class="p">&lt;/</span><span class="n">code</span><span class="p">&gt;&lt;/</span><span class="n">pre</span><span class="p">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;}</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p>{% codeblock Person.cs lang:csharp %}
+public class Person
+{</p>
+
+<pre><code>public string Name { get;set; }
+public int Age { get; set; }
+</code></pre>
+
+<p>}
+{% endcodeblock %}</p>
 
 <p>Nothing too amazing there. Here's the parts of the page which renders the list of people:</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Index.aspx (partial)  </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'>Please choose a person <span class="ni">&amp;lt;</span>%= Html.DropDownList(&quot;people&quot;, Model) %&gt;<span class="nt">&lt;/p&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span><span class="nt">&gt;</span>
-</span><span class='line'><span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">ready</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>  <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#people&quot;</span><span class="p">).</span><span class="nx">change</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>    <span class="nb">window</span><span class="p">.</span><span class="nx">location</span> <span class="o">=</span> <span class="s1">&#39;&lt;%= Url.Action(&quot;Detail&quot;, &quot;Person&quot;) %&gt;?index=&#39;</span> <span class="o">+</span> <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">val</span><span class="p">();</span>
-</span><span class='line'>  <span class="p">});</span>
-</span><span class='line'><span class="p">});</span>
-</span><span class='line'><span class="nt">&lt;/script&gt;</span>
-</span><span class='line'>
-</span><span class='line'>
-</span><span class='line'><span class="nt">&lt;p&gt;</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p>{% codeblock Index.aspx (partial) lang:html %}
+Please choose a person &lt;%= Html.DropDownList("people", Model) %></p>
+
+<script type="text/javascript">
+$(document).ready(function () {
+  $("#people").change(function () {
+    window.location = '<%= Url.Action("Detail", "Person") %>?index=' + $(this).val();
+  });
+});
+</script>
+
+
+<p>{% endcodeblock %}</p>
 
 <p>Again, nothing too mind boggling here either. We can see how the <code>change</code> event fires and updates the <code>window.location</code> and moves the user to the <code>Details</code> page. The <code>Model</code> for this page is of type <code>IEnumerable&lt;SelectListItem&gt;</code>.</p>
 
 <p>Next we'll take a look at the controller action which gets invoked when the drop-down is changed:</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>PersonController.cs (Partial)  </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">public</span> <span class="n">ActionResult</span> <span class="nf">Detail</span><span class="p">(</span><span class="kt">int</span> <span class="n">index</span><span class="p">)</span>
-</span><span class='line'><span class="p">{&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="p">&lt;</span><span class="n">pre</span><span class="p">&gt;&lt;</span><span class="n">code</span><span class="p">&gt;</span><span class="k">return</span> <span class="n">View</span><span class="p">(</span><span class="s">&quot;Detail&quot;</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">.</span><span class="n">Create</span><span class="p">(</span><span class="n">People</span><span class="p">[</span><span class="n">index</span><span class="p">],</span> <span class="n">GetPeople</span><span class="p">()));</span>
-</span><span class='line'><span class="p">&lt;/</span><span class="n">code</span><span class="p">&gt;&lt;/</span><span class="n">pre</span><span class="p">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;}</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p>{% codeblock PersonController.cs (Partial) lang:csharp %}
+public ActionResult Detail(int index)
+{</p>
+
+<pre><code>return View("Detail", Tuple.Create(People[index], GetPeople()));
+</code></pre>
+
+<p>}
+{% endcodeblock %}</p>
 
 <p>We're using the <code>index</code> parameter (note the <em>type</em> of this parameter, it's important) to index into the list of people we have stashed somewhere to extract the user that is being viewed. This person, along with the full list of people in <code>SelectListItem</code> form, is being passed to the view.</p>
 
 <p>Let's see what the view does with this information:</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Detail.aspx (partial)  </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'>Please choose a person <span class="ni">&amp;lt;</span>%= Html.DropDownList(&quot;people&quot;, Model.Item2) %&gt;<span class="nt">&lt;/p&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span><span class="nt">&gt;</span>
-</span><span class='line'><span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">ready</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>  <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#people&quot;</span><span class="p">).</span><span class="nx">val</span><span class="p">(</span><span class="o">&lt;%=</span> <span class="nx">Request</span><span class="p">.</span><span class="nx">QueryString</span><span class="p">[</span><span class="s2">&quot;index&quot;</span><span class="p">]</span> <span class="o">%&gt;</span><span class="p">);</span>
-</span><span class='line'>  <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#people&quot;</span><span class="p">).</span><span class="nx">change</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>    <span class="nb">window</span><span class="p">.</span><span class="nx">location</span> <span class="o">=</span> <span class="s1">&#39;&lt;%= Url.Action(&quot;Detail&quot;, &quot;Person&quot;) %&gt;?index=&#39;</span> <span class="o">+</span> <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">val</span><span class="p">();</span>
-</span><span class='line'>  <span class="p">});</span>
-</span><span class='line'><span class="p">});</span>
-</span><span class='line'><span class="nt">&lt;/script&gt;</span>
-</span><span class='line'>
-</span><span class='line'>
-</span><span class='line'>
-</span><span class='line'>
-</span><span class='line'><span class="nt">&lt;p&gt;</span>
-</span><span class='line'><span class="err">&lt;</span>%= Html.Encode(Model.Item1.Name) %&gt; is a whopping <span class="err">&lt;</span>%= Model.Item1.Age %&gt; years old!
-</span><span class='line'><span class="nt">&lt;/p&gt;</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div>
+<p>{% codeblock Detail.aspx (partial) lang:html %}
+Please choose a person &lt;%= Html.DropDownList("people", Model.Item2) %></p>
+
+<script type="text/javascript">
+$(document).ready(function () {
+  $("#people").val(<%= Request.QueryString["index"] %>);
+  $("#people").change(function () {
+    window.location = '<%= Url.Action("Detail", "Person") %>?index=' + $(this).val();
+  });
+});
+</script>
+
+
+
+
+<p>
+<%= Html.Encode(Model.Item1.Name) %> is a whopping <%= Model.Item1.Age %> years old!
+</p>
+{% endcodeblock %}
 
 This is starting to get a bit more interesting. The rendering of the drop-down is the same as before, except it's pulling data from the [System.Tuple][] that was passed in as the `Model`. The event handler that's invoked on `change` is the same, and there's a bit of non-descript content rendering a the bottom. The subtle but important difference is the code that sets the currently selected person in the drop-down.
 
 I plugged this code into a standard MVC application and this is what it looks like:
 
-<img src="/uploads/2012/11/xss-index.png" title="'Choosing a person'" >
+{% img /uploads/2012/11/xss-index.png 'Choosing a person' %}
 
 After selecting a person from the drop down it looks like this:
 
-<img src="/uploads/2012/11/xss-details.png" title="'Person details'" >
+{% img /uploads/2012/11/xss-details.png 'Person details' %}
 
 A bad assumption
 ----------------
@@ -160,7 +115,7 @@ As you already know, ASP.NET MVC has the ability to automatically convert query 
 
 Let's see.
 
-<img src="/uploads/2012/11/xss-type-fail.png" title="'Person details'" >
+{% img /uploads/2012/11/xss-type-fail.png 'Person details' %}
 
 OK, so MVC will require that this value be an integer, otherwise the action will fail to be invoked. If that's the case, then the view won't be rendered and our code which directly accesses `Request.QueryString` will not be invoked and hence there's no risk.
 
@@ -189,11 +144,11 @@ Why is this bad? Well this means that code outside of controller actions may res
 
 Let's take a look at what might happen if we threw multiple instances via the query string at our dodgy MVC application:
 
-<img src="/uploads/2012/11/xss-hpp-invalid.png" title="'HPP example'" >
+{% img /uploads/2012/11/xss-hpp-invalid.png 'HPP example' %}
 
 The above screenshot shows both the query string and the page source when we do this. That's right, MVC used the first value, set to `0`, without any issues and invoked the view engine. The view's assumption that the `index` parameter has been sanitised by the controller has now been proven unsafe. Now we can see that we do have access to the source. Let's see what happens if we went a step further and passed in a more sinister value:
 
-<img src="/uploads/2012/11/xss-hpp-valid.png" title="'HPP XSS exploit'" >
+{% img /uploads/2012/11/xss-hpp-valid.png 'HPP XSS exploit' %}
 
 Pwned.
 
@@ -349,39 +304,24 @@ RESPONSE 200<br/></p>
 
 <p>There are quite a few issues that were highlighted as a result, but the key one is this: <em>you can't assume that your users aren't using some form of Content Advisor which is hitting your server with unexpected requests</em>. In our case, the resolution was simple. We just had to add a couple of lines to our root action:</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">public</span> <span class="n">ActionResult</span> <span class="nf">SignOn</span><span class="p">()</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="k">if</span><span class="p">(</span><span class="n">Request</span><span class="p">.</span><span class="n">IsAuthenticated</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">{&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="p">&lt;</span><span class="n">pre</span><span class="p">&gt;&lt;</span><span class="n">code</span><span class="p">&gt;</span><span class="c1">// force the TempData dicionary to keep hold</span>
-</span><span class='line'><span class="c1">// of the information it has in case this</span>
-</span><span class='line'><span class="c1">// action is being hit by a Content Advisor.</span>
-</span><span class='line'><span class="n">TempData</span><span class="p">.</span><span class="n">Keep</span><span class="p">();</span>
-</span><span class='line'><span class="p">&lt;/</span><span class="n">code</span><span class="p">&gt;&lt;/</span><span class="n">pre</span><span class="p">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;</span>  <span class="p">}</span>
-</span><span class='line'>  <span class="c1">// rest of the action code</span>
-</span><span class='line'>  <span class="c1">// ...</span>
-</span><span class='line'>  <span class="k">return</span> <span class="nf">View</span><span class="p">(...);</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p>{% codeblock lang:csharp %}
+public ActionResult SignOn()
+{
+  if(Request.IsAuthenticated)
+  {</p>
+
+<pre><code>// force the TempData dicionary to keep hold
+// of the information it has in case this
+// action is being hit by a Content Advisor.
+TempData.Keep();
+</code></pre>
+
+<p>  }
+  // rest of the action code
+  // ...
+  return View(...);
+}
+{% endcodeblock %}</p>
 
 <h2>Conclusion</h2>
 
@@ -414,130 +354,73 @@ RESPONSE 200<br/></p>
 <p>Let's pretend we have a web form which has a property called <strong>MyMagicValue</strong> which needs to be stored across <a href="http://www.xefteri.com/articles/show.cfm?id=18" title="How postback works in ASP.NET">postbacks</a>.</p>
 
 <p>Most developers would do something like this:
-<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">protected</span> <span class="kt">int</span> <span class="n">MyMagicValue</span>
-</span><span class='line'><span class="p">{&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="p">&lt;</span><span class="n">pre</span><span class="p">&gt;&lt;</span><span class="n">code</span><span class="p">&gt;</span><span class="k">get</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="k">return</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">ViewState</span><span class="p">[</span><span class="s">&quot;MyMagicValue&quot;</span><span class="p">];</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'><span class="k">set</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="n">ViewState</span><span class="p">[</span><span class="s">&quot;MyMagicValue&quot;</span><span class="p">]</span> <span class="p">=</span> <span class="k">value</span><span class="p">;</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'><span class="p">&lt;/</span><span class="n">code</span><span class="p">&gt;&lt;/</span><span class="n">pre</span><span class="p">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;}</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+{% codeblock lang:csharp %}
+protected int MyMagicValue
+{</p>
+
+<pre><code>get
+{
+    return (int)ViewState["MyMagicValue"];
+}
+set
+{
+    ViewState["MyMagicValue"] = value;
+}
+</code></pre>
+
+<p>}
+{% endcodeblock %}</p>
 
 <p>Information is stored directly in the ViewState hash/dictionary by accessing the ViewState property that exists on every web form/control. In this case there's a danger of things going horribly wrong "get" is invoked before "set"!</p>
 
 <p>The second isn't so common. In fact, the only times I've seen it in a codebase is when I've implemented it myself. This leads me to believe that most of the time developers don't even know that this method exists. Here's the code:
-<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-<span class='line-number'>40</span>
-<span class='line-number'>41</span>
-<span class='line-number'>42</span>
-<span class='line-number'>43</span>
-<span class='line-number'>44</span>
-<span class='line-number'>45</span>
-</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">private</span> <span class="kt">int</span> <span class="n">_myMagicValue</span><span class="p">;&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;</span><span class="k">protected</span> <span class="kt">int</span> <span class="n">MyMagicValue</span>
-</span><span class='line'><span class="p">{&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="p">&lt;</span><span class="n">pre</span><span class="p">&gt;&lt;</span><span class="n">code</span><span class="p">&gt;</span><span class="k">get</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="k">return</span> <span class="n">_myMagicValue</span><span class="p">;</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'><span class="k">set</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="n">_myMagicValue</span> <span class="p">=</span> <span class="k">value</span><span class="p">;</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'><span class="p">&lt;/</span><span class="n">code</span><span class="p">&gt;&lt;/</span><span class="n">pre</span><span class="p">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;}&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;</span><span class="k">protected</span> <span class="k">override</span> <span class="kt">object</span> <span class="n">SaveViewState</span><span class="p">()</span>
-</span><span class='line'><span class="p">{&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="p">&lt;</span><span class="n">pre</span><span class="p">&gt;&lt;</span><span class="n">code</span><span class="p">&gt;</span><span class="kt">object</span><span class="p">[]</span> <span class="n">state</span> <span class="p">=</span> <span class="k">new</span> <span class="kt">object</span><span class="p">[</span><span class="m">2</span><span class="p">];</span>
-</span><span class='line'><span class="n">state</span><span class="p">[</span><span class="m">0</span><span class="p">]</span> <span class="p">=</span> <span class="n">_myMagicValue</span><span class="p">;</span>
-</span><span class='line'><span class="n">state</span><span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="p">=</span> <span class="k">base</span><span class="p">.</span><span class="n">SaveViewState</span><span class="p">();</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">return</span> <span class="n">state</span><span class="p">;</span>
-</span><span class='line'><span class="p">&lt;/</span><span class="n">code</span><span class="p">&gt;&lt;/</span><span class="n">pre</span><span class="p">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;}&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;</span><span class="k">protected</span> <span class="k">override</span> <span class="k">void</span> <span class="n">LoadViewState</span><span class="p">(</span><span class="kt">object</span> <span class="n">savedState</span><span class="p">)</span>
-</span><span class='line'><span class="p">{&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="p">&lt;</span><span class="n">pre</span><span class="p">&gt;&lt;</span><span class="n">code</span><span class="p">&gt;</span><span class="k">if</span> <span class="p">(</span><span class="n">savedState</span> <span class="p">!=</span> <span class="k">null</span><span class="p">)</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="kt">object</span><span class="p">[]</span> <span class="n">state</span> <span class="p">=</span> <span class="p">(</span><span class="kt">object</span><span class="p">[])</span><span class="n">savedState</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="n">state</span><span class="p">.</span><span class="n">Length</span> <span class="p">&amp;</span><span class="n">gt</span><span class="p">;</span> <span class="m">0</span><span class="p">)</span>
-</span><span class='line'>    <span class="p">{</span>
-</span><span class='line'>        <span class="n">_myMagicValue</span> <span class="p">=</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">state</span><span class="p">[</span><span class="m">0</span><span class="p">];</span>
-</span><span class='line'>        <span class="k">base</span><span class="p">.</span><span class="n">LoadViewState</span><span class="p">(</span><span class="n">state</span><span class="p">[</span><span class="m">1</span><span class="p">]);</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'><span class="p">&lt;/</span><span class="n">code</span><span class="p">&gt;&lt;/</span><span class="n">pre</span><span class="p">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;}</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+{% codeblock lang:csharp %}
+private int _myMagicValue;</p>
+
+<p>protected int MyMagicValue
+{</p>
+
+<pre><code>get
+{
+    return _myMagicValue;
+}
+set
+{
+    _myMagicValue = value;
+}
+</code></pre>
+
+<p>}</p>
+
+<p>protected override object SaveViewState()
+{</p>
+
+<pre><code>object[] state = new object[2];
+state[0] = _myMagicValue;
+state[1] = base.SaveViewState();
+
+return state;
+</code></pre>
+
+<p>}</p>
+
+<p>protected override void LoadViewState(object savedState)
+{</p>
+
+<pre><code>if (savedState != null)
+{
+    object[] state = (object[])savedState;
+
+    if (state.Length &gt; 0)
+    {
+        _myMagicValue = (int)state[0];
+        base.LoadViewState(state[1]);
+    }
+}
+</code></pre>
+
+<p>}
+{% endcodeblock %}</p>
 
 <p>Quite a bit different from the first version. But which one is better? Which is considered best practice? Which has the better performance?</p>
 
@@ -556,53 +439,31 @@ RESPONSE 200<br/></p>
 <p>So what's the verdict? Which of these is better, or considered "best practice"?</p>
 
 <p><strong>Edit:</strong> As per my comment below about using <a href="http://msdn.microsoft.com/en-us/library/system.web.ui.pair(VS.80).aspx" title="System.Web.UI.Pair">System.Web.UI.Pair</a>, I thought I would add an example of how this should be used. It's not overly pretty when you get more and more values to store, but I still prefer it to directly manipulating the ViewState object.
-<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">protected</span> <span class="k">override</span> <span class="kt">object</span> <span class="nf">SaveViewState</span><span class="p">()</span>
-</span><span class='line'><span class="p">{&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="p">&lt;</span><span class="n">pre</span><span class="p">&gt;&lt;</span><span class="n">code</span><span class="p">&gt;</span><span class="k">return</span> <span class="k">new</span> <span class="n">Pair</span><span class="p">(</span><span class="k">base</span><span class="p">.</span><span class="n">SaveViewState</span><span class="p">(),</span> <span class="n">_myMagicValue</span><span class="p">);</span>
-</span><span class='line'><span class="p">&lt;/</span><span class="n">code</span><span class="p">&gt;&lt;/</span><span class="n">pre</span><span class="p">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;}&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;</span><span class="k">protected</span> <span class="k">override</span> <span class="k">void</span> <span class="n">LoadViewState</span><span class="p">(</span><span class="kt">object</span> <span class="n">savedState</span><span class="p">)</span>
-</span><span class='line'><span class="p">{&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="p">&lt;</span><span class="n">pre</span><span class="p">&gt;&lt;</span><span class="n">code</span><span class="p">&gt;</span><span class="k">if</span> <span class="p">(</span><span class="n">savedState</span> <span class="p">!=</span> <span class="k">null</span><span class="p">)</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="n">Pair</span> <span class="n">state</span> <span class="p">=</span> <span class="n">savedState</span> <span class="k">as</span> <span class="n">Pair</span><span class="p">;</span>
-</span><span class='line'>    <span class="k">if</span><span class="p">(</span><span class="n">state</span> <span class="p">!=</span> <span class="k">null</span><span class="p">)</span>
-</span><span class='line'>    <span class="p">{</span>
-</span><span class='line'>        <span class="k">base</span><span class="p">.</span><span class="n">LoadViewState</span><span class="p">(</span><span class="n">state</span><span class="p">.</span><span class="n">First</span><span class="p">);</span>
-</span><span class='line'>        <span class="n">_myMagicValue</span> <span class="p">=</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">state</span><span class="p">.</span><span class="n">Second</span><span class="p">;</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'><span class="p">&lt;/</span><span class="n">code</span><span class="p">&gt;&lt;/</span><span class="n">pre</span><span class="p">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;}</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+{% codeblock lang:csharp %}
+protected override object SaveViewState()
+{</p>
+
+<pre><code>return new Pair(base.SaveViewState(), _myMagicValue);
+</code></pre>
+
+<p>}</p>
+
+<p>protected override void LoadViewState(object savedState)
+{</p>
+
+<pre><code>if (savedState != null)
+{
+    Pair state = savedState as Pair;
+    if(state != null)
+    {
+        base.LoadViewState(state.First);
+        _myMagicValue = (int)state.Second;
+    }
+}
+</code></pre>
+
+<p>}
+{% endcodeblock %}</p>
 
 <p>This doesn't look so bad with just a single value, but for each value you add to the ViewState you need another Pair instance.</p>
 ]]></content>
