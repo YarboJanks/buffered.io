@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Databases | OJ's perspective]]></title>
   <link href="http://buffered.io/categories/databases/atom.xml" rel="self"/>
   <link href="http://buffered.io/"/>
-  <updated>2013-11-02T13:43:32+10:00</updated>
+  <updated>2013-11-17T09:55:16+10:00</updated>
   <id>http://buffered.io/</id>
   <author>
     <name><![CDATA[OJ Reeves]]></name>
@@ -266,13 +266,13 @@ Writing src/csd_core_sup.erl
 <p>We have a very simple application shell set up, but we need to do a bit more work to get it ready. First, let's create our base <code>csd_core.erl</code> module which is used to fire up our application. For this we will use <code>csd_web.erl</code> (the one which is part of our Webmachine application) as a template. Note that I've shuffled things around and removed some things that are not relevant:</p>
 
 <p>{% codeblock apps/csd_core/src/csd_core.erl lang:erlang %}
-%% @author OJ Reeves <a href="&#x6d;&#x61;&#105;&#108;&#x74;&#111;&#58;&#x6f;&#x6a;&#64;&#98;&#117;&#102;&#102;&#x65;&#114;&#x65;&#100;&#x2e;&#x69;&#111;">&#111;&#x6a;&#x40;&#x62;&#117;&#102;&#x66;&#101;&#x72;&#x65;&#x64;&#46;&#x69;&#x6f;</a>
+%% @author OJ Reeves <a href="&#109;&#97;&#x69;&#x6c;&#116;&#111;&#x3a;&#111;&#x6a;&#x40;&#x62;&#117;&#x66;&#x66;&#101;&#114;&#x65;&#100;&#x2e;&#x69;&#111;">&#x6f;&#106;&#x40;&#98;&#x75;&#x66;&#x66;&#x65;&#114;&#101;&#x64;&#46;&#105;&#111;</a>
 %% @copyright 2011 OJ Reeves</p>
 
 <p>%% @doc csd_core startup code</p>
 
 <p>-module(csd_core).
--author('OJ Reeves <a href="&#x6d;&#97;&#105;&#x6c;&#x74;&#111;&#x3a;&#x6f;&#106;&#x40;&#98;&#117;&#x66;&#x66;&#101;&#114;&#x65;&#100;&#x2e;&#105;&#x6f;">&#x6f;&#106;&#64;&#x62;&#x75;&#x66;&#102;&#101;&#x72;&#101;&#x64;&#x2e;&#105;&#111;</a>').
+-author('OJ Reeves <a href="&#109;&#97;&#105;&#x6c;&#x74;&#x6f;&#58;&#111;&#x6a;&#64;&#98;&#x75;&#x66;&#x66;&#101;&#114;&#x65;&#x64;&#46;&#x69;&#x6f;">&#111;&#106;&#64;&#x62;&#117;&#x66;&#102;&#101;&#x72;&#x65;&#x64;&#x2e;&#x69;&#111;</a>').
 -export([start/0, start_link/0, stop/0]).</p>
 
 <p>ensure_started(App) -></p>
@@ -921,12 +921,12 @@ fetch(RiakPid, Key) ->
 <p>In order to gain access to our data in Riak from the web we need to create a new resource. This resource will respond to any URI of the form <code>/snippet/&lt;key&gt;</code>. We shall call this resource <code>csd_web_snippet_resource</code> and we'll be putting this in our web application. It looks like this:</p>
 
 <p>{% codeblock apps/csd_web/src/csd_web_snippet_resource.erl lang:erlang %}
-%% @author OJ Reeves <a href="&#109;&#97;&#x69;&#x6c;&#116;&#x6f;&#x3a;&#x6f;&#106;&#64;&#x62;&#117;&#x66;&#x66;&#x65;&#x72;&#101;&#100;&#46;&#x69;&#111;">&#x6f;&#106;&#64;&#x62;&#x75;&#102;&#x66;&#101;&#114;&#x65;&#100;&#46;&#x69;&#x6f;</a>
+%% @author OJ Reeves <a href="&#109;&#97;&#105;&#108;&#x74;&#111;&#x3a;&#111;&#x6a;&#64;&#98;&#117;&#x66;&#x66;&#101;&#114;&#101;&#100;&#x2e;&#x69;&#x6f;">&#x6f;&#106;&#64;&#98;&#x75;&#x66;&#x66;&#101;&#114;&#x65;&#100;&#46;&#x69;&#x6f;</a>
 %% @copyright 2010 OJ Reeves
 %% @doc Webmachine resource that handles snippet-related actions</p>
 
 <p>-module(csd_web_snippet_resource).
--author('OJ Reeves <a href="&#x6d;&#97;&#x69;&#108;&#116;&#x6f;&#x3a;&#111;&#x6a;&#64;&#x62;&#117;&#102;&#x66;&#101;&#x72;&#x65;&#100;&#46;&#105;&#x6f;">&#x6f;&#106;&#64;&#98;&#x75;&#102;&#102;&#x65;&#x72;&#101;&#100;&#x2e;&#x69;&#111;</a>').</p>
+-author('OJ Reeves <a href="&#109;&#97;&#105;&#108;&#x74;&#111;&#x3a;&#x6f;&#x6a;&#64;&#98;&#117;&#x66;&#102;&#x65;&#114;&#101;&#100;&#46;&#105;&#111;">&#x6f;&#x6a;&#x40;&#x62;&#x75;&#102;&#x66;&#x65;&#114;&#101;&#x64;&#46;&#105;&#111;</a>').</p>
 
 <p>-export([init/1, to_html/2]).</p>
 
