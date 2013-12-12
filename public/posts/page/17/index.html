@@ -15,7 +15,7 @@
   <meta http-equiv="X-XRDS-Location" content="http://pip.verisignlabs.com/thecolonial/yadixrds" />
 
   
-  <meta name="description" content="This tutorial has been on the boil for quite a while. I got close to nailing the problem late last month, but didn&#8217;t end up finding the time to &hellip;">
+  <meta name="description" content="I read lots articles, tutorials and whitepapers whenever I get the chance. Sometimes I&#8217;ll read something and feel enlightened. Other times I &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -95,6 +95,59 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/posts/what-constitutes-a-tutorial/">What Constitutes a &#8216;Tutorial&#8217;?</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+
+<time datetime="2007-04-14T22:13:00+10:00" pubdate data-updated="true">14 Apr 2007</time>
+        
+         | <a href="/posts/what-constitutes-a-tutorial/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I read lots articles, tutorials and whitepapers whenever I get the chance. Sometimes I&#8217;ll read something and feel enlightened. Other times I finish and feel that I&#8217;ve somehow lost brain cells (please, no jokes about having none to lose ;) ). Recently some of the tutorials I&#8217;ve read on the web have left me feeling extremely underwhelmed. The reasons are because I felt like I didn&#8217;t learn anything or that the tutorial, while hitting the point, didn&#8217;t actually feel like it delivered the kind of information I was expecting. Since going through a few experiences like this I have started to wonder what really makes up a good tutorial, and how does it differ from a &#8216;how-to&#8217; or a whitepaper?</p>
+
+<p>I think that my definition of a tutorial is slightly different from the &#8220;official&#8221; definition, and the one that most other people use. So, here is the obligatory official definition :) (from <a href="http://www.dictionary.com/" title="Dictionary.com" target="_blank">Dictionary.com</a>):<blockquote><p><strong>Tutorial</strong> - tutorial      &#8230; [too-tawr-ee-uhl, -tohr-, tyoo-] &#8230;</p><ol><li>pertaining to or exercised by a tutor: tutorial functions or authority.</li><li>a class in which a tutor gives intensive instruction in some subject to an individual student or a small group of students.</li><li>Computers<ol><li>programmed instruction provided to a user at a computer terminal, often concerning the use of a particular software package and built into that package.</li><li>a manual explaining how to use a particular software package or computer system.</li></ol></li></ol></blockquote>Yup, just as I suspected.</p>
+
+<p>OK, a bit of background information. In many fields a tutorial can be a basic step-by-step to doing something - that I&#8217;m OK with. But I think that there are some areas of my chosen field (that&#8217;d be <em>geekness</em>) where a simple step-by-step just doesn&#8217;t cut it. A really good example of this would be my <a href="/uploads/2007/04/silver-directx-solution-thecolonial.zip" title="DirectX Crackme Solution">solution/tutorial</a> that I <a href="/posts/reversing-directx-blowfish/trackback/" title="Reversing DirectX &amp; Blowfish">previously blogged about</a>. Regardless of who you are, reading a simple tutorial on this topic would show you how to do it, but it wouldn&#8217;t in any way give you the <em>reasons</em> for the steps involved. Now, this solution of mine doesn&#8217;t give a complete set of background information required to understand every step, but it does explain areas that are specific to this problem (along with a few extra snippets to help people learn stuff). So some background knowledge is required, and I think that&#8217;s the big proviso about tutorials - background knowledge.</p>
+
+<p>I try to write my tutorials in such a way that the amount of background knowledge required is minimal without completely modifying the scope of the tutorial. For example, if I were to write a tutorial on <a href="http://en.wikipedia.org/wiki/Polymorphism_(computer_science)" title="Polymorphism" target="_blank">polymorphism</a>, I would expect people to have some knowledge of <a href="http://en.wikipedia.org/wiki/Object-oriented_programming" title="Object-Oriented Programming" target="_blank">object orientation</a> and some skills with any form of programming language.  Me being me, I&#8217;d probably use <a href="http://en.wikipedia.org/wiki/C++" title="C++" target="_blank">C++</a> for my examples, so some understanding of the language and it&#8217;s syntax would also be required.  I may, during the course of the tutorial, discuss some issues that aren&#8217;t directly related to the understanding of polymorphism (such as <a href="http://en.wikipedia.org/wiki/Pointer" title="Pointer" target="_blank">pointer</a> sizes and <a href="http://en.wikipedia.org/wiki/Virtual_table" title="Virtual Tables" target="_blank">vtables</a>), as I might feel that it aids in understanding more of the world that polymorphism lives in.  It&#8217;s <em>this</em> kind of information that is lacking in most tutorials.</p>
+
+<p>This post was actually inspired by a couple of video tutorials that I watched recently which was designed to show you how to unpack a packed executable, using a few of handy tools (such as a <a href="http://en.wikipedia.org/wiki/Debugger" title="Debugger" target="_blank">debugger</a>, <a href="http://en.wikipedia.org/wiki/Disassembler" title="Disassembler" target="_blank">disassembler</a> and <a href="http://en.wikipedia.org/wiki/Portable_Executable" title="Portable Executable" target="_blank">PE</a> explorers). Now, the tutorial (which I&#8217;m not going to link to for fear of pissing off the author!) really cut to the chase. It basically went&#8230;<blockquote><p>Run that, press that, copy that, press that, run that, run this, press that, run that, and you&#8217;re done! Congrats you can now unpack exes packed with <em>X</em>.</p></blockquote>Hardly inspiring. I wondered if the quality of the tutorials was consistant, so I watched another one - again it was on unpacking, but this time it was a different packing algorithm. It was almost exactly the same, the only apparent differences were the names of the exes that were packed, a few memory addresses, and the disassembled code that was visible in the debugger.</p>
+
+<p>This particular individual has uploaded <em>dozens</em> of these tutorials for the world to view, and I really think he/she believes they&#8217;re extremely productive. I can&#8217;t help but think that they&#8217;re not - they could write a single tutorial that covers the theory of unpacking, with one or two examples, and the reader/viewer would actually learn the <em>principles</em> and techniques behind unpacking, rather than just watching someone else press a few buttons in a certain order. I don&#8217;t expect a full run down on what a debugger is, or what reverse engineering is all about, but at least discussing how the packing process works, and <em>why</em> certain steps are taken to unpack the executable would be a very good, and helpful, move. I feel that anything less that this is half-assed!</p>
+
+<p>So, in my world of geekness, a valuable tutorial needs to be more than what the dictionary says a tutorial should be.  In my opinion, it should give you the required knowledge to understand what the tutorial is demonstrating and it should be delivered in such a way that allows the viewer to find it easy to understand the examples along with providing information on how to get access to extra information which may aid in their understanding. The feedback I&#8217;ve had from my previous reverse engineering solution has been great, and it seems that I&#8217;ve covered things in just enough detail to allow people to understand - this may well have been the first time I&#8217;ve achieved it.</p>
+
+<p>Now I realise that some of you may jump on my back and yell &#8220;Why don&#8217;t you practice what you preach!?&#8221;, and you&#8217;d be quite within your rights to do that :) For your information, I intend to do just that. I will be writing some tutorials and lessons on various topics in the coming weeks, and I will be doing my best to cover the subject in as much detail as possible without changing the scope of the work.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -521,73 +574,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/posts/why-cant-programmers-program/">Why Can&#8217;t Programmers Program?</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-
-<time datetime="2007-03-04T10:33:00+10:00" pubdate data-updated="true">04 Mar 2007</time>
-        
-         | <a href="/posts/why-cant-programmers-program/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>While reading The Daily Grind from <a href="http://www.larkware.com/" title="Larkware" target="_blank">Larkware</a> I found myself reading through a couple of articles (<a href="http://www.codinghorror.com/blog/archives/000781.html" title="Why Can't Programmers.. Program?" target="_blank">here</a> and <a href="http://www.hanselman.com/blog/YouCantTeachHeightMeasuringProgrammerCompetenceViaFizzBuzz.aspx" title="You Can't Teach Height - Measuring Programmer Competence via FizzBuzz" target="_blank">here</a>) on programmers not being able to program.  This obviously caught my interest as I feel I&#8217;ve worked with my fair share of these &#8220;programmers&#8221; in the past.  It got me thinking about how to determine whether or not someone is good in an interview, how their background affects the way they perform when they start working as a developer, and whether or not having <em>N</em> years of experience actually means <em>N</em> years of experience or simply <em>N</em> lots of 1 years experience. More on this later.</p>
-
-<p>I&#8217;ve blogged in the past about what I think makes a <a href="/posts/the-day-job/trackback/" title="The Day Job">good developer</a>, the differences between <a href="/posts/developers-vs-programmers/trackback/" title="Developers vs Programmers">developers and programmers</a>, self-learning of important things such as <a href="/posts/learning-code-security/trackback/" title="Learning Code Security">code security</a>, and I even mentioned a few points while <a href="/posts/are-you-any-good/trackback/" title="Are you any Good?">asking if you were any good</a>.  These posts, along with my recent one about <a href="/posts/writing-object-oriented-code-vs-writing-code-in-an-object-oriented-language/" title="">OO coding</a>, should give you a good idea of my opinion of the vast majority of developers out there at the moment.</p>
-
-<p>If you consider the facts about where people come from, and how they get here, it&#8217;s no wonder that I have such an opinion.  Have a read of <a href="http://tickletux.wordpress.com/posts/using-fizzbuzz-to-find-developers-who-grok-coding/" title="Using FizzBuzz to find Developers who Grok Coding" target="_blank">this</a> article to see the kinds of problems that computer science students are <strong>unable to solve</strong>.  From the article:<blockquote><p>An example of a Fizz-Buzz question is the following:</p><blockquote><p>Write a program that prints the numbers from 1 to 100. But for multiples of three print Fizz instead of the number and for the multiples of five print Buzz. For numbers which are multiples of both three and five print FizzBuzz.</p></blockquote><p>Most good programmers should be able to write out on paper a program which does this in a under a couple of minutes.  Want to know something scary ? - the majority of comp sci graduates cant. Ive also seen self-proclaimed senior programmers take more than 10-15 minutes to write a solution.</p></blockquote>You have <strong>got</strong> to be kidding me?!</p>
-
-<p>I think this highlights the fact that a lot of people who go through I.T. and Computer Science courses don&#8217;t really understand or appreciate the level of problem solving skills required to make them an asset to a software development company.  It also proves that experience isn&#8217;t necessarily all it&#8217;s cracked up to be (see my final point in this post).</p>
-
-<p>Is programming about the syntax? Pff&#8230; anyone can learn syntax.  Is it about how many languages you know? Pff&#8230; anyone can learn another language.  I think it&#8217;s about being resourceful, being dedicated, being a cognitive thinker, and being a good problem solver.  I would hire someone with no background in software who manages to map out solutions to problems they have never seen before without shitting themselves in the process over someone who&#8217;s got <em>N</em> years experience with <em>X</em> different languages and technologies that just can&#8217;t solve a simple problem by themselves.  Don&#8217;t laugh, those people are out there!  They may even be working alongside you (they could be you! :) .. or me!).</p>
-
-<p>I think it&#8217;d be a bit unfair to list a few examples of people I know fit into this category of programmer, and it&#8217;s not really necessary anyway.  But I will say they&#8217;re <em>everywhere</em>.  So how do you weed them out before giving them a job? Is the idea of &#8220;FizzBuzz&#8221; enough?  Are technical questions and programming problems in interviews the best way of finding out a programmers ability?</p>
-
-<p>To be honest, I&#8217;ve got mixed feelings about this.  I&#8217;ve been in interviews in the past where the questions are so hard that only someone with prior intimate knowledge of the problem space would be able to answer properly.  I&#8217;ve had interviews where the questions were incredibly easy, to the point where I&#8217;ve questioned the level of the position I was applying for.  I&#8217;ve had interviews where I&#8217;ve been asked some extremely obscure questions that just don&#8217;t relate to anything!</p>
-
-<p>I can see how one of these types of questions can get different information about the interviewee.</p>
-
-<ul><li>In the first case the interviewer probably doesn&#8217;t expect the candidate to be able to answer the question properly.  Instead they&#8217;re looking at the approach that the candidate is taking to attempt to come up with a solution while monitoring how he/she performs under pressure and deals with the stress of having the interviewer <em>wait</em> for them to produce a solution.</li><li>In the second case the interviewer is looking to see if the candidate responds by saying &#8220;wow, that was surprisingly easy&#8221;.  If they don&#8217;t then chances are you&#8217;ve got someone who is looking for a cushy job, or who is grateful that the problem was so simple!</li><li>In the third case the candidate&#8217;s though processes are being monitored and their actions reviewed while they&#8217;re thrown into a problem space that they couldn&#8217;t possibly fathom as part of their job.</li></ul>
-
-
-<p>Is there a &#8220;wrong&#8221; question for an interview?  No, I don&#8217;t think so.  I think most questions are appropriate for interviews so long as you get the required information out of the candidate in using them.  If the question isn&#8217;t designed to extract the required type of information then don&#8217;t ask it!  Candidates themselves should be prepared to face a plethora of topics in an interview, and if they can&#8217;t stand the heat then they shouldn&#8217;t be in the kitchen (I think I&#8217;ve said that before).</p>
-
-<p>I think that wannabe developers need to understand that Software Development isn&#8217;t a free ride.  It&#8217;s not a guarantee of a $1mill/year salary.  It&#8217;s not a cushy field to get a job in.  It&#8217;s <em>hard</em> to be recognised and you have work your tits off if you want to get somewhere in the field.  It may do you good to know that &#8230;<ul><li>&#8230; understanding 50% of a programming language and using it to hack a few basic applications together &#8230; or</li><li>&#8230; making a database or reporting application using MS Excel or MS Access &#8230; or</li><li>&#8230; using VB to &#8220;write&#8221; an application which let&#8217;s you keep track of your own budget &#8230; or</li><li>&#8230; writing a few JavaScript widges &#8230; or</li><li>&#8230; doing a few assignments at university &#8230; or</li><li>&#8230; creating a game trainer/crack &#8230; or</li><li>&#8230; scripting a few programs to make your general computing life easier &#8230; or</li><li>&#8230; anything like the previous points &#8230;</li></ul>
-<strong><em>&#8230; does not make you a developer!</em></strong>  Your aptitude, your problem solving, your resourcefulness and your love of challenges are what aid you in <em>becoming</em> a developer.</p>
-
-<p>Finally I&#8217;d like to just recap a point I made earlier:<blockquote><p>&#8230;whether or not having <em>N</em> years of experience actually means <em>N</em> years of experience or simply <em>N</em> lots of 1 years experience&#8230;</p></blockquote>There are people out there who have worked in the industry for years and for each year they&#8217;ve looked to improve themselves, keep up to date with technologies, languages, best practices, patterns, platforms and <em>insert other buzzword here</em>.  They love their tech, and they work very hard to make sure that it doesn&#8217;t outpace them.  These are the kind of people who have a 1:1 ratio of experience years to work years, and these are the kinds of people that <em>you should hire!</em></p>
-
-<p>I&#8217;ve found a large percentage of the developers that I&#8217;ve had the pleasure of dealing with have a ratio of 1:3 or 1:4 - meaning that they&#8217;ve had that one year of experience three or four times.  There is a <strong>big</strong> difference.</p>
-
-<p>What do you guys think? :)</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/page/18/">&larr; Older</a>
@@ -641,6 +627,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/posts/oscp-faq/">OSCP FAQ</a>
+      </li>
+    
+      <li class="post">
         <a href="/posts/64bit-pointer-truncation-in-meterpreter/">64bit Pointer Truncation in Meterpreter</a>
       </li>
     
@@ -654,10 +644,6 @@
     
       <li class="post">
         <a href="/posts/irssi-and-sasl-on-osx/">Irssi and SASL on OSX</a>
-      </li>
-    
-      <li class="post">
-        <a href="/posts/xss-flaws-via-mvc-model-binding-and-request.querystring-inconsistencies/">XSS Flaws via MVC Model Binding and Request.QueryString Inconsistencies</a>
       </li>
     
   </ul>
@@ -729,7 +715,7 @@
 <li class='category'><a href='/categories/networks/'>Networks (2)</a></li>
 <li class='category'><a href='/categories/nosql/'>NoSQL (3)</a></li>
 <li class='category'><a href='/categories/oauth/'>OAuth (1)</a></li>
-<li class='category'><a href='/categories/oscp/'>OSCP (1)</a></li>
+<li class='category'><a href='/categories/oscp/'>OSCP (2)</a></li>
 <li class='category'><a href='/categories/open-source/'>Open Source (3)</a></li>
 <li class='category'><a href='/categories/privacy/'>Privacy (3)</a></li>
 <li class='category'><a href='/categories/productivity/'>Productivity (1)</a></li>
@@ -739,7 +725,7 @@
 <li class='category'><a href='/categories/riak/'>Riak (7)</a></li>
 <li class='category'><a href='/categories/ruby-on-rails/'>Ruby on Rails (1)</a></li>
 <li class='category'><a href='/categories/screencasts/'>Screencasts (1)</a></li>
-<li class='category'><a href='/categories/security/'>Security (15)</a></li>
+<li class='category'><a href='/categories/security/'>Security (16)</a></li>
 <li class='category'><a href='/categories/series/'>Series (1)</a></li>
 <li class='category'><a href='/categories/shortcuts/'>Shortcuts (4)</a></li>
 <li class='category'><a href='/categories/smashthestack-io/'>SmashTheStack-IO (1)</a></li>

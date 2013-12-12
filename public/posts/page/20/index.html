@@ -15,7 +15,7 @@
   <meta http-equiv="X-XRDS-Location" content="http://pip.verisignlabs.com/thecolonial/yadixrds" />
 
   
-  <meta name="description" content="First of all, Happy New Year! Now that the formalities are out of the way, I&#8217;ll get stuck into the post :) Today&#8217;s comments are inspired &hellip;">
+  <meta name="description" content="I&#8217;ve had a few questions from people asking me why there&#8217;s a stack of queer looking icons appearing at the bottom of the blog posts, so I &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -95,6 +95,51 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/posts/notable/">Notable</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+
+<time datetime="2007-01-15T05:35:00+10:00" pubdate data-updated="true">15 Jan 2007</time>
+        
+         | <a href="/posts/notable/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I&#8217;ve had a few questions from people asking me why there&#8217;s a stack of <em>queer</em> looking icons appearing at the bottom of the blog posts, so I thought I&#8217;d post the details so that everyone knows.</p>
+
+<p>The icons appear because of a plugin I recently installed called <a href="http://www.calevans.com/view.php/page/notable" title="Notable Wordpress Plugin" target="_blank">Notable</a>.  Notable is a plugin that generates links that allow for easy addition of links to various social bookmarking and networking sites.  Here&#8217;s a bit of a snippet from the web page:<blockquote>Notable displays a series of icons below each post allowing your readers to easily submit you to many different social bookmarking and networking sites.</p>
+
+<p>This allows your users to easily submit your blog posts to these sites and increases your blog&#8217;s visibility.</blockquote>So it&#8217;s there to help you add my blog links to a stack of different pages should you feel the need to. Like what I said and want to bookmark it on a site like <a href="http://del.icio.us/" title="del.icio.us" target="_blank">del.icio.us</a>? Click that link and away it goes.  The icons that are listed are for a variety of possibly bookmarking and networking sites, and are there to try and accommodate whatever site you happen to like to use.</p>
+
+<p>If you aren&#8217;t into that kind of thing, then just ignore them :)</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -636,90 +681,6 @@ The Company X Team</blockquote></p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/posts/wtf-date-malarky/">WTF: Date Malarky</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-
-<time datetime="2006-11-16T08:09:00+10:00" pubdate data-updated="true">16 Nov 2006</time>
-        
-         | <a href="/posts/wtf-date-malarky/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>I don&#8217;t think I&#8217;m going to need to say much about the following code, as <em>anyone</em> with even an <strong>inkling</strong> of the features of the .NET framework would know that it&#8217;s a joke. See the nugget(s) of genius below:</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">public</span> <span class="k">static</span> <span class="k">void</span> <span class="nf">ToStartofCurrDay</span><span class="p">(</span><span class="k">ref</span> <span class="n">DateTime</span> <span class="n">aDate</span><span class="p">)</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="n">aDate</span> <span class="p">=</span> <span class="n">aDate</span><span class="p">.</span><span class="n">Subtract</span><span class="p">(</span><span class="n">aDate</span><span class="p">.</span><span class="n">TimeOfDay</span><span class="p">);</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">public</span> <span class="k">static</span> <span class="k">void</span> <span class="nf">ToEndofPrevDay</span><span class="p">(</span><span class="k">ref</span> <span class="n">DateTime</span> <span class="n">aDate</span><span class="p">)</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="n">aDate</span> <span class="p">=</span> <span class="n">aDate</span><span class="p">.</span><span class="n">Subtract</span><span class="p">(</span><span class="n">aDate</span><span class="p">.</span><span class="n">TimeOfDay</span><span class="p">);</span>
-</span><span class='line'>  <span class="n">TimeSpan</span> <span class="n">ts</span> <span class="p">=</span> <span class="k">new</span> <span class="n">TimeSpan</span><span class="p">(</span><span class="m">1</span><span class="p">);</span>
-</span><span class='line'>  <span class="n">aDate</span> <span class="p">=</span> <span class="n">aDate</span><span class="p">.</span><span class="n">Subtract</span><span class="p">(</span><span class="n">ts</span><span class="p">);</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">public</span> <span class="k">static</span> <span class="k">void</span> <span class="nf">ToEndofCurrDay</span><span class="p">(</span><span class="k">ref</span> <span class="n">DateTime</span> <span class="n">aDate</span><span class="p">)</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="n">aDate</span> <span class="p">=</span> <span class="n">aDate</span> <span class="p">-</span> <span class="n">aDate</span><span class="p">.</span><span class="n">TimeOfDay</span><span class="p">;</span>
-</span><span class='line'>  <span class="n">aDate</span> <span class="p">=</span> <span class="n">aDate</span><span class="p">.</span><span class="n">AddHours</span><span class="p">(</span><span class="m">23</span><span class="p">);</span>
-</span><span class='line'>  <span class="n">aDate</span> <span class="p">=</span> <span class="n">aDate</span><span class="p">.</span><span class="n">AddMinutes</span><span class="p">(</span><span class="m">59</span><span class="p">);</span>
-</span><span class='line'>  <span class="n">aDate</span> <span class="p">=</span> <span class="n">aDate</span><span class="p">.</span><span class="n">AddSeconds</span><span class="p">(</span><span class="m">59</span><span class="p">);</span>
-</span><span class='line'>  <span class="n">aDate</span> <span class="p">=</span> <span class="n">aDate</span><span class="p">.</span><span class="n">AddMilliseconds</span><span class="p">(</span><span class="m">999</span><span class="p">);</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>The thing that annoys me about this is that it was written by the <em>lead/architect</em>! The man who should know the framework like the back of his hand. Scary stuff. It&#8217;s this kind of thing that inspired my comments about &#8220;knowing your tech&#8221; in my post about the day job.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/page/21/">&larr; Older</a>
@@ -773,6 +734,10 @@ The Company X Team</blockquote></p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/posts/oscp-faq/">OSCP FAQ</a>
+      </li>
+    
+      <li class="post">
         <a href="/posts/64bit-pointer-truncation-in-meterpreter/">64bit Pointer Truncation in Meterpreter</a>
       </li>
     
@@ -786,10 +751,6 @@ The Company X Team</blockquote></p>
     
       <li class="post">
         <a href="/posts/irssi-and-sasl-on-osx/">Irssi and SASL on OSX</a>
-      </li>
-    
-      <li class="post">
-        <a href="/posts/xss-flaws-via-mvc-model-binding-and-request.querystring-inconsistencies/">XSS Flaws via MVC Model Binding and Request.QueryString Inconsistencies</a>
       </li>
     
   </ul>
@@ -861,7 +822,7 @@ The Company X Team</blockquote></p>
 <li class='category'><a href='/categories/networks/'>Networks (2)</a></li>
 <li class='category'><a href='/categories/nosql/'>NoSQL (3)</a></li>
 <li class='category'><a href='/categories/oauth/'>OAuth (1)</a></li>
-<li class='category'><a href='/categories/oscp/'>OSCP (1)</a></li>
+<li class='category'><a href='/categories/oscp/'>OSCP (2)</a></li>
 <li class='category'><a href='/categories/open-source/'>Open Source (3)</a></li>
 <li class='category'><a href='/categories/privacy/'>Privacy (3)</a></li>
 <li class='category'><a href='/categories/productivity/'>Productivity (1)</a></li>
@@ -871,7 +832,7 @@ The Company X Team</blockquote></p>
 <li class='category'><a href='/categories/riak/'>Riak (7)</a></li>
 <li class='category'><a href='/categories/ruby-on-rails/'>Ruby on Rails (1)</a></li>
 <li class='category'><a href='/categories/screencasts/'>Screencasts (1)</a></li>
-<li class='category'><a href='/categories/security/'>Security (15)</a></li>
+<li class='category'><a href='/categories/security/'>Security (16)</a></li>
 <li class='category'><a href='/categories/series/'>Series (1)</a></li>
 <li class='category'><a href='/categories/shortcuts/'>Shortcuts (4)</a></li>
 <li class='category'><a href='/categories/smashthestack-io/'>SmashTheStack-IO (1)</a></li>

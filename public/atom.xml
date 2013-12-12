@@ -4,7 +4,7 @@
   <title><![CDATA[OJ's perspective]]></title>
   <link href="http://buffered.io/atom.xml" rel="self"/>
   <link href="http://buffered.io/"/>
-  <updated>2013-11-17T09:54:28+10:00</updated>
+  <updated>2013-12-12T19:36:57+10:00</updated>
   <id>http://buffered.io/</id>
   <author>
     <name><![CDATA[OJ Reeves]]></name>
@@ -12,6 +12,62 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[OSCP FAQ]]></title>
+    <link href="http://buffered.io/posts/oscp-faq/"/>
+    <updated>2013-12-12T19:01:00+10:00</updated>
+    <id>http://buffered.io/posts/oscp-faq</id>
+    <content type="html"><![CDATA[<p>Since publishing the article that detailed my experiences with the <a href="http://www.offensive-security.com/information-security-training/penetration-testing-with-backtrack/">PWB</a> labs and the <a href="http://www.offensive-security.com/information-security-certifications/oscp-offensive-security-certified-professional/">OSCP</a> exam, I have received scores of emails from potential and current students searching for more information and (quite often) hints. While I do my best to answer most of them, it&#8217;s close to impossible to get to them all as my email debt is already way too high.</p>
+
+<p>From this point on I have decided not to respond to questions directly via email. This post will stand instead of those emails as a point of reference for common OSCP-related questions. As more questions come in I will update this post so that all future readers can benfit from the answers without me having to repost them.</p>
+
+<!--more-->
+
+
+<blockquote><p>Do I need to be good at programming to do PWB?</p></blockquote>
+
+<p>I&#8217;d say <em>no</em>, but it really does help. If you&#8217;re not good with at least one language, then you&#8217;re going to have a harder time and you&#8217;ll probably end up needing to purchase time extensions to get through the labs. Scripting and coding is an important part of the experience, and it&#8217;s something you really should be able to do. You could probably get through the labs without it, but it will be difficult. My recommendation is to go and spend time learning a language like <a href="http://www.python.org/">Python</a>, <a href="http://www.ruby-lang.org/">Ruby</a> or even <a href="http://en.wikipedia.org/wiki/Bash_(Unix_shell)">Bash</a> so that you have the ability to automate some of the tasks you&#8217;ll have to take on.</p>
+
+<blockquote><p>Should I do OSCP first, or should I take on other certs (such as <a href="https://www.eccouncil.org/Certification/certified-ethical-hacker">CEH</a>, <a href="http://www.giac.org/certification/penetration-tester-gpen">GPEN</a> or <a href="http://mile2.com/penetration-testing-ethical-hacking/cpte.html">CPTE</a>) as preparation?</p></blockquote>
+
+<p>I haven&#8217;t done CEH, GPEN or CPTE. In fact, to date, OSCP is the only security certification I have attempted to tackle (though I will be taking <a href="http://www.offensive-security.com/information-security-training/cracking-the-perimeter/">CTP</a> later this month with a goal of nailing <a href="http://www.offensive-security.com/information-security-certifications/osce-offensive-security-certified-expert/">OSCE</a> in January). As a result I don&#8217;t have a valid opinion of the quality or usefulness of the other certifications. My feeling is that it&#8217;s down to you, dear reader, to determine which is best for you, just as I did when I was looking for a challenge. If you feel that OSCP is out of your depth then by all means go and find something easier.</p>
+
+<blockquote><p>Is there much web application hacking involved?</p></blockquote>
+
+<p>It&#8217;s hard to quantify &#8220;much&#8221;, but yes there is a bit of hacking of web applications involved. Some are known applications, some are custom applications built specifically for the labs. If you&#8217;re not across the basics before you start, be prepared to ramp up quickly once your lab time commences.</p>
+
+<blockquote><p>Do I need to know about assembly language?</p></blockquote>
+
+<p>There are parts of the course which require you to have a basic understanding of assembly, though only x86 and not x64. I think it&#8217;s a good idea to get your hands dirty prior to taking the course, because you will be using and adjusting exploits during your lab time.</p>
+
+<blockquote><p>How many hours per day did you spend in the labs? Is an hour per day enough?</p></blockquote>
+
+<p>The short answer is that I spent as many as I possibly could. I paid for just 30 days in the lab which meant that I had to force myself to push hard to get through as many machines as possible without having to pay for more time. It was a cost saver and a personal quest at the same time. On average, my guess is that I spent four or so hours per day, and more on weekends. One hour per day would not be enough, in my opinion, even if you booked 90 days worth of lab time.</p>
+
+<p>My recommendation is to do your best to have larger, unbroken blocks of time rather than lots of smaller chunks of time. This gives you the chance to immerse yourself in a problem and maximises the possibility of you solving it without the context-switching which can be really distruptive to your thought process.</p>
+
+<p>PWB is hard, don&#8217;t expect to get through it in an hour per day unless you&#8217;re a guru with lots of experience.</p>
+
+<blockquote><p>Can you please give me a hint for <strong>&lt;machine name&gt;</strong> in the PWB labs, because I&#8217;m stuck?</p></blockquote>
+
+<p>No. PWB and OSCP is all about learning to learn. The journey is probably more important than the final destination. I will not give hints, and if you ask for them you&#8217;ll more than likely receive no response from me. If I do respond, I will probably just say &#8220;Try Harder&#8221;.</p>
+
+<blockquote><p>Can I please see your lab notes?</p></blockquote>
+
+<p>Absolutely not.</p>
+
+<blockquote><p>I have been a developer for many years and want to try for OSCP, is it a waste of time?</p></blockquote>
+
+<p>No, it&#8217;s not a waste of time, and yes you shoud try for it. This is exactly the scenario I was in, and I don&#8217;t regret doing it for a one second. Also, I do believe that anyone who is involved with building production systems should do this course as it really does open your eyes. Most developers haven&#8217;t really got much visibility of what things are like on the front line when it comes to security. This course is the kind of thing that will make them think much more defensively when writing their code.</p>
+
+<blockquote><p>Will OSCP provide me with the skills I need to be a penetration tester?</p></blockquote>
+
+<p>OSCP by itself will not. I think the only thing that can really give you the skills is experience. However, OSCP is a great start and it gives a great foundation on which to build a career as a penetration tester.</p>
+
+<p>In other words, don&#8217;t stop learning!</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[64bit Pointer Truncation in Meterpreter]]></title>
@@ -1775,174 +1831,6 @@ use Irssi;
 <p>The script should now run fine and <code>irssi</code> should stop complaining.</p>
 
 <p>This might seem obvious to some, but it wasn&#8217;t to me! From what I can tell other people around the traps have had the same problem so I thought I&#8217;d post this in the hope that it helps others.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[XSS Flaws via MVC Model Binding and Request.QueryString Inconsistencies]]></title>
-    <link href="http://buffered.io/posts/xss-flaws-via-mvc-model-binding-and-request.querystring-inconsistencies/"/>
-    <updated>2012-11-29T20:50:00+10:00</updated>
-    <id>http://buffered.io/posts/xss-flaws-via-mvc-model-binding-and-request.querystring-inconsistencies</id>
-    <content type="html"><![CDATA[<p>Forgive the title of the post, it was hard coming up with something succinct that captured the purpose of the post. This was inspired by a recent experience with a client who had this exact problem with one of their production systems.</p>
-
-<h2>TL;DR</h2>
-
-<p>Never use <a href="http://msdn.microsoft.com/en-us/library/ms524784(v=vs.90).aspx">Request.QueryString</a> to access parameters in your views, even when you&#8217;re sure your actions have validated them. You may open your application up to <a href="http://en.wikipedia.org/wiki/Cross-site_scripting">XSS</a> attacks. Always, <em>always</em> use data that is passed to your views via the <code>Model</code> or the <a href="http://msdn.microsoft.com/en-us/library/system.web.mvc.viewpage.viewdata(v=vs.108).aspx">ViewData</a> dictionary. Under no circumstances should you trust data coming in from the web, that includes query string parameters.</p>
-
-<!--more-->
-
-
-<h2>Setting the scene</h2>
-
-<p>The application provided a certain function which allowed users to browse information tied to a number of entities. For the sake of this discussion let&#8217;s say those entities were instances of a <strong>Person</strong>. The number of entities was extremely small, so it was decided that the interface would consist of a drop-down box consisting of all the entities. When that drop-down box was used a <em>change</em> event would fire using JavaScript that would modify the current URL and render a new page. That page would show the same drop-down list, with the appropriate entry selected, along with the information specfic to that entity.</p>
-
-<p>Let&#8217;s see some code starting with the &#8220;details&#8221; of the person:</p>
-
-<figure class='code'><figcaption><span>Person.cs  </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">public</span> <span class="k">class</span> <span class="nc">Person</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="k">public</span> <span class="kt">string</span> <span class="n">Name</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span><span class="k">set</span><span class="p">;</span> <span class="p">}</span>
-</span><span class='line'>    <span class="k">public</span> <span class="kt">int</span> <span class="n">Age</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Nothing too amazing there. Here&#8217;s the parts of the page which renders the list of people:</p>
-
-<figure class='code'><figcaption><span>Index.aspx (partial)  </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'>Please choose a person <span class="err">&lt;</span>%= Html.DropDownList(&quot;people&quot;, Model) %&gt;
-</span><span class='line'>
-</span><span class='line'><span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span><span class="nt">&gt;</span>
-</span><span class='line'><span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">ready</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>  <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#people&quot;</span><span class="p">).</span><span class="nx">change</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>    <span class="nb">window</span><span class="p">.</span><span class="nx">location</span> <span class="o">=</span> <span class="s1">&#39;&lt;%= Url.Action(&quot;Detail&quot;, &quot;Person&quot;) %&gt;?index=&#39;</span> <span class="o">+</span> <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">val</span><span class="p">();</span>
-</span><span class='line'>  <span class="p">});</span>
-</span><span class='line'><span class="p">});</span>
-</span><span class='line'><span class="nt">&lt;/script&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Again, nothing too mind boggling here either. We can see how the <code>change</code> event fires and updates the <code>window.location</code> and moves the user to the <code>Details</code> page. The <code>Model</code> for this page is of type <code>IEnumerable&lt;SelectListItem&gt;</code>.</p>
-
-<p>Next we&#8217;ll take a look at the controller action which gets invoked when the drop-down is changed:</p>
-
-<figure class='code'><figcaption><span>PersonController.cs (Partial)  </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">public</span> <span class="n">ActionResult</span> <span class="nf">Detail</span><span class="p">(</span><span class="kt">int</span> <span class="n">index</span><span class="p">)</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="k">return</span> <span class="nf">View</span><span class="p">(</span><span class="s">&quot;Detail&quot;</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">.</span><span class="n">Create</span><span class="p">(</span><span class="n">People</span><span class="p">[</span><span class="n">index</span><span class="p">],</span> <span class="n">GetPeople</span><span class="p">()));</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>We&#8217;re using the <code>index</code> parameter (note the <em>type</em> of this parameter, it&#8217;s important) to index into the list of people we have stashed somewhere to extract the user that is being viewed. This person, along with the full list of people in <code>SelectListItem</code> form, is being passed to the view.</p>
-
-<p>Let&#8217;s see what the view does with this information:</p>
-
-<figure class='code'><figcaption><span>Detail.aspx (partial)  </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'>Please choose a person <span class="err">&lt;</span>%= Html.DropDownList(&quot;people&quot;, Model.Item2) %&gt;
-</span><span class='line'>
-</span><span class='line'><span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span><span class="nt">&gt;</span>
-</span><span class='line'><span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">ready</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>  <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#people&quot;</span><span class="p">).</span><span class="nx">val</span><span class="p">(</span><span class="o">&lt;%=</span> <span class="nx">Request</span><span class="p">.</span><span class="nx">QueryString</span><span class="p">[</span><span class="s2">&quot;index&quot;</span><span class="p">]</span> <span class="o">%&gt;</span><span class="p">);</span>
-</span><span class='line'>  <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#people&quot;</span><span class="p">).</span><span class="nx">change</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>    <span class="nb">window</span><span class="p">.</span><span class="nx">location</span> <span class="o">=</span> <span class="s1">&#39;&lt;%= Url.Action(&quot;Detail&quot;, &quot;Person&quot;) %&gt;?index=&#39;</span> <span class="o">+</span> <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">val</span><span class="p">();</span>
-</span><span class='line'>  <span class="p">});</span>
-</span><span class='line'><span class="p">});</span>
-</span><span class='line'><span class="nt">&lt;/script&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="nt">&lt;p&gt;</span>
-</span><span class='line'><span class="err">&lt;</span>%= Html.Encode(Model.Item1.Name) %&gt; is a whopping <span class="err">&lt;</span>%= Model.Item1.Age %&gt; years old!
-</span><span class='line'><span class="nt">&lt;/p&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>This is starting to get a bit more interesting. The rendering of the drop-down is the same as before, except it&#8217;s pulling data from the <a href="http://msdn.microsoft.com/en-us/library/system.tuple.aspx">System.Tuple</a> that was passed in as the <code>Model</code>. The event handler that&#8217;s invoked on <code>change</code> is the same, and there&#8217;s a bit of non-descript content rendering a the bottom. The subtle but important difference is the code that sets the currently selected person in the drop-down.</p>
-
-<p>I plugged this code into a standard MVC application and this is what it looks like:</p>
-
-<p><img src="http://buffered.io/uploads/2012/11/xss-index.png" title="'Choosing a person'" ></p>
-
-<p>After selecting a person from the drop down it looks like this:</p>
-
-<p><img src="http://buffered.io/uploads/2012/11/xss-details.png" title="'Person details'" ></p>
-
-<h2>A bad assumption</h2>
-
-<p>As you already know, ASP.NET MVC has the ability to automatically convert query string parameters into type-safe arguments that are passed into the controller actions. In the above example the <code>index</code> query string parameter is converted to an <code>int</code> and passed into the <code>Details</code> action. If a user attempts to modify this value to something that isn&#8217;t an integer then MVC will literally poop itself, right?</p>
-
-<p>Let&#8217;s see.</p>
-
-<p><img src="http://buffered.io/uploads/2012/11/xss-type-fail.png" title="'Person details'" ></p>
-
-<p>OK, so MVC will require that this value be an integer, otherwise the action will fail to be invoked. If that&#8217;s the case, then the view won&#8217;t be rendered and our code which directly accesses <code>Request.QueryString</code> will not be invoked and hence there&#8217;s no risk.</p>
-
-<p>Right?</p>
-
-<p><a href="http://blog.iseclab.org/2010/12/08/http-parameter-pollution-so-how-many-flawed-applications-exist-out-there-we-go-online-with-a-new-service/">Wrong</a>.</p>
-
-<h2>The attack vector</h2>
-
-<p><a href="http://blog.iseclab.org/2010/12/08/http-parameter-pollution-so-how-many-flawed-applications-exist-out-there-we-go-online-with-a-new-service/">HTTP Parameter Pollution</a> is a relatively &#8220;new&#8221; problem which revolves around the way that web servers/applications parse and handle multiple instances of the same GET/POST parameter. Phew!</p>
-
-<p>In other words, if a malicious user decides to pass in <em>another</em> instance of the <code>index</code> parameter in the query string, what happens? The way this is handled varies from technology to technology (see <a href="https://www.owasp.org/images/b/ba/AppsecEU09_CarettoniDiPaola_v0.8.pdf">slide 9</a> for some examples), but here we&#8217;re only interested in ASP.NET with IIS and MVC.</p>
-
-<p>Let me just state this again: we&#8217;re only interested in ASP.NET and IIS <em><strong>and MVC</strong></em>. The reason we need to emphasise this is because MVC rocks the boat a little bit. It&#8217;s important to remember that <a href="http://msdn.microsoft.com/en-us/library/ms524784(v=vs.90).aspx">Request.QueryString</a> is not specific to MVC, it&#8217;s something that lives in ASP.NET land. <em>Controller actions</em> on the other hand are not available across the board when using ASP.NET, they live in MVC land. When it comes to binding query string parameters to controller action method parameters, MVC doesn&#8217;t behave how you would expect, and it&#8217;s not the same as what happens when dealing with <code>Request.QueryString</code> directly.</p>
-
-<p>So what happens in ASP.NET and IIS <em>without</em> MVC if an attacker passes in two values for the same parameter? Consider the following url: <code>http://foo.com/bar?baz=0&amp;baz=dooby</code></p>
-
-<p>While in C# land (remember, outside of MVC) <code>Request.QueryString["baz"]</code> will contain a string value <code>0,dooby</code>. In our current environment any duplicate instances of query string values are passed through as a single value joined together by commas. This knowledge is scarily uncommon. Many .NET developers that I know are not aware of this behaviour.</p>
-
-<p>This is where MVC comes along and sprays poop over everything.</p>
-
-<p>ASP.NET MVC controller action method parameter binding doesn&#8217;t handle multiple instance of the same query string parameters in the same way. In fact, it behaves more like JSP on Jetty: <strong>it only uses the first value and ignores the rest</strong>.</p>
-
-<p>Why is this bad? Well this means that code outside of controller actions may result in different behaviour to that which is inside. More importantly, accessing <code>Request.QueryString</code> to get access to a parameter doesn&#8217;t mean that you&#8217;ll get the same value as what was handled in the controller action.</p>
-
-<p>Let&#8217;s take a look at what might happen if we threw multiple instances via the query string at our dodgy MVC application:</p>
-
-<p><img src="http://buffered.io/uploads/2012/11/xss-hpp-invalid.png" title="'HPP example'" ></p>
-
-<p>The above screenshot shows both the query string and the page source when we do this. That&#8217;s right, MVC used the first value, set to <code>0</code>, without any issues and invoked the view engine. The view&#8217;s assumption that the <code>index</code> parameter has been sanitised by the controller has now been proven unsafe. Now we can see that we do have access to the source. Let&#8217;s see what happens if we went a step further and passed in a more sinister value:</p>
-
-<p><img src="http://buffered.io/uploads/2012/11/xss-hpp-valid.png" title="'HPP XSS exploit'" ></p>
-
-<p>Pwned.</p>
-
-<h2>Conclusion</h2>
-
-<p><em>Never</em> trust unsanitised input, that includes stuff that gets passed in through <code>Request.QueryString</code>. Do not assume that the contents are safe just because your controller action handled things without throwing an exception. If you&#8217;re going to render data that has come in from the user or from the query string, delegate responsibility of validation to the controller action and only trust content which is passed to the view via <a href="http://msdn.microsoft.com/en-us/library/system.web.mvc.viewpage.viewdata(v=vs.108).aspx">ViewData</a> or the <code>Model</code>.</p>
 ]]></content>
   </entry>
   

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Sorting | OJ's perspective]]></title>
   <link href="http://buffered.io/categories/sorting/atom.xml" rel="self"/>
   <link href="http://buffered.io/"/>
-  <updated>2013-11-17T09:55:16+10:00</updated>
+  <updated>2013-12-12T19:36:57+10:00</updated>
   <id>http://buffered.io/</id>
   <author>
     <name><![CDATA[OJ Reeves]]></name>
@@ -142,51 +142,93 @@
 
 <p>Here is a sample implementation written in <a href="http://en.wikipedia.org/wiki/C_Sharp" title="C Sharp">C#</a>. It is heavily commented in the hope that it will aid in understanding how the algorithm works:</p>
 
-<p>{% codeblock lang:csharp %}
-/// <summary>
-/// Example implementation of the Gnome Sort algorithm.
-/// </summary>
-/// <param name="dataSet">Array of items to be sorted.</param>
-static void GnomeSort(int[] dataSet)
-{</p>
-
-<pre><code>// start at the second item
-int i = 1;
-
-// keep track of the 'next' item so we
-// can jump to it when the current iteration
-// is finished.
-int j = 2;
-
-// loop until we reach the end of the data set
-while (i &lt; dataSet.Length)
-{
-    // swap if required
-    if (dataSet[i - 1] &gt; dataSet[i])
-    {
-        Swap(dataSet, i - 1, i);
-
-        // move backwards through the sorted items
-        // until we find the rightful spot.
-        --i;
-
-        // stop at the head of the list
-        if (i == 0)
-        {
-            // jump to the next item in the set
-            i = j++;
-        }
-    }
-    else
-    {
-        // jump to the next item in the set
-        i = j++;
-    }
-}
-</code></pre>
-
-<p>}
-{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="c1">/// &lt;summary&gt;</span>
+</span><span class='line'><span class="c1">/// Example implementation of the Gnome Sort algorithm.</span>
+</span><span class='line'><span class="c1">/// &lt;/summary&gt;</span>
+</span><span class='line'><span class="c1">/// &lt;param name=&quot;dataSet&quot;&gt;Array of items to be sorted.&lt;/param&gt;</span>
+</span><span class='line'><span class="k">static</span> <span class="k">void</span> <span class="nf">GnomeSort</span><span class="p">(</span><span class="kt">int</span><span class="p">[]</span> <span class="n">dataSet</span><span class="p">)</span>
+</span><span class='line'><span class="p">{&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">pre</span><span class="p">&gt;&lt;</span><span class="n">code</span><span class="p">&gt;</span><span class="c1">// start at the second item</span>
+</span><span class='line'><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="m">1</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// keep track of the &#39;next&#39; item so we</span>
+</span><span class='line'><span class="c1">// can jump to it when the current iteration</span>
+</span><span class='line'><span class="c1">// is finished.</span>
+</span><span class='line'><span class="kt">int</span> <span class="n">j</span> <span class="p">=</span> <span class="m">2</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// loop until we reach the end of the data set</span>
+</span><span class='line'><span class="k">while</span> <span class="p">(</span><span class="n">i</span> <span class="p">&amp;</span><span class="n">lt</span><span class="p">;</span> <span class="n">dataSet</span><span class="p">.</span><span class="n">Length</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="c1">// swap if required</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="n">dataSet</span><span class="p">[</span><span class="n">i</span> <span class="p">-</span> <span class="m">1</span><span class="p">]</span> <span class="p">&amp;</span><span class="n">gt</span><span class="p">;</span> <span class="n">dataSet</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="n">Swap</span><span class="p">(</span><span class="n">dataSet</span><span class="p">,</span> <span class="n">i</span> <span class="p">-</span> <span class="m">1</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="c1">// move backwards through the sorted items</span>
+</span><span class='line'>        <span class="c1">// until we find the rightful spot.</span>
+</span><span class='line'>        <span class="p">--</span><span class="n">i</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="c1">// stop at the head of the list</span>
+</span><span class='line'>        <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="p">==</span> <span class="m">0</span><span class="p">)</span>
+</span><span class='line'>        <span class="p">{</span>
+</span><span class='line'>            <span class="c1">// jump to the next item in the set</span>
+</span><span class='line'>            <span class="n">i</span> <span class="p">=</span> <span class="n">j</span><span class="p">++;</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="k">else</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="c1">// jump to the next item in the set</span>
+</span><span class='line'>        <span class="n">i</span> <span class="p">=</span> <span class="n">j</span><span class="p">++;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="p">&lt;/</span><span class="n">code</span><span class="p">&gt;&lt;/</span><span class="n">pre</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <h2>The Complexity</h2>
 
@@ -403,50 +445,91 @@ while (i &lt; dataSet.Length)
 
 <p>Here is a sample implementation written in <a href="http://en.wikipedia.org/wiki/C_Sharp" title="C Sharp">C#</a>. It is heavily commented in the hope that it will aid in understanding how the algorithm works:</p>
 
-<p>{% codeblock lang:csharp %}
-/// <summary>
-/// The implementation of the standard comb sort algorithm which sorts
-/// an array of integers.
-/// </summary>
-/// <param name="dataSet">Reference to the dataset that is to be soroted.</param>
-static void CombSort(int[] dataSet)
-{</p>
-
-<pre><code>// start by using the length/size of the set as the gap.
-int gap = dataSet.Length;
-
-// loop indefinately.
-while (true)
-{
-    // update the gap value so that it shrinks
-    // towards 1.
-    if (gap &gt; 1)
-    {
-        gap = (int)((double)gap / SHRINK_FACTOR);
-    }
-
-    // do the comb sort with the current gap
-    bool swapped = false;
-    for (int i = 0; i + gap &lt; dataSet.Length; ++i)
-    {
-        if (dataSet[i] &gt; dataSet[i + gap])
-        {
-            Swap(dataSet, i, i + gap);
-            swapped = true;
-        }
-    }
-
-    // if we're down to a gap of 1, and we haven't swapped
-    // anything, then we're sorted.
-    if (gap == 1 &amp;&amp; !swapped)
-    {
-        break;
-    }
-}
-</code></pre>
-
-<p>}
-{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="c1">/// &lt;summary&gt;</span>
+</span><span class='line'><span class="c1">/// The implementation of the standard comb sort algorithm which sorts</span>
+</span><span class='line'><span class="c1">/// an array of integers.</span>
+</span><span class='line'><span class="c1">/// &lt;/summary&gt;</span>
+</span><span class='line'><span class="c1">/// &lt;param name=&quot;dataSet&quot;&gt;Reference to the dataset that is to be soroted.&lt;/param&gt;</span>
+</span><span class='line'><span class="k">static</span> <span class="k">void</span> <span class="nf">CombSort</span><span class="p">(</span><span class="kt">int</span><span class="p">[]</span> <span class="n">dataSet</span><span class="p">)</span>
+</span><span class='line'><span class="p">{&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">pre</span><span class="p">&gt;&lt;</span><span class="n">code</span><span class="p">&gt;</span><span class="c1">// start by using the length/size of the set as the gap.</span>
+</span><span class='line'><span class="kt">int</span> <span class="n">gap</span> <span class="p">=</span> <span class="n">dataSet</span><span class="p">.</span><span class="n">Length</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// loop indefinately.</span>
+</span><span class='line'><span class="k">while</span> <span class="p">(</span><span class="k">true</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="c1">// update the gap value so that it shrinks</span>
+</span><span class='line'>    <span class="c1">// towards 1.</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="n">gap</span> <span class="p">&amp;</span><span class="n">gt</span><span class="p">;</span> <span class="m">1</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="n">gap</span> <span class="p">=</span> <span class="p">(</span><span class="kt">int</span><span class="p">)((</span><span class="kt">double</span><span class="p">)</span><span class="n">gap</span> <span class="p">/</span> <span class="n">SHRINK_FACTOR</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// do the comb sort with the current gap</span>
+</span><span class='line'>    <span class="kt">bool</span> <span class="n">swapped</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">+</span> <span class="n">gap</span> <span class="p">&amp;</span><span class="n">lt</span><span class="p">;</span> <span class="n">dataSet</span><span class="p">.</span><span class="n">Length</span><span class="p">;</span> <span class="p">++</span><span class="n">i</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="k">if</span> <span class="p">(</span><span class="n">dataSet</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="p">&amp;</span><span class="n">gt</span><span class="p">;</span> <span class="n">dataSet</span><span class="p">[</span><span class="n">i</span> <span class="p">+</span> <span class="n">gap</span><span class="p">])</span>
+</span><span class='line'>        <span class="p">{</span>
+</span><span class='line'>            <span class="n">Swap</span><span class="p">(</span><span class="n">dataSet</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">i</span> <span class="p">+</span> <span class="n">gap</span><span class="p">);</span>
+</span><span class='line'>            <span class="n">swapped</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// if we&#39;re down to a gap of 1, and we haven&#39;t swapped</span>
+</span><span class='line'>    <span class="c1">// anything, then we&#39;re sorted.</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="n">gap</span> <span class="p">==</span> <span class="m">1</span> <span class="p">&amp;</span><span class="n">amp</span><span class="p">;&amp;</span><span class="n">amp</span><span class="p">;</span> <span class="p">!</span><span class="n">swapped</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="p">&lt;/</span><span class="n">code</span><span class="p">&gt;&lt;/</span><span class="n">pre</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <h2>The Complexity</h2>
 
@@ -467,15 +550,21 @@ while (true)
 <p>According to Wikipedia, it turns out that the 3rd option is the only one which manages to <em>kill all turtles</em> before the <em>gap</em> becomes 1. I haven't been able to find anything that backs this up though.</p>
 
 <p>Assuming that this is true, we can create a modified version of the <strong>Comb Sort</strong> which has this extra little check:
-{% codeblock lang:csharp %}
-if(gap == 9 || gap == 10)
-{</p>
-
-<pre><code>gap = 11;
-</code></pre>
-
-<p>}
-{% endcodeblock %}</p>
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">if</span><span class="p">(</span><span class="n">gap</span> <span class="p">==</span> <span class="m">9</span> <span class="p">||</span> <span class="n">gap</span> <span class="p">==</span> <span class="m">10</span><span class="p">)</span>
+</span><span class='line'><span class="p">{&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">pre</span><span class="p">&gt;&lt;</span><span class="n">code</span><span class="p">&gt;</span><span class="n">gap</span> <span class="p">=</span> <span class="m">11</span><span class="p">;</span>
+</span><span class='line'><span class="p">&lt;/</span><span class="n">code</span><span class="p">&gt;&lt;/</span><span class="n">pre</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>This is a little hack which makes sure that we get the third option before we reduce the <em>gap</em> to 1. Of course, this would only have an effect on sets of data which have more than 11 elements.</p>
 
@@ -666,70 +755,131 @@ if(gap == 9 || gap == 10)
 
 <p>Here is a sample implementation written in <a href="http://en.wikipedia.org/wiki/C_Sharp" title="C Sharp">C#</a>. It is heavily commented in the hope that it will aid in understanding how the algorithm works:</p>
 
-<p>{% codeblock lang:csharp %}
-/// <summary>
-/// Performs a cocktail sort on an array of integers.
-/// </summary>
-/// <param name="dataSet">An array of ints to be sorted.</param>
-static void CocktailSortBasic(int[] dataSet)
-{</p>
-
-<pre><code>bool swapped = false;
-int start = 0;
-int end = dataSet.Length - 1;
-
-do
-{
-    // make sure we reset the swapped flag on entering
-    // the loop, because it might be true from a previous
-    // iteration.
-    swapped = false;
-
-    // loop from bottom to top just like we do with
-    // the bubble sort
-    for (int i = start; i &lt; end; ++i)
-    {
-        if (dataSet[i] &gt; dataSet[i + 1])
-        {
-            Swap(dataSet, i, i + 1);
-            swapped = true;
-        }
-    }
-
-    // if nothing moved, then we're sorted.
-    if (!swapped)
-    {
-        break;
-    }
-
-    // otherwise, reset the swapped flag so that it
-    // can be used in the next stage
-    swapped = false;
-
-    // move the end point back by one, because we know
-    // that the item at the end is in its rightful spot
-    --end;
-
-    // this time we loop from top to bottom, doing the
-    // same comparison as in the previous stage
-    for (int i = end - 1; i &gt;= start; --i)
-    {
-        if (dataSet[i] &gt; dataSet[i + 1])
-        {
-            Swap(dataSet, i, i + 1);
-            swapped = true;
-        }
-    }
-
-    // this time we increase the starting point, because
-    // the last stage would have moved the next smallest
-    // number to its rightful spot.
-    ++start;
-} while (swapped);
-</code></pre>
-
-<p>}
-{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="c1">/// &lt;summary&gt;</span>
+</span><span class='line'><span class="c1">/// Performs a cocktail sort on an array of integers.</span>
+</span><span class='line'><span class="c1">/// &lt;/summary&gt;</span>
+</span><span class='line'><span class="c1">/// &lt;param name=&quot;dataSet&quot;&gt;An array of ints to be sorted.&lt;/param&gt;</span>
+</span><span class='line'><span class="k">static</span> <span class="k">void</span> <span class="nf">CocktailSortBasic</span><span class="p">(</span><span class="kt">int</span><span class="p">[]</span> <span class="n">dataSet</span><span class="p">)</span>
+</span><span class='line'><span class="p">{&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">pre</span><span class="p">&gt;&lt;</span><span class="n">code</span><span class="p">&gt;</span><span class="kt">bool</span> <span class="n">swapped</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
+</span><span class='line'><span class="kt">int</span> <span class="n">start</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span>
+</span><span class='line'><span class="kt">int</span> <span class="n">end</span> <span class="p">=</span> <span class="n">dataSet</span><span class="p">.</span><span class="n">Length</span> <span class="p">-</span> <span class="m">1</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">do</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="c1">// make sure we reset the swapped flag on entering</span>
+</span><span class='line'>    <span class="c1">// the loop, because it might be true from a previous</span>
+</span><span class='line'>    <span class="c1">// iteration.</span>
+</span><span class='line'>    <span class="n">swapped</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// loop from bottom to top just like we do with</span>
+</span><span class='line'>    <span class="c1">// the bubble sort</span>
+</span><span class='line'>    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="n">start</span><span class="p">;</span> <span class="n">i</span> <span class="p">&amp;</span><span class="n">lt</span><span class="p">;</span> <span class="n">end</span><span class="p">;</span> <span class="p">++</span><span class="n">i</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="k">if</span> <span class="p">(</span><span class="n">dataSet</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="p">&amp;</span><span class="n">gt</span><span class="p">;</span> <span class="n">dataSet</span><span class="p">[</span><span class="n">i</span> <span class="p">+</span> <span class="m">1</span><span class="p">])</span>
+</span><span class='line'>        <span class="p">{</span>
+</span><span class='line'>            <span class="n">Swap</span><span class="p">(</span><span class="n">dataSet</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">i</span> <span class="p">+</span> <span class="m">1</span><span class="p">);</span>
+</span><span class='line'>            <span class="n">swapped</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// if nothing moved, then we&#39;re sorted.</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(!</span><span class="n">swapped</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// otherwise, reset the swapped flag so that it</span>
+</span><span class='line'>    <span class="c1">// can be used in the next stage</span>
+</span><span class='line'>    <span class="n">swapped</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// move the end point back by one, because we know</span>
+</span><span class='line'>    <span class="c1">// that the item at the end is in its rightful spot</span>
+</span><span class='line'>    <span class="p">--</span><span class="n">end</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// this time we loop from top to bottom, doing the</span>
+</span><span class='line'>    <span class="c1">// same comparison as in the previous stage</span>
+</span><span class='line'>    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="n">end</span> <span class="p">-</span> <span class="m">1</span><span class="p">;</span> <span class="n">i</span> <span class="p">&amp;</span><span class="n">gt</span><span class="p">;=</span> <span class="n">start</span><span class="p">;</span> <span class="p">--</span><span class="n">i</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="k">if</span> <span class="p">(</span><span class="n">dataSet</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="p">&amp;</span><span class="n">gt</span><span class="p">;</span> <span class="n">dataSet</span><span class="p">[</span><span class="n">i</span> <span class="p">+</span> <span class="m">1</span><span class="p">])</span>
+</span><span class='line'>        <span class="p">{</span>
+</span><span class='line'>            <span class="n">Swap</span><span class="p">(</span><span class="n">dataSet</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">i</span> <span class="p">+</span> <span class="m">1</span><span class="p">);</span>
+</span><span class='line'>            <span class="n">swapped</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// this time we increase the starting point, because</span>
+</span><span class='line'>    <span class="c1">// the last stage would have moved the next smallest</span>
+</span><span class='line'>    <span class="c1">// number to its rightful spot.</span>
+</span><span class='line'>    <span class="p">++</span><span class="n">start</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span> <span class="k">while</span> <span class="p">(</span><span class="n">swapped</span><span class="p">);</span>
+</span><span class='line'><span class="p">&lt;/</span><span class="n">code</span><span class="p">&gt;&lt;/</span><span class="n">pre</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <h2>The Complexity</h2>
 
@@ -896,34 +1046,59 @@ do
 
 
 <p>Here's a commented sample in <a href="http://en.wikipedia.org/wiki/C_Sharp" title="C Sharp">C#</a> which is easily translatable to many other languages:
-{% codeblock lang:csharp %}
-/// <summary>
-/// This is the basic bubble sort algorithm, hard-coded to work
-/// with integer values.
-/// </summary>
-/// <param name="dataSet">Array of integers to sort.</param>
-static void BubbleSortBasic(int[] dataSet)
-{</p>
-
-<pre><code>// loop n-1 times.
-for (int i = dataSet.Length - 1; i &gt; 0 ; --i)
-{
-    // for each loop, iterate through the first i
-    // items (ie. the unsorted ones)
-    for (int j = 0; j &lt; i; ++j)
-    {
-        // if adjacent items need to be swapped
-        if (dataSet[j] &gt; dataSet[j + 1])
-        {
-            // swap them
-            Swap(dataSet, j, j + 1);
-        }
-    }
-}
-</code></pre>
-
-<p>}
-{% endcodeblock %}</p>
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="c1">/// &lt;summary&gt;</span>
+</span><span class='line'><span class="c1">/// This is the basic bubble sort algorithm, hard-coded to work</span>
+</span><span class='line'><span class="c1">/// with integer values.</span>
+</span><span class='line'><span class="c1">/// &lt;/summary&gt;</span>
+</span><span class='line'><span class="c1">/// &lt;param name=&quot;dataSet&quot;&gt;Array of integers to sort.&lt;/param&gt;</span>
+</span><span class='line'><span class="k">static</span> <span class="k">void</span> <span class="nf">BubbleSortBasic</span><span class="p">(</span><span class="kt">int</span><span class="p">[]</span> <span class="n">dataSet</span><span class="p">)</span>
+</span><span class='line'><span class="p">{&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">pre</span><span class="p">&gt;&lt;</span><span class="n">code</span><span class="p">&gt;</span><span class="c1">// loop n-1 times.</span>
+</span><span class='line'><span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="n">dataSet</span><span class="p">.</span><span class="n">Length</span> <span class="p">-</span> <span class="m">1</span><span class="p">;</span> <span class="n">i</span> <span class="p">&amp;</span><span class="n">gt</span><span class="p">;</span> <span class="m">0</span> <span class="p">;</span> <span class="p">--</span><span class="n">i</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="c1">// for each loop, iterate through the first i</span>
+</span><span class='line'>    <span class="c1">// items (ie. the unsorted ones)</span>
+</span><span class='line'>    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">j</span> <span class="p">&amp;</span><span class="n">lt</span><span class="p">;</span> <span class="n">i</span><span class="p">;</span> <span class="p">++</span><span class="n">j</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="c1">// if adjacent items need to be swapped</span>
+</span><span class='line'>        <span class="k">if</span> <span class="p">(</span><span class="n">dataSet</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="p">&amp;</span><span class="n">gt</span><span class="p">;</span> <span class="n">dataSet</span><span class="p">[</span><span class="n">j</span> <span class="p">+</span> <span class="m">1</span><span class="p">])</span>
+</span><span class='line'>        <span class="p">{</span>
+</span><span class='line'>            <span class="c1">// swap them</span>
+</span><span class='line'>            <span class="n">Swap</span><span class="p">(</span><span class="n">dataSet</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">j</span> <span class="p">+</span> <span class="m">1</span><span class="p">);</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="p">&lt;/</span><span class="n">code</span><span class="p">&gt;&lt;/</span><span class="n">pre</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>A general form of this algorithm which applies to any comparable type can be found in the source repository listed <a href="#BubbleSortBitBucket">below</a>.</p>
 
@@ -933,49 +1108,89 @@ for (int i = dataSet.Length - 1; i &gt; 0 ; --i)
 <p>The Bubble Sort can be optimised very slightly, though it's not guaranteed to provide much benefit depending on the structure of the <em>data set</em> that is to be sorted.</p>
 
 <p>If, for any iteration, there are no items swapped then all of the items in the <em>data set</em> must be in the correct order. As a result, subsequent iterations are unnecessary. The optimised version is listed below, again in C#:
-{% codeblock lang:csharp %}
-/// <summary>
-/// This is the basic bubble sort algorithm, hard-coded to work
-/// with integer values but with a slight difference - a minor
-/// optimisation.
-/// </summary>
-/// <param name="dataSet">Array of integers to sort.</param>
-static void BubbleSortBasicOptimised(int[] dataSet)
-{</p>
-
-<pre><code>// loop n-1 times.
-for (int i = dataSet.Length - 1; i &gt; 0 ; --i)
-{
-    // keep track of whether items were swapped
-    // for this iteration
-    bool swapped = false;
-
-    // for each loop, iterate through the first i
-    // items (ie. the unsorted ones)
-    for (int j = 0; j &lt; i; ++j)
-    {
-        // if adjacent items need to be swapped
-        if (dataSet[j] &gt; dataSet[j + 1])
-        {
-            // swap them
-            Swap(dataSet, j, j + 1);
-
-            // indicate that we found a swap
-            swapped = true;
-        }
-    }
-
-    // if nothing was swapped, then we should
-    // already have everything in order
-    if (!swapped)
-    {
-        break;
-    }
-}
-</code></pre>
-
-<p>}
-{% endcodeblock %}</p>
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="c1">/// &lt;summary&gt;</span>
+</span><span class='line'><span class="c1">/// This is the basic bubble sort algorithm, hard-coded to work</span>
+</span><span class='line'><span class="c1">/// with integer values but with a slight difference - a minor</span>
+</span><span class='line'><span class="c1">/// optimisation.</span>
+</span><span class='line'><span class="c1">/// &lt;/summary&gt;</span>
+</span><span class='line'><span class="c1">/// &lt;param name=&quot;dataSet&quot;&gt;Array of integers to sort.&lt;/param&gt;</span>
+</span><span class='line'><span class="k">static</span> <span class="k">void</span> <span class="nf">BubbleSortBasicOptimised</span><span class="p">(</span><span class="kt">int</span><span class="p">[]</span> <span class="n">dataSet</span><span class="p">)</span>
+</span><span class='line'><span class="p">{&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">pre</span><span class="p">&gt;&lt;</span><span class="n">code</span><span class="p">&gt;</span><span class="c1">// loop n-1 times.</span>
+</span><span class='line'><span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="n">dataSet</span><span class="p">.</span><span class="n">Length</span> <span class="p">-</span> <span class="m">1</span><span class="p">;</span> <span class="n">i</span> <span class="p">&amp;</span><span class="n">gt</span><span class="p">;</span> <span class="m">0</span> <span class="p">;</span> <span class="p">--</span><span class="n">i</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="c1">// keep track of whether items were swapped</span>
+</span><span class='line'>    <span class="c1">// for this iteration</span>
+</span><span class='line'>    <span class="kt">bool</span> <span class="n">swapped</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// for each loop, iterate through the first i</span>
+</span><span class='line'>    <span class="c1">// items (ie. the unsorted ones)</span>
+</span><span class='line'>    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">j</span> <span class="p">&amp;</span><span class="n">lt</span><span class="p">;</span> <span class="n">i</span><span class="p">;</span> <span class="p">++</span><span class="n">j</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="c1">// if adjacent items need to be swapped</span>
+</span><span class='line'>        <span class="k">if</span> <span class="p">(</span><span class="n">dataSet</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="p">&amp;</span><span class="n">gt</span><span class="p">;</span> <span class="n">dataSet</span><span class="p">[</span><span class="n">j</span> <span class="p">+</span> <span class="m">1</span><span class="p">])</span>
+</span><span class='line'>        <span class="p">{</span>
+</span><span class='line'>            <span class="c1">// swap them</span>
+</span><span class='line'>            <span class="n">Swap</span><span class="p">(</span><span class="n">dataSet</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">j</span> <span class="p">+</span> <span class="m">1</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>            <span class="c1">// indicate that we found a swap</span>
+</span><span class='line'>            <span class="n">swapped</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// if nothing was swapped, then we should</span>
+</span><span class='line'>    <span class="c1">// already have everything in order</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(!</span><span class="n">swapped</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="p">&lt;/</span><span class="n">code</span><span class="p">&gt;&lt;/</span><span class="n">pre</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p><em>Caveat</em>: This "optimisation" may actually result in lower performance, particularly in the case where every iteration results in a swap.</p>
 

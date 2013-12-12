@@ -1,0 +1,459 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>OSCP FAQ - OJ's perspective</title>
+  <meta name="author" content="OJ Reeves">
+
+  <link rel="openid.server" href="http://pip.verisignlabs.com/server" />
+  <link rel="openid.delegate" href="http://thecolonial.pip.verisignlabs.com/" />
+  <link rel="openid2.provider" href="http://pip.verisignlabs.com/server" />
+  <link rel="openid2.local_id" href="http://thecolonial.pip.verisignlabs.com/" />
+  <meta http-equiv="X-XRDS-Location" content="http://pip.verisignlabs.com/thecolonial/yadixrds" />
+
+  
+  <meta name="description" content="Since publishing the article that detailed my experiences with the PWB labs and the OSCP exam, I have received scores of emails from potential and &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's perspective RSS 2.0" type="application/rss+xml">
+  <link rel="canonical" href="http://buffered.io/posts/oscp-faq">
+  <link href="/favicon.ico" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+
+  <script src="/javascripts/modernizr-2.0.js" type="text/javascript"></script>
+  <script src="/javascripts/ender.js" type="text/javascript"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+
+  <script type="text/javascript">
+    Modernizr.load([
+      { load: '//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js' },
+      { load: '/javascripts/jquery.lightbox.js', complete: function() {
+        $("a[rel^='lightbox']").lightbox();
+      } }
+    ]);
+  </script>
+
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-8648787-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">OJ's perspective</a></h1>
+  
+    <h2>Security and software development</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/OjsRants" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:buffered.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/posts/archives">Archives</a></li>
+  <li><a href="/about">About</a></li>
+  <li><a href="/contact">Contact</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">OSCP FAQ</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+
+<time datetime="2013-12-12T19:01:00+10:00" pubdate data-updated="true">12 Dec 2013</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Since publishing the article that detailed my experiences with the <a href="http://www.offensive-security.com/information-security-training/penetration-testing-with-backtrack/">PWB</a> labs and the <a href="http://www.offensive-security.com/information-security-certifications/oscp-offensive-security-certified-professional/">OSCP</a> exam, I have received scores of emails from potential and current students searching for more information and (quite often) hints. While I do my best to answer most of them, it&#8217;s close to impossible to get to them all as my email debt is already way too high.</p>
+
+<p>From this point on I have decided not to respond to questions directly via email. This post will stand instead of those emails as a point of reference for common OSCP-related questions. As more questions come in I will update this post so that all future readers can benfit from the answers without me having to repost them.</p>
+
+<!--more-->
+
+
+<blockquote><p>Do I need to be good at programming to do PWB?</p></blockquote>
+
+<p>I&#8217;d say <em>no</em>, but it really does help. If you&#8217;re not good with at least one language, then you&#8217;re going to have a harder time and you&#8217;ll probably end up needing to purchase time extensions to get through the labs. Scripting and coding is an important part of the experience, and it&#8217;s something you really should be able to do. You could probably get through the labs without it, but it will be difficult. My recommendation is to go and spend time learning a language like <a href="http://www.python.org/">Python</a>, <a href="http://www.ruby-lang.org/">Ruby</a> or even <a href="http://en.wikipedia.org/wiki/Bash_(Unix_shell)">Bash</a> so that you have the ability to automate some of the tasks you&#8217;ll have to take on.</p>
+
+<blockquote><p>Should I do OSCP first, or should I take on other certs (such as <a href="https://www.eccouncil.org/Certification/certified-ethical-hacker">CEH</a>, <a href="http://www.giac.org/certification/penetration-tester-gpen">GPEN</a> or <a href="http://mile2.com/penetration-testing-ethical-hacking/cpte.html">CPTE</a>) as preparation?</p></blockquote>
+
+<p>I haven&#8217;t done CEH, GPEN or CPTE. In fact, to date, OSCP is the only security certification I have attempted to tackle (though I will be taking <a href="http://www.offensive-security.com/information-security-training/cracking-the-perimeter/">CTP</a> later this month with a goal of nailing <a href="http://www.offensive-security.com/information-security-certifications/osce-offensive-security-certified-expert/">OSCE</a> in January). As a result I don&#8217;t have a valid opinion of the quality or usefulness of the other certifications. My feeling is that it&#8217;s down to you, dear reader, to determine which is best for you, just as I did when I was looking for a challenge. If you feel that OSCP is out of your depth then by all means go and find something easier.</p>
+
+<blockquote><p>Is there much web application hacking involved?</p></blockquote>
+
+<p>It&#8217;s hard to quantify &#8220;much&#8221;, but yes there is a bit of hacking of web applications involved. Some are known applications, some are custom applications built specifically for the labs. If you&#8217;re not across the basics before you start, be prepared to ramp up quickly once your lab time commences.</p>
+
+<blockquote><p>Do I need to know about assembly language?</p></blockquote>
+
+<p>There are parts of the course which require you to have a basic understanding of assembly, though only x86 and not x64. I think it&#8217;s a good idea to get your hands dirty prior to taking the course, because you will be using and adjusting exploits during your lab time.</p>
+
+<blockquote><p>How many hours per day did you spend in the labs? Is an hour per day enough?</p></blockquote>
+
+<p>The short answer is that I spent as many as I possibly could. I paid for just 30 days in the lab which meant that I had to force myself to push hard to get through as many machines as possible without having to pay for more time. It was a cost saver and a personal quest at the same time. On average, my guess is that I spent four or so hours per day, and more on weekends. One hour per day would not be enough, in my opinion, even if you booked 90 days worth of lab time.</p>
+
+<p>My recommendation is to do your best to have larger, unbroken blocks of time rather than lots of smaller chunks of time. This gives you the chance to immerse yourself in a problem and maximises the possibility of you solving it without the context-switching which can be really distruptive to your thought process.</p>
+
+<p>PWB is hard, don&#8217;t expect to get through it in an hour per day unless you&#8217;re a guru with lots of experience.</p>
+
+<blockquote><p>Can you please give me a hint for <strong>&lt;machine name&gt;</strong> in the PWB labs, because I&#8217;m stuck?</p></blockquote>
+
+<p>No. PWB and OSCP is all about learning to learn. The journey is probably more important than the final destination. I will not give hints, and if you ask for them you&#8217;ll more than likely receive no response from me. If I do respond, I will probably just say &#8220;Try Harder&#8221;.</p>
+
+<blockquote><p>Can I please see your lab notes?</p></blockquote>
+
+<p>Absolutely not.</p>
+
+<blockquote><p>I have been a developer for many years and want to try for OSCP, is it a waste of time?</p></blockquote>
+
+<p>No, it&#8217;s not a waste of time, and yes you shoud try for it. This is exactly the scenario I was in, and I don&#8217;t regret doing it for a one second. Also, I do believe that anyone who is involved with building production systems should do this course as it really does open your eyes. Most developers haven&#8217;t really got much visibility of what things are like on the front line when it comes to security. This course is the kind of thing that will make them think much more defensively when writing their code.</p>
+
+<blockquote><p>Will OSCP provide me with the skills I need to be a penetration tester?</p></blockquote>
+
+<p>OSCP by itself will not. I think the only thing that can really give you the skills is experience. However, OSCP is a great start and it gives a great foundation on which to build a career as a penetration tester.</p>
+
+<p>In other words, don&#8217;t stop learning!</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">OJ Reeves</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+
+<time datetime="2013-12-12T19:01:00+10:00" pubdate data-updated="true">12 Dec 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/categories/oscp/'>OSCP</a>, <a class='category' href='/categories/security/'>Security</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://buffered.io/posts/oscp-faq/" data-via="TheColonial" data-counturl="http://buffered.io/posts/oscp-faq/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/posts/64bit-pointer-truncation-in-meterpreter/" title="Previous Post: 64bit Pointer Truncation in Meterpreter">&laquo; 64bit Pointer Truncation in Meterpreter</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Certifications</h1>
+  <ul id="certifications">
+    <li class="post">
+      <a href="http://www.offensive-security.com/information-security-certifications/oscp-offensive-security-certified-professional/" title="Offensive Security Certified Professional"><img src="/images/oscp.png" alt="Offensive Security Certified Professional" /></a>
+    </li>
+  </ul>
+  <h1>OJ on the Web</h1>
+  <ul id="about_me">
+    <li class="post">
+      <a href="/about" title="About OJ">About me</a>
+    </li>
+    <li class="post">
+      <a href="/key.asc" title="PGP Key">PGP Key (4096R/1FAA5749)</a>
+    </li>
+    <li class="post">
+      <a href="http://functional.io/" title="Functional IO">Functional IO</a>
+    </li>
+    <li class="post">
+      <a href="http://twitter.com/TheColonial" title="OJ @ Twitter">Twitter</a>
+    </li>
+    <li class="post">
+      <a href="http://github.com/OJ/" title="OJ @ Github">Github</a>
+    </li>
+    <li class="post">
+      <a href="http://bitbucket.org/OJ/" title="OJ @ Bitbucket">Bitbucket</a>
+    </li>
+    <li class="post">
+      <a href="http://stackoverflow.com/users/611/oj" title="OJ @ SO">StackOverflow</a>
+    </li>
+    <li class="post">
+      <a href="https://coderwall.com/oj">Coderwall<br/><img alt="Endorse OJ on Coderwall" src="http://api.coderwall.com/oj/endorsecount.png" /></a>
+    </li>
+  </ul>
+  <iframe src="http://githubbadge.appspot.com/badge/OJ?s=1" style="border: 0;height: 142px;width: 200px;overflow: hidden;" frameBorder=0></iframe>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/posts/oscp-faq/">OSCP FAQ</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/64bit-pointer-truncation-in-meterpreter/">64bit Pointer Truncation in Meterpreter</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/oscp-and-me/">OSCP and Me</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/levels-7-and-7_alt-io-at-sts/">Levels 7 and 7_alt - IO at STS</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/irssi-and-sasl-on-osx/">Irssi and SASL on OSX</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("TheColonial", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/TheColonial" class="twitter-follow-button" data-show-count="false">Follow @TheColonial</a>
+  
+</section>
+
+<section>
+  <h1>Series</h1>
+  <ul id="series">
+    <li class='series'><a href='/series/project-euler/'>Project Euler (11)</a></li>
+<li class='series'><a href='/series/web-development-with-erlang/'>Web Development with Erlang (5)</a></li>
+
+  </ul>
+</section>
+<section>
+  <h1>Categories</h1>
+  <ul id="categories">
+    <li class='category'><a href='/categories/asm/'>ASM (3)</a></li>
+<li class='category'><a href='/categories/asp-net/'>ASP.NET (4)</a></li>
+<li class='category'><a href='/categories/agile/'>Agile (1)</a></li>
+<li class='category'><a href='/categories/algorithms/'>Algorithms (6)</a></li>
+<li class='category'><a href='/categories/apple/'>Apple (3)</a></li>
+<li class='category'><a href='/categories/backbonejs/'>BackboneJS (1)</a></li>
+<li class='category'><a href='/categories/being-in-the-industry/'>Being in the Industry (29)</a></li>
+<li class='category'><a href='/categories/blogging/'>Blogging (15)</a></li>
+<li class='category'><a href='/categories/bootstrap/'>Bootstrap (1)</a></li>
+<li class='category'><a href='/categories/c-/'>C# (15)</a></li>
+<li class='category'><a href='/categories/clr/'>CLR (3)</a></li>
+<li class='category'><a href='/categories/challenges/'>Challenges (7)</a></li>
+<li class='category'><a href='/categories/databases/'>Databases (6)</a></li>
+<li class='category'><a href='/categories/digital-rights/'>Digital Rights (7)</a></li>
+<li class='category'><a href='/categories/erlang/'>Erlang (8)</a></li>
+<li class='category'><a href='/categories/erlydtl/'>ErlyDTL (2)</a></li>
+<li class='category'><a href='/categories/f-/'>F# (4)</a></li>
+<li class='category'><a href='/categories/fail/'>Fail (2)</a></li>
+<li class='category'><a href='/categories/food/'>Food (1)</a></li>
+<li class='category'><a href='/categories/freeware/'>Freeware (9)</a></li>
+<li class='category'><a href='/categories/functional-programming/'>Functional Programming (29)</a></li>
+<li class='category'><a href='/categories/funny/'>Funny (9)</a></li>
+<li class='category'><a href='/categories/games/'>Games (5)</a></li>
+<li class='category'><a href='/categories/google/'>Google (10)</a></li>
+<li class='category'><a href='/categories/guest-posts/'>Guest posts (1)</a></li>
+<li class='category'><a href='/categories/howto/'>HOWTO (18)</a></li>
+<li class='category'><a href='/categories/hardware/'>Hardware (9)</a></li>
+<li class='category'><a href='/categories/haskell/'>Haskell (20)</a></li>
+<li class='category'><a href='/categories/life/'>Life (2)</a></li>
+<li class='category'><a href='/categories/linux/'>Linux (10)</a></li>
+<li class='category'><a href='/categories/mac-os/'>Mac OS (3)</a></li>
+<li class='category'><a href='/categories/merb/'>Merb (1)</a></li>
+<li class='category'><a href='/categories/mercurial/'>Mercurial (3)</a></li>
+<li class='category'><a href='/categories/microsoft/'>Microsoft (18)</a></li>
+<li class='category'><a href='/categories/miscellaneous/'>Miscellaneous (56)</a></li>
+<li class='category'><a href='/categories/mono/'>Mono (2)</a></li>
+<li class='category'><a href='/categories/networks/'>Networks (2)</a></li>
+<li class='category'><a href='/categories/nosql/'>NoSQL (3)</a></li>
+<li class='category'><a href='/categories/oauth/'>OAuth (1)</a></li>
+<li class='category'><a href='/categories/oscp/'>OSCP (2)</a></li>
+<li class='category'><a href='/categories/open-source/'>Open Source (3)</a></li>
+<li class='category'><a href='/categories/privacy/'>Privacy (3)</a></li>
+<li class='category'><a href='/categories/productivity/'>Productivity (1)</a></li>
+<li class='category'><a href='/categories/project-euler/'>Project Euler (11)</a></li>
+<li class='category'><a href='/categories/protip/'>Protip (1)</a></li>
+<li class='category'><a href='/categories/rce/'>RCE (5)</a></li>
+<li class='category'><a href='/categories/riak/'>Riak (7)</a></li>
+<li class='category'><a href='/categories/ruby-on-rails/'>Ruby on Rails (1)</a></li>
+<li class='category'><a href='/categories/screencasts/'>Screencasts (1)</a></li>
+<li class='category'><a href='/categories/security/'>Security (16)</a></li>
+<li class='category'><a href='/categories/series/'>Series (1)</a></li>
+<li class='category'><a href='/categories/shortcuts/'>Shortcuts (4)</a></li>
+<li class='category'><a href='/categories/smashthestack-io/'>SmashTheStack-IO (1)</a></li>
+<li class='category'><a href='/categories/software/'>Software (31)</a></li>
+<li class='category'><a href='/categories/software-development/'>Software Development (66)</a></li>
+<li class='category'><a href='/categories/sorting/'>Sorting (5)</a></li>
+<li class='category'><a href='/categories/technology/'>Technology (40)</a></li>
+<li class='category'><a href='/categories/testing/'>Testing (1)</a></li>
+<li class='category'><a href='/categories/tips-tricks/'>Tips/Tricks (12)</a></li>
+<li class='category'><a href='/categories/twitter/'>Twitter (2)</a></li>
+<li class='category'><a href='/categories/wpf/'>WPF (1)</a></li>
+<li class='category'><a href='/categories/wtf/'>WTF (20)</a></li>
+<li class='category'><a href='/categories/webmachine/'>Webmachine (7)</a></li>
+<li class='category'><a href='/categories/windows/'>Windows (13)</a></li>
+<li class='category'><a href='/categories/xss/'>XSS (1)</a></li>
+
+  </ul>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+Copyright &copy; 2013 -
+<span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" property="dct:title" rel="dct:type">Blog content for OJ's perspective</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://buffered.io/+" property="cc:attributionName" rel="cc:attributionURL">OJ Reeves</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License</a> -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'ojsrants';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://buffered.io/posts/oscp-faq/';
+        var disqus_url = 'http://buffered.io/posts/oscp-faq/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

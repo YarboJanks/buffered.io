@@ -15,7 +15,7 @@
   <meta http-equiv="X-XRDS-Location" content="http://pip.verisignlabs.com/thecolonial/yadixrds" />
 
   
-  <meta name="description" content="I&#8217;m sure that everyone knew that this was going to happen at some stage. Whether or not they believed it&#8217;d happen so quickly is another &hellip;">
+  <meta name="description" content="I don&#8217;t think I&#8217;m going to need to say much about the following code, as anyone with even an inkling of the features of the .NET &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -95,6 +95,90 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/posts/wtf-date-malarky/">WTF: Date Malarky</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+
+<time datetime="2006-11-16T08:09:00+10:00" pubdate data-updated="true">16 Nov 2006</time>
+        
+         | <a href="/posts/wtf-date-malarky/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I don&#8217;t think I&#8217;m going to need to say much about the following code, as <em>anyone</em> with even an <strong>inkling</strong> of the features of the .NET framework would know that it&#8217;s a joke. See the nugget(s) of genius below:</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">public</span> <span class="k">static</span> <span class="k">void</span> <span class="nf">ToStartofCurrDay</span><span class="p">(</span><span class="k">ref</span> <span class="n">DateTime</span> <span class="n">aDate</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="n">aDate</span> <span class="p">=</span> <span class="n">aDate</span><span class="p">.</span><span class="n">Subtract</span><span class="p">(</span><span class="n">aDate</span><span class="p">.</span><span class="n">TimeOfDay</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">public</span> <span class="k">static</span> <span class="k">void</span> <span class="nf">ToEndofPrevDay</span><span class="p">(</span><span class="k">ref</span> <span class="n">DateTime</span> <span class="n">aDate</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="n">aDate</span> <span class="p">=</span> <span class="n">aDate</span><span class="p">.</span><span class="n">Subtract</span><span class="p">(</span><span class="n">aDate</span><span class="p">.</span><span class="n">TimeOfDay</span><span class="p">);</span>
+</span><span class='line'>  <span class="n">TimeSpan</span> <span class="n">ts</span> <span class="p">=</span> <span class="k">new</span> <span class="n">TimeSpan</span><span class="p">(</span><span class="m">1</span><span class="p">);</span>
+</span><span class='line'>  <span class="n">aDate</span> <span class="p">=</span> <span class="n">aDate</span><span class="p">.</span><span class="n">Subtract</span><span class="p">(</span><span class="n">ts</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">public</span> <span class="k">static</span> <span class="k">void</span> <span class="nf">ToEndofCurrDay</span><span class="p">(</span><span class="k">ref</span> <span class="n">DateTime</span> <span class="n">aDate</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="n">aDate</span> <span class="p">=</span> <span class="n">aDate</span> <span class="p">-</span> <span class="n">aDate</span><span class="p">.</span><span class="n">TimeOfDay</span><span class="p">;</span>
+</span><span class='line'>  <span class="n">aDate</span> <span class="p">=</span> <span class="n">aDate</span><span class="p">.</span><span class="n">AddHours</span><span class="p">(</span><span class="m">23</span><span class="p">);</span>
+</span><span class='line'>  <span class="n">aDate</span> <span class="p">=</span> <span class="n">aDate</span><span class="p">.</span><span class="n">AddMinutes</span><span class="p">(</span><span class="m">59</span><span class="p">);</span>
+</span><span class='line'>  <span class="n">aDate</span> <span class="p">=</span> <span class="n">aDate</span><span class="p">.</span><span class="n">AddSeconds</span><span class="p">(</span><span class="m">59</span><span class="p">);</span>
+</span><span class='line'>  <span class="n">aDate</span> <span class="p">=</span> <span class="n">aDate</span><span class="p">.</span><span class="n">AddMilliseconds</span><span class="p">(</span><span class="m">999</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The thing that annoys me about this is that it was written by the <em>lead/architect</em>! The man who should know the framework like the back of his hand. Scary stuff. It&#8217;s this kind of thing that inspired my comments about &#8220;knowing your tech&#8221; in my post about the day job.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -562,55 +646,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/posts/iteration/">Iteration</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-
-<time datetime="2006-11-07T09:30:00+10:00" pubdate data-updated="true">07 Nov 2006</time>
-        
-         | <a href="/posts/iteration/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>I found a pretty inspiring video the other day that I think is a perfect visual representation of what should happen in software. OK, that&#8217;s not quite true, I didn&#8217;t <em>find</em> it, I was given it by none other than Dan the man (@shifty). The video is a time-lapsed video of someone drawing a picture of a wasp-like insect (I don&#8217;t pretend to be cluey in the world of insects, so just be happy with that description :)), but the beauty of it is that you can see how the final product evolves as the picture is iterated.</p>
-
-<p>So, on with the video. The first link I found is located <a href="http://www.ursispaltenstein.ch/blog/weblog.php?/weblog/the_daily_drawing/" title="Ursi's Blog" target="_blank">here</a>, but for some reason I&#8217;m having issues getting to that address. The video is also mirrored <a href="http://www.ursispaltenstein.ch/cgi-bin/EE/index.php?/weblog/the_daily_drawing/" title="Ursi's Blog" target="_blank">here</a> - it&#8217;s about 5 or 6 minutes long, but it&#8217;s worth watching.</p>
-
-<p>Finished? Good. Now imagine that drawing as a piece of software. What would you liken it to? I&#8217;m sure we could all draw a few comparisons, but the thing I wanted to focus on was the iteration and constant improvement. When the artist started out, there was a very basic outline of what it was he/she wanted to draw. After 30 seconds of the video, it was clear to the viewer that the goal was to be a wasp - and at that point the artist could have stopped. The drawing was far from finished, but it did solve the main problem of &#8220;creating a wasp drawing&#8221;. This, to me, is exactly the same as attempting to create a code solution to a problem the very first time, and assuming that it&#8217;s sufficient enough to release as production code.</p>
-
-<p>The more you iterate, the better your software will be. Your understanding of the problem increases each time you iterate, and you start to see areas of the problem that you didn&#8217;t initially realise existed. This gives you more opportunities to iterate and improve, iterate and improve. Over time your solution becomes a very clearly defined and good looking wasp, with colours, specular highlights, and even hair on the legs.</p>
-
-<p>I think that your software should come alive in the same way that the drawing did. The only way for this to happen - iterate.</p>
-
-<p>Thoughts?</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/page/22/">&larr; Older</a>
@@ -664,6 +699,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/posts/oscp-faq/">OSCP FAQ</a>
+      </li>
+    
+      <li class="post">
         <a href="/posts/64bit-pointer-truncation-in-meterpreter/">64bit Pointer Truncation in Meterpreter</a>
       </li>
     
@@ -677,10 +716,6 @@
     
       <li class="post">
         <a href="/posts/irssi-and-sasl-on-osx/">Irssi and SASL on OSX</a>
-      </li>
-    
-      <li class="post">
-        <a href="/posts/xss-flaws-via-mvc-model-binding-and-request.querystring-inconsistencies/">XSS Flaws via MVC Model Binding and Request.QueryString Inconsistencies</a>
       </li>
     
   </ul>
@@ -752,7 +787,7 @@
 <li class='category'><a href='/categories/networks/'>Networks (2)</a></li>
 <li class='category'><a href='/categories/nosql/'>NoSQL (3)</a></li>
 <li class='category'><a href='/categories/oauth/'>OAuth (1)</a></li>
-<li class='category'><a href='/categories/oscp/'>OSCP (1)</a></li>
+<li class='category'><a href='/categories/oscp/'>OSCP (2)</a></li>
 <li class='category'><a href='/categories/open-source/'>Open Source (3)</a></li>
 <li class='category'><a href='/categories/privacy/'>Privacy (3)</a></li>
 <li class='category'><a href='/categories/productivity/'>Productivity (1)</a></li>
@@ -762,7 +797,7 @@
 <li class='category'><a href='/categories/riak/'>Riak (7)</a></li>
 <li class='category'><a href='/categories/ruby-on-rails/'>Ruby on Rails (1)</a></li>
 <li class='category'><a href='/categories/screencasts/'>Screencasts (1)</a></li>
-<li class='category'><a href='/categories/security/'>Security (15)</a></li>
+<li class='category'><a href='/categories/security/'>Security (16)</a></li>
 <li class='category'><a href='/categories/series/'>Series (1)</a></li>
 <li class='category'><a href='/categories/shortcuts/'>Shortcuts (4)</a></li>
 <li class='category'><a href='/categories/smashthestack-io/'>SmashTheStack-IO (1)</a></li>

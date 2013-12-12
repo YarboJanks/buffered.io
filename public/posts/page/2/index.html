@@ -15,9 +15,7 @@
   <meta http-equiv="X-XRDS-Location" content="http://pip.verisignlabs.com/thecolonial/yadixrds" />
 
   
-  <meta name="description" content="The topic of tools is often a hot one amongst developers and every year
-we see an influx of blog posts where people rant and rave about which
-ones &hellip;">
+  <meta name="description" content="Webmachine is currently my favourite tool for building websites. I&#8217;ve been lucky enough to use it on a few things now, some commercially some &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -97,6 +95,52 @@ ones &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/posts/redirects-with-webmachine/">Redirects With Webmachine</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+
+<time datetime="2012-02-15T19:10:00+10:00" pubdate data-updated="true">15 Feb 2012</time>
+        
+         | <a href="/posts/redirects-with-webmachine/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://webmachine.basho.com/" title="Webmachine">Webmachine</a> is currently my favourite tool for building websites. I&#8217;ve been lucky enough to use it on a few things now, some commercially some personally. While working on my <a href="http://buffered.io/series/web-development-with-erlang/" title="Web development with Erlang">Erlang web development series</a> I had to handle the case where URLs redirected to other URLs. I found some basic documentation on this but wasn&#8217;t able to find a canonical example of how to do it.</p>
+
+<p>After a big of digging through blog posts and speaking to people on IRC I figured out how it was done. The goal of this post is to show how it&#8217;s done for 301 (permanent) and 307 (temporary) redirects.</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/posts/redirects-with-webmachine/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -531,70 +575,6 @@ different platforms.</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/posts/webmachine-erlydtl-and-riak-part-3/">Webmachine, ErlyDTL and Riak - Part 3</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-
-  
-
-<time datetime="2010-10-13T06:31:00+10:00" pubdate data-updated="true">13 Oct 2010</time>
-        
-         | <a href="/posts/webmachine-erlydtl-and-riak-part-3/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><img src="/uploads/2010/09/riak-logo.png" alt="Riak Logo" style="float:left;padding-right:5px;padding-bottom:5px;"/>For those of you who are new to the series, you may want to check out <a href="/posts/webmachine-erlydtl-and-riak-part-1/" title="Wembachine, ErlyDTL and Riak - Part 1">Part 1</a> and <a href="/posts/webmachine-erlydtl-and-riak-part-2/" title="Webmachine, ErlyDTL and Riak - Part 2">Part 2</a> before reading this post. It will help give you some context as well as introduce you to some of the jargon and technology that I&#8217;m using. If you&#8217;ve already read then, or don&#8217;t want to, then please read on!</p>
-
-<p>This post builds on the previous two, but not without a few little modifications. If you&#8217;re interested in following along step by step with your own version of the code running, then get yourself a copy of <a href="https://github.com/OJ/csd/tree/Part2-20110403" title="Source code for Part 2">this changeset</a> before doing so.</p>
-
-<p>In this post we&#8217;re going to cover:</p>
-
-<ol>
-<li>A slight refactor of code structure to support the &#8220;standard&#8221; approach to building applications in Erlang using OTP.</li>
-<li>Building a small set of modules to talk to <a href="http://www.basho.com/developers.html#Riak" title="Riak">Riak</a>.</li>
-<li>Creation of some <a href="http://json.org/" title="JavaScript Object Notation">JSON</a> helper functions for reading and writing data.</li>
-<li>Calling all the way from the <a href="http://www.basho.com/developers.html#Webmachine" title="Webmachine">Webmachine</a> front-end to Riak to extract data and display it in a browser using <a href="http://github.com/evanmiller/erlydtl" title="ErlyDTL">ErlyDTL</a> templates.</li>
-</ol>
-
-
-<p>There are quite a few code snippets in this post as well as output from script executions and <code>bash</code> sessions. To avoid confusion, all file listings reference the path to the file that is being modified relative to the root of the project folder.</p>
-
-<p>Be warned, this is a <em>long</em> post :) Get yourself a <em>shmoke und a pancake</em>, a glass of your favourite beverage and put some relaxing music on (instrumental is best).</p>
-
-<p>Are you ready? OK, here we go &#8230;</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/posts/webmachine-erlydtl-and-riak-part-3/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/page/3/">&larr; Older</a>
@@ -648,6 +628,10 @@ different platforms.</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/posts/oscp-faq/">OSCP FAQ</a>
+      </li>
+    
+      <li class="post">
         <a href="/posts/64bit-pointer-truncation-in-meterpreter/">64bit Pointer Truncation in Meterpreter</a>
       </li>
     
@@ -661,10 +645,6 @@ different platforms.</p>
     
       <li class="post">
         <a href="/posts/irssi-and-sasl-on-osx/">Irssi and SASL on OSX</a>
-      </li>
-    
-      <li class="post">
-        <a href="/posts/xss-flaws-via-mvc-model-binding-and-request.querystring-inconsistencies/">XSS Flaws via MVC Model Binding and Request.QueryString Inconsistencies</a>
       </li>
     
   </ul>
@@ -736,7 +716,7 @@ different platforms.</p>
 <li class='category'><a href='/categories/networks/'>Networks (2)</a></li>
 <li class='category'><a href='/categories/nosql/'>NoSQL (3)</a></li>
 <li class='category'><a href='/categories/oauth/'>OAuth (1)</a></li>
-<li class='category'><a href='/categories/oscp/'>OSCP (1)</a></li>
+<li class='category'><a href='/categories/oscp/'>OSCP (2)</a></li>
 <li class='category'><a href='/categories/open-source/'>Open Source (3)</a></li>
 <li class='category'><a href='/categories/privacy/'>Privacy (3)</a></li>
 <li class='category'><a href='/categories/productivity/'>Productivity (1)</a></li>
@@ -746,7 +726,7 @@ different platforms.</p>
 <li class='category'><a href='/categories/riak/'>Riak (7)</a></li>
 <li class='category'><a href='/categories/ruby-on-rails/'>Ruby on Rails (1)</a></li>
 <li class='category'><a href='/categories/screencasts/'>Screencasts (1)</a></li>
-<li class='category'><a href='/categories/security/'>Security (15)</a></li>
+<li class='category'><a href='/categories/security/'>Security (16)</a></li>
 <li class='category'><a href='/categories/series/'>Series (1)</a></li>
 <li class='category'><a href='/categories/shortcuts/'>Shortcuts (4)</a></li>
 <li class='category'><a href='/categories/smashthestack-io/'>SmashTheStack-IO (1)</a></li>
