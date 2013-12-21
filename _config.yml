@@ -97,8 +97,10 @@ disqus_show_comment_count: true
 #disqus_show_comment_count: false
 
 # Google Analytics
-google_analytics_tracking_id: UA-8648787-1
-#google_analytics_tracking_id:
+Xgoogle_analytics_tracking_id: UA-8648787-1
+
+# Gosquared
+gosquared_analytics_tracking_id: GSN-416076-G
 
 # Facebook Like
 facebook_like: false
