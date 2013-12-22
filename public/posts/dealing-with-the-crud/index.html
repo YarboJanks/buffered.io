@@ -5,17 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Dealing with the CRUD - OJ's perspective</title>
+  <title>Dealing With the CRUD - OJ's perspective</title>
   <meta name="author" content="OJ Reeves">
 
-  <link rel="openid.server" href="http://pip.verisignlabs.com/server" />
-  <link rel="openid.delegate" href="http://thecolonial.pip.verisignlabs.com/" />
-  <link rel="openid2.provider" href="http://pip.verisignlabs.com/server" />
-  <link rel="openid2.local_id" href="http://thecolonial.pip.verisignlabs.com/" />
-  <meta http-equiv="X-XRDS-Location" content="http://pip.verisignlabs.com/thecolonial/yadixrds" />
-
   
-  <meta name="description" content="One of the things that I think every web developer on the planet is sick of doing is building CRUD methods for their applications. It&#8217;s the &hellip;">
+  <meta name="description" content="One of the things that I think every web developer on the planet is sick of doing is building CRUD methods for their applications. It&rsquo;s the &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -24,39 +18,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's perspective RSS 2.0" type="application/rss+xml">
   <link rel="canonical" href="http://buffered.io/posts/dealing-with-the-crud">
   <link href="/favicon.ico" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-
-  <script src="/javascripts/modernizr-2.0.js" type="text/javascript"></script>
-  <script src="/javascripts/ender.js" type="text/javascript"></script>
+  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's perspective" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
-
-  <script type="text/javascript">
-    Modernizr.load([
-      { load: '//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js' },
-      { load: '/javascripts/jquery.lightbox.js', complete: function() {
-        $("a[rel^='lightbox']").lightbox();
-      } }
-    ]);
-  </script>
-
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 
   
-
-  
-  <script type="text/javascript">
-    !function(g,s,q,r,d){r=g[r]=g[r]||function(){(r.q=r.q||[]).push(
-    arguments)};d=s.createElement(q);q=s.getElementsByTagName(q)[0];
-    d.src='//d1l6p2sc9645hc.cloudfront.net/tracker.js';q.parentNode.
-    insertBefore(d,q)}(window,document,'script','_gs');
-    _gs('GSN-416076-G');
-  </script>
-
 
 </head>
 
@@ -112,54 +86,54 @@
   
 
 
-
-<time datetime="2006-09-21T16:12:00+10:00" pubdate data-updated="true">21 Sep 2006</time>
+<time datetime="2006-09-21T16:12:00+10:00" pubdate data-updated="true"></time>
         
-         | <a href="#disqus_thread">Comments</a>
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://buffered.io">Comments</a>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>One of the things that I think every web developer on the planet is sick of doing is building <a href="http://en.wikipedia.org/wiki/CRUD_%28acronym%29" title="CRUD" target="_blank">CRUD</a> methods for their applications. It&#8217;s the kind of thing that we seem to do as developers over and over again despite the fact that this task is essentially monkey work.</p>
+<div class="entry-content"><p>One of the things that I think every web developer on the planet is sick of doing is building <a href="http://en.wikipedia.org/wiki/CRUD_%28acronym%29" title="CRUD" target="_blank">CRUD</a> methods for their applications. It&rsquo;s the kind of thing that we seem to do as developers over and over again despite the fact that this task is essentially monkey work.</p>
 
-<p>There have been quite a few attempts to nail this issue on the head in various programming camps, and it&#8217;s these attempts that I&#8217;d like to go over - partly because I&#8217;m also sick of CRUD, and partly because I don&#8217;t know enough about <em>all</em> of these solutions to know which one&#8217;s work best in what scenario (hopefully this is where you guys come to the rescue :)).</p>
+<p>There have been quite a few attempts to nail this issue on the head in various programming camps, and it&rsquo;s these attempts that I&rsquo;d like to go over &ndash; partly because I&rsquo;m also sick of CRUD, and partly because I don&rsquo;t know enough about <em>all</em> of these solutions to know which one&rsquo;s work best in what scenario (hopefully this is where you guys come to the rescue :)).</p>
 
-<p>I have to make sure that I&#8217;m clear - I am not talking about creation of supporting object-graph loading or anything funky like recursive deletion in code (rather than as a DB setting). I&#8217;m simply talking CRUD and CRUD alone :)</p>
+<p>I have to make sure that I&rsquo;m clear &ndash; I am not talking about creation of supporting object-graph loading or anything funky like recursive deletion in code (rather than as a DB setting). I&rsquo;m simply talking CRUD and CRUD alone :)</p>
 
 <p><strong><u>1. Code Generation</u></strong></p>
 
-<p>This is quite a common solution to the problem. One of the developers either builds a tool, suggests a tool, or downloads a tool that can be used to generate a stack of CRUD methods off some form of data definition. Some of these utilities are able to read the database schema directly, some of them need XML definitions, others do neither and require some other form of manual intervention. The good utilities simple provide a basic interface to the database&#8217;s definition and allow you to wrap your own templates around them.</p>
+<p>This is quite a common solution to the problem. One of the developers either builds a tool, suggests a tool, or downloads a tool that can be used to generate a stack of CRUD methods off some form of data definition. Some of these utilities are able to read the database schema directly, some of them need XML definitions, others do neither and require some other form of manual intervention. The good utilities simple provide a basic interface to the database&rsquo;s definition and allow you to wrap your own templates around them.</p>
 
-<p>The thing I don&#8217;t get with this solution is that there&#8217;s still a hefty chunk of work to be done to get the templates for the code <em>and</em> the stored procedures ready and bug-free.</p>
+<p>The thing I don&rsquo;t get with this solution is that there&rsquo;s still a hefty chunk of work to be done to get the templates for the code <em>and</em> the stored procedures ready and bug-free.</p>
 
 <p><strong><u>2. Hibernation</u></strong></p>
 
-<p>This is something I know very little about at the moment. From what I can see on the surface, Hibernation refers to the handling of the persistence of objects (eg. in <a href="http://www.hibernate.org/343.html" title="NHibernate" target="_blank">.NET</a> or <a href="http://www.hibernate.org/" title="Hibernate" target="_blank">Java</a>) to and from relational databases such as MS SQL Server or MySQL. It attempts to decouple the database implementation and schema from the system&#8217;s <a href="http://en.wikipedia.org/wiki/Domain_model" title="Domain Model" target="_blank">domain model</a> - which is a good practice that aids us in preventing the domain model from being polluted with details of the underlying data store. Apart from that, the framework handles the mapping of objects to the data model and vice versa - I liiiiike, it is niiiiiice.</p>
+<p>This is something I know very little about at the moment. From what I can see on the surface, Hibernation refers to the handling of the persistence of objects (eg. in <a href="http://www.hibernate.org/343.html" title="NHibernate" target="_blank">.NET</a> or <a href="http://www.hibernate.org/" title="Hibernate" target="_blank">Java</a>) to and from relational databases such as MS SQL Server or MySQL. It attempts to decouple the database implementation and schema from the system&rsquo;s <a href="http://en.wikipedia.org/wiki/Domain_model" title="Domain Model" target="_blank">domain model</a> &ndash; which is a good practice that aids us in preventing the domain model from being polluted with details of the underlying data store. Apart from that, the framework handles the mapping of objects to the data model and vice versa &ndash; I liiiiike, it is niiiiiice.</p>
 
-<p>This sounds very nice, but I have to reserve judgement as I&#8217;m yet to give it a spin myself. If it does what it says on the tin, then we&#8217;re all in happy joy joy land. I&#8217;ll try and get round to having a play with it in the next couple of weeks and see how easy it is to get going. If I can, I&#8217;ll try and benchmark it a bit too so we can get an idea of the performance. I&#8217;m interested to know how well this solution scales.</p>
+<p>This sounds very nice, but I have to reserve judgement as I&rsquo;m yet to give it a spin myself. If it does what it says on the tin, then we&rsquo;re all in happy joy joy land. I&rsquo;ll try and get round to having a play with it in the next couple of weeks and see how easy it is to get going. If I can, I&rsquo;ll try and benchmark it a bit too so we can get an idea of the performance. I&rsquo;m interested to know how well this solution scales.</p>
 
-<p>Apparently Microsoft are looking to create something similar to this (or are in the process of creating it). I believe they&#8217;re calling it &#8220;ObjectSpaces&#8221;, but don&#8217;t quote me on that :)</p>
+<p>Apparently Microsoft are looking to create something similar to this (or are in the process of creating it). I believe they&rsquo;re calling it &ldquo;ObjectSpaces&rdquo;, but don&rsquo;t quote me on that :)</p>
 
 <p><strong><u>3. Object Databases</u></strong></p>
 
-<p>I haven&#8217;t really kept up to speed with the advances in the field of object databases, but I&#8217;ve recently been handed a link to something that looks quite interesting called <a href="http://www.db4o.com/" title="db4objects">db4o</a> which looks to be a Java and .NET implementation of an object database. The idea of an object database isn&#8217;t new, but this framework looks like it&#8217;s making good ground.</p>
+<p>I haven&rsquo;t really kept up to speed with the advances in the field of object databases, but I&rsquo;ve recently been handed a link to something that looks quite interesting called <a href="http://www.db4o.com/" title="db4objects">db4o</a> which looks to be a Java and .NET implementation of an object database. The idea of an object database isn&rsquo;t new, but this framework looks like it&rsquo;s making good ground.</p>
 
-<p>Unfortunately, in this case, it looks like the performance isn&#8217;t too crash hot and it&#8217;s not really scaling that well. Not just that, but I&#8217;m not sure if the issues of concurrency and data reporting have been nailed either. Again, this is something I&#8217;m yet to really play with, and I&#8217;ll give it a fair go before dismissing it. At the moment my gut feeling is that it&#8217;s not yet a viable solution for anything more than a hobby project, despite the apparent ease of use. I love the way it&#8217;s so easy to persist things and retrieve them again, but until the above issues start being nailed there&#8217;s no way it can be considered for anything of a larger scale.</p>
+<p>Unfortunately, in this case, it looks like the performance isn&rsquo;t too crash hot and it&rsquo;s not really scaling that well. Not just that, but I&rsquo;m not sure if the issues of concurrency and data reporting have been nailed either. Again, this is something I&rsquo;m yet to really play with, and I&rsquo;ll give it a fair go before dismissing it. At the moment my gut feeling is that it&rsquo;s not yet a viable solution for anything more than a hobby project, despite the apparent ease of use. I love the way it&rsquo;s so easy to persist things and retrieve them again, but until the above issues start being nailed there&rsquo;s no way it can be considered for anything of a larger scale.</p>
 
 <p><strong><u>What are the others</u></strong></p>
 
-<p>This is a question for you guys? I&#8217;m sure there are stacks out there which are worthy of mention, and I just have no idea what they are. Feel free to send over some links to other viable solutions and let me know what you think of them.</p>
+<p>This is a question for you guys? I&rsquo;m sure there are stacks out there which are worthy of mention, and I just have no idea what they are. Feel free to send over some links to other viable solutions and let me know what you think of them.</p>
 
 <hr/>
 
 
-<p><strong>EDIT &#8211;</strong></p>
+<p><strong>EDIT &mdash;</strong></p>
 
-<p>I&#8217;d just like to add a quick follow-up to this. Christof over at <a href="http:/www.db4o.com/" title="db4objects">db4o</a> did me a favour and brought to my attention the current purpose of db4o, which is something I didn&#8217;t really know before (his comment can be read in the comments section). My focus while writing this blog post was to explore the options for the replacment of the issues faced in an &#8220;enterprise&#8221; system where there are potentially hundreds of thousands (if not millions) of records and a large amount of simultaneous transactions taking place. It looks like, at least for now, db4o isn&#8217;t intended to be used in such a scenario. Perhaps in the future this is something that will be targetted? Also, when I stated that it looked like it was handy for a hobby project, I wasn&#8217;t implying that hobbyists are the only people who would find it useful. Clearly it already has a use in embedded environments - I simply meant as a back-end DB for people building systems they may be using at home as part of a hobby project.</p>
+<p>I&rsquo;d just like to add a quick follow-up to this. Christof over at <a href="http:/www.db4o.com/" title="db4objects">db4o</a> did me a favour and brought to my attention the current purpose of db4o, which is something I didn&rsquo;t really know before (his comment can be read in the comments section). My focus while writing this blog post was to explore the options for the replacment of the issues faced in an &ldquo;enterprise&rdquo; system where there are potentially hundreds of thousands (if not millions) of records and a large amount of simultaneous transactions taking place. It looks like, at least for now, db4o isn&rsquo;t intended to be used in such a scenario. Perhaps in the future this is something that will be targetted? Also, when I stated that it looked like it was handy for a hobby project, I wasn&rsquo;t implying that hobbyists are the only people who would find it useful. Clearly it already has a use in embedded environments &ndash; I simply meant as a back-end DB for people building systems they may be using at home as part of a hobby project.</p>
 
-<p>I&#8217;m sure there&#8217;s stacks of information on this on their site and users forums, so I should get my butt over there and do a bit more reading :)</p>
+<p>I&rsquo;m sure there&rsquo;s stacks of information on this on their site and users forums, so I should get my butt over there and do a bit more reading :)</p>
 </div>
 
 
@@ -182,8 +156,7 @@
   
 
 
-
-<time datetime="2006-09-21T16:12:00+10:00" pubdate data-updated="true">21 Sep 2006</time>
+<time datetime="2006-09-21T16:12:00+10:00" pubdate data-updated="true"></time>
       
 
 <span class="categories">
@@ -197,7 +170,7 @@
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://buffered.io/posts/dealing-with-the-crud/" data-via="TheColonial" data-counturl="http://buffered.io/posts/dealing-with-the-crud/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://buffered.io/posts/dealing-with-the-crud/" data-via="TheColonial" data-counturl="http://buffered.io/posts/dealing-with-the-crud/" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -211,7 +184,7 @@
         <a class="basic-alignment left" href="/posts/list-o-software/" title="Previous Post: List o' Software">&laquo; List o' Software</a>
       
       
-        <a class="basic-alignment right" href="/posts/yarr-me-hearties/" title="next Post: Yarr me hearties!">Yarr me hearties! &raquo;</a>
+        <a class="basic-alignment right" href="/posts/yarr-me-hearties/" title="Next Post: Yarr me hearties!">Yarr me hearties! &raquo;</a>
       
     </p>
   </footer>
@@ -412,7 +385,7 @@ Copyright &copy; 2013 -
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     }());
 </script>
@@ -436,7 +409,7 @@ Copyright &copy; 2013 -
       var twitterWidgets = document.createElement('script');
       twitterWidgets.type = 'text/javascript';
       twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
       document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
     })();
   </script>

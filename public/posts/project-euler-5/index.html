@@ -8,14 +8,8 @@
   <title>Project Euler #5 - OJ's perspective</title>
   <meta name="author" content="OJ Reeves">
 
-  <link rel="openid.server" href="http://pip.verisignlabs.com/server" />
-  <link rel="openid.delegate" href="http://thecolonial.pip.verisignlabs.com/" />
-  <link rel="openid2.provider" href="http://pip.verisignlabs.com/server" />
-  <link rel="openid2.local_id" href="http://thecolonial.pip.verisignlabs.com/" />
-  <meta http-equiv="X-XRDS-Location" content="http://pip.verisignlabs.com/thecolonial/yadixrds" />
-
   
-  <meta name="description" content="WARNING! This post contains a spoiler for Problem #5 listed at Project Euler. Do not read the rest of this post if you&#8217;re planning to attempt &hellip;">
+  <meta name="description" content="WARNING! This post contains a spoiler for Problem #5 listed at Project Euler. Do not read the rest of this post if you&rsquo;re planning to attempt &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -24,39 +18,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's perspective RSS 2.0" type="application/rss+xml">
   <link rel="canonical" href="http://buffered.io/posts/project-euler-5">
   <link href="/favicon.ico" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-
-  <script src="/javascripts/modernizr-2.0.js" type="text/javascript"></script>
-  <script src="/javascripts/ender.js" type="text/javascript"></script>
+  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's perspective" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
-
-  <script type="text/javascript">
-    Modernizr.load([
-      { load: '//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js' },
-      { load: '/javascripts/jquery.lightbox.js', complete: function() {
-        $("a[rel^='lightbox']").lightbox();
-      } }
-    ]);
-  </script>
-
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 
   
-
-  
-  <script type="text/javascript">
-    !function(g,s,q,r,d){r=g[r]=g[r]||function(){(r.q=r.q||[]).push(
-    arguments)};d=s.createElement(q);q=s.getElementsByTagName(q)[0];
-    d.src='//d1l6p2sc9645hc.cloudfront.net/tracker.js';q.parentNode.
-    insertBefore(d,q)}(window,document,'script','_gs');
-    _gs('GSN-416076-G');
-  </script>
-
 
 </head>
 
@@ -112,39 +86,39 @@
   
 
 
-
-<time datetime="2008-03-23T15:26:00+10:00" pubdate data-updated="true">23 Mar 2008</time>
+<time datetime="2008-03-23T15:26:00+10:00" pubdate data-updated="true"></time>
         
-         | <a href="#disqus_thread">Comments</a>
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://buffered.io">Comments</a>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p><strong>WARNING!</strong> This post contains a spoiler for Problem #5 listed at <a href="http://projecteuler.net/" title="Project Euler">Project Euler</a>. Do not read the rest of this post if you&#8217;re planning to attempt to solve the problem yourself.</p>
+<div class="entry-content"><p><strong>WARNING!</strong> This post contains a spoiler for Problem #5 listed at <a href="http://projecteuler.net/" title="Project Euler">Project Euler</a>. Do not read the rest of this post if you&rsquo;re planning to attempt to solve the problem yourself.</p>
 
 <!--more-->
 
 
-<p><a href="http://projecteuler.net/index.php?section=problems&id=5">Problem #5</a> is a great little problem that requires a little maths knowledge to be able to solve in a reasonable period of time. Let&#8217;s take a look at the question:<blockquote><p>2520 is the smallest number that can be divided by each of the numbers from 1 to 10 without any remainder.</p>
+<p><a href="http://projecteuler.net/index.php?section=problems&id=5">Problem #5</a> is a great little problem that requires a little maths knowledge to be able to solve in a reasonable period of time. Let&rsquo;s take a look at the question:<blockquote><p>2520 is the smallest number that can be divided by each of the numbers from 1 to 10 without any remainder.</p>
 
 <p>What is the smallest number that is <u>evenly divisible</u> by all of the numbers from 1 to 20?</p></blockquote>
-Brute force? Hrm, I don&#8217;t think so :) It&#8217;d take an ice age. Nope, instead we need to do a bit of <a href="http://en.wikipedia.org/wiki/Least_common_multiple" title="Least common multiple">research</a> to help come up with a smarter solution.</p>
+Brute force? Hrm, I don&rsquo;t think so :) It&rsquo;d take an ice age. Nope, instead we need to do a bit of <a href="http://en.wikipedia.org/wiki/Least_common_multiple" title="Least common multiple">research</a> to help come up with a smarter solution.</p>
 
-<p>In short, the best way is to find the lowest common multiple (LCM) for each of the numbers respectively. Thankfully, Haskell comes with a couple of handy functions which make it really easy to iterate over a list and find the LCM of each pair of items:<ol><li><strong>lcm</strong> - finds the LCM of two numbers.</li><li><strong>fold*</strong> - iterates over a list and applies a function to each item pair iteratively using the result on the next item. There are many flavours, but we&#8217;ll use <a href="http://haskell.org/ghc/docs/latest/html/libraries/base/Prelude.html#v%3Afoldl1" title="foldl1">foldl1</a>.</li></ol>
+<p>In short, the best way is to find the lowest common multiple (LCM) for each of the numbers respectively. Thankfully, Haskell comes with a couple of handy functions which make it really easy to iterate over a list and find the LCM of each pair of items:<ol><li><strong>lcm</strong> &ndash; finds the LCM of two numbers.</li><li><strong>fold*</strong> &ndash; iterates over a list and applies a function to each item pair iteratively using the result on the next item. There are many flavours, but we&rsquo;ll use <a href="http://haskell.org/ghc/docs/latest/html/libraries/base/Prelude.html#v%3Afoldl1" title="foldl1">foldl1</a>.</li></ol>
 So here it is, the solution to the problem in all its glory:</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class='haskell'><span class='line'><span class="nf">main</span> <span class="ow">::</span> <span class="kt">IO</span> <span class="nb">()</span>
 </span><span class='line'><span class="nf">main</span> <span class="ow">=</span> <span class="n">print</span> <span class="o">$</span> <span class="n">foldl1</span> <span class="p">(</span><span class="n">lcm</span><span class="p">)</span> <span class="p">[</span><span class="mi">2</span><span class="o">..</span><span class="mi">20</span><span class="p">]</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>Genius isn&#8217;t it :) We could actually avoid all the numbers from 2 to 10 if we wanted, because we know that multiples of those numbers appear from 11 to 20, so to reduce a bit of time we could do this:</p>
+<p>Genius isn&rsquo;t it :) We could actually avoid all the numbers from 2 to 10 if we wanted, because we know that multiples of those numbers appear from 11 to 20, so to reduce a bit of time we could do this:</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class='haskell'><span class='line'><span class="nf">main</span> <span class="ow">::</span> <span class="kt">IO</span> <span class="nb">()</span>
 </span><span class='line'><span class="nf">main</span> <span class="ow">=</span> <span class="n">print</span> <span class="o">$</span> <span class="n">foldl1</span> <span class="p">(</span><span class="n">lcm</span><span class="p">)</span> <span class="p">[</span><span class="mi">11</span><span class="o">..</span><span class="mi">20</span><span class="p">]</span>
@@ -153,9 +127,9 @@ So here it is, the solution to the problem in all its glory:</p>
 
 <p>That gives the same result just a tiny bit quicker.</p>
 
-<p>Now it&#8217;s time for me to embarass myself a little. Before I came to the &#8220;neat&#8221; little conclusion above, I actually did a fair bit of work hand-coding my own solution. I was trying to be too tricky for my own good, and as a result I paid the price of wasting a lot of time. Having said that, I learned a lot about the language when I wrote this, so it wasn&#8217;t a <em>complete</em> waste of time. The code below is what happens when you attempt a problem without actually doing any research on it :) Enjoy!</p>
+<p>Now it&rsquo;s time for me to embarass myself a little. Before I came to the &ldquo;neat&rdquo; little conclusion above, I actually did a fair bit of work hand-coding my own solution. I was trying to be too tricky for my own good, and as a result I paid the price of wasting a lot of time. Having said that, I learned a lot about the language when I wrote this, so it wasn&rsquo;t a <em>complete</em> waste of time. The code below is what happens when you attempt a problem without actually doing any research on it :) Enjoy!</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -266,7 +240,7 @@ So here it is, the solution to the problem in all its glory:</p>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>Isn&#8217;t that just terrific :P Not only is it huge, but it just stinks of &#8220;n00b&#8221;. You can tell that it wasn&#8217;t written by an experienced Haskeller.</p>
+<p>Isn&rsquo;t that just terrific :P Not only is it huge, but it just stinks of &ldquo;n00b&rdquo;. You can tell that it wasn&rsquo;t written by an experienced Haskeller.</p>
 
 <p>Thoughts?</p>
 </div>
@@ -291,8 +265,7 @@ So here it is, the solution to the problem in all its glory:</p>
   
 
 
-
-<time datetime="2008-03-23T15:26:00+10:00" pubdate data-updated="true">23 Mar 2008</time>
+<time datetime="2008-03-23T15:26:00+10:00" pubdate data-updated="true"></time>
       
 
 <span class="categories">
@@ -306,7 +279,7 @@ So here it is, the solution to the problem in all its glory:</p>
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://buffered.io/posts/project-euler-5/" data-via="TheColonial" data-counturl="http://buffered.io/posts/project-euler-5/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://buffered.io/posts/project-euler-5/" data-via="TheColonial" data-counturl="http://buffered.io/posts/project-euler-5/" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -320,7 +293,7 @@ So here it is, the solution to the problem in all its glory:</p>
         <a class="basic-alignment left" href="/posts/tiger-administration/" title="Previous Post: Tiger Administration">&laquo; Tiger Administration</a>
       
       
-        <a class="basic-alignment right" href="/posts/project-euler-6/" title="next Post: Project Euler #6">Project Euler #6 &raquo;</a>
+        <a class="basic-alignment right" href="/posts/project-euler-6/" title="Next Post: Project Euler #6">Project Euler #6 &raquo;</a>
       
     </p>
   </footer>
@@ -521,7 +494,7 @@ Copyright &copy; 2013 -
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     }());
 </script>
@@ -545,7 +518,7 @@ Copyright &copy; 2013 -
       var twitterWidgets = document.createElement('script');
       twitterWidgets.type = 'text/javascript';
       twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
       document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
     })();
   </script>

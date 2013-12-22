@@ -8,14 +8,8 @@
   <title>Reversing DirectX &amp; Blowfish - OJ's perspective</title>
   <meta name="author" content="OJ Reeves">
 
-  <link rel="openid.server" href="http://pip.verisignlabs.com/server" />
-  <link rel="openid.delegate" href="http://thecolonial.pip.verisignlabs.com/" />
-  <link rel="openid2.provider" href="http://pip.verisignlabs.com/server" />
-  <link rel="openid2.local_id" href="http://thecolonial.pip.verisignlabs.com/" />
-  <meta http-equiv="X-XRDS-Location" content="http://pip.verisignlabs.com/thecolonial/yadixrds" />
-
   
-  <meta name="description" content="This tutorial has been on the boil for quite a while. I got close to nailing the problem late last month, but didn&#8217;t end up finding the time to &hellip;">
+  <meta name="description" content="This tutorial has been on the boil for quite a while. I got close to nailing the problem late last month, but didn&rsquo;t end up finding the time to &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -24,39 +18,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's perspective RSS 2.0" type="application/rss+xml">
   <link rel="canonical" href="http://buffered.io/posts/reversing-directx-blowfish">
   <link href="/favicon.ico" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-
-  <script src="/javascripts/modernizr-2.0.js" type="text/javascript"></script>
-  <script src="/javascripts/ender.js" type="text/javascript"></script>
+  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's perspective" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
-
-  <script type="text/javascript">
-    Modernizr.load([
-      { load: '//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js' },
-      { load: '/javascripts/jquery.lightbox.js', complete: function() {
-        $("a[rel^='lightbox']").lightbox();
-      } }
-    ]);
-  </script>
-
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 
   
-
-  
-  <script type="text/javascript">
-    !function(g,s,q,r,d){r=g[r]=g[r]||function(){(r.q=r.q||[]).push(
-    arguments)};d=s.createElement(q);q=s.getElementsByTagName(q)[0];
-    d.src='//d1l6p2sc9645hc.cloudfront.net/tracker.js';q.parentNode.
-    insertBefore(d,q)}(window,document,'script','_gs');
-    _gs('GSN-416076-G');
-  </script>
-
 
 </head>
 
@@ -112,23 +86,23 @@
   
 
 
-
-<time datetime="2007-04-09T06:31:00+10:00" pubdate data-updated="true">09 Apr 2007</time>
+<time datetime="2007-04-09T06:31:00+10:00" pubdate data-updated="true"></time>
         
-         | <a href="#disqus_thread">Comments</a>
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://buffered.io">Comments</a>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>This tutorial has been on the boil for quite a while.  I got close to nailing the problem late last month, but didn&#8217;t end up finding the time to finish it until this weekend.  This tutorial is a solution to another Crackme, but this time it&#8217;s really not for the faint-hearted.  Information on reversing fullscreen <a href="http://www.microsoft.com/directx/" title="DirectX">DirectX (Direct3D)</a> applications and playing around with <a href="http://www.schneier.com/blowfish.html" title="Blowfish">Blowfish</a> can be found in this tutorial, and it&#8217;s a bit of a mind-job - it also weighs in at nearly 40 pages (with some nice pictures thrown in)!</p>
+<div class="entry-content"><p>This tutorial has been on the boil for quite a while.  I got close to nailing the problem late last month, but didn&rsquo;t end up finding the time to finish it until this weekend.  This tutorial is a solution to another Crackme, but this time it&rsquo;s really not for the faint-hearted.  Information on reversing fullscreen <a href="http://www.microsoft.com/directx/" title="DirectX">DirectX (Direct3D)</a> applications and playing around with <a href="http://www.schneier.com/blowfish.html" title="Blowfish">Blowfish</a> can be found in this tutorial, and it&rsquo;s a bit of a mind-job &ndash; it also weighs in at nearly 40 pages (with some nice pictures thrown in)!</p>
 
 <p>Take a look at the <a href="/uploads/2007/04/silverdxcrackme1.zip">Crackme</a> and then <a href="/uploads/2007/04/Silver-DirectX-Solution-TheColonial.zip">my solution</a>. Enjoy.</p>
 
 <h3>Update: 9th Feb 2012</h3>
 
-<p>This tutorial was originally posted and hosted on <a href="http://www.crackmes.de/">Crackmes.de</a> alongside the crackme itself. Unfortunately Crackems.de had been taken offline for quite a while for legal reasons and hence the tutorial wasn&#8217;t available there.</p>
+<p>This tutorial was originally posted and hosted on <a href="http://www.crackmes.de/">Crackmes.de</a> alongside the crackme itself. Unfortunately Crackems.de had been taken offline for quite a while for legal reasons and hence the tutorial wasn&rsquo;t available there.</p>
 
 <p>Thanks to issues with webhosts and backup failures, this tutorial was completely unavailable for a long time. Thankfully that site is back up now and I finally have a copy of the tutorial again.</p>
 
@@ -155,8 +129,7 @@
   
 
 
-
-<time datetime="2007-04-09T06:31:00+10:00" pubdate data-updated="true">09 Apr 2007</time>
+<time datetime="2007-04-09T06:31:00+10:00" pubdate data-updated="true"></time>
       
 
 <span class="categories">
@@ -170,7 +143,7 @@
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://buffered.io/posts/reversing-directx-blowfish/" data-via="TheColonial" data-counturl="http://buffered.io/posts/reversing-directx-blowfish/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://buffered.io/posts/reversing-directx-blowfish/" data-via="TheColonial" data-counturl="http://buffered.io/posts/reversing-directx-blowfish/" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -184,7 +157,7 @@
         <a class="basic-alignment left" href="/posts/are-forums-dead/" title="Previous Post: Are Forums Dead?">&laquo; Are Forums Dead?</a>
       
       
-        <a class="basic-alignment right" href="/posts/what-constitutes-a-tutorial/" title="next Post: What Constitutes a 'Tutorial'?">What Constitutes a 'Tutorial'? &raquo;</a>
+        <a class="basic-alignment right" href="/posts/what-constitutes-a-tutorial/" title="Next Post: What Constitutes a 'Tutorial'?">What Constitutes a 'Tutorial'? &raquo;</a>
       
     </p>
   </footer>
@@ -385,7 +358,7 @@ Copyright &copy; 2013 -
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     }());
 </script>
@@ -409,7 +382,7 @@ Copyright &copy; 2013 -
       var twitterWidgets = document.createElement('script');
       twitterWidgets.type = 'text/javascript';
       twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
       document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
     })();
   </script>

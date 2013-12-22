@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Merb | OJ's perspective]]></title>
   <link href="http://buffered.io/categories/merb/atom.xml" rel="self"/>
   <link href="http://buffered.io/"/>
-  <updated>2013-12-21T20:54:15+10:00</updated>
+  <updated>2013-12-23T08:36:36+10:00</updated>
   <id>http://buffered.io/</id>
   <author>
     <name><![CDATA[OJ Reeves]]></name>
@@ -18,24 +18,24 @@
     <link href="http://buffered.io/posts/web-application-development-with-merb-mysql-and-tiny/"/>
     <updated>2008-04-06T16:04:00+10:00</updated>
     <id>http://buffered.io/posts/web-application-development-with-merb-mysql-and-tiny</id>
-    <content type="html"><![CDATA[<p>I've been thinking about building a web application or two for a while, but I haven't yet found the time to invest. I don't think this is going to change very soon either. I'm not the kind of person who usually likes to get stuck into something unless I know I've got a couple of hours up my sleeve so that I feel I can get something done, and this has been preventing me from doing anything because I don't ever feel like I have a couple of hours spare. Having a child means that you could have as little as 5 minutes before all hell breaks loose.</p>
+    <content type="html"><![CDATA[<p>I&rsquo;ve been thinking about building a web application or two for a while, but I haven&rsquo;t yet found the time to invest. I don&rsquo;t think this is going to change very soon either. I&rsquo;m not the kind of person who usually likes to get stuck into something unless I know I&rsquo;ve got a couple of hours up my sleeve so that I feel I can get something done, and this has been preventing me from doing anything because I don&rsquo;t ever feel like I have a couple of hours spare. Having a child means that you could have as little as 5 minutes before all hell breaks loose.</p>
 
-<p>Instead of whinging about it, I've decided to go against my usual grain and take those 5 minute chunks as a chance to do something. This is the first step :)</p>
+<p>Instead of whinging about it, I&rsquo;ve decided to go against my usual grain and take those 5 minute chunks as a chance to do something. This is the first step :)</p>
 
 <!--more-->
 
 
-<p>So, while I'm not going to talk about the web application that I'm going to be writing, I will be covering aspects of the development along with the tools and frameworks I've decided to use.</p>
+<p>So, while I&rsquo;m not going to talk about the web application that I&rsquo;m going to be writing, I will be covering aspects of the development along with the tools and frameworks I&rsquo;ve decided to use.</p>
 
-<p>I've decided to give <a href="http://merbivore.com/" title="Merb">Merb</a> a whirl as the base framework for writing my application, which works off the <a href="http://www.ruby-lang.org/" title="Ruby">Ruby</a> language. I'll also look into using <a href="http://code.macournoyer.com/thin/" title="Tiny - Yet another web server">Tiny</a> as the web server, but that'll be decided down the track. I'll be using <a href="http://www.mysql.com/" title="MySQL">MySQL</a> for the database back-end. I'll also be using <a href="http://www.selenic.com/mercurial/" title="Mercurial">Mercurial</a> for my VCS, and may well push to an <a href="http://subversion.tigris.org/" title="Subversion">SVN</a> repo on my server for backups and releases.</p>
+<p>I&rsquo;ve decided to give <a href="http://merbivore.com/" title="Merb">Merb</a> a whirl as the base framework for writing my application, which works off the <a href="http://www.ruby-lang.org/" title="Ruby">Ruby</a> language. I&rsquo;ll also look into using <a href="http://code.macournoyer.com/thin/" title="Tiny - Yet another web server">Tiny</a> as the web server, but that&rsquo;ll be decided down the track. I&rsquo;ll be using <a href="http://www.mysql.com/" title="MySQL">MySQL</a> for the database back-end. I&rsquo;ll also be using <a href="http://www.selenic.com/mercurial/" title="Mercurial">Mercurial</a> for my VCS, and may well push to an <a href="http://subversion.tigris.org/" title="Subversion">SVN</a> repo on my server for backups and releases.</p>
 
 <p>All of my development will be done using <a href="http://www.vim.org/" title="VIM">VIM</a> as my text editor.</p>
 
-<p>Don't ask me to justify my choices for any of the above :) I can't be arsed. Suffice is to say that those were chosen as a compromise on speed, ease of development, time to market, etc.</p>
+<p>Don&rsquo;t ask me to justify my choices for any of the above :) I can&rsquo;t be arsed. Suffice is to say that those were chosen as a compromise on speed, ease of development, time to market, etc.</p>
 
-<p>Since Merb is a new framework, I thought I'd read up on some tutorials. Unfortunately, most of the tutorials are totally out of date and don't work with the latest version of Merb. So I thought it'd be good to give back a little and write an updated tutorial on how I got Merb going with Tiny.</p>
+<p>Since Merb is a new framework, I thought I&rsquo;d read up on some tutorials. Unfortunately, most of the tutorials are totally out of date and don&rsquo;t work with the latest version of Merb. So I thought it&rsquo;d be good to give back a little and write an updated tutorial on how I got Merb going with Tiny.</p>
 
-<p>To start with we need to download and install a bunch of stuff. I'm using Windows for my dev environment (yeah, shut up, I can't hear your insults anyway ;)), so bear in mind that you might have to use 'sudo' when installing gems, and you might need to use 'apt-get', 'emerge' or 'dpkg' depending on which platform you're using.</p>
+<p>To start with we need to download and install a bunch of stuff. I&rsquo;m using Windows for my dev environment (yeah, shut up, I can&rsquo;t hear your insults anyway ;)), so bear in mind that you might have to use &lsquo;sudo&rsquo; when installing gems, and you might need to use &lsquo;apt-get&rsquo;, &lsquo;emerge&rsquo; or &lsquo;dpkg&rsquo; depending on which platform you&rsquo;re using.</p>
 
 <p>Anyway, these are the steps that I took to get my environment ready:</p>
 
@@ -49,12 +49,12 @@
 </ol>
 
 
-<p>You should now be ready to go as far as your environment is concerned. Next up, let's get a basic Merb application running. Start by creating a "test" application using the command:</p>
+<p>You should now be ready to go as far as your environment is concerned. Next up, let&rsquo;s get a basic Merb application running. Start by creating a &ldquo;test&rdquo; application using the command:</p>
 
 <pre><code>merb-gen app test
 </code></pre>
 
-<p>This should create a folder called "test" with a collection of subfolders which contain the basic Merb application. Now, to make sure that everything is working, we should invoke our merb application with the "tiny" server adapter. First, change the directory to the application directory, and the invoke merb with the appropriate adapter using the following commands:</p>
+<p>This should create a folder called &ldquo;test&rdquo; with a collection of subfolders which contain the basic Merb application. Now, to make sure that everything is working, we should invoke our merb application with the &ldquo;tiny&rdquo; server adapter. First, change the directory to the application directory, and the invoke merb with the appropriate adapter using the following commands:</p>
 
 <pre><code>cd test
 merb -a thin
@@ -68,27 +68,27 @@ merb -a thin
  ~ Using Thin adapter
 </code></pre>
 
-<p><a href="http://buffered.io/uploads/2008/04/merb-empty-app.png" rel="lightbox[merb]"><img src="http://buffered.io/uploads/2008/04/merb-empty-app.png" alt="Default Merb application render" title="Empty Merb Application" style="float: left; padding-right: 3px; padding-bottom: 3px;" width="120"/></a>Next, browse to <a href="http://localhost:4000">http://localhost:4000</a> and you should see something like the image on the left.</p>
+<p><a href="http://buffered.io/uploads/2008/04/merb-empty-app.png" rel="lightbox[merb]"><img src="http://buffered.io/uploads/2008/04/merb-empty-app.png" alt="Default Merb application render" title="Empty Merb Application" style="float: left; padding-right: 3px; padding-bottom: 3px;" width="120"/></a>Next, browse to <a href="http://localhost:4000"><a href="http://localhost:4000">http://localhost:4000</a></a> and you should see something like the image on the left.</p>
 
-<p>If you can see that then you're ready to rock. If you can't then you need to make sure that you've set up and installed everything properly. You should also make sure that your firewall software isn't blocking port 4000, otherwise nothing will come up!</p>
+<p>If you can see that then you&rsquo;re ready to rock. If you can&rsquo;t then you need to make sure that you&rsquo;ve set up and installed everything properly. You should also make sure that your firewall software isn&rsquo;t blocking port 4000, otherwise nothing will come up!</p>
 
-<p>So the application works. The more perceptive of you may have realised that there's an error displayed on screen that says:<blockquote><p>Exception:
+<p>So the application works. The more perceptive of you may have realised that there&rsquo;s an error displayed on screen that says:<blockquote><p>Exception:
 No routes match the request, /</p></blockquote>
-In Merb, just like Rails, there is a router which tells the framework which controller and action to invoke based on the URL's given. The error is telling us that it doesn't know which controller and action to invoke when we browse to the root of the site. That's no surprise because we haven't yet created a controller/action, let alone pointed the root of the site at it.</p>
+In Merb, just like Rails, there is a router which tells the framework which controller and action to invoke based on the URL&rsquo;s given. The error is telling us that it doesn&rsquo;t know which controller and action to invoke when we browse to the root of the site. That&rsquo;s no surprise because we haven&rsquo;t yet created a controller/action, let alone pointed the root of the site at it.</p>
 
-<p>Let's do that now. Since this is a test application, let's just get a basic page rendered. Go back to your command window, make sure that your current path is still the "test" folder, then invoke the following:</p>
+<p>Let&rsquo;s do that now. Since this is a test application, let&rsquo;s just get a basic page rendered. Go back to your command window, make sure that your current path is still the &ldquo;test&rdquo; folder, then invoke the following:</p>
 
 <pre><code>merb-gen controller home
 </code></pre>
 
-<p>This should give us a controller skeleton ready to edit. Of the generated files, the ones we're interested in are:</p>
+<p>This should give us a controller skeleton ready to edit. Of the generated files, the ones we&rsquo;re interested in are:</p>
 
 <pre><code>app/controllers/home.rb
 app/views/home/index.html.erb
 </code></pre>
 
 <p>The content of the controller is very basic, and should look something like the following:
-<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -111,19 +111,19 @@ app/views/home/index.html.erb
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>This is simply telling the framework to render the default view associated with the action. That is, render that which is stored in the home/index.html.erb file. The default content looks like this:
-<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'>You&#39;re in index of the Home
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'>You<span class="ni">&amp;rsquo;</span>re in index of the Home
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
-<p><a href="http://buffered.io/uploads/2008/04/merb-default-home.png" rel="lightbox[merb]"><img src="http://buffered.io/uploads/2008/04/merb-default-home.png" alt="This is the default content of an action which is associated with a controller." title="Default Merb index action render" width="120" style="float: right; padding-left: 3px; padding-bottom: 3px" /></a>If you killed off the merb server, fire it up again and browse to <a href="http://localhost:4000/home">http://localhost:4000/home</a>, you should see the site as shown on the right.</p>
+<p><a href="http://buffered.io/uploads/2008/04/merb-default-home.png" rel="lightbox[merb]"><img src="http://buffered.io/uploads/2008/04/merb-default-home.png" alt="This is the default content of an action which is associated with a controller." title="Default Merb index action render" width="120" style="float: right; padding-left: 3px; padding-bottom: 3px" /></a>If you killed off the merb server, fire it up again and browse to <a href="http://localhost:4000/home"><a href="http://localhost:4000/home">http://localhost:4000/home</a></a>, you should see the site as shown on the right.</p>
 
-<p>Finally, let's make this the default location for the application when the user browses the root of the application. We do this by modifing the router configuration located in:</p>
+<p>Finally, let&rsquo;s make this the default location for the application when the user browses the root of the application. We do this by modifing the router configuration located in:</p>
 
 <pre><code>config/router.rb
 </code></pre>
 
-<p>Open this file in your text editor, and uncomment the second-last line of the file which allows you to match the root folder to a controller and action. Specify "home" as the controller, and leave "index" specified as the action. Your router.rb file should look like this:
-<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<p>Open this file in your text editor, and uncomment the second-last line of the file which allows you to match the root folder to a controller and action. Specify &ldquo;home&rdquo; as the controller, and leave &ldquo;index&rdquo; specified as the action. Your router.rb file should look like this:
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -137,27 +137,27 @@ app/views/home/index.html.erb
 <span class='line-number'>12</span>
 <span class='line-number'>13</span>
 <span class='line-number'>14</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="no">Merb</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Compiling routes...&quot;</span><span class="p">)</span>
-</span><span class='line'><span class="no">Merb</span><span class="o">::</span><span class="no">Router</span><span class="o">.</span><span class="n">prepare</span> <span class="k">do</span> <span class="o">|</span><span class="n">r</span><span class="o">|</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="no">Merb</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="no">Compiling</span> <span class="n">routes</span><span class="o">&amp;</span><span class="n">hellip</span><span class="p">;</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;)</span>
+</span><span class='line'><span class="ss">Merb</span><span class="p">:</span><span class="ss">:Router</span><span class="o">.</span><span class="n">prepare</span> <span class="k">do</span> <span class="o">|</span><span class="n">r</span><span class="o">|</span>
 </span><span class='line'>  <span class="c1"># RESTful routes</span>
 </span><span class='line'>  <span class="c1"># r.resources :posts&lt;/p&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span>  <span class="c1"># This is the default route for /:controller/:action/:id</span>
-</span><span class='line'>  <span class="c1"># This is fine for most cases.  If you&#39;re heavily using resource-based</span>
+</span><span class='line'>  <span class="c1"># This is fine for most cases.  If you&amp;rsquo;re heavily using resource-based</span>
 </span><span class='line'>  <span class="c1"># routes, you may want to comment/remove this line to prevent</span>
 </span><span class='line'>  <span class="c1"># clients from calling your create or destroy actions with a GET</span>
 </span><span class='line'>  <span class="n">r</span><span class="o">.</span><span class="n">default_routes</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="sr">&lt;p&gt;  # Change this for your home page to be available at /</span>
-</span><span class='line'>  <span class="n">r</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="ss">:controller</span> <span class="o">=&gt;</span> <span class="s1">&#39;home&#39;</span><span class="p">,</span> <span class="ss">:action</span> <span class="o">=&gt;</span><span class="s1">&#39;index&#39;</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">r</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="o">&amp;</span><span class="n">lsquo</span><span class="p">;</span><span class="o">/&amp;</span><span class="n">rsquo</span><span class="p">;)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="ss">:controller</span> <span class="o">=&gt;</span> <span class="o">&amp;</span><span class="n">lsquo</span><span class="p">;</span><span class="n">home</span><span class="o">&amp;</span><span class="n">rsquo</span><span class="p">;,</span> <span class="ss">:action</span> <span class="o">=&gt;&amp;</span><span class="n">lsquo</span><span class="p">;</span><span class="n">index</span><span class="o">&amp;</span><span class="n">rsquo</span><span class="p">;)</span>
 </span><span class='line'><span class="k">end</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
-<p>Fire up your application by browsing to <a href="http://localhost:4000">http://localhost:4000</a> again, you should be greeted with the same screenshot shown above.</p>
+<p>Fire up your application by browsing to <a href="http://localhost:4000"><a href="http://localhost:4000">http://localhost:4000</a></a> again, you should be greeted with the same screenshot shown above.</p>
 
-<p>Well done! You've set up a merb application using tiny, and have managed to create a very basic site with the root folder mapped to a controller action.</p>
+<p>Well done! You&rsquo;ve set up a merb application using tiny, and have managed to create a very basic site with the root folder mapped to a controller action.</p>
 
-<p>My next blog post in this little series will cover the creation of a database to use as the back-end of the application, along with a model which loads from the database and a basic view to render that model's information.</p>
+<p>My next blog post in this little series will cover the creation of a database to use as the back-end of the application, along with a model which loads from the database and a basic view to render that model&rsquo;s information.</p>
 
 <p>Feedback welcome!</p>
 ]]></content>

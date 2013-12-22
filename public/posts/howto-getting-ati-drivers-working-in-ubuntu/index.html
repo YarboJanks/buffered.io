@@ -8,14 +8,8 @@
   <title>HOWTO: Getting ATi Drivers Working in Ubuntu - OJ's perspective</title>
   <meta name="author" content="OJ Reeves">
 
-  <link rel="openid.server" href="http://pip.verisignlabs.com/server" />
-  <link rel="openid.delegate" href="http://thecolonial.pip.verisignlabs.com/" />
-  <link rel="openid2.provider" href="http://pip.verisignlabs.com/server" />
-  <link rel="openid2.local_id" href="http://thecolonial.pip.verisignlabs.com/" />
-  <meta http-equiv="X-XRDS-Location" content="http://pip.verisignlabs.com/thecolonial/yadixrds" />
-
   
-  <meta name="description" content="As I&#8217;ve already mentioned, I&#8217;ve started dabbling in the joys of Linux by installing Ubuntu (Dapper Drake). This was partly joyous and &hellip;">
+  <meta name="description" content="As I&rsquo;ve already mentioned, I&rsquo;ve started dabbling in the joys of Linux by installing Ubuntu (Dapper Drake). This was partly joyous and &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -24,39 +18,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's perspective RSS 2.0" type="application/rss+xml">
   <link rel="canonical" href="http://buffered.io/posts/howto-getting-ati-drivers-working-in-ubuntu">
   <link href="/favicon.ico" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-
-  <script src="/javascripts/modernizr-2.0.js" type="text/javascript"></script>
-  <script src="/javascripts/ender.js" type="text/javascript"></script>
+  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's perspective" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
-
-  <script type="text/javascript">
-    Modernizr.load([
-      { load: '//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js' },
-      { load: '/javascripts/jquery.lightbox.js', complete: function() {
-        $("a[rel^='lightbox']").lightbox();
-      } }
-    ]);
-  </script>
-
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 
   
-
-  
-  <script type="text/javascript">
-    !function(g,s,q,r,d){r=g[r]=g[r]||function(){(r.q=r.q||[]).push(
-    arguments)};d=s.createElement(q);q=s.getElementsByTagName(q)[0];
-    d.src='//d1l6p2sc9645hc.cloudfront.net/tracker.js';q.parentNode.
-    insertBefore(d,q)}(window,document,'script','_gs');
-    _gs('GSN-416076-G');
-  </script>
-
 
 </head>
 
@@ -112,31 +86,31 @@
   
 
 
-
-<time datetime="2006-10-25T22:07:00+10:00" pubdate data-updated="true">25 Oct 2006</time>
+<time datetime="2006-10-25T22:07:00+10:00" pubdate data-updated="true"></time>
         
-         | <a href="#disqus_thread">Comments</a>
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://buffered.io">Comments</a>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>As I&#8217;ve already mentioned, I&#8217;ve started dabbling in the joys of Linux by installing Ubuntu (<a href="http://www.ubuntu.com/support/faq#head-3df1e0e29bc1a807664ce156fb9fe6f09c35bfdd" title="Ubuntu FAQ" target="_blank">Dapper Drake</a>). This was partly joyous and partly painful - but mostly joyous :) While going through some of the less enjoyable moments I spent a fair bit of time trawling forums and hanging in IRC channels (#ubuntu-au on irc.freenode.net to be exact, check out <a href="http://ubuntu.com.au/welcome/" title="Ubuntu Australian Team" target="_blank">here</a> and <a href="http://www.matthewv.id.au/ubuntu-au/" title="Ubuntu Australian Team" target="_blank">here</a>) trying to find the information I needed to get things going.</p>
+<div class="entry-content"><p>As I&rsquo;ve already mentioned, I&rsquo;ve started dabbling in the joys of Linux by installing Ubuntu (<a href="http://www.ubuntu.com/support/faq#head-3df1e0e29bc1a807664ce156fb9fe6f09c35bfdd" title="Ubuntu FAQ" target="_blank">Dapper Drake</a>). This was partly joyous and partly painful &ndash; but mostly joyous :) While going through some of the less enjoyable moments I spent a fair bit of time trawling forums and hanging in IRC channels (#ubuntu-au on irc.freenode.net to be exact, check out <a href="http://ubuntu.com.au/welcome/" title="Ubuntu Australian Team" target="_blank">here</a> and <a href="http://www.matthewv.id.au/ubuntu-au/" title="Ubuntu Australian Team" target="_blank">here</a>) trying to find the information I needed to get things going.</p>
 
-<p>The most recent issue that I have since solved is that of getting drivers working with my ATi Radeon X1900-XTX, and it was the pain of this set up that inspired me to write this post - and in fact, what will look to be a long stream of posts. After the quality of feedback and help, and the time investment by some of the guys in #ubuntu-au (thanks lads! Especially <em>DarkMageZ</em> and <em>siccness</em>), I thought that I want to help share this information to aid in getting other people up to speed to. In fact, I&#8217;ve decided to start a whole new category of blog posts - HOWTOs! You can consider this the first :) I won&#8217;t just be doing HOWTOs on things that I experience with Linux, but I&#8217;ll aim to cover code examples, bits and pieces to do with Windows, and whatever else takes my fancy. Information should be shared, so feel free to let me know if anything that you would like me to share, and I&#8217;ll do my best to cover it.</p>
+<p>The most recent issue that I have since solved is that of getting drivers working with my ATi Radeon X1900-XTX, and it was the pain of this set up that inspired me to write this post &ndash; and in fact, what will look to be a long stream of posts. After the quality of feedback and help, and the time investment by some of the guys in #ubuntu-au (thanks lads! Especially <em>DarkMageZ</em> and <em>siccness</em>), I thought that I want to help share this information to aid in getting other people up to speed to. In fact, I&rsquo;ve decided to start a whole new category of blog posts &ndash; HOWTOs! You can consider this the first :) I won&rsquo;t just be doing HOWTOs on things that I experience with Linux, but I&rsquo;ll aim to cover code examples, bits and pieces to do with Windows, and whatever else takes my fancy. Information should be shared, so feel free to let me know if anything that you would like me to share, and I&rsquo;ll do my best to cover it.</p>
 
-<p>So, on with the juicy bits. The default installation of Ubunutu worked fine with the vesa driver which allowed Xorg to fire up without any issues, but of course, I wasn&#8217;t happy to suffer for second best while having a fairly beefy video card. The goal was to get the ATi drivers working in both 2D and 3D.</p>
+<p>So, on with the juicy bits. The default installation of Ubunutu worked fine with the vesa driver which allowed Xorg to fire up without any issues, but of course, I wasn&rsquo;t happy to suffer for second best while having a fairly beefy video card. The goal was to get the ATi drivers working in both 2D and 3D.</p>
 
-<p>The first mistake that I made was to approach the issue in the same way that I would approach it as a Windows user - that is, go to the ATi driver website and download the latest driver. This turned out to be a bit of a mistake, but I&#8217;ll go through the process I took anyway just FYI :) I downloaded the driver from the <a href="http://www.ati.com/online/customercareportal/linux.html" title="Linux ATi Drivers" target="_blank">ATi Linux driver page</a> and read the instructions that came with it. Seemed fairly simple, so I did as I was told and waited for the magic to happen.</p>
+<p>The first mistake that I made was to approach the issue in the same way that I would approach it as a Windows user &ndash; that is, go to the ATi driver website and download the latest driver. This turned out to be a bit of a mistake, but I&rsquo;ll go through the process I took anyway just FYI :) I downloaded the driver from the <a href="http://www.ati.com/online/customercareportal/linux.html" title="Linux ATi Drivers" target="_blank">ATi Linux driver page</a> and read the instructions that came with it. Seemed fairly simple, so I did as I was told and waited for the magic to happen.</p>
 
-<p>The first thing that I failed to notice was that the install notes stated that the driver had only been tested with Red Hat Linux. Now I don&#8217;t know if there is that much of a difference between that and Ubuntu, but given that certain things refused to work I&#8217;m <em>guessing</em> they are. After performing the installation, I restarted Xorg (which, FYI, can be done using the shortcut <strong>CTRL+ALT+BACKSPACE</strong>) and I was knocked off my chair by the clarity of what I was seeing. It was magic :) But to my dismay, things were not all good under the hood. It turned out that even though 2D was clearly working, the 3D part (and with it OpenGL functionality) was nowhere to be seen. This is what got me started with the forum trawling and the IRC rants. I learned very quickly that downloading the driver from the ATi site was a bad move, and that I should have instead used the <strong>apt-get</strong> functionality to get the drivers set up.</p>
+<p>The first thing that I failed to notice was that the install notes stated that the driver had only been tested with Red Hat Linux. Now I don&rsquo;t know if there is that much of a difference between that and Ubuntu, but given that certain things refused to work I&rsquo;m <em>guessing</em> they are. After performing the installation, I restarted Xorg (which, FYI, can be done using the shortcut <strong>CTRL+ALT+BACKSPACE</strong>) and I was knocked off my chair by the clarity of what I was seeing. It was magic :) But to my dismay, things were not all good under the hood. It turned out that even though 2D was clearly working, the 3D part (and with it OpenGL functionality) was nowhere to be seen. This is what got me started with the forum trawling and the IRC rants. I learned very quickly that downloading the driver from the ATi site was a bad move, and that I should have instead used the <strong>apt-get</strong> functionality to get the drivers set up.</p>
 
-<p>At this point I went through the process of uninstalling the drivers that I had downloaded, and got my machine back to a point where I could try and install the new ones. The <em>vesa</em> driver fuzzyness returned and I was ready to rock with the instructions I was given. I downloaded and installed the correct drivers using the correct utility and did exactly what I was told to do, only to find that this refused to work as well. The driver install was apparently successful, but I still had the VESA fuzzyness indicating that the driver was not loading properly. I read around some more, and chatted some more, and determined that I needed to modify my <strong>/etc/X11/xorg.conf</strong> file to set the default video driver to <strong>fglrx</strong> (not VESA), so that&#8217;s what I did!</p>
+<p>At this point I went through the process of uninstalling the drivers that I had downloaded, and got my machine back to a point where I could try and install the new ones. The <em>vesa</em> driver fuzzyness returned and I was ready to rock with the instructions I was given. I downloaded and installed the correct drivers using the correct utility and did exactly what I was told to do, only to find that this refused to work as well. The driver install was apparently successful, but I still had the VESA fuzzyness indicating that the driver was not loading properly. I read around some more, and chatted some more, and determined that I needed to modify my <strong>/etc/X11/xorg.conf</strong> file to set the default video driver to <strong>fglrx</strong> (not VESA), so that&rsquo;s what I did!</p>
 
-<p>Restarting Xorg resulted in my world crumbling (well, not quite ;)). My screen was blank. I had no UI, I had no idea what was on screen, so I ended up having to boot back in using recovery mode and modifying the file so that it was set back to VESA. It was about this time I was getting pretty narked as I&#8217;d been messing with quite a few things for a few hours and my patience was wearing thin.  It was 11:45pm when I thanked my Aussie Ubuntu colleagues for their help and made the move to shut down, as I was going to continue tackling the problem the next day. While shutting down, I was just having a last flick through the tabs I had open in FireFox when I noticed a comment at the bottom of a forum thread. This turned out to be the magic missile!</p>
+<p>Restarting Xorg resulted in my world crumbling (well, not quite ;)). My screen was blank. I had no UI, I had no idea what was on screen, so I ended up having to boot back in using recovery mode and modifying the file so that it was set back to VESA. It was about this time I was getting pretty narked as I&rsquo;d been messing with quite a few things for a few hours and my patience was wearing thin.  It was 11:45pm when I thanked my Aussie Ubuntu colleagues for their help and made the move to shut down, as I was going to continue tackling the problem the next day. While shutting down, I was just having a last flick through the tabs I had open in FireFox when I noticed a comment at the bottom of a forum thread. This turned out to be the magic missile!</p>
 
-<p>There are a stack of modules that you can specify to load in Xorg, and apparently there&#8217;s issues with the ATi driver when two of the many are loaded at the same time. The suggestion was to comment out the culprit (which was called <strong>extmod</strong> I believe) which was clashing with the one you needed (which was called <strong>dri</strong>, I think :)). After making this change, I restarted Xorg and all was clear and beautiful! And for the first time ever on this new installation both <strong>fglrxinfo</strong> and <strong>glxgears</strong> behaved the way they should. 2D and 3D was up and running! Mission accomplished.  So, now that my story is told, please find listed below the steps that I had to take to get the ATi drivers installed on Ubuntu AMD64 Dapper Drake. I hope you find them useful.</p>
+<p>There are a stack of modules that you can specify to load in Xorg, and apparently there&rsquo;s issues with the ATi driver when two of the many are loaded at the same time. The suggestion was to comment out the culprit (which was called <strong>extmod</strong> I believe) which was clashing with the one you needed (which was called <strong>dri</strong>, I think :)). After making this change, I restarted Xorg and all was clear and beautiful! And for the first time ever on this new installation both <strong>fglrxinfo</strong> and <strong>glxgears</strong> behaved the way they should. 2D and 3D was up and running! Mission accomplished.  So, now that my story is told, please find listed below the steps that I had to take to get the ATi drivers installed on Ubuntu AMD64 Dapper Drake. I hope you find them useful.</p>
 
 <pre><code>sudo apt-get install xorg-driver-fglrx fglrx-control
 sudo aticonfig --initial
@@ -172,8 +146,7 @@ restart xorg (CTRL+ALT+BACKSPACE)
   
 
 
-
-<time datetime="2006-10-25T22:07:00+10:00" pubdate data-updated="true">25 Oct 2006</time>
+<time datetime="2006-10-25T22:07:00+10:00" pubdate data-updated="true"></time>
       
 
 <span class="categories">
@@ -187,7 +160,7 @@ restart xorg (CTRL+ALT+BACKSPACE)
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://buffered.io/posts/howto-getting-ati-drivers-working-in-ubuntu/" data-via="TheColonial" data-counturl="http://buffered.io/posts/howto-getting-ati-drivers-working-in-ubuntu/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://buffered.io/posts/howto-getting-ati-drivers-working-in-ubuntu/" data-via="TheColonial" data-counturl="http://buffered.io/posts/howto-getting-ati-drivers-working-in-ubuntu/" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -201,7 +174,7 @@ restart xorg (CTRL+ALT+BACKSPACE)
         <a class="basic-alignment left" href="/posts/cyberface/" title="Previous Post: Cyberface">&laquo; Cyberface</a>
       
       
-        <a class="basic-alignment right" href="/posts/microsoft-congratulate-mozilla/" title="next Post: Microsoft Congratulate Mozilla">Microsoft Congratulate Mozilla &raquo;</a>
+        <a class="basic-alignment right" href="/posts/microsoft-congratulate-mozilla/" title="Next Post: Microsoft Congratulate Mozilla">Microsoft Congratulate Mozilla &raquo;</a>
       
     </p>
   </footer>
@@ -402,7 +375,7 @@ Copyright &copy; 2013 -
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     }());
 </script>
@@ -426,7 +399,7 @@ Copyright &copy; 2013 -
       var twitterWidgets = document.createElement('script');
       twitterWidgets.type = 'text/javascript';
       twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
       document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
     })();
   </script>

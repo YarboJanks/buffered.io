@@ -5,17 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Damn you, Crystal Reports! - OJ's perspective</title>
+  <title>Damn You, Crystal Reports! - OJ's perspective</title>
   <meta name="author" content="OJ Reeves">
 
-  <link rel="openid.server" href="http://pip.verisignlabs.com/server" />
-  <link rel="openid.delegate" href="http://thecolonial.pip.verisignlabs.com/" />
-  <link rel="openid2.provider" href="http://pip.verisignlabs.com/server" />
-  <link rel="openid2.local_id" href="http://thecolonial.pip.verisignlabs.com/" />
-  <meta http-equiv="X-XRDS-Location" content="http://pip.verisignlabs.com/thecolonial/yadixrds" />
-
   
-  <meta name="description" content="I&#8217;ve had Visual Studio 2008 installed for quite a while. When I first installed it I decided not to install the Crystal Reports components &hellip;">
+  <meta name="description" content="I&rsquo;ve had Visual Studio 2008 installed for quite a while. When I first installed it I decided not to install the Crystal Reports components &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -24,39 +18,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's perspective RSS 2.0" type="application/rss+xml">
   <link rel="canonical" href="http://buffered.io/posts/damn-you-crystal-reports">
   <link href="/favicon.ico" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-
-  <script src="/javascripts/modernizr-2.0.js" type="text/javascript"></script>
-  <script src="/javascripts/ender.js" type="text/javascript"></script>
+  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's perspective" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
-
-  <script type="text/javascript">
-    Modernizr.load([
-      { load: '//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js' },
-      { load: '/javascripts/jquery.lightbox.js', complete: function() {
-        $("a[rel^='lightbox']").lightbox();
-      } }
-    ]);
-  </script>
-
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 
   
-
-  
-  <script type="text/javascript">
-    !function(g,s,q,r,d){r=g[r]=g[r]||function(){(r.q=r.q||[]).push(
-    arguments)};d=s.createElement(q);q=s.getElementsByTagName(q)[0];
-    d.src='//d1l6p2sc9645hc.cloudfront.net/tracker.js';q.parentNode.
-    insertBefore(d,q)}(window,document,'script','_gs');
-    _gs('GSN-416076-G');
-  </script>
-
 
 </head>
 
@@ -112,43 +86,43 @@
   
 
 
-
-<time datetime="2009-03-24T18:27:00+10:00" pubdate data-updated="true">24 Mar 2009</time>
+<time datetime="2009-03-24T18:27:00+10:00" pubdate data-updated="true"></time>
         
-         | <a href="#disqus_thread">Comments</a>
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://buffered.io">Comments</a>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>I&#8217;ve had <a href="http://msdn.microsoft.com/en-us/vstudio/default.aspx" title="Visual Studio on MSDN">Visual Studio 2008</a> installed for quite a while. When I first installed it I decided not to install the <a href="http://www.sap.com/solutions/sapbusinessobjects/sme/reporting/crystalreports/index.epx" title="Crystal Reports">Crystal Reports</a> components because I was fairly certain that I&#8217;d never need them at home.</p>
+<div class="entry-content"><p>I&rsquo;ve had <a href="http://msdn.microsoft.com/en-us/vstudio/default.aspx" title="Visual Studio on MSDN">Visual Studio 2008</a> installed for quite a while. When I first installed it I decided not to install the <a href="http://www.sap.com/solutions/sapbusinessobjects/sme/reporting/crystalreports/index.epx" title="Crystal Reports">Crystal Reports</a> components because I was fairly certain that I&rsquo;d never need them at home.</p>
 
-<p>Well, the worm has turned! On my new gig, I have the joy of working from home. It just so happens that I <em>also</em> need to use Crystal Reports. How silly of me to not bother installing a few extra components the first time so I didn&#8217;t have to go through the pain of going through another VS Setup.</p>
+<p>Well, the worm has turned! On my new gig, I have the joy of working from home. It just so happens that I <em>also</em> need to use Crystal Reports. How silly of me to not bother installing a few extra components the first time so I didn&rsquo;t have to go through the pain of going through another VS Setup.</p>
 
-<p>On the surface this doesn&#8217;t sound like a painful experience right? <strong>WRONG</strong>. It&#8217;s a lot more painful than you think.</p>
+<p>On the surface this doesn&rsquo;t sound like a painful experience right? <strong>WRONG</strong>. It&rsquo;s a lot more painful than you think.</p>
 
 <!--more-->
 
 
-<p>I fired up the <em>Programs and Features</em> section of <a href="http://www.microsoft.com/windows/windows-vista/default.aspx" title="Windows Vista home page">Vista&#8217;s</a> control panel to fire up the add/remove components section of the install.</p>
+<p>I fired up the <em>Programs and Features</em> section of <a href="http://www.microsoft.com/windows/windows-vista/default.aspx" title="Windows Vista home page">Vista&rsquo;s</a> control panel to fire up the add/remove components section of the install.</p>
 
 <p>Despite choosing just one extra component in the options list, it decided to attempt install of other components too. Observe</p>
 
-<p><a href="/uploads/2009/03/vs2008_update.png" rel="lightbox[vs]"><img src="/uploads/2009/03/vs2008_update.png" alt="Screw you VS Install! Sod off Mr Tiny Face!" title="Screw you VS Install! Sod off Mr Tiny Face!" style="float: left; margin-right: 5px; margin-bottom: 5px;" width="150" /></a>Visual Studio 2008 again? SQL Server Compact 3.5 SP1 Design Tools!? SQL Server Compact 3.5 for Devices?! Shared Management Objects?! WHAT THE F**K?! I didn&#8217;t ask for any of that crap. It&#8217;s not as if looking at <a href="http://secretgeek.net/vs2008_bugeye.asp" title="Bug Eyed VS2008 Guy Frakes Me Out">Mr Tiny Face</a> wasn&#8217;t bad enough. Now I get to put up with a bunch of other shit that I don&#8217;t want or need?</p>
+<p><a href="/uploads/2009/03/vs2008_update.png" rel="lightbox[vs]"><img src="/uploads/2009/03/vs2008_update.png" alt="Screw you VS Install! Sod off Mr Tiny Face!" title="Screw you VS Install! Sod off Mr Tiny Face!" style="float: left; margin-right: 5px; margin-bottom: 5px;" width="150" /></a>Visual Studio 2008 again? SQL Server Compact 3.5 SP1 Design Tools!? SQL Server Compact 3.5 for Devices?! Shared Management Objects?! WHAT THE F**K?! I didn&rsquo;t ask for any of that crap. It&rsquo;s not as if looking at <a href="http://secretgeek.net/vs2008_bugeye.asp" title="Bug Eyed VS2008 Guy Frakes Me Out">Mr Tiny Face</a> wasn&rsquo;t bad enough. Now I get to put up with a bunch of other shit that I don&rsquo;t want or need?</p>
 
-<p>I was hoping that it was going to have enough &#8220;stuff&#8221; on the HDD to update without me needing to get the VS ISO I was wrong. I had to search for the ISO that I downloaded from MSDN. This wasn&#8217;t too much of an issue, but was still painful as I had to copy it onto my local machine from my <a href="http://www.buffalotech.com/products/network-storage/terastation/terastation-pro-ii/" title="Buffalo Technology - TeraStation Pro II">Terastation</a> &#8211; all 3.4GB of it.</p>
+<p>I was hoping that it was going to have enough &ldquo;stuff&rdquo; on the HDD to update without me needing to get the VS ISO I was wrong. I had to search for the ISO that I downloaded from MSDN. This wasn&rsquo;t too much of an issue, but was still painful as I had to copy it onto my local machine from my <a href="http://www.buffalotech.com/products/network-storage/terastation/terastation-pro-ii/" title="Buffalo Technology - TeraStation Pro II">Terastation</a> &mdash; all 3.4GB of it.</p>
 
 <p>It then proceeds past the unnecessary installs until it gets to Shared Management Objects at which point I get another epic fail.</p>
 
-<p><a href="/uploads/2009/03/sharedmanagementobjectfail.png" rel="lightbox[vs]"><img src="/uploads/2009/03/sharedmanagementobjectfail.png" alt="Shared Management Objects fail" title="Shared Management Objects fail" style="float: right; margin-left: 5px; margin-bottom: 5px;" width="150" /></a>The bloody thing wasn&#8217;t on the disc! So I grab it off the web, point the installer at the download location and it tells me that the path is invalid.</p>
+<p><a href="/uploads/2009/03/sharedmanagementobjectfail.png" rel="lightbox[vs]"><img src="/uploads/2009/03/sharedmanagementobjectfail.png" alt="Shared Management Objects fail" title="Shared Management Objects fail" style="float: right; margin-left: 5px; margin-bottom: 5px;" width="150" /></a>The bloody thing wasn&rsquo;t on the disc! So I grab it off the web, point the installer at the download location and it tells me that the path is invalid.</p>
 
 <p>I was starting to get rather narked at this point. I hit cancel at which point I was greeted with a message telling me that: <em>The operation in progress cannot be cancelled.</em></p>
 
-<p>Then the cancel succeeded! <strong>Make up your mind!</strong> The final screen implied install fails of epic proportions, but only turned out to be that the Shared Management Objects didn&#8217;t install.
-<a href="/uploads/2009/03/sharedmanagementobjectepicfail.png" rel="lightbox[vs]"><img src="/uploads/2009/03/sharedmanagementobjectepicfail.png" alt="Epic Install Fail" title="Epic Install Fail" style="float: left; margin-right: 5px; margin-bottom: 5px;" width="150" /></a>I won&#8217;t be crying about that given that I didn&#8217;t want it in the first place! If I find that I do need it down the track I can install it manually. After all, I did download it myself anyway.</p>
+<p>Then the cancel succeeded! <strong>Make up your mind!</strong> The final screen implied install fails of epic proportions, but only turned out to be that the Shared Management Objects didn&rsquo;t install.
+<a href="/uploads/2009/03/sharedmanagementobjectepicfail.png" rel="lightbox[vs]"><img src="/uploads/2009/03/sharedmanagementobjectepicfail.png" alt="Epic Install Fail" title="Epic Install Fail" style="float: left; margin-right: 5px; margin-bottom: 5px;" width="150" /></a>I won&rsquo;t be crying about that given that I didn&rsquo;t want it in the first place! If I find that I do need it down the track I can install it manually. After all, I did download it myself anyway.</p>
 
-<p>The next question I have is: What level of pain will I feel if I <em>don&#8217;t reinstall <a href="http://www.microsoft.com/downloads/details.aspx?FamilyId=FBEE1648-7106-44A7-9649-6D9F6D58056E" title="Visual Studio 2008 Sevice Pack 1">VS 2008 SP1</a></em> before I attempt to do any development? I&#8217;m too scared to find out the answer. Now I get to wait for another decade for the service pack install to finish.</p>
+<p>The next question I have is: What level of pain will I feel if I <em>don&rsquo;t reinstall <a href="http://www.microsoft.com/downloads/details.aspx?FamilyId=FBEE1648-7106-44A7-9649-6D9F6D58056E" title="Visual Studio 2008 Sevice Pack 1">VS 2008 SP1</a></em> before I attempt to do any development? I&rsquo;m too scared to find out the answer. Now I get to wait for another decade for the service pack install to finish.</p>
 
 <p>Yet another win for the Microsoft Installation process.</p>
 </div>
@@ -173,8 +147,7 @@
   
 
 
-
-<time datetime="2009-03-24T18:27:00+10:00" pubdate data-updated="true">24 Mar 2009</time>
+<time datetime="2009-03-24T18:27:00+10:00" pubdate data-updated="true"></time>
       
 
 <span class="categories">
@@ -188,7 +161,7 @@
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://buffered.io/posts/damn-you-crystal-reports/" data-via="TheColonial" data-counturl="http://buffered.io/posts/damn-you-crystal-reports/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://buffered.io/posts/damn-you-crystal-reports/" data-via="TheColonial" data-counturl="http://buffered.io/posts/damn-you-crystal-reports/" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -202,7 +175,7 @@
         <a class="basic-alignment left" href="/posts/n-things-you-dont-want-to-hear-when-starting-a-new-job-where-n-1/" title="Previous Post: N Things You Don't Want to Hear when Starting a New Job (where N &gt;= 1)">&laquo; N Things You Don't Want to Hear when Starting a New Job (where N &gt;= 1)</a>
       
       
-        <a class="basic-alignment right" href="/posts/a-quirk-in-listfind/" title="next Post: A Quirk in List.Find()">A Quirk in List.Find() &raquo;</a>
+        <a class="basic-alignment right" href="/posts/a-quirk-in-listfind/" title="Next Post: A Quirk in List.Find()">A Quirk in List.Find() &raquo;</a>
       
     </p>
   </footer>
@@ -403,7 +376,7 @@ Copyright &copy; 2013 -
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     }());
 </script>
@@ -427,7 +400,7 @@ Copyright &copy; 2013 -
       var twitterWidgets = document.createElement('script');
       twitterWidgets.type = 'text/javascript';
       twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
       document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
     })();
   </script>

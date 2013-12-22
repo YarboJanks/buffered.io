@@ -8,12 +8,6 @@
   <title>OJ's perspective</title>
   <meta name="author" content="OJ Reeves">
 
-  <link rel="openid.server" href="http://pip.verisignlabs.com/server" />
-  <link rel="openid.delegate" href="http://thecolonial.pip.verisignlabs.com/" />
-  <link rel="openid2.provider" href="http://pip.verisignlabs.com/server" />
-  <link rel="openid2.local_id" href="http://thecolonial.pip.verisignlabs.com/" />
-  <meta http-equiv="X-XRDS-Location" content="http://pip.verisignlabs.com/thecolonial/yadixrds" />
-
   
   <meta name="description" content="For a development to succeed in its use of a continuous integration process there must be a sufficiently hefty deterrent to prevent people from &hellip;">
   
@@ -24,39 +18,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's perspective RSS 2.0" type="application/rss+xml">
   <link rel="canonical" href="http://buffered.io/posts/page/19">
   <link href="/favicon.ico" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-
-  <script src="/javascripts/modernizr-2.0.js" type="text/javascript"></script>
-  <script src="/javascripts/ender.js" type="text/javascript"></script>
+  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's perspective" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
-
-  <script type="text/javascript">
-    Modernizr.load([
-      { load: '//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js' },
-      { load: '/javascripts/jquery.lightbox.js', complete: function() {
-        $("a[rel^='lightbox']").lightbox();
-      } }
-    ]);
-  </script>
-
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 
   
-
-  
-  <script type="text/javascript">
-    !function(g,s,q,r,d){r=g[r]=g[r]||function(){(r.q=r.q||[]).push(
-    arguments)};d=s.createElement(q);q=s.getElementsByTagName(q)[0];
-    d.src='//d1l6p2sc9645hc.cloudfront.net/tracker.js';q.parentNode.
-    insertBefore(d,q)}(window,document,'script','_gs');
-    _gs('GSN-416076-G');
-  </script>
-
 
 </head>
 
@@ -115,10 +89,10 @@
   
 
 
-
-<time datetime="2007-02-04T04:20:00+10:00" pubdate data-updated="true">04 Feb 2007</time>
+<time datetime="2007-02-04T04:20:00+10:00" pubdate data-updated="true"></time>
         
-         | <a href="/posts/ci-punishment/#disqus_thread">Comments</a>
+           | <a href="/posts/ci-punishment/#disqus_thread"
+             data-disqus-identifier="http://buffered.io/posts/ci-punishment/">Comments</a>
         
       </p>
     
@@ -127,7 +101,7 @@
 
   <div class="entry-content"><p>For a development to succeed in its use of a <a href="http://en.wikipedia.org/wiki/Continuous_Integration" title="Continuous Integration" target="_blank">continuous integration</a> process there must be a sufficiently hefty deterrent to prevent people from breaking the build. If you break the build, you should feel some form of retribution to aid in stopping you from doing it again.</p>
 
-<p>Plip&#8217;s recently <a href="http://weblogs.asp.net/plip/archive/posts/who-broke-the-build.aspx" title="Plip's Weblog : Who broke the build?!" target="_blank">posted a suggestion</a> for this very issue. I think it&#8217;s a fantastic idea! Make sure you print it and stick it up in your office!</p>
+<p>Plip&rsquo;s recently <a href="http://weblogs.asp.net/plip/archive/posts/who-broke-the-build.aspx" title="Plip's Weblog : Who broke the build?!" target="_blank">posted a suggestion</a> for this very issue. I think it&rsquo;s a fantastic idea! Make sure you print it and stick it up in your office!</p>
 </div>
   
   
@@ -156,25 +130,25 @@
   
 
 
-
-<time datetime="2007-02-04T02:02:00+10:00" pubdate data-updated="true">04 Feb 2007</time>
+<time datetime="2007-02-04T02:02:00+10:00" pubdate data-updated="true"></time>
         
-         | <a href="/posts/challenge-3-day-of-birth/#disqus_thread">Comments</a>
+           | <a href="/posts/challenge-3-day-of-birth/#disqus_thread"
+             data-disqus-identifier="http://buffered.io/posts/challenge-3-day-of-birth/">Comments</a>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>I haven&#8217;t posted a challenge for a while, so I thought I&#8217;d get you all thinking again with another basic little program.  It&#8217;s simple, but there are a stack of possible solutions, so I&#8217;m expecting a bit of variety. So here we go.</p>
+  <div class="entry-content"><p>I haven&rsquo;t posted a challenge for a while, so I thought I&rsquo;d get you all thinking again with another basic little program.  It&rsquo;s simple, but there are a stack of possible solutions, so I&rsquo;m expecting a bit of variety. So here we go.</p>
 
 <p>Write a program that asks the user for their date of birth using the date format YYYY-MM-DD (eg. 1978-12-05 in my case). The program should respond by telling the user what <em>day of the week</em> they were born on.</p>
 
-<p>You&#8217;re allowed to use any language you want, but you&#8217;re <strong>not</strong> allowed to use the built-in date object functionality other than to determine the current system date. That is, you can&#8217;t date difference functions to determine time that&#8217;s passed. You have to figure that out for yourself.</p>
+<p>You&rsquo;re allowed to use any language you want, but you&rsquo;re <strong>not</strong> allowed to use the built-in date object functionality other than to determine the current system date. That is, you can&rsquo;t date difference functions to determine time that&rsquo;s passed. You have to figure that out for yourself.</p>
 
-<p>For those C# coders, don&#8217;t even <em>think</em> about posting: <em>dateOfBirth.Day</em> :) You&#8217;re supposed to do the hard bit yourself</p>
+<p>For those C# coders, don&rsquo;t even <em>think</em> about posting: <em>dateOfBirth.Day</em> :) You&rsquo;re supposed to do the hard bit yourself</p>
 
-<p>Anyway, it&#8217;s easy peasy :)  Don&#8217;t forget about leap years and stuff! I look forward to seeing your answers. I&#8217;ll post up a solution in a week or so. Let me know if I haven&#8217;t been clear.</p>
+<p>Anyway, it&rsquo;s easy peasy :)  Don&rsquo;t forget about leap years and stuff! I look forward to seeing your answers. I&rsquo;ll post up a solution in a week or so. Let me know if I haven&rsquo;t been clear.</p>
 </div>
   
   
@@ -203,23 +177,23 @@
   
 
 
-
-<time datetime="2007-02-03T14:18:00+10:00" pubdate data-updated="true">03 Feb 2007</time>
+<time datetime="2007-02-03T14:18:00+10:00" pubdate data-updated="true"></time>
         
-         | <a href="/posts/what-are-you-really-eating/#disqus_thread">Comments</a>
+           | <a href="/posts/what-are-you-really-eating/#disqus_thread"
+             data-disqus-identifier="http://buffered.io/posts/what-are-you-really-eating/">Comments</a>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>It&#8217;s been a very long time since I last ate fast food (such as McDonalds, KFC or Hungry Jacks). In fact, it&#8217;s been <em>years</em>, because I just can&#8217;t stand the stuff and I know it&#8217;s really bad for me.</p>
+  <div class="entry-content"><p>It&rsquo;s been a very long time since I last ate fast food (such as McDonalds, KFC or Hungry Jacks). In fact, it&rsquo;s been <em>years</em>, because I just can&rsquo;t stand the stuff and I know it&rsquo;s really bad for me.</p>
 
-<p>When it comes to other types of junk I&#8217;m pretty good. The only time I ever eat potato chips is when my mate Mike pops round and brings them with him. I never buy them myself, and they don&#8217;t make it into our shopping cart when we buy groceries.  I never eat doughnuts any more. I don&#8217;t remember the last doughnut that I ate, that&#8217;s how long ago it was.</p>
+<p>When it comes to other types of junk I&rsquo;m pretty good. The only time I ever eat potato chips is when my mate Mike pops round and brings them with him. I never buy them myself, and they don&rsquo;t make it into our shopping cart when we buy groceries.  I never eat doughnuts any more. I don&rsquo;t remember the last doughnut that I ate, that&rsquo;s how long ago it was.</p>
 
-<p>So, you can probably imagine how happy I was that my junk food habits are very minimal (chocolate being the only contender, and even that doesn&#8217;t make a frequent appearance) when Amy sent a link to me <a href="http://vitalvotes.com/blogs/public_blog/More-Reasons-to-Avoid-Potato-Chips-4439.aspx" title="" target="_blank">describing some stuff that happens during potato chip/doughnut manufacture</a>. In essense, eating this kind of junk food is horrendously bad for you.</p>
+<p>So, you can probably imagine how happy I was that my junk food habits are very minimal (chocolate being the only contender, and even that doesn&rsquo;t make a frequent appearance) when Amy sent a link to me <a href="http://vitalvotes.com/blogs/public_blog/More-Reasons-to-Avoid-Potato-Chips-4439.aspx" title="" target="_blank">describing some stuff that happens during potato chip/doughnut manufacture</a>. In essense, eating this kind of junk food is horrendously bad for you.</p>
 
-<p>If it&#8217;s not good for a biodiesel car engine, how can it be good for the human body?</p>
+<p>If it&rsquo;s not good for a biodiesel car engine, how can it be good for the human body?</p>
 </div>
   
   
@@ -248,19 +222,19 @@
   
 
 
-
-<time datetime="2007-02-03T06:11:00+10:00" pubdate data-updated="true">03 Feb 2007</time>
+<time datetime="2007-02-03T06:11:00+10:00" pubdate data-updated="true"></time>
         
-         | <a href="/posts/the-parable-of-the-two-programmers/#disqus_thread">Comments</a>
+           | <a href="/posts/the-parable-of-the-two-programmers/#disqus_thread"
+             data-disqus-identifier="http://buffered.io/posts/the-parable-of-the-two-programmers/">Comments</a>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Another short snippet this morning. I wanted to inform you of a fairly old-skool story; one that lots of developers will already know about. It&#8217;s a great tale, and still holds a lot of truth for today&#8217;s world of I.T. despite it being very old.</p>
+  <div class="entry-content"><p>Another short snippet this morning. I wanted to inform you of a fairly old-skool story; one that lots of developers will already know about. It&rsquo;s a great tale, and still holds a lot of truth for today&rsquo;s world of I.T. despite it being very old.</p>
 
-<p>Have a read of the tale - <a href="http://www.csd.uwo.ca/staff/magi/personal/humour/Computer_Audience/The%20Parable%20of%20the%20Two%20Programmers.html" title="The Parable of the Two Programmers" target="_blank">The Parable of the Two Programmers</a>.</p>
+<p>Have a read of the tale &ndash; <a href="http://www.csd.uwo.ca/staff/magi/personal/humour/Computer_Audience/The%20Parable%20of%20the%20Two%20Programmers.html" title="The Parable of the Two Programmers" target="_blank">The Parable of the Two Programmers</a>.</p>
 
 <p>Which one are you? :)</p>
 </div>
@@ -291,23 +265,23 @@
   
 
 
-
-<time datetime="2007-02-02T22:48:00+10:00" pubdate data-updated="true">02 Feb 2007</time>
+<time datetime="2007-02-02T22:48:00+10:00" pubdate data-updated="true"></time>
         
-         | <a href="/posts/rotating-banner-pictures/#disqus_thread">Comments</a>
+           | <a href="/posts/rotating-banner-pictures/#disqus_thread"
+             data-disqus-identifier="http://buffered.io/posts/rotating-banner-pictures/">Comments</a>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Time for another little poll :) This new skin that I&#8217;ve got going has a funky feature which not only randomises the picture at the top of the page, but allows you to have a selection of random pictures that get rotated after a period of time. At the moment, it&#8217;s set to 3 images which rotate after 15 seconds of being visible and take 4 seconds to change between images.</p>
+  <div class="entry-content"><p>Time for another little poll :) This new skin that I&rsquo;ve got going has a funky feature which not only randomises the picture at the top of the page, but allows you to have a selection of random pictures that get rotated after a period of time. At the moment, it&rsquo;s set to 3 images which rotate after 15 seconds of being visible and take 4 seconds to change between images.</p>
 
 <p>Is this too much? Does it work? Should I keep the transition effect, or shall I just keep it as a single random image each time a page is loaded?</p>
 
-<p><strong>Edit:</strong> I&#8217;ve added some more pictures now. Only three are loaded for each page to keep bandwidth down, so if you&#8217;re really keen you can refresh ;)</p>
+<p><strong>Edit:</strong> I&rsquo;ve added some more pictures now. Only three are loaded for each page to keep bandwidth down, so if you&rsquo;re really keen you can refresh ;)</p>
 
-<p>All of the pictures I&#8217;m uploading are of places in Australia :D</p>
+<p>All of the pictures I&rsquo;m uploading are of places in Australia :D</p>
 </div>
   
   
@@ -336,33 +310,33 @@
   
 
 
-
-<time datetime="2007-02-02T18:43:00+10:00" pubdate data-updated="true">02 Feb 2007</time>
+<time datetime="2007-02-02T18:43:00+10:00" pubdate data-updated="true"></time>
         
-         | <a href="/posts/writing-object-oriented-code-vs-writing-code-in-an-object-oriented-language/#disqus_thread">Comments</a>
+           | <a href="/posts/writing-object-oriented-code-vs-writing-code-in-an-object-oriented-language/#disqus_thread"
+             data-disqus-identifier="http://buffered.io/posts/writing-object-oriented-code-vs-writing-code-in-an-object-oriented-language/">Comments</a>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>I&#8217;m going to try and keep this post short, otherwise I&#8217;ll be here all day ranting away ;) This particular topic is one that&#8217;s fairly close to my heart because it&#8217;s a bit of a pet hate for me.</p>
+  <div class="entry-content"><p>I&rsquo;m going to try and keep this post short, otherwise I&rsquo;ll be here all day ranting away ;) This particular topic is one that&rsquo;s fairly close to my heart because it&rsquo;s a bit of a pet hate for me.</p>
 
 <p>As we (the geeks) know, <a href="http://en.wikipedia.org/wiki/Object-oriented_programming" title="Object-Oriented Programming" target="_blank">object-oriented (OO)</a> programming is a different concept to <a href="http://en.wikipedia.org/wiki/Functional_programming" title="Functional Programming" target="_blank">functional</a> or <a href="http://en.wikipedia.org/wiki/Procedural_programming" title="Procedural Programming" target="_blank">procedural</a> programming. OO was a bit of a move forward in the direction of easy to understand, more managable and reusable code, and has been adopted all over the shop.</p>
 
-<p>One of the first widely adopted OO languages was <a href="http://en.wikipedia.org/wiki/C%2B%2B" title="C++" target="_blank">C++</a> probably because of it&#8217;s close relationship and similar syntax to <a href="http://en.wikipedia.org/wiki/C_%28programming_language%29" title="C" target="_blank">C</a>. Unfortunately, this resulted in something that continues to be a huge bane for true OO programmers all over the planet: <strong>the OOPP (object-oriented procedural programmer)</strong>.</p>
+<p>One of the first widely adopted OO languages was <a href="http://en.wikipedia.org/wiki/C%2B%2B" title="C++" target="_blank">C++</a> probably because of it&rsquo;s close relationship and similar syntax to <a href="http://en.wikipedia.org/wiki/C_%28programming_language%29" title="C" target="_blank">C</a>. Unfortunately, this resulted in something that continues to be a huge bane for true OO programmers all over the planet: <strong>the OOPP (object-oriented procedural programmer)</strong>.</p>
 
-<p>OK, so that&#8217;s a term that I like to use when talking to this kind of programmer :) But the idea behind them is this: when they made the switch to C++ from C, they didn&#8217;t adopt a true OO approach to software development - all they really did was switch compilers.  There are so many people still to this day writing software using OO languages without actually writing good/proper OO code. The benefits of OO are lost on these kinds of people, and the resulting code is just a nightmare.</p>
+<p>OK, so that&rsquo;s a term that I like to use when talking to this kind of programmer :) But the idea behind them is this: when they made the switch to C++ from C, they didn&rsquo;t adopt a true OO approach to software development &ndash; all they really did was switch compilers.  There are so many people still to this day writing software using OO languages without actually writing good/proper OO code. The benefits of OO are lost on these kinds of people, and the resulting code is just a nightmare.</p>
 
-<p>Before my current job, I worked in a couple of places where there were a few stagnant coders writing C++ - but in fact it was just C being compiled with a C++ compiler. Coupling was through the roof. Encapsulation was non-existant. Even funky features such as polymorphism were avoided to be replaced instead by huge &#8216;switch&#8217; statements which did similar things based on the &#8216;type&#8217; of a structure. Absolutely awful.</p>
+<p>Before my current job, I worked in a couple of places where there were a few stagnant coders writing C++ &ndash; but in fact it was just C being compiled with a C++ compiler. Coupling was through the roof. Encapsulation was non-existant. Even funky features such as polymorphism were avoided to be replaced instead by huge &lsquo;switch&rsquo; statements which did similar things based on the &lsquo;type&rsquo; of a structure. Absolutely awful.</p>
 
-<p>At the end of last year I worked with a lady who was by far the worst culprit for this. She was an advocate for &#8220;copy and paste coding&#8221;, structureless code and job security. She was appalling. How she&#8217;s managed to gain contracts for the last 13 years as a developer I will never know. It&#8217;s people like her that end up producing systems that are so unmaintainable, badly written and poorly executed that lots of people lose faith in software. She even managed to this in <a href="http://en.wikipedia.org/wiki/C_Sharp" title="C-Sharp" target="_blank">C#</a>!</p>
+<p>At the end of last year I worked with a lady who was by far the worst culprit for this. She was an advocate for &ldquo;copy and paste coding&rdquo;, structureless code and job security. She was appalling. How she&rsquo;s managed to gain contracts for the last 13 years as a developer I will never know. It&rsquo;s people like her that end up producing systems that are so unmaintainable, badly written and poorly executed that lots of people lose faith in software. She even managed to this in <a href="http://en.wikipedia.org/wiki/C_Sharp" title="C-Sharp" target="_blank">C#</a>!</p>
 
-<p>When are people going to learn that writing procedural code doesn&#8217;t make them an OO programmer? Using an OO language isn&#8217;t enough, you need to write code in an OO manner.</p>
+<p>When are people going to learn that writing procedural code doesn&rsquo;t make them an OO programmer? Using an OO language isn&rsquo;t enough, you need to write code in an OO manner.</p>
 
-<p>Before I make my final point I want to make it clear that I have nothing against C, or procedural programming. They both have their place. What I feel doesn&#8217;t have a place is a programmer who refuses to write OO code when that&#8217;s what they&#8217;re hired for.</p>
+<p>Before I make my final point I want to make it clear that I have nothing against C, or procedural programming. They both have their place. What I feel doesn&rsquo;t have a place is a programmer who refuses to write OO code when that&rsquo;s what they&rsquo;re hired for.</p>
 
-<p>So, to finish up, what I want to say is this: just because you&#8217;ve written procedural code in the past and it&#8217;s always worked for you, it doesn&#8217;t mean that you can continue to do it in an OO language when you&#8217;re paid to write proper OO software. If you can&#8217;t keep up with technology, proper methodology, and best practice, then perhaps it&#8217;s time to retire?</p>
+<p>So, to finish up, what I want to say is this: just because you&rsquo;ve written procedural code in the past and it&rsquo;s always worked for you, it doesn&rsquo;t mean that you can continue to do it in an OO language when you&rsquo;re paid to write proper OO software. If you can&rsquo;t keep up with technology, proper methodology, and best practice, then perhaps it&rsquo;s time to retire?</p>
 </div>
   
   
@@ -391,17 +365,17 @@
   
 
 
-
-<time datetime="2007-01-31T01:35:00+10:00" pubdate data-updated="true">31 Jan 2007</time>
+<time datetime="2007-01-31T01:35:00+10:00" pubdate data-updated="true"></time>
         
-         | <a href="/posts/a-bad-workman-blames-his-tools/#disqus_thread">Comments</a>
+           | <a href="/posts/a-bad-workman-blames-his-tools/#disqus_thread"
+             data-disqus-identifier="http://buffered.io/posts/a-bad-workman-blames-his-tools/">Comments</a>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>I&#8217;ve used this saying a fair few times in my life, and today I was shown something that I think backs the statement up nicely. This is an example of an amazing Workman with a poor tool - and look at what he creates:</p>
+  <div class="entry-content"><p>I&rsquo;ve used this saying a fair few times in my life, and today I was shown something that I think backs the statement up nicely. This is an example of an amazing Workman with a poor tool &ndash; and look at what he creates:</p>
 
 <p><a href="http://www.youtube.com/watch?v=ElrldD02if0" target="_blank" title="How to draw a car in MS. Paint">How to draw a car in MS. Paint</a></p>
 
@@ -434,21 +408,21 @@
   
 
 
-
-<time datetime="2007-01-28T16:59:00+10:00" pubdate data-updated="true">28 Jan 2007</time>
+<time datetime="2007-01-28T16:59:00+10:00" pubdate data-updated="true"></time>
         
-         | <a href="/posts/a-software-list-is-not-a-job-description/#disqus_thread">Comments</a>
+           | <a href="/posts/a-software-list-is-not-a-job-description/#disqus_thread"
+             data-disqus-identifier="http://buffered.io/posts/a-software-list-is-not-a-job-description/">Comments</a>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Over the past few weeks I&#8217;ve had the joy of dealing with many recruitment agents as I&#8217;ve been looking for a new contract.  I won&#8217;t get into the choice of job at this stage, as that&#8217;s a whole new blog post right there.  What I wanted to show was my frustration at quality of most of the job advertisements I see on the Internet.</p>
+  <div class="entry-content"><p>Over the past few weeks I&rsquo;ve had the joy of dealing with many recruitment agents as I&rsquo;ve been looking for a new contract.  I won&rsquo;t get into the choice of job at this stage, as that&rsquo;s a whole new blog post right there.  What I wanted to show was my frustration at quality of most of the job advertisements I see on the Internet.</p>
 
-<p>To sum up:<ul><li>They generally have a lot of spelling and grammatical errors.</li><li>They highlight the lack of technical knowledge that the recruitment agent actually has.</li><li>They contain a badly formatted list of &#8220;skills&#8221;, which generally aren&#8217;t skills at all.</li><li>They almost always have no indication of the salary/rate.</li></ul>On top of this, you also get the posts that:<ul><li>List the details of a permanent job in an attempt to get contractors to apply for them.</li><li>List the details of a job in a completely different location to the one that you want in the hope that when you apply they can convince you to relocate.</li></ul>IMHO, this kind of behaviour is taking the piss. It&#8217;s no wonder that recruitment agents have such a bad reputation.</p>
+<p>To sum up:<ul><li>They generally have a lot of spelling and grammatical errors.</li><li>They highlight the lack of technical knowledge that the recruitment agent actually has.</li><li>They contain a badly formatted list of &ldquo;skills&rdquo;, which generally aren&rsquo;t skills at all.</li><li>They almost always have no indication of the salary/rate.</li></ul>On top of this, you also get the posts that:<ul><li>List the details of a permanent job in an attempt to get contractors to apply for them.</li><li>List the details of a job in a completely different location to the one that you want in the hope that when you apply they can convince you to relocate.</li></ul>IMHO, this kind of behaviour is taking the piss. It&rsquo;s no wonder that recruitment agents have such a bad reputation.</p>
 
-<p>As a final note, I recommend having a read of <a href="http://www-personal.umich.edu/~mrwizard/web/job.html" title="v" target="_blank">this</a> marvellous article - those of you who have dealt with recruiters will no doubt enjoy it.</p>
+<p>As a final note, I recommend having a read of <a href="http://www-personal.umich.edu/~mrwizard/web/job.html" title="v" target="_blank">this</a> marvellous article &ndash; those of you who have dealt with recruiters will no doubt enjoy it.</p>
 </div>
   
   
@@ -477,23 +451,23 @@
   
 
 
-
-<time datetime="2007-01-28T13:15:00+10:00" pubdate data-updated="true">28 Jan 2007</time>
+<time datetime="2007-01-28T13:15:00+10:00" pubdate data-updated="true"></time>
         
-         | <a href="/posts/a-new-look/#disqus_thread">Comments</a>
+           | <a href="/posts/a-new-look/#disqus_thread"
+             data-disqus-identifier="http://buffered.io/posts/a-new-look/">Comments</a>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>I was getting sick of the way the site was looking, so I changed it. I know I&#8217;ll end up changing it again because I&#8217;ll no doubt get sick of looking at the site layout as well, but for now I&#8217;m quite happy with it. It&#8217;s a hacked version of a theme that I thought was nice, but I felt it needed some modifications. I&#8217;m not 100% finished yet, as I think the top of the page just looks bare. I&#8217;d like to stick an image in there, but my experiments so far have sucked so I think I&#8217;ll take time out to think of how I can make it work.</p>
+  <div class="entry-content"><p>I was getting sick of the way the site was looking, so I changed it. I know I&rsquo;ll end up changing it again because I&rsquo;ll no doubt get sick of looking at the site layout as well, but for now I&rsquo;m quite happy with it. It&rsquo;s a hacked version of a theme that I thought was nice, but I felt it needed some modifications. I&rsquo;m not 100% finished yet, as I think the top of the page just looks bare. I&rsquo;d like to stick an image in there, but my experiments so far have sucked so I think I&rsquo;ll take time out to think of how I can make it work.</p>
 
 <p>So, a new coat of paint has been applied.  Next, I need to finish some of the 50+ draft posts I have started and get some more discussions happening. I have quite an interesting one coming up about software users, so watch this space.</p>
 
 <p>Let me know what you think of the look (if you can be arsed!).</p>
 
-<p><strong>EDIT:</strong> The picture at the top of the page is another one of my home town - Brisbane :)</p>
+<p><strong>EDIT:</strong> The picture at the top of the page is another one of my home town &ndash; Brisbane :)</p>
 </div>
   
   
@@ -522,24 +496,24 @@
   
 
 
-
-<time datetime="2007-01-16T04:48:00+10:00" pubdate data-updated="true">16 Jan 2007</time>
+<time datetime="2007-01-16T04:48:00+10:00" pubdate data-updated="true"></time>
         
-         | <a href="/posts/multi-page-posts/#disqus_thread">Comments</a>
+           | <a href="/posts/multi-page-posts/#disqus_thread"
+             data-disqus-identifier="http://buffered.io/posts/multi-page-posts/">Comments</a>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>As you no doubt have guessed, I can be a little verbose from time to time as I&#8217;m ranting away ;) So I pondered the possibility of breaking up my posts across multiple pages.  I installed a plugin that allows me to break the single post up into a series of pages, and I was on the verge of using it for the first time a couple of posts ago when I thought it might not be a good idea.</p>
+  <div class="entry-content"><p>As you no doubt have guessed, I can be a little verbose from time to time as I&rsquo;m ranting away ;) So I pondered the possibility of breaking up my posts across multiple pages.  I installed a plugin that allows me to break the single post up into a series of pages, and I was on the verge of using it for the first time a couple of posts ago when I thought it might not be a good idea.</p>
 
 <p>The issue I have with it is that it <em>might</em> be a deterrant to people who are reading. So I came up with a list of pros and cons during the course of investigating the options.</p>
 
-<p>Pros:<ul><li>Reduces bandwidth usage - By breaking the posts up into smaller pages the amount of information I&#8217;m serving up is considerably less in the cases where people don&#8217;t want to read the whole lot, or where they&#8217;ve already read the whole lot. This is not just good for the user who might be limited by downloads or speed, but good for me as it reduces the amount of information I serve up.</li><li>Reduces fright - Seeing a small amount of text makes it a lot less daunting to read than being faced with one <strong>huge</strong> page of text.</li><li>It looks cool :).</li></ul>
-Cons:<ul><li>Readers aren&#8217;t immediately aware of how much they&#8217;re going to have to read.</li><li>Can be daunting if there&#8217;s a large number of pages.</li></ul></p>
+<p>Pros:<ul><li>Reduces bandwidth usage &ndash; By breaking the posts up into smaller pages the amount of information I&rsquo;m serving up is considerably less in the cases where people don&rsquo;t want to read the whole lot, or where they&rsquo;ve already read the whole lot. This is not just good for the user who might be limited by downloads or speed, but good for me as it reduces the amount of information I serve up.</li><li>Reduces fright &ndash; Seeing a small amount of text makes it a lot less daunting to read than being faced with one <strong>huge</strong> page of text.</li><li>It looks cool :).</li></ul>
+Cons:<ul><li>Readers aren&rsquo;t immediately aware of how much they&rsquo;re going to have to read.</li><li>Can be daunting if there&rsquo;s a large number of pages.</li></ul></p>
 
-<p>That&#8217;s really all I could come up with :) I&#8217;m leaning towards using them from now on when my posts get big, but I&#8217;m still not 100% sure. What do you guys think?</p>
+<p>That&rsquo;s really all I could come up with :) I&rsquo;m leaning towards using them from now on when my posts get big, but I&rsquo;m still not 100% sure. What do you guys think?</p>
 </div>
   
   
@@ -551,7 +525,7 @@ Cons:<ul><li>Readers aren&#8217;t immediately aware of how much they&#8217;re go
     
       <a class="prev" href="/posts/page/20/">&larr; Older</a>
     
-    <a href="/posts/archives">Blog Archives</a>
+    <a href="/blog/archives">Blog Archives</a>
     
     <a class="next" href="/posts/page/18/">Newer &rarr;</a>
     
@@ -740,7 +714,7 @@ Copyright &copy; 2013 -
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     }());
 </script>
@@ -764,7 +738,7 @@ Copyright &copy; 2013 -
       var twitterWidgets = document.createElement('script');
       twitterWidgets.type = 'text/javascript';
       twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
       document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
     })();
   </script>

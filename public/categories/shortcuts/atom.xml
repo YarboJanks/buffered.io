@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Shortcuts | OJ's perspective]]></title>
   <link href="http://buffered.io/categories/shortcuts/atom.xml" rel="self"/>
   <link href="http://buffered.io/"/>
-  <updated>2013-12-21T20:54:15+10:00</updated>
+  <updated>2013-12-23T08:36:36+10:00</updated>
   <id>http://buffered.io/</id>
   <author>
     <name><![CDATA[OJ Reeves]]></name>
@@ -18,13 +18,13 @@
     <link href="http://buffered.io/posts/server-refresh/"/>
     <updated>2009-02-16T07:24:00+10:00</updated>
     <id>http://buffered.io/posts/server-refresh</id>
-    <content type="html"><![CDATA[<p>Over the weekend I revamped the webserver. Over the last month or two I've been bummed about the amount of overhead in maintaining a <a href="Gentoo" title="http://www.gentoo.org/">Gentoo</a> install as my webserver. Now before any of you Gentoo zealots have a whinge, let me explain.</p>
+    <content type="html"><![CDATA[<p>Over the weekend I revamped the webserver. Over the last month or two I&rsquo;ve been bummed about the amount of overhead in maintaining a <a href="Gentoo" title="http://www.gentoo.org/">Gentoo</a> install as my webserver. Now before any of you Gentoo zealots have a whinge, let me explain.</p>
 
-<p>Yes, <a href="Portage" title="http://en.wikipedia.org/wiki/Portage_(software)">Portage</a> is cool. It's quick, it builds stuff from source, etc. While that power is great, it's a pain in the butt at the same time. Especially when you're running on a <a href="VPS" title="http://en.wikipedia.org/wiki/Virtual_private_server">VPS</a>. I am tired of the underlying bits and pieces changing constantly and me having to muck around with masking and unmasking packages just to get things to update and play nicely together.</p>
+<p>Yes, <a href="Portage" title="http://en.wikipedia.org/wiki/Portage_(software)">Portage</a> is cool. It&rsquo;s quick, it builds stuff from source, etc. While that power is great, it&rsquo;s a pain in the butt at the same time. Especially when you&rsquo;re running on a <a href="VPS" title="http://en.wikipedia.org/wiki/Virtual_private_server">VPS</a>. I am tired of the underlying bits and pieces changing constantly and me having to muck around with masking and unmasking packages just to get things to update and play nicely together.</p>
 
-<p>I made the decision to switch to <a href="Debian" title="http://www.debian.org/">Debian</a> and I am happy I did it. I don't think the time I'll have to spend maintaining the server will be as high as before. This is all about productivity and as far as I'm concerned this is going to reduce my workload. Given that my software installs don't change once I've got the server up and running, I shouldn't have to spend that amount of time keeping things running.</p>
+<p>I made the decision to switch to <a href="Debian" title="http://www.debian.org/">Debian</a> and I am happy I did it. I don&rsquo;t think the time I&rsquo;ll have to spend maintaining the server will be as high as before. This is all about productivity and as far as I&rsquo;m concerned this is going to reduce my workload. Given that my software installs don&rsquo;t change once I&rsquo;ve got the server up and running, I shouldn&rsquo;t have to spend that amount of time keeping things running.</p>
 
-<p>As always, there's a risk of teething problems when you do a full reinstall. So if anyone out there is having issues then please <a href="Contact me" title="/contact-me/">let me know</a>. Cheers! :)</p>
+<p>As always, there&rsquo;s a risk of teething problems when you do a full reinstall. So if anyone out there is having issues then please <a href="Contact me" title="/contact-me/">let me know</a>. Cheers! :)</p>
 ]]></content>
   </entry>
   
@@ -33,18 +33,18 @@
     <link href="http://buffered.io/posts/preview-feeds-in-google-reader/"/>
     <updated>2008-05-25T09:51:00+10:00</updated>
     <id>http://buffered.io/posts/preview-feeds-in-google-reader</id>
-    <content type="html"><![CDATA[<p>Here's another reason why I find <a href="http://reader.google.com/" title="Google Reader">Google Reader</a> a excellent choice for reading your RSS feeds.</p>
+    <content type="html"><![CDATA[<p>Here&rsquo;s another reason why I find <a href="http://reader.google.com/" title="Google Reader">Google Reader</a> a excellent choice for reading your RSS feeds.</p>
 
 <p>Most of us have a collection of feeds that contain similar subject matter. As a geek, <em>most</em> of my feeds are geek-related. As a geek who likes to stay up to speed, I also like to know what other blogs and feeds are good to read.</p>
 
-<p>This is where Google Reader's <strong>Top Recommendations</strong> come in. Google do a great job of throwing other feeds in your face that you might like to read based on the kind of stuff that you've already subscribed to.</p>
+<p>This is where Google Reader&rsquo;s <strong>Top Recommendations</strong> come in. Google do a great job of throwing other feeds in your face that you might like to read based on the kind of stuff that you&rsquo;ve already subscribed to.</p>
 
 <!--more-->
 
 
 <p><a href="http://buffered.io/uploads/2008/05/reader_recommendations.png" rel="lightbox[rec_reader]" title="Recommended feeds"><img src="http://buffered.io/uploads/2008/05/reader_recommendations.png" alt="A shortlist of recommended feeds" title="Recommended feeds" width="300" height="205" class="aligncenter size-medium wp-image-361" /></a></p>
 
-<p>As you can see, it lists a few blogs that are of a similar nature to those that you read and gives you the option to view them. When you click on the <em>View all &gt;&gt;</em> button, you're presented with a rather extensive list:</p>
+<p>As you can see, it lists a few blogs that are of a similar nature to those that you read and gives you the option to view them. When you click on the <em>View all &gt;&gt;</em> button, you&rsquo;re presented with a rather extensive list:</p>
 
 <p><a href="http://buffered.io/uploads/2008/05/reader_rec_list.png" title="Detail list of recommended feeds" rel="lightbox[rec_reader]"><img src="http://buffered.io/uploads/2008/05/reader_rec_list.png" alt="Detail list of recommended feeds" title="Detail list of recommended feeds" width="300" height="205" class="aligncenter size-medium wp-image-362" /></a></p>
 
@@ -52,9 +52,9 @@
 
 <p><a href="http://buffered.io/uploads/2008/05/reader_rec_preview.png" rel="lightbox[rec_reader]" title="Feed preview"><img src="http://buffered.io/uploads/2008/05/reader_rec_preview.png" alt="Feed preview" title="Feed preview" width="300" height="205" class="aligncenter size-medium wp-image-360" /></a></p>
 
-<p>You can browse through the feed and interact with it as if it was part of your subscription list already. If you see some articles that take your fancy and the content appeals to you, you can easily subscribe by clicking on the profoundly obvious <em>Subscribe</em> button. If I don't like it, I can go back to the list, and I can even click on the "No thanks" link next to the feed so that it doesn't appear in my recommended list again.</p>
+<p>You can browse through the feed and interact with it as if it was part of your subscription list already. If you see some articles that take your fancy and the content appeals to you, you can easily subscribe by clicking on the profoundly obvious <em>Subscribe</em> button. If I don&rsquo;t like it, I can go back to the list, and I can even click on the &ldquo;No thanks&rdquo; link next to the feed so that it doesn&rsquo;t appear in my recommended list again.</p>
 
-<p>Too easy. This is exactly the kind of "ease of use" feature that I want from my RSS reader. I'm sure a couple of other readers would provide similar features, but the simplicity of this really blows my skirt up.</p>
+<p>Too easy. This is exactly the kind of &ldquo;ease of use&rdquo; feature that I want from my RSS reader. I&rsquo;m sure a couple of other readers would provide similar features, but the simplicity of this really blows my skirt up.</p>
 
 <p>+1 Google Reader (again).</p>
 ]]></content>
@@ -65,9 +65,9 @@
     <link href="http://buffered.io/posts/shortcuts-visual-studio-2005/"/>
     <updated>2007-02-11T09:37:00+10:00</updated>
     <id>http://buffered.io/posts/shortcuts-visual-studio-2005</id>
-    <content type="html"><![CDATA[<p>Welcome to the next in the series of posts on program shortcuts. This time round we're talking Visual Studio. I'll be assuming that you don't have the <a href="http://www.viemu.com/" title="ViEmu" target="_blank">ViEmu</a> plugin enabled and that you're just using the IDE in the way it was intended without any other form of shortcut-based plugin installed.</p>
+    <content type="html"><![CDATA[<p>Welcome to the next in the series of posts on program shortcuts. This time round we&rsquo;re talking Visual Studio. I&rsquo;ll be assuming that you don&rsquo;t have the <a href="http://www.viemu.com/" title="ViEmu" target="_blank">ViEmu</a> plugin enabled and that you&rsquo;re just using the IDE in the way it was intended without any other form of shortcut-based plugin installed.</p>
 
-<p>I'm using Visual Studio 2005 and I think I have the C# settings enabled by default. Most of these shortcuts will work regardless of the default setting that you have, but some of them will no doubt be different. Please note that I won't be going through every single shortcut that Visual Studio supports, instead I'll be going through the ones that I find very handy. If you're looking to find a complete list, then you should check out <a href="http://msdn.microsoft.com/" title="MSDN" target="_blank">MSDN</a>.</p>
+<p>I&rsquo;m using Visual Studio 2005 and I think I have the C# settings enabled by default. Most of these shortcuts will work regardless of the default setting that you have, but some of them will no doubt be different. Please note that I won&rsquo;t be going through every single shortcut that Visual Studio supports, instead I&rsquo;ll be going through the ones that I find very handy. If you&rsquo;re looking to find a complete list, then you should check out <a href="http://msdn.microsoft.com/" title="MSDN" target="_blank">MSDN</a>.</p>
 
 <p>Basic text manipulation shortcuts are the same as what is posted in the <a href="http://buffered.io/posts/shortcuts-windows/trackback/" title="Shortcuts: Windows">Windows shortcuts</a> entry that I posted. OK, on with the goodies.</p>
 
@@ -123,7 +123,7 @@
 </ul>
 
 
-<p>It's far from an exhaustive list, but I think there may well be some in there that you haven't seen before. There are a stack more, so check out the documentation if this little list doesn't sort you out.</p>
+<p>It&rsquo;s far from an exhaustive list, but I think there may well be some in there that you haven&rsquo;t seen before. There are a stack more, so check out the documentation if this little list doesn&rsquo;t sort you out.</p>
 ]]></content>
   </entry>
   
@@ -132,9 +132,9 @@
     <link href="http://buffered.io/posts/shortcuts-windows/"/>
     <updated>2007-02-10T11:38:00+10:00</updated>
     <id>http://buffered.io/posts/shortcuts-windows</id>
-    <content type="html"><![CDATA[<p>This is the first of a collection of posts that I'm going to be making about shortcuts in applications. I'm constantly on the lookout for keyboard shortcuts to aid in improving the speed of my day to day activities, and I thought it'd be a good idea to start sharing them with you. These posts will probably get edited a few times over the course of their lives as I find more shortcuts :)</p>
+    <content type="html"><![CDATA[<p>This is the first of a collection of posts that I&rsquo;m going to be making about shortcuts in applications. I&rsquo;m constantly on the lookout for keyboard shortcuts to aid in improving the speed of my day to day activities, and I thought it&rsquo;d be a good idea to start sharing them with you. These posts will probably get edited a few times over the course of their lives as I find more shortcuts :)</p>
 
-<p>Below is a list of shortcuts that I use for generally getting around Windows. Note that when I refer to the <em>WIN</em> key I am referring to the Windows/Start key that lies between <em>CTRL</em> and <em>ALT</em> on the keyboard. Most of these shortcuts will work regardless of the application you're currently using as these shortcuts are 'unwritten laws'. Some of these are pretty obvious, but I'll stick them in anyway. Some of them might be XP specific, but most of them will work regardless of the Windows version.</p>
+<p>Below is a list of shortcuts that I use for generally getting around Windows. Note that when I refer to the <em>WIN</em> key I am referring to the Windows/Start key that lies between <em>CTRL</em> and <em>ALT</em> on the keyboard. Most of these shortcuts will work regardless of the application you&rsquo;re currently using as these shortcuts are &lsquo;unwritten laws&rsquo;. Some of these are pretty obvious, but I&rsquo;ll stick them in anyway. Some of them might be XP specific, but most of them will work regardless of the Windows version.</p>
 
 <ul>
 <li><strong>WIN + E</strong> - Open a new Windows File Explorer window.</li>
@@ -168,7 +168,7 @@
 </ul>
 
 
-<p>Now we're past the shortcuts, I'd also like to show you some of the other commands that I frequently punch into the 'Run' dialog (<em>WIN + R</em>) to quickly launch to applications instead of using the Start menu.</p>
+<p>Now we&rsquo;re past the shortcuts, I&rsquo;d also like to show you some of the other commands that I frequently punch into the &lsquo;Run&rsquo; dialog (<em>WIN + R</em>) to quickly launch to applications instead of using the Start menu.</p>
 
 <ul>
 <li><strong>services.msc</strong> - Open the Windows Services dialog.</li>
@@ -184,7 +184,7 @@
 </ul>
 
 
-<p>There the ones I can think of at the moment, if I think of some more I'll add them. Please give me a shout if you use one that I haven't mentioned!</p>
+<p>There the ones I can think of at the moment, if I think of some more I&rsquo;ll add them. Please give me a shout if you use one that I haven&rsquo;t mentioned!</p>
 ]]></content>
   </entry>
   

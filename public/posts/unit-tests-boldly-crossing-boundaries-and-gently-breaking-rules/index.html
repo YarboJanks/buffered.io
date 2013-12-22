@@ -8,14 +8,8 @@
   <title>Unit Tests: Boldly Crossing Boundaries and Gently Breaking Rules - OJ's perspective</title>
   <meta name="author" content="OJ Reeves">
 
-  <link rel="openid.server" href="http://pip.verisignlabs.com/server" />
-  <link rel="openid.delegate" href="http://thecolonial.pip.verisignlabs.com/" />
-  <link rel="openid2.provider" href="http://pip.verisignlabs.com/server" />
-  <link rel="openid2.local_id" href="http://thecolonial.pip.verisignlabs.com/" />
-  <meta http-equiv="X-XRDS-Location" content="http://pip.verisignlabs.com/thecolonial/yadixrds" />
-
   
-  <meta name="description" content="For the first time ever, OJ&#8217;s rants has a guest blogger! Long term friend and highly-respected geek, RobG has put together an interesting piece &hellip;">
+  <meta name="description" content="For the first time ever, OJ&rsquo;s rants has a guest blogger! Long term friend and highly-respected geek, RobG has put together an interesting piece &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -24,39 +18,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's perspective RSS 2.0" type="application/rss+xml">
   <link rel="canonical" href="http://buffered.io/posts/unit-tests-boldly-crossing-boundaries-and-gently-breaking-rules">
   <link href="/favicon.ico" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-
-  <script src="/javascripts/modernizr-2.0.js" type="text/javascript"></script>
-  <script src="/javascripts/ender.js" type="text/javascript"></script>
+  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's perspective" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
-
-  <script type="text/javascript">
-    Modernizr.load([
-      { load: '//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js' },
-      { load: '/javascripts/jquery.lightbox.js', complete: function() {
-        $("a[rel^='lightbox']").lightbox();
-      } }
-    ]);
-  </script>
-
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 
   
-
-  
-  <script type="text/javascript">
-    !function(g,s,q,r,d){r=g[r]=g[r]||function(){(r.q=r.q||[]).push(
-    arguments)};d=s.createElement(q);q=s.getElementsByTagName(q)[0];
-    d.src='//d1l6p2sc9645hc.cloudfront.net/tracker.js';q.parentNode.
-    insertBefore(d,q)}(window,document,'script','_gs');
-    _gs('GSN-416076-G');
-  </script>
-
 
 </head>
 
@@ -112,19 +86,19 @@
   
 
 
-
-<time datetime="2008-07-29T01:07:00+10:00" pubdate data-updated="true">29 Jul 2008</time>
+<time datetime="2008-07-29T01:07:00+10:00" pubdate data-updated="true"></time>
         
-         | <a href="#disqus_thread">Comments</a>
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://buffered.io">Comments</a>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>For the first time ever, OJ&#8217;s rants has a guest blogger! Long term friend and highly-respected geek, RobG has put together an interesting piece on something that&#8217;s close to the hearts of most Geeks - Unit testing. This is his first post, and I hope it won&#8217;t be the last.</p>
+<div class="entry-content"><p>For the first time ever, OJ&rsquo;s rants has a guest blogger! Long term friend and highly-respected geek, RobG has put together an interesting piece on something that&rsquo;s close to the hearts of most Geeks &ndash; Unit testing. This is his first post, and I hope it won&rsquo;t be the last.</p>
 
-<p>Without further ado, here&#8217;s Rob!</p>
+<p>Without further ado, here&rsquo;s Rob!</p>
 
 <!--more-->
 
@@ -143,60 +117,60 @@ I need to test whether a customer is saved successfully to the database. When I&
 I&#8217;m amenable to the theoretical argument that this article makes, but it seems that pragmatically the kind test we&#8217;re saying you shouldn&#8217;t write is exactly the test that is most likely to reveal problems (in my experience). I&#8217;d love to hear some other ideas.</blockquote>
 
 
-<p>Just like Chris, I&#8217;m all for the theory, but as he pointed out, pragmatically, it&#8217;s a lot more like wading through thick syrup. He asked for some guidance, so I thought Id tell you what I usually do, and what has worked for me. It may or may not work for you, but at least you get to make that call: If youre a TDD practitioner, youll have hit the crux of the problem that we all end up facing eventually with unit testing: You&#8217;ve had to make a conscious choice to let your unit test reach into actual (not mock) data-land, because no matter how much you try and persuade yourself, you don&#8217;t actually believe that your database will in fact return that customer record you&#8217;re asking for until you&#8217;ve been able to test it for real  and I mean <em>really real</em>!</p>
+<p>Just like Chris, I&rsquo;m all for the theory, but as he pointed out, pragmatically, it&rsquo;s a lot more like wading through thick syrup. He asked for some guidance, so I thought Id tell you what I usually do, and what has worked for me. It may or may not work for you, but at least you get to make that call: If youre a TDD practitioner, youll have hit the crux of the problem that we all end up facing eventually with unit testing: You&rsquo;ve had to make a conscious choice to let your unit test reach into actual (not mock) data-land, because no matter how much you try and persuade yourself, you don&rsquo;t actually believe that your database will in fact return that customer record you&rsquo;re asking for until you&rsquo;ve been able to test it for real  and I mean <em>really real</em>!</p>
 
-<p>So what I&#8217;ve done to solve this is setup a new test project for these (crossing the line) tests. This is so that you can run them independently of the <em>faster</em> unit tests. I call them Datastore or Repository tests or something of that nature. Then you have problem number two hit you in the face like a frying pan - <strong>How can I make these tests repeatable?</strong> I know that if I add a new customer to the database in one unit test, I&#8217;m going to need some way of restoring the database to its previous clean state right? I can&#8217;t have <em>&#8220;TestCustomer1&#8221;</em> running around in the database after I&#8217;m done with him, so I need to get rid of all that test data somehow.</p>
+<p>So what I&rsquo;ve done to solve this is setup a new test project for these (crossing the line) tests. This is so that you can run them independently of the <em>faster</em> unit tests. I call them Datastore or Repository tests or something of that nature. Then you have problem number two hit you in the face like a frying pan &ndash; <strong>How can I make these tests repeatable?</strong> I know that if I add a new customer to the database in one unit test, I&rsquo;m going to need some way of restoring the database to its previous clean state right? I can&rsquo;t have <em>&ldquo;TestCustomer1&rdquo;</em> running around in the database after I&rsquo;m done with him, so I need to get rid of all that test data somehow.</p>
 
-<p>I&#8217;ve heard various strategies suggested in the past - some of which involve dropping and recreating the database each time. I can&#8217;t help thinking that&#8217;s like taking out a sledgehammer to smash an ant, but it definitely still works. I&#8217;ve also tried other options where you make sure any test data you insert has specific identifying properties like negative ID values (won&#8217;t help if you&#8217;re using GUIDs though), or prefix/suffix specific column values with something like <em>&#8220;test_&#8221;</em> or <em>&#8220;!test&#8221;</em> and running a cleanup script at the end that clears down any lagging data. This has worked pretty well in the past, and if you stick to the rules, the cleanup script can require very little maintenance and can be quite dynamic - but still, <em>I&#8217;ve always wanted a more elegant solution.</em></p>
+<p>I&rsquo;ve heard various strategies suggested in the past &ndash; some of which involve dropping and recreating the database each time. I can&rsquo;t help thinking that&rsquo;s like taking out a sledgehammer to smash an ant, but it definitely still works. I&rsquo;ve also tried other options where you make sure any test data you insert has specific identifying properties like negative ID values (won&rsquo;t help if you&rsquo;re using GUIDs though), or prefix/suffix specific column values with something like <em>&ldquo;test_&rdquo;</em> or <em>&ldquo;!test&rdquo;</em> and running a cleanup script at the end that clears down any lagging data. This has worked pretty well in the past, and if you stick to the rules, the cleanup script can require very little maintenance and can be quite dynamic &ndash; but still, <em>I&rsquo;ve always wanted a more elegant solution.</em></p>
 
-<p><strong>Finally, it hit me.</strong> It&#8217;s the solution I&#8217;ve been using for a few projects now, and it has worked very well. Only one problem - you have to break another cardinal rule of unit testing. <em>Hrmm&#8230;OK I hear you say, what the hell, we&#8217;ve already crossed the line, lets see if the ogre flinches when we spit in its eye?</em></p>
+<p><strong>Finally, it hit me.</strong> It&rsquo;s the solution I&rsquo;ve been using for a few projects now, and it has worked very well. Only one problem &ndash; you have to break another cardinal rule of unit testing. <em>Hrmm&hellip;OK I hear you say, what the hell, we&rsquo;ve already crossed the line, lets see if the ogre flinches when we spit in its eye?</em></p>
 
-<p>The rule we&#8217;re breaking now is that of <em>only testing ONE thing in a unit test</em>. Well, I don&#8217;t like to think of it as <em>breaking</em> - more like <em>gently taking apart</em> - that implies you&#8217;re being very careful about when you do it - and you&#8217;ve thought it through and not done it by accident.</p>
+<p>The rule we&rsquo;re breaking now is that of <em>only testing ONE thing in a unit test</em>. Well, I don&rsquo;t like to think of it as <em>breaking</em> &ndash; more like <em>gently taking apart</em> &ndash; that implies you&rsquo;re being very careful about when you do it &ndash; and you&rsquo;ve thought it through and not done it by accident.</p>
 
 <p>The unit test name gives it away completely:</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="n">ShouldCreateAndDeleteACustomer</span><span class="p">()</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>At this point, I can see many people wince violently while sucking air quickly through their teeth  but let me explain. It stands to reason that you&#8217;re going to implement the basic CRUD functions into your data strategy right? So why not exercise a couple of them at a time? Well, this is where my own warning bells go off! It&#8217;s a bit like walking the tight-rope, it&#8217;s dangerous, but if you&#8217;re careful and develop enough skill, you can get to the other side without doing any damage.</p>
+<p>At this point, I can see many people wince violently while sucking air quickly through their teeth  but let me explain. It stands to reason that you&rsquo;re going to implement the basic CRUD functions into your data strategy right? So why not exercise a couple of them at a time? Well, this is where my own warning bells go off! It&rsquo;s a bit like walking the tight-rope, it&rsquo;s dangerous, but if you&rsquo;re careful and develop enough skill, you can get to the other side without doing any damage.</p>
 
-<p>Now that you&#8217;ve gotten over the initial shock, let me explain what the test does. For this one, you&#8217;re going to exercise the <em>Create, Retrieve and Delete</em> functions in CRUD, and all of this can be done in a TDD fashion. First you exercise the code that creates the customer:</p>
+<p>Now that you&rsquo;ve gotten over the initial shock, let me explain what the test does. For this one, you&rsquo;re going to exercise the <em>Create, Retrieve and Delete</em> functions in CRUD, and all of this can be done in a TDD fashion. First you exercise the code that creates the customer:</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="n">Assert</span><span class="p">.</span><span class="n">True</span><span class="p">(</span><span class="n">customerRepository</span><span class="p">.</span><span class="n">SaveCustomer</span><span class="p">(</span><span class="n">customer</span><span class="p">));</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>This line of code will fail (RED) because you haven&#8217;t written your data access code yet right&#8230;<em>right</em>?! I use LinqToSql, but ultimately you&#8217;ve just got to write enough code (SPROC or otherwise) that adds the record to the table (GREEN) so you can verify it with your eyes with a Query Analyser of sorts - then <strong>delete the row manually.</strong></p>
+<p>This line of code will fail (RED) because you haven&rsquo;t written your data access code yet right&hellip;<em>right</em>?! I use LinqToSql, but ultimately you&rsquo;ve just got to write enough code (SPROC or otherwise) that adds the record to the table (GREEN) so you can verify it with your eyes with a Query Analyser of sorts &ndash; then <strong>delete the row manually.</strong></p>
 
-<p>Remember, you&#8217;re still (<em>hopefully</em>) programming against an interface (<em>ICustomerRepository</em> for example), so it&#8217;s the same call that you would make from a Mock (Moq rocks!), and you can still use your favourite IoC Container (mine is StructureMap) for dependency injection - but instead, this time you&#8217;re hitting the actual database. My <em>SaveCustomer()</em> methods usually handle Create as well as Update depending on the ID field (I normally use GUIDs), but I&#8217;m trying to keep this simple.</p>
+<p>Remember, you&rsquo;re still (<em>hopefully</em>) programming against an interface (<em>ICustomerRepository</em> for example), so it&rsquo;s the same call that you would make from a Mock (Moq rocks!), and you can still use your favourite IoC Container (mine is StructureMap) for dependency injection &ndash; but instead, this time you&rsquo;re hitting the actual database. My <em>SaveCustomer()</em> methods usually handle Create as well as Update depending on the ID field (I normally use GUIDs), but I&rsquo;m trying to keep this simple.</p>
 
 <p>Next you exercise the retrieval code:</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="n">Assert</span><span class="p">.</span><span class="n">NotNull</span><span class="p">(</span><span class="n">customerRepository</span><span class="p">.</span><span class="n">GetCustomers</span><span class="p">.</span><span class="n">WithId</span><span class="p">(</span><span class="n">customer</span><span class="p">.</span><span class="n">ID</span><span class="p">));</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
 <p>In case youre wondering, <em>WithId</em> is an extention method to <em>IQueryable</em> because LinqToSql utilises deferred execution, and <em>WithId</em> triggers the actual DB call.
-Again, this will fail (RED) because you havent written your data access code yet right?! You write the code (as I said, I use LinqToSql, but you can use a call to a SPROC if you like), and <strong>viola</strong> it&#8217;s (GREEN), but the record is still in the database - so you <strong>delete it manually</strong>.</p>
+Again, this will fail (RED) because you havent written your data access code yet right?! You write the code (as I said, I use LinqToSql, but you can use a call to a SPROC if you like), and <strong>viola</strong> it&rsquo;s (GREEN), but the record is still in the database &ndash; so you <strong>delete it manually</strong>.</p>
 
 <p>Finally, you exercise the code that deletes the record:</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="n">Assert</span><span class="p">.</span><span class="n">True</span><span class="p">(</span><span class="n">customerRepository</span><span class="p">.</span><span class="n">DeleteCustomer</span><span class="p">.</span><span class="n">WithId</span><span class="p">(</span><span class="n">customer</span><span class="p">.</span><span class="n">ID</span><span class="p">));</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>Once again, this will fail (RED) because you haven&#8217;t written the code yet right?! (Is this getting old yet?). So you write the code to delete the record and the test goes (GREEN).</p>
+<p>Once again, this will fail (RED) because you haven&rsquo;t written the code yet right?! (Is this getting old yet?). So you write the code to delete the record and the test goes (GREEN).</p>
 
-<p>If you&#8217;re still a bit sceptical about your delete operation, you can run the retrieval code again and this time <em>Assert.Null</em> instead.</p>
+<p>If you&rsquo;re still a bit sceptical about your delete operation, you can run the retrieval code again and this time <em>Assert.Null</em> instead.</p>
 
-<p>Now what you&#8217;ve done in summary is test your Create, Retrieve, Delete and Retrieve (failure) cases in one test. The downside is that you&#8217;ve tested more than one operation in a single test, but the upside is you&#8217;ve left the database perfectly neat and tidy. With a bit of extra work, you can add a few more calls (hey&#8230;why stop there?) to include the &#8220;Update&#8221; function from CRUD, and what you&#8217;ll have is a neat unit test (10 to 15 lines of code) that exercises the entire &#8220;Customer&#8221; entity in your repository, and leaves no traces behind.</p>
+<p>Now what you&rsquo;ve done in summary is test your Create, Retrieve, Delete and Retrieve (failure) cases in one test. The downside is that you&rsquo;ve tested more than one operation in a single test, but the upside is you&rsquo;ve left the database perfectly neat and tidy. With a bit of extra work, you can add a few more calls (hey&hellip;why stop there?) to include the &ldquo;Update&rdquo; function from CRUD, and what you&rsquo;ll have is a neat unit test (10 to 15 lines of code) that exercises the entire &ldquo;Customer&rdquo; entity in your repository, and leaves no traces behind.</p>
 
-<p><strong>Now for a word of warning</strong> - try and make sure that, even if you can&#8217;t obey the <em>rules</em> of unit testing, that you at least obey the <em>spirit</em> of unit testing. By that, I mean keep the footprint of your test small and specific. If you&#8217;re working with the Customer entity - stick to that. If you&#8217;re working with the Order entity, stick to that. Don&#8217;t go writing tests that start messing with joins between the two. <strong>THAT&#8217;S WHAT YOUR &#8220;PROPER&#8221;</strong> unit tests are for - testing behaviour should not come into these - or else you&#8217;re heading for a world of pain. Your mocks and interfaces will take care of behaviour. These data tests are purely there to prove that your data methods do what they say they do - <em>for real!</em></p>
+<p><strong>Now for a word of warning</strong> &ndash; try and make sure that, even if you can&rsquo;t obey the <em>rules</em> of unit testing, that you at least obey the <em>spirit</em> of unit testing. By that, I mean keep the footprint of your test small and specific. If you&rsquo;re working with the Customer entity &ndash; stick to that. If you&rsquo;re working with the Order entity, stick to that. Don&rsquo;t go writing tests that start messing with joins between the two. <strong>THAT&rsquo;S WHAT YOUR &ldquo;PROPER&rdquo;</strong> unit tests are for &ndash; testing behaviour should not come into these &ndash; or else you&rsquo;re heading for a world of pain. Your mocks and interfaces will take care of behaviour. These data tests are purely there to prove that your data methods do what they say they do &ndash; <em>for real!</em></p>
 
 <p>I hope that helps Chris and any other people looking for elegant solutions to sticky problems. If it does, I might consider blogging some more of the pragmatic techniques that have worked for me and my teams in follow up posts.</p>
 
@@ -223,8 +197,7 @@ Again, this will fail (RED) because you havent written your data access code yet
   
 
 
-
-<time datetime="2008-07-29T01:07:00+10:00" pubdate data-updated="true">29 Jul 2008</time>
+<time datetime="2008-07-29T01:07:00+10:00" pubdate data-updated="true"></time>
       
 
 <span class="categories">
@@ -238,7 +211,7 @@ Again, this will fail (RED) because you havent written your data access code yet
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://buffered.io/posts/unit-tests-boldly-crossing-boundaries-and-gently-breaking-rules/" data-via="TheColonial" data-counturl="http://buffered.io/posts/unit-tests-boldly-crossing-boundaries-and-gently-breaking-rules/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://buffered.io/posts/unit-tests-boldly-crossing-boundaries-and-gently-breaking-rules/" data-via="TheColonial" data-counturl="http://buffered.io/posts/unit-tests-boldly-crossing-boundaries-and-gently-breaking-rules/" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -252,7 +225,7 @@ Again, this will fail (RED) because you havent written your data access code yet
         <a class="basic-alignment left" href="/posts/a-better-nub/" title="Previous Post: A Better 'nub'">&laquo; A Better 'nub'</a>
       
       
-        <a class="basic-alignment right" href="/posts/epic-fail-cuil-search-engine/" title="next Post: Epic Fail - Cuil Search Engine">Epic Fail - Cuil Search Engine &raquo;</a>
+        <a class="basic-alignment right" href="/posts/epic-fail-cuil-search-engine/" title="Next Post: Epic Fail - Cuil Search Engine">Epic Fail - Cuil Search Engine &raquo;</a>
       
     </p>
   </footer>
@@ -453,7 +426,7 @@ Copyright &copy; 2013 -
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     }());
 </script>
@@ -477,7 +450,7 @@ Copyright &copy; 2013 -
       var twitterWidgets = document.createElement('script');
       twitterWidgets.type = 'text/javascript';
       twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
       document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
     })();
   </script>

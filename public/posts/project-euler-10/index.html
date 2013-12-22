@@ -8,14 +8,8 @@
   <title>Project Euler #10 - OJ's perspective</title>
   <meta name="author" content="OJ Reeves">
 
-  <link rel="openid.server" href="http://pip.verisignlabs.com/server" />
-  <link rel="openid.delegate" href="http://thecolonial.pip.verisignlabs.com/" />
-  <link rel="openid2.provider" href="http://pip.verisignlabs.com/server" />
-  <link rel="openid2.local_id" href="http://thecolonial.pip.verisignlabs.com/" />
-  <meta http-equiv="X-XRDS-Location" content="http://pip.verisignlabs.com/thecolonial/yadixrds" />
-
   
-  <meta name="description" content="WARNING! This post contains a spoiler for Problem #10 listed at Project Euler. Do not read the rest of this post if you&#8217;re planning to attempt &hellip;">
+  <meta name="description" content="WARNING! This post contains a spoiler for Problem #10 listed at Project Euler. Do not read the rest of this post if you&rsquo;re planning to attempt &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -24,39 +18,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's perspective RSS 2.0" type="application/rss+xml">
   <link rel="canonical" href="http://buffered.io/posts/project-euler-10">
   <link href="/favicon.ico" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-
-  <script src="/javascripts/modernizr-2.0.js" type="text/javascript"></script>
-  <script src="/javascripts/ender.js" type="text/javascript"></script>
+  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's perspective" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
-
-  <script type="text/javascript">
-    Modernizr.load([
-      { load: '//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js' },
-      { load: '/javascripts/jquery.lightbox.js', complete: function() {
-        $("a[rel^='lightbox']").lightbox();
-      } }
-    ]);
-  </script>
-
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 
   
-
-  
-  <script type="text/javascript">
-    !function(g,s,q,r,d){r=g[r]=g[r]||function(){(r.q=r.q||[]).push(
-    arguments)};d=s.createElement(q);q=s.getElementsByTagName(q)[0];
-    d.src='//d1l6p2sc9645hc.cloudfront.net/tracker.js';q.parentNode.
-    insertBefore(d,q)}(window,document,'script','_gs');
-    _gs('GSN-416076-G');
-  </script>
-
 
 </head>
 
@@ -112,29 +86,29 @@
   
 
 
-
-<time datetime="2008-07-30T21:27:00+10:00" pubdate data-updated="true">30 Jul 2008</time>
+<time datetime="2008-07-30T21:27:00+10:00" pubdate data-updated="true"></time>
         
-         | <a href="#disqus_thread">Comments</a>
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://buffered.io">Comments</a>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p><strong>WARNING!</strong> This post contains a spoiler for Problem #10 listed at <a href="http://projecteuler.net/" title="Project Euler">Project Euler</a>. Do not read the rest of this post if you&#8217;re planning to attempt to solve the problem yourself.</p>
+<div class="entry-content"><p><strong>WARNING!</strong> This post contains a spoiler for Problem #10 listed at <a href="http://projecteuler.net/" title="Project Euler">Project Euler</a>. Do not read the rest of this post if you&rsquo;re planning to attempt to solve the problem yourself.</p>
 
 <!--more-->
 
 
-<p><a title="Project Euler #10" href="http://projecteuler.net/index.php?section=problems&amp;id=10">Problem #10</a> takes us back into the realm of the relatively boring - prime numbers (again). The question is as follows:<blockquote><p>The sum of the primes below 10 is 2 + 3 + 5 + 7 = 17.</p>
+<p><a title="Project Euler #10" href="http://projecteuler.net/index.php?section=problems&amp;id=10">Problem #10</a> takes us back into the realm of the relatively boring &ndash; prime numbers (again). The question is as follows:<blockquote><p>The sum of the primes below 10 is 2 + 3 + 5 + 7 = 17.</p>
 
 <p>Find the sum of all the primes below two million.</p></blockquote>
-Exciting stuff! Since we&#8217;ve already got ourselves a relatively nifty prime number generator from a <a title="Project Euler #7" href="/posts/project-euler-7/">previous post</a>, we can simply reuse this, along with the sum function that comes in <a title="Prelude" href="http://www.haskell.org/ghc/docs/latest/html/libraries/base/Prelude.html">Prelude</a>, to generate the answer.</p>
+Exciting stuff! Since we&rsquo;ve already got ourselves a relatively nifty prime number generator from a <a title="Project Euler #7" href="/posts/project-euler-7/">previous post</a>, we can simply reuse this, along with the sum function that comes in <a title="Prelude" href="http://www.haskell.org/ghc/docs/latest/html/libraries/base/Prelude.html">Prelude</a>, to generate the answer.</p>
 
 <p>Here is what the code looks like:</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -183,7 +157,7 @@ Exciting stuff! Since we&#8217;ve already got ourselves a relatively nifty prime
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>I don&#8217;t really have much else to say about this. I won&#8217;t bother with the performance information because it&#8217;s not really doing anything too exciting that hasn&#8217;t already been discussed.</p>
+<p>I don&rsquo;t really have much else to say about this. I won&rsquo;t bother with the performance information because it&rsquo;s not really doing anything too exciting that hasn&rsquo;t already been discussed.</p>
 
 <p>Cheers!</p>
 </div>
@@ -208,8 +182,7 @@ Exciting stuff! Since we&#8217;ve already got ourselves a relatively nifty prime
   
 
 
-
-<time datetime="2008-07-30T21:27:00+10:00" pubdate data-updated="true">30 Jul 2008</time>
+<time datetime="2008-07-30T21:27:00+10:00" pubdate data-updated="true"></time>
       
 
 <span class="categories">
@@ -223,7 +196,7 @@ Exciting stuff! Since we&#8217;ve already got ourselves a relatively nifty prime
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://buffered.io/posts/project-euler-10/" data-via="TheColonial" data-counturl="http://buffered.io/posts/project-euler-10/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://buffered.io/posts/project-euler-10/" data-via="TheColonial" data-counturl="http://buffered.io/posts/project-euler-10/" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -237,7 +210,7 @@ Exciting stuff! Since we&#8217;ve already got ourselves a relatively nifty prime
         <a class="basic-alignment left" href="/posts/epic-fail-cuil-search-engine/" title="Previous Post: Epic Fail - Cuil Search Engine">&laquo; Epic Fail - Cuil Search Engine</a>
       
       
-        <a class="basic-alignment right" href="/posts/stop-cutting-your-feeds-short/" title="next Post: Stop Cutting your Feeds Short">Stop Cutting your Feeds Short &raquo;</a>
+        <a class="basic-alignment right" href="/posts/stop-cutting-your-feeds-short/" title="Next Post: Stop Cutting your Feeds Short">Stop Cutting your Feeds Short &raquo;</a>
       
     </p>
   </footer>
@@ -438,7 +411,7 @@ Copyright &copy; 2013 -
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     }());
 </script>
@@ -462,7 +435,7 @@ Copyright &copy; 2013 -
       var twitterWidgets = document.createElement('script');
       twitterWidgets.type = 'text/javascript';
       twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
       document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
     })();
   </script>

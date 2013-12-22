@@ -8,14 +8,8 @@
   <title>An Interesting Little Problem - OJ's perspective</title>
   <meta name="author" content="OJ Reeves">
 
-  <link rel="openid.server" href="http://pip.verisignlabs.com/server" />
-  <link rel="openid.delegate" href="http://thecolonial.pip.verisignlabs.com/" />
-  <link rel="openid2.provider" href="http://pip.verisignlabs.com/server" />
-  <link rel="openid2.local_id" href="http://thecolonial.pip.verisignlabs.com/" />
-  <meta http-equiv="X-XRDS-Location" content="http://pip.verisignlabs.com/thecolonial/yadixrds" />
-
   
-  <meta name="description" content="This post was inspired by a recent interview question that was posted over at fsharp.it. It&#8217;s one of those neat little questions which looks &hellip;">
+  <meta name="description" content="This post was inspired by a recent interview question that was posted over at fsharp.it. It&rsquo;s one of those neat little questions which looks &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -24,39 +18,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's perspective RSS 2.0" type="application/rss+xml">
   <link rel="canonical" href="http://buffered.io/posts/an-interesting-little-problem">
   <link href="/favicon.ico" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-
-  <script src="/javascripts/modernizr-2.0.js" type="text/javascript"></script>
-  <script src="/javascripts/ender.js" type="text/javascript"></script>
+  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's perspective" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
-
-  <script type="text/javascript">
-    Modernizr.load([
-      { load: '//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js' },
-      { load: '/javascripts/jquery.lightbox.js', complete: function() {
-        $("a[rel^='lightbox']").lightbox();
-      } }
-    ]);
-  </script>
-
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 
   
-
-  
-  <script type="text/javascript">
-    !function(g,s,q,r,d){r=g[r]=g[r]||function(){(r.q=r.q||[]).push(
-    arguments)};d=s.createElement(q);q=s.getElementsByTagName(q)[0];
-    d.src='//d1l6p2sc9645hc.cloudfront.net/tracker.js';q.parentNode.
-    insertBefore(d,q)}(window,document,'script','_gs');
-    _gs('GSN-416076-G');
-  </script>
-
 
 </head>
 
@@ -112,17 +86,17 @@
   
 
 
-
-<time datetime="2008-06-14T20:39:00+10:00" pubdate data-updated="true">14 Jun 2008</time>
+<time datetime="2008-06-14T20:39:00+10:00" pubdate data-updated="true"></time>
         
-         | <a href="#disqus_thread">Comments</a>
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://buffered.io">Comments</a>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>This post was inspired by a recent interview question that was posted over at <a href="http://www.fsharp.it/posts/google-interview-question-product-of-other-elements-in-an-array-in-on/" title="Fsharp.it">fsharp.it</a>. It&#8217;s one of those neat little questions which looks really simple on the surface but is quite tricky.</p>
+<div class="entry-content"><p>This post was inspired by a recent interview question that was posted over at <a href="http://www.fsharp.it/posts/google-interview-question-product-of-other-elements-in-an-array-in-on/" title="Fsharp.it">fsharp.it</a>. It&rsquo;s one of those neat little questions which looks really simple on the surface but is quite tricky.</p>
 
 <!--more-->
 
@@ -136,11 +110,11 @@ There is an array A[N] of N integers. You have to compose an array Output[N] suc
 
 <p><strong>Note:</strong> Solve it <em>without</em> the division operator and in O(n).
 </p></blockquote>
-Since I had a spare 10 minutes, I decided to give it a shot &#8230; in Haskell.</p>
+Since I had a spare 10 minutes, I decided to give it a shot &hellip; in Haskell.</p>
 
-<p>I&#8217;ll cut to the chase, here&#8217;s the source to my solution:</p>
+<p>I&rsquo;ll cut to the chase, here&rsquo;s the source to my solution:</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -161,13 +135,13 @@ Since I had a spare 10 minutes, I decided to give it a shot &#8230; in Haskell.<
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>I&#8217;m hoping that this is quite self-explanatory. But in case it&#8217;s not, I&#8217;ll cover some of the gory bits.</p>
+<p>I&rsquo;m hoping that this is quite self-explanatory. But in case it&rsquo;s not, I&rsquo;ll cover some of the gory bits.</p>
 
 <p>The core of the problem is coming up with a way of determining the value of the product of numbers from the start of the list up to a given index, and to do the same at the other end of the list from that given index.</p>
 
-<p>I thought that the easiest way would be to create two lists: both of them containing the compounded products of the numbers in the list, but each of them in different directions. To generate those lists, I thought that I&#8217;d add the value of 1 to the list, both at the start and at the end, as it would allow me to do two things:<ol><li>Generate the lists using the <a href="http://haskell.org/ghc/docs/latest/html/libraries/base/Prelude.html#v%3Ascanl1" title="scanl1">scanl1</a> and scanr1 functions.</li><li>Index into the list using a counter that&#8217;s based on the size of the original values without having to worry about going past the bounds of the list.</li></ol>Yup, quite lazy, but very handy.</p>
+<p>I thought that the easiest way would be to create two lists: both of them containing the compounded products of the numbers in the list, but each of them in different directions. To generate those lists, I thought that I&rsquo;d add the value of 1 to the list, both at the start and at the end, as it would allow me to do two things:<ol><li>Generate the lists using the <a href="http://haskell.org/ghc/docs/latest/html/libraries/base/Prelude.html#v%3Ascanl1" title="scanl1">scanl1</a> and scanr1 functions.</li><li>Index into the list using a counter that&rsquo;s based on the size of the original values without having to worry about going past the bounds of the list.</li></ol>Yup, quite lazy, but very handy.</p>
 
-<p>Here&#8217;s the output when I execute <em>answers</em> in <a href="http://www.haskell.org/ghc/docs/latest/html/users_guide/ghci.html" title="GHCi">GHCi</a>:</p>
+<p>Here&rsquo;s the output when I execute <em>answers</em> in <a href="http://www.haskell.org/ghc/docs/latest/html/users_guide/ghci.html" title="GHCi">GHCi</a>:</p>
 
 <pre><code>Prelude&gt; :l google.hs
 [1 of 1] Compiling Main             ( google.hs, interpreted )
@@ -177,11 +151,11 @@ Ok, modules loaded: Main.
 *Main&gt;
 </code></pre>
 
-<p>Problem solved in O(n). Neato! After feeling rather chuffed with myself I thought I&#8217;d go back to Fsharp.it and check out the answer posted there. The principle was similar, but the implementation listed was a little longer.</p>
+<p>Problem solved in O(n). Neato! After feeling rather chuffed with myself I thought I&rsquo;d go back to Fsharp.it and check out the answer posted there. The principle was similar, but the implementation listed was a little longer.</p>
 
-<p>So I thought I&#8217;d have a go at writing up my solution using F#. It didn&#8217;t seem like a stretch until I realised how little of the language I know (I&#8217;m currently reading through <a href="http://www.amazon.com/Expert-F-Experts-Voice-Net/dp/1590598504" title="Expert F#">Expert F#</a>, but I&#8217;m still far from being one myself). Here&#8217;s what I came up with:</p>
+<p>So I thought I&rsquo;d have a go at writing up my solution using F#. It didn&rsquo;t seem like a stretch until I realised how little of the language I know (I&rsquo;m currently reading through <a href="http://www.amazon.com/Expert-F-Experts-Voice-Net/dp/1590598504" title="Expert F#">Expert F#</a>, but I&rsquo;m still far from being one myself). Here&rsquo;s what I came up with:</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -208,8 +182,8 @@ Ok, modules loaded: Main.
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>A few things you might notice:<ol><li>My syntax highlighter plugin doesn&#8217;t currently support F# :)</li><li>I use a similar method to the Haskell solution, but ended up having to convert the <em>front</em> and <em>back</em> lists to arrays. The reason was because I need to be able to index into the resulting integer set, and I can&#8217;t do that with lists (if I&#8217;m wrong, please let me know!)</li><li>I defined a function called <em>mul</em> which does a simple multiplication. I wanted to pass <em>(<em>)</em> as the first parameter to the scan1_</em> functions, but the interpreter took that as the start of a comment instead! So I had to resort to a dodgey hack. If you know a way around this, please let me know.</li><li>I wrote my own (++) operator because I didn&#8217;t want to have to write List.append more than once :)</li></ol>
-In other words, my F# version smells like n00b. I&#8217;m sure there are so many better ways to implement this using the built-in features of the language and supporting libraries, but I&#8217;m yet to get to the level when I can write it. I&#8217;d love for someone to show me how :)</p>
+<p>A few things you might notice:<ol><li>My syntax highlighter plugin doesn&rsquo;t currently support F# :)</li><li>I use a similar method to the Haskell solution, but ended up having to convert the <em>front</em> and <em>back</em> lists to arrays. The reason was because I need to be able to index into the resulting integer set, and I can&rsquo;t do that with lists (if I&rsquo;m wrong, please let me know!)</li><li>I defined a function called <em>mul</em> which does a simple multiplication. I wanted to pass <em>(<em>)</em> as the first parameter to the scan1_</em> functions, but the interpreter took that as the start of a comment instead! So I had to resort to a dodgey hack. If you know a way around this, please let me know.</li><li>I wrote my own (++) operator because I didn&rsquo;t want to have to write List.append more than once :)</li></ol>
+In other words, my F# version smells like n00b. I&rsquo;m sure there are so many better ways to implement this using the built-in features of the language and supporting libraries, but I&rsquo;m yet to get to the level when I can write it. I&rsquo;d love for someone to show me how :)</p>
 
 <p>I did enjoy having a dabble with F# for the first time in ages, though I have to admit I much prefer using <a href="http://www.vim.org/" title="VIM">VIM</a> and <a href="http://research.microsoft.com/fsharp/manual/compiler.aspx" title="F# Interactive">fsi.exe</a> instead of <a href="http://msdn.microsoft.com/en-us/vstudio/default.aspx" title="Visual Studio">Visual Studio</a> and the <a href="http://blogs.msdn.com/dsyme/archive/posts/534925.aspx" title="A Taste of F# Interactive in Visual Studio">interactive F# add-in</a>.</p>
 
@@ -218,11 +192,11 @@ In other words, my F# version smells like n00b. I&#8217;m sure there are so many
 <h2>Update</h2>
 
 
-<p>After some great feedback (see below), I&#8217;ve come to realise that the !! operator in Haskell is actually O(n) itself. Hence it was a bad choice for inclusion. Back to the drawing board for me!</p>
+<p>After some great feedback (see below), I&rsquo;ve come to realise that the !! operator in Haskell is actually O(n) itself. Hence it was a bad choice for inclusion. Back to the drawing board for me!</p>
 
 <p>Here are a couple of submitted Haskell solutions.</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -288,13 +262,12 @@ In other words, my F# version smells like n00b. I&#8217;m sure there are so many
   
 
 
-
-<time datetime="2008-06-14T20:39:00+10:00" pubdate data-updated="true">14 Jun 2008</time>
+<time datetime="2008-06-14T20:39:00+10:00" pubdate data-updated="true"></time>
       
 
 <span class="categories">
   
-    <a class='category' href='/categories/challenges/'>Challenges</a>, <a class='category' href='/categories/f-/'>F#</a>, <a class='category' href='/categories/functional-programming/'>Functional Programming</a>, <a class='category' href='/categories/google/'>Google</a>, <a class='category' href='/categories/haskell/'>Haskell</a>
+    <a class='category' href='/categories/challenges/'>Challenges</a>, <a class='category' href='/categories/f-number/'>F#</a>, <a class='category' href='/categories/functional-programming/'>Functional Programming</a>, <a class='category' href='/categories/google/'>Google</a>, <a class='category' href='/categories/haskell/'>Haskell</a>
   
 </span>
 
@@ -303,7 +276,7 @@ In other words, my F# version smells like n00b. I&#8217;m sure there are so many
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://buffered.io/posts/an-interesting-little-problem/" data-via="TheColonial" data-counturl="http://buffered.io/posts/an-interesting-little-problem/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://buffered.io/posts/an-interesting-little-problem/" data-via="TheColonial" data-counturl="http://buffered.io/posts/an-interesting-little-problem/" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -317,7 +290,7 @@ In other words, my F# version smells like n00b. I&#8217;m sure there are so many
         <a class="basic-alignment left" href="/posts/be-part-of-a-world-record/" title="Previous Post: Be Part of a World Record">&laquo; Be Part of a World Record</a>
       
       
-        <a class="basic-alignment right" href="/posts/project-euler-7/" title="next Post: Project Euler #7">Project Euler #7 &raquo;</a>
+        <a class="basic-alignment right" href="/posts/project-euler-7/" title="Next Post: Project Euler #7">Project Euler #7 &raquo;</a>
       
     </p>
   </footer>
@@ -518,7 +491,7 @@ Copyright &copy; 2013 -
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     }());
 </script>
@@ -542,7 +515,7 @@ Copyright &copy; 2013 -
       var twitterWidgets = document.createElement('script');
       twitterWidgets.type = 'text/javascript';
       twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
       document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
     })();
   </script>

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Software | OJ's perspective]]></title>
   <link href="http://buffered.io/categories/software/atom.xml" rel="self"/>
   <link href="http://buffered.io/"/>
-  <updated>2013-12-21T20:54:15+10:00</updated>
+  <updated>2013-12-23T08:36:36+10:00</updated>
   <id>http://buffered.io/</id>
   <author>
     <name><![CDATA[OJ Reeves]]></name>
@@ -18,11 +18,11 @@
     <link href="http://buffered.io/posts/truncated-pages/"/>
     <updated>2010-02-05T21:42:00+10:00</updated>
     <id>http://buffered.io/posts/truncated-pages</id>
-    <content type="html"><![CDATA[<p>Not too long ago I mentioned that I'd <a href="http://buffered.io/posts/now-running-nginx/" title="Now Running Nginx">setup and installed Nginx</a> on this server. All seemed well to start off with, then on certain occasions I started to notice that some pages were being served truncated while I was at work. I thought that the issue was work-related, as they have a fairly draconian security policy in place and I thought that it had something to do with severing the connection.</p>
+    <content type="html"><![CDATA[<p>Not too long ago I mentioned that I&rsquo;d <a href="http://buffered.io/posts/now-running-nginx/" title="Now Running Nginx">setup and installed Nginx</a> on this server. All seemed well to start off with, then on certain occasions I started to notice that some pages were being served truncated while I was at work. I thought that the issue was work-related, as they have a fairly draconian security policy in place and I thought that it had something to do with severing the connection.</p>
 
-<p>This assumption was proved false a few days ago when I received an email about my <a href="http://buffered.io/posts/setting-up-trac-mercurial-and-ssh-on-windows/">Trac/Mercurial/SSH</a> post not rendering properly in someone else's browser. Dammit!</p>
+<p>This assumption was proved false a few days ago when I received an email about my <a href="http://buffered.io/posts/setting-up-trac-mercurial-and-ssh-on-windows/">Trac/Mercurial/SSH</a> post not rendering properly in someone else&rsquo;s browser. Dammit!</p>
 
-<p>So this time I actually did a bit of research by delving into the log files (yes, I know.. genius isn't it!) and determined that there was indeed a problem. Thankfully it was fairly simple to resolve. For some reason the <em>fastcgi</em> instances were failing to function periodically when attempting to access a folder on disk. In short, some of the temp folders were owned by the right user, and some of them weren't. After modifying the ownership of the appropriate folders, everything seems to be running nicely.</p>
+<p>So this time I actually did a bit of research by delving into the log files (yes, I know.. genius isn&rsquo;t it!) and determined that there was indeed a problem. Thankfully it was fairly simple to resolve. For some reason the <em>fastcgi</em> instances were failing to function periodically when attempting to access a folder on disk. In short, some of the temp folders were owned by the right user, and some of them weren&rsquo;t. After modifying the ownership of the appropriate folders, everything seems to be running nicely.</p>
 
 <p>Yet more proof that <a href="http://buffered.io/posts/the-admin-is-an-idiot/" title="The Admin is an Idiot">the admin is an idiot</a>.</p>
 
@@ -35,22 +35,22 @@
     <link href="http://buffered.io/posts/now-running-nginx/"/>
     <updated>2009-09-10T17:52:00+10:00</updated>
     <id>http://buffered.io/posts/now-running-nginx</id>
-    <content type="html"><![CDATA[<p><a href="http://buffered.io/uploads/2009/09/slow_snail.jpg" rel="lightbox"><img src="http://buffered.io/uploads/2009/09/slow_snail.jpg" alt="clarkson_face" title="clarkson_face" width="150" style="float: right; margin-bottom: 5px; margin-left: 5px;" /></a>For the last couple of years, the server which has powered this site (and a few other sites) has been running the free version of <a href="http://litespeedtech.com/" title="Litespeed">Litespeed</a> web server. After feeling the resource burden of <a href="http://httpd.apache.org/" title="Apache Httpd">Apache</a>, Litespeed was a breath of fresh air! The fact that the "full" version wasn't free didn't bother me, I was happy to stick with the standard edition as it seemed more than capable of handling the meagre traffic that this site generates.</p>
+    <content type="html"><![CDATA[<p><a href="http://buffered.io/uploads/2009/09/slow_snail.jpg" rel="lightbox"><img src="http://buffered.io/uploads/2009/09/slow_snail.jpg" alt="clarkson_face" title="clarkson_face" width="150" style="float: right; margin-bottom: 5px; margin-left: 5px;" /></a>For the last couple of years, the server which has powered this site (and a few other sites) has been running the free version of <a href="http://litespeedtech.com/" title="Litespeed">Litespeed</a> web server. After feeling the resource burden of <a href="http://httpd.apache.org/" title="Apache Httpd">Apache</a>, Litespeed was a breath of fresh air! The fact that the &ldquo;full&rdquo; version wasn&rsquo;t free didn&rsquo;t bother me, I was happy to stick with the standard edition as it seemed more than capable of handling the meagre traffic that this site generates.</p>
 
 <!--more-->
 
 
 <p>After a year or so of serving up content, it managed to handle a <a href="http://www.reddit.com/r/programming/comments/6ngfy/an_interesting_little_problem/" title="An Interesting Little Problem">couple</a> <a href="http://www.reddit.com/r/programming/comments/6tsbf/a_better_nub/" title="A better nub">of</a> <a href="http://www.reddit.com/r/haskell/comments/8whp6/pointfree_style_what_is_it_good_for/" title="Point-free style - What is it good for?">Reddit</a> <a href="http://www.reddit.com/r/haskell/comments/8v95i/data_crunching_in_haskell/" title="Data crunching in Haskell">submissions</a> without much of a bother! I was suitably impressed.</p>
 
-<p>But there comes a time when you can't help but wonder what else is out there. For me, that time came a little while ago when I boosted the number of plug-ins that I use on this site. Litespeed took longer to serve pages up and I couldn't help but notice it. I'm certainly not blaming Litespeed, because the obvious solution is to remove the plug-ins! But I didn't want to do that as those plug-ins provide features for this site that I don't want to lose. So my quest to find another web server began.</p>
+<p>But there comes a time when you can&rsquo;t help but wonder what else is out there. For me, that time came a little while ago when I boosted the number of plug-ins that I use on this site. Litespeed took longer to serve pages up and I couldn&rsquo;t help but notice it. I&rsquo;m certainly not blaming Litespeed, because the obvious solution is to remove the plug-ins! But I didn&rsquo;t want to do that as those plug-ins provide features for this site that I don&rsquo;t want to lose. So my quest to find another web server began.</p>
 
-<p>Then recently I started researching ideas for developing software in Erlang. I've been reading up on the language for quite a while and I'm getting to the point where I intend to build something. My first effort is going to be a web application that uses <a href="http://code.google.com/p/mochiweb/" title="Mochiweb">Mochiweb</a>, <a href="http://bitbucket.org/justin/webmachine/wiki/Home" title="Webmachine">Webmachine</a> and <a href="http://couchdb.apache.org/" title="CouchDB">CouchDB</a>. I know that at some point I'm going to want to have this thing run on the web so that other people can play with it and that would mean that I would have to have a web server available that could also route requests to my Erlang server. Of course, I want it to be <em>quick</em>.</p>
+<p>Then recently I started researching ideas for developing software in Erlang. I&rsquo;ve been reading up on the language for quite a while and I&rsquo;m getting to the point where I intend to build something. My first effort is going to be a web application that uses <a href="http://code.google.com/p/mochiweb/" title="Mochiweb">Mochiweb</a>, <a href="http://bitbucket.org/justin/webmachine/wiki/Home" title="Webmachine">Webmachine</a> and <a href="http://couchdb.apache.org/" title="CouchDB">CouchDB</a>. I know that at some point I&rsquo;m going to want to have this thing run on the web so that other people can play with it and that would mean that I would have to have a web server available that could also route requests to my Erlang server. Of course, I want it to be <em>quick</em>.</p>
 
-<p><a href="http://buffered.io/uploads/2009/09/clarkson_face.jpg" rel="lightbox"><img src="http://buffered.io/uploads/2009/09/clarkson_face.jpg" alt="clarkson_face" title="clarkson_face" width="150" style="float: left; margin-bottom: 5px; margin-right: 5px;" /></a>So after a bit of deliberation and research, I followed the footsteps of some big players and ended up installing <a href="http://nginx.net/" title="Nginx">Nginx</a> (which I believe is pronounced <em>"Engine-X"</em>). I kid you not, this thing is amazing! I'm not going to give a full review of it here because I haven't used it enough to know how good it is. But the speed-up for this site in particular is obvious (at least for me).</p>
+<p><a href="http://buffered.io/uploads/2009/09/clarkson_face.jpg" rel="lightbox"><img src="http://buffered.io/uploads/2009/09/clarkson_face.jpg" alt="clarkson_face" title="clarkson_face" width="150" style="float: left; margin-bottom: 5px; margin-right: 5px;" /></a>So after a bit of deliberation and research, I followed the footsteps of some big players and ended up installing <a href="http://nginx.net/" title="Nginx">Nginx</a> (which I believe is pronounced <em>&ldquo;Engine-X&rdquo;</em>). I kid you not, this thing is amazing! I&rsquo;m not going to give a full review of it here because I haven&rsquo;t used it enough to know how good it is. But the speed-up for this site in particular is obvious (at least for me).</p>
 
-<p>My mate Dan's <a href="http://shiftperception.com/blog/" title="Shiftperception">site</a> <strong>absolutely flies</strong>!</p>
+<p>My mate Dan&rsquo;s <a href="http://shiftperception.com/blog/" title="Shiftperception">site</a> <strong>absolutely flies</strong>!</p>
 
-<p>On the whole, <a href="http://wiki.nginx.org/Main" title="Nginx wiki">Nginx</a> gets a huge thumbs up from me thus far. If you're looking for a speedy web server that can do reverse proxying, dish up static content like a maniac and handle forwarding of requests to a variety of other servers then you should seriously consider taking a look at Nginx.</p>
+<p>On the whole, <a href="http://wiki.nginx.org/Main" title="Nginx wiki">Nginx</a> gets a huge thumbs up from me thus far. If you&rsquo;re looking for a speedy web server that can do reverse proxying, dish up static content like a maniac and handle forwarding of requests to a variety of other servers then you should seriously consider taking a look at Nginx.</p>
 
 <p>Thank you, <a href="http://sysoev.ru/en/" title="Igor Sysoev">Igor</a>!</p>
 ]]></content>
@@ -61,7 +61,7 @@
     <link href="http://buffered.io/posts/setting-up-trac-mercurial-and-ssh-on-windows/"/>
     <updated>2009-05-16T17:43:00+10:00</updated>
     <id>http://buffered.io/posts/setting-up-trac-mercurial-and-ssh-on-windows</id>
-    <content type="html"><![CDATA[<p><strong>WARNING - This blog post is long :)</strong>
+    <content type="html"><![CDATA[<p><strong>WARNING &ndash; This blog post is long :)</strong>
 <em>This post has been edited since it was published. Please see the end of the article for any notes/modifications</em></p>
 
 <h3>Some Background Info</h3>
@@ -69,37 +69,37 @@
 
 <p>I had the need to do this for work recently. It was nothing short of a right royal pain in the butt. It was such a pain, in fact, that I have decided to document what I had to do to get it working so that other poor unfortunates will feel less pain if they have to do this themselves.</p>
 
-<p>Almost regardless of the company and the software I'm working on, I use <a href="http://www.selenic.com/mercurial/" title="Mercurial">Mercurial</a> for source code control. For the work I am doing at the moment, I was also using hg because the company I am involved with is relatively new and they hadn't yet sorted out a plan for version control or <acronym title="Application Lifecycle Management">ALM</acronym>. It was working quite well and I was pushing all my changes to my <a href="http://www.google.com.au/url?q=http://www.buffalotech.com/products/network-storage/terastation/terastation-iii/&ei=fioOSuLvGpu8swPl56zqAg&sa=X&oi=smap&resnum=1&ct=result&cd=2&usg=AFQjCNHXKMchy5tR-a-jMOFAbtxoWzfedA" title="Terastation">NAS box</a> to make sure I had other copies backed up, etc. I was <em>living the dream</em> :)</p>
+<p>Almost regardless of the company and the software I&rsquo;m working on, I use <a href="http://www.selenic.com/mercurial/" title="Mercurial">Mercurial</a> for source code control. For the work I am doing at the moment, I was also using hg because the company I am involved with is relatively new and they hadn&rsquo;t yet sorted out a plan for version control or <acronym title="Application Lifecycle Management">ALM</acronym>. It was working quite well and I was pushing all my changes to my <a href="http://www.google.com.au/url?q=http://www.buffalotech.com/products/network-storage/terastation/terastation-iii/&ei=fioOSuLvGpu8swPl56zqAg&sa=X&oi=smap&resnum=1&ct=result&cd=2&usg=AFQjCNHXKMchy5tR-a-jMOFAbtxoWzfedA" title="Terastation">NAS box</a> to make sure I had other copies backed up, etc. I was <em>living the dream</em> :)</p>
 
 <!--more-->
 
 
-<p>The problem, though, was that this setup was working fine for me as a sole developer, but wasn't solving the problem for the other developers. There are two other people involved in development, and until now most of the work they have been doing has been in a different area to the bits I have been doing. Sharing and merging code was done by email patches. Those developers weren't using version control as far as I'm aware.</p>
+<p>The problem, though, was that this setup was working fine for me as a sole developer, but wasn&rsquo;t solving the problem for the other developers. There are two other people involved in development, and until now most of the work they have been doing has been in a different area to the bits I have been doing. Sharing and merging code was done by email patches. Those developers weren&rsquo;t using version control as far as I&rsquo;m aware.</p>
 
-<p>So given the volume of changes and the number of merges that were happening, it was well past time to get something proper in place that we could all use. The original plan was to go with an installation of <a href="http://en.wikipedia.org/wiki/Team_Foundation_Server" title="Team Foundation Server">TFS</a> to handle all of these issues for us. Personally, I am not a huge fan of TFS. The experience I've had with it so far hasn't been great. It also has a shocking effect on the speed of my IDE (I seem to have no choice but to use integration with the IDE, which again isn't great).</p>
+<p>So given the volume of changes and the number of merges that were happening, it was well past time to get something proper in place that we could all use. The original plan was to go with an installation of <a href="http://en.wikipedia.org/wiki/Team_Foundation_Server" title="Team Foundation Server">TFS</a> to handle all of these issues for us. Personally, I am not a huge fan of TFS. The experience I&rsquo;ve had with it so far hasn&rsquo;t been great. It also has a shocking effect on the speed of my IDE (I seem to have no choice but to use integration with the IDE, which again isn&rsquo;t great).</p>
 
-<p>To cut this part of the story short, we had issues getting TFS to work. We tried installing a few times, tweaking here and there, but we never managed to get it to work. I know I could have called a TFS guru, such as <a href="http://stevennagy.spaces.live.com/" title="Steven Nagy">Snagy</a> to pick his brains and perhaps ask him nicely to help out, but he's a busy man and there's no guarantee that we wouldn't have to start again from scratch. I wasn't really up for that, and neither was my boss.</p>
+<p>To cut this part of the story short, we had issues getting TFS to work. We tried installing a few times, tweaking here and there, but we never managed to get it to work. I know I could have called a TFS guru, such as <a href="http://stevennagy.spaces.live.com/" title="Steven Nagy">Snagy</a> to pick his brains and perhaps ask him nicely to help out, but he&rsquo;s a busy man and there&rsquo;s no guarantee that we wouldn&rsquo;t have to start again from scratch. I wasn&rsquo;t really up for that, and neither was my boss.</p>
 
-<p>So I told him that I thought it might just be easier to get a server running with Mercurial for the version control, and <a href="http://trac.edgewall.org/" title="The Trac Project">Trac</a> for issue tracking and project "stuff". Not only would it mean that I could just push my local repository to the server and have the entire history transferred (TFS would have been latest version only) but it would save us a substantial cost in license fees, remove the need for VS integration, and everyone could be up and running with a <acronym title="Distributed Version Control System">DVCS</acronym> in no time.</p>
+<p>So I told him that I thought it might just be easier to get a server running with Mercurial for the version control, and <a href="http://trac.edgewall.org/" title="The Trac Project">Trac</a> for issue tracking and project &ldquo;stuff&rdquo;. Not only would it mean that I could just push my local repository to the server and have the entire history transferred (TFS would have been latest version only) but it would save us a substantial cost in license fees, remove the need for VS integration, and everyone could be up and running with a <acronym title="Distributed Version Control System">DVCS</acronym> in no time.</p>
 
 <p>My boss, being the legend he is, gave me the thumbs up! Awesome.</p>
 
-<p>So the rest of this post is dedicated to what was involved in getting things set up. If you're not interested, then go read <a href="http://buffered.io/?random" title="Random post">something else</a> :)</p>
+<p>So the rest of this post is dedicated to what was involved in getting things set up. If you&rsquo;re not interested, then go read <a href="http://buffered.io/?random" title="Random post">something else</a> :)</p>
 
 <h3>The need for a bit of security</h3>
 
 
-<p>Needless to say, the <acronym title="Intellectual Property">IP</acronym> that we're building is something that my employer is rather protective of! And rightly so. Hence it won't come as a surprise to hear that security of this information is very important. I decided that having Mercurial run over plan old HTTP would be a bad idea. I was keen to have it tunnel via SSH, and have all clients authenticate using their own private keys. Hence, getting an SSH server was going to be part of the setup.</p>
+<p>Needless to say, the <acronym title="Intellectual Property">IP</acronym> that we&rsquo;re building is something that my employer is rather protective of! And rightly so. Hence it won&rsquo;t come as a surprise to hear that security of this information is very important. I decided that having Mercurial run over plan old HTTP would be a bad idea. I was keen to have it tunnel via SSH, and have all clients authenticate using their own private keys. Hence, getting an SSH server was going to be part of the setup.</p>
 
 <h3>Web server</h3>
 
 
-<p>IIS is already installed on the server, and running another web server seemed like overkill. I didn't want to expose <a href="http://trac.edgewall.org/wiki/TracStandalone" title="Trac Standalone">tracd</a> directly over the web as it doesn't support SSL, so I wanted to get it running under IIS instead. This added another little bit of complexity to the install.</p>
+<p>IIS is already installed on the server, and running another web server seemed like overkill. I didn&rsquo;t want to expose <a href="http://trac.edgewall.org/wiki/TracStandalone" title="Trac Standalone">tracd</a> directly over the web as it doesn&rsquo;t support SSL, so I wanted to get it running under IIS instead. This added another little bit of complexity to the install.</p>
 
 <h3>What to download</h3>
 
 
-<p>There were quite a few bits that I needed to download to get this working, they're listed below. At first it might not be obvious as to why these things are needed, just trust me :)</p>
+<p>There were quite a few bits that I needed to download to get this working, they&rsquo;re listed below. At first it might not be obvious as to why these things are needed, just trust me :)</p>
 
 <p>First, server-side components:</p>
 
@@ -127,7 +127,7 @@
 </ol>
 
 
-<p>Quite a lot isn't it :)</p>
+<p>Quite a lot isn&rsquo;t it :)</p>
 
 <h3>Server: Setting up the Python Environment</h3>
 
@@ -158,7 +158,7 @@
 </ol>
 
 
-<p>The Mercurial client is now installed. Later on when installing Trac and getting it to work with Mercurial, I had issues because the Mercurial doesn't install the Mercurial bindings for Python. No only that, trying to use <em>easy_install</em> to install it didn't work because I didn't have Visual Studio 2003 installed on the server (nor did I want to install it!). It turns out that you can get round the issue by doing this:</p>
+<p>The Mercurial client is now installed. Later on when installing Trac and getting it to work with Mercurial, I had issues because the Mercurial doesn&rsquo;t install the Mercurial bindings for Python. No only that, trying to use <em>easy_install</em> to install it didn&rsquo;t work because I didn&rsquo;t have Visual Studio 2003 installed on the server (nor did I want to install it!). It turns out that you can get round the issue by doing this:</p>
 
 <ol>
   <li>Go to the Mercurial installation folder using Windows Explorer.</li>
@@ -170,12 +170,12 @@
 </ol>
 
 
-<p>Done! You've just "installed" the Mercurial bindings for Python. Later down the track, Trac will not crap out when you try and use it!</p>
+<p>Done! You&rsquo;ve just &ldquo;installed&rdquo; the Mercurial bindings for Python. Later down the track, Trac will not crap out when you try and use it!</p>
 
 <h3>Server: Setting up TracMercurial</h3>
 
 
-<p>Given that we're using Mercurial for the back-end version control, we're going to need to set up and install the Mercurial plugin for Trac. This is where the need for <acronym title="Subversion">SVN</acronym> comes in. Yes, it's ironic that you need SVN to get something working with Mercurial! Just do it, ok!?</p>
+<p>Given that we&rsquo;re using Mercurial for the back-end version control, we&rsquo;re going to need to set up and install the Mercurial plugin for Trac. This is where the need for <acronym title="Subversion">SVN</acronym> comes in. Yes, it&rsquo;s ironic that you need SVN to get something working with Mercurial! Just do it, ok!?</p>
 
 <ol>
   <li>Execute the Subversion installer and let it go through with the default installation.</li>
@@ -188,9 +188,9 @@
 </ol>
 
 
-<p>The TracMercurial plug-in is now installed. We'll need to configure it slightly when we've installed Trac. That information is listed in the next section.</p>
+<p>The TracMercurial plug-in is now installed. We&rsquo;ll need to configure it slightly when we&rsquo;ve installed Trac. That information is listed in the next section.</p>
 
-<p>Next we need to create a repository which will be used to house our source code. We'll pretend we're creating a project called "Slartibartfast".</p>
+<p>Next we need to create a repository which will be used to house our source code. We&rsquo;ll pretend we&rsquo;re creating a project called &ldquo;Slartibartfast&rdquo;.</p>
 
 <ol>
   <li>Create a new folder on the file system somewhere meaningful, such as <strong>C:\Repos</strong>.</li>
@@ -206,7 +206,7 @@
 <h3>Server: Setting up Trac</h3>
 
 
-<p>We'll start with the basic install:</p>
+<p>We&rsquo;ll start with the basic install:</p>
 
 <ol>
   <li>Execute the Trac installer.</li>
@@ -215,9 +215,9 @@
 </ol>
 
 
-<p>At this point it's a good idea to also add the <em>scripts</em> folder to the system PATH. This gives us the ability to run Python scripts from anywhere.</p>
+<p>At this point it&rsquo;s a good idea to also add the <em>scripts</em> folder to the system PATH. This gives us the ability to run Python scripts from anywhere.</p>
 
-<p>Next up, let's create a Trac project for our Slartitbartfast project.</p>
+<p>Next up, let&rsquo;s create a Trac project for our Slartitbartfast project.</p>
 
 <ol>
   <li>Create a folder to house your Trac projects, say <strong>C:\Trac</strong></li>
@@ -228,7 +228,7 @@
 </ol>
 
 
-<p>  You need to fill out some values as it asks for them. Here's a sample interactive session that I did as a test run:</p>
+<p>  You need to fill out some values as it asks for them. Here&rsquo;s a sample interactive session that I did as a test run:</p>
 
 <pre><code>C:\Trac\Slartibartfast&gt;trac-admin . initenv
 Creating a new Trac environment at C:\Trac\Slartibartfast
@@ -309,16 +309,16 @@ website:
 Congratulations!
 </code></pre>
 
-<p>You may notice the message: <em>Warning: couldn't index the repository.</em>
-Don't be too concerned at this point, as we need to do a bit more to make sure that the Mercurial stuff is working.</p>
+<p>You may notice the message: <em>Warning: couldn&rsquo;t index the repository.</em>
+Don&rsquo;t be too concerned at this point, as we need to do a bit more to make sure that the Mercurial stuff is working.</p>
 
-<p>Now we should test to make sure we're able to start the Trac daemon and see if the project site has been set up. We do that by executing the statement they suggested in the output:
-<strong>tracd --port 8000 C:\TracProjects\Slartibartfast</strong>
-Then we browse to <a href="http://localhost:8000">http://localhost:8000</a> to see if it works! If all goes well you should see a project listing. Click on Slartibartfast and you should see something like this:</p>
+<p>Now we should test to make sure we&rsquo;re able to start the Trac daemon and see if the project site has been set up. We do that by executing the statement they suggested in the output:
+<strong>tracd &mdash;port 8000 C:\TracProjects\Slartibartfast</strong>
+Then we browse to <a href="http://localhost:8000"><a href="http://localhost:8000">http://localhost:8000</a></a> to see if it works! If all goes well you should see a project listing. Click on Slartibartfast and you should see something like this:</p>
 
 <p><a href="http://buffered.io/uploads/2009/05/trac_1.png"><img src="http://buffered.io/uploads/2009/05/trac_1.png" alt="Trac Project Page - with error." title="Trac Project Page - with error." width="640" height="347" /></a></p>
 
-<p>Trac is telling us why it's not able to index the repository, it's because we haven't enabled the plug-in yet. Let's do that now.</p>
+<p>Trac is telling us why it&rsquo;s not able to index the repository, it&rsquo;s because we haven&rsquo;t enabled the plug-in yet. Let&rsquo;s do that now.</p>
 
 <p>Open up the <em>Trac.ini</em> file which is located inside the <em>conf</em> folder under the main project folder (eg <em>C:\Trac\Slartibartfast\conf\Trac.ini</em>).</p>
 
@@ -343,18 +343,18 @@ tracext.hg.backend.hgextpropertyrenderer = enabled
 tracext.hg.backend.mercurialconnector = enabled
 </code></pre>
 
-<p><em>Note:</em>Make sure that the <kbd>[hg]</kbd> and <kbd>[components]</kbd> sections don't already exist. If they do, then add the respective lines to the existing sections rather than creating new ones. For a fresh install, these sections shouldn't already exist, so you should be safe to add them.</p>
+<p><em>Note:</em>Make sure that the <kbd>[hg]</kbd> and <kbd>[components]</kbd> sections don&rsquo;t already exist. If they do, then add the respective lines to the existing sections rather than creating new ones. For a fresh install, these sections shouldn&rsquo;t already exist, so you should be safe to add them.</p>
 
 <p>Kill the tracd instance by press CTRL+C, then restart it (press the up arrow, then enter). Refresh your browser window and this time you should see this:</p>
 
 <p><a href="http://buffered.io/uploads/2009/05/trac_2.png"><img src="http://buffered.io/uploads/2009/05/trac_2.png" alt="Trac Project Page - without error." title="Trac Project Page - without error." width="640" height="372" /></a></p>
 
-<p>Excellent, our project is up and our repository is able to be read. We're done!</p>
+<p>Excellent, our project is up and our repository is able to be read. We&rsquo;re done!</p>
 
 <h3>Server: Setting up the Trac Daemon as a Service</h3>
 
 
-<p>The tracd needs to run as a service. This is to make sure it's always running in a way that IIS can reference it. Given that we're later going to be hooking this up to IIS, we need to make sure it uses the <a href="http://tomcat.apache.org/connectors-doc/ajp/ajpv13a.html" title="AJP Reference">AJP</a> protocol. Here are the required steps:</p>
+<p>The tracd needs to run as a service. This is to make sure it&rsquo;s always running in a way that IIS can reference it. Given that we&rsquo;re later going to be hooking this up to IIS, we need to make sure it uses the <a href="http://tomcat.apache.org/connectors-doc/ajp/ajpv13a.html" title="AJP Reference">AJP</a> protocol. Here are the required steps:</p>
 
 <ol>
   <li>Install the Windows 2003 resource kit.</li>
@@ -376,16 +376,16 @@ tracext.hg.backend.mercurialconnector = enabled
 </ol>
 
 
-<p>If you get the same site as you did before, then all is going well. If not, then you revisit the steps to make sure you haven't missed anything out and that your pointing to the right location of the trac project.</p>
+<p>If you get the same site as you did before, then all is going well. If not, then you revisit the steps to make sure you haven&rsquo;t missed anything out and that your pointing to the right location of the trac project.</p>
 
-<p>Now that we know this works, we need to change the <strong>AppParameters</strong> value in the registry so that Trac fires up using the appropriate protocol. Edit the value, and append the following to the end of the existing value: <strong>--protocol=ajp</strong> - this forces the use of AJP. AJP's default port is 8009, which is why we chose this value in the first place.</p>
+<p>Now that we know this works, we need to change the <strong>AppParameters</strong> value in the registry so that Trac fires up using the appropriate protocol. Edit the value, and append the following to the end of the existing value: <strong>&mdash;protocol=ajp</strong> &ndash; this forces the use of AJP. AJP&rsquo;s default port is 8009, which is why we chose this value in the first place.</p>
 
-<p>Restart the Trac service. If you attempt to browse to the site now you won't get anything meaningful, but it's ready to be talked to from IIS, which brings us to the next step.</p>
+<p>Restart the Trac service. If you attempt to browse to the site now you won&rsquo;t get anything meaningful, but it&rsquo;s ready to be talked to from IIS, which brings us to the next step.</p>
 
 <h3>Server: Setting up Apache Tomcat ISS ISAPI Filter in IIS 6.</h3>
 
 
-<p>To get IIS to talk to Trac, we need to add an ISAPI filter that's able to translate to the AJP protocol. This is what we'll be doing in this section.</p>
+<p>To get IIS to talk to Trac, we need to add an ISAPI filter that&rsquo;s able to translate to the AJP protocol. This is what we&rsquo;ll be doing in this section.</p>
 
 <p>First, we prepare the filter for use:</p>
 
@@ -432,7 +432,7 @@ You'll notice that the project name is what I've used here. Down the track if yo
 </ol>
 
 
-<p>Next we need to install the ISAPI filter in IIS so that it can get used. Feel free to do this on the default website if you like. I created another website in IIS running on a different port, but you don't have to. Any time I refer to <em>the website</em> I'm referring to the site you have decided to install the filter on.</p>
+<p>Next we need to install the ISAPI filter in IIS so that it can get used. Feel free to do this on the default website if you like. I created another website in IIS running on a different port, but you don&rsquo;t have to. Any time I refer to <em>the website</em> I&rsquo;m referring to the site you have decided to install the filter on.</p>
 
 <p>We need to enable the filter as a web service extension first. To do that, we follow these steps:</p>
 
@@ -476,7 +476,7 @@ You'll notice that the project name is what I've used here. Down the track if yo
 </ol>
 
 
-<p>You may have noticed that in the <strong>isapi_redirect.properties</strong> file we specified an <em>extension_uri</em> property. This property specifies the path to use to get to the <strong>isapi_redirect.dll</strong> file via IIS. Notice how it's also a relative path from the root folder. Hence we need to create a virtual directory which maps to the same path.</p>
+<p>You may have noticed that in the <strong>isapi_redirect.properties</strong> file we specified an <em>extension_uri</em> property. This property specifies the path to use to get to the <strong>isapi_redirect.dll</strong> file via IIS. Notice how it&rsquo;s also a relative path from the root folder. Hence we need to create a virtual directory which maps to the same path.</p>
 
 <ol>
   <li>In IIS manager right-click on the website and select "New" then "Virtual Directory...".</li>
@@ -484,30 +484,30 @@ You'll notice that the project name is what I've used here. Down the track if yo
 </ol>
 
 
-<p>Restart IIS. The quickest way to do this is to type <strong>iisreset</strong> into a command prompt or into the "Run" dialog.</p>
+<p>Restart IIS. The quickest way to do this is to type <strong>iisreset</strong> into a command prompt or into the &ldquo;Run&rdquo; dialog.</p>
 
-<p>It's best at this point to make sure that the ISAPI filter has been loaded. To do this, simply open up the IIS manager again and browser to the sites "ISAPI Filters" tab. If all is working, then you should see something like this:</p>
+<p>It&rsquo;s best at this point to make sure that the ISAPI filter has been loaded. To do this, simply open up the IIS manager again and browser to the sites &ldquo;ISAPI Filters&rdquo; tab. If all is working, then you should see something like this:</p>
 
 <p><img src="http://buffered.io/uploads/2009/05/iis_isapi.png" alt="Working IIS ISAPI Filter" title="Working IIS ISAPI Filter" /></p>
 
-<p>Notice the green arrow. If it's red and pointing downwards, then something is wrong. You need to make sure you have followed the above steps correctly. Double-check the security of the folders and make sure executables are enabled on your site.</p>
+<p>Notice the green arrow. If it&rsquo;s red and pointing downwards, then something is wrong. You need to make sure you have followed the above steps correctly. Double-check the security of the folders and make sure executables are enabled on your site.</p>
 
 <p>If all is well then we can test it! Make sure your Trac service is running, then open a browser and navigate to your local IIS website. You should see the Trac Project website for Slartibartfast appear in your browswer. Yay!</p>
 
-<p>It's now very easy to change IIS to function over HTTPS instead of HTTP. That's beyond the scope of this article as there are hundreds of blog entries and how-tos out there already.</p>
+<p>It&rsquo;s now very easy to change IIS to function over HTTPS instead of HTTP. That&rsquo;s beyond the scope of this article as there are hundreds of blog entries and how-tos out there already.</p>
 
 <h3>Server: Setting up CopSSH</h3>
 
 
-<p>This is the final step! We need to give people access to the Mercurial repositories over SSH. For that we need to set up a functional SSH server and give them access to the repository path. On the surface these both seem like easy jobs. Unfortunately setting up SSH servers on Windows isn't pleasant and pointing everyone's home folders at a certain repository is not something that comes out of the box in Windows.</p>
+<p>This is the final step! We need to give people access to the Mercurial repositories over SSH. For that we need to set up a functional SSH server and give them access to the repository path. On the surface these both seem like easy jobs. Unfortunately setting up SSH servers on Windows isn&rsquo;t pleasant and pointing everyone&rsquo;s home folders at a certain repository is not something that comes out of the box in Windows.</p>
 
-<p>What we need to do is use the CopSSH installer to help with the "easy" installation of SSH. Then we need to use a program like Junction to provdie symbolic-link style functionality to the user's folders.</p>
+<p>What we need to do is use the CopSSH installer to help with the &ldquo;easy&rdquo; installation of SSH. Then we need to use a program like Junction to provdie symbolic-link style functionality to the user&rsquo;s folders.</p>
 
-<p>First up, run the CopSSH installer program. Follow all of the prompts and feel free to use the default installation. That was easy wasn't it! It should install an SSH server service for you. I found it quite hard to locate in the Service Management dialog, but eventually found it under the name "Openssh SSHD".</p>
+<p>First up, run the CopSSH installer program. Follow all of the prompts and feel free to use the default installation. That was easy wasn&rsquo;t it! It should install an SSH server service for you. I found it quite hard to locate in the Service Management dialog, but eventually found it under the name &ldquo;Openssh SSHD&rdquo;.</p>
 
-<p>CopSSH comes with utilities which help you manage users. Those utilities are all in the programs menu and are easy to use. For me, those utilities weren't enough, because I knew that I was going to have to make sure that the folder links were set up on creation of user accounts and removed when those accounts were deleted.</p>
+<p>CopSSH comes with utilities which help you manage users. Those utilities are all in the programs menu and are easy to use. For me, those utilities weren&rsquo;t enough, because I knew that I was going to have to make sure that the folder links were set up on creation of user accounts and removed when those accounts were deleted.</p>
 
-<p>It's a good move at this point to download Junction, if you haven't already, and put it in an easy to reach location. Feel free to add it to it's own folder or to system32. It's up to you. I'll assume you've put it in <strong>C:\tools</strong>.</p>
+<p>It&rsquo;s a good move at this point to download Junction, if you haven&rsquo;t already, and put it in an easy to reach location. Feel free to add it to it&rsquo;s own folder or to system32. It&rsquo;s up to you. I&rsquo;ll assume you&rsquo;ve put it in <strong>C:\tools</strong>.</p>
 
 <p>I then created two scripts. The first lets you add users. It looks like this:</p>
 
@@ -516,12 +516,12 @@ You'll notice that the project name is what I've used here. Down the track if yo
 C:\tools\junction.exe "C:\Program Files\ICW\home\%1\Slartibartfast" C:\Repos\Slartibartfast
 </code></pre>
 
-<p>The first line of this file executes the user activation feature of CopSSH. It creates a new user from a local security login (so the users need to be accessible in Active Directory or in the local security set up). It creates a home folder for them and also creates a public/private key pair which it stores in their home folder as well. The keys have the passphrase that is passed to the script on the command line and will be used by the users to SSH in and commit changes to the repository. The public key for the user is added to the server as a recognised key which can be used to log in so we don't have to specify it manually.</p>
+<p>The first line of this file executes the user activation feature of CopSSH. It creates a new user from a local security login (so the users need to be accessible in Active Directory or in the local security set up). It creates a home folder for them and also creates a public/private key pair which it stores in their home folder as well. The keys have the passphrase that is passed to the script on the command line and will be used by the users to SSH in and commit changes to the repository. The public key for the user is added to the server as a recognised key which can be used to log in so we don&rsquo;t have to specify it manually.</p>
 
-<p>The second line of the script executes the Junction program and links a folder called "Slartibartfast", located in the user's home folder, to the folder where the repository is stored.</p>
+<p>The second line of the script executes the Junction program and links a folder called &ldquo;Slartibartfast&rdquo;, located in the user&rsquo;s home folder, to the folder where the repository is stored.</p>
 
 <p>To execute the script simply run: <strong>adduser.bat [username] [passphrase]</strong>.
-Please note that during my testing, I wasn't able to use a passphrase that had spaces. This isn't due to a bug in the script. Even if you replace <em>--passphrase %2</em> with <em>--passphrase "%2"</em> it still doesn't work. It also doesn't work in the user interface tools. This appears to be a bug in CopSSH. This isn't a big issue though, just make sure you don't have spaces in your passphrase and you should be fine.</p>
+Please note that during my testing, I wasn&rsquo;t able to use a passphrase that had spaces. This isn&rsquo;t due to a bug in the script. Even if you replace <em>&mdash;passphrase %2</em> with <em>&mdash;passphrase &ldquo;%2&rdquo;</em> it still doesn&rsquo;t work. It also doesn&rsquo;t work in the user interface tools. This appears to be a bug in CopSSH. This isn&rsquo;t a big issue though, just make sure you don&rsquo;t have spaces in your passphrase and you should be fine.</p>
 
 <p>The second script is for removing users, it looks like this:</p>
 
@@ -530,18 +530,18 @@ C:\tools\junction.exe -d "C:\Program Files\ICW\home\%1\Slartibartfast"
 "C:\Program Files\ICW\Bin\copsshadm.exe" --command deactivateuser --user %1
 </code></pre>
 
-<p>It's obvious what this does. First it removes the symbolic link in the user's folder, then it uses CopSSH's command line tools to remove them as a valid user from the SSH server.</p>
+<p>It&rsquo;s obvious what this does. First it removes the symbolic link in the user&rsquo;s folder, then it uses CopSSH&rsquo;s command line tools to remove them as a valid user from the SSH server.</p>
 
 <p>Before you assume that everything at this point is ready to rock, you may need to make sure that your firewall is updated so that the SSH port, 22, is open.</p>
 
-<p>Congratulations, you are now finished with the server set up. Now let's get the clients working. Before you go to the next step, make sure you add a user!</p>
+<p>Congratulations, you are now finished with the server set up. Now let&rsquo;s get the clients working. Before you go to the next step, make sure you add a user!</p>
 
 <h3>Client: Setting up PuTTy</h3>
 
 
-<p>The first bit is easy, make sure that you've installed the PuTTy program and added the install path to the system's PATH environment variable.</p>
+<p>The first bit is easy, make sure that you&rsquo;ve installed the PuTTy program and added the install path to the system&rsquo;s PATH environment variable.</p>
 
-<p>Take a copy of the user's private key. This is generated by CopSSH and should be sitting in the user's home folder on the server. The key is usually called <strong>[username].key</strong>. Put the key on your local machine. We need to convert this key into a format that PuTTy can use.</p>
+<p>Take a copy of the user&rsquo;s private key. This is generated by CopSSH and should be sitting in the user&rsquo;s home folder on the server. The key is usually called <strong>[username].key</strong>. Put the key on your local machine. We need to convert this key into a format that PuTTy can use.</p>
 
 <ol>
   <li>Fire up the puttygen.exe utility. It comes with the PuTTy program. Simply type "puttygen" into the Run dialog box and it should come up if you've added the install folder to the system PATH.</li>
@@ -579,11 +579,11 @@ Just press "OK".</li>
 <h3>Client: Setting up Mercurial</h3>
 
 
-<p>If you haven't already, make sure you install Mercurial on the client machine using the default settings. Make sure you tell the installer to add the Mercurial path to the system PATH.</p>
+<p>If you haven&rsquo;t already, make sure you install Mercurial on the client machine using the default settings. Make sure you tell the installer to add the Mercurial path to the system PATH.</p>
 
-<p>The last step of configuration for the client is to tell Mercurial to use the PuTTy tools when using SSH. Mercurial can be configured by a user-specific configuration file called <em>.hgrc</em>. On Windows it can also be called <em>Mercurial.ini</em>. The file is located in your home folder. If you don't know what your home folder is, simply open a command prompt and type <strong>echo %USERPROFILE%</strong> - this will tell you the path.</p>
+<p>The last step of configuration for the client is to tell Mercurial to use the PuTTy tools when using SSH. Mercurial can be configured by a user-specific configuration file called <em>.hgrc</em>. On Windows it can also be called <em>Mercurial.ini</em>. The file is located in your home folder. If you don&rsquo;t know what your home folder is, simply open a command prompt and type <strong>echo %USERPROFILE%</strong> &ndash; this will tell you the path.</p>
 
-<p>If you haven't set up your configuration yet, then chances are the configuration file doesn't exist. So you'll have to create it. Create a file call either <em>.hgrc</em> or <em>Mercurial.ini</em> in your home folder manually, and open it in a text editor. Here is what part of mine looks like:</p>
+<p>If you haven&rsquo;t set up your configuration yet, then chances are the configuration file doesn&rsquo;t exist. So you&rsquo;ll have to create it. Create a file call either <em>.hgrc</em> or <em>Mercurial.ini</em> in your home folder manually, and open it in a text editor. Here is what part of mine looks like:</p>
 
 <pre><code>[ui]
 username = OJ Reeves &lt;put your email here in the angle brackets&gt;
@@ -606,11 +606,11 @@ ssh = plink -ssh -i "C:/path/to/key/id_rsa.ppk" -C -agent
 <h3>Finale</h3>
 
 
-<p>It took a while, but we got there in the end. Let's give our new-found Mercurial SSH server a spin. This should be easy as opening a command prompt at the appropriate location on disk and typing:</p>
+<p>It took a while, but we got there in the end. Let&rsquo;s give our new-found Mercurial SSH server a spin. This should be easy as opening a command prompt at the appropriate location on disk and typing:</p>
 
 <p><strong>hg clone ssh://url.to.your.server.com/Slartibartfast</strong></p>
 
-<p>If everything has been configured properly, you should see Mercurial create a local folder called <strong>Slartibartfast</strong> which contains the repository. Of course, there won't be much in it because you've only created it recently! But you should be able to start using Mercurial to commit changes and push the committed changesets to the server just by running <strong>hg push</strong>.</p>
+<p>If everything has been configured properly, you should see Mercurial create a local folder called <strong>Slartibartfast</strong> which contains the repository. Of course, there won&rsquo;t be much in it because you&rsquo;ve only created it recently! But you should be able to start using Mercurial to commit changes and push the committed changesets to the server just by running <strong>hg push</strong>.</p>
 
 <h3>The End</h3>
 
@@ -624,13 +624,13 @@ ssh = plink -ssh -i "C:/path/to/key/id_rsa.ppk" -C -agent
 <hr />
 
 
-<p><strong>Edit 11/06/2009 :</strong> I've been using this set up for a little while and I'm now aware of an issue that I'm not currently able to get around (moreso because I can't be bothered trying to!). The issue is that you have <em>any</em> files added to the Trac system which have file names containing characters which change when URL encoded (such as spaces, which become %20 for example) the you won't be able to view them through the web interface. That goes for files attached to wiki pages, and sources files viewed in the source browser. If you have a file called "My Doc.doc" behind the scenes this setup results calls being made with the file name "My%20Doc.doc", which doesn't exist! Just be warned. If you're going to use this setup, don't add files to your source or to the wiki that contain spaces or odd characters. :)</p>
+<p><strong>Edit 11/06/2009 :</strong> I&rsquo;ve been using this set up for a little while and I&rsquo;m now aware of an issue that I&rsquo;m not currently able to get around (moreso because I can&rsquo;t be bothered trying to!). The issue is that you have <em>any</em> files added to the Trac system which have file names containing characters which change when URL encoded (such as spaces, which become %20 for example) the you won&rsquo;t be able to view them through the web interface. That goes for files attached to wiki pages, and sources files viewed in the source browser. If you have a file called &ldquo;My Doc.doc&rdquo; behind the scenes this setup results calls being made with the file name &ldquo;My%20Doc.doc&rdquo;, which doesn&rsquo;t exist! Just be warned. If you&rsquo;re going to use this setup, don&rsquo;t add files to your source or to the wiki that contain spaces or odd characters. :)</p>
 
 <hr />
 
 
 <p><strong>Edit 26/06/2009 :</strong>
-Have a look at <a href="http://buffered.io/posts/setting-up-trac-mercurial-and-ssh-on-windows/#comment-20599851" title="Jeremy's comment">Jeremy's comment</a> for a resolution to this escaping problem. Thanks for that mate!</p>
+Have a look at <a href="http://buffered.io/posts/setting-up-trac-mercurial-and-ssh-on-windows/#comment-20599851" title="Jeremy's comment">Jeremy&rsquo;s comment</a> for a resolution to this escaping problem. Thanks for that mate!</p>
 ]]></content>
   </entry>
   
@@ -639,33 +639,33 @@ Have a look at <a href="http://buffered.io/posts/setting-up-trac-mercurial-and-s
     <link href="http://buffered.io/posts/damn-you-crystal-reports/"/>
     <updated>2009-03-24T18:27:00+10:00</updated>
     <id>http://buffered.io/posts/damn-you-crystal-reports</id>
-    <content type="html"><![CDATA[<p>I've had <a href="http://msdn.microsoft.com/en-us/vstudio/default.aspx" title="Visual Studio on MSDN">Visual Studio 2008</a> installed for quite a while. When I first installed it I decided not to install the <a href="http://www.sap.com/solutions/sapbusinessobjects/sme/reporting/crystalreports/index.epx" title="Crystal Reports">Crystal Reports</a> components because I was fairly certain that I'd never need them at home.</p>
+    <content type="html"><![CDATA[<p>I&rsquo;ve had <a href="http://msdn.microsoft.com/en-us/vstudio/default.aspx" title="Visual Studio on MSDN">Visual Studio 2008</a> installed for quite a while. When I first installed it I decided not to install the <a href="http://www.sap.com/solutions/sapbusinessobjects/sme/reporting/crystalreports/index.epx" title="Crystal Reports">Crystal Reports</a> components because I was fairly certain that I&rsquo;d never need them at home.</p>
 
-<p>Well, the worm has turned! On my new gig, I have the joy of working from home. It just so happens that I <em>also</em> need to use Crystal Reports. How silly of me to not bother installing a few extra components the first time so I didn't have to go through the pain of going through another VS Setup.</p>
+<p>Well, the worm has turned! On my new gig, I have the joy of working from home. It just so happens that I <em>also</em> need to use Crystal Reports. How silly of me to not bother installing a few extra components the first time so I didn&rsquo;t have to go through the pain of going through another VS Setup.</p>
 
-<p>On the surface this doesn't sound like a painful experience right? <strong>WRONG</strong>. It's a lot more painful than you think.</p>
+<p>On the surface this doesn&rsquo;t sound like a painful experience right? <strong>WRONG</strong>. It&rsquo;s a lot more painful than you think.</p>
 
 <!--more-->
 
 
-<p>I fired up the <em>Programs and Features</em> section of <a href="http://www.microsoft.com/windows/windows-vista/default.aspx" title="Windows Vista home page">Vista's</a> control panel to fire up the add/remove components section of the install.</p>
+<p>I fired up the <em>Programs and Features</em> section of <a href="http://www.microsoft.com/windows/windows-vista/default.aspx" title="Windows Vista home page">Vista&rsquo;s</a> control panel to fire up the add/remove components section of the install.</p>
 
 <p>Despite choosing just one extra component in the options list, it decided to attempt install of other components too. Observe</p>
 
-<p><a href="http://buffered.io/uploads/2009/03/vs2008_update.png" rel="lightbox[vs]"><img src="http://buffered.io/uploads/2009/03/vs2008_update.png" alt="Screw you VS Install! Sod off Mr Tiny Face!" title="Screw you VS Install! Sod off Mr Tiny Face!" style="float: left; margin-right: 5px; margin-bottom: 5px;" width="150" /></a>Visual Studio 2008 again? SQL Server Compact 3.5 SP1 Design Tools!? SQL Server Compact 3.5 for Devices?! Shared Management Objects?! WHAT THE F**K?! I didn't ask for any of that crap. It's not as if looking at <a href="http://secretgeek.net/vs2008_bugeye.asp" title="Bug Eyed VS2008 Guy Frakes Me Out">Mr Tiny Face</a> wasn't bad enough. Now I get to put up with a bunch of other shit that I don't want or need?</p>
+<p><a href="http://buffered.io/uploads/2009/03/vs2008_update.png" rel="lightbox[vs]"><img src="http://buffered.io/uploads/2009/03/vs2008_update.png" alt="Screw you VS Install! Sod off Mr Tiny Face!" title="Screw you VS Install! Sod off Mr Tiny Face!" style="float: left; margin-right: 5px; margin-bottom: 5px;" width="150" /></a>Visual Studio 2008 again? SQL Server Compact 3.5 SP1 Design Tools!? SQL Server Compact 3.5 for Devices?! Shared Management Objects?! WHAT THE F**K?! I didn&rsquo;t ask for any of that crap. It&rsquo;s not as if looking at <a href="http://secretgeek.net/vs2008_bugeye.asp" title="Bug Eyed VS2008 Guy Frakes Me Out">Mr Tiny Face</a> wasn&rsquo;t bad enough. Now I get to put up with a bunch of other shit that I don&rsquo;t want or need?</p>
 
-<p>I was hoping that it was going to have enough "stuff" on the HDD to update without me needing to get the VS ISO I was wrong. I had to search for the ISO that I downloaded from MSDN. This wasn't too much of an issue, but was still painful as I had to copy it onto my local machine from my <a href="http://www.buffalotech.com/products/network-storage/terastation/terastation-pro-ii/" title="Buffalo Technology - TeraStation Pro II">Terastation</a> -- all 3.4GB of it.</p>
+<p>I was hoping that it was going to have enough &ldquo;stuff&rdquo; on the HDD to update without me needing to get the VS ISO I was wrong. I had to search for the ISO that I downloaded from MSDN. This wasn&rsquo;t too much of an issue, but was still painful as I had to copy it onto my local machine from my <a href="http://www.buffalotech.com/products/network-storage/terastation/terastation-pro-ii/" title="Buffalo Technology - TeraStation Pro II">Terastation</a> &mdash; all 3.4GB of it.</p>
 
 <p>It then proceeds past the unnecessary installs until it gets to Shared Management Objects at which point I get another epic fail.</p>
 
-<p><a href="http://buffered.io/uploads/2009/03/sharedmanagementobjectfail.png" rel="lightbox[vs]"><img src="http://buffered.io/uploads/2009/03/sharedmanagementobjectfail.png" alt="Shared Management Objects fail" title="Shared Management Objects fail" style="float: right; margin-left: 5px; margin-bottom: 5px;" width="150" /></a>The bloody thing wasn't on the disc! So I grab it off the web, point the installer at the download location and it tells me that the path is invalid.</p>
+<p><a href="http://buffered.io/uploads/2009/03/sharedmanagementobjectfail.png" rel="lightbox[vs]"><img src="http://buffered.io/uploads/2009/03/sharedmanagementobjectfail.png" alt="Shared Management Objects fail" title="Shared Management Objects fail" style="float: right; margin-left: 5px; margin-bottom: 5px;" width="150" /></a>The bloody thing wasn&rsquo;t on the disc! So I grab it off the web, point the installer at the download location and it tells me that the path is invalid.</p>
 
 <p>I was starting to get rather narked at this point. I hit cancel at which point I was greeted with a message telling me that: <em>The operation in progress cannot be cancelled.</em></p>
 
-<p>Then the cancel succeeded! <strong>Make up your mind!</strong> The final screen implied install fails of epic proportions, but only turned out to be that the Shared Management Objects didn't install.
-<a href="http://buffered.io/uploads/2009/03/sharedmanagementobjectepicfail.png" rel="lightbox[vs]"><img src="http://buffered.io/uploads/2009/03/sharedmanagementobjectepicfail.png" alt="Epic Install Fail" title="Epic Install Fail" style="float: left; margin-right: 5px; margin-bottom: 5px;" width="150" /></a>I won't be crying about that given that I didn't want it in the first place! If I find that I do need it down the track I can install it manually. After all, I did download it myself anyway.</p>
+<p>Then the cancel succeeded! <strong>Make up your mind!</strong> The final screen implied install fails of epic proportions, but only turned out to be that the Shared Management Objects didn&rsquo;t install.
+<a href="http://buffered.io/uploads/2009/03/sharedmanagementobjectepicfail.png" rel="lightbox[vs]"><img src="http://buffered.io/uploads/2009/03/sharedmanagementobjectepicfail.png" alt="Epic Install Fail" title="Epic Install Fail" style="float: left; margin-right: 5px; margin-bottom: 5px;" width="150" /></a>I won&rsquo;t be crying about that given that I didn&rsquo;t want it in the first place! If I find that I do need it down the track I can install it manually. After all, I did download it myself anyway.</p>
 
-<p>The next question I have is: What level of pain will I feel if I <em>don't reinstall <a href="http://www.microsoft.com/downloads/details.aspx?FamilyId=FBEE1648-7106-44A7-9649-6D9F6D58056E" title="Visual Studio 2008 Sevice Pack 1">VS 2008 SP1</a></em> before I attempt to do any development? I'm too scared to find out the answer. Now I get to wait for another decade for the service pack install to finish.</p>
+<p>The next question I have is: What level of pain will I feel if I <em>don&rsquo;t reinstall <a href="http://www.microsoft.com/downloads/details.aspx?FamilyId=FBEE1648-7106-44A7-9649-6D9F6D58056E" title="Visual Studio 2008 Sevice Pack 1">VS 2008 SP1</a></em> before I attempt to do any development? I&rsquo;m too scared to find out the answer. Now I get to wait for another decade for the service pack install to finish.</p>
 
 <p>Yet another win for the Microsoft Installation process.</p>
 ]]></content>
@@ -678,26 +678,26 @@ Have a look at <a href="http://buffered.io/posts/setting-up-trac-mercurial-and-s
     <id>http://buffered.io/posts/the-admin-is-an-idiot</id>
     <content type="html"><![CDATA[<p>Yes, and that admin is me!</p>
 
-<p>I usually do a fairly decent job of keeping the server patched, up to date, and clean. Over the Xmas period where I wasn't really looking at anything online, something went wrong.</p>
+<p>I usually do a fairly decent job of keeping the server patched, up to date, and clean. Over the Xmas period where I wasn&rsquo;t really looking at anything online, something went wrong.</p>
 
-<p>I logged on this morning only to find that the server wasn't responding. I could connect via SSH, but nothing was being served via HTTP. So I tried to reboot <a href="http://litespeedtech.com/" title="LiteSpeed technologies">LiteSpeed</a> to see if that would resolve it (as you do ;) ). The service stopped, but failed to restart!</p>
+<p>I logged on this morning only to find that the server wasn&rsquo;t responding. I could connect via SSH, but nothing was being served via HTTP. So I tried to reboot <a href="http://litespeedtech.com/" title="LiteSpeed technologies">LiteSpeed</a> to see if that would resolve it (as you do ;) ). The service stopped, but failed to restart!</p>
 
 <!--more-->
 
 
-<p>I was a bit concerned when this happened. So I thought I'd check to see if there were any server updates (in case there was a known issue preventing the server from working). I found that there had been an update, so I jumped to my first conclusion and assumed that this was broken. I attempted to download the new version onto my <a href="http://en.wikipedia.org/wiki/Virtual_private_server" title="Virtual Private Server">VPS</a>, but it failed. The error message said that it couldn't download the file because I was out of disk space!</p>
+<p>I was a bit concerned when this happened. So I thought I&rsquo;d check to see if there were any server updates (in case there was a known issue preventing the server from working). I found that there had been an update, so I jumped to my first conclusion and assumed that this was broken. I attempted to download the new version onto my <a href="http://en.wikipedia.org/wiki/Virtual_private_server" title="Virtual Private Server">VPS</a>, but it failed. The error message said that it couldn&rsquo;t download the file because I was out of disk space!</p>
 
 <p>A quick run of <a href="http://www.computerhope.com/unix/udf.htm" title="Linux 'df' command">df</a> told me that the error message was indeed correct. 19GB out of 19GB was used. Crap.</p>
 
-<p>I then jumped to my second conclusion and immediately blamed <a href="http://en.wikipedia.org/wiki/Portage_(software)" title="Portage">portage</a> for downloading too much stuff that it didn't need. After a quick <a href="http://linuxlore.blogspot.com/2007/04/howto-cleanup-gentoo-portage-distfiles.html" title="Clean up Gentoo Portage Distfiles">eclean</a> I was presented with a huge saving of 350MB. Crap.</p>
+<p>I then jumped to my second conclusion and immediately blamed <a href="http://en.wikipedia.org/wiki/Portage_(software)" title="Portage">portage</a> for downloading too much stuff that it didn&rsquo;t need. After a quick <a href="http://linuxlore.blogspot.com/2007/04/howto-cleanup-gentoo-portage-distfiles.html" title="Clean up Gentoo Portage Distfiles">eclean</a> I was presented with a huge saving of 350MB. Crap.</p>
 
-<p>I then had to fall back on <a href="http://www.computerhope.com/unix/udu.htm" title="Linux 'du' command">du</a> (<em>du -h --max-depth=1</em> to be exact) to try and narrow down the folder(s) which were chewing up disk space.</p>
+<p>I then had to fall back on <a href="http://www.computerhope.com/unix/udu.htm" title="Linux 'du' command">du</a> (<em>du -h &mdash;max-depth=1</em> to be exact) to try and narrow down the folder(s) which were chewing up disk space.</p>
 
 <p>To cut a long story short, there were two culprits. The first was the linux source folder. I had 15 copies of the Gentoo source in there, and freed up 4.7GB by deleting 13 of them. The second was, much to my shame and dismay, the web server log files folder. Oh woe is me.</p>
 
-<p>Schoolboy error. I scrapped all the unnecessary logs and freed up yet another 5.6GB. Amazingly, everything has started behaving itself again! Who'd have thought.</p>
+<p>Schoolboy error. I scrapped all the unnecessary logs and freed up yet another 5.6GB. Amazingly, everything has started behaving itself again! Who&rsquo;d have thought.</p>
 
-<p>So the server is now back online. Normality has been restored. I also have more proof that I'm an idiot.</p>
+<p>So the server is now back online. Normality has been restored. I also have more proof that I&rsquo;m an idiot.</p>
 
 <p>That is all :)</p>
 ]]></content>

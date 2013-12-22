@@ -5,14 +5,8 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Are you any good? - OJ's perspective</title>
+  <title>Are You Any Good? - OJ's perspective</title>
   <meta name="author" content="OJ Reeves">
-
-  <link rel="openid.server" href="http://pip.verisignlabs.com/server" />
-  <link rel="openid.delegate" href="http://thecolonial.pip.verisignlabs.com/" />
-  <link rel="openid2.provider" href="http://pip.verisignlabs.com/server" />
-  <link rel="openid2.local_id" href="http://thecolonial.pip.verisignlabs.com/" />
-  <meta http-equiv="X-XRDS-Location" content="http://pip.verisignlabs.com/thecolonial/yadixrds" />
 
   
   <meta name="description" content="I was trundling through my usual collection of daily links yesterday morning (before diving into my work), and I stumbled on a link to a recent blog &hellip;">
@@ -24,39 +18,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's perspective RSS 2.0" type="application/rss+xml">
   <link rel="canonical" href="http://buffered.io/posts/are-you-any-good">
   <link href="/favicon.ico" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-
-  <script src="/javascripts/modernizr-2.0.js" type="text/javascript"></script>
-  <script src="/javascripts/ender.js" type="text/javascript"></script>
+  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's perspective" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
-
-  <script type="text/javascript">
-    Modernizr.load([
-      { load: '//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js' },
-      { load: '/javascripts/jquery.lightbox.js', complete: function() {
-        $("a[rel^='lightbox']").lightbox();
-      } }
-    ]);
-  </script>
-
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 
   
-
-  
-  <script type="text/javascript">
-    !function(g,s,q,r,d){r=g[r]=g[r]||function(){(r.q=r.q||[]).push(
-    arguments)};d=s.createElement(q);q=s.getElementsByTagName(q)[0];
-    d.src='//d1l6p2sc9645hc.cloudfront.net/tracker.js';q.parentNode.
-    insertBefore(d,q)}(window,document,'script','_gs');
-    _gs('GSN-416076-G');
-  </script>
-
 
 </head>
 
@@ -112,10 +86,10 @@
   
 
 
-
-<time datetime="2006-09-14T13:50:00+10:00" pubdate data-updated="true">14 Sep 2006</time>
+<time datetime="2006-09-14T13:50:00+10:00" pubdate data-updated="true"></time>
         
-         | <a href="#disqus_thread">Comments</a>
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://buffered.io">Comments</a>
         
       </p>
     
@@ -124,44 +98,44 @@
 
 <div class="entry-content"><p>I was trundling through my usual collection of daily links yesterday morning (before diving into my work), and I stumbled on a link to a <a href="http://peterwright.blogspot.com/2006/09/good-bye-microsoft-pete-has-now-left.html" target="_blank" title=" Strange new worlds, and programming languages...">recent blog post</a> by a chap called Peter Wright. There are a couple of reasons why this blog post caught my eye.</p>
 
-<p>First of all, during my time in the U.K. over the last couple of years, I worked for a company in London that Peter also worked at. I&#8217;d been at the company for a few months doing some contract work when Peter was taken on board. No doubt Peter wouldn&#8217;t know me from a bar of soap, such as the nature of people who are too focussed on their own egos than the people they work with. I, however, remember him for a few reasons. More on this later.</p>
+<p>First of all, during my time in the U.K. over the last couple of years, I worked for a company in London that Peter also worked at. I&rsquo;d been at the company for a few months doing some contract work when Peter was taken on board. No doubt Peter wouldn&rsquo;t know me from a bar of soap, such as the nature of people who are too focussed on their own egos than the people they work with. I, however, remember him for a few reasons. More on this later.</p>
 
-<p>Secondly, the content of the blog was primarily a blast at Microsoft for apparently letting him down, a blast at those he perceives to be &#8220;muppets&#8221;, and a generic whinge about not being recognised or valued - which (surprise surprise) got me thinking :D</p>
+<p>Secondly, the content of the blog was primarily a blast at Microsoft for apparently letting him down, a blast at those he perceives to be &ldquo;muppets&rdquo;, and a generic whinge about not being recognised or valued &ndash; which (surprise surprise) got me thinking :D</p>
 
-<p>So, a bit of background. I was never formally introduced to Peter at any point. In fact, the attitude that Peter had while at work was that everyone should automatically know who he is without a need for introduction. This was immediately apparent the day he was called to stand up in front of the I.T. team and introduce himself.  I can&#8217;t quite recollect the exact comment but it went something like this:<blockquote>Hello, I&#8217;m Peter Wright.  For those of you who don&#8217;t know me, I did X, Y and Z for A, B and C, I&#8217;ve written 11 books and I&#8217;m here as a <em>insert job title here</em> to make sure you&#8217;re doing J, K and I correctly.</blockquote>Interesting. Truth be told, I did know Peter&#8217;s name through some of his books - books I had avoided looking through due to their apparent &#8220;Visual Basic rules the world&#8221; focus (I say <em>apparent</em> because I never read them - the plethora of online reviews of his work are what make me think that).</p>
+<p>So, a bit of background. I was never formally introduced to Peter at any point. In fact, the attitude that Peter had while at work was that everyone should automatically know who he is without a need for introduction. This was immediately apparent the day he was called to stand up in front of the I.T. team and introduce himself.  I can&rsquo;t quite recollect the exact comment but it went something like this:<blockquote>Hello, I&rsquo;m Peter Wright.  For those of you who don&rsquo;t know me, I did X, Y and Z for A, B and C, I&rsquo;ve written 11 books and I&rsquo;m here as a <em>insert job title here</em> to make sure you&rsquo;re doing J, K and I correctly.</blockquote>Interesting. Truth be told, I did know Peter&rsquo;s name through some of his books &ndash; books I had avoided looking through due to their apparent &ldquo;Visual Basic rules the world&rdquo; focus (I say <em>apparent</em> because I never read them &ndash; the plethora of online reviews of his work are what make me think that).</p>
 
-<p>The first thing I thought when I heard his little speech was &#8220;you pompous b*stard!&#8221;. The man was obviously enjoying riding the waves of MyEgo beach in Wrightland. From that point on my perception of Peter was clouded and I couldn&#8217;t help but think that he wasn&#8217;t here because he wanted to really achieve great things in software (particularly not the software we were working on). It seemed to me he was here to throw his ample professional weight around.</p>
+<p>The first thing I thought when I heard his little speech was &ldquo;you pompous b*stard!&rdquo;. The man was obviously enjoying riding the waves of MyEgo beach in Wrightland. From that point on my perception of Peter was clouded and I couldn&rsquo;t help but think that he wasn&rsquo;t here because he wanted to really achieve great things in software (particularly not the software we were working on). It seemed to me he was here to throw his ample professional weight around.</p>
 
-<p>The following weeks were crammed with Peter acting like the &#8220;biggest showoff since Lady Godiva entered the Royal Enclosure at Ascot claiming she had literally nothing to wear&#8221;. In my (very) few dealings with him he wasn&#8217;t anywhere near as open to ideas as he makes himself out to be in his blog post. Perhaps this is because I hadn&#8217;t yet &#8220;gained the respect of the man&#8221; (something I would never be destined to do as I was working in the trenches with the guys on the code, and generally not preaching as a technical evangelist in the meetings of the mighty)? Perhaps it was because when I did deal with him I didn&#8217;t show that I was profoundly amazed and grateful that I was allowed to even enjoy the mere prescence of this apparent supernatural talent? Perhaps it was because I gave the impression that I would judge him by the work that he was going to be doing and not by the fact that he&#8217;d made a mint selling VB books? Who knows?! I certainly don&#8217;t, and I doubt I ever will. Another question I doubt I&#8217;ll ever get an answer to is &#8220;Why on Earth was a supposed coding genius and highly-successful author working at <em>this</em> company in <em>this</em> role?!&#8221;. I smell something fishy, and I&#8217;m not talking about the contents of Baldrick&#8217;s apple crumble! [<a href="http://www.imdb.com/title/tt0758160/quotes" title="I've always loved this Blackadder quote" target="_blank">*</a>]</p>
+<p>The following weeks were crammed with Peter acting like the &ldquo;biggest showoff since Lady Godiva entered the Royal Enclosure at Ascot claiming she had literally nothing to wear&rdquo;. In my (very) few dealings with him he wasn&rsquo;t anywhere near as open to ideas as he makes himself out to be in his blog post. Perhaps this is because I hadn&rsquo;t yet &ldquo;gained the respect of the man&rdquo; (something I would never be destined to do as I was working in the trenches with the guys on the code, and generally not preaching as a technical evangelist in the meetings of the mighty)? Perhaps it was because when I did deal with him I didn&rsquo;t show that I was profoundly amazed and grateful that I was allowed to even enjoy the mere prescence of this apparent supernatural talent? Perhaps it was because I gave the impression that I would judge him by the work that he was going to be doing and not by the fact that he&rsquo;d made a mint selling VB books? Who knows?! I certainly don&rsquo;t, and I doubt I ever will. Another question I doubt I&rsquo;ll ever get an answer to is &ldquo;Why on Earth was a supposed coding genius and highly-successful author working at <em>this</em> company in <em>this</em> role?!&rdquo;. I smell something fishy, and I&rsquo;m not talking about the contents of Baldrick&rsquo;s apple crumble! [<a href="http://www.imdb.com/title/tt0758160/quotes" title="I've always loved this Blackadder quote" target="_blank">*</a>]</p>
 
-<p>I know a couple of the people that Peter mentioned in his blog, and I completely disagree with is assessment of them. That may sound harsh, but it&#8217;s an honest opinion. I believe the main reason that these guys are getting special mentions is due to the fact that they are both Microsoft &#8216;yes&#8217; men who don&#8217;t do anything unless Microsoft tell them to. This just happened to be exactly the way Mr Wright was working at the time. Their interests were aligned, and they bigged and backed each other up as much as they could because it pushed their cause forward. Did any of them really think that their fellow evangelists were any good? I don&#8217;t think they cared. I am speculating here - I was fortunate enough to only suffer one, maybe two, of the chest-beating sessions&#8230; oops.. I mean meetings.</p>
+<p>I know a couple of the people that Peter mentioned in his blog, and I completely disagree with is assessment of them. That may sound harsh, but it&rsquo;s an honest opinion. I believe the main reason that these guys are getting special mentions is due to the fact that they are both Microsoft &lsquo;yes&rsquo; men who don&rsquo;t do anything unless Microsoft tell them to. This just happened to be exactly the way Mr Wright was working at the time. Their interests were aligned, and they bigged and backed each other up as much as they could because it pushed their cause forward. Did any of them really think that their fellow evangelists were any good? I don&rsquo;t think they cared. I am speculating here &ndash; I was fortunate enough to only suffer one, maybe two, of the chest-beating sessions&hellip; oops.. I mean meetings.</p>
 
-<p><strong><u>Enough already.. what&#8217;s the point?!</u></strong></p>
+<p><strong><u>Enough already.. what&rsquo;s the point?!</u></strong></p>
 
-<p>So, to the point(s) of the post! Does your reputation in the I.T. world precede you? If you&#8217;re really good will people know it without you having to tell them? Is it true that &#8220;If by his work the master known&#8221;?</p>
+<p>So, to the point(s) of the post! Does your reputation in the I.T. world precede you? If you&rsquo;re really good will people know it without you having to tell them? Is it true that &ldquo;If by his work the master known&rdquo;?</p>
 
-<p>I tend to stick with the last option. I personally believe that when it comes to being a professional, your ability and your level of work will be shown after you&#8217;ve put the effort in. If you&#8217;re good, your colleagues will know you&#8217;re good. If you&#8217;re shit, they&#8217;ll know you&#8217;re shit.</p>
+<p>I tend to stick with the last option. I personally believe that when it comes to being a professional, your ability and your level of work will be shown after you&rsquo;ve put the effort in. If you&rsquo;re good, your colleagues will know you&rsquo;re good. If you&rsquo;re shit, they&rsquo;ll know you&rsquo;re shit.</p>
 
-<p>Now, I&#8217;ve worked with quite a few people over the course of my career to date. There are very few (and I do mean <em>very few</em>!) that stand out because they&#8217;re really good. Absolutely <strong>none</strong> of those people have attempted in any way to tell me how good they are - their work speaks for them. On the opposite side of the coin, every person that I have considered to be <strong>absolute shit</strong> have in one way or another attempted to make themselves out to be some form of software development genius. Between these two categories is a selection of people who are mediocre and are just happy to have a job! They do their thing day in day out and just attempt to stay off the radar.</p>
+<p>Now, I&rsquo;ve worked with quite a few people over the course of my career to date. There are very few (and I do mean <em>very few</em>!) that stand out because they&rsquo;re really good. Absolutely <strong>none</strong> of those people have attempted in any way to tell me how good they are &ndash; their work speaks for them. On the opposite side of the coin, every person that I have considered to be <strong>absolute shit</strong> have in one way or another attempted to make themselves out to be some form of software development genius. Between these two categories is a selection of people who are mediocre and are just happy to have a job! They do their thing day in day out and just attempt to stay off the radar.</p>
 
-<p>The whole issue of &#8220;earning your stripes&#8221; is one that we, as professionals, will face every time we move on to a different contrat/job/position/etc. Sure, I&#8217;d love it if people knew that I worked on X which did really well and were looking forward to working with me as a result. At the end of the day, you&#8217;re only as good as your last performance - and if you suck at what you&#8217;re doing then the people around you will think you suck regardless of what you&#8217;ve done in the past. I will strive to show people how good I am through the work that I do, and not through any other means. I will not ram my past down other people&#8217;s throats, nor will I assume that my delivery of SuperDuperSoftware v10.0 has any bearing on what I&#8217;m going to be doing for future clients.</p>
+<p>The whole issue of &ldquo;earning your stripes&rdquo; is one that we, as professionals, will face every time we move on to a different contrat/job/position/etc. Sure, I&rsquo;d love it if people knew that I worked on X which did really well and were looking forward to working with me as a result. At the end of the day, you&rsquo;re only as good as your last performance &ndash; and if you suck at what you&rsquo;re doing then the people around you will think you suck regardless of what you&rsquo;ve done in the past. I will strive to show people how good I am through the work that I do, and not through any other means. I will not ram my past down other people&rsquo;s throats, nor will I assume that my delivery of SuperDuperSoftware v10.0 has any bearing on what I&rsquo;m going to be doing for future clients.</p>
 
-<p>I look forward to meeting more of you who know that your past, while not totally irrelevant, is <em>not</em> as significant as what it is you&#8217;ll do the in future. Development is about moving forward, being on the cutting-edge, making some amazing shit happen! Not about stagnating and dwelling on the past.</p>
+<p>I look forward to meeting more of you who know that your past, while not totally irrelevant, is <em>not</em> as significant as what it is you&rsquo;ll do the in future. Development is about moving forward, being on the cutting-edge, making some amazing shit happen! Not about stagnating and dwelling on the past.</p>
 
-<p>But what is it that really makes you a good software professional? Is it the code you right? Is it the way you conduct yourself while on-site? Is it your vast knowledge of your domain? Is it your ability to apply things you do know to problems you haven&#8217;t previously encountered resulting in a solution?</p>
+<p>But what is it that really makes you a good software professional? Is it the code you right? Is it the way you conduct yourself while on-site? Is it your vast knowledge of your domain? Is it your ability to apply things you do know to problems you haven&rsquo;t previously encountered resulting in a solution?</p>
 
-<p>I think it&#8217;s probably a mixture of all of these. Note that chest-beating and technical evangelism doesn&#8217;t make an appearance. If you&#8217;re good:<ul>
-<li>&#8230; you know that you don&#8217;t know everything.</li>
-<li>&#8230; you know that because you don&#8217;t know everything there is always a chance to learn more and better yourself.</li>
-<li>&#8230; you don&#8217;t see other good people as a threat, you see them as an opportunity to help produce something even better than what you would by yourself.</li>
-<li>&#8230; you don&#8217;t view yourself as the &#8220;canine&#8217;s genetalia&#8221;, instead you find yourself frustrated at other people&#8217;s lack of competance.</li>
-<li>&#8230; you don&#8217;t spend time whinging about the work involved or that the client is a pain in the arse, instead you focus on solving the problems and getting on with the job regardless of the obstacles.</li>
-<li>&#8230; you listen to what other people have to say, take it on board and use it to improve that which you already have instead of assuming that your view is correct.</li>
-<li>&#8230; you pick up the slack and solve the problem regardless of who made the mistake.</li></ul>Rob recently posted something interesting over on his blog that he titled <a href="http://www.softwarebyrob.com/articles/Personality_Traits_of_the_Best_Software_Developers.aspx" title="The Personality Traits of the Best Developers" target="_blank">The Personality Traits of the Best Developers</a>, which in a few ways relates to what I am saying.  Even though he&#8217;s talking about developers, I think that the attributes can be applied to almost any industry.</p>
+<p>I think it&rsquo;s probably a mixture of all of these. Note that chest-beating and technical evangelism doesn&rsquo;t make an appearance. If you&rsquo;re good:<ul>
+<li>&hellip; you know that you don&rsquo;t know everything.</li>
+<li>&hellip; you know that because you don&rsquo;t know everything there is always a chance to learn more and better yourself.</li>
+<li>&hellip; you don&rsquo;t see other good people as a threat, you see them as an opportunity to help produce something even better than what you would by yourself.</li>
+<li>&hellip; you don&rsquo;t view yourself as the &ldquo;canine&rsquo;s genetalia&rdquo;, instead you find yourself frustrated at other people&rsquo;s lack of competance.</li>
+<li>&hellip; you don&rsquo;t spend time whinging about the work involved or that the client is a pain in the arse, instead you focus on solving the problems and getting on with the job regardless of the obstacles.</li>
+<li>&hellip; you listen to what other people have to say, take it on board and use it to improve that which you already have instead of assuming that your view is correct.</li>
+<li>&hellip; you pick up the slack and solve the problem regardless of who made the mistake.</li></ul>Rob recently posted something interesting over on his blog that he titled <a href="http://www.softwarebyrob.com/articles/Personality_Traits_of_the_Best_Software_Developers.aspx" title="The Personality Traits of the Best Developers" target="_blank">The Personality Traits of the Best Developers</a>, which in a few ways relates to what I am saying.  Even though he&rsquo;s talking about developers, I think that the attributes can be applied to almost any industry.</p>
 
-<p>I now have to resist the temptation to cover some thoughts on how to determine whether or not someone is good in an interview - to me it&#8217;s a bit of a black art that I don&#8217;t think I&#8217;ve nailed. I&#8217;ll talk about this is another posting down the track :)</p>
+<p>I now have to resist the temptation to cover some thoughts on how to determine whether or not someone is good in an interview &ndash; to me it&rsquo;s a bit of a black art that I don&rsquo;t think I&rsquo;ve nailed. I&rsquo;ll talk about this is another posting down the track :)</p>
 
-<p>As a final note: Peter - I&#8217;m glad you&#8217;ve moved on :D At least now you&#8217;re in a new world where you finally have to admit you don&#8217;t know everything. Take this opportunity to wind your neck in. People all over the world switch back and forth between Microsoft, Linux and Apple <em>all the time</em>, and we care about your movements almost as much as we care about their&#8217;s - that is, not at all.</p>
+<p>As a final note: Peter &ndash; I&rsquo;m glad you&rsquo;ve moved on :D At least now you&rsquo;re in a new world where you finally have to admit you don&rsquo;t know everything. Take this opportunity to wind your neck in. People all over the world switch back and forth between Microsoft, Linux and Apple <em>all the time</em>, and we care about your movements almost as much as we care about their&rsquo;s &ndash; that is, not at all.</p>
 </div>
 
 
@@ -184,8 +158,7 @@
   
 
 
-
-<time datetime="2006-09-14T13:50:00+10:00" pubdate data-updated="true">14 Sep 2006</time>
+<time datetime="2006-09-14T13:50:00+10:00" pubdate data-updated="true"></time>
       
 
 <span class="categories">
@@ -199,7 +172,7 @@
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://buffered.io/posts/are-you-any-good/" data-via="TheColonial" data-counturl="http://buffered.io/posts/are-you-any-good/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://buffered.io/posts/are-you-any-good/" data-via="TheColonial" data-counturl="http://buffered.io/posts/are-you-any-good/" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -213,7 +186,7 @@
         <a class="basic-alignment left" href="/posts/is-an-ide-all-its-cracked-up-to-be/" title="Previous Post: Is an IDE all it's cracked up to be?">&laquo; Is an IDE all it's cracked up to be?</a>
       
       
-        <a class="basic-alignment right" href="/posts/whos-up-for-a-challenge/" title="next Post: Who's up for a challenge?">Who's up for a challenge? &raquo;</a>
+        <a class="basic-alignment right" href="/posts/whos-up-for-a-challenge/" title="Next Post: Who's up for a challenge?">Who's up for a challenge? &raquo;</a>
       
     </p>
   </footer>
@@ -414,7 +387,7 @@ Copyright &copy; 2013 -
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     }());
 </script>
@@ -438,7 +411,7 @@ Copyright &copy; 2013 -
       var twitterWidgets = document.createElement('script');
       twitterWidgets.type = 'text/javascript';
       twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
       document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
     })();
   </script>

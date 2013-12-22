@@ -8,14 +8,8 @@
   <title>Avoid Writing Unintuitive Code - OJ's perspective</title>
   <meta name="author" content="OJ Reeves">
 
-  <link rel="openid.server" href="http://pip.verisignlabs.com/server" />
-  <link rel="openid.delegate" href="http://thecolonial.pip.verisignlabs.com/" />
-  <link rel="openid2.provider" href="http://pip.verisignlabs.com/server" />
-  <link rel="openid2.local_id" href="http://thecolonial.pip.verisignlabs.com/" />
-  <meta http-equiv="X-XRDS-Location" content="http://pip.verisignlabs.com/thecolonial/yadixrds" />
-
   
-  <meta name="description" content="This blog post was inspired by a brief chat I had recently with Kirupa of kirupa.com. I subscribe to his blog&#8217;s RSS feed as he comes out with &hellip;">
+  <meta name="description" content="This blog post was inspired by a brief chat I had recently with Kirupa of kirupa.com. I subscribe to his blog&rsquo;s RSS feed as he comes out with &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -24,39 +18,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's perspective RSS 2.0" type="application/rss+xml">
   <link rel="canonical" href="http://buffered.io/posts/avoid-writing-unintuitive-code">
   <link href="/favicon.ico" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-
-  <script src="/javascripts/modernizr-2.0.js" type="text/javascript"></script>
-  <script src="/javascripts/ender.js" type="text/javascript"></script>
+  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's perspective" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
-
-  <script type="text/javascript">
-    Modernizr.load([
-      { load: '//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js' },
-      { load: '/javascripts/jquery.lightbox.js', complete: function() {
-        $("a[rel^='lightbox']").lightbox();
-      } }
-    ]);
-  </script>
-
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 
   
-
-  
-  <script type="text/javascript">
-    !function(g,s,q,r,d){r=g[r]=g[r]||function(){(r.q=r.q||[]).push(
-    arguments)};d=s.createElement(q);q=s.getElementsByTagName(q)[0];
-    d.src='//d1l6p2sc9645hc.cloudfront.net/tracker.js';q.parentNode.
-    insertBefore(d,q)}(window,document,'script','_gs');
-    _gs('GSN-416076-G');
-  </script>
-
 
 </head>
 
@@ -112,65 +86,65 @@
   
 
 
-
-<time datetime="2007-07-20T10:33:00+10:00" pubdate data-updated="true">20 Jul 2007</time>
+<time datetime="2007-07-20T10:33:00+10:00" pubdate data-updated="true"></time>
         
-         | <a href="#disqus_thread">Comments</a>
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://buffered.io">Comments</a>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>This blog post was inspired by a brief chat I had recently with Kirupa of <a href="http://www.kirupa.com/" title="Kirupa">kirupa.com</a>. I subscribe to his <a href="http://blog.kirupa.com/" title"Kirupa Blog">blog&#8217;s</a> <a href="http://blog.kirupa.com/?feed=rss2" title="Kirupa Blog RSS">RSS feed</a> as he comes out with some really good stuff. His <a href="http://blog.kirupa.com/?p=111" title="Randomizing Elements in a List (C#)">recent post</a> which showed a way of shuffling a List of strings (using C#) inspired a bit of thought on the topic of code readability, how and when it&#8217;s learned (if at all) and why there is so little of it around.</p>
+<div class="entry-content"><p>This blog post was inspired by a brief chat I had recently with Kirupa of <a href="http://www.kirupa.com/" title="Kirupa">kirupa.com</a>. I subscribe to his <a href="http://blog.kirupa.com/" title"Kirupa Blog">blog&rsquo;s</a> <a href="http://blog.kirupa.com/?feed=rss2" title="Kirupa Blog RSS">RSS feed</a> as he comes out with some really good stuff. His <a href="http://blog.kirupa.com/?p=111" title="Randomizing Elements in a List (C#)">recent post</a> which showed a way of shuffling a List of strings (using C#) inspired a bit of thought on the topic of code readability, how and when it&rsquo;s learned (if at all) and why there is so little of it around.</p>
 
-<p>Code quality and readability is something that isn&#8217;t necessarily learned at University, nor is it something that can be mastered in a short period of time. It <em>is</em> something that <strong>anyone</strong> can learn. The main ingredients that are required are a bit of self-scrutiny, and the removal of the assumption that working code is the same as finished code.</p>
+<p>Code quality and readability is something that isn&rsquo;t necessarily learned at University, nor is it something that can be mastered in a short period of time. It <em>is</em> something that <strong>anyone</strong> can learn. The main ingredients that are required are a bit of self-scrutiny, and the removal of the assumption that working code is the same as finished code.</p>
 
 <!--more-->
 
 
-<p>Let me start by applauding Kirupa for the effort he puts into his posts, and the level of quality he achieves. This is by no means a stab at his work. I&#8217;m grateful that he&#8217;s happy to discuss how his code can be improved. It&#8217;s rare to find someone who&#8217;s open to constructive criticism! Like me, he appears to be keen to learn from other people - if only there were more of those people around!</p>
+<p>Let me start by applauding Kirupa for the effort he puts into his posts, and the level of quality he achieves. This is by no means a stab at his work. I&rsquo;m grateful that he&rsquo;s happy to discuss how his code can be improved. It&rsquo;s rare to find someone who&rsquo;s open to constructive criticism! Like me, he appears to be keen to learn from other people &ndash; if only there were more of those people around!</p>
 
-<p>To avoid confusion, I think I should clarify exactly what I mean by &#8220;Unintuitive Code&#8221;. In a nutshell, what I mean is: <em>Code which fails to imply its purpose/functionality through poor use of language features, semantics, structure, naming conventions and natural language</em>. Phew!</p>
+<p>To avoid confusion, I think I should clarify exactly what I mean by &ldquo;Unintuitive Code&rdquo;. In a nutshell, what I mean is: <em>Code which fails to imply its purpose/functionality through poor use of language features, semantics, structure, naming conventions and natural language</em>. Phew!</p>
 
-<p>I&#8217;d like to share my thoughts on the steps that you can take to aid in writing more readable and maintainable code, developing interfaces to objects that are intuitive, and imply the right kinds of things with regards to the way the functions operate.</p>
+<p>I&rsquo;d like to share my thoughts on the steps that you can take to aid in writing more readable and maintainable code, developing interfaces to objects that are intuitive, and imply the right kinds of things with regards to the way the functions operate.</p>
 
 <h3>Solve the problem first</h3>
 
 
-<p>This doesn&#8217;t mean write code! This means get a pen and paper, or a white board and a marker! Write down what you think the problem really is and break it into smaller chunks which can be broken down into a set of logical steps. When you give yourself a clearer understanding of what the problem is you&#8217;ll increase the chance of writing more meaningful code with a much clearer interface.</p>
+<p>This doesn&rsquo;t mean write code! This means get a pen and paper, or a white board and a marker! Write down what you think the problem really is and break it into smaller chunks which can be broken down into a set of logical steps. When you give yourself a clearer understanding of what the problem is you&rsquo;ll increase the chance of writing more meaningful code with a much clearer interface.</p>
 
-<p>When you&#8217;ve broken the problem down into smaller chunks, it&#8217;s highly likely you&#8217;ll then find issues that you wouldn&#8217;t have seen or considered if you&#8217;d just fired up your code editor first. This is good because you&#8217;ve now got a greater understanding of the problem space, and can now create a more meaningful and appropriate code architecture while keeping in mind the issues that you&#8217;ve already stumbled across. The amount of &#8220;coding in the dark&#8221; you have to do has already been minimised.</p>
+<p>When you&rsquo;ve broken the problem down into smaller chunks, it&rsquo;s highly likely you&rsquo;ll then find issues that you wouldn&rsquo;t have seen or considered if you&rsquo;d just fired up your code editor first. This is good because you&rsquo;ve now got a greater understanding of the problem space, and can now create a more meaningful and appropriate code architecture while keeping in mind the issues that you&rsquo;ve already stumbled across. The amount of &ldquo;coding in the dark&rdquo; you have to do has already been minimised.</p>
 
-<p>At this point you&#8217;ve already prevented the need to refactor your code before you&#8217;ve even finished the first iteration. Your interfaces will be cleaner, and the number of &#8216;hacks&#8217; that you&#8217;ll have to put in to fix things you hadn&#8217;t initially thought of will be substantially reduced. Don&#8217;t underestimate how valuable a bit of up-front analysis and design can help with keeping your code clean.</p>
+<p>At this point you&rsquo;ve already prevented the need to refactor your code before you&rsquo;ve even finished the first iteration. Your interfaces will be cleaner, and the number of &lsquo;hacks&rsquo; that you&rsquo;ll have to put in to fix things you hadn&rsquo;t initially thought of will be substantially reduced. Don&rsquo;t underestimate how valuable a bit of up-front analysis and design can help with keeping your code clean.</p>
 
-<p>Once you&#8217;re done with improving your understanding of the problem space, you&#8217;re ready to open your editor and start writing code. Writing defensively from the start is a good idea, particularly if the code is going to end up being maintained by someone else.</p>
+<p>Once you&rsquo;re done with improving your understanding of the problem space, you&rsquo;re ready to open your editor and start writing code. Writing defensively from the start is a good idea, particularly if the code is going to end up being maintained by someone else.</p>
 
 <h3>Write your first iteration</h3>
 
 
-<p>Put your ideas down in code. Try your best to make an intuitive model, using <a href="/posts/creating-concrete-objects/trackback/" title="Creating Concrete Objects">concrete objects</a> where applicable, trying your best to reduce coupling, and separating implementation from interface. While this is a key phase, it&#8217;s not as key as the next one! Make sure that when you&#8217;re done writing your first version, you prepare yourself to be happy to rip out a large portion of what you write - because you&#8217;re going to be replacing it with something better.</p>
+<p>Put your ideas down in code. Try your best to make an intuitive model, using <a href="/posts/creating-concrete-objects/trackback/" title="Creating Concrete Objects">concrete objects</a> where applicable, trying your best to reduce coupling, and separating implementation from interface. While this is a key phase, it&rsquo;s not as key as the next one! Make sure that when you&rsquo;re done writing your first version, you prepare yourself to be happy to rip out a large portion of what you write &ndash; because you&rsquo;re going to be replacing it with something better.</p>
 
 <h3>Call a spade a spade</h3>
 
 
-<p>If you want the marks, state the bloody obvious! That is, your funtions should state exactly what they do. I&#8217;m not suggesting that you have function names like <em>GetAReferenceToTheNormalVectorAndUseItToCalculateTheLightingForThePolygon()</em> as that&#8217;s a bit over the top. Try to avoid names like <em>DoStuff()</em>, <em>ProcessData()</em>, <em>DoEvents()</em> (yes, that&#8217;s <a href="http://msdn2.microsoft.com/en-us/library/system.windows.forms.application.doevents.aspx" title="DoEvents">a stab at you, Microsoft</a>) and <em>GetDoohicky()</em>. Names like <em>CalculateLighting()</em> and <em>GetNormal()</em> are descriptive enough and do a good job of implying their function. Don&#8217;t mislead the user of your class by using names that quite clearly suck.</p>
+<p>If you want the marks, state the bloody obvious! That is, your funtions should state exactly what they do. I&rsquo;m not suggesting that you have function names like <em>GetAReferenceToTheNormalVectorAndUseItToCalculateTheLightingForThePolygon()</em> as that&rsquo;s a bit over the top. Try to avoid names like <em>DoStuff()</em>, <em>ProcessData()</em>, <em>DoEvents()</em> (yes, that&rsquo;s <a href="http://msdn2.microsoft.com/en-us/library/system.windows.forms.application.doevents.aspx" title="DoEvents">a stab at you, Microsoft</a>) and <em>GetDoohicky()</em>. Names like <em>CalculateLighting()</em> and <em>GetNormal()</em> are descriptive enough and do a good job of implying their function. Don&rsquo;t mislead the user of your class by using names that quite clearly suck.</p>
 
 <h3>Review your interfaces and functions</h3>
 
 
-<p>There&#8217;s a strong possibility that even though you&#8217;ve put a great deal of thought into your solution, you&#8217;ve still managed to imply certain things that you didn&#8217;t necessarily mean.</p>
+<p>There&rsquo;s a strong possibility that even though you&rsquo;ve put a great deal of thought into your solution, you&rsquo;ve still managed to imply certain things that you didn&rsquo;t necessarily mean.</p>
 
-<p>The interface to an object and the signature of your functions can (and should) say more about your code than you think. So ask yourself the following:<ul><li>Does your object name reflect the functionality that it encapsulates?</li><li>Does the function imply operations that don&#8217;t happen?</li><li>Does the function not imply functions that <em>do</em> happen?</li><li>Is the function&#8217;s name descriptive of the type of function that it actually is?</li><li>Does your function return a meaningful value based on the context?</li><li>Does your function require intuitive parameters for it to function?</li><li>Is the parameter list as minimal as possible without affecting the functionality?</li></ul>I&#8217;m sure there are more, but I can&#8217;t think of them off the top of my head.</p>
+<p>The interface to an object and the signature of your functions can (and should) say more about your code than you think. So ask yourself the following:<ul><li>Does your object name reflect the functionality that it encapsulates?</li><li>Does the function imply operations that don&rsquo;t happen?</li><li>Does the function not imply functions that <em>do</em> happen?</li><li>Is the function&rsquo;s name descriptive of the type of function that it actually is?</li><li>Does your function return a meaningful value based on the context?</li><li>Does your function require intuitive parameters for it to function?</li><li>Is the parameter list as minimal as possible without affecting the functionality?</li></ul>I&rsquo;m sure there are more, but I can&rsquo;t think of them off the top of my head.</p>
 
-<p>When you&#8217;ve finished with your review, ask someone else to have a read of it. Ask them to give you a brief overview of your classes/functions as if you didn&#8217;t know the code and they did. If they give a pretty good picture of what the object does, then you&#8217;ve done well. If they can&#8217;t tell you what goes on at a high-level then you&#8217;ll have to go through another review iteration.</p>
+<p>When you&rsquo;ve finished with your review, ask someone else to have a read of it. Ask them to give you a brief overview of your classes/functions as if you didn&rsquo;t know the code and they did. If they give a pretty good picture of what the object does, then you&rsquo;ve done well. If they can&rsquo;t tell you what goes on at a high-level then you&rsquo;ll have to go through another review iteration.</p>
 
 <h3>Add comments that clarify, and remove comments that don&#8217;t</h3>
 
 
-<p>I&#8217;m almost certain that every maintenance coder on the planet has been faced with the nasty combination of confusing code and invalid comments. It not only doesn&#8217;t help, it makes things <em>worse</em>. Here is an example of a &#8220;WTF comment&#8221;:</p>
+<p>I&rsquo;m almost certain that every maintenance coder on the planet has been faced with the nasty combination of confusing code and invalid comments. It not only doesn&rsquo;t help, it makes things <em>worse</em>. Here is an example of a &ldquo;WTF comment&rdquo;:</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -183,17 +157,17 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>If you didn&#8217;t say &#8220;WTF!?&#8221; to the above code, then please go to the start of this post, and reread!</p>
+<p>If you didn&rsquo;t say &ldquo;WTF!?&rdquo; to the above code, then please go to the start of this post, and reread!</p>
 
 <h3>Iterate</h3>
 
 
-<p>Make sure that you don&#8217;t stop working when the code starts working. Working code is <em>not</em> the same as finished code. Keep reviewing your work. Look for possible improvements. Be critical of your own work. Treat your own code as if it was someone else&#8217;s and treat the task as though the result is going to be shown to a stack of other developers.</p>
+<p>Make sure that you don&rsquo;t stop working when the code starts working. Working code is <em>not</em> the same as finished code. Keep reviewing your work. Look for possible improvements. Be critical of your own work. Treat your own code as if it was someone else&rsquo;s and treat the task as though the result is going to be shown to a stack of other developers.</p>
 
 <h3>Be receptive to post-release feedback</h3>
 
 
-<p>When your code gets used by other people, you&#8217;ll end up with more suggestions and possible tweaks to make it less unintuitive. Don&#8217;t be ignorant, even if the suggestions are petty. Take them on board and see if you can utilise those bits of feedback to aid in production of even better quality code!</p>
+<p>When your code gets used by other people, you&rsquo;ll end up with more suggestions and possible tweaks to make it less unintuitive. Don&rsquo;t be ignorant, even if the suggestions are petty. Take them on board and see if you can utilise those bits of feedback to aid in production of even better quality code!</p>
 
 <p>Good luck :)</p>
 </div>
@@ -218,8 +192,7 @@
   
 
 
-
-<time datetime="2007-07-20T10:33:00+10:00" pubdate data-updated="true">20 Jul 2007</time>
+<time datetime="2007-07-20T10:33:00+10:00" pubdate data-updated="true"></time>
       
 
 <span class="categories">
@@ -233,7 +206,7 @@
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://buffered.io/posts/avoid-writing-unintuitive-code/" data-via="TheColonial" data-counturl="http://buffered.io/posts/avoid-writing-unintuitive-code/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://buffered.io/posts/avoid-writing-unintuitive-code/" data-via="TheColonial" data-counturl="http://buffered.io/posts/avoid-writing-unintuitive-code/" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -247,7 +220,7 @@
         <a class="basic-alignment left" href="/posts/and-help-you-i-shall/" title="Previous Post: And Help You I Shall!">&laquo; And Help You I Shall!</a>
       
       
-        <a class="basic-alignment right" href="/posts/mislead-from-the-start/" title="next Post: Misled from the Start">Misled from the Start &raquo;</a>
+        <a class="basic-alignment right" href="/posts/mislead-from-the-start/" title="Next Post: Misled from the Start">Misled from the Start &raquo;</a>
       
     </p>
   </footer>
@@ -448,7 +421,7 @@ Copyright &copy; 2013 -
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     }());
 </script>
@@ -472,7 +445,7 @@ Copyright &copy; 2013 -
       var twitterWidgets = document.createElement('script');
       twitterWidgets.type = 'text/javascript';
       twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
       document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
     })();
   </script>

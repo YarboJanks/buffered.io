@@ -5,14 +5,8 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Is an IDE all it's cracked up to be? - OJ's perspective</title>
+  <title>Is an IDE All It's Cracked Up to Be? - OJ's perspective</title>
   <meta name="author" content="OJ Reeves">
-
-  <link rel="openid.server" href="http://pip.verisignlabs.com/server" />
-  <link rel="openid.delegate" href="http://thecolonial.pip.verisignlabs.com/" />
-  <link rel="openid2.provider" href="http://pip.verisignlabs.com/server" />
-  <link rel="openid2.local_id" href="http://thecolonial.pip.verisignlabs.com/" />
-  <meta http-equiv="X-XRDS-Location" content="http://pip.verisignlabs.com/thecolonial/yadixrds" />
 
   
   <meta name="description" content="Have the days of writing code in VIM ended? Is Emacs ready to be put to bed? Are we destined to spend the rest of our development lives heads-down in &hellip;">
@@ -24,39 +18,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's perspective RSS 2.0" type="application/rss+xml">
   <link rel="canonical" href="http://buffered.io/posts/is-an-ide-all-its-cracked-up-to-be">
   <link href="/favicon.ico" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-
-  <script src="/javascripts/modernizr-2.0.js" type="text/javascript"></script>
-  <script src="/javascripts/ender.js" type="text/javascript"></script>
+  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's perspective" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
-
-  <script type="text/javascript">
-    Modernizr.load([
-      { load: '//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js' },
-      { load: '/javascripts/jquery.lightbox.js', complete: function() {
-        $("a[rel^='lightbox']").lightbox();
-      } }
-    ]);
-  </script>
-
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 
   
-
-  
-  <script type="text/javascript">
-    !function(g,s,q,r,d){r=g[r]=g[r]||function(){(r.q=r.q||[]).push(
-    arguments)};d=s.createElement(q);q=s.getElementsByTagName(q)[0];
-    d.src='//d1l6p2sc9645hc.cloudfront.net/tracker.js';q.parentNode.
-    insertBefore(d,q)}(window,document,'script','_gs');
-    _gs('GSN-416076-G');
-  </script>
-
 
 </head>
 
@@ -112,10 +86,10 @@
   
 
 
-
-<time datetime="2006-09-12T22:35:00+10:00" pubdate data-updated="true">12 Sep 2006</time>
+<time datetime="2006-09-12T22:35:00+10:00" pubdate data-updated="true"></time>
         
-         | <a href="#disqus_thread">Comments</a>
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://buffered.io">Comments</a>
         
       </p>
     
@@ -126,27 +100,27 @@
 
 <p>IMHO, this argument is very much a Linux vs Windows style argument.</p>
 
-<p>To those long term VIM and Emacs users, there&#8217;s no reason to go an IDE like Visual Studio. Both of those editors are customisable, flexible and support a plethora of plugins and utilies. They even support a scripting language which lets you add your own special functionality.  While it may not be supported &#8220;out of the box&#8221;, you can have features such as <a href="http://en.wikipedia.org/wiki/Intellisense" title="Intellisense - Wikipedia" target="_blank">intellisense</a>, debugging support and source code browsing. They both work on lots of platforms - actually, they&#8217;re usually installed by default on quite a few Linux distributions. They also cost you nothing, zip, nada, nought and stuff all. I this this last point tends to be a winner - especially to those in the open-source and free software camps.  The power of these applications is not to be underestimated - there&#8217;s little they can&#8217;t do or can&#8217;t be made to do.</p>
+<p>To those long term VIM and Emacs users, there&rsquo;s no reason to go an IDE like Visual Studio. Both of those editors are customisable, flexible and support a plethora of plugins and utilies. They even support a scripting language which lets you add your own special functionality.  While it may not be supported &ldquo;out of the box&rdquo;, you can have features such as <a href="http://en.wikipedia.org/wiki/Intellisense" title="Intellisense - Wikipedia" target="_blank">intellisense</a>, debugging support and source code browsing. They both work on lots of platforms &ndash; actually, they&rsquo;re usually installed by default on quite a few Linux distributions. They also cost you nothing, zip, nada, nought and stuff all. I this this last point tends to be a winner &ndash; especially to those in the open-source and free software camps.  The power of these applications is not to be underestimated &ndash; there&rsquo;s little they can&rsquo;t do or can&rsquo;t be made to do.</p>
 
-<p>To those long term IDE junkies who have lived their lives in Visual Studio and/or <a href="http://www.borland.com/bcppbuilder/" title="Borland IDE" target="_blank">Borland IDE</a>, the comfort of the tool coverage in a single window is something that can&#8217;t be missed.  The IDEs contain a plethora of information and features - source browsing, project support, generation of makefiles, in-built debugging with call-stack and memory views, intellisense, <a href="http://en.wikipedia.org/wiki/Software_Configuration_Management" title="Software Configuration Management" target="_blank">SCM</a> integration, etc. Some even make the tea!</p>
+<p>To those long term IDE junkies who have lived their lives in Visual Studio and/or <a href="http://www.borland.com/bcppbuilder/" title="Borland IDE" target="_blank">Borland IDE</a>, the comfort of the tool coverage in a single window is something that can&rsquo;t be missed.  The IDEs contain a plethora of information and features &ndash; source browsing, project support, generation of makefiles, in-built debugging with call-stack and memory views, intellisense, <a href="http://en.wikipedia.org/wiki/Software_Configuration_Management" title="Software Configuration Management" target="_blank">SCM</a> integration, etc. Some even make the tea!</p>
 
 <p>Well, not really.</p>
 
-<p>So who wins? What&#8217;s the point of going for one instead of the other?  Of course, my list of editors and IDEs is far from exhaustive, but the ones mentioned are the ones that most people will know about and have an opinion on (so you&#8217;re by no means constrained to this pitiful list! :)).</p>
+<p>So who wins? What&rsquo;s the point of going for one instead of the other?  Of course, my list of editors and IDEs is far from exhaustive, but the ones mentioned are the ones that most people will know about and have an opinion on (so you&rsquo;re by no means constrained to this pitiful list! :)).</p>
 
-<p>One of the things that stands against the likes of VIM and Emacs is that they&#8217;re both very tough to learn. Initially, the interface and shortcuts are very hard to grasp, and it feels like it takes an ice-age to get anything done.  <strong>Time</strong> is something that is required to fully realise the power of these tools.  IDEs tend to be a lot more intuitive (note the word <em>tend</em>), and people are generally able to get up to speed with using them in a fairly short period of time.</p>
+<p>One of the things that stands against the likes of VIM and Emacs is that they&rsquo;re both very tough to learn. Initially, the interface and shortcuts are very hard to grasp, and it feels like it takes an ice-age to get anything done.  <strong>Time</strong> is something that is required to fully realise the power of these tools.  IDEs tend to be a lot more intuitive (note the word <em>tend</em>), and people are generally able to get up to speed with using them in a fairly short period of time.</p>
 
-<p>Personally, I can see a lot of value in both.  I try to do development work on a variety of platforms (my current targets are Windows XP x64 / x86 and Gentoo Linux AMD64), which doesn&#8217;t make an IDE such as Visual Studio an option for me despite the fact that it does make debugging applications an absolute breeze. I (try to) use VIM as much as I can but I find myself getting frustrated because I&#8217;m still not yet at that point where I don&#8217;t have to think about the shortcuts before I use them. I also find that since I&#8217;ve had to use Visual Studio so often in my day job as a contractor that I&#8217;m very used to this IDE as a development tool, which again makes me frustrated when dealing with VIM as I know I&#8217;d be able to use Visual Studio a lot quicker.</p>
+<p>Personally, I can see a lot of value in both.  I try to do development work on a variety of platforms (my current targets are Windows XP x64 / x86 and Gentoo Linux AMD64), which doesn&rsquo;t make an IDE such as Visual Studio an option for me despite the fact that it does make debugging applications an absolute breeze. I (try to) use VIM as much as I can but I find myself getting frustrated because I&rsquo;m still not yet at that point where I don&rsquo;t have to think about the shortcuts before I use them. I also find that since I&rsquo;ve had to use Visual Studio so often in my day job as a contractor that I&rsquo;m very used to this IDE as a development tool, which again makes me frustrated when dealing with VIM as I know I&rsquo;d be able to use Visual Studio a lot quicker.</p>
 
-<p>This isn&#8217;t putting me off though. I know from dealing with so many different people at work that VIM really can give you a huge productivity boost.  This reason alone is enough to make me continue trying to learn it, although I&#8217;m sure there are many others.  I like the idea that I can have a single editor that I&#8217;m familiar with that works on any development platform that I might find myself using - and not just a single editor, but one that has a great deal of power (as opposed to the likes of <a href="http://www.nano-editor.org/" title="Nano editor" target="_blank">nano</a>).</p>
+<p>This isn&rsquo;t putting me off though. I know from dealing with so many different people at work that VIM really can give you a huge productivity boost.  This reason alone is enough to make me continue trying to learn it, although I&rsquo;m sure there are many others.  I like the idea that I can have a single editor that I&rsquo;m familiar with that works on any development platform that I might find myself using &ndash; and not just a single editor, but one that has a great deal of power (as opposed to the likes of <a href="http://www.nano-editor.org/" title="Nano editor" target="_blank">nano</a>).</p>
 
-<p>So where am I goingn with this rant? The answer is simple - where is the editor that encompasses all these features? Why am I yet to find an IDE with the text-editing capabilities of VIM? Yes, I&#8217;m aware of some psuedo-plugins that make VIM work in Visual studio, but it just doesn&#8217;t nail it.  We need a cross-platform IDE that contains the power, speed, and text-editing capabilities of VIM, and the ease of debugging that comes with Visual Studio.</p>
+<p>So where am I goingn with this rant? The answer is simple &ndash; where is the editor that encompasses all these features? Why am I yet to find an IDE with the text-editing capabilities of VIM? Yes, I&rsquo;m aware of some psuedo-plugins that make VIM work in Visual studio, but it just doesn&rsquo;t nail it.  We need a cross-platform IDE that contains the power, speed, and text-editing capabilities of VIM, and the ease of debugging that comes with Visual Studio.</p>
 
-<p>My image of a development studio might seem a little skewed, in fact I can&#8217;t really picture in my mind what would make an IDE the perfect IDE.  <a href="http://www.codeproject.com/useritems/Visual_Studio_2020.asp" title="Visual Studio 2020 (non-Microsoft)" target="_blank">This guy</a> attempted to put his thoughts down on paper on what things should be like in the future, but I&#8217;m not sure he&#8217;s nailed it.</p>
+<p>My image of a development studio might seem a little skewed, in fact I can&rsquo;t really picture in my mind what would make an IDE the perfect IDE.  <a href="http://www.codeproject.com/useritems/Visual_Studio_2020.asp" title="Visual Studio 2020 (non-Microsoft)" target="_blank">This guy</a> attempted to put his thoughts down on paper on what things should be like in the future, but I&rsquo;m not sure he&rsquo;s nailed it.</p>
 
-<p>What I do know is this - we have a <em>long</em> way to go before we get to development tool utopia. VIM and Emacs do lack some of the development ease of Visual Studio with regards to debugging, and on the flip side Visual Studio&#8217;s text-editing just bites compared to the power of VIM/Emacs.  I hope that someone somewhere somehow manages to bring it all together - as that means I don&#8217;t have to do it :)</p>
+<p>What I do know is this &ndash; we have a <em>long</em> way to go before we get to development tool utopia. VIM and Emacs do lack some of the development ease of Visual Studio with regards to debugging, and on the flip side Visual Studio&rsquo;s text-editing just bites compared to the power of VIM/Emacs.  I hope that someone somewhere somehow manages to bring it all together &ndash; as that means I don&rsquo;t have to do it :)</p>
 
-<p>If any of you have any thoughts or links on the text editors and development environments you use and feel are good, then I&#8217;d love to hear about them. Until I find something more worthy, it&#8217;ll continue to be VIM and Visual Studio for me :D</p>
+<p>If any of you have any thoughts or links on the text editors and development environments you use and feel are good, then I&rsquo;d love to hear about them. Until I find something more worthy, it&rsquo;ll continue to be VIM and Visual Studio for me :D</p>
 </div>
 
 
@@ -169,8 +143,7 @@
   
 
 
-
-<time datetime="2006-09-12T22:35:00+10:00" pubdate data-updated="true">12 Sep 2006</time>
+<time datetime="2006-09-12T22:35:00+10:00" pubdate data-updated="true"></time>
       
 
 <span class="categories">
@@ -184,7 +157,7 @@
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://buffered.io/posts/is-an-ide-all-its-cracked-up-to-be/" data-via="TheColonial" data-counturl="http://buffered.io/posts/is-an-ide-all-its-cracked-up-to-be/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://buffered.io/posts/is-an-ide-all-its-cracked-up-to-be/" data-via="TheColonial" data-counturl="http://buffered.io/posts/is-an-ide-all-its-cracked-up-to-be/" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -198,7 +171,7 @@
         <a class="basic-alignment left" href="/posts/minority-report-becomes-reality/" title="Previous Post: Minority Report becomes Reality?">&laquo; Minority Report becomes Reality?</a>
       
       
-        <a class="basic-alignment right" href="/posts/are-you-any-good/" title="next Post: Are you any good?">Are you any good? &raquo;</a>
+        <a class="basic-alignment right" href="/posts/are-you-any-good/" title="Next Post: Are you any good?">Are you any good? &raquo;</a>
       
     </p>
   </footer>
@@ -399,7 +372,7 @@ Copyright &copy; 2013 -
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     }());
 </script>
@@ -423,7 +396,7 @@ Copyright &copy; 2013 -
       var twitterWidgets = document.createElement('script');
       twitterWidgets.type = 'text/javascript';
       twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
       document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
     })();
   </script>

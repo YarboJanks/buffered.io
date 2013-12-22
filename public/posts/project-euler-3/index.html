@@ -8,14 +8,8 @@
   <title>Project Euler #3 - OJ's perspective</title>
   <meta name="author" content="OJ Reeves">
 
-  <link rel="openid.server" href="http://pip.verisignlabs.com/server" />
-  <link rel="openid.delegate" href="http://thecolonial.pip.verisignlabs.com/" />
-  <link rel="openid2.provider" href="http://pip.verisignlabs.com/server" />
-  <link rel="openid2.local_id" href="http://thecolonial.pip.verisignlabs.com/" />
-  <meta http-equiv="X-XRDS-Location" content="http://pip.verisignlabs.com/thecolonial/yadixrds" />
-
   
-  <meta name="description" content="WARNING! This post contains a spoiler for Problem #3 listed at Project Euler. Do not read the rest of this post if you&#8217;re planning to attempt &hellip;">
+  <meta name="description" content="WARNING! This post contains a spoiler for Problem #3 listed at Project Euler. Do not read the rest of this post if you&rsquo;re planning to attempt &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -24,39 +18,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's perspective RSS 2.0" type="application/rss+xml">
   <link rel="canonical" href="http://buffered.io/posts/project-euler-3">
   <link href="/favicon.ico" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-
-  <script src="/javascripts/modernizr-2.0.js" type="text/javascript"></script>
-  <script src="/javascripts/ender.js" type="text/javascript"></script>
+  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's perspective" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
-
-  <script type="text/javascript">
-    Modernizr.load([
-      { load: '//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js' },
-      { load: '/javascripts/jquery.lightbox.js', complete: function() {
-        $("a[rel^='lightbox']").lightbox();
-      } }
-    ]);
-  </script>
-
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 
   
-
-  
-  <script type="text/javascript">
-    !function(g,s,q,r,d){r=g[r]=g[r]||function(){(r.q=r.q||[]).push(
-    arguments)};d=s.createElement(q);q=s.getElementsByTagName(q)[0];
-    d.src='//d1l6p2sc9645hc.cloudfront.net/tracker.js';q.parentNode.
-    insertBefore(d,q)}(window,document,'script','_gs');
-    _gs('GSN-416076-G');
-  </script>
-
 
 </head>
 
@@ -112,29 +86,29 @@
   
 
 
-
-<time datetime="2008-03-19T21:06:00+10:00" pubdate data-updated="true">19 Mar 2008</time>
+<time datetime="2008-03-19T21:06:00+10:00" pubdate data-updated="true"></time>
         
-         | <a href="#disqus_thread">Comments</a>
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://buffered.io">Comments</a>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p><strong>WARNING!</strong> This post contains a spoiler for Problem #3 listed at <a href="http://projecteuler.net/" title="Project Euler">Project Euler</a>. Do not read the rest of this post if you&#8217;re planning to attempt to solve the problem yourself.</p>
+<div class="entry-content"><p><strong>WARNING!</strong> This post contains a spoiler for Problem #3 listed at <a href="http://projecteuler.net/" title="Project Euler">Project Euler</a>. Do not read the rest of this post if you&rsquo;re planning to attempt to solve the problem yourself.</p>
 
 <!--more-->
 
 
-<p><a href="http://projecteuler.net/index.php?section=problems&id=3">Problem #3</a> in the series is the first one to bring in prime numbers. Here&#8217;s the question:<blockquote><p>The prime factors of 13195 are 5, 7, 13 and 29.</p>
+<p><a href="http://projecteuler.net/index.php?section=problems&id=3">Problem #3</a> in the series is the first one to bring in prime numbers. Here&rsquo;s the question:<blockquote><p>The prime factors of 13195 are 5, 7, 13 and 29.</p>
 
 <p>What is the largest prime factor of the number 600851475143 ?</p></blockquote>
-For this particular problem I decided to avoid generating prime numbers because that takes ages. I had a feeling that later on down the track I was going to encounter a problem where I would need to generate primes, but for this problem I didn&#8217;t find it necessary.</p>
+For this particular problem I decided to avoid generating prime numbers because that takes ages. I had a feeling that later on down the track I was going to encounter a problem where I would need to generate primes, but for this problem I didn&rsquo;t find it necessary.</p>
 
-<p>Instead, I attempted to use my noggin&#8217;. Up there for thinkin&#8217;, down there for dancin&#8217;. Here&#8217;s my Haskell source:</p>
+<p>Instead, I attempted to use my noggin&#8217;. Up there for thinkin&#8217;, down there for dancin&#8217;. Here&rsquo;s my Haskell source:</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -159,13 +133,13 @@ For this particular problem I decided to avoid generating prime numbers because 
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>Don&#8217;t ya just love built-in Big Integer support? :)</p>
+<p>Don&rsquo;t ya just love built-in Big Integer support? :)</p>
 
-<p>This obviously works from the bottom up. It starts with a special case with an even number. It keeps dividing by two until it&#8217;s no longer even. At this point, it begins factorising using odd numbers starting at 3. The loop finishes when the last found factor is bigger than the number that is being factored. This works because as we find the factors, we divide the number by the factor. This keeps reducing the size of the number we&#8217;re factorising, while increasing the size of the factors.</p>
+<p>This obviously works from the bottom up. It starts with a special case with an even number. It keeps dividing by two until it&rsquo;s no longer even. At this point, it begins factorising using odd numbers starting at 3. The loop finishes when the last found factor is bigger than the number that is being factored. This works because as we find the factors, we divide the number by the factor. This keeps reducing the size of the number we&rsquo;re factorising, while increasing the size of the factors.</p>
 
-<p>Pretty simple really isn&#8217;t it! Thoughts?</p>
+<p>Pretty simple really isn&rsquo;t it! Thoughts?</p>
 
-<p><strong>Note:</strong> I&#8217;m assuming that nobody is going to call this function that is a multiple of 2!</p>
+<p><strong>Note:</strong> I&rsquo;m assuming that nobody is going to call this function that is a multiple of 2!</p>
 </div>
 
 
@@ -188,8 +162,7 @@ For this particular problem I decided to avoid generating prime numbers because 
   
 
 
-
-<time datetime="2008-03-19T21:06:00+10:00" pubdate data-updated="true">19 Mar 2008</time>
+<time datetime="2008-03-19T21:06:00+10:00" pubdate data-updated="true"></time>
       
 
 <span class="categories">
@@ -203,7 +176,7 @@ For this particular problem I decided to avoid generating prime numbers because 
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://buffered.io/posts/project-euler-3/" data-via="TheColonial" data-counturl="http://buffered.io/posts/project-euler-3/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://buffered.io/posts/project-euler-3/" data-via="TheColonial" data-counturl="http://buffered.io/posts/project-euler-3/" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -217,7 +190,7 @@ For this particular problem I decided to avoid generating prime numbers because 
         <a class="basic-alignment left" href="/posts/project-euler-2/" title="Previous Post: Project Euler #2">&laquo; Project Euler #2</a>
       
       
-        <a class="basic-alignment right" href="/posts/hrm-revenue-customs-idiots/" title="next Post: HRM Revenue &amp; Customs - Idiots!">HRM Revenue &amp; Customs - Idiots! &raquo;</a>
+        <a class="basic-alignment right" href="/posts/hrm-revenue-customs-idiots/" title="Next Post: HRM Revenue &amp; Customs - Idiots!">HRM Revenue &amp; Customs - Idiots! &raquo;</a>
       
     </p>
   </footer>
@@ -418,7 +391,7 @@ Copyright &copy; 2013 -
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     }());
 </script>
@@ -442,7 +415,7 @@ Copyright &copy; 2013 -
       var twitterWidgets = document.createElement('script');
       twitterWidgets.type = 'text/javascript';
       twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
       document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
     })();
   </script>

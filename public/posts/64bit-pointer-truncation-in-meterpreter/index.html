@@ -8,14 +8,8 @@
   <title>64bit Pointer Truncation in Meterpreter - OJ's perspective</title>
   <meta name="author" content="OJ Reeves">
 
-  <link rel="openid.server" href="http://pip.verisignlabs.com/server" />
-  <link rel="openid.delegate" href="http://thecolonial.pip.verisignlabs.com/" />
-  <link rel="openid2.provider" href="http://pip.verisignlabs.com/server" />
-  <link rel="openid2.local_id" href="http://thecolonial.pip.verisignlabs.com/" />
-  <meta http-equiv="X-XRDS-Location" content="http://pip.verisignlabs.com/thecolonial/yadixrds" />
-
   
-  <meta name="description" content="If you haven&#8217;t ever heard of Meterpreter before, you might want to go and take a look at it before reading this post to help give some context &hellip;">
+  <meta name="description" content="If you haven&rsquo;t ever heard of Meterpreter before, you might want to go and take a look at it before reading this post to help give some context &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -24,39 +18,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's perspective RSS 2.0" type="application/rss+xml">
   <link rel="canonical" href="http://buffered.io/posts/64bit-pointer-truncation-in-meterpreter">
   <link href="/favicon.ico" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-
-  <script src="/javascripts/modernizr-2.0.js" type="text/javascript"></script>
-  <script src="/javascripts/ender.js" type="text/javascript"></script>
+  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's perspective" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
-
-  <script type="text/javascript">
-    Modernizr.load([
-      { load: '//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js' },
-      { load: '/javascripts/jquery.lightbox.js', complete: function() {
-        $("a[rel^='lightbox']").lightbox();
-      } }
-    ]);
-  </script>
-
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 
   
-
-  
-  <script type="text/javascript">
-    !function(g,s,q,r,d){r=g[r]=g[r]||function(){(r.q=r.q||[]).push(
-    arguments)};d=s.createElement(q);q=s.getElementsByTagName(q)[0];
-    d.src='//d1l6p2sc9645hc.cloudfront.net/tracker.js';q.parentNode.
-    insertBefore(d,q)}(window,document,'script','_gs');
-    _gs('GSN-416076-G');
-  </script>
-
 
 </head>
 
@@ -112,19 +86,19 @@
   
 
 
-
-<time datetime="2013-09-14T07:25:00+10:00" pubdate data-updated="true">14 Sep 2013</time>
+<time datetime="2013-09-14T07:25:00+10:00" pubdate data-updated="true"></time>
         
-         | <a href="#disqus_thread">Comments</a>
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://buffered.io">Comments</a>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>If you haven&#8217;t ever heard of <a href="https://github.com/rapid7/meterpreter" title="Native Meterpreter">Meterpreter</a> before, you might want to go and take a look at it before reading this post to help give some context. In short, Meterpreter is an amazing library that is part of the <a href="http://www.metasploit.com/" title="Metasploit Framework">Metasploit Framework</a> and can be used to give you tremendous power and control over target machines during a <a href="http://en.wikipedia.org/wiki/Penetration_test" title="Penetration Testing">penetration test</a>. Anyone and everyone in the security game is most likely familiar with both Metasploit and Meterpreter, at the very least, if not closely intimate with them. The toolset is fantastic, and is <a href="https://github.com/rapid7/metasploit-framework/" title="Metasploit Framework Source">open source</a>!</p>
+<div class="entry-content"><p>If you haven&rsquo;t ever heard of <a href="https://github.com/rapid7/meterpreter" title="Native Meterpreter">Meterpreter</a> before, you might want to go and take a look at it before reading this post to help give some context. In short, Meterpreter is an amazing library that is part of the <a href="http://www.metasploit.com/" title="Metasploit Framework">Metasploit Framework</a> and can be used to give you tremendous power and control over target machines during a <a href="http://en.wikipedia.org/wiki/Penetration_test" title="Penetration Testing">penetration test</a>. Anyone and everyone in the security game is most likely familiar with both Metasploit and Meterpreter, at the very least, if not closely intimate with them. The toolset is fantastic, and is <a href="https://github.com/rapid7/metasploit-framework/" title="Metasploit Framework Source">open source</a>!</p>
 
-<p>I&#8217;m currently in the very fortunate position of <a href="https://community.rapid7.com/community/metasploit/blog/2013/09/05/weekly-update" title="Weekly Update: Meterpreter Updates, VMWare, the OSX spycam, Retabbing, and more!">working with the crew</a> from <a href="http://www.rapid7.com/" title="Rapid 7">Rapid7</a> to help improve Meterpreter, particularly on the Windows (both 32 and 64 bit). I have a good list of things to work through while I&#8217;m on board including making it easier to build for potential contributors, and to fix some outstanding issues that the R7 crew haven&#8217;t had the bandwidth to fix.  These people are super-smart, and super-nice and I&#8217;m honoured that I&#8217;ve been selected to work alongside them.</p>
+<p>I&rsquo;m currently in the very fortunate position of <a href="https://community.rapid7.com/community/metasploit/blog/2013/09/05/weekly-update" title="Weekly Update: Meterpreter Updates, VMWare, the OSX spycam, Retabbing, and more!">working with the crew</a> from <a href="http://www.rapid7.com/" title="Rapid 7">Rapid7</a> to help improve Meterpreter, particularly on the Windows (both 32 and 64 bit). I have a good list of things to work through while I&rsquo;m on board including making it easier to build for potential contributors, and to fix some outstanding issues that the R7 crew haven&rsquo;t had the bandwidth to fix.  These people are super-smart, and super-nice and I&rsquo;m honoured that I&rsquo;ve been selected to work alongside them.</p>
 
 <p>The purpose of this post is to document the process and resolution of a bug that I have helped resolve since joining. I also aim to lift the lid on Meterpreter a little and help expose how some bits of it work. I hope you enjoy.</p>
 
@@ -135,13 +109,13 @@
 
 <p>When exploiting a vulnerability during a penetration test using Metasploit, you have a number of payloads that you choose to use which give you some sort of control over your target. Of those payloads, Metepreter is not only the most common, but is probably the most powerful.</p>
 
-<p>Once you have an instance of Metepreter running on a target, you&#8217;ve got quite a lot of control. You can escalate privileges, dump password hashes, launch processes, upload files, and you can even use it as a pivot-point for launching attacks against other non-routable hosts. While the power of all this is enough to bake anyone&#8217;s noodle, the thing that blows my mind the most is Meterpreter&#8217;s ability to migrate to other processes. That is, Meterpreter can dynamically load itself into another processes and then reconnect to your Metasploit session seamlessly without any effort from the attacker (ie. you). Simply executing <code>migrate &lt;process id&gt;</code> at the Meterpreter prompt is all it takes.</p>
+<p>Once you have an instance of Metepreter running on a target, you&rsquo;ve got quite a lot of control. You can escalate privileges, dump password hashes, launch processes, upload files, and you can even use it as a pivot-point for launching attacks against other non-routable hosts. While the power of all this is enough to bake anyone&rsquo;s noodle, the thing that blows my mind the most is Meterpreter&rsquo;s ability to migrate to other processes. That is, Meterpreter can dynamically load itself into another processes and then reconnect to your Metasploit session seamlessly without any effort from the attacker (ie. you). Simply executing <code>migrate &lt;process id&gt;</code> at the Meterpreter prompt is all it takes.</p>
 
-<p>There are some caveats when it comes to migration. In particular, you need to have permission to write to the target process&#8217;s memory otherwise the migration will not succeed.</p>
+<p>There are some caveats when it comes to migration. In particular, you need to have permission to write to the target process&rsquo;s memory otherwise the migration will not succeed.</p>
 
 <p>Meterpreter comes in quite a few flavours, including <code>PHP</code>, <code>Python</code>, and <code>native/C</code> for Linux and Windows. Some implementations are more feature-rich than others, but they all have common functionality which makes it easy to perform a variety of functions on a compromised host.</p>
 
-<p>We&#8217;ll be focusing on the Windows native payload in this post, and in particular we&#8217;ll be looking at how Meterpreter is loaded and executed.</p>
+<p>We&rsquo;ll be focusing on the Windows native payload in this post, and in particular we&rsquo;ll be looking at how Meterpreter is loaded and executed.</p>
 
 <h2>Reflective DLL Injection</h2>
 
@@ -154,7 +128,7 @@
 </ul>
 
 
-<p>The canonical paper [<a href="http://www.harmonysecurity.com/files/HS-P005_ReflectiveDllInjection.pdf" title="Reflective DLL Injection">PDF</a>], written by <a href="http://twitter.com/stephenfewer">Stephen Fewer</a>, is well worth reading and can be found on the <a href="http://harmonysecurity.com/" title="Harmony Security">Harmony Security</a> website. Read it. It&#8217;s amazing, and does a much better job of explaining itself than I could ever hope to. I would like to point out that there&#8217;s a multi-stage process involved which includes:</p>
+<p>The canonical paper [<a href="http://www.harmonysecurity.com/files/HS-P005_ReflectiveDllInjection.pdf" title="Reflective DLL Injection">PDF</a>], written by <a href="http://twitter.com/stephenfewer">Stephen Fewer</a>, is well worth reading and can be found on the <a href="http://harmonysecurity.com/" title="Harmony Security">Harmony Security</a> website. Read it. It&rsquo;s amazing, and does a much better job of explaining itself than I could ever hope to. I would like to point out that there&rsquo;s a multi-stage process involved which includes:</p>
 
 <ul>
 <li>Writing the code to an executable area of memory.</li>
@@ -164,7 +138,7 @@
 </ul>
 
 
-<p>With that in mind, let&#8217;s take a look at the bug.</p>
+<p>With that in mind, let&rsquo;s take a look at the bug.</p>
 
 <h2>The Bug</h2>
 
@@ -176,11 +150,11 @@ without any problems. However, spawning another process, such as <em>notepad.exe
 migrating to it hangs the entire session. Migrating to the <em>winlogon.exe</em> process
 crashes the entire user environment on the target host.</p></blockquote>
 
-<p>When I first read this report I thought &#8220;Wow, how am I going to track this down?&#8221;, and I&#8217;ll admit that I was a little intimidated at first, especially given that I knew that the native Windows Meterpreter was using Reflective DLL Injection to load itself into other processes. However, it&#8217;s been a long time since I&#8217;d been tasked with something this challenging and so, deep down, I was looking forward to diving in.</p>
+<p>When I first read this report I thought &ldquo;Wow, how am I going to track this down?&rdquo;, and I&rsquo;ll admit that I was a little intimidated at first, especially given that I knew that the native Windows Meterpreter was using Reflective DLL Injection to load itself into other processes. However, it&rsquo;s been a long time since I&rsquo;d been tasked with something this challenging and so, deep down, I was looking forward to diving in.</p>
 
 <h2>Replication</h2>
 
-<p>The first step was to fire up a Windows 2012 virtual machine and replicate the problem. Windows 2012 only comes in a 64-bit flavour, so picking the right version wasn&#8217;t a problem.</p>
+<p>The first step was to fire up a Windows 2012 virtual machine and replicate the problem. Windows 2012 only comes in a 64-bit flavour, so picking the right version wasn&rsquo;t a problem.</p>
 
 <p>After installation, I needed to simulate an attack coming from Metasploit so that I could interact with Meterpreter to perform the migration.</p>
 
@@ -294,7 +268,7 @@ meterpreter &gt;
 
 <h2>Diagnosis</h2>
 
-<p>To help figure out what was going wrong, I enlisted the help of two of my favourite tools: <a href="http://technet.microsoft.com/en-au/sysinternals/bb896647.aspx" title="DebugView">DebugView</a> and <a href="http://en.wikipedia.org/wiki/WinDbg" title="Windbg">Windbg</a>. Coverage of these tools is beyond the scope of the article, so if you want to learn more about them you&#8217;ll find a stack of information out on the web. Given that this machine was 64-bit and the process we were aiming to debug was 64-bit, I installed the 64-bit version of the <a href="http://msdn.microsoft.com/en-us/windows/hardware/gg463009.aspx" title="Debugging Tools for Windows">Debugging Tools for Windows</a> so that the right version of <code>windbg</code> was available.</p>
+<p>To help figure out what was going wrong, I enlisted the help of two of my favourite tools: <a href="http://technet.microsoft.com/en-au/sysinternals/bb896647.aspx" title="DebugView">DebugView</a> and <a href="http://en.wikipedia.org/wiki/WinDbg" title="Windbg">Windbg</a>. Coverage of these tools is beyond the scope of the article, so if you want to learn more about them you&rsquo;ll find a stack of information out on the web. Given that this machine was 64-bit and the process we were aiming to debug was 64-bit, I installed the 64-bit version of the <a href="http://msdn.microsoft.com/en-us/windows/hardware/gg463009.aspx" title="Debugging Tools for Windows">Debugging Tools for Windows</a> so that the right version of <code>windbg</code> was available.</p>
 
 <p>Before dabbling with any of the binaries and adding debug detail, I repeated the failure scenario but with one small change: I launched <code>notepad.exe</code> manually and attached to it from <code>windbg</code> prior to performing the migration. I left <code>DebugView</code> running as well to catch any debug messages from processes outside of the one that <code>windbg</code> was attached to.</p>
 
@@ -306,7 +280,7 @@ This exception may be expected and handled.
 00000000`707a7b5c ??              ???
 </code></pre>
 
-<p>We can see that we&#8217;re accessing memory that we shouldn&#8217;t be accessing. But why?</p>
+<p>We can see that we&rsquo;re accessing memory that we shouldn&rsquo;t be accessing. But why?</p>
 
 <pre><code>0:003&gt; !analyze -v
 *******************************************************************************
@@ -332,7 +306,7 @@ Attempt to execute non-executable address 00000000707a7b5c
 ... snip ...
 </code></pre>
 
-<p>The migration process results in an attempt to execute a section of code in an area of memory that isn&#8217;t marked as executable. Let&#8217;s confirm that:</p>
+<p>The migration process results in an attempt to execute a section of code in an area of memory that isn&rsquo;t marked as executable. Let&rsquo;s confirm that:</p>
 
 <pre><code>0:003&gt; !vprot 00000000707a7b5c
 BaseAddress:       00000000707a7000
@@ -359,9 +333,9 @@ Protect:           00000001  PAGE_NOACCESS
 00000000`707a7e1c  "????????????????????????????????"
 </code></pre>
 
-<p>It&#8217;s pretty clear that no valid code is located in this area of memory. This implied that there was a possibility that a pointer to an area of code is somehow going awry. But where? To find this out, I needed to add some more debug output to Meterpreter.</p>
+<p>It&rsquo;s pretty clear that no valid code is located in this area of memory. This implied that there was a possibility that a pointer to an area of code is somehow going awry. But where? To find this out, I needed to add some more debug output to Meterpreter.</p>
 
-<p>Next, I opened the Meterpreter source in Visual Studio 2012 (freshly moved from VS 2010 by yours truly) and prepared to rebuild the binaries with some extra debug output. I littered the code with <a href="http://msdn.microsoft.com/en-us/library/windows/apps/aa363362(v=vs.85).aspx" title="OutputDebugString function">OutputDebugString</a> calls at various key locations, enabled the existing logging that was built into the source, and rebuilt the suite of binaries from scratch. Once built, I deployed them to my Backtrack VM, fired up <code>DebugView</code> on the Windows 2012 VM and repeated the process (including attaching to <code>notepad.exe</code> with <code>windbg</code>). Here&#8217;s a snippet of the output:</p>
+<p>Next, I opened the Meterpreter source in Visual Studio 2012 (freshly moved from VS 2010 by yours truly) and prepared to rebuild the binaries with some extra debug output. I littered the code with <a href="http://msdn.microsoft.com/en-us/library/windows/apps/aa363362(v=vs.85).aspx" title="OutputDebugString function">OutputDebugString</a> calls at various key locations, enabled the existing logging that was built into the source, and rebuilt the suite of binaries from scratch. Once built, I deployed them to my Backtrack VM, fired up <code>DebugView</code> on the Windows 2012 VM and repeated the process (including attaching to <code>notepad.exe</code> with <code>windbg</code>). Here&rsquo;s a snippet of the output:</p>
 
 <pre><code>[SERVER] Initializing...
 [SERVER] module loaded at 0x350B0000
@@ -415,7 +389,7 @@ This exception may be expected and handled.
 
 <p>As we already know from earlier in this post, the reflective DLL injection code dynamically builds a valid DLL image in memory and then invokes it. The method which builds this DLL image is called <code>ReflectiveLoader()</code> and is invoked in code via a pointer called <code>pReflectiveLoader</code>, which you can see in the above output. At the end of the <code>ReflectiveLoader()</code> function, a reference to <code>DllMain()</code> is resolved and invoked directly prior to returning control to the caller.</p>
 
-<p>Once this function returns, the Meterpreter-specific code then calls <code>DllMain()</code> again, using the value returned from <code>ReflectiveLoader()</code>, to invoke some functionality required by the Metasploit framework. In the above output, you can see the pointer to <code>DllMain()</code> called <code>pDllMain</code>, and this is the pointer that&#8217;s used to make the call.</p>
+<p>Once this function returns, the Meterpreter-specific code then calls <code>DllMain()</code> again, using the value returned from <code>ReflectiveLoader()</code>, to invoke some functionality required by the Metasploit framework. In the above output, you can see the pointer to <code>DllMain()</code> called <code>pDllMain</code>, and this is the pointer that&rsquo;s used to make the call.</p>
 
 <p>What was interesting about the log is that the first call to <code>DllMain()</code> that is invoked in the body of <code>ReflectiveLoader()</code> worked fine, otherwise the process would have crashed prior to the line that outputs the value of the <code>pDllMain</code> variable. Instead, it was the <em>second</em> call to <code>DllMain()</code> via the <code>pDllMain</code> pointer that caused the crash. This implied that the memory address that was being returned from <code>ReflectiveLoader()</code> was incorrect.</p>
 
@@ -427,26 +401,26 @@ This exception may be expected and handled.
 
 <p>Those two pointers were nowhere near each other! The more perceptive of you will have noticed that the <code>pDllMain</code> pointer appeared to have lost its higher-order <a href="http://msdn.microsoft.com/en-us/library/cc230318.aspx" title="DWORD">DWORD</a>. The pointer had in fact been truncated!</p>
 
-<p>But why? It wasn&#8217;t immediately obvious to me what the reason was, but I was keen to validate that this was the case. To prove my theory, I hacked the code a little so that the higher-order DWORD of the <code>pReflectiveLoader</code> value was used as the higher-order DWORD of <code>pDllMain</code> as well. The hack looked something like this:</p>
+<p>But why? It wasn&rsquo;t immediately obvious to me what the reason was, but I was keen to validate that this was the case. To prove my theory, I hacked the code a little so that the higher-order DWORD of the <code>pReflectiveLoader</code> value was used as the higher-order DWORD of <code>pDllMain</code> as well. The hack looked something like this:</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">ULONG_PTR</span> <span class="n">ulReflectiveLoaderBase</span> <span class="o">=</span> <span class="p">((</span><span class="n">ULONG_PTR</span><span class="p">)</span><span class="n">pReflectiveLoader</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(((</span><span class="n">ULONG_PTR</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">^</span> <span class="p">(</span><span class="mh">0xFFFFFFFF</span><span class="p">));</span>
 </span><span class='line'><span class="n">pDllMain</span> <span class="o">=</span> <span class="p">(</span><span class="n">DLLMAIN</span><span class="p">)(</span><span class="n">pReflectiveLoader</span><span class="p">()</span> <span class="o">|</span> <span class="n">ulReflectiveLoaderBase</span><span class="p">);</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>After the above code, <code>pDllMain</code> would have the same higher-order DWORD value as <code>pReflectiveLoader</code>. I compiled, deployed, executed &#8230;</p>
+<p>After the above code, <code>pDllMain</code> would have the same higher-order DWORD value as <code>pReflectiveLoader</code>. I compiled, deployed, executed &hellip;</p>
 
-<p>&#8230; and it worked!</p>
+<p>&hellip; and it worked!</p>
 
 <h2>Resolution</h2>
 
 <p>Armed with the knowledge earned from the above diagnosis, I set about looking through the code to see why this pointer was being truncated. Clearly the value was perfectly fine prior to being returned from <code>ReflectiveLoader()</code>, so why was it truncated upon return?</p>
 
-<p>I spent quite a bit of time looking around, and I didn&#8217;t find anything. Nothing was leaping out at me. I felt really stupid. So instead of beating about the bush, I contacted the man himself, the author and creator of Reflective DLL Injection himself, Mr <a href="http://twitter.com/stephenfewer">Stephen Fewer</a>. I explained the situation to him, detailed my findings and asked if he any idea as to why this problem might be occurring.</p>
+<p>I spent quite a bit of time looking around, and I didn&rsquo;t find anything. Nothing was leaping out at me. I felt really stupid. So instead of beating about the bush, I contacted the man himself, the author and creator of Reflective DLL Injection himself, Mr <a href="http://twitter.com/stephenfewer">Stephen Fewer</a>. I explained the situation to him, detailed my findings and asked if he any idea as to why this problem might be occurring.</p>
 
-<p>It didn&#8217;t take long to get a response. Stephen jumped on the issue straight away, fixed it and submitted a <a href="https://github.com/rapid7/meterpreter/pull/14">pull request</a> to the Meterpreter repository before emailing me back with details of the solution. Talk about great service!</p>
+<p>It didn&rsquo;t take long to get a response. Stephen jumped on the issue straight away, fixed it and submitted a <a href="https://github.com/rapid7/meterpreter/pull/14">pull request</a> to the Meterpreter repository before emailing me back with details of the solution. Talk about great service!</p>
 
 <p>When I saw the solution I immediately felt stupid for missing it myself. In hindsight I should have known to look in this location. I ate some humble pie and savoured the taste while expressing my gratitude to Stephen for his prompt response.</p>
 
@@ -454,14 +428,14 @@ This exception may be expected and handled.
 
 <p>The <code>pReflectiveLoader</code> pointer is a function pointer of a type defined like so:</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='c'><span class='line'><span class="k">typedef</span> <span class="n">DWORD</span> <span class="p">(</span><span class="n">WINAPI</span> <span class="o">*</span> <span class="n">REFLECTIVELOADER</span><span class="p">)(</span> <span class="n">VOID</span> <span class="p">);</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
 <p>However, the <code>ReflectiveLoader()</code> function was defined in the source like so:</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -482,7 +456,7 @@ This exception may be expected and handled.
 
 <p>So the function returns a <a href="http://msdn.microsoft.com/en-us/library/cc230394.aspx" title="ULONG_PTR">ULONG_PTR</a> (which is 64-bits) but the function pointer type returned a <a href="http://msdn.microsoft.com/en-us/library/cc230318.aspx" title="DWORD">DWORD</a> (which is 32-bits). This is what was causing the truncation of the pointer and effectively zeroing out the higher-order DWORD of <code>pDllMain</code>. The fix was to simply change the return type of the function pointer to match:</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='c'><span class='line'><span class="k">typedef</span> <span class="n">ULONG_PTR</span> <span class="p">(</span><span class="n">WINAPI</span> <span class="o">*</span> <span class="n">REFLECTIVELOADER</span><span class="p">)(</span> <span class="n">VOID</span> <span class="p">);</span>
 </span></code></pre></td></tr></table></div></figure>
 
@@ -496,9 +470,9 @@ This exception may be expected and handled.
 <blockquote><p>The bug was triggering on Server 2012 but not other 64bit systems
 probably due to high entropy ASLR making allocations over the 4gig boundary.</p></blockquote>
 
-<p>Earlier versions of Windows didn&#8217;t have an ASLR implementation that resulted in memory allocations over the 4GB boundary. As a result, the higher-order DWORD was always zero anyway, which meant that the truncation had no impact.</p>
+<p>Earlier versions of Windows didn&rsquo;t have an ASLR implementation that resulted in memory allocations over the 4GB boundary. As a result, the higher-order DWORD was always zero anyway, which meant that the truncation had no impact.</p>
 
-<p>This was a really fun bug to analyse and track down. I&#8217;m glad we got to the bottom of it. Again I&#8217;d like to thank Stephen for his involvement in locating the source of the problem.</p>
+<p>This was a really fun bug to analyse and track down. I&rsquo;m glad we got to the bottom of it. Again I&rsquo;d like to thank Stephen for his involvement in locating the source of the problem.</p>
 
 <p>The new and improved version of Meterpreter that contains this fix will be landing in Metasploit very soon (I hope). Thanks for reading. Comments and feedback are welcomed.  <a name="Edit15thSep"></a></p>
 
@@ -512,20 +486,20 @@ probably due to high entropy ASLR making allocations over the 4gig boundary.</p>
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 
-<p>I answered quickly but realised after that I was a bit hasty, so I&#8217;m going to clarify on here instead.</p>
+<p>I answered quickly but realised after that I was a bit hasty, so I&rsquo;m going to clarify on here instead.</p>
 
-<p>We need to review a few snippets of code to understand why the compiler didn&#8217;t complain. Firstly, the function-pointer type definition (prior to the fix):</p>
+<p>We need to review a few snippets of code to understand why the compiler didn&rsquo;t complain. Firstly, the function-pointer type definition (prior to the fix):</p>
 
-<figure class='code'><figcaption><span>ReflectiveDllInjection.h (partial)  </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span>ReflectiveDllInjection.h (partial) </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='c'><span class='line'><span class="k">typedef</span> <span class="n">DWORD</span> <span class="p">(</span><span class="n">WINAPI</span> <span class="o">*</span> <span class="n">REFLECTIVELOADER</span><span class="p">)(</span> <span class="n">VOID</span> <span class="p">);</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
 <p>Second, the declaration of the <code>ReflectiveLoader()</code> function:</p>
 
-<figure class='code'><figcaption><span>ReflectiveLoader.c (partial)  </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span>ReflectiveLoader.c (partial) </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -546,8 +520,8 @@ probably due to high entropy ASLR making allocations over the 4gig boundary.</p>
 
 <p>Third, the declaration of both <code>pDllMain</code> and <code>pReflectiveLoader</code>:</p>
 
-<figure class='code'><figcaption><span>LoadLibraryR.c (partial)  </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span>LoadLibraryR.c (partial) </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">REFLECTIVELOADER</span> <span class="n">pReflectiveLoader</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
 </span><span class='line'><span class="n">DLLMAIN</span> <span class="n">pDllMain</span>                   <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
@@ -556,8 +530,8 @@ probably due to high entropy ASLR making allocations over the 4gig boundary.</p>
 
 <p>Finally, the actual calls that use these pointers:</p>
 
-<figure class='code'><figcaption><span>LoadLibraryR.c (partial)  </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span>LoadLibraryR.c (partial) </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 </pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">pReflectiveLoader</span> <span class="o">=</span> <span class="p">(</span><span class="n">REFLECTIVELOADER</span><span class="p">)((</span><span class="n">UINT_PTR</span><span class="p">)</span><span class="n">lpBuffer</span> <span class="o">+</span> <span class="n">dwReflectiveLoaderOffset</span><span class="p">);</span>
@@ -566,9 +540,9 @@ probably due to high entropy ASLR making allocations over the 4gig boundary.</p>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>As we can see, <code>pReflectiveLoader</code> is set via a cast from a <code>UINT_PTR</code> type, which maps to the right sized pointer for whatever platform it&#8217;s compiled on. Casting a <code>UINT_PTR</code> to a <code>REFLECTIVELOADER</code> type doesn&#8217;t change the size.</p>
+<p>As we can see, <code>pReflectiveLoader</code> is set via a cast from a <code>UINT_PTR</code> type, which maps to the right sized pointer for whatever platform it&rsquo;s compiled on. Casting a <code>UINT_PTR</code> to a <code>REFLECTIVELOADER</code> type doesn&rsquo;t change the size.</p>
 
-<p>At first I though the reason there was no compiler warning was because the result of calling <code>pReflectiveLoader</code> was cast to a <code>DLLMAIN</code> type, effectively hiding the problem, but that&#8217;s not correct. If <code>pDllMain</code> was just a <code>ULONG_PTR</code> instead of <code>DLLMAIN</code> and no casting was used it still wouldn&#8217;t have resulted in a problem because the return type of <code>REFLECTIVELOADER</code> is <em>smaller</em>, and hence an implicit cast would have turned this into a 64-bit value without complaining. The truncation has already happened because of the incorrect return type of <code>REFLECTIVELOADER</code>.</p>
+<p>At first I though the reason there was no compiler warning was because the result of calling <code>pReflectiveLoader</code> was cast to a <code>DLLMAIN</code> type, effectively hiding the problem, but that&rsquo;s not correct. If <code>pDllMain</code> was just a <code>ULONG_PTR</code> instead of <code>DLLMAIN</code> and no casting was used it still wouldn&rsquo;t have resulted in a problem because the return type of <code>REFLECTIVELOADER</code> is <em>smaller</em>, and hence an implicit cast would have turned this into a 64-bit value without complaining. The truncation has already happened because of the incorrect return type of <code>REFLECTIVELOADER</code>.</p>
 
 <p>Ultimately the problem is down to the disconnect between the function pointer type and the function implementation type.</p>
 
@@ -595,8 +569,7 @@ probably due to high entropy ASLR making allocations over the 4gig boundary.</p>
   
 
 
-
-<time datetime="2013-09-14T07:25:00+10:00" pubdate data-updated="true">14 Sep 2013</time>
+<time datetime="2013-09-14T07:25:00+10:00" pubdate data-updated="true"></time>
       
 
 <span class="categories">
@@ -610,7 +583,7 @@ probably due to high entropy ASLR making allocations over the 4gig boundary.</p>
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://buffered.io/posts/64bit-pointer-truncation-in-meterpreter/" data-via="TheColonial" data-counturl="http://buffered.io/posts/64bit-pointer-truncation-in-meterpreter/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://buffered.io/posts/64bit-pointer-truncation-in-meterpreter/" data-via="TheColonial" data-counturl="http://buffered.io/posts/64bit-pointer-truncation-in-meterpreter/" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -624,7 +597,7 @@ probably due to high entropy ASLR making allocations over the 4gig boundary.</p>
         <a class="basic-alignment left" href="/posts/oscp-and-me/" title="Previous Post: OSCP and Me">&laquo; OSCP and Me</a>
       
       
-        <a class="basic-alignment right" href="/posts/oscp-faq/" title="next Post: OSCP FAQ">OSCP FAQ &raquo;</a>
+        <a class="basic-alignment right" href="/posts/oscp-faq/" title="Next Post: OSCP FAQ">OSCP FAQ &raquo;</a>
       
     </p>
   </footer>
@@ -825,7 +798,7 @@ Copyright &copy; 2013 -
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     }());
 </script>
@@ -849,7 +822,7 @@ Copyright &copy; 2013 -
       var twitterWidgets = document.createElement('script');
       twitterWidgets.type = 'text/javascript';
       twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
       document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
     })();
   </script>

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Microsoft | OJ's perspective]]></title>
   <link href="http://buffered.io/categories/microsoft/atom.xml" rel="self"/>
   <link href="http://buffered.io/"/>
-  <updated>2013-12-21T20:54:15+10:00</updated>
+  <updated>2013-12-23T08:36:36+10:00</updated>
   <id>http://buffered.io/</id>
   <author>
     <name><![CDATA[OJ Reeves]]></name>
@@ -18,11 +18,11 @@
     <link href="http://buffered.io/posts/asp-net-mvc-2-random-sign-offs-and-tempdata-loss/"/>
     <updated>2010-10-06T08:39:00+10:00</updated>
     <id>http://buffered.io/posts/asp-net-mvc-2-random-sign-offs-and-tempdata-loss</id>
-    <content type="html"><![CDATA[<p><a title="MVC" href="http://buffered.io/uploads/2010/10/mvc.png" rel="lightbox[contentadvisor]"><img style="margin-left: 5px; margin-bottom: 5px; float: right;" src="http://buffered.io/uploads/2010/10/mvc.png" alt="MVC" width="150" /></a>In the last few days I've been working on resolving issues in a production system which runs on <a title="What is ASP.NET MVC" href="http://www.asp.net/mvc/whatisaspmvc">ASP.NET MVC 2</a>. Most of the issues were actually really easy to resolve and the team of developers were able to fix them and deploy to production without too many problems.</p>
+    <content type="html"><![CDATA[<p><a title="MVC" href="http://buffered.io/uploads/2010/10/mvc.png" rel="lightbox[contentadvisor]"><img style="margin-left: 5px; margin-bottom: 5px; float: right;" src="http://buffered.io/uploads/2010/10/mvc.png" alt="MVC" width="150" /></a>In the last few days I&rsquo;ve been working on resolving issues in a production system which runs on <a title="What is ASP.NET MVC" href="http://www.asp.net/mvc/whatisaspmvc">ASP.NET MVC 2</a>. Most of the issues were actually really easy to resolve and the team of developers were able to fix them and deploy to production without too many problems.</p>
 
 <p>Unfortunately, as always, there was one problem in particular that had us scratching our heads and was causing some of us to lose sleep. All over the Internet there were posts of people describing similar symptoms yet none of them revealed a solid answer.</p>
 
-<p>The purpose of this post is to document the issue and the resolution in it's entirety. It's in story form rather than reference form because that's how I felt like writing it :)</p>
+<p>The purpose of this post is to document the issue and the resolution in it&rsquo;s entirety. It&rsquo;s in story form rather than reference form because that&rsquo;s how I felt like writing it :)</p>
 
 <!--more-->
 
@@ -41,9 +41,9 @@
 
 <p>Not good. Thankfully our logging was able to point the finger at a particular action on the site which was causing the user to be signed off. For business and security reasons, the sign-in page had some code that detected if the user was already signed in and, if so, would immediately sign them off. The main driver was to prevent users from <em>thinking</em> that they had signed off from the application and then walk away without realising that their session was still available.</p>
 
-<p>This didn't make sense. The user was clearly not returning to the sign-in page, but for some reason the system thought they were and hence was signing them off.</p>
+<p>This didn&rsquo;t make sense. The user was clearly not returning to the sign-in page, but for some reason the system thought they were and hence was signing them off.</p>
 
-<p>Emulating this at the office was proving to be impossible. We weren't able to reproduce it in <em>any</em> of our environments, and according to our help desk, none of the users claimed to be using any tools, plug-ins or add-ins which may be interfering with their sessions.</p>
+<p>Emulating this at the office was proving to be impossible. We weren&rsquo;t able to reproduce it in <em>any</em> of our environments, and according to our help desk, none of the users claimed to be using any tools, plug-ins or add-ins which may be interfering with their sessions.</p>
 
 <p>We searched the <a href="http://google.com/">usual</a> <a href="http://stackoverflow.com/">haunts</a> for answers, but none came up. A post here and there would get our hopes up, but we would eventually have them dashed after realising that the resolution mentioned was something that was already place. Some of the common suggestions are:</p>
 
@@ -51,17 +51,17 @@
 <li>Make sure that the <a title="Machine Key Explained" href="http://msdn.microsoft.com/en-us/library/ff649308.aspx#paght000007_machinekeyexplained">machine key</a> is the same across all sites in the web farm.</li>
 <li>Make sure that the <a title="ASP.NET &amp; IIS Website Load Balancing" href="http://knol.google.com/k/kishore-gorjala/asp-net-iis-website-load-balancing/3jdbfde3g5y2c/3#">IIS site identifier</a> is the same across all sites in the web farm.</li>
 <li>Make sure that the cookie path was set to <code>/</code> instead of having a sub-path like <code>/mysite</code>.</li>
-<li>Make sure that the user's browser was accepting cookies.</li>
+<li>Make sure that the user&rsquo;s browser was accepting cookies.</li>
 </ul>
 
 
-<p>While point 4 was indeed a problem for some users, it wasn't the golden bullet we were looking for.</p>
+<p>While point 4 was indeed a problem for some users, it wasn&rsquo;t the golden bullet we were looking for.</p>
 
-<p>We spun the wheels for a few days trying to come up with potential reasons why this could be the case. One of the developers suggested that it could be an issue with applications that operate as download accelerators. This application might scrape the screen when the user has signed in, and in an effort to pre-cache the next potential click it <a title="HTTP Request Methods" href="http://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Request_methods">GET</a>s each link that it finds on screen. It turns out that this wasn't, nor couldn't, be the issue: we were not including any links to the sign-on page anywhere in the authenticated area of the site.</p>
+<p>We spun the wheels for a few days trying to come up with potential reasons why this could be the case. One of the developers suggested that it could be an issue with applications that operate as download accelerators. This application might scrape the screen when the user has signed in, and in an effort to pre-cache the next potential click it <a title="HTTP Request Methods" href="http://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Request_methods">GET</a>s each link that it finds on screen. It turns out that this wasn&rsquo;t, nor couldn&rsquo;t, be the issue: we were not including any links to the sign-on page anywhere in the authenticated area of the site.</p>
 
 <h2>The First Shot</h2>
 
-<p>We decided to take a shot in the dark and remove the functionality from the sign-in page which logs the users off. Instead, we present them with a notice which tells them that they are already signed-in. After deploying to production, our users were able to sign in! We were leaping for joy, though frustrated because we didn't know why this was a problem in the first place.</p>
+<p>We decided to take a shot in the dark and remove the functionality from the sign-in page which logs the users off. Instead, we present them with a notice which tells them that they are already signed-in. After deploying to production, our users were able to sign in! We were leaping for joy, though frustrated because we didn&rsquo;t know why this was a problem in the first place.</p>
 
 <p>Our joy was short-lived. The application itself provides a series of wizards that the user can utilise to perform certain tasks. <em>All</em> of the users who had problems signing in were having unexpected errors shown when using the wizards. Something was still amiss.</p>
 
@@ -69,15 +69,15 @@
 
 <h2>The Site Visit</h2>
 
-<p>We got in contact with one user, a lady who had been completely unable to interact with the site since its release, and she graciously accepted our request to pay her a visit and allow us to witness the failure in action. This proved to be a <strong>very</strong> good move as you'll soon see.</p>
+<p>We got in contact with one user, a lady who had been completely unable to interact with the site since its release, and she graciously accepted our request to pay her a visit and allow us to witness the failure in action. This proved to be a <strong>very</strong> good move as you&rsquo;ll soon see.</p>
 
-<p>After the initial meet and greet, I was given access to our client's network. At first, I wanted to plug my own personal laptop in to the network to see if I could reproduce the problem without having to touch the client's machine. It wasn't to be, as  everything worked perfectly for me.</p>
+<p>After the initial meet and greet, I was given access to our client&rsquo;s network. At first, I wanted to plug my own personal laptop in to the network to see if I could reproduce the problem without having to touch the client&rsquo;s machine. It wasn&rsquo;t to be, as  everything worked perfectly for me.</p>
 
-<p>I requested access to the client's machine and fired up her browser of choice (<a title="Internet Explorer" href="http://www.microsoft.com/windows/internet-explorer/default.aspx">yuck</a>). As soon as I hit the site, I was presented with a dialog asking for a password. Here is what it looked like:</p>
+<p>I requested access to the client&rsquo;s machine and fired up her browser of choice (<a title="Internet Explorer" href="http://www.microsoft.com/windows/internet-explorer/default.aspx">yuck</a>). As soon as I hit the site, I was presented with a dialog asking for a password. Here is what it looked like:</p>
 
 <p><a title="The Content Advisor Prompt" href="http://buffered.io/uploads/2010/10/content-advisor-prompt.png" rel="lightbox[contentadvisor]"><img style="margin-right: 5px; margin-bottom: 5px; float: left;" src="http://buffered.io/uploads/2010/10/content-advisor-prompt.png" alt="The Content Advisor Prompt" width="250" /></a>I had never seen this before, so I asked the client what it was. Her response:</p>
 
-<blockquote><p>Oh, that's the content advisor that my husband set up. We have that enabled on all our computers so that only me and my husband can get to certain websites.</blockquote></p></blockquote>
+<blockquote><p>Oh, that&rsquo;s the content advisor that my husband set up. We have that enabled on all our computers so that only me and my husband can get to certain websites.</blockquote></p></blockquote>
 
 <p><a title="Microsoft Content Advisor" href="http://www.microsoft.com/windows/ie/using/howto/security/contentadv/config.mspx">Content Advisor</a>? Why had I never heard of this before? After literally <em>years</em> of building production websites, I had never once encountered this beast. Yet here it was in front of me on screen, like a smart-arse teenager giving me the bird, and according to the dates on some of the articles on the web it has been around for quite a few years.</p>
 
@@ -87,11 +87,11 @@
 
 <h2>The Resolution</h2>
 
-<p>So the Content Advisor was causing problems. But how? What was it doing behind the scenes that was preventing our users from getting the quality experience that we'd worked so hard to deliver?</p>
+<p>So the Content Advisor was causing problems. But how? What was it doing behind the scenes that was preventing our users from getting the quality experience that we&rsquo;d worked so hard to deliver?</p>
 
-<p>Now that we had knowledge of the content advisor our queries to the Interwebs resulting in more revealing posts, such as one posted on <a title="IE's Content Advisor, PICS Ratings and the ASP.NET Flakey of the Day" href="http://www.hanselman.com/blog/IEsContentAdvisorPICSRatingsAndTheASPNETFlakeyOfTheDay.aspx">Scott Hanselman's blog</a>. Here are some key bits of information from that post:</p>
+<p>Now that we had knowledge of the content advisor our queries to the Interwebs resulting in more revealing posts, such as one posted on <a title="IE's Content Advisor, PICS Ratings and the ASP.NET Flakey of the Day" href="http://www.hanselman.com/blog/IEsContentAdvisorPICSRatingsAndTheASPNETFlakeyOfTheDay.aspx">Scott Hanselman&rsquo;s blog</a>. Here are some key bits of information from that post:</p>
 
-<blockquote><p>... when Content Advisor is OFF, the interaction looks like this:<br/></p>
+<blockquote><p>&hellip; when Content Advisor is OFF, the interaction looks like this:<br/></p>
 
 <p>HTTP GET /somefile.aspx<br/>
 RESPONSE 200<br/>
@@ -111,27 +111,27 @@ RESPONSE 302 getthisfile.aspx<br/>
 HTTP GET getthisfile.aspx<br/>
 RESPONSE 200<br/></p>
 
-<p>...<br/></p>
+<p>&hellip;<br/></p>
 
-<p>When the Content Advisor is ON, Internet Explorer will request '/' from a site anytime a new window is opened.</p></blockquote>
+<p>When the Content Advisor is ON, Internet Explorer will request &lsquo;/&rsquo; from a site anytime a new window is opened.</p></blockquote>
 
-<p>As we can see from the above quote, the Content Advisor hits the root of the site on the user's behalf in an effort to scrape <a title="Platform for Internet Content Selection" href="http://en.wikipedia.org/wiki/Platform_for_Internet_Content_Selection">PICS</a> information about the website.</p>
+<p>As we can see from the above quote, the Content Advisor hits the root of the site on the user&rsquo;s behalf in an effort to scrape <a title="Platform for Internet Content Selection" href="http://en.wikipedia.org/wiki/Platform_for_Internet_Content_Selection">PICS</a> information about the website.</p>
 
-<p>According to the last point in the above quote, this will happen any time a new window is opened. Unfortunately for us, it goes deeper than that: <strong>the Content Advisor makes the browser request <code>/</code> every single time an action is invoked if it can't find sufficient PICS information for the current URL</strong>.</p>
+<p>According to the last point in the above quote, this will happen any time a new window is opened. Unfortunately for us, it goes deeper than that: <strong>the Content Advisor makes the browser request <code>/</code> every single time an action is invoked if it can&rsquo;t find sufficient PICS information for the current URL</strong>.</p>
 
-<p>Yes, it's shit, but that's the way it works.</p>
+<p>Yes, it&rsquo;s shit, but that&rsquo;s the way it works.</p>
 
 <p>So any users which have the Content Advisor turned on will actually be hitting the site twice for every GET action they perform. This explains why the users were being signed off! Our sign-off code was being executed behind the scenes without the users being aware of it.</p>
 
 <p>But why was it causing unexpected errors when clients were using the wizard? To answer that, we need to know about a little feature of MVC called <a title="TempData @ you've been HAACKED" href="http://haacked.com/tags/TempData/default.aspx">TempData</a>.</p>
 
-<p>For those who don't want to click the above link, TempData is a feature of ASP.NET MVC which allows information to be persisted across post-backs to the server. A classic example is when URI <code>/Foo</code> gets invoked, and the action results in a redirect to <code>/Bar</code>. But <code>/Bar</code> requires some data that got sent to <code>/Foo</code>, so the <code>/Foo</code> action stores that data in the TempData dictionary which allows <code>/Bar</code> to get access to it during processing. It's a nifty feature, and one that we use extensively.</p>
+<p>For those who don&rsquo;t want to click the above link, TempData is a feature of ASP.NET MVC which allows information to be persisted across post-backs to the server. A classic example is when URI <code>/Foo</code> gets invoked, and the action results in a redirect to <code>/Bar</code>. But <code>/Bar</code> requires some data that got sent to <code>/Foo</code>, so the <code>/Foo</code> action stores that data in the TempData dictionary which allows <code>/Bar</code> to get access to it during processing. It&rsquo;s a nifty feature, and one that we use extensively.</p>
 
 <p>The key piece of information to remember about TempData is that it <em>only persists data across a single post-back</em>. That means that if you post back to the server once, TempData is lost unless the target action <strong>explicitly requests for it to stick around</strong>.</p>
 
-<p>This is the deal-breaker. If <code>/Bar</code> assumes that TempData contains information from <code>/Foo</code> when it fires up then <code>/Bar</code> is going to break if the information is <em>not</em> there. Why would it not be there if a redirect happened? That's right, the f$%#ing Content Advisor!</p>
+<p>This is the deal-breaker. If <code>/Bar</code> assumes that TempData contains information from <code>/Foo</code> when it fires up then <code>/Bar</code> is going to break if the information is <em>not</em> there. Why would it not be there if a redirect happened? That&rsquo;s right, the f$%#ing Content Advisor!</p>
 
-<p>It turns out that every time the Content Advisor hits the root of the site, TempData is cleared. This is obvious in hindsight because the root URI is an <a title="ASP.NET MVC Controller Overview" href="http://www.asp.net/mvc/tutorials/asp-net-mvc-controller-overview-cs">action</a> just like any other anywhere in the whole site. That action gets invoked through the same means and comes with the same caveats ... including that of TempData getting cleared unless we ask it not to. So the chain of events looked like this:</p>
+<p>It turns out that every time the Content Advisor hits the root of the site, TempData is cleared. This is obvious in hindsight because the root URI is an <a title="ASP.NET MVC Controller Overview" href="http://www.asp.net/mvc/tutorials/asp-net-mvc-controller-overview-cs">action</a> just like any other anywhere in the whole site. That action gets invoked through the same means and comes with the same caveats &hellip; including that of TempData getting cleared unless we ask it not to. So the chain of events looked like this:</p>
 
 <ul>
 <li>User invokes a wizard via a simple click.</li>
@@ -142,15 +142,15 @@ RESPONSE 200<br/></p>
 <li>The Content Advisor forces the browser to make a request to <code>/</code> in an attempt to find the missing PICS information.</li>
 <li>The root site action is hit and it renders the sign-on page content.</li>
 <li>At the end of page content generation, the TempData dictionary notices that no requests have been made to retain any of the information across another call, and hence <strong>all of the TempData information is lost</strong>, including <code>Baz</code>.</li>
-<li>The user click's "Next" in the wizard, which causes the browser to invoke the <code>/Bar</code> action on the server.</li>
+<li>The user click&rsquo;s &ldquo;Next&rdquo; in the wizard, which causes the browser to invoke the <code>/Bar</code> action on the server.</li>
 <li>The server invokes <code>/Bar</code> and the first thing it does is attempt to pull <code>Baz</code> out of TempData. <code>Baz</code> ends up being null.</li>
 <li>Game over, Red Rover.</li>
 </ul>
 
 
-<p>There are quite a few issues that were highlighted as a result, but the key one is this: <em>you can't assume that your users aren't using some form of Content Advisor which is hitting your server with unexpected requests</em>. In our case, the resolution was simple. We just had to add a couple of lines to our root action:</p>
+<p>There are quite a few issues that were highlighted as a result, but the key one is this: <em>you can&rsquo;t assume that your users aren&rsquo;t using some form of Content Advisor which is hitting your server with unexpected requests</em>. In our case, the resolution was simple. We just had to add a couple of lines to our root action:</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -179,18 +179,18 @@ RESPONSE 200<br/></p>
 </span><span class='line'>
 </span><span class='line'><span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;</span>  <span class="p">}</span>
 </span><span class='line'>  <span class="c1">// rest of the action code</span>
-</span><span class='line'>  <span class="c1">// ...</span>
-</span><span class='line'>  <span class="k">return</span> <span class="nf">View</span><span class="p">(...);</span>
+</span><span class='line'>  <span class="c1">// &amp;hellip;</span>
+</span><span class='line'>  <span class="k">return</span> <span class="nf">View</span><span class="p">(&amp;</span><span class="n">hellip</span><span class="p">;);</span>
 </span><span class='line'><span class="p">}</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <h2>Conclusion</h2>
 
-<p>The first question you might ask is: why didn't you just add PICS data to your site to prevent the Content Advisors from behaving that way? The short answer is that you can't guarantee that the Content Advisors will adhere to the "rules", especially given that there don't appear to be any.</p>
+<p>The first question you might ask is: why didn&rsquo;t you just add PICS data to your site to prevent the Content Advisors from behaving that way? The short answer is that you can&rsquo;t guarantee that the Content Advisors will adhere to the &ldquo;rules&rdquo;, especially given that there don&rsquo;t appear to be any.</p>
 
-<p><a title="Platform for Internet Content Selection" href="http://en.wikipedia.org/wiki/Platform_for_Internet_Content_Selection">PICS</a> has already been replaced with <a title="Protocol for Web Description Resources" href="http://en.wikipedia.org/wiki/POWDER">POWDER</a>. But POWDER doesn't appear to be used anywhere, and there's very little information around on it. Attempting to support all possible half-baked standards would result in serving up a great deal more content for the sake of a very small subset of users who actually use Content Advisors. It made much more sense to just persist TempData across one more call.</p>
+<p><a title="Platform for Internet Content Selection" href="http://en.wikipedia.org/wiki/Platform_for_Internet_Content_Selection">PICS</a> has already been replaced with <a title="Protocol for Web Description Resources" href="http://en.wikipedia.org/wiki/POWDER">POWDER</a>. But POWDER doesn&rsquo;t appear to be used anywhere, and there&rsquo;s very little information around on it. Attempting to support all possible half-baked standards would result in serving up a great deal more content for the sake of a very small subset of users who actually use Content Advisors. It made much more sense to just persist TempData across one more call.</p>
 
-<p>Bear in mind that while the Content Advisor is built-in to the Internet Options area in Windows, it's not specific to Internet Explorer. Both Chrome and Safari are affected by the Content Advisor if it is enabled!</p>
+<p>Bear in mind that while the Content Advisor is built-in to the Internet Options area in Windows, it&rsquo;s not specific to Internet Explorer. Both Chrome and Safari are affected by the Content Advisor if it is enabled!</p>
 
 <p>So for anyone out there who is building, or has built, a public-facing website using ASP.NET MVC please bear this in mind. Keep an eye on your TempData usage, make sure that your root action persists your TempData if required, and avoid having that same action sign off your users.</p>
 
@@ -205,63 +205,63 @@ RESPONSE 200<br/></p>
     <id>http://buffered.io/posts/a-quirk-in-listfind</id>
     <content type="html"><![CDATA[<p>Earlier today I was having a chat with a <a href="http://doomkeeper.com/" title="Jimmy's Blog">friend of mine</a>, who lives in Vancouver, about finding items that are stored in <a href="http://msdn.microsoft.com/en-us/library/6sh2ey19.aspx" title="List(T)">generic Lists</a>. He flicked me a code snippet that looked something like this:</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 </pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="n">List</span><span class="p">&lt;</span><span class="n">foo</span><span class="p">&gt;</span> <span class="n">list</span> <span class="p">=</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">foo</span><span class="p">&gt;();</span>
 </span><span class='line'><span class="c1">// .. do some stuff</span>
-</span><span class='line'><span class="n">Foo</span> <span class="n">f</span> <span class="p">=</span> <span class="n">list</span><span class="p">.</span><span class="n">Find</span><span class="p">(</span><span class="k">delegate</span><span class="p">(</span><span class="n">Foo</span> <span class="n">f</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="n">foo</span><span class="p">.</span><span class="n">Name</span> <span class="p">==</span> <span class="s">&quot;Bar&quot;</span><span class="p">;</span> <span class="p">});</span>
+</span><span class='line'><span class="n">Foo</span> <span class="n">f</span> <span class="p">=</span> <span class="n">list</span><span class="p">.</span><span class="n">Find</span><span class="p">(</span><span class="k">delegate</span><span class="p">(</span><span class="n">Foo</span> <span class="n">f</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="n">foo</span><span class="p">.</span><span class="n">Name</span> <span class="p">==</span> <span class="p">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">Bar</span><span class="p">&amp;</span><span class="n">rdquo</span><span class="p">;;</span> <span class="p">});</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
-<p>Straight away I fired back with an update to the code which used <a href="http://msdn.microsoft.com/en-us/library/bb397687.aspx" title="Lambda Expressions (C# Programming Guide)">lambda expressions</a> instead, as I'm a fan of how concise they are ;)</p>
+<p>Straight away I fired back with an update to the code which used <a href="http://msdn.microsoft.com/en-us/library/bb397687.aspx" title="Lambda Expressions (C# Programming Guide)">lambda expressions</a> instead, as I&rsquo;m a fan of how concise they are ;)</p>
 
 <!--more-->
 
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 </pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="n">List</span><span class="p">&lt;</span><span class="n">foo</span><span class="p">&gt;</span> <span class="n">list</span> <span class="p">=</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">foo</span><span class="p">&gt;();</span>
 </span><span class='line'><span class="c1">// .. do some stuff</span>
-</span><span class='line'><span class="n">Foo</span> <span class="n">f</span> <span class="p">=</span> <span class="n">list</span><span class="p">.</span><span class="n">Find</span><span class="p">(</span><span class="n">foo</span> <span class="p">=&gt;</span> <span class="n">foo</span><span class="p">.</span><span class="n">Name</span> <span class="p">==</span> <span class="s">&quot;Bar&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="n">Foo</span> <span class="n">f</span> <span class="p">=</span> <span class="n">list</span><span class="p">.</span><span class="n">Find</span><span class="p">(</span><span class="n">foo</span> <span class="p">=&gt;</span> <span class="n">foo</span><span class="p">.</span><span class="n">Name</span> <span class="p">==</span> <span class="p">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">Bar</span><span class="p">&amp;</span><span class="n">rdquo</span><span class="p">;);</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
-<p>My friend ran this code against a data set that he had constructed and found that when the call to <a href="http://msdn.microsoft.com/en-us/library/x0b5b5bc.aspx" title="List(T).Find">Find()</a> was made, a <a href="http://msdn.microsoft.com/en-us/library/system.nullreferenceexception.aspx" title="System.NullReferenceException">NullReferenceException</a> was being thrown. I found this odd as I hadn't seen that before. <em>list</em> was definitely a valid reference and the lambda expression was well-formed as well. So what was wrong?</p>
+<p>My friend ran this code against a data set that he had constructed and found that when the call to <a href="http://msdn.microsoft.com/en-us/library/x0b5b5bc.aspx" title="List(T).Find">Find()</a> was made, a <a href="http://msdn.microsoft.com/en-us/library/system.nullreferenceexception.aspx" title="System.NullReferenceException">NullReferenceException</a> was being thrown. I found this odd as I hadn&rsquo;t seen that before. <em>list</em> was definitely a valid reference and the lambda expression was well-formed as well. So what was wrong?</p>
 
-<p>It turns out that even though <em>list</em> was a valid reference, it <strong>didn't contain any elements</strong>.</p>
+<p>It turns out that even though <em>list</em> was a valid reference, it <strong>didn&rsquo;t contain any elements</strong>.</p>
 
 <p>How odd! Why would the generic List object throw an exception when the user calls Find() when no elements are present? After a little bit of thinking I thought that I had the answer. I thought to myself:</p>
 
-<blockquote><p>What if the List was a container for a <a href="http://msdn.microsoft.com/en-us/library/34yytbws(VS.71).aspx" title="Value Types">value type</a>, such as <em>int</em>? If you attempt to find a value in an empty list, then the function cannot return <em>null</em> because that isn't valid for value-types! Throwing an exception <em>does</em> make sense!</p></blockquote>
+<blockquote><p>What if the List was a container for a <a href="http://msdn.microsoft.com/en-us/library/34yytbws(VS.71).aspx" title="Value Types">value type</a>, such as <em>int</em>? If you attempt to find a value in an empty list, then the function cannot return <em>null</em> because that isn&rsquo;t valid for value-types! Throwing an exception <em>does</em> make sense!</p></blockquote>
 
-<p>Isn't it amazing how easy it is to convince yourself of your own greatness? I thought I'd nailed it first go. So I proposed my argument to my friend, who initially was semi-sold on the idea.</p>
+<p>Isn&rsquo;t it amazing how easy it is to convince yourself of your own greatness? I thought I&rsquo;d nailed it first go. So I proposed my argument to my friend, who initially was semi-sold on the idea.</p>
 
-<p>Then I thought about it again and managed to convince myself that my apparent "brilliance" was, in fact, a failure. The perfect counter-argument to the above point is:</p>
+<p>Then I thought about it again and managed to convince myself that my apparent &ldquo;brilliance&rdquo; was, in fact, a failure. The perfect counter-argument to the above point is:</p>
 
 <blockquote><p>What happens when you have a List of ints which <em>does</em> contain elements and you attempt to search for a value that <strong>is not in the list</strong>?</p></blockquote>
 
-<p>It wasn't immediately obvious. So I tried something to see what would happen:</p>
+<p>It wasn&rsquo;t immediately obvious. So I tried something to see what would happen:</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 </pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="n">List</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;</span> <span class="n">list</span> <span class="p">=</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;(</span><span class="k">new</span> <span class="kt">int</span><span class="p">[]</span> <span class="p">{</span> <span class="m">1</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="m">3</span> <span class="p">});</span>
 </span><span class='line'><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="n">list</span><span class="p">.</span><span class="n">Find</span><span class="p">(</span><span class="n">x</span> <span class="p">=&gt;</span> <span class="n">x</span> <span class="p">&gt;</span> <span class="m">3</span><span class="p">);</span>
-</span><span class='line'><span class="c1">// ....</span>
+</span><span class='line'><span class="c1">// &amp;hellip;.</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
-<p>So what do you think the value of <em>i</em> is after those first two lines? Yes, you guessed it: <strong>Zero</strong>. Why? Well, duh, it's because <a href="http://msdn.microsoft.com/en-us/library/xwth0h0d.aspx" title="default keyword">default(T)</a> for integers is Zero!</p>
+<p>So what do you think the value of <em>i</em> is after those first two lines? Yes, you guessed it: <strong>Zero</strong>. Why? Well, duh, it&rsquo;s because <a href="http://msdn.microsoft.com/en-us/library/xwth0h0d.aspx" title="default keyword">default(T)</a> for integers is Zero!</p>
 
 <p>This is where little alarm bells started to ring in my head. I immediately whipped up an example where this would be considered bad:
-<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 </pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="n">List</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;</span> <span class="n">list</span> <span class="p">=</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;(</span><span class="k">new</span> <span class="kt">int</span><span class="p">[]</span> <span class="p">{</span> <span class="m">0</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="m">3</span> <span class="p">});</span>
 </span><span class='line'><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="n">list</span><span class="p">.</span><span class="n">Find</span><span class="p">(</span><span class="n">x</span> <span class="p">=&gt;</span> <span class="n">x</span> <span class="p">&gt;</span> <span class="m">3</span><span class="p">);</span>
-</span><span class='line'><span class="c1">// ....</span>
+</span><span class='line'><span class="c1">// &amp;hellip;.</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
-<p>Again, <em>i</em> is Zero when this code is executed, but the result is very misleading. Zero is contained in the collection but doesn't match the predicate, yet Zero is returned because that's the default value for this value-type.</p>
+<p>Again, <em>i</em> is Zero when this code is executed, but the result is very misleading. Zero is contained in the collection but doesn&rsquo;t match the predicate, yet Zero is returned because that&rsquo;s the default value for this value-type.</p>
 
 <p>I thought this was a bit of a glaring hole in the design. So I went straight to the <a href="http://msdn.microsoft.com/en-us/library/x0b5b5bc.aspx" title="List(T).Find">documentation</a> and found this:</p>
 
@@ -269,9 +269,9 @@ RESPONSE 200<br/></p>
 
 <p>When searching a list containing value types, make sure the default value for the type does not satisfy the search predicate. Otherwise, there is no way to distinguish between a default value indicating that no match was found and a list element that happens to have the default value for the type. If the default value satisfies the search predicate, use the <a href="http://msdn.microsoft.com/en-us/library/0k601hd9.aspx" title="FindIndex">FindIndex</a> method instead.</p></blockquote>
 
-<p>This was concerning for a couple of reasons. First of all, the designers have left it up to you to determine that this is the default behaviour. Yes I should be able to come to that conclusion myself, but I didn't until I got bitten :) So shut up! Secondly, you have to check your result value against your predicate <em>again</em> to be sure that it's not dodgey. For example:</p>
+<p>This was concerning for a couple of reasons. First of all, the designers have left it up to you to determine that this is the default behaviour. Yes I should be able to come to that conclusion myself, but I didn&rsquo;t until I got bitten :) So shut up! Secondly, you have to check your result value against your predicate <em>again</em> to be sure that it&rsquo;s not dodgey. For example:</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -293,13 +293,13 @@ RESPONSE 200<br/></p>
 </span><span class='line'><span class="p">}</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
-<p>Do <em>you</em> want to do that? I certainly don't. After a bit of back-and-forth with Jimbo, I thought that the best option for a generic List Find() function would be one that is akin to the good old C++ days. It would look something like this:
-<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<p>Do <em>you</em> want to do that? I certainly don&rsquo;t. After a bit of back-and-forth with Jimbo, I thought that the best option for a generic List Find() function would be one that is akin to the good old C++ days. It would look something like this:
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="kt">bool</span> <span class="n">Find</span><span class="p">&lt;</span><span class="n">t</span><span class="p">&gt;(</span><span class="n">Predicate</span><span class="p">&lt;</span><span class="n">t</span><span class="p">&gt;</span> <span class="n">predicate</span><span class="p">,</span> <span class="k">ref</span> <span class="n">T</span> <span class="n">output</span><span class="p">);</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>This would mean that you could change your code to something like the following:
-<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -321,11 +321,11 @@ RESPONSE 200<br/></p>
 </span><span class='line'><span class="p">}</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
-<p>Note how with this option you could easily support the case for empty lists at the same time. It would be helpful and meaningful. Only when the function returns true can you rely on the output parameter. It's very clear and caters for value-types and reference-types. It'd be easy to implement in an [extension method][] as well. I'd prefer this solution over using FindIndex().</p>
+<p>Note how with this option you could easily support the case for empty lists at the same time. It would be helpful and meaningful. Only when the function returns true can you rely on the output parameter. It&rsquo;s very clear and caters for value-types and reference-types. It&rsquo;d be easy to implement in an [extension method][] as well. I&rsquo;d prefer this solution over using FindIndex().</p>
 
-<p>In case it's not obvious, this problem would no doubt exist in all functions on generic objects that attempt to return a single instance of <em>T</em> based on some form of predicate. <a href="%22http://msdn.microsoft.com/en-us/library/5kthb929.aspx%22">FindLast()</a> would be another example.</p>
+<p>In case it&rsquo;s not obvious, this problem would no doubt exist in all functions on generic objects that attempt to return a single instance of <em>T</em> based on some form of predicate. <a href="%22http://msdn.microsoft.com/en-us/library/5kthb929.aspx%22">FindLast()</a> would be another example.</p>
 
-<p>I'm very keen to know the reasons behind the original design decision. I'm sure that minds far greater than mine parsed that problem and came up with that solution, probably for a very good reason.</p>
+<p>I&rsquo;m very keen to know the reasons behind the original design decision. I&rsquo;m sure that minds far greater than mine parsed that problem and came up with that solution, probably for a very good reason.</p>
 
 <p>What do you guys think?</p>
 ]]></content>
@@ -336,33 +336,33 @@ RESPONSE 200<br/></p>
     <link href="http://buffered.io/posts/damn-you-crystal-reports/"/>
     <updated>2009-03-24T18:27:00+10:00</updated>
     <id>http://buffered.io/posts/damn-you-crystal-reports</id>
-    <content type="html"><![CDATA[<p>I've had <a href="http://msdn.microsoft.com/en-us/vstudio/default.aspx" title="Visual Studio on MSDN">Visual Studio 2008</a> installed for quite a while. When I first installed it I decided not to install the <a href="http://www.sap.com/solutions/sapbusinessobjects/sme/reporting/crystalreports/index.epx" title="Crystal Reports">Crystal Reports</a> components because I was fairly certain that I'd never need them at home.</p>
+    <content type="html"><![CDATA[<p>I&rsquo;ve had <a href="http://msdn.microsoft.com/en-us/vstudio/default.aspx" title="Visual Studio on MSDN">Visual Studio 2008</a> installed for quite a while. When I first installed it I decided not to install the <a href="http://www.sap.com/solutions/sapbusinessobjects/sme/reporting/crystalreports/index.epx" title="Crystal Reports">Crystal Reports</a> components because I was fairly certain that I&rsquo;d never need them at home.</p>
 
-<p>Well, the worm has turned! On my new gig, I have the joy of working from home. It just so happens that I <em>also</em> need to use Crystal Reports. How silly of me to not bother installing a few extra components the first time so I didn't have to go through the pain of going through another VS Setup.</p>
+<p>Well, the worm has turned! On my new gig, I have the joy of working from home. It just so happens that I <em>also</em> need to use Crystal Reports. How silly of me to not bother installing a few extra components the first time so I didn&rsquo;t have to go through the pain of going through another VS Setup.</p>
 
-<p>On the surface this doesn't sound like a painful experience right? <strong>WRONG</strong>. It's a lot more painful than you think.</p>
+<p>On the surface this doesn&rsquo;t sound like a painful experience right? <strong>WRONG</strong>. It&rsquo;s a lot more painful than you think.</p>
 
 <!--more-->
 
 
-<p>I fired up the <em>Programs and Features</em> section of <a href="http://www.microsoft.com/windows/windows-vista/default.aspx" title="Windows Vista home page">Vista's</a> control panel to fire up the add/remove components section of the install.</p>
+<p>I fired up the <em>Programs and Features</em> section of <a href="http://www.microsoft.com/windows/windows-vista/default.aspx" title="Windows Vista home page">Vista&rsquo;s</a> control panel to fire up the add/remove components section of the install.</p>
 
 <p>Despite choosing just one extra component in the options list, it decided to attempt install of other components too. Observe</p>
 
-<p><a href="http://buffered.io/uploads/2009/03/vs2008_update.png" rel="lightbox[vs]"><img src="http://buffered.io/uploads/2009/03/vs2008_update.png" alt="Screw you VS Install! Sod off Mr Tiny Face!" title="Screw you VS Install! Sod off Mr Tiny Face!" style="float: left; margin-right: 5px; margin-bottom: 5px;" width="150" /></a>Visual Studio 2008 again? SQL Server Compact 3.5 SP1 Design Tools!? SQL Server Compact 3.5 for Devices?! Shared Management Objects?! WHAT THE F**K?! I didn't ask for any of that crap. It's not as if looking at <a href="http://secretgeek.net/vs2008_bugeye.asp" title="Bug Eyed VS2008 Guy Frakes Me Out">Mr Tiny Face</a> wasn't bad enough. Now I get to put up with a bunch of other shit that I don't want or need?</p>
+<p><a href="http://buffered.io/uploads/2009/03/vs2008_update.png" rel="lightbox[vs]"><img src="http://buffered.io/uploads/2009/03/vs2008_update.png" alt="Screw you VS Install! Sod off Mr Tiny Face!" title="Screw you VS Install! Sod off Mr Tiny Face!" style="float: left; margin-right: 5px; margin-bottom: 5px;" width="150" /></a>Visual Studio 2008 again? SQL Server Compact 3.5 SP1 Design Tools!? SQL Server Compact 3.5 for Devices?! Shared Management Objects?! WHAT THE F**K?! I didn&rsquo;t ask for any of that crap. It&rsquo;s not as if looking at <a href="http://secretgeek.net/vs2008_bugeye.asp" title="Bug Eyed VS2008 Guy Frakes Me Out">Mr Tiny Face</a> wasn&rsquo;t bad enough. Now I get to put up with a bunch of other shit that I don&rsquo;t want or need?</p>
 
-<p>I was hoping that it was going to have enough "stuff" on the HDD to update without me needing to get the VS ISO I was wrong. I had to search for the ISO that I downloaded from MSDN. This wasn't too much of an issue, but was still painful as I had to copy it onto my local machine from my <a href="http://www.buffalotech.com/products/network-storage/terastation/terastation-pro-ii/" title="Buffalo Technology - TeraStation Pro II">Terastation</a> -- all 3.4GB of it.</p>
+<p>I was hoping that it was going to have enough &ldquo;stuff&rdquo; on the HDD to update without me needing to get the VS ISO I was wrong. I had to search for the ISO that I downloaded from MSDN. This wasn&rsquo;t too much of an issue, but was still painful as I had to copy it onto my local machine from my <a href="http://www.buffalotech.com/products/network-storage/terastation/terastation-pro-ii/" title="Buffalo Technology - TeraStation Pro II">Terastation</a> &mdash; all 3.4GB of it.</p>
 
 <p>It then proceeds past the unnecessary installs until it gets to Shared Management Objects at which point I get another epic fail.</p>
 
-<p><a href="http://buffered.io/uploads/2009/03/sharedmanagementobjectfail.png" rel="lightbox[vs]"><img src="http://buffered.io/uploads/2009/03/sharedmanagementobjectfail.png" alt="Shared Management Objects fail" title="Shared Management Objects fail" style="float: right; margin-left: 5px; margin-bottom: 5px;" width="150" /></a>The bloody thing wasn't on the disc! So I grab it off the web, point the installer at the download location and it tells me that the path is invalid.</p>
+<p><a href="http://buffered.io/uploads/2009/03/sharedmanagementobjectfail.png" rel="lightbox[vs]"><img src="http://buffered.io/uploads/2009/03/sharedmanagementobjectfail.png" alt="Shared Management Objects fail" title="Shared Management Objects fail" style="float: right; margin-left: 5px; margin-bottom: 5px;" width="150" /></a>The bloody thing wasn&rsquo;t on the disc! So I grab it off the web, point the installer at the download location and it tells me that the path is invalid.</p>
 
 <p>I was starting to get rather narked at this point. I hit cancel at which point I was greeted with a message telling me that: <em>The operation in progress cannot be cancelled.</em></p>
 
-<p>Then the cancel succeeded! <strong>Make up your mind!</strong> The final screen implied install fails of epic proportions, but only turned out to be that the Shared Management Objects didn't install.
-<a href="http://buffered.io/uploads/2009/03/sharedmanagementobjectepicfail.png" rel="lightbox[vs]"><img src="http://buffered.io/uploads/2009/03/sharedmanagementobjectepicfail.png" alt="Epic Install Fail" title="Epic Install Fail" style="float: left; margin-right: 5px; margin-bottom: 5px;" width="150" /></a>I won't be crying about that given that I didn't want it in the first place! If I find that I do need it down the track I can install it manually. After all, I did download it myself anyway.</p>
+<p>Then the cancel succeeded! <strong>Make up your mind!</strong> The final screen implied install fails of epic proportions, but only turned out to be that the Shared Management Objects didn&rsquo;t install.
+<a href="http://buffered.io/uploads/2009/03/sharedmanagementobjectepicfail.png" rel="lightbox[vs]"><img src="http://buffered.io/uploads/2009/03/sharedmanagementobjectepicfail.png" alt="Epic Install Fail" title="Epic Install Fail" style="float: left; margin-right: 5px; margin-bottom: 5px;" width="150" /></a>I won&rsquo;t be crying about that given that I didn&rsquo;t want it in the first place! If I find that I do need it down the track I can install it manually. After all, I did download it myself anyway.</p>
 
-<p>The next question I have is: What level of pain will I feel if I <em>don't reinstall <a href="http://www.microsoft.com/downloads/details.aspx?FamilyId=FBEE1648-7106-44A7-9649-6D9F6D58056E" title="Visual Studio 2008 Sevice Pack 1">VS 2008 SP1</a></em> before I attempt to do any development? I'm too scared to find out the answer. Now I get to wait for another decade for the service pack install to finish.</p>
+<p>The next question I have is: What level of pain will I feel if I <em>don&rsquo;t reinstall <a href="http://www.microsoft.com/downloads/details.aspx?FamilyId=FBEE1648-7106-44A7-9649-6D9F6D58056E" title="Visual Studio 2008 Sevice Pack 1">VS 2008 SP1</a></em> before I attempt to do any development? I&rsquo;m too scared to find out the answer. Now I get to wait for another decade for the service pack install to finish.</p>
 
 <p>Yet another win for the Microsoft Installation process.</p>
 ]]></content>
@@ -377,20 +377,20 @@ RESPONSE 200<br/></p>
 
 <hr />
 
-<p>The code-base that I am currently working with consists of a large set of binaries that are all <a href="http://msdn.microsoft.com/en-us/library/xc31ft41.aspx" title="Sign an Assembly with a Strong Name">signed</a>. The savvy .NET devs out there will know that any assembly that's used/referenced by a signed assembly must <em>also</em> be signed.</p>
+<p>The code-base that I am currently working with consists of a large set of binaries that are all <a href="http://msdn.microsoft.com/en-us/library/xc31ft41.aspx" title="Sign an Assembly with a Strong Name">signed</a>. The savvy .NET devs out there will know that any assembly that&rsquo;s used/referenced by a signed assembly must <em>also</em> be signed.</p>
 
-<p>This is an issue when dealing with third-party libraries that are not signed. Sometimes you'll be lucky enough to be dealing with vendor that is happy to provide a set of signed assemblies, other times you won't. If your scenario fits the latter (as a recent one did for my colleagues and I), you need to sign the assemblies yourself. Here's how.</p>
+<p>This is an issue when dealing with third-party libraries that are not signed. Sometimes you&rsquo;ll be lucky enough to be dealing with vendor that is happy to provide a set of signed assemblies, other times you won&rsquo;t. If your scenario fits the latter (as a recent one did for my colleagues and I), you need to sign the assemblies yourself. Here&rsquo;s how.</p>
 
 <!--more-->
 
 
 <p><em>Note:</em> <a href="http://msdn.microsoft.com/en-us/library/t07a3dye(VS.80).aspx" title="Delay Signing an Assembly">delay signing</a> is not covered in this article.</p>
 
-<h2>Scenario 1 - Foo and Bar</h2>
+<h2>Scenario 1 &ndash; Foo and Bar</h2>
 
 <ul>
-<li><code>Foo</code> is the component that you're building which has to be signed.</li>
-<li><code>Bar</code> is the third-party component that you're forced to use that <em>isn't</em>.</li>
+<li><code>Foo</code> is the component that you&rsquo;re building which has to be signed.</li>
+<li><code>Bar</code> is the third-party component that you&rsquo;re forced to use that <em>isn&rsquo;t</em>.</li>
 </ul>
 
 
@@ -398,17 +398,17 @@ RESPONSE 200<br/></p>
 
 <p>Grab <a href="/uploads/2008/07/bar.zip" title="Project/Binary for Bar">Bar.dll and project</a> along with <a href="/uploads/2008/07/foobar.zip" title="Project/Binary for Foo">Foo.dll and project</a> to see a source sample.</p>
 
-<p>You'll notice <em>Foo</em> has a .snk which is used to sign <em>Foo.dll.</em> When you attempt to compile <em>Foo</em> you get the following error message:</p>
+<p>You&rsquo;ll notice <em>Foo</em> has a .snk which is used to sign <em>Foo.dll.</em> When you attempt to compile <em>Foo</em> you get the following error message:</p>
 
-<blockquote><p>Assembly generation failed -- Referenced assembly 'Bar' does not have a strong name.</p></blockquote>
+<blockquote><p>Assembly generation failed &mdash; Referenced assembly &lsquo;Bar&rsquo; does not have a strong name.</p></blockquote>
 
 <p>We need to sign <em>Bar</em> in order for <em>Foo</em> to compile.</p>
 
 <p><img src="http://buffered.io/uploads/2008/07/step1.jpg" style="float: right; margin-left: 5px; margin-bottom: 2px;" alt="Disassemble Bar" /></p>
 
-<h3>Step 1 - Disassemble Bar</h3>
+<h3>Step 1 &ndash; Disassemble Bar</h3>
 
-<p>We need to open a command prompt which has the .NET framework binaries in the PATH environment variable. The easiest way to do this is to open a Visual Studio command prompt (which is usually under the "Visual Studio Tools" subfolder of "Visual Studio 20XX" in your programs menu). Change directory so that you're in the folder which contains <em>Bar.dll</em>.</p>
+<p>We need to open a command prompt which has the .NET framework binaries in the PATH environment variable. The easiest way to do this is to open a Visual Studio command prompt (which is usually under the &ldquo;Visual Studio Tools&rdquo; subfolder of &ldquo;Visual Studio 20XX&rdquo; in your programs menu). Change directory so that you&rsquo;re in the folder which contains <em>Bar.dll</em>.</p>
 
 <p>Use <a href="http://msdn.microsoft.com/en-us/library/f7dy01k1(VS.80).aspx" title="MSIL Disassembly">ildasm</a> to disassemble the file using the <code>/all</code> and <code>/out</code>, like so:</p>
 
@@ -419,7 +419,7 @@ RESPONSE 200<br/></p>
 
 <p><img src="http://buffered.io/uploads/2008/07/step2.jpg" style="float: right; margin-left: 5px; margin-bottom: 2px;" alt="Rebuild and Sign Bar" /></p>
 
-<h3>Step 2 - Rebuild and Sign Bar</h3>
+<h3>Step 2 &ndash; Rebuild and Sign Bar</h3>
 
 <p>We can now use <a href="http://msdn.microsoft.com/en-us/library/496e4ekx.aspx" title="MSIL Assembler">ilasm</a> to reassemble <em>Bar.il</em> back into <em>Bar.dll</em>, but at the same time specify a strong-name key to use to sign the resulting assembly. We pass in the value <em>Foo.snk</em> to the <code>/key</code> switch on the command line, like so:</p>
 
@@ -454,13 +454,13 @@ Signing file with strong name
 Operation completed successfully
 </code></pre>
 
-<p><em>Bar.dll</em> is now signed! All we have to do is reopen <em>Foo</em>'s project, remove the reference to <em>Bar.dll</em>, re-add the reference to the new signed assembly and rebuild. Sorted!</p>
+<p><em>Bar.dll</em> is now signed! All we have to do is reopen <em>Foo</em>&rsquo;s project, remove the reference to <em>Bar.dll</em>, re-add the reference to the new signed assembly and rebuild. Sorted!</p>
 
-<h2>Scenario 2 - Foo, Bar and Baz</h2>
+<h2>Scenario 2 &ndash; Foo, Bar and Baz</h2>
 
 <ul>
-<li><code>Foo</code> is the component that you're building which has to be signed.</li>
-<li><code>Bar</code> is the third-party component that you're forced to use that <em>isn't</em>.</li>
+<li><code>Foo</code> is the component that you&rsquo;re building which has to be signed.</li>
+<li><code>Bar</code> is the third-party component that you&rsquo;re forced to use that <em>isn&rsquo;t</em>.</li>
 <li><code>Baz</code> is another third-party component that is required in order for you to use <em>Bar</em>.</li>
 </ul>
 
@@ -471,17 +471,17 @@ Operation completed successfully
 
 <p>When you attempt to build <em>Foo</em> you get the same error as you do in the previous scenario. Bear in mind that this time, <strong>both</strong> <em>Bar.dll</em> and <em>Baz.dll</em> need to be signed. So first of all, follow the steps in <strong>Scenario 1</strong> for both <em>Bar.dll</em> and <em>Baz.dll</em>.</p>
 
-<p>Done? OK. When you attempt to build <em>Foo.dll</em> after pointing the project at the new <em>Bar.dll</em> no compiler errors will be shown. Don't get too excited :)</p>
+<p>Done? OK. When you attempt to build <em>Foo.dll</em> after pointing the project at the new <em>Bar.dll</em> no compiler errors will be shown. Don&rsquo;t get too excited :)</p>
 
 <p>When you attempt to <strong>use</strong> <em>Foo.dll</em> your world will come crashing down. The reason is because <em>Bar.dll</em> was originally built with a reference to an <u>unsigned version</u> of <em>Baz.dll</em>. Now that <em>Baz.dll</em> is signed we need to force <em>Bar.dll</em> to reference the <strong>signed</strong> version of <em>Baz.dll</em>.</p>
 
 <p><img src="http://buffered.io/uploads/2008/07/step3.jpg" style="float: right; margin-left: 5px; margin-bottom: 2px;" alt="Hack the Disassembled IL" /></p>
 
-<h3>Step 1 - Hack the Disassembled IL</h3>
+<h3>Step 1 &ndash; Hack the Disassembled IL</h3>
 
 <p>Just like we did in the previous steps we need to disassemble the binary that we need to fix. This time, make sure you disassemble the new binary that you created in the previous step (this binary has been signed, and will contain the signature block for the strong name). Once <em>Bar.il</em> has been created using ildasm, open it up in a <a href="http://www.vim.org/" title="VIM - @secretGeek loves it... no really, he does!">text editor</a>.</p>
 
-<p>Search for the reference to <em>Baz</em> -- this should be located a fair way down the file, somewhere near the top of the actual code listing, just after the comments. Here's what it looks like on my machine:</p>
+<p>Search for the reference to <em>Baz</em> &mdash; this should be located a fair way down the file, somewhere near the top of the actual code listing, just after the comments. Here&rsquo;s what it looks like on my machine:</p>
 
 <pre><code>.assembly extern /*23000002*/ Baz
 {
@@ -519,9 +519,9 @@ Public key token is 2ed7bbec811020ec
 
 <p><img src="http://buffered.io/uploads/2008/07/step4.jpg" style="float: right; margin-left: 5px; margin-bottom: 2px;" alt="Reassemble Bar" /></p>
 
-<h3>Step 2 - Reassemble Bar</h3>
+<h3>Step 2 &ndash; Reassemble Bar</h3>
 
-<p>This step is just a repeat of previous steps. We are again using ilasm to reassemble <em>Bar.dll</em>, but this time from the new "hacked" <em>Bar.il</em> file. We must use the exact same command line as we did previously, and we still need to specify the <em>Foo.snk</em> for signing the assembly. To save you having to scroll up, here it is again:</p>
+<p>This step is just a repeat of previous steps. We are again using ilasm to reassemble <em>Bar.dll</em>, but this time from the new &ldquo;hacked&rdquo; <em>Bar.il</em> file. We must use the exact same command line as we did previously, and we still need to specify the <em>Foo.snk</em> for signing the assembly. To save you having to scroll up, here it is again:</p>
 
 <pre><code>C:\Foo\bin&gt; ilasm /dll /key=Foo.snk Bar.il
 
@@ -551,11 +551,11 @@ Signing file with strong name
 Operation completed successfully
 </code></pre>
 
-<p>Open up <em>Foo</em>'s project, remove and re-add the reference to <em>Bar.dll</em>, making sure you point to the new version that you just created. <em>Foo.dll</em> will not only build, but this time it will run!</p>
+<p>Open up <em>Foo</em>&rsquo;s project, remove and re-add the reference to <em>Bar.dll</em>, making sure you point to the new version that you just created. <em>Foo.dll</em> will not only build, but this time it will run!</p>
 
 <h2>Disclaimer</h2>
 
-<p>"Hacking" third-party binaries in this manner <strong><em>may</em> breach the license agreement</strong> of those binaries. Please make sure that you are not breaking the license agreement before adopting this technique.</p>
+<p>&ldquo;Hacking&rdquo; third-party binaries in this manner <strong><em>may</em> breach the license agreement</strong> of those binaries. Please make sure that you are not breaking the license agreement before adopting this technique.</p>
 
 <p>I hope this helps!</p>
 ]]></content>
@@ -566,14 +566,14 @@ Operation completed successfully
     <link href="http://buffered.io/posts/resolving-side-by-side-configuration-issues/"/>
     <updated>2008-05-17T20:33:00+10:00</updated>
     <id>http://buffered.io/posts/resolving-side-by-side-configuration-issues</id>
-    <content type="html"><![CDATA[<p>I've been meaning to blog about this for well over a year now, but for some reason I never got round to it. This came up in conversation the other day with a couple of workmates and it prompted me to revisit the issue.</p>
+    <content type="html"><![CDATA[<p>I&rsquo;ve been meaning to blog about this for well over a year now, but for some reason I never got round to it. This came up in conversation the other day with a couple of workmates and it prompted me to revisit the issue.</p>
 
 <p>Have you ever fired up an application on Windows XP and got the following error?</p>
 
 <blockquote><p>The application has failed to start because the application configuration is incorrect. Reinstalling the application may fix this problem.</p></blockquote>
 
 
-<p>Informative isn't it! What about if you fire up the same application on Windows Vista?</p>
+<p>Informative isn&rsquo;t it! What about if you fire up the same application on Windows Vista?</p>
 
 <blockquote><p>The application has failed to start because its side-by-side configuration is incorrect. Please see the application event log for more detail.</p></blockquote>
 
@@ -583,12 +583,12 @@ Operation completed successfully
 <!--more-->
 
 
-<p>The fact is that the first error message above is useless, and the second is useless to everyone except those who know all about <a href="http://blog.tiensivu.com/aaron/archives/1306-Demystifying-the-WinSxS-directory-in-Windows-XP,-Vista-and-Server-20032008.html" title="WinSxS">WinSxS</a> (<em>side-by-side</em>). I'm not going to go into detail about WinSxS in this article, but the short description is: <em>it's an attempt at alleviating <a href="http://en.wikipedia.org/wiki/DLL_hell" title="DLL Hell">DLL hell</a></em>.</p>
+<p>The fact is that the first error message above is useless, and the second is useless to everyone except those who know all about <a href="http://blog.tiensivu.com/aaron/archives/1306-Demystifying-the-WinSxS-directory-in-Windows-XP,-Vista-and-Server-20032008.html" title="WinSxS">WinSxS</a> (<em>side-by-side</em>). I&rsquo;m not going to go into detail about WinSxS in this article, but the short description is: <em>it&rsquo;s an attempt at alleviating <a href="http://en.wikipedia.org/wiki/DLL_hell" title="DLL Hell">DLL hell</a></em>.</p>
 
-<p>When a binary component links against a DLL, such as <a href="http://www.microsoft.com/" title="Microsoft">MS</a>'s <a href="http://msdn.microsoft.com/en-us/library/abx4dbyh(VS.80).aspx" title="C Run-Time Libraries">CRT</a>, an entry for that dependant DLL is specified in the component's <a href="http://msdn.microsoft.com/en-us/library/aa375365.aspx" title="Manifests">manifest</a>. This tells Windows that the application can't run without those DLLs being present. If they're not present in WinSxS then the errors above are thrown in the user's face.</p>
+<p>When a binary component links against a DLL, such as <a href="http://www.microsoft.com/" title="Microsoft">MS</a>&rsquo;s <a href="http://msdn.microsoft.com/en-us/library/abx4dbyh(VS.80).aspx" title="C Run-Time Libraries">CRT</a>, an entry for that dependant DLL is specified in the component&rsquo;s <a href="http://msdn.microsoft.com/en-us/library/aa375365.aspx" title="Manifests">manifest</a>. This tells Windows that the application can&rsquo;t run without those DLLs being present. If they&rsquo;re not present in WinSxS then the errors above are thrown in the user&rsquo;s face.</p>
 
 <p>To demonstrate the problem, consider the C++ program below.
-<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -630,14 +630,14 @@ Operation completed successfully
 
 <p><a href="http://buffered.io/uploads/2008/05/xp_fail.png" rel="lightbox[winsxs]"><img src="http://buffered.io/uploads/2008/05/xp_fail.png" alt="Windows XP Error" title="XP Error" width="300" height="56" class="aligncenter size-medium wp-image-350" /></a></p>
 
-<p>Here's the same application running on Vista, again without the runtime installed:
+<p>Here&rsquo;s the same application running on Vista, again without the runtime installed:
 <a href="http://buffered.io/uploads/2008/05/vista_fail.png" rel="lightbox[winsxs]"><img src="http://buffered.io/uploads/2008/05/vista_fail.png" alt="WinSxS error on Vista" title="Vista Error Message" width="300" height="95" class="aligncenter size-medium wp-image-349" /></a></p>
 
-<p>Let's now pretend that we don't know why this problem is occuring and attempt to ascertain the reason for the error.</p>
+<p>Let&rsquo;s now pretend that we don&rsquo;t know why this problem is occuring and attempt to ascertain the reason for the error.</p>
 
-<p>First off, we need to locate the application's manifest. This can be found either in a appname.exe.manifest file, or <em>inside</em> the binary itself. In our case, the manifest is embedded so we need to open up the file in a binary/hex editor (or at least an editor that allows you to view the content of binary files). I used <a href="http://www.vim.org/" title="VIM">VIM</a>, but there are other options such as <a href="http://www.ultraedit.com/" title="UltraEdit">UltraEdit</a> and the free <a href="http://www.softcircuits.com/cygnus/fe/" title="Cygnus Hex Editor">Cynus</a> editor.</p>
+<p>First off, we need to locate the application&rsquo;s manifest. This can be found either in a appname.exe.manifest file, or <em>inside</em> the binary itself. In our case, the manifest is embedded so we need to open up the file in a binary/hex editor (or at least an editor that allows you to view the content of binary files). I used <a href="http://www.vim.org/" title="VIM">VIM</a>, but there are other options such as <a href="http://www.ultraedit.com/" title="UltraEdit">UltraEdit</a> and the free <a href="http://www.softcircuits.com/cygnus/fe/" title="Cygnus Hex Editor">Cynus</a> editor.</p>
 
-<p>Manifest information is usually stored towards the end of the file, so after opening it in your editor of choice, scroll to the end of the file and slowly scroll up. When you reach a section that contains what looks to be <a href="http://www.w3.org/XML/" title="XML">XML</a> then you've probably found it. It usually lies just above a section of padding that looks like this:</p>
+<p>Manifest information is usually stored towards the end of the file, so after opening it in your editor of choice, scroll to the end of the file and slowly scroll up. When you reach a section that contains what looks to be <a href="http://www.w3.org/XML/" title="XML">XML</a> then you&rsquo;ve probably found it. It usually lies just above a section of padding that looks like this:</p>
 
 <pre><code>0001ab0: 5041 4444 494e 4758 5850 4144 4449 4e47  PADDINGXXPADDING
 0001ac0: 5041 4444 494e 4758 5850 4144 4449 4e47  PADDINGXXPADDING
@@ -696,8 +696,8 @@ Operation completed successfully
 0001aa0: 3e0d 0a3c 2f61 7373 656d 626c 793e 5041  &gt;..&lt;/assembly&gt;PA
 </code></pre>
 
-<p>In case you don't find this very readable, here it is after extraction/formatting:
-<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<p>In case you don&rsquo;t find this very readable, here it is after extraction/formatting:
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -755,8 +755,8 @@ Operation completed successfully
 </span><span class='line'><span class="nt">&lt;/assembly&gt;</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
-<p>The bit we're really interested in is:
-<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<p>The bit we&rsquo;re really interested in is:
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -782,11 +782,11 @@ Operation completed successfully
 </span><span class='line'><span class="nt">&lt;/dependentAssembly&gt;</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
-<p>This tells us the exact component and version required for this application to run. You'll notice that it also mentions the processor architecture. In this case, we need to make sure that we have version 9.0.21022.8 of the Visual C Runtimes for x86 installed in the side-by-side folder. The WinSxS folder can be found at <em>%WINDIR%\WinSxS</em></p>
+<p>This tells us the exact component and version required for this application to run. You&rsquo;ll notice that it also mentions the processor architecture. In this case, we need to make sure that we have version 9.0.21022.8 of the Visual C Runtimes for x86 installed in the side-by-side folder. The WinSxS folder can be found at <em>%WINDIR%\WinSxS</em></p>
 
-<p>Inside that folder you'll probably see a stack of subfolders with crazy looking names. The one you would need to have to solve the problem above is called <em>x86_microsoft.vc90.crt_1fc8b3b9a1e18e3b_9.0.21022.8_none_bcb86ed6ac711f91</em>, which as you can see has a name that closely resembles the properties of the <em>assemblyIdentity</em> tag in the XML listed above.</p>
+<p>Inside that folder you&rsquo;ll probably see a stack of subfolders with crazy looking names. The one you would need to have to solve the problem above is called <em>x86_microsoft.vc90.crt_1fc8b3b9a1e18e3b_9.0.21022.8_none_bcb86ed6ac711f91</em>, which as you can see has a name that closely resembles the properties of the <em>assemblyIdentity</em> tag in the XML listed above.</p>
 
-<p>If you can't find the appropriate folder in your WinSxS then you need to download an installer that contains the appropriate components and install it.When installed, the application should run without a problem, and you should get a message like this:
+<p>If you can&rsquo;t find the appropriate folder in your WinSxS then you need to download an installer that contains the appropriate components and install it.When installed, the application should run without a problem, and you should get a message like this:
 <a href="http://buffered.io/uploads/2008/05/vista_success.png" rel="lightbox[winsxs]"><img src="http://buffered.io/uploads/2008/05/vista_success.png" alt="The resulting message box shown when the test application\&#039;s side-by-side configuration is correct" title="Successful run of application" width="300" height="102" class="aligncenter size-medium wp-image-351" /></a></p>
 
 <p>Hope that helps!</p>
@@ -794,7 +794,7 @@ Operation completed successfully
 <hr/>
 
 
-<p><strong>Edit (3rd Jan '09)</strong>: A nifty tool has been built by Kenny Kerr which makes viewing manifest information <em>much</em> easier. Pointer your browser <a href="http://weblogs.asp.net/kennykerr/archive/posts/manifest-view-support-for-dlls.aspx">this way and check it out</a>. It should help when tryinig to resolve this problem.</p>
+<p><strong>Edit (3rd Jan &lsquo;09)</strong>: A nifty tool has been built by Kenny Kerr which makes viewing manifest information <em>much</em> easier. Pointer your browser <a href="http://weblogs.asp.net/kennykerr/archive/posts/manifest-view-support-for-dlls.aspx">this way and check it out</a>. It should help when tryinig to resolve this problem.</p>
 
 <!--adsense-->
 

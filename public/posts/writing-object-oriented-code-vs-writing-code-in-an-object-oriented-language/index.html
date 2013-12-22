@@ -8,14 +8,8 @@
   <title>Writing Object-Oriented Code vs Writing Code in an Object-Oriented Language - OJ's perspective</title>
   <meta name="author" content="OJ Reeves">
 
-  <link rel="openid.server" href="http://pip.verisignlabs.com/server" />
-  <link rel="openid.delegate" href="http://thecolonial.pip.verisignlabs.com/" />
-  <link rel="openid2.provider" href="http://pip.verisignlabs.com/server" />
-  <link rel="openid2.local_id" href="http://thecolonial.pip.verisignlabs.com/" />
-  <meta http-equiv="X-XRDS-Location" content="http://pip.verisignlabs.com/thecolonial/yadixrds" />
-
   
-  <meta name="description" content="I&#8217;m going to try and keep this post short, otherwise I&#8217;ll be here all day ranting away ;) This particular topic is one that&#8217;s &hellip;">
+  <meta name="description" content="I&rsquo;m going to try and keep this post short, otherwise I&rsquo;ll be here all day ranting away ;) This particular topic is one that&rsquo;s &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -24,39 +18,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's perspective RSS 2.0" type="application/rss+xml">
   <link rel="canonical" href="http://buffered.io/posts/writing-object-oriented-code-vs-writing-code-in-an-object-oriented-language">
   <link href="/favicon.ico" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-
-  <script src="/javascripts/modernizr-2.0.js" type="text/javascript"></script>
-  <script src="/javascripts/ender.js" type="text/javascript"></script>
+  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's perspective" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
-
-  <script type="text/javascript">
-    Modernizr.load([
-      { load: '//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js' },
-      { load: '/javascripts/jquery.lightbox.js', complete: function() {
-        $("a[rel^='lightbox']").lightbox();
-      } }
-    ]);
-  </script>
-
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 
   
-
-  
-  <script type="text/javascript">
-    !function(g,s,q,r,d){r=g[r]=g[r]||function(){(r.q=r.q||[]).push(
-    arguments)};d=s.createElement(q);q=s.getElementsByTagName(q)[0];
-    d.src='//d1l6p2sc9645hc.cloudfront.net/tracker.js';q.parentNode.
-    insertBefore(d,q)}(window,document,'script','_gs');
-    _gs('GSN-416076-G');
-  </script>
-
 
 </head>
 
@@ -112,33 +86,33 @@
   
 
 
-
-<time datetime="2007-02-02T18:43:00+10:00" pubdate data-updated="true">02 Feb 2007</time>
+<time datetime="2007-02-02T18:43:00+10:00" pubdate data-updated="true"></time>
         
-         | <a href="#disqus_thread">Comments</a>
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://buffered.io">Comments</a>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>I&#8217;m going to try and keep this post short, otherwise I&#8217;ll be here all day ranting away ;) This particular topic is one that&#8217;s fairly close to my heart because it&#8217;s a bit of a pet hate for me.</p>
+<div class="entry-content"><p>I&rsquo;m going to try and keep this post short, otherwise I&rsquo;ll be here all day ranting away ;) This particular topic is one that&rsquo;s fairly close to my heart because it&rsquo;s a bit of a pet hate for me.</p>
 
 <p>As we (the geeks) know, <a href="http://en.wikipedia.org/wiki/Object-oriented_programming" title="Object-Oriented Programming" target="_blank">object-oriented (OO)</a> programming is a different concept to <a href="http://en.wikipedia.org/wiki/Functional_programming" title="Functional Programming" target="_blank">functional</a> or <a href="http://en.wikipedia.org/wiki/Procedural_programming" title="Procedural Programming" target="_blank">procedural</a> programming. OO was a bit of a move forward in the direction of easy to understand, more managable and reusable code, and has been adopted all over the shop.</p>
 
-<p>One of the first widely adopted OO languages was <a href="http://en.wikipedia.org/wiki/C%2B%2B" title="C++" target="_blank">C++</a> probably because of it&#8217;s close relationship and similar syntax to <a href="http://en.wikipedia.org/wiki/C_%28programming_language%29" title="C" target="_blank">C</a>. Unfortunately, this resulted in something that continues to be a huge bane for true OO programmers all over the planet: <strong>the OOPP (object-oriented procedural programmer)</strong>.</p>
+<p>One of the first widely adopted OO languages was <a href="http://en.wikipedia.org/wiki/C%2B%2B" title="C++" target="_blank">C++</a> probably because of it&rsquo;s close relationship and similar syntax to <a href="http://en.wikipedia.org/wiki/C_%28programming_language%29" title="C" target="_blank">C</a>. Unfortunately, this resulted in something that continues to be a huge bane for true OO programmers all over the planet: <strong>the OOPP (object-oriented procedural programmer)</strong>.</p>
 
-<p>OK, so that&#8217;s a term that I like to use when talking to this kind of programmer :) But the idea behind them is this: when they made the switch to C++ from C, they didn&#8217;t adopt a true OO approach to software development - all they really did was switch compilers.  There are so many people still to this day writing software using OO languages without actually writing good/proper OO code. The benefits of OO are lost on these kinds of people, and the resulting code is just a nightmare.</p>
+<p>OK, so that&rsquo;s a term that I like to use when talking to this kind of programmer :) But the idea behind them is this: when they made the switch to C++ from C, they didn&rsquo;t adopt a true OO approach to software development &ndash; all they really did was switch compilers.  There are so many people still to this day writing software using OO languages without actually writing good/proper OO code. The benefits of OO are lost on these kinds of people, and the resulting code is just a nightmare.</p>
 
-<p>Before my current job, I worked in a couple of places where there were a few stagnant coders writing C++ - but in fact it was just C being compiled with a C++ compiler. Coupling was through the roof. Encapsulation was non-existant. Even funky features such as polymorphism were avoided to be replaced instead by huge &#8216;switch&#8217; statements which did similar things based on the &#8216;type&#8217; of a structure. Absolutely awful.</p>
+<p>Before my current job, I worked in a couple of places where there were a few stagnant coders writing C++ &ndash; but in fact it was just C being compiled with a C++ compiler. Coupling was through the roof. Encapsulation was non-existant. Even funky features such as polymorphism were avoided to be replaced instead by huge &lsquo;switch&rsquo; statements which did similar things based on the &lsquo;type&rsquo; of a structure. Absolutely awful.</p>
 
-<p>At the end of last year I worked with a lady who was by far the worst culprit for this. She was an advocate for &#8220;copy and paste coding&#8221;, structureless code and job security. She was appalling. How she&#8217;s managed to gain contracts for the last 13 years as a developer I will never know. It&#8217;s people like her that end up producing systems that are so unmaintainable, badly written and poorly executed that lots of people lose faith in software. She even managed to this in <a href="http://en.wikipedia.org/wiki/C_Sharp" title="C-Sharp" target="_blank">C#</a>!</p>
+<p>At the end of last year I worked with a lady who was by far the worst culprit for this. She was an advocate for &ldquo;copy and paste coding&rdquo;, structureless code and job security. She was appalling. How she&rsquo;s managed to gain contracts for the last 13 years as a developer I will never know. It&rsquo;s people like her that end up producing systems that are so unmaintainable, badly written and poorly executed that lots of people lose faith in software. She even managed to this in <a href="http://en.wikipedia.org/wiki/C_Sharp" title="C-Sharp" target="_blank">C#</a>!</p>
 
-<p>When are people going to learn that writing procedural code doesn&#8217;t make them an OO programmer? Using an OO language isn&#8217;t enough, you need to write code in an OO manner.</p>
+<p>When are people going to learn that writing procedural code doesn&rsquo;t make them an OO programmer? Using an OO language isn&rsquo;t enough, you need to write code in an OO manner.</p>
 
-<p>Before I make my final point I want to make it clear that I have nothing against C, or procedural programming. They both have their place. What I feel doesn&#8217;t have a place is a programmer who refuses to write OO code when that&#8217;s what they&#8217;re hired for.</p>
+<p>Before I make my final point I want to make it clear that I have nothing against C, or procedural programming. They both have their place. What I feel doesn&rsquo;t have a place is a programmer who refuses to write OO code when that&rsquo;s what they&rsquo;re hired for.</p>
 
-<p>So, to finish up, what I want to say is this: just because you&#8217;ve written procedural code in the past and it&#8217;s always worked for you, it doesn&#8217;t mean that you can continue to do it in an OO language when you&#8217;re paid to write proper OO software. If you can&#8217;t keep up with technology, proper methodology, and best practice, then perhaps it&#8217;s time to retire?</p>
+<p>So, to finish up, what I want to say is this: just because you&rsquo;ve written procedural code in the past and it&rsquo;s always worked for you, it doesn&rsquo;t mean that you can continue to do it in an OO language when you&rsquo;re paid to write proper OO software. If you can&rsquo;t keep up with technology, proper methodology, and best practice, then perhaps it&rsquo;s time to retire?</p>
 </div>
 
 
@@ -161,8 +135,7 @@
   
 
 
-
-<time datetime="2007-02-02T18:43:00+10:00" pubdate data-updated="true">02 Feb 2007</time>
+<time datetime="2007-02-02T18:43:00+10:00" pubdate data-updated="true"></time>
       
 
 <span class="categories">
@@ -176,7 +149,7 @@
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://buffered.io/posts/writing-object-oriented-code-vs-writing-code-in-an-object-oriented-language/" data-via="TheColonial" data-counturl="http://buffered.io/posts/writing-object-oriented-code-vs-writing-code-in-an-object-oriented-language/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://buffered.io/posts/writing-object-oriented-code-vs-writing-code-in-an-object-oriented-language/" data-via="TheColonial" data-counturl="http://buffered.io/posts/writing-object-oriented-code-vs-writing-code-in-an-object-oriented-language/" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -190,7 +163,7 @@
         <a class="basic-alignment left" href="/posts/a-bad-workman-blames-his-tools/" title="Previous Post: A Bad Workman Blames his Tools">&laquo; A Bad Workman Blames his Tools</a>
       
       
-        <a class="basic-alignment right" href="/posts/rotating-banner-pictures/" title="next Post: Rotating Banner Pictures">Rotating Banner Pictures &raquo;</a>
+        <a class="basic-alignment right" href="/posts/rotating-banner-pictures/" title="Next Post: Rotating Banner Pictures">Rotating Banner Pictures &raquo;</a>
       
     </p>
   </footer>
@@ -391,7 +364,7 @@ Copyright &copy; 2013 -
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     }());
 </script>
@@ -415,7 +388,7 @@ Copyright &copy; 2013 -
       var twitterWidgets = document.createElement('script');
       twitterWidgets.type = 'text/javascript';
       twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
       document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
     })();
   </script>

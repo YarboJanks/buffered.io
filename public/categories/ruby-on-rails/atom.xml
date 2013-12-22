@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Ruby on Rails | OJ's perspective]]></title>
   <link href="http://buffered.io/categories/ruby-on-rails/atom.xml" rel="self"/>
   <link href="http://buffered.io/"/>
-  <updated>2013-12-21T20:54:15+10:00</updated>
+  <updated>2013-12-23T08:36:36+10:00</updated>
   <id>http://buffered.io/</id>
   <author>
     <name><![CDATA[OJ Reeves]]></name>
@@ -18,13 +18,13 @@
     <link href="http://buffered.io/posts/net-mvc/"/>
     <updated>2007-03-28T17:15:00+10:00</updated>
     <id>http://buffered.io/posts/net-mvc</id>
-    <content type="html"><![CDATA[<p>Isn't it amazing how life can just hit turbo without prior warning, and your time seems to just disappear!  I need to find some way of sticking blogging back into my routine :)</p>
+    <content type="html"><![CDATA[<p>Isn&rsquo;t it amazing how life can just hit turbo without prior warning, and your time seems to just disappear!  I need to find some way of sticking blogging back into my routine :)</p>
 
-<p>For the last couple of weeks I've been playing around a fair bit with <a href="http://www.ruby-lang.org/" title="Ruby" target="_blank">Ruby</a> and <a href="http://www.rubyonrails.org/" title="Ruby on Rails" target="_blank">Rails</a>.  I've been having a great deal of fun at the same time, and I recommend it to any of you who are thinking of taking up some of your own time with learning web development.  It's really good fun, it's interesting, and it's a great platform for building web apps on.  Sure it has its pitfalls (as do all web development options), but it's a worthy contender and it's only going to get better.  More on that in another post ;)</p>
+<p>For the last couple of weeks I&rsquo;ve been playing around a fair bit with <a href="http://www.ruby-lang.org/" title="Ruby" target="_blank">Ruby</a> and <a href="http://www.rubyonrails.org/" title="Ruby on Rails" target="_blank">Rails</a>.  I&rsquo;ve been having a great deal of fun at the same time, and I recommend it to any of you who are thinking of taking up some of your own time with learning web development.  It&rsquo;s really good fun, it&rsquo;s interesting, and it&rsquo;s a great platform for building web apps on.  Sure it has its pitfalls (as do all web development options), but it&rsquo;s a worthy contender and it&rsquo;s only going to get better.  More on that in another post ;)</p>
 
-<p>The reason I mentioned it is because of the news that ASP.NET has an <a href="http://codebetter.com/blogs/jeffrey.palermo/archive/posts/Big-News-_2D00_-MVC-framework-for-ASP.NET-in-the-works-_2D00_-level-300.aspx">MVC framework in the works</a>, which looks like it's going to be very similar to the way Rails works.  I think this is a good thing as it'll force people to move away from an (possibly) unnecessary <a href="http://msdn.microsoft.com/msdnmag/issues/06/08/DesignPatterns/default.aspx" title="MVP" target="_blank">MVP</a> approach (for most things) and work with a well-structured <a href="http://en.wikipedia.org/wiki/Model-view-controller" title="MVC" target="_blank">MVC</a> (which a surprising amount of developers don't yet know about!).</p>
+<p>The reason I mentioned it is because of the news that ASP.NET has an <a href="http://codebetter.com/blogs/jeffrey.palermo/archive/posts/Big-News-_2D00_-MVC-framework-for-ASP.NET-in-the-works-_2D00_-level-300.aspx">MVC framework in the works</a>, which looks like it&rsquo;s going to be very similar to the way Rails works.  I think this is a good thing as it&rsquo;ll force people to move away from an (possibly) unnecessary <a href="http://msdn.microsoft.com/msdnmag/issues/06/08/DesignPatterns/default.aspx" title="MVP" target="_blank">MVP</a> approach (for most things) and work with a well-structured <a href="http://en.wikipedia.org/wiki/Model-view-controller" title="MVC" target="_blank">MVC</a> (which a surprising amount of developers don&rsquo;t yet know about!).</p>
 
-<p>No doubt this is another effort by Microsoft to rip off some code from <a href="http://www.castleproject.org/monorail/index.html" title="MonoRail" target="_blank">another established project</a> and claim it as their own, but still if it works and works well, then I'm not really complaining.</p>
+<p>No doubt this is another effort by Microsoft to rip off some code from <a href="http://www.castleproject.org/monorail/index.html" title="MonoRail" target="_blank">another established project</a> and claim it as their own, but still if it works and works well, then I&rsquo;m not really complaining.</p>
 
 <p>Anyway, what do you guys think? Is this a good or a bad thing?</p>
 ]]></content>

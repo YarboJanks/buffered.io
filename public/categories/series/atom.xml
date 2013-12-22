@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Series | OJ's perspective]]></title>
   <link href="http://buffered.io/categories/series/atom.xml" rel="self"/>
   <link href="http://buffered.io/"/>
-  <updated>2013-12-21T20:54:15+10:00</updated>
+  <updated>2013-12-23T08:36:36+10:00</updated>
   <id>http://buffered.io/</id>
   <author>
     <name><![CDATA[OJ Reeves]]></name>
@@ -18,7 +18,7 @@
     <link href="http://buffered.io/posts/sorting-things-out/"/>
     <updated>2008-08-13T12:23:00+10:00</updated>
     <id>http://buffered.io/posts/sorting-things-out</id>
-    <content type="html"><![CDATA[<p>It's time to recap a topic that is, or should be, close to the heart of every developer. A topic that is often overlooked or glossed over, rarely fully understood and not often discussed. Yet this topic is hugely important.</p>
+    <content type="html"><![CDATA[<p>It&rsquo;s time to recap a topic that is, or should be, close to the heart of every developer. A topic that is often overlooked or glossed over, rarely fully understood and not often discussed. Yet this topic is hugely important.</p>
 
 <p>That topic is <strong>Sorting</strong>.</p>
 
@@ -29,7 +29,7 @@
 
 <p>Unfortunately the implementations of various methods of sorting can be anything but easy. Determining <em>which</em> algorithm to choose can be difficult enough given that some lend themselves to sorting certain data types better than others do.</p>
 
-<p>As a result, I've decided to start writing a series on the different well-known (and perhaps not-so-well-known) sorting algorithms. For each algorithm, my goal will be to:</p>
+<p>As a result, I&rsquo;ve decided to start writing a series on the different well-known (and perhaps not-so-well-known) sorting algorithms. For each algorithm, my goal will be to:</p>
 
 <ol>
 <li>Paint a very clear picture of how it functions. I aim to do this via pictures and discussion. If I get time, I will aim to provide an animated visualiser of the algorithm (though at the moment this might be a tough ask given time constraints).</li>
@@ -42,9 +42,9 @@
 
 <p>By the end of the series, I hope that you (and I) will have a really solid understanding of the Sorting world.</p>
 
-<p>To start off with, I'll be covering the age-old <a href="http://buffered.io/posts/sorting-algorithms-the-bubble-sort/" title="Sorting Algorithms: The Bubble Sort">Bubble Sort</a>. I'm choosing this because it's very simple, and is an easy target for me to get going.</p>
+<p>To start off with, I&rsquo;ll be covering the age-old <a href="http://buffered.io/posts/sorting-algorithms-the-bubble-sort/" title="Sorting Algorithms: The Bubble Sort">Bubble Sort</a>. I&rsquo;m choosing this because it&rsquo;s very simple, and is an easy target for me to get going.</p>
 
-<p>As always, comments and feedback will be greatly appreciated. I'm hoping that I'll learn more from this exercise than you guys will.</p>
+<p>As always, comments and feedback will be greatly appreciated. I&rsquo;m hoping that I&rsquo;ll learn more from this exercise than you guys will.</p>
 ]]></content>
   </entry>
   

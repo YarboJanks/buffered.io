@@ -5,17 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>The Future is Erlang - OJ's perspective</title>
+  <title>The Future Is Erlang - OJ's perspective</title>
   <meta name="author" content="OJ Reeves">
 
-  <link rel="openid.server" href="http://pip.verisignlabs.com/server" />
-  <link rel="openid.delegate" href="http://thecolonial.pip.verisignlabs.com/" />
-  <link rel="openid2.provider" href="http://pip.verisignlabs.com/server" />
-  <link rel="openid2.local_id" href="http://thecolonial.pip.verisignlabs.com/" />
-  <meta http-equiv="X-XRDS-Location" content="http://pip.verisignlabs.com/thecolonial/yadixrds" />
-
   
-  <meta name="description" content="For quite a while I&#8217;ve been using my spare cycles to chew over a problem. This problem is not one that hasn&#8217;t been solved before, but one &hellip;">
+  <meta name="description" content="For quite a while I&rsquo;ve been using my spare cycles to chew over a problem. This problem is not one that hasn&rsquo;t been solved before, but one &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -24,39 +18,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's perspective RSS 2.0" type="application/rss+xml">
   <link rel="canonical" href="http://buffered.io/posts/the-future-is-erlang">
   <link href="/favicon.ico" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-
-  <script src="/javascripts/modernizr-2.0.js" type="text/javascript"></script>
-  <script src="/javascripts/ender.js" type="text/javascript"></script>
+  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's perspective" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
-
-  <script type="text/javascript">
-    Modernizr.load([
-      { load: '//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js' },
-      { load: '/javascripts/jquery.lightbox.js', complete: function() {
-        $("a[rel^='lightbox']").lightbox();
-      } }
-    ]);
-  </script>
-
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 
   
-
-  
-  <script type="text/javascript">
-    !function(g,s,q,r,d){r=g[r]=g[r]||function(){(r.q=r.q||[]).push(
-    arguments)};d=s.createElement(q);q=s.getElementsByTagName(q)[0];
-    d.src='//d1l6p2sc9645hc.cloudfront.net/tracker.js';q.parentNode.
-    insertBefore(d,q)}(window,document,'script','_gs');
-    _gs('GSN-416076-G');
-  </script>
-
 
 </head>
 
@@ -112,25 +86,25 @@
   
 
 
-
-<time datetime="2009-10-31T20:28:00+10:00" pubdate data-updated="true">31 Oct 2009</time>
+<time datetime="2009-10-31T20:28:00+10:00" pubdate data-updated="true"></time>
         
-         | <a href="#disqus_thread">Comments</a>
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://buffered.io">Comments</a>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p><img src="/uploads/2009/10/erlang.png" alt="erlang" title="erlang" style="float:left;margin-right:5px;margin-bottom:5px;" />For quite a while I&#8217;ve been using my spare cycles to chew over a problem. This problem is not one that hasn&#8217;t been solved before, but one that I feel can be solved in a much better way. From the bit of research that I&#8217;ve done, I can see at least three areas which can be improved on dramatically. So I&#8217;ve decided, after a long period of deliberation, to go ahead and build my solution and release it to the world as a service!</p>
+<div class="entry-content"><p><img src="/uploads/2009/10/erlang.png" alt="erlang" title="erlang" style="float:left;margin-right:5px;margin-bottom:5px;" />For quite a while I&rsquo;ve been using my spare cycles to chew over a problem. This problem is not one that hasn&rsquo;t been solved before, but one that I feel can be solved in a much better way. From the bit of research that I&rsquo;ve done, I can see at least three areas which can be improved on dramatically. So I&rsquo;ve decided, after a long period of deliberation, to go ahead and build my solution and release it to the world as a service!</p>
 
-<p>I know, this kind of thing happens thousands of times a day. Some arbitrary geek decided to build the next killer app and expects to make a crapload of cash out of it. While that would be nice, the ultimate goal isn&#8217;t the cash. The goal for me is to build something that gets used, and for me to begin to master an area of technology that I&#8217;ve had a quiet passion for for a long period of time now.</p>
+<p>I know, this kind of thing happens thousands of times a day. Some arbitrary geek decided to build the next killer app and expects to make a crapload of cash out of it. While that would be nice, the ultimate goal isn&rsquo;t the cash. The goal for me is to build something that gets used, and for me to begin to master an area of technology that I&rsquo;ve had a quiet passion for for a long period of time now.</p>
 
-<p>My plan is simple. While learning the technologies that I will be using I&#8217;ll be building another application and blogging about it so that all of you can learn with me. Meanwhile, I shall use my learnings to build this other application at the same time.</p>
+<p>My plan is simple. While learning the technologies that I will be using I&rsquo;ll be building another application and blogging about it so that all of you can learn with me. Meanwhile, I shall use my learnings to build this other application at the same time.</p>
 
-<p>The final result should be a series of posts which help other people learn the technology stack, give better coverage and visibility to languages and technologies that a lot of the geek world doesn&#8217;t know about (and really should!), and for me to carve myself a bit of a niche here on the East coast of Ozland. I am hoping to be able to consult my services out to other businesses as a result.</p>
+<p>The final result should be a series of posts which help other people learn the technology stack, give better coverage and visibility to languages and technologies that a lot of the geek world doesn&rsquo;t know about (and really should!), and for me to carve myself a bit of a niche here on the East coast of Ozland. I am hoping to be able to consult my services out to other businesses as a result.</p>
 
-<p>For those that are interested in following along, here is the full tech stack and toolset that I&#8217;ll be using:</p>
+<p>For those that are interested in following along, here is the full tech stack and toolset that I&rsquo;ll be using:</p>
 
 <ul>
 <li><a href="http://erlang.org/" title="Erlang">Erlang</a> - A fantastic cross-platform functional programming language that has some amazing features.</li>
@@ -147,9 +121,9 @@
 </ul>
 
 
-<p>During the course of my blogging/learning I&#8217;ll be focussing on Webmachine, Riak/CouchDB, Erlang and Nitrogen. All the other tools will probably get mentioned along the way, but the primary goal is to focus on these things.</p>
+<p>During the course of my blogging/learning I&rsquo;ll be focussing on Webmachine, Riak/CouchDB, Erlang and Nitrogen. All the other tools will probably get mentioned along the way, but the primary goal is to focus on these things.</p>
 
-<p>I&#8217;m really excited! I&#8217;m currently in the process of documenting my goals and the design for the main application. Once that&#8217;s done, I&#8217;ll get started with the fun stuff. I&#8217;ve got a lot to do and it should be a fun ride. I hope you enjoy following along!</p>
+<p>I&rsquo;m really excited! I&rsquo;m currently in the process of documenting my goals and the design for the main application. Once that&rsquo;s done, I&rsquo;ll get started with the fun stuff. I&rsquo;ve got a lot to do and it should be a fun ride. I hope you enjoy following along!</p>
 </div>
 
 
@@ -172,8 +146,7 @@
   
 
 
-
-<time datetime="2009-10-31T20:28:00+10:00" pubdate data-updated="true">31 Oct 2009</time>
+<time datetime="2009-10-31T20:28:00+10:00" pubdate data-updated="true"></time>
       
 
 <span class="categories">
@@ -187,7 +160,7 @@
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://buffered.io/posts/the-future-is-erlang/" data-via="TheColonial" data-counturl="http://buffered.io/posts/the-future-is-erlang/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://buffered.io/posts/the-future-is-erlang/" data-via="TheColonial" data-counturl="http://buffered.io/posts/the-future-is-erlang/" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -201,7 +174,7 @@
         <a class="basic-alignment left" href="/posts/now-running-nginx/" title="Previous Post: Now Running Nginx">&laquo; Now Running Nginx</a>
       
       
-        <a class="basic-alignment right" href="/posts/its-ok-to-fail/" title="next Post: 'It's OK to Fail">'It's OK to Fail &raquo;</a>
+        <a class="basic-alignment right" href="/posts/its-ok-to-fail/" title="Next Post: 'It's OK to Fail">'It's OK to Fail &raquo;</a>
       
     </p>
   </footer>
@@ -402,7 +375,7 @@ Copyright &copy; 2013 -
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     }());
 </script>
@@ -426,7 +399,7 @@ Copyright &copy; 2013 -
       var twitterWidgets = document.createElement('script');
       twitterWidgets.type = 'text/javascript';
       twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
       document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
     })();
   </script>

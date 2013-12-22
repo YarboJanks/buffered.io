@@ -8,12 +8,6 @@
   <title>Webmachine, ErlyDTL and Riak - Part 2 - OJ's perspective</title>
   <meta name="author" content="OJ Reeves">
 
-  <link rel="openid.server" href="http://pip.verisignlabs.com/server" />
-  <link rel="openid.delegate" href="http://thecolonial.pip.verisignlabs.com/" />
-  <link rel="openid2.provider" href="http://pip.verisignlabs.com/server" />
-  <link rel="openid2.local_id" href="http://thecolonial.pip.verisignlabs.com/" />
-  <meta http-equiv="X-XRDS-Location" content="http://pip.verisignlabs.com/thecolonial/yadixrds" />
-
   
   <meta name="description" content="In Part 1 of the series we covered the basics of getting the development environment up and running. We also looked at how to get a really simple &hellip;">
   
@@ -24,39 +18,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's perspective RSS 2.0" type="application/rss+xml">
   <link rel="canonical" href="http://buffered.io/posts/webmachine-erlydtl-and-riak-part-2">
   <link href="/favicon.ico" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-
-  <script src="/javascripts/modernizr-2.0.js" type="text/javascript"></script>
-  <script src="/javascripts/ender.js" type="text/javascript"></script>
+  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's perspective" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
-
-  <script type="text/javascript">
-    Modernizr.load([
-      { load: '//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js' },
-      { load: '/javascripts/jquery.lightbox.js', complete: function() {
-        $("a[rel^='lightbox']").lightbox();
-      } }
-    ]);
-  </script>
-
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 
   
-
-  
-  <script type="text/javascript">
-    !function(g,s,q,r,d){r=g[r]=g[r]||function(){(r.q=r.q||[]).push(
-    arguments)};d=s.createElement(q);q=s.getElementsByTagName(q)[0];
-    d.src='//d1l6p2sc9645hc.cloudfront.net/tracker.js';q.parentNode.
-    insertBefore(d,q)}(window,document,'script','_gs');
-    _gs('GSN-416076-G');
-  </script>
-
 
 </head>
 
@@ -114,24 +88,24 @@
 
 
   
-
-<time datetime="2010-09-12T22:15:00+10:00" pubdate data-updated="true">12 Sep 2010</time>
+<time datetime="2010-09-12T22:15:00+10:00" pubdate data-updated="true"></time>
         
-         | <a href="#disqus_thread">Comments</a>
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://buffered.io">Comments</a>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p><img src="/uploads/2010/09/riak-logo.png" alt="Riak Logo" style="float:left;padding-right:5px;padding-bottom:5px;"/>In <a href="/posts/webmachine-erlydtl-and-riak-part-1/" title="Wembachine, ErlyDTL and Riak - Part 1">Part 1</a> of the series we covered the basics of getting the development environment up and running. We also looked at how to get a really simple ErlyDTL template rendering. If you haven&#8217;t yet gone through Part 1, I suggest you do that now. If you have, read on!</p>
+<div class="entry-content"><p><img src="/uploads/2010/09/riak-logo.png" alt="Riak Logo" style="float:left;padding-right:5px;padding-bottom:5px;"/>In <a href="/posts/webmachine-erlydtl-and-riak-part-1/" title="Wembachine, ErlyDTL and Riak - Part 1">Part 1</a> of the series we covered the basics of getting the development environment up and running. We also looked at how to get a really simple ErlyDTL template rendering. If you haven&rsquo;t yet gone through Part 1, I suggest you do that now. If you have, read on!</p>
 
-<p>There are a few reasons this series is targeting this technology stack. One of them is <strong>uptime</strong>. We&#8217;re aiming to build a site that stays up as much as possible. Given that, one of the things that I missed in the previous post was setting up a <a href="http://en.wikipedia.org/wiki/Load_balancing_(computing)" title="Load balancing">load balancer</a>. Hence this post will attempt to fill that gap.</p>
+<p>There are a few reasons this series is targeting this technology stack. One of them is <strong>uptime</strong>. We&rsquo;re aiming to build a site that stays up as much as possible. Given that, one of the things that I missed in the previous post was setting up a <a href="http://en.wikipedia.org/wiki/Load_balancing_(computing)" title="Load balancing">load balancer</a>. Hence this post will attempt to fill that gap.</p>
 
 <!--more-->
 
 
-<p>Any serious web-based application will have load-balancing in play somewhere. While not essential during development, it&#8217;s handy to have a similar set up in the hope that it exposes you to some potential issues you might face when the application reaches production.</p>
+<p>Any serious web-based application will have load-balancing in play somewhere. While not essential during development, it&rsquo;s handy to have a similar set up in the hope that it exposes you to some potential issues you might face when the application reaches production.</p>
 
 <p>There are many high-quality load-balancing solutions out there to choose from. For this series, we shall be using <a href="http://haproxy.1wt.eu/" title="HAProxy">HAProxy</a>, which is a common choice amongst developers building scalable web applications. The rest of this post will cover how to set up HAProxy, verifying that the configuration is correct and confirming that it behaves appropriately when nodes in our cluster go down.</p>
 
@@ -139,7 +113,7 @@
 
 <h3>HAProxy installation</h3>
 
-<p>Let&#8217;s start by pulling down the latest stable version of HAProxy&#8217;s source, extracting it and building it. Here&#8217;s a sample log of what you should expect:</p>
+<p>Let&rsquo;s start by pulling down the latest stable version of HAProxy&rsquo;s source, extracting it and building it. Here&rsquo;s a sample log of what you should expect:</p>
 
 <pre><code>oj@nix ~/blog $ wget http://haproxy.1wt.eu/download/1.4/src/haproxy-1.4.20.tar.gz
 
@@ -150,7 +124,7 @@ oj@nix ~/blog $ tar -xzf haproxy-1.4.20.tar.gz
   ... snip ...
 </code></pre>
 
-<p>At this point we&#8217;ve got the source and we&#8217;re ready to make. HAProxy requires a parameter in order to build, and this parameter varies depending on your target system:</p>
+<p>At this point we&rsquo;ve got the source and we&rsquo;re ready to make. HAProxy requires a parameter in order to build, and this parameter varies depending on your target system:</p>
 
 <pre><code>oj@nix ~/blog $ cd haproxy-1.4.20
 oj@nix ~/blog/haproxy-1.4.20 $ make
@@ -173,13 +147,13 @@ out of it. Please check the Makefile in case of doubts.
 make: *** [all] Error 1
 </code></pre>
 
-<p>According to <a href="http://en.wikipedia.org/wiki/Uname" title="uname">uname</a>, I&#8217;m running Linux Kernel 2.6:</p>
+<p>According to <a href="http://en.wikipedia.org/wiki/Uname" title="uname">uname</a>, I&rsquo;m running Linux Kernel 2.6:</p>
 
 <pre><code>oj@nix ~/blog/haproxy-1.4.20 $ uname -r
 2.6.31-21-generic
 </code></pre>
 
-<p>As a result, I&#8217;ll be passing in <strong>linux26</strong>. Make sure you specify the correct option depending on which system you are running. We&#8217;ll be building it <em>and</em> installing it so that it can be called from anywhere:</p>
+<p>As a result, I&rsquo;ll be passing in <strong>linux26</strong>. Make sure you specify the correct option depending on which system you are running. We&rsquo;ll be building it <em>and</em> installing it so that it can be called from anywhere:</p>
 
 <pre><code>oj@nix ~/blog/haproxy-1.4.20 $ make TARGET=linux26
 
@@ -190,14 +164,14 @@ oj@nix ~/blog/haproxy-1.4.20 $ sudo make install
    ... snip ...
 </code></pre>
 
-<p>Simple! We now need to create a configuration for HAProxy which we can use during development. Not surprisingly, HAProxy can be run as a daemon, but it can also be invoked from the command line with a configuration passed as a parameter. For our development, we&#8217;ll be executing from the command line as this will give us feedback/output on what&#8217;s going on.</p>
+<p>Simple! We now need to create a configuration for HAProxy which we can use during development. Not surprisingly, HAProxy can be run as a daemon, but it can also be invoked from the command line with a configuration passed as a parameter. For our development, we&rsquo;ll be executing from the command line as this will give us feedback/output on what&rsquo;s going on.</p>
 
-<p><strong>Note:</strong> If you&#8217;re using Mac OSX, you can easily use brew to install haproxy with the command <code>brew install haproxy</code></p>
+<p><strong>Note:</strong> If you&rsquo;re using Mac OSX, you can easily use brew to install haproxy with the command <code>brew install haproxy</code></p>
 
-<p>Let&#8217;s create a file called <code>dev.haproxy.conf</code> inside our application directory so that it can be included in our source:</p>
+<p>Let&rsquo;s create a file called <code>dev.haproxy.conf</code> inside our application directory so that it can be included in our source:</p>
 
-<figure class='code'><figcaption><span>dev.haproxy.conf  </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span>dev.haproxy.conf </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -410,9 +384,9 @@ oj@nix ~/blog/haproxy-1.4.20 $ sudo make install
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>In the configuration above the <code>backend riaks</code> section has four server nodes. Each one of them has the <code>check</code> option specified. This enables health-checking on the same address and port that the server instance is bound to. If you decided that you didn&#8217;t want to do health-checking in this manner you easily enable health-checking over HTTP, as Riak has a built-in URI which can be used to validate the state of the node. Change the <code>backend riaks</code> section in the configuration to look like this:</p>
+<p>In the configuration above the <code>backend riaks</code> section has four server nodes. Each one of them has the <code>check</code> option specified. This enables health-checking on the same address and port that the server instance is bound to. If you decided that you didn&rsquo;t want to do health-checking in this manner you easily enable health-checking over HTTP, as Riak has a built-in URI which can be used to validate the state of the node. Change the <code>backend riaks</code> section in the configuration to look like this:</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -475,7 +449,7 @@ oj@nix ~/blog/haproxy-1.4.20 $ sudo make install
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>To make sure this is functioning correctly, we need to open two consoles and change our working directory to our <code>csd</code> application (for those who have forgotten, <code>csd</code> is the application we&#8217;re building - it was mentioned in <a href="/posts/webmachine-erlydtl-and-riak-part-1/" title="Wembachine, ErlyDTL and Riak - Part 1">Part 1</a>). In console 1:</p>
+<p>To make sure this is functioning correctly, we need to open two consoles and change our working directory to our <code>csd</code> application (for those who have forgotten, <code>csd</code> is the application we&rsquo;re building &ndash; it was mentioned in <a href="/posts/webmachine-erlydtl-and-riak-part-1/" title="Wembachine, ErlyDTL and Riak - Part 1">Part 1</a>). In console 1:</p>
 
 <pre><code>oj@nix ~/blog/csd $ sudo haproxy -f dev.haproxy.conf -d
 Available polling systems :
@@ -487,7 +461,7 @@ Total: 4 (4 usable), will use sepoll.
 Using sepoll() as the polling mechanism.
 </code></pre>
 
-<p>This indicates that HAProxy is up and running and waiting for connections. Let&#8217;s get Webmachine fired up in console 2:</p>
+<p>This indicates that HAProxy is up and running and waiting for connections. Let&rsquo;s get Webmachine fired up in console 2:</p>
 
 <pre><code>oj@nix ~/blog/csd $ ./start.sh
 
@@ -504,13 +478,13 @@ Using sepoll() as the polling mechanism.
 
 <h3>Verification of HAProxy configuration</h3>
 
-<p>On the surface it appears that we haven&#8217;t broken anything. We also need to make sure that any communication with Riak that we have down the track is also functioning. So let&#8217;s validate that now.</p>
+<p>On the surface it appears that we haven&rsquo;t broken anything. We also need to make sure that any communication with Riak that we have down the track is also functioning. So let&rsquo;s validate that now.</p>
 
-<p>First, we have to make sure that Riak is running. If you have followed <a href="/posts/webmachine-erlydtl-and-riak-part-1/" title="Wembachine, ErlyDTL and Riak - Part 1">Part 1</a> already and your Riak cluster is running then you&#8217;re good to go. If not, please read <a href="/posts/webmachine-erlydtl-and-riak-part-1/" title="Wembachine, ErlyDTL and Riak - Part 1">Part 1</a> for information on how to install Riak and configure it to run as a cluster of 4 nodes.</p>
+<p>First, we have to make sure that Riak is running. If you have followed <a href="/posts/webmachine-erlydtl-and-riak-part-1/" title="Wembachine, ErlyDTL and Riak - Part 1">Part 1</a> already and your Riak cluster is running then you&rsquo;re good to go. If not, please read <a href="/posts/webmachine-erlydtl-and-riak-part-1/" title="Wembachine, ErlyDTL and Riak - Part 1">Part 1</a> for information on how to install Riak and configure it to run as a cluster of 4 nodes.</p>
 
-<p>Next, let&#8217;s create 4 new connections and use the <a href="https://github.com/basho/riak-erlang-client/blob/master/src/riakc_pb_socket.erl#L181" title="riakc_pb_socket:get_server_info/1">get_server_info/1</a> function to find out which node we are connected to. To do this, we&#8217;ll need to use an Erlang console which has all the Riak dependencies ready to go. It just so happens that when we fired up our Webmachine instance, we got an Erlang console for free. Simply hit the <code>enter</code> key and you&#8217;ll be given a prompt. Notice that when we connect to Riak using the <a href="https://github.com/basho/riak-erlang-client/blob/master/src/riakc_pb_socket.erl#L97" title="riakc_pb_socket:start_link/2">start_link/2</a> function, we are passing in the IP address and port of the load-balanced cluster instead of one of the running Riak nodes:</p>
+<p>Next, let&rsquo;s create 4 new connections and use the <a href="https://github.com/basho/riak-erlang-client/blob/master/src/riakc_pb_socket.erl#L181" title="riakc_pb_socket:get_server_info/1">get_server_info/1</a> function to find out which node we are connected to. To do this, we&rsquo;ll need to use an Erlang console which has all the Riak dependencies ready to go. It just so happens that when we fired up our Webmachine instance, we got an Erlang console for free. Simply hit the <code>enter</code> key and you&rsquo;ll be given a prompt. Notice that when we connect to Riak using the <a href="https://github.com/basho/riak-erlang-client/blob/master/src/riakc_pb_socket.erl#L97" title="riakc_pb_socket:start_link/2">start_link/2</a> function, we are passing in the IP address and port of the load-balanced cluster instead of one of the running Riak nodes:</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -553,7 +527,7 @@ Using sepoll() as the polling mechanism.
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>So we can see that the load balancer has allocated four different connections, each to a different node in the cluster. This is a good sign. So let&#8217;s kill off one of the nodes:</p>
+<p>So we can see that the load balancer has allocated four different connections, each to a different node in the cluster. This is a good sign. So let&rsquo;s kill off one of the nodes:</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -571,9 +545,9 @@ Using sepoll() as the polling mechanism.
 </span><span class='line'>servers left. 0 sessions active, 0 requeued, 0 remaining in queue.</span></code></pre></td></tr></table></div></figure>
 
 
-<p>The load balancer noticed that the node has died. Let&#8217;s make sure it no longer attempts to allocate connections to <code>dev3</code>. Note that we call <a href="http://www.erlang.org/documentation/doc-5.2/doc/getting_started/getting_started.html" title="Getting started">f()</a> in our console before running the same script again, as this forces the shell to forget about any existing variable bindings:</p>
+<p>The load balancer noticed that the node has died. Let&rsquo;s make sure it no longer attempts to allocate connections to <code>dev3</code>. Note that we call <a href="http://www.erlang.org/documentation/doc-5.2/doc/getting_started/getting_started.html" title="Getting started">f()</a> in our console before running the same script again, as this forces the shell to forget about any existing variable bindings:</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -620,15 +594,15 @@ Using sepoll() as the polling mechanism.
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>As we hoped, <code>dev3</code> is nowhere to be seen. Let&#8217;s fire it up again:</p>
+<p>As we hoped, <code>dev3</code> is nowhere to be seen. Let&rsquo;s fire it up again:</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>oj@nix ~/blog/riak/dev $ dev3/bin/riak start</span></code></pre></td></tr></table></div></figure>
 
 
-<p><strong>Note:</strong> It isn&#8217;t necessary to tell the node to rejoin the cluster. This happens automatically. Thanks to Siculars (see comment thread) for pointing that out.</p>
+<p><strong>Note:</strong> It isn&rsquo;t necessary to tell the node to rejoin the cluster. This happens automatically. Thanks to Siculars (see comment thread) for pointing that out.</p>
 
-<p>HAProxy&#8217;s console will show you that it has re-established a connection to <code>dev3</code></p>
+<p>HAProxy&rsquo;s console will show you that it has re-established a connection to <code>dev3</code></p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -636,9 +610,9 @@ Using sepoll() as the polling mechanism.
 </span><span class='line'>check duration: 0 ms. 4 active and 0 backup servers online. 0 sessions requeued, 0 total in queue.</span></code></pre></td></tr></table></div></figure>
 
 
-<p>As a final test, let&#8217;s make sure we see that node get connections when we attempt to connect:</p>
+<p>As a final test, let&rsquo;s make sure we see that node get connections when we attempt to connect:</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -687,7 +661,7 @@ Using sepoll() as the polling mechanism.
 
 <h3>Wrapping up</h3>
 
-<p>Excellent. Now that we&#8217;ve got our load-balancer set up in development, we&#8217;re ready to dive into connecting to Riak from our <code>csd</code> application. That will be the topic for the next post in this series.</p>
+<p>Excellent. Now that we&rsquo;ve got our load-balancer set up in development, we&rsquo;re ready to dive into connecting to Riak from our <code>csd</code> application. That will be the topic for the next post in this series.</p>
 
 <p>As always, comments and feedback are welcome and greatly appreciated. Suggestions on improvements and pointers on mistakes would be awesome. To anyone out there who has put HAProxy into production, we would love to hear your comments on your configuration!</p>
 
@@ -718,8 +692,7 @@ Using sepoll() as the polling mechanism.
 
 
   
-
-<time datetime="2012-07-11T21:50:00+10:00" class="updated">Updated 11 Jul 2012</time>
+<time datetime="2012-07-11T21:50:00+10:00" class="updated">Updated </time>
       
 
 <span class="categories">
@@ -733,7 +706,7 @@ Using sepoll() as the polling mechanism.
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://buffered.io/posts/webmachine-erlydtl-and-riak-part-2/" data-via="TheColonial" data-counturl="http://buffered.io/posts/webmachine-erlydtl-and-riak-part-2/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://buffered.io/posts/webmachine-erlydtl-and-riak-part-2/" data-via="TheColonial" data-counturl="http://buffered.io/posts/webmachine-erlydtl-and-riak-part-2/" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -747,7 +720,7 @@ Using sepoll() as the polling mechanism.
         <a class="basic-alignment left" href="/posts/webmachine-erlydtl-and-riak-part-1/" title="Previous Post: Webmachine, ErlyDTL and Riak - Part 1">&laquo; Webmachine, ErlyDTL and Riak - Part 1</a>
       
       
-        <a class="basic-alignment right" href="/posts/asp-net-mvc-2-random-sign-offs-and-tempdata-loss/" title="next Post: ASP.NET MVC 2, Random Sign-offs and TempData Loss">ASP.NET MVC 2, Random Sign-offs and TempData Loss &raquo;</a>
+        <a class="basic-alignment right" href="/posts/asp-net-mvc-2-random-sign-offs-and-tempdata-loss/" title="Next Post: ASP.NET MVC 2, Random Sign-offs and TempData Loss">ASP.NET MVC 2, Random Sign-offs and TempData Loss &raquo;</a>
       
     </p>
   </footer>
@@ -948,7 +921,7 @@ Copyright &copy; 2013 -
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     }());
 </script>
@@ -972,7 +945,7 @@ Copyright &copy; 2013 -
       var twitterWidgets = document.createElement('script');
       twitterWidgets.type = 'text/javascript';
       twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
       document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
     })();
   </script>

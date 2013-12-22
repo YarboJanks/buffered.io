@@ -5,14 +5,8 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Stop Cutting your Feeds Short - OJ's perspective</title>
+  <title>Stop Cutting Your Feeds Short - OJ's perspective</title>
   <meta name="author" content="OJ Reeves">
-
-  <link rel="openid.server" href="http://pip.verisignlabs.com/server" />
-  <link rel="openid.delegate" href="http://thecolonial.pip.verisignlabs.com/" />
-  <link rel="openid2.provider" href="http://pip.verisignlabs.com/server" />
-  <link rel="openid2.local_id" href="http://thecolonial.pip.verisignlabs.com/" />
-  <meta http-equiv="X-XRDS-Location" content="http://pip.verisignlabs.com/thecolonial/yadixrds" />
 
   
   <meta name="description" content="Despite the fact the Internet is accessible from nearly everywhere, there are still times when you are forced to work in a disconnected environment. &hellip;">
@@ -24,39 +18,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's perspective RSS 2.0" type="application/rss+xml">
   <link rel="canonical" href="http://buffered.io/posts/stop-cutting-your-feeds-short">
   <link href="/favicon.ico" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-
-  <script src="/javascripts/modernizr-2.0.js" type="text/javascript"></script>
-  <script src="/javascripts/ender.js" type="text/javascript"></script>
+  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's perspective" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
-
-  <script type="text/javascript">
-    Modernizr.load([
-      { load: '//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js' },
-      { load: '/javascripts/jquery.lightbox.js', complete: function() {
-        $("a[rel^='lightbox']").lightbox();
-      } }
-    ]);
-  </script>
-
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 
   
-
-  
-  <script type="text/javascript">
-    !function(g,s,q,r,d){r=g[r]=g[r]||function(){(r.q=r.q||[]).push(
-    arguments)};d=s.createElement(q);q=s.getElementsByTagName(q)[0];
-    d.src='//d1l6p2sc9645hc.cloudfront.net/tracker.js';q.parentNode.
-    insertBefore(d,q)}(window,document,'script','_gs');
-    _gs('GSN-416076-G');
-  </script>
-
 
 </head>
 
@@ -112,10 +86,10 @@
   
 
 
-
-<time datetime="2008-08-07T12:23:00+10:00" pubdate data-updated="true">07 Aug 2008</time>
+<time datetime="2008-08-07T12:23:00+10:00" pubdate data-updated="true"></time>
         
-         | <a href="#disqus_thread">Comments</a>
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://buffered.io">Comments</a>
         
       </p>
     
@@ -124,20 +98,20 @@
 
 <div class="entry-content"><p>Despite the fact the Internet is accessible from nearly everywhere, there are still times when you are forced to work in a disconnected environment. There are also times where you <em>want</em> to work in a disconnected environment (probably to avoid distractions from <a href="http://en.wikipedia.org/wiki/Instant_messaging" title="Instant Messaging">IM</a>, <a href="http://twitter.com/" title="Twitter">Twitter</a>, etc).</p>
 
-<p>So why is it that we still don&#8217;t seem to do a good job of catering for these cases? Offline capabilities are currently few and far between. Sure, it can be hard to add offline functionality to an application, depending on what the application does, but sometimes there&#8217;s really no excuse.</p>
+<p>So why is it that we still don&rsquo;t seem to do a good job of catering for these cases? Offline capabilities are currently few and far between. Sure, it can be hard to add offline functionality to an application, depending on what the application does, but sometimes there&rsquo;s really no excuse.</p>
 
 <!--more-->
 
 
 <p>One example where there is no excuse: blog feeds!</p>
 
-<p>These days everyone seems to have a chunk of <a href="https://www.google.com/adsense/" title="Google Ads">Google Ads</a> on their blog pages in the hope they&#8217;ll be <a href="http://en.wikipedia.org/wiki/Slashdotted" title="Slashdotted">Slashdotted</a>, <a href="http://reddit.com/" title="Reddit">Reddited</a> or <a href="http://digg.com/" title="Digg">Digged</a> enough to bring in a small fortune in advertising revenue. While I can understand the desire to earn some cash from writing, I don&#8217;t think it&#8217;s a good enough excuse to cut the content of the <a href="http://en.wikipedia.org/wiki/RSS" title="RSS">RSS</a>/<a href="http://en.wikipedia.org/wiki/Atom_%28standard%29" title="Atom">Atom</a> feeds short.</p>
+<p>These days everyone seems to have a chunk of <a href="https://www.google.com/adsense/" title="Google Ads">Google Ads</a> on their blog pages in the hope they&rsquo;ll be <a href="http://en.wikipedia.org/wiki/Slashdotted" title="Slashdotted">Slashdotted</a>, <a href="http://reddit.com/" title="Reddit">Reddited</a> or <a href="http://digg.com/" title="Digg">Digged</a> enough to bring in a small fortune in advertising revenue. While I can understand the desire to earn some cash from writing, I don&rsquo;t think it&rsquo;s a good enough excuse to cut the content of the <a href="http://en.wikipedia.org/wiki/RSS" title="RSS">RSS</a>/<a href="http://en.wikipedia.org/wiki/Atom_%28standard%29" title="Atom">Atom</a> feeds short.</p>
 
-<p>To read an article offline, those of us who use a reader which supports offline reading capabilities (which include the likes of <a href="http://reader.google.com/" title="Google Reader">Google Reader</a> via <a href="http://gears.google.com/" title="Google Gears">Google Gears</a>) end up missing out on the content of each article which doesn&#8217;t make it to the feed in its entirity.</p>
+<p>To read an article offline, those of us who use a reader which supports offline reading capabilities (which include the likes of <a href="http://reader.google.com/" title="Google Reader">Google Reader</a> via <a href="http://gears.google.com/" title="Google Gears">Google Gears</a>) end up missing out on the content of each article which doesn&rsquo;t make it to the feed in its entirity.</p>
 
-<p>While this is frustrating for the reader, it can be damaging for the writer as well. I personally have removed fistfuls of feeds from my reading list because they expect me to browse to their sites. I don&#8217;t plan on returning to those sites in the future either. I&#8217;d be very surprised if I was the only person who has done this or who will do it in the future.</p>
+<p>While this is frustrating for the reader, it can be damaging for the writer as well. I personally have removed fistfuls of feeds from my reading list because they expect me to browse to their sites. I don&rsquo;t plan on returning to those sites in the future either. I&rsquo;d be very surprised if I was the only person who has done this or who will do it in the future.</p>
 
-<p>Thankfully I am yet to come across an semi-fed article while offline that I do want to read. But I reckon I&#8217;ll be pretty pissed the day it does happen.</p>
+<p>Thankfully I am yet to come across an semi-fed article while offline that I do want to read. But I reckon I&rsquo;ll be pretty pissed the day it does happen.</p>
 
 <p>In short, stop cutting your f**cking feeds short. Please :)</p>
 </div>
@@ -162,8 +136,7 @@
   
 
 
-
-<time datetime="2008-08-07T12:23:00+10:00" pubdate data-updated="true">07 Aug 2008</time>
+<time datetime="2008-08-07T12:23:00+10:00" pubdate data-updated="true"></time>
       
 
 <span class="categories">
@@ -177,7 +150,7 @@
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://buffered.io/posts/stop-cutting-your-feeds-short/" data-via="TheColonial" data-counturl="http://buffered.io/posts/stop-cutting-your-feeds-short/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://buffered.io/posts/stop-cutting-your-feeds-short/" data-via="TheColonial" data-counturl="http://buffered.io/posts/stop-cutting-your-feeds-short/" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -191,7 +164,7 @@
         <a class="basic-alignment left" href="/posts/project-euler-10/" title="Previous Post: Project Euler #10">&laquo; Project Euler #10</a>
       
       
-        <a class="basic-alignment right" href="/posts/sorting-things-out/" title="next Post: Sorting Things Out">Sorting Things Out &raquo;</a>
+        <a class="basic-alignment right" href="/posts/sorting-things-out/" title="Next Post: Sorting Things Out">Sorting Things Out &raquo;</a>
       
     </p>
   </footer>
@@ -392,7 +365,7 @@ Copyright &copy; 2013 -
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     }());
 </script>
@@ -416,7 +389,7 @@ Copyright &copy; 2013 -
       var twitterWidgets = document.createElement('script');
       twitterWidgets.type = 'text/javascript';
       twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
       document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
     })();
   </script>

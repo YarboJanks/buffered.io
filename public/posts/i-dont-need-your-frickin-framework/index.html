@@ -8,12 +8,6 @@
   <title>I Don't Need Your Frickin' Framework! - OJ's perspective</title>
   <meta name="author" content="OJ Reeves">
 
-  <link rel="openid.server" href="http://pip.verisignlabs.com/server" />
-  <link rel="openid.delegate" href="http://thecolonial.pip.verisignlabs.com/" />
-  <link rel="openid2.provider" href="http://pip.verisignlabs.com/server" />
-  <link rel="openid2.local_id" href="http://thecolonial.pip.verisignlabs.com/" />
-  <meta http-equiv="X-XRDS-Location" content="http://pip.verisignlabs.com/thecolonial/yadixrds" />
-
   
   <meta name="description" content="How many companies have you worked with/for that have their own framework? How many have been in the process of developing their own framework? How &hellip;">
   
@@ -24,39 +18,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's perspective RSS 2.0" type="application/rss+xml">
   <link rel="canonical" href="http://buffered.io/posts/i-dont-need-your-frickin-framework">
   <link href="/favicon.ico" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-
-  <script src="/javascripts/modernizr-2.0.js" type="text/javascript"></script>
-  <script src="/javascripts/ender.js" type="text/javascript"></script>
+  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's perspective" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
-
-  <script type="text/javascript">
-    Modernizr.load([
-      { load: '//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js' },
-      { load: '/javascripts/jquery.lightbox.js', complete: function() {
-        $("a[rel^='lightbox']").lightbox();
-      } }
-    ]);
-  </script>
-
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 
   
-
-  
-  <script type="text/javascript">
-    !function(g,s,q,r,d){r=g[r]=g[r]||function(){(r.q=r.q||[]).push(
-    arguments)};d=s.createElement(q);q=s.getElementsByTagName(q)[0];
-    d.src='//d1l6p2sc9645hc.cloudfront.net/tracker.js';q.parentNode.
-    insertBefore(d,q)}(window,document,'script','_gs');
-    _gs('GSN-416076-G');
-  </script>
-
 
 </head>
 
@@ -112,10 +86,10 @@
   
 
 
-
-<time datetime="2009-04-13T14:09:00+10:00" pubdate data-updated="true">13 Apr 2009</time>
+<time datetime="2009-04-13T14:09:00+10:00" pubdate data-updated="true"></time>
         
-         | <a href="#disqus_thread">Comments</a>
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://buffered.io">Comments</a>
         
       </p>
     
@@ -129,15 +103,15 @@
 <!--more-->
 
 
-<p>In the early days of my career, frameworks were few and far between. These days it is no longer the case. An alarming number of companies are carrying the burden of their own frameworks. A huge number of private and public sector organisations are <em>currently paying people to write new frameworks</em>! For some reason, many nave project managers and team leads feel the need to invest a great deal of time and <abbr title="Cash">moolah</abbr> into building the next-generation, latest-and-greatest, all-singing-all-dancing, cover-every-possible-web-and-rich-client-case framework before they start to do what they&#8217;re being paid to do: <strong>solve a business problem</strong>.</p>
+<p>In the early days of my career, frameworks were few and far between. These days it is no longer the case. An alarming number of companies are carrying the burden of their own frameworks. A huge number of private and public sector organisations are <em>currently paying people to write new frameworks</em>! For some reason, many nave project managers and team leads feel the need to invest a great deal of time and <abbr title="Cash">moolah</abbr> into building the next-generation, latest-and-greatest, all-singing-all-dancing, cover-every-possible-web-and-rich-client-case framework before they start to do what they&rsquo;re being paid to do: <strong>solve a business problem</strong>.</p>
 
 <p>The last job I worked on was one of those places. On my first day I was told that the project team (which at that point was just 2 of the 6 developers) were building a new framework. They were also building a code generator that used this framework. This dynamic duo of programs would be used in conjunction with each other to build any kind of application under the sun. It would solve all of the issues without the developer having to think, all while making poverty history.</p>
 
 <p>What a joke. The code generator was never finished and the framework was never used. The money that was intended to be burned while <em>adding more features to an existing application</em> disappeared in a blur of <a href="http://en.wikipedia.org/wiki/Greenfield_project" title="">Greenfield</a> over-engineering of a framework that simply <strong>was not required</strong>.</p>
 
-<p>This kind of problem happens so much these days, and it&#8217;s just appalling. What I want to say is: <em>I am <a href="http://www.urbandictionary.com/define.php?term=frickin" title="">frickin&#8217;</a> tired of it!</em></p>
+<p>This kind of problem happens so much these days, and it&rsquo;s just appalling. What I want to say is: <em>I am <a href="http://www.urbandictionary.com/define.php?term=frickin" title="">frickin&#8217;</a> tired of it!</em></p>
 
-<p>The example I mentioned above is probably the worst I&#8217;ve seen for a while. I&#8217;d love to go into a fair bit of depth to uncover some &#8220;interesting&#8221; features of the framework, but it&#8217;s not worth it. I <em>would</em> like to highlight just a few points about it though:</p>
+<p>The example I mentioned above is probably the worst I&rsquo;ve seen for a while. I&rsquo;d love to go into a fair bit of depth to uncover some &ldquo;interesting&rdquo; features of the framework, but it&rsquo;s not worth it. I <em>would</em> like to highlight just a few points about it though:</p>
 
 <ul>
   <li>It was based on <a href="http://www.lhotka.net/cslanet/" title="CSLA">CSLA</a>, which is already a rather large framework that attempts to do way too much via an enormous amount of code. The author decided that some parts of CSLA weren&#8217;t good enough and hence needed to be &#8220;improved&#8221;. The &#8220;improvements&#8221; were atrocious.</li>
@@ -152,15 +126,15 @@
 </ul>
 
 
-<p>I hence conclude that this framework was a large, unwieldy, bloated, over-engineered, slow and riddled with design flaws. This is all for something that was actually totally unnecessary. Why? &#8230;</p>
+<p>I hence conclude that this framework was a large, unwieldy, bloated, over-engineered, slow and riddled with design flaws. This is all for something that was actually totally unnecessary. Why? &hellip;</p>
 
-<p>.. because this was <strong>&#8220;The Framework&#8221; v2.0!</strong> Yup, it was the second version. The first was also a dog&#8217;s breakfast, but at least it was finished.</p>
+<p>.. because this was <strong>&ldquo;The Framework&rdquo; v2.0!</strong> Yup, it was the second version. The first was also a dog&rsquo;s breakfast, but at least it was finished.</p>
 
-<p>So what&#8217;s my point? Am I trying to say that use of <em>any</em> framework is bad? Having helper libraries and well-designed platforms to build on are an epic fail?</p>
+<p>So what&rsquo;s my point? Am I trying to say that use of <em>any</em> framework is bad? Having helper libraries and well-designed platforms to build on are an epic fail?</p>
 
 <p>Most definitely not. What I am saying is this: there are people out there with minds immeasurably superior to ours who have already done a better job of solving this problem. Stop writing your own frameworks. Stop writing code generators. There are already options out there.</p>
 
-<p>So to all of you wannabe framework developers: stop what you&#8217;re doing. You&#8217;re wasting cash and not adding value. We&#8217;ve already got a framework. It&#8217;s called <strong>Microsoft .NET</strong>. Now get out of the way and let me use it!</p>
+<p>So to all of you wannabe framework developers: stop what you&rsquo;re doing. You&rsquo;re wasting cash and not adding value. We&rsquo;ve already got a framework. It&rsquo;s called <strong>Microsoft .NET</strong>. Now get out of the way and let me use it!</p>
 </div>
 
 
@@ -183,8 +157,7 @@
   
 
 
-
-<time datetime="2009-04-13T14:09:00+10:00" pubdate data-updated="true">13 Apr 2009</time>
+<time datetime="2009-04-13T14:09:00+10:00" pubdate data-updated="true"></time>
       
 
 <span class="categories">
@@ -198,7 +171,7 @@
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://buffered.io/posts/i-dont-need-your-frickin-framework/" data-via="TheColonial" data-counturl="http://buffered.io/posts/i-dont-need-your-frickin-framework/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://buffered.io/posts/i-dont-need-your-frickin-framework/" data-via="TheColonial" data-counturl="http://buffered.io/posts/i-dont-need-your-frickin-framework/" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -212,7 +185,7 @@
         <a class="basic-alignment left" href="/posts/a-quirk-in-listfind/" title="Previous Post: A Quirk in List.Find()">&laquo; A Quirk in List.Find()</a>
       
       
-        <a class="basic-alignment right" href="/posts/out-with-the-old-and-in-with-the-new/" title="next Post: Out with the Old and in with the New">Out with the Old and in with the New &raquo;</a>
+        <a class="basic-alignment right" href="/posts/out-with-the-old-and-in-with-the-new/" title="Next Post: Out with the Old and in with the New">Out with the Old and in with the New &raquo;</a>
       
     </p>
   </footer>
@@ -413,7 +386,7 @@ Copyright &copy; 2013 -
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     }());
 </script>
@@ -437,7 +410,7 @@ Copyright &copy; 2013 -
       var twitterWidgets = document.createElement('script');
       twitterWidgets.type = 'text/javascript';
       twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
       document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
     })();
   </script>

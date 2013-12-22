@@ -8,12 +8,6 @@
   <title>BFPG June Meetup - OJ's perspective</title>
   <meta name="author" content="OJ Reeves">
 
-  <link rel="openid.server" href="http://pip.verisignlabs.com/server" />
-  <link rel="openid.delegate" href="http://thecolonial.pip.verisignlabs.com/" />
-  <link rel="openid2.provider" href="http://pip.verisignlabs.com/server" />
-  <link rel="openid2.local_id" href="http://thecolonial.pip.verisignlabs.com/" />
-  <meta http-equiv="X-XRDS-Location" content="http://pip.verisignlabs.com/thecolonial/yadixrds" />
-
   
   <meta name="description" content="The time has come for another meeting of the Functional Programming minds! This months BFPG Meetup, starting 6pm Monday 28th, is the first one at our &hellip;">
   
@@ -24,39 +18,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's perspective RSS 2.0" type="application/rss+xml">
   <link rel="canonical" href="http://buffered.io/posts/bfpg-june-meetup">
   <link href="/favicon.ico" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-
-  <script src="/javascripts/modernizr-2.0.js" type="text/javascript"></script>
-  <script src="/javascripts/ender.js" type="text/javascript"></script>
+  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's perspective" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
-
-  <script type="text/javascript">
-    Modernizr.load([
-      { load: '//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js' },
-      { load: '/javascripts/jquery.lightbox.js', complete: function() {
-        $("a[rel^='lightbox']").lightbox();
-      } }
-    ]);
-  </script>
-
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 
   
-
-  
-  <script type="text/javascript">
-    !function(g,s,q,r,d){r=g[r]=g[r]||function(){(r.q=r.q||[]).push(
-    arguments)};d=s.createElement(q);q=s.getElementsByTagName(q)[0];
-    d.src='//d1l6p2sc9645hc.cloudfront.net/tracker.js';q.parentNode.
-    insertBefore(d,q)}(window,document,'script','_gs');
-    _gs('GSN-416076-G');
-  </script>
-
 
 </head>
 
@@ -112,10 +86,10 @@
   
 
 
-
-<time datetime="2010-06-25T20:05:00+10:00" pubdate data-updated="true">25 Jun 2010</time>
+<time datetime="2010-06-25T20:05:00+10:00" pubdate data-updated="true"></time>
         
-         | <a href="#disqus_thread">Comments</a>
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://buffered.io">Comments</a>
         
       </p>
     
@@ -124,21 +98,21 @@
 
 <div class="entry-content"><p><img src="/uploads/2010/06/Home.png" alt="Erlang Logo" style="float:right; margin-left:5px; margin-bottom: 5px;"/>The time has come for another meeting of the Functional Programming minds! This months <a href="http://www.meetup.com/Brisbane-Functional-Programming-Group-BFG/calendar/12636552/" title="June BFPG Meetup">BFPG Meetup</a>, starting 6pm Monday 28th, is the first one at our new venue: Microsoft HQ, Waterfront Place, Brisbane. For details on the location, take a look at the <a href="http://bfpg.org/about/" title="About BFPG">BFPG about page</a>.</p>
 
-<p><img src="/uploads/2010/06/ruby.png" alt="Erlang Logo" style="float:left; margin-right:5px; margin-bottom: 5px;"/>This month we have three speakers, and I am one of them! In my talk, &#8220;Erlang - Why should you care?&#8221;, I will be giving a fairly non-technical introduction to <a href="http://erlang.org/" title="Erlang">Erlang</a>. I&#8217;ll be covering off the features of the language, some of its design goals and its history. I aiming to show that this language is not one that was spawned out of academia and that it has been applied in the real-world ever since its conception. If I have time, I&#8217;ll also be giving a small demonstration of one of the neatest features of the technology.</p>
+<p><img src="/uploads/2010/06/ruby.png" alt="Erlang Logo" style="float:left; margin-right:5px; margin-bottom: 5px;"/>This month we have three speakers, and I am one of them! In my talk, &ldquo;Erlang &ndash; Why should you care?&rdquo;, I will be giving a fairly non-technical introduction to <a href="http://erlang.org/" title="Erlang">Erlang</a>. I&rsquo;ll be covering off the features of the language, some of its design goals and its history. I aiming to show that this language is not one that was spawned out of academia and that it has been applied in the real-world ever since its conception. If I have time, I&rsquo;ll also be giving a small demonstration of one of the neatest features of the technology.</p>
 
 <p><img src="/uploads/2010/06/haskell-logo-variation.png" alt="Erlang Logo" style="float:right; margin-left:5px; margin-bottom: 5px;"/>
-I&#8217;ll be posting the slides and demonstration code here on this blog as well as <a href="http://bfpg.org/" title="BFPG">BFPG&#8217;s home</a> after the meetup has taken place.</p>
+I&rsquo;ll be posting the slides and demonstration code here on this blog as well as <a href="http://bfpg.org/" title="BFPG">BFPG&rsquo;s home</a> after the meetup has taken place.</p>
 
-<p>Myself and my comrades, <a href="http://adams.id.au/blog/" title="Nosewheelie">Tom</a> and <a href="http://blog.tmorris.net/" title="Tony's blog">Tony</a>, will aim to provide a fun and interesting evening at our new venue. Based on the RSVPs so far, it looks like we are going to have one of the biggest turn-outs to date. This is probably due to the exposure we got during last month&#8217;s <a href="/posts/dave-thomas-at-yow-nights-brisbane/" title="Dave Thomas at YOW! Nights Brisbane">talk by Dave Thomas</a>. There are still plenty of spots left, so if you&#8217;re keen to come along, <a href="http://www.meetup.com/Brisbane-Functional-Programming-Group-BFG/calendar/12636552/" title="Sign up for BFPG June 10">go and sign up</a>. Bring your friends, your friend&#8217;s friends and your mum.</p>
+<p>Myself and my comrades, <a href="http://adams.id.au/blog/" title="Nosewheelie">Tom</a> and <a href="http://blog.tmorris.net/" title="Tony's blog">Tony</a>, will aim to provide a fun and interesting evening at our new venue. Based on the RSVPs so far, it looks like we are going to have one of the biggest turn-outs to date. This is probably due to the exposure we got during last month&rsquo;s <a href="/posts/dave-thomas-at-yow-nights-brisbane/" title="Dave Thomas at YOW! Nights Brisbane">talk by Dave Thomas</a>. There are still plenty of spots left, so if you&rsquo;re keen to come along, <a href="http://www.meetup.com/Brisbane-Functional-Programming-Group-BFG/calendar/12636552/" title="Sign up for BFPG June 10">go and sign up</a>. Bring your friends, your friend&rsquo;s friends and your mum.</p>
 
 <p>I hope to see you there!</p>
 
 <hr/>
 
 
-<p><strong>Update (6th July 2010):</strong> We had a fantastic turn-out of just short of 50 people (a record breaker for the group so far!). My talk seemed to be fairly well-received. No rotten tomatoes were thrown and the crowd seemed engaged through most of the talk. It felt good! I think many people wanted to see more code, but since that wasn&#8217;t the focus of the talk they were a little disappointed. If people are keen for more Erlang goodness at future meetups, then I&#8217;ll be happy to dive a little deeper.</p>
+<p><strong>Update (6th July 2010):</strong> We had a fantastic turn-out of just short of 50 people (a record breaker for the group so far!). My talk seemed to be fairly well-received. No rotten tomatoes were thrown and the crowd seemed engaged through most of the talk. It felt good! I think many people wanted to see more code, but since that wasn&rsquo;t the focus of the talk they were a little disappointed. If people are keen for more Erlang goodness at future meetups, then I&rsquo;ll be happy to dive a little deeper.</p>
 
-<p>Here&#8217;s a video of my talk:</p>
+<p>Here&rsquo;s a video of my talk:</p>
 
 <iframe src="http://player.vimeo.com/video/13566071?byline=0&amp;portrait=0&amp;color=F79942" width="512" height="384" frameborder="0"></iframe>
 
@@ -176,8 +150,7 @@ I&#8217;ll be posting the slides and demonstration code here on this blog as wel
   
 
 
-
-<time datetime="2010-06-25T20:05:00+10:00" pubdate data-updated="true">25 Jun 2010</time>
+<time datetime="2010-06-25T20:05:00+10:00" pubdate data-updated="true"></time>
       
 
 <span class="categories">
@@ -191,7 +164,7 @@ I&#8217;ll be posting the slides and demonstration code here on this blog as wel
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://buffered.io/posts/bfpg-june-meetup/" data-via="TheColonial" data-counturl="http://buffered.io/posts/bfpg-june-meetup/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://buffered.io/posts/bfpg-june-meetup/" data-via="TheColonial" data-counturl="http://buffered.io/posts/bfpg-june-meetup/" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -205,7 +178,7 @@ I&#8217;ll be posting the slides and demonstration code here on this blog as wel
         <a class="basic-alignment left" href="/posts/dave-thomas-at-yow-nights-brisbane/" title="Previous Post: Dave Thomas at YOW! Nights Brisbane">&laquo; Dave Thomas at YOW! Nights Brisbane</a>
       
       
-        <a class="basic-alignment right" href="/posts/webmachine-erlydtl-and-riak-part-1/" title="next Post: Webmachine, ErlyDTL and Riak - Part 1">Webmachine, ErlyDTL and Riak - Part 1 &raquo;</a>
+        <a class="basic-alignment right" href="/posts/webmachine-erlydtl-and-riak-part-1/" title="Next Post: Webmachine, ErlyDTL and Riak - Part 1">Webmachine, ErlyDTL and Riak - Part 1 &raquo;</a>
       
     </p>
   </footer>
@@ -406,7 +379,7 @@ Copyright &copy; 2013 -
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     }());
 </script>
@@ -430,7 +403,7 @@ Copyright &copy; 2013 -
       var twitterWidgets = document.createElement('script');
       twitterWidgets.type = 'text/javascript';
       twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
       document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
     })();
   </script>

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Sorting | OJ's perspective]]></title>
   <link href="http://buffered.io/categories/sorting/atom.xml" rel="self"/>
   <link href="http://buffered.io/"/>
-  <updated>2013-12-21T20:54:15+10:00</updated>
+  <updated>2013-12-23T08:36:36+10:00</updated>
   <id>http://buffered.io/</id>
   <author>
     <name><![CDATA[OJ Reeves]]></name>
@@ -18,16 +18,16 @@
     <link href="http://buffered.io/posts/sorting-algorithms-the-gnome-sort/"/>
     <updated>2008-10-16T20:58:00+10:00</updated>
     <id>http://buffered.io/posts/sorting-algorithms-the-gnome-sort</id>
-    <content type="html"><![CDATA[<p><img src="http://buffered.io/uploads/2008/10/gnome.jpg" alt="Gnome Sort" title="Gnome Sort" width="240" style="float: right; margin-left: 5px; margin-bottom: 5px;"/>After a bit of down time for personal reasons, here is the fourth post in the series on <a href="http://buffered.io/category/sorting/" title="Sorting @ OJ's rants">sorting</a> algorithms. This time round we're taking a good look at the <strong>Gnome Sort</strong>.</p>
+    <content type="html"><![CDATA[<p><img src="http://buffered.io/uploads/2008/10/gnome.jpg" alt="Gnome Sort" title="Gnome Sort" width="240" style="float: right; margin-left: 5px; margin-bottom: 5px;"/>After a bit of down time for personal reasons, here is the fourth post in the series on <a href="http://buffered.io/category/sorting/" title="Sorting @ OJ's rants">sorting</a> algorithms. This time round we&rsquo;re taking a good look at the <strong>Gnome Sort</strong>.</p>
 
-<p>People often do a double-take when hearing the term "Gnome Sort" because it's not that common. The <strong>Gnome Sort</strong> is extremely simple, and is very similar to the principle behind the <strong>Insertion Sort</strong> (which we'll be covering soon).</p>
+<p>People often do a double-take when hearing the term &ldquo;Gnome Sort&rdquo; because it&rsquo;s not that common. The <strong>Gnome Sort</strong> is extremely simple, and is very similar to the principle behind the <strong>Insertion Sort</strong> (which we&rsquo;ll be covering soon).</p>
 
-<p>The Gnome Sort is yet another <em>comparison</em> and <em>exchange</em> sort which has elements that are similar to the <a href="http://buffered.io/posts/sorting-algorithms-the-bubble-sort/" title="Sorting Algorithms: The Bubble Sort">Bubble Sort</a>. If you haven't read up on the Bubble Sort, be sure to do that before reading this article as it may help with your understanding.</p>
+<p>The Gnome Sort is yet another <em>comparison</em> and <em>exchange</em> sort which has elements that are similar to the <a href="http://buffered.io/posts/sorting-algorithms-the-bubble-sort/" title="Sorting Algorithms: The Bubble Sort">Bubble Sort</a>. If you haven&rsquo;t read up on the Bubble Sort, be sure to do that before reading this article as it may help with your understanding.</p>
 
 <!--more-->
 
 
-<p>Let's get straight into it!</p>
+<p>Let&rsquo;s get straight into it!</p>
 
 <h2>Common Terms</h2>
 
@@ -73,7 +73,7 @@
 
 <p><span class="eg">33 <i>74</i> <i>98</i> 13 55 20 77 45 64 83</span></p>
 
-<p>Given that we had to swap the values in the previous step, we can't assume that the current item is in the right location with respect to the other <strong>in order</strong> items, and hence we need to continue to work backwards. We compare the current item to the preceeding item in the <em>data set</em>:</p>
+<p>Given that we had to swap the values in the previous step, we can&rsquo;t assume that the current item is in the right location with respect to the other <strong>in order</strong> items, and hence we need to continue to work backwards. We compare the current item to the preceeding item in the <em>data set</em>:</p>
 
 <p><span class="eg"><b>33</b> <b>74</b> 98 13 55 20 77 45 64 83</span></p>
 
@@ -81,11 +81,11 @@
 
 <p><span class="eg">33 74 <b>98</b> <b>13</b> 55 20 77 45 64 83</span></p>
 
-<p>They're out of order, so we swap them:</p>
+<p>They&rsquo;re out of order, so we swap them:</p>
 
 <p><span class="eg">33 74 <i>13</i> <i>98</i> 55 20 77 45 64 83</span></p>
 
-<p>... and we keep <em>bubbling backwards</em> until we reach either a value that is smaller or the head of the list:</p>
+<p>&hellip; and we keep <em>bubbling backwards</em> until we reach either a value that is smaller or the head of the list:</p>
 
 <p><span class="eg">33 <b>74</b> <b>13</b> 98 55 20 77 45 64 83</span>
 <span class="eg">33 <i>13</i> <i>74</i> 98 55 20 77 45 64 83</span>
@@ -100,7 +100,7 @@
 <span class="eg">13 33 <i>55</i> <i>74</i> 98 20 77 45 64 83</span>
 <span class="eg">13 <b>33</b> <b>55</b> 74 98 20 77 45 64 83</span></p>
 
-<p>55 is now in the correct spot with regards to the other pre-sorted items, so we move onto the next item. At this point it should be fairly obvious what's going on, so I shall show a summary for the rest of the example:</p>
+<p>55 is now in the correct spot with regards to the other pre-sorted items, so we move onto the next item. At this point it should be fairly obvious what&rsquo;s going on, so I shall show a summary for the rest of the example:</p>
 
 <p><span class="eg">13 33 55 74 <b>98</b> <b>20</b> 77 45 64 83</span>
 <span class="eg">13 33 55 74 <i>20</i> <i>98</i> 77 45 64 83</span>
@@ -142,7 +142,7 @@
 
 <p>Here is a sample implementation written in <a href="http://en.wikipedia.org/wiki/C_Sharp" title="C Sharp">C#</a>. It is heavily commented in the hope that it will aid in understanding how the algorithm works:</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -233,16 +233,16 @@
 <h2>The Complexity</h2>
 
 
-<p>This is not a very efficient algorithm. It's time and space complexity are exactly that of the <a href="http://buffered.io/posts/sorting-algorithms-the-bubble-sort/" title="Sorting Algorithms: The Bubble Sort">Bubble Sort</a>. That is, the time complexity is O(n<sup>2</sup>), and space complexity for in-place sorting is O(1).</p>
+<p>This is not a very efficient algorithm. It&rsquo;s time and space complexity are exactly that of the <a href="http://buffered.io/posts/sorting-algorithms-the-bubble-sort/" title="Sorting Algorithms: The Bubble Sort">Bubble Sort</a>. That is, the time complexity is O(n<sup>2</sup>), and space complexity for in-place sorting is O(1).</p>
 
 <p><a name="GnomeSortBitBucket"></a></p>
 
 <h2>Other Implementations</h2>
 
 
-<p>I'm slowly gathering a collection of implementations of all the sorting algorithms, including the ones listed above, that I'm covering in this series and posting them up on <a href="http://www.bitbucket.org/OJ/sorting/overview/" title="Sorting @ OJ's BitBucket">BitBucket</a>. The Gnome Sort implementations can be found <a href=http://www.bitbucket.org/OJ/sorting/src/3f2af8511799/04-GnomeSort/" title="GnomeSort @ OJ's BitBucket">here</a>.</p>
+<p>I&rsquo;m slowly gathering a collection of implementations of all the sorting algorithms, including the ones listed above, that I&rsquo;m covering in this series and posting them up on <a href="http://www.bitbucket.org/OJ/sorting/overview/" title="Sorting @ OJ's BitBucket">BitBucket</a>. The Gnome Sort implementations can be found <a href=http://www.bitbucket.org/OJ/sorting/src/3f2af8511799/04-GnomeSort/" title="GnomeSort @ OJ's BitBucket">here</a>.</p>
 
-<p><em>Note: You'll need <a href="http://www.selenic.com/mercurial/" title="Mercurial">Mercurial</a> if you want to pull directly from the repository, otherwise you'll have to copy and paste from the web.</em></p>
+<p><em>Note: You&rsquo;ll need <a href="http://www.selenic.com/mercurial/" title="Mercurial">Mercurial</a> if you want to pull directly from the repository, otherwise you&rsquo;ll have to copy and paste from the web.</em></p>
 
 <h2>References and Other Information</h2>
 
@@ -252,12 +252,12 @@
 </ol>
 
 
-<p>Next up, we'll be looking at the first of the mind-bending algorithms: the <strong>Quick Sort</strong>.</p>
+<p>Next up, we&rsquo;ll be looking at the first of the mind-bending algorithms: the <strong>Quick Sort</strong>.</p>
 
 <h2>Disclaimer</h2>
 
 
-<p>I'm no expert, nor an authority. The post above is based on my experience and a bit of research. If you find something wrong with anything I've said please let me know. Comments and feedback are greatly appreciated.</p>
+<p>I&rsquo;m no expert, nor an authority. The post above is based on my experience and a bit of research. If you find something wrong with anything I&rsquo;ve said please let me know. Comments and feedback are greatly appreciated.</p>
 
 <p><em>Note: For those reading this article in an RSS reader, you may find the colours do not appear in the examples properly. For some reason the feed is stripping out some of the formatting. I will do my best to fix this up soon.</em></p>
 ]]></content>
@@ -268,9 +268,9 @@
     <link href="http://buffered.io/posts/sorting-algorithms-the-comb-sort/"/>
     <updated>2008-09-14T20:26:00+10:00</updated>
     <id>http://buffered.io/posts/sorting-algorithms-the-comb-sort</id>
-    <content type="html"><![CDATA[<p><img src="http://buffered.io/uploads/2008/09/combsort.jpg" alt="Comb Sort" title="Comb Sort" width="150" style="float: left; margin-right: 5px; margin-bottom: 5px;" />Welcome to this, the third post in the series on <a href="http://buffered.io/category/sorting/" title="Sorting @ OJ's rants">sorting</a> algorithms. Next up, we're going to cover the <strong>Comb Sort</strong>.</p>
+    <content type="html"><![CDATA[<p><img src="http://buffered.io/uploads/2008/09/combsort.jpg" alt="Comb Sort" title="Comb Sort" width="150" style="float: left; margin-right: 5px; margin-bottom: 5px;" />Welcome to this, the third post in the series on <a href="http://buffered.io/category/sorting/" title="Sorting @ OJ's rants">sorting</a> algorithms. Next up, we&rsquo;re going to cover the <strong>Comb Sort</strong>.</p>
 
-<p>Like the <a href="http://buffered.io/posts/sorting-algorithms-the-cocktail-sort/" title="Sorting Algorithms: The Cocktail Sort">Cocktail Sort</a>, the Comb Sort isn't particularly well known. Most people manage to make their way through tertiary studies without ever hearing of it. This post is designed to change that!</p>
+<p>Like the <a href="http://buffered.io/posts/sorting-algorithms-the-cocktail-sort/" title="Sorting Algorithms: The Cocktail Sort">Cocktail Sort</a>, the Comb Sort isn&rsquo;t particularly well known. Most people manage to make their way through tertiary studies without ever hearing of it. This post is designed to change that!</p>
 
 <p>The Comb Sort is another <em>comparison</em> and <em>exchange</em> sort which builds on the idea of the <a href="http://buffered.io/posts/sorting-algorithms-the-bubble-sort/" title="Sorting Algorithms: The Bubble Sort">Bubble Sort</a> and adds a potential optimisation or two.</p>
 
@@ -279,7 +279,7 @@
 <!--more-->
 
 
-<p>Right, enough with the introductions, let's break it down!</p>
+<p>Right, enough with the introductions, let&rsquo;s break it down!</p>
 
 <h2>Common Terms</h2>
 
@@ -304,12 +304,12 @@
 
 <p>The Bubble Sort algorithm always compares values that are adjacent to each other in the <em>data set</em>. The Comb Sort improves on this by adding a <em>gap</em> which allows non-adjacent numbers to be compared. After each iteration, the <em>gap</em> is reduced by a <em>shrink factor</em> until it reaches the value of <strong>1</strong>. Hence, at the very end, the Comb Sort behaves exactly like the Bubble Sort.</p>
 
-<p>One interesting thing to note about this algorithm is that it's almost as fast as a Quick Sort!</p>
+<p>One interesting thing to note about this algorithm is that it&rsquo;s almost as fast as a Quick Sort!</p>
 
 <h2>The Algorithm</h2>
 
 
-<p>Each iteration of the algorithm consists of three stages:<ol><li>Calculation of the <em>gap</em> value.</li><li>Iterating over the <em>data set</em> comparing each item with the item that is <em>"gap"</em> elements further down the list and swapping them if required.</li><li>Checking to see if the gap value has reached one and no swaps have occurred. If so, then the set has been sorted.</li></ol></p>
+<p>Each iteration of the algorithm consists of three stages:<ol><li>Calculation of the <em>gap</em> value.</li><li>Iterating over the <em>data set</em> comparing each item with the item that is <em>&ldquo;gap&rdquo;</em> elements further down the list and swapping them if required.</li><li>Checking to see if the gap value has reached one and no swaps have occurred. If so, then the set has been sorted.</li></ol></p>
 
 <h3>1. Calculating the "gap"</h3>
 
@@ -330,7 +330,7 @@
 <h3>3. Terminating the Loop</h3>
 
 
-<p>When the <em>gap</em> value reaches one, we know that we're now behaving the same as the Bubble Sort algorithm (since we're comparing <em>i</em> and <em>i + 1</em>), so we know that if we don't perform any swaps during the iteration then the set must be sorted.</p>
+<p>When the <em>gap</em> value reaches one, we know that we&rsquo;re now behaving the same as the Bubble Sort algorithm (since we&rsquo;re comparing <em>i</em> and <em>i + 1</em>), so we know that if we don&rsquo;t perform any swaps during the iteration then the set must be sorted.</p>
 
 <h2>The Example</h2>
 
@@ -345,7 +345,7 @@
 
 <p>We start by setting our <em>gap</em> value to 10, which is the size of the set. We then shrink the gap by the <em>shrink factor</em>, 1.3, which results in the value of 7 (when rounded down).</p>
 
-<p>The first iteration starts at the beginning of the set, comparing the 1st item with the item that is "<em>gap</em>" elements further up the set (the 8th item). These two items are shown in red:</p>
+<p>The first iteration starts at the beginning of the set, comparing the 1st item with the item that is &ldquo;<em>gap</em>&rdquo; elements further up the set (the 8th item). These two items are shown in red:</p>
 
 <p><span class="eg"><b>33</b> 98 74 13 55 20 77 <b>45</b> 64 83</span></p>
 
@@ -363,7 +363,7 @@
 
 <p>Again, no swap is required here as the numbers are in the right order.</p>
 
-<p>At this point we have completed our first iteration as we've reached the end of the set. Given that the <em>gap</em> value is not 1, we know we still have more iterations to go. So we need to recalculate our <em>gap</em> value by dividing it again by the <em>shrink factor</em>, resulting in a value of 5 (after rounding down).</p>
+<p>At this point we have completed our first iteration as we&rsquo;ve reached the end of the set. Given that the <em>gap</em> value is not 1, we know we still have more iterations to go. So we need to recalculate our <em>gap</em> value by dividing it again by the <em>shrink factor</em>, resulting in a value of 5 (after rounding down).</p>
 
 <p>We then start another iteration from the beginning of the set, using the <em>gap</em> value of 5 as the offset. We start with the 1st and 6th items:</p>
 
@@ -393,9 +393,9 @@
 
 <p><span class="eg">20 64 45 13 <b>55</b> 33 77 74 98 <b>83</b></span></p>
 
-<p>Again, no swap required. We've hit the end of this next iteration, and since <em>gap</em> doesn't equal 1, we recalculate (resulting in the value of 3) and go again.</p>
+<p>Again, no swap required. We&rsquo;ve hit the end of this next iteration, and since <em>gap</em> doesn&rsquo;t equal 1, we recalculate (resulting in the value of 3) and go again.</p>
 
-<p>This time I'll just show a summary of the steps:</p>
+<p>This time I&rsquo;ll just show a summary of the steps:</p>
 
 <p><span class="eg"><b>20</b> 64 45 <b>13</b> 55 33 77 74 98 83</span>
 <span class="eg"><i>13</i> 64 45 <i>20</i> 55 33 77 74 98 83</span>
@@ -421,7 +421,7 @@
 <span class="eg">13 20 33 45 64 55 <b>77</b> 74 <b>98</b> 83</span>
 <span class="eg">13 20 33 45 64 55 77 <b>74</b> 98 <b>83</b></span></p>
 
-<p>Finally, we reduce the value of <em>gap</em> one more time, resulting in the value of 1. We're finally at the <strong>Bubble Sort</strong> stage, and hence the last iteration looks like this:</p>
+<p>Finally, we reduce the value of <em>gap</em> one more time, resulting in the value of 1. We&rsquo;re finally at the <strong>Bubble Sort</strong> stage, and hence the last iteration looks like this:</p>
 
 <p><span class="eg"><b>13</b> <b>20</b> 33 45 64 55 77 74 98 83</span>
 <span class="eg">13 <b>20</b> <b>33</b> 45 64 55 77 74 98 83</span>
@@ -436,7 +436,7 @@
 <span class="eg">13 20 33 45 55 64 74 77 <i>83</i> <i>98</i></span>
 <span class="eg"><u>13</u> <u>20</u> <u>33</u> <u>45</u> <u>55</u> <u>64</u> <u>74</u> <u>77</u> <u>83</u> <u>98</u></span></p>
 
-<p>At this point we know, due to observation, that the list is sorted. Unfortunately, the algorithm is yet to know. It looks at the value of <em>gap</em> and sees that it is set to 1, but during the last iteration there were swaps -- so the code will iterate again.</p>
+<p>At this point we know, due to observation, that the list is sorted. Unfortunately, the algorithm is yet to know. It looks at the value of <em>gap</em> and sees that it is set to 1, but during the last iteration there were swaps &mdash; so the code will iterate again.</p>
 
 <p>At the end of this iteration, given that there were no swaps, it will know that the list is sorted and the code will terminate.</p>
 
@@ -445,7 +445,7 @@
 
 <p>Here is a sample implementation written in <a href="http://en.wikipedia.org/wiki/C_Sharp" title="C Sharp">C#</a>. It is heavily commented in the hope that it will aid in understanding how the algorithm works:</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -539,18 +539,18 @@
 <h2>A Note on Performance</h2>
 
 
-<p>What I'm about to say is almost a direct rip-off of Wikipedia ;) But at least I'm being honest!</p>
+<p>What I&rsquo;m about to say is almost a direct rip-off of Wikipedia ;) But at least I&rsquo;m being honest!</p>
 
 <p>When you use a <em>shrink factor</em> of 1.3, as recommended, it turns out that there are only 3 ways for the gap sizes to reduce to 1. They are:</p>
 
-<p><span class="eg">1. - 9, 6, 4, 3, 2, 1</span>
-<span class="eg">2. - 10, 7, 5, 3, 2, 1</span>
-<span class="eg">3. - 11, 8, 6, 4, 3, 2, 1</span></p>
+<p><span class="eg">1. &ndash; 9, 6, 4, 3, 2, 1</span>
+<span class="eg">2. &ndash; 10, 7, 5, 3, 2, 1</span>
+<span class="eg">3. &ndash; 11, 8, 6, 4, 3, 2, 1</span></p>
 
-<p>According to Wikipedia, it turns out that the 3rd option is the only one which manages to <em>kill all turtles</em> before the <em>gap</em> becomes 1. I haven't been able to find anything that backs this up though.</p>
+<p>According to Wikipedia, it turns out that the 3rd option is the only one which manages to <em>kill all turtles</em> before the <em>gap</em> becomes 1. I haven&rsquo;t been able to find anything that backs this up though.</p>
 
 <p>Assuming that this is true, we can create a modified version of the <strong>Comb Sort</strong> which has this extra little check:
-<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -573,9 +573,9 @@
 <h2>Other Implementations</h2>
 
 
-<p>I'm slowly gathering a collection of implementations of all the sorting algorithms, including the ones listed above, that I'm covering in this series and posting them up on <a href="http://www.bitbucket.org/OJ/sorting/overview/" title="Sorting @ OJ's BitBucket">BitBucket</a>. The Comb Sort implementations can be found <a href="http://www.bitbucket.org/OJ/sorting/src/b26f42ecdbe0/03-CombSort/" title="CombSort @ OJ's BitBucket">here</a>.</p>
+<p>I&rsquo;m slowly gathering a collection of implementations of all the sorting algorithms, including the ones listed above, that I&rsquo;m covering in this series and posting them up on <a href="http://www.bitbucket.org/OJ/sorting/overview/" title="Sorting @ OJ's BitBucket">BitBucket</a>. The Comb Sort implementations can be found <a href="http://www.bitbucket.org/OJ/sorting/src/b26f42ecdbe0/03-CombSort/" title="CombSort @ OJ's BitBucket">here</a>.</p>
 
-<p><em>Note: You'll need <a href="http://www.selenic.com/mercurial/" title="Mercurial">Mercurial</a> if you want to pull directly from the repository, otherwise you'll have to copy and paste from the web.</em></p>
+<p><em>Note: You&rsquo;ll need <a href="http://www.selenic.com/mercurial/" title="Mercurial">Mercurial</a> if you want to pull directly from the repository, otherwise you&rsquo;ll have to copy and paste from the web.</em></p>
 
 <h2>References and Other Information</h2>
 
@@ -585,12 +585,12 @@
 </ol>
 
 
-<p>Next up, we'll be looking at the <a href="http://buffered.io/posts/sorting-algorithms-the-gnome-sort/" title="Sorting Algorithms: The Gnome Sort">Gnome Sort</a>.</p>
+<p>Next up, we&rsquo;ll be looking at the <a href="http://buffered.io/posts/sorting-algorithms-the-gnome-sort/" title="Sorting Algorithms: The Gnome Sort">Gnome Sort</a>.</p>
 
 <h2>Disclaimer</h2>
 
 
-<p>I'm no expert, nor an authority. The post above is based on my experience and a bit of research. If you find something wrong with anything I've said please let me know. Comments and feedback are greatly appreciated.</p>
+<p>I&rsquo;m no expert, nor an authority. The post above is based on my experience and a bit of research. If you find something wrong with anything I&rsquo;ve said please let me know. Comments and feedback are greatly appreciated.</p>
 
 <p><em>Note: For those reading this article in an RSS reader, you may find the colours do not appear in the examples properly. For some reason the feed is stripping out some of the formatting. I will do my best to fix this up soon.</em></p>
 ]]></content>
@@ -601,14 +601,14 @@
     <link href="http://buffered.io/posts/sorting-algorithms-the-cocktail-sort/"/>
     <updated>2008-08-29T21:44:00+10:00</updated>
     <id>http://buffered.io/posts/sorting-algorithms-the-cocktail-sort</id>
-    <content type="html"><![CDATA[<p><img src="http://buffered.io/uploads/2008/08/cocktail.jpg" alt="Cocktail" title="Cocktail" style="float: right; margin-left: 5px; margin-bottom: 5px" />Welcome to the second post in my series on <a href="http://buffered.io/category/sorting/" title="Sorting @ OJ's rants">sorting</a> algorithms. This time we're going to talk about a sort that most people haven't heard a great deal about: the <strong>Cocktail Sort</strong>.</p>
+    <content type="html"><![CDATA[<p><img src="http://buffered.io/uploads/2008/08/cocktail.jpg" alt="Cocktail" title="Cocktail" style="float: right; margin-left: 5px; margin-bottom: 5px" />Welcome to the second post in my series on <a href="http://buffered.io/category/sorting/" title="Sorting @ OJ's rants">sorting</a> algorithms. This time we&rsquo;re going to talk about a sort that most people haven&rsquo;t heard a great deal about: the <strong>Cocktail Sort</strong>.</p>
 
-<p>This algorithm was the next logical choice in the series because it is very similar to the <a href="http://buffered.io/posts/sorting-algorithms-the-bubble-sort/" title="Sorting Algorithms: The Bubble Sort">Bubble Sort</a> in the way that it operates. If you're yet to read the first in the series, head <a href="http://buffered.io/posts/sorting-algorithms-the-bubble-sort/" title="Sorting Algorithms: The Bubble Sort">over there now</a> as it will make this algorithm easier to understand.</p>
+<p>This algorithm was the next logical choice in the series because it is very similar to the <a href="http://buffered.io/posts/sorting-algorithms-the-bubble-sort/" title="Sorting Algorithms: The Bubble Sort">Bubble Sort</a> in the way that it operates. If you&rsquo;re yet to read the first in the series, head <a href="http://buffered.io/posts/sorting-algorithms-the-bubble-sort/" title="Sorting Algorithms: The Bubble Sort">over there now</a> as it will make this algorithm easier to understand.</p>
 
 <!--more-->
 
 
-<p>Fundamentally the algorithm is the same. The difference is that the Cocktail Sort iterates through a given <em>data set</em> in <strong>both</strong> directions when sorting. So let's break it down.</p>
+<p>Fundamentally the algorithm is the same. The difference is that the Cocktail Sort iterates through a given <em>data set</em> in <strong>both</strong> directions when sorting. So let&rsquo;s break it down.</p>
 
 <h2>Common Terms</h2>
 
@@ -628,7 +628,7 @@
 
 <p>The first stage loops through the <em>data set</em> from bottom to top, just like the Bubble Sort. During the loop, adjacent items are compared. If at any point the value on the left is greater than the value on the right, the items are swapped. At the end of the first iteration, the largest number will reside at the end of the set.</p>
 
-<p>The second stage loops through the <em>data set</em> in the <strong>opposite</strong> direction - starting from the item just before the most recently sorted item, and moving back towards the start of the list. Again, adjacent items are swapped if required.</p>
+<p>The second stage loops through the <em>data set</em> in the <strong>opposite</strong> direction &ndash; starting from the item just before the most recently sorted item, and moving back towards the start of the list. Again, adjacent items are swapped if required.</p>
 
 <p>The Cocktail Sort also fits in the category of <strong>Exchange Sorts</strong> due to the manner in which elements are moved inside the <em>data set</em> during the sorting process.</p>
 
@@ -647,7 +647,7 @@
 
 <p><span class="eg"><b>33 98</b> 74 13 55 20 77 45 64 83</span></p>
 
-<p>Since 33 is less than 98, no swapping needs to be done as they're already in the correct order. So we move on to the next comparison:</p>
+<p>Since 33 is less than 98, no swapping needs to be done as they&rsquo;re already in the correct order. So we move on to the next comparison:</p>
 
 <p><span class="eg">33 <b>98 74</b> 13 55 20 77 45 64 83</span></p>
 
@@ -659,7 +659,7 @@
 
 <p><span class="eg">33 74 <b>98 13</b> 55 20 77 45 64 83</span></p>
 
-<p>Again, we need to swap the items since they're not in order:</p>
+<p>Again, we need to swap the items since they&rsquo;re not in order:</p>
 
 <p><span class="eg">33 74 <i>13 98</i> 55 20 77 45 64 83</span></p>
 
@@ -671,7 +671,7 @@
 
 <p><span class="eg">33 74 13 55 20 77 45 <b>64 83</b> <u>98</u></span></p>
 
-<p>We perform the same comparison as normal, and in this case we can see that we don't have to swap the items because 64 is less than 83. We move on to the next pair:</p>
+<p>We perform the same comparison as normal, and in this case we can see that we don&rsquo;t have to swap the items because 64 is less than 83. We move on to the next pair:</p>
 
 <p><span class="eg">33 74 13 55 20 77 <b>45 64</b> 83 <u>98</u></span></p>
 
@@ -715,11 +715,11 @@
 
 <p><span class="eg"><i>13 33</i> 74 20 55 45 77 64 83 <u>98</u></span></p>
 
-<p>We're now done with the second stage, and as we can see we have the highest and lowest values at the end and start of the set (respectively):</p>
+<p>We&rsquo;re now done with the second stage, and as we can see we have the highest and lowest values at the end and start of the set (respectively):</p>
 
 <p><span class="eg"><u>13</u> 33 74 20 55 45 77 64 83 <u>98</u></span></p>
 
-<p>So at this point we're ready to iterate again, but we don't want to include the items that have already been sorted because we know they're in the right spot. Here's a short hand demo of both stages of the next iteration (remember, comparisons are in red, swaps are in blue, stores are in green):</p>
+<p>So at this point we&rsquo;re ready to iterate again, but we don&rsquo;t want to include the items that have already been sorted because we know they&rsquo;re in the right spot. Here&rsquo;s a short hand demo of both stages of the next iteration (remember, comparisons are in red, swaps are in blue, stores are in green):</p>
 
 <p><span class="eg"><u>13</u> <b>33 74</b> 20 55 45 77 64 83 <u>98</u></span>
 <span class="eg"><u>13</u> 33 <b>74 20</b> 55 45 77 64 83 <u>98</u></span>
@@ -755,7 +755,7 @@
 
 <p>Here is a sample implementation written in <a href="http://en.wikipedia.org/wiki/C_Sharp" title="C Sharp">C#</a>. It is heavily commented in the hope that it will aid in understanding how the algorithm works:</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -891,7 +891,7 @@
 
 <p>The Cocktail Sort can actually prove to be faster than the Bubble Sort in a fair few cases. This is due to the fact that we sort in both directions each iteration instead of just one.</p>
 
-<p>Here's an example <em>data set</em> which would require 9 iterations with a Bubble Sort, but only 1 iteration (of two stages) with a Cocktail Sort:</p>
+<p>Here&rsquo;s an example <em>data set</em> which would require 9 iterations with a Bubble Sort, but only 1 iteration (of two stages) with a Cocktail Sort:</p>
 
 <p><span class="eg">20 33 45 55 64 74 77 83 98 13</span></p>
 
@@ -904,9 +904,9 @@
 <h2>Other Implementations</h2>
 
 
-<p>I'm slowly gathering a collection of implementations of all the sorting algorithms, including the ones listed above, that I'm covering in this series and posting them up on <a href="http://www.bitbucket.org/OJ/sorting/overview/" title="Sorting @ OJ's BitBucket">BitBucket</a>. The Cocktail Sort implementations can be found <a href="http://www.bitbucket.org/OJ/sorting/src/acf7fe9d7127/02-CocktailSort/" title="CocktailSort @ OJ's BitBucket">here</a>.</p>
+<p>I&rsquo;m slowly gathering a collection of implementations of all the sorting algorithms, including the ones listed above, that I&rsquo;m covering in this series and posting them up on <a href="http://www.bitbucket.org/OJ/sorting/overview/" title="Sorting @ OJ's BitBucket">BitBucket</a>. The Cocktail Sort implementations can be found <a href="http://www.bitbucket.org/OJ/sorting/src/acf7fe9d7127/02-CocktailSort/" title="CocktailSort @ OJ's BitBucket">here</a>.</p>
 
-<p><em>Note: You'll need <a href="http://www.selenic.com/mercurial/" title="Mercurial">Mercurial</a> if you want to pull directly from the repository, otherwise you'll have to copy and paste from the web.</em></p>
+<p><em>Note: You&rsquo;ll need <a href="http://www.selenic.com/mercurial/" title="Mercurial">Mercurial</a> if you want to pull directly from the repository, otherwise you&rsquo;ll have to copy and paste from the web.</em></p>
 
 <h2>References and Other Information</h2>
 
@@ -916,12 +916,12 @@
 </ol>
 
 
-<p>Next up, we'll be looking at the <strong>Comb Sort</strong>.</p>
+<p>Next up, we&rsquo;ll be looking at the <strong>Comb Sort</strong>.</p>
 
 <h2>Disclaimer</h2>
 
 
-<p>I'm no expert, nor an authority. The post above is based on my experience and a bit of research. If you find something wrong with anything I've said please let me know. Comments and feedback are greatly appreciated.</p>
+<p>I&rsquo;m no expert, nor an authority. The post above is based on my experience and a bit of research. If you find something wrong with anything I&rsquo;ve said please let me know. Comments and feedback are greatly appreciated.</p>
 
 <p><em>Note: For those reading this article in an RSS reader, you may find the colours do not appear in the examples properly. For some reason the feed is stripping out some of the formatting. I will do my best to fix this up soon.</em></p>
 ]]></content>
@@ -936,7 +936,7 @@
 
 <p>I chose the Bubble Sort algorithm as the first to cover because of its simplicity. This algorithm tends to be the first sorting algorithm that is taught to students, and hence is a rather apt starting point.</p>
 
-<p>Let's break it down.</p>
+<p>Let&rsquo;s break it down.</p>
 
 <!--more-->
 
@@ -957,7 +957,7 @@
 <h2>The Algorithm</h2>
 
 
-<p>The algorithm consists of a repeated iteration over the elements of the <em>data set</em>. In each iteration, adjacent elements are compared. If those two adjacent items are in the wrong order, they are swapped. The result of each iteration is that the next highest value is placed in the appropriate location in the <em>data set</em>. After repeating the iteration <em>n - 1</em> times, the entire <em>data set</em> will be sorted.</p>
+<p>The algorithm consists of a repeated iteration over the elements of the <em>data set</em>. In each iteration, adjacent elements are compared. If those two adjacent items are in the wrong order, they are swapped. The result of each iteration is that the next highest value is placed in the appropriate location in the <em>data set</em>. After repeating the iteration <em>n &ndash; 1</em> times, the entire <em>data set</em> will be sorted.</p>
 
 <p>The Bubble Sort fits in the category of <strong>Exchange Sorts</strong> due to the manner in which elements are moved inside the <em>data set</em> during the sorting process.</p>
 
@@ -988,7 +988,7 @@
 
 <p><span class="eg">33 74 <b>98 13</b> 55 20 77 45 64 83</span></p>
 
-<p>Again, we need to swap the items since they're not in order:</p>
+<p>Again, we need to swap the items since they&rsquo;re not in order:</p>
 
 <p><span class="eg">33 74 <i>13 98</i> 55 20 77 45 64 83</span></p>
 
@@ -998,7 +998,7 @@
 
 <p>As we can see, the result is that the largest number is placed at the end of the list. This is the end of the first iteration.</p>
 
-<p>We then iterate again but only cover the section of numbers that haven't already been sorted.</p>
+<p>We then iterate again but only cover the section of numbers that haven&rsquo;t already been sorted.</p>
 
 <p><span class="eg"><b>33 74</b> 13 55 20 77 45 64 83 <u>98</u></span></p>
 
@@ -1022,7 +1022,7 @@
 
 <p><span class="eg">33 13 55 20 <b>74 77</b> 45 64 83 <u>98</u></span></p>
 
-<p>Here, there is no swap required, so we leave behind the number we've been "carrying" (74) and pick up number 77.</p>
+<p>Here, there is no swap required, so we leave behind the number we&rsquo;ve been &ldquo;carrying&rdquo; (74) and pick up number 77.</p>
 
 <p><span class="eg">33 13 55 20 74 <b>77 45</b> 64 83 <u>98</u></span></p>
 
@@ -1030,7 +1030,7 @@
 
 <p><span class="eg">33 13 55 20 74 45 64 77 <u>83</u> <u>98</u></span></p>
 
-<p>As we can see, this "bubbles" each of the numbers to the top of the list in the order of highest to lowest. Here is how the rest of the numbers are sorted at the end of each following iteration:</p>
+<p>As we can see, this &ldquo;bubbles&rdquo; each of the numbers to the top of the list in the order of highest to lowest. Here is how the rest of the numbers are sorted at the end of each following iteration:</p>
 
 <p><span class="eg">13 33 20 55 45 64 74 <u>77</u> <u>83</u> <u>98</u></span>
 <span class="eg">13 20 33 45 55 64 <u>74</u> <u>77</u> <u>83</u> <u>98</u></span>
@@ -1045,8 +1045,8 @@
 <h2>The Implementation</h2>
 
 
-<p>Here's a commented sample in <a href="http://en.wikipedia.org/wiki/C_Sharp" title="C Sharp">C#</a> which is easily translatable to many other languages:
-<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<p>Here&rsquo;s a commented sample in <a href="http://en.wikipedia.org/wiki/C_Sharp" title="C Sharp">C#</a> which is easily translatable to many other languages:
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -1105,10 +1105,10 @@
 <h2>A Minor Optimsation</h2>
 
 
-<p>The Bubble Sort can be optimised very slightly, though it's not guaranteed to provide much benefit depending on the structure of the <em>data set</em> that is to be sorted.</p>
+<p>The Bubble Sort can be optimised very slightly, though it&rsquo;s not guaranteed to provide much benefit depending on the structure of the <em>data set</em> that is to be sorted.</p>
 
 <p>If, for any iteration, there are no items swapped then all of the items in the <em>data set</em> must be in the correct order. As a result, subsequent iterations are unnecessary. The optimised version is listed below, again in C#:
-<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -1151,7 +1151,7 @@
 <span class='line-number'>41</span>
 </pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="c1">/// &lt;summary&gt;</span>
 </span><span class='line'><span class="c1">/// This is the basic bubble sort algorithm, hard-coded to work</span>
-</span><span class='line'><span class="c1">/// with integer values but with a slight difference - a minor</span>
+</span><span class='line'><span class="c1">/// with integer values but with a slight difference &amp;ndash; a minor</span>
 </span><span class='line'><span class="c1">/// optimisation.</span>
 </span><span class='line'><span class="c1">/// &lt;/summary&gt;</span>
 </span><span class='line'><span class="c1">/// &lt;param name=&quot;dataSet&quot;&gt;Array of integers to sort.&lt;/param&gt;</span>
@@ -1192,7 +1192,7 @@
 </span><span class='line'><span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;}</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
-<p><em>Caveat</em>: This "optimisation" may actually result in lower performance, particularly in the case where every iteration results in a swap.</p>
+<p><em>Caveat</em>: This &ldquo;optimisation&rdquo; may actually result in lower performance, particularly in the case where every iteration results in a swap.</p>
 
 <h2>The Complexity</h2>
 
@@ -1200,41 +1200,41 @@
 <h3>Space Complexity</h3>
 
 
-<p>Bubble Sorts are extremely efficient in terms of memory usage, due to the fact that all sorting and swapping operations are done on the original <em>data set</em>. Regardless of the size of the original <em>data set</em>, the amount of memory overhead is constant as we don't allocate any memory for each of the items. Hence, the space complexity is <strong>O(1)</strong> (in <a href="http://en.wikipedia.org/wiki/Big_O_notation" title="Big-O notation">Big-O notation</a>). This, of course, doesn't include the <strong>O(n)</strong> space complexity taken up by the original <em>data set</em>.</p>
+<p>Bubble Sorts are extremely efficient in terms of memory usage, due to the fact that all sorting and swapping operations are done on the original <em>data set</em>. Regardless of the size of the original <em>data set</em>, the amount of memory overhead is constant as we don&rsquo;t allocate any memory for each of the items. Hence, the space complexity is <strong>O(1)</strong> (in <a href="http://en.wikipedia.org/wiki/Big_O_notation" title="Big-O notation">Big-O notation</a>). This, of course, doesn&rsquo;t include the <strong>O(n)</strong> space complexity taken up by the original <em>data set</em>.</p>
 
 <h3>Time Complexity</h3>
 
 
-<p>This is where the Bubble Sort fails to shine. For each iteration <em>i</em> starting at <em>n</em>, we must loop through the previous <em>i - 1</em> elements and swap if required.</p>
+<p>This is where the Bubble Sort fails to shine. For each iteration <em>i</em> starting at <em>n</em>, we must loop through the previous <em>i &ndash; 1</em> elements and swap if required.</p>
 
-<p>The first iteration loops through <em>n - 1</em> elements.
-The second iteration loops through <em>n - 2</em> elements.
-The third iteration loops through <em>n - 3</em> elements.
+<p>The first iteration loops through <em>n &ndash; 1</em> elements.
+The second iteration loops through <em>n &ndash; 2</em> elements.
+The third iteration loops through <em>n &ndash; 3</em> elements.
 And so on.. which means the number of compares/swaps that we do is equal to:
-(<em>n</em> - 1) + (<em>n</em> - 2) + (<em>n</em> - 3) ... + 2 + 1
-This indicates that there <em>n</em> lots of <em>n - i</em>, or <em>n<sup>2</sup> - ni</em> (where <em>ni</em> varies for each iteration).</p>
+(<em>n</em> &ndash; 1) + (<em>n</em> &ndash; 2) + (<em>n</em> &ndash; 3) &hellip; + 2 + 1
+This indicates that there <em>n</em> lots of <em>n &ndash; i</em>, or <em>n<sup>2</sup> &ndash; ni</em> (where <em>ni</em> varies for each iteration).</p>
 
 <p>Give that the highest power of <em>n</em> is <strong>2</strong> this indicates a time complexity of <strong>O(n<sup>2</sup>)</strong>.</p>
 
-<p>Or in layman's terms: it's f**king slow :)</p>
+<p>Or in layman&rsquo;s terms: it&rsquo;s f**king slow :)</p>
 
-<p>Bubble Sorts should only be used on <em>data sets</em> that are rather small. If you're dealing with medium-sized or larger sets of data, then the Bubble Sort is not the right algorithm to choose. So what would be a better option? You'll have to read the rest of this series and answer that yourself ;)</p>
+<p>Bubble Sorts should only be used on <em>data sets</em> that are rather small. If you&rsquo;re dealing with medium-sized or larger sets of data, then the Bubble Sort is not the right algorithm to choose. So what would be a better option? You&rsquo;ll have to read the rest of this series and answer that yourself ;)</p>
 
 <p><a name="BubbleSortBitBucket"></a></p>
 
 <h2>Other Implementations</h2>
 
 
-<p>I'm slowly gathering a collection of implementations of all the sorting algorithms, including the ones listed above, that I'm covering in this series and posting them up on <a href="http://www.bitbucket.org/OJ/sorting/overview/" title="Sorting @ OJ's BitBucket">BitBucket</a>. The Bubble Sort implementations can be found <a href="http://www.bitbucket.org/OJ/sorting/src/2ce17136dbac/01-BubbleSort/" title="BubbleSort @ OJ's BitBucket">here</a>.</p>
+<p>I&rsquo;m slowly gathering a collection of implementations of all the sorting algorithms, including the ones listed above, that I&rsquo;m covering in this series and posting them up on <a href="http://www.bitbucket.org/OJ/sorting/overview/" title="Sorting @ OJ's BitBucket">BitBucket</a>. The Bubble Sort implementations can be found <a href="http://www.bitbucket.org/OJ/sorting/src/2ce17136dbac/01-BubbleSort/" title="BubbleSort @ OJ's BitBucket">here</a>.</p>
 
-<p><em>Note: You'll need <a href="http://www.selenic.com/mercurial/" title="Mercurial">Mercurial</a> if you want to pull directly from the repository, otherwise you'll have to copy and paste from the web.</em></p>
+<p><em>Note: You&rsquo;ll need <a href="http://www.selenic.com/mercurial/" title="Mercurial">Mercurial</a> if you want to pull directly from the repository, otherwise you&rsquo;ll have to copy and paste from the web.</em></p>
 
 <h2>Closing Thoughts</h2>
 
 
-<p>I haven't included information on multithreading because the post would be insanely big. I will put up a follow-up post covering multithreading another day. The code stored in the BitBucket repository contains a sample of how you might use multithreading in conjunction with this sorting algorithm.</p>
+<p>I haven&rsquo;t included information on multithreading because the post would be insanely big. I will put up a follow-up post covering multithreading another day. The code stored in the BitBucket repository contains a sample of how you might use multithreading in conjunction with this sorting algorithm.</p>
 
-<p>To wrap up, Bubble Sorts are easy to understand and are a great place to start when learning sorting algorithms. Unfortunately, this simplicity results in a fairly expensive and slow sorting implementation which really isn't an option when dealing with anything other than small <em>data sets</em>.</p>
+<p>To wrap up, Bubble Sorts are easy to understand and are a great place to start when learning sorting algorithms. Unfortunately, this simplicity results in a fairly expensive and slow sorting implementation which really isn&rsquo;t an option when dealing with anything other than small <em>data sets</em>.</p>
 
 <h2>References and Other Information</h2>
 
@@ -1244,12 +1244,12 @@ This indicates that there <em>n</em> lots of <em>n - i</em>, or <em>n<sup>2</sup
 </ol>
 
 
-<p>Next up, we'll be looking at the <a href="http://buffered.io/posts/sorting-algorithms-the-cocktail-sort/" title="Sorting Algorithms: The Cocktail Sort">Cocktail Sort</a>.</p>
+<p>Next up, we&rsquo;ll be looking at the <a href="http://buffered.io/posts/sorting-algorithms-the-cocktail-sort/" title="Sorting Algorithms: The Cocktail Sort">Cocktail Sort</a>.</p>
 
 <h2>Disclaimer</h2>
 
 
-<p>I'm no expert, nor an authority. The post above is based on my experience and a bit of research. If you find something wrong with anything I've said please let me know. Comments and feedback are greatly appreciated.</p>
+<p>I&rsquo;m no expert, nor an authority. The post above is based on my experience and a bit of research. If you find something wrong with anything I&rsquo;ve said please let me know. Comments and feedback are greatly appreciated.</p>
 ]]></content>
   </entry>
   
@@ -1258,7 +1258,7 @@ This indicates that there <em>n</em> lots of <em>n - i</em>, or <em>n<sup>2</sup
     <link href="http://buffered.io/posts/sorting-things-out/"/>
     <updated>2008-08-13T12:23:00+10:00</updated>
     <id>http://buffered.io/posts/sorting-things-out</id>
-    <content type="html"><![CDATA[<p>It's time to recap a topic that is, or should be, close to the heart of every developer. A topic that is often overlooked or glossed over, rarely fully understood and not often discussed. Yet this topic is hugely important.</p>
+    <content type="html"><![CDATA[<p>It&rsquo;s time to recap a topic that is, or should be, close to the heart of every developer. A topic that is often overlooked or glossed over, rarely fully understood and not often discussed. Yet this topic is hugely important.</p>
 
 <p>That topic is <strong>Sorting</strong>.</p>
 
@@ -1269,7 +1269,7 @@ This indicates that there <em>n</em> lots of <em>n - i</em>, or <em>n<sup>2</sup
 
 <p>Unfortunately the implementations of various methods of sorting can be anything but easy. Determining <em>which</em> algorithm to choose can be difficult enough given that some lend themselves to sorting certain data types better than others do.</p>
 
-<p>As a result, I've decided to start writing a series on the different well-known (and perhaps not-so-well-known) sorting algorithms. For each algorithm, my goal will be to:</p>
+<p>As a result, I&rsquo;ve decided to start writing a series on the different well-known (and perhaps not-so-well-known) sorting algorithms. For each algorithm, my goal will be to:</p>
 
 <ol>
 <li>Paint a very clear picture of how it functions. I aim to do this via pictures and discussion. If I get time, I will aim to provide an animated visualiser of the algorithm (though at the moment this might be a tough ask given time constraints).</li>
@@ -1282,9 +1282,9 @@ This indicates that there <em>n</em> lots of <em>n - i</em>, or <em>n<sup>2</sup
 
 <p>By the end of the series, I hope that you (and I) will have a really solid understanding of the Sorting world.</p>
 
-<p>To start off with, I'll be covering the age-old <a href="http://buffered.io/posts/sorting-algorithms-the-bubble-sort/" title="Sorting Algorithms: The Bubble Sort">Bubble Sort</a>. I'm choosing this because it's very simple, and is an easy target for me to get going.</p>
+<p>To start off with, I&rsquo;ll be covering the age-old <a href="http://buffered.io/posts/sorting-algorithms-the-bubble-sort/" title="Sorting Algorithms: The Bubble Sort">Bubble Sort</a>. I&rsquo;m choosing this because it&rsquo;s very simple, and is an easy target for me to get going.</p>
 
-<p>As always, comments and feedback will be greatly appreciated. I'm hoping that I'll learn more from this exercise than you guys will.</p>
+<p>As always, comments and feedback will be greatly appreciated. I&rsquo;m hoping that I&rsquo;ll learn more from this exercise than you guys will.</p>
 ]]></content>
   </entry>
   

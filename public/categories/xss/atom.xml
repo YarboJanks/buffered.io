@@ -4,7 +4,7 @@
   <title><![CDATA[Category: XSS | OJ's perspective]]></title>
   <link href="http://buffered.io/categories/xss/atom.xml" rel="self"/>
   <link href="http://buffered.io/"/>
-  <updated>2013-12-21T20:54:15+10:00</updated>
+  <updated>2013-12-23T08:36:36+10:00</updated>
   <id>http://buffered.io/</id>
   <author>
     <name><![CDATA[OJ Reeves]]></name>
@@ -22,19 +22,19 @@
 
 <h2>TL;DR</h2>
 
-<p>Never use [Request.QueryString][] to access parameters in your views, even when you're sure your actions have validated them. You may open your application up to [XSS][] attacks. Always, <em>always</em> use data that is passed to your views via the <code>Model</code> or the [ViewData][] dictionary. Under no circumstances should you trust data coming in from the web, that includes query string parameters.</p>
+<p>Never use [Request.QueryString][] to access parameters in your views, even when you&rsquo;re sure your actions have validated them. You may open your application up to [XSS][] attacks. Always, <em>always</em> use data that is passed to your views via the <code>Model</code> or the [ViewData][] dictionary. Under no circumstances should you trust data coming in from the web, that includes query string parameters.</p>
 
 <!--more-->
 
 
 <h2>Setting the scene</h2>
 
-<p>The application provided a certain function which allowed users to browse information tied to a number of entities. For the sake of this discussion let's say those entities were instances of a <strong>Person</strong>. The number of entities was extremely small, so it was decided that the interface would consist of a drop-down box consisting of all the entities. When that drop-down box was used a <em>change</em> event would fire using JavaScript that would modify the current URL and render a new page. That page would show the same drop-down list, with the appropriate entry selected, along with the information specfic to that entity.</p>
+<p>The application provided a certain function which allowed users to browse information tied to a number of entities. For the sake of this discussion let&rsquo;s say those entities were instances of a <strong>Person</strong>. The number of entities was extremely small, so it was decided that the interface would consist of a drop-down box consisting of all the entities. When that drop-down box was used a <em>change</em> event would fire using JavaScript that would modify the current URL and render a new page. That page would show the same drop-down list, with the appropriate entry selected, along with the information specfic to that entity.</p>
 
-<p>Let's see some code starting with the "details" of the person:</p>
+<p>Let&rsquo;s see some code starting with the &ldquo;details&rdquo; of the person:</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Person.cs  </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Person.cs </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -52,10 +52,10 @@
 </span><span class='line'><span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;}</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
-<p>Nothing too amazing there. Here's the parts of the page which renders the list of people:</p>
+<p>Nothing too amazing there. Here&rsquo;s the parts of the page which renders the list of people:</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Index.aspx (partial)  </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Index.aspx (partial) </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -67,7 +67,7 @@
 <span class='line-number'>10</span>
 <span class='line-number'>11</span>
 <span class='line-number'>12</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'>Please choose a person <span class="ni">&amp;lt;</span>%= Html.DropDownList(&quot;people&quot;, Model) %&gt;<span class="nt">&lt;/p&gt;</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'>Please choose a person <span class="ni">&amp;lt;</span>%= Html.DropDownList(<span class="ni">&amp;ldquo;</span>people<span class="ni">&amp;rdquo;</span>, Model) %&gt;<span class="nt">&lt;/p&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span><span class="nt">&gt;</span>
 </span><span class='line'><span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">ready</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
@@ -83,10 +83,10 @@
 
 <p>Again, nothing too mind boggling here either. We can see how the <code>change</code> event fires and updates the <code>window.location</code> and moves the user to the <code>Details</code> page. The <code>Model</code> for this page is of type <code>IEnumerable&lt;SelectListItem&gt;</code>.</p>
 
-<p>Next we'll take a look at the controller action which gets invoked when the drop-down is changed:</p>
+<p>Next we&rsquo;ll take a look at the controller action which gets invoked when the drop-down is changed:</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>PersonController.cs (Partial)  </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>PersonController.cs (Partial) </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -102,12 +102,12 @@
 </span><span class='line'><span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;}</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
-<p>We're using the <code>index</code> parameter (note the <em>type</em> of this parameter, it's important) to index into the list of people we have stashed somewhere to extract the user that is being viewed. This person, along with the full list of people in <code>SelectListItem</code> form, is being passed to the view.</p>
+<p>We&rsquo;re using the <code>index</code> parameter (note the <em>type</em> of this parameter, it&rsquo;s important) to index into the list of people we have stashed somewhere to extract the user that is being viewed. This person, along with the full list of people in <code>SelectListItem</code> form, is being passed to the view.</p>
 
-<p>Let's see what the view does with this information:</p>
+<p>Let&rsquo;s see what the view does with this information:</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Detail.aspx (partial)  </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Detail.aspx (partial) </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -124,7 +124,7 @@
 <span class='line-number'>15</span>
 <span class='line-number'>16</span>
 <span class='line-number'>17</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'>Please choose a person <span class="ni">&amp;lt;</span>%= Html.DropDownList(&quot;people&quot;, Model.Item2) %&gt;<span class="nt">&lt;/p&gt;</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'>Please choose a person <span class="ni">&amp;lt;</span>%= Html.DropDownList(<span class="ni">&amp;ldquo;</span>people<span class="ni">&amp;rdquo;</span>, Model.Item2) %&gt;<span class="nt">&lt;/p&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span><span class="nt">&gt;</span>
 </span><span class='line'><span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">ready</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
@@ -138,77 +138,73 @@
 </span><span class='line'>
 </span><span class='line'>
 </span><span class='line'>
-</span><span class='line'><span class="nt">&lt;p&gt;</span>
-</span><span class='line'><span class="err">&lt;</span>%= Html.Encode(Model.Item1.Name) %&gt; is a whopping <span class="err">&lt;</span>%= Model.Item1.Age %&gt; years old!
+</span><span class='line'><span class="nt">&lt;p&gt;&lt;p&gt;</span>
+</span><span class='line'><span class="ni">&amp;lt;</span>%= Html.Encode(Model.Item1.Name) %&gt; is a whopping <span class="ni">&amp;lt;</span>%= Model.Item1.Age %&gt; years old!
 </span><span class='line'><span class="nt">&lt;/p&gt;</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
-This is starting to get a bit more interesting. The rendering of the drop-down is the same as before, except it's pulling data from the [System.Tuple][] that was passed in as the `Model`. The event handler that's invoked on `change` is the same, and there's a bit of non-descript content rendering a the bottom. The subtle but important difference is the code that sets the currently selected person in the drop-down.
+<p>This is starting to get a bit more interesting. The rendering of the drop-down is the same as before, except it&rsquo;s pulling data from the [System.Tuple][] that was passed in as the <code>Model</code>. The event handler that&rsquo;s invoked on <code>change</code> is the same, and there&rsquo;s a bit of non-descript content rendering a the bottom. The subtle but important difference is the code that sets the currently selected person in the drop-down.</p>
 
-I plugged this code into a standard MVC application and this is what it looks like:
+<p>I plugged this code into a standard MVC application and this is what it looks like:</p>
 
-<img src="/uploads/2012/11/xss-index.png" title="'Choosing a person'" >
+<p><img src="/uploads/2012/11/xss-index.png" title="&lsquo;Choosing a person&rsquo;" ></p>
 
-After selecting a person from the drop down it looks like this:
+<p>After selecting a person from the drop down it looks like this:</p>
 
-<img src="/uploads/2012/11/xss-details.png" title="'Person details'" >
+<p><img src="/uploads/2012/11/xss-details.png" title="&lsquo;Person details&rsquo;" ></p>
 
-A bad assumption
-----------------
+<h2>A bad assumption</h2>
 
-As you already know, ASP.NET MVC has the ability to automatically convert query string parameters into type-safe arguments that are passed into the controller actions. In the above example the `index` query string parameter is converted to an `int` and passed into the `Details` action. If a user attempts to modify this value to something that isn't an integer then MVC will literally poop itself, right?
+<p>As you already know, ASP.NET MVC has the ability to automatically convert query string parameters into type-safe arguments that are passed into the controller actions. In the above example the <code>index</code> query string parameter is converted to an <code>int</code> and passed into the <code>Details</code> action. If a user attempts to modify this value to something that isn&rsquo;t an integer then MVC will literally poop itself, right?</p>
 
-Let's see.
+<p>Let&rsquo;s see.</p>
 
-<img src="/uploads/2012/11/xss-type-fail.png" title="'Person details'" >
+<p><img src="/uploads/2012/11/xss-type-fail.png" title="&lsquo;Person details&rsquo;" ></p>
 
-OK, so MVC will require that this value be an integer, otherwise the action will fail to be invoked. If that's the case, then the view won't be rendered and our code which directly accesses `Request.QueryString` will not be invoked and hence there's no risk.
+<p>OK, so MVC will require that this value be an integer, otherwise the action will fail to be invoked. If that&rsquo;s the case, then the view won&rsquo;t be rendered and our code which directly accesses <code>Request.QueryString</code> will not be invoked and hence there&rsquo;s no risk.</p>
 
-Right?
+<p>Right?</p>
 
-[Wrong][HPP].
+<p>[Wrong][HPP].</p>
 
-The attack vector
------------------
+<h2>The attack vector</h2>
 
-[HTTP Parameter Pollution][HPP] is a relatively "new" problem which revolves around the way that web servers/applications parse and handle multiple instances of the same GET/POST parameter. Phew!
+<p>[HTTP Parameter Pollution][HPP] is a relatively &ldquo;new&rdquo; problem which revolves around the way that web servers/applications parse and handle multiple instances of the same GET/POST parameter. Phew!</p>
 
-In other words, if a malicious user decides to pass in _another_ instance of the `index` parameter in the query string, what happens? The way this is handled varies from technology to technology (see [slide 9][HPPPDF] for some examples), but here we're only interested in ASP.NET with IIS and MVC.
+<p>In other words, if a malicious user decides to pass in <em>another</em> instance of the <code>index</code> parameter in the query string, what happens? The way this is handled varies from technology to technology (see [slide 9][HPPPDF] for some examples), but here we&rsquo;re only interested in ASP.NET with IIS and MVC.</p>
 
-Let me just state this again: we're only interested in ASP.NET and IIS _**and MVC**_. The reason we need to emphasise this is because MVC rocks the boat a little bit. It's important to remember that [Request.QueryString][] is not specific to MVC, it's something that lives in ASP.NET land. _Controller actions_ on the other hand are not available across the board when using ASP.NET, they live in MVC land. When it comes to binding query string parameters to controller action method parameters, MVC doesn't behave how you would expect, and it's not the same as what happens when dealing with `Request.QueryString` directly.
+<p>Let me just state this again: we&rsquo;re only interested in ASP.NET and IIS <em><strong>and MVC</strong></em>. The reason we need to emphasise this is because MVC rocks the boat a little bit. It&rsquo;s important to remember that [Request.QueryString][] is not specific to MVC, it&rsquo;s something that lives in ASP.NET land. <em>Controller actions</em> on the other hand are not available across the board when using ASP.NET, they live in MVC land. When it comes to binding query string parameters to controller action method parameters, MVC doesn&rsquo;t behave how you would expect, and it&rsquo;s not the same as what happens when dealing with <code>Request.QueryString</code> directly.</p>
 
-So what happens in ASP.NET and IIS _without_ MVC if an attacker passes in two values for the same parameter? Consider the following url: `http://foo.com/bar?baz=0&baz=dooby`
+<p>So what happens in ASP.NET and IIS <em>without</em> MVC if an attacker passes in two values for the same parameter? Consider the following url: <code>http://foo.com/bar?baz=0&amp;baz=dooby</code></p>
 
-While in C# land (remember, outside of MVC) `Request.QueryString["baz"]` will contain a string value `0,dooby`. In our current environment any duplicate instances of query string values are passed through as a single value joined together by commas. This knowledge is scarily uncommon. Many .NET developers that I know are not aware of this behaviour.
+<p>While in C# land (remember, outside of MVC) <code>Request.QueryString["baz"]</code> will contain a string value <code>0,dooby</code>. In our current environment any duplicate instances of query string values are passed through as a single value joined together by commas. This knowledge is scarily uncommon. Many .NET developers that I know are not aware of this behaviour.</p>
 
-This is where MVC comes along and sprays poop over everything.
+<p>This is where MVC comes along and sprays poop over everything.</p>
 
-ASP.NET MVC controller action method parameter binding doesn't handle multiple instance of the same query string parameters in the same way. In fact, it behaves more like JSP on Jetty: **it only uses the first value and ignores the rest**.
+<p>ASP.NET MVC controller action method parameter binding doesn&rsquo;t handle multiple instance of the same query string parameters in the same way. In fact, it behaves more like JSP on Jetty: <strong>it only uses the first value and ignores the rest</strong>.</p>
 
-Why is this bad? Well this means that code outside of controller actions may result in different behaviour to that which is inside. More importantly, accessing `Request.QueryString` to get access to a parameter doesn't mean that you'll get the same value as what was handled in the controller action.
+<p>Why is this bad? Well this means that code outside of controller actions may result in different behaviour to that which is inside. More importantly, accessing <code>Request.QueryString</code> to get access to a parameter doesn&rsquo;t mean that you&rsquo;ll get the same value as what was handled in the controller action.</p>
 
-Let's take a look at what might happen if we threw multiple instances via the query string at our dodgy MVC application:
+<p>Let&rsquo;s take a look at what might happen if we threw multiple instances via the query string at our dodgy MVC application:</p>
 
-<img src="/uploads/2012/11/xss-hpp-invalid.png" title="'HPP example'" >
+<p><img src="/uploads/2012/11/xss-hpp-invalid.png" title="&lsquo;HPP example&rsquo;" ></p>
 
-The above screenshot shows both the query string and the page source when we do this. That's right, MVC used the first value, set to `0`, without any issues and invoked the view engine. The view's assumption that the `index` parameter has been sanitised by the controller has now been proven unsafe. Now we can see that we do have access to the source. Let's see what happens if we went a step further and passed in a more sinister value:
+<p>The above screenshot shows both the query string and the page source when we do this. That&rsquo;s right, MVC used the first value, set to <code>0</code>, without any issues and invoked the view engine. The view&rsquo;s assumption that the <code>index</code> parameter has been sanitised by the controller has now been proven unsafe. Now we can see that we do have access to the source. Let&rsquo;s see what happens if we went a step further and passed in a more sinister value:</p>
 
-<img src="/uploads/2012/11/xss-hpp-valid.png" title="'HPP XSS exploit'" >
+<p><img src="/uploads/2012/11/xss-hpp-valid.png" title="&lsquo;HPP XSS exploit&rsquo;" ></p>
 
-Pwned.
+<p>Pwned.</p>
 
-Conclusion
-----------
+<h2>Conclusion</h2>
 
-_Never_ trust unsanitised input, that includes stuff that gets passed in through `Request.QueryString`. Do not assume that the contents are safe just because your controller action handled things without throwing an exception. If you're going to render data that has come in from the user or from the query string, delegate responsibility of validation to the controller action and only trust content which is passed to the view via [ViewData][] or the `Model`.
+<p><em>Never</em> trust unsanitised input, that includes stuff that gets passed in through <code>Request.QueryString</code>. Do not assume that the contents are safe just because your controller action handled things without throwing an exception. If you&rsquo;re going to render data that has come in from the user or from the query string, delegate responsibility of validation to the controller action and only trust content which is passed to the view via [ViewData][] or the <code>Model</code>.</p>
 
-  [ViewData]: http://msdn.microsoft.com/en-us/library/system.web.mvc.viewpage.viewdata(v=vs.108).aspx
-  [HPPPDF]: https://www.owasp.org/images/b/ba/AppsecEU09_CarettoniDiPaola_v0.8.pdf
-  [Request.QueryString]: http://msdn.microsoft.com/en-us/library/ms524784(v=vs.90).aspx
-  [XSS]: http://en.wikipedia.org/wiki/Cross-site_scripting
-  [System.Tuple]: http://msdn.microsoft.com/en-us/library/system.tuple.aspx
-  [HPP]: http://blog.iseclab.org/2010/12/08/http-parameter-pollution-so-how-many-flawed-applications-exist-out-there-we-go-online-with-a-new-service/
-
+<p>  [ViewData]: <a href="http://msdn.microsoft.com/en-us/library/system.web.mvc.viewpage.viewdata">http://msdn.microsoft.com/en-us/library/system.web.mvc.viewpage.viewdata</a>(v=vs.108).aspx
+  [HPPPDF]: <a href="https://www.owasp.org/images/b/ba/AppsecEU09_CarettoniDiPaola_v0.8.pdf">https://www.owasp.org/images/b/ba/AppsecEU09_CarettoniDiPaola_v0.8.pdf</a>
+  [Request.QueryString]: <a href="http://msdn.microsoft.com/en-us/library/ms524784">http://msdn.microsoft.com/en-us/library/ms524784</a>(v=vs.90).aspx
+  [XSS]: <a href="http://en.wikipedia.org/wiki/Cross-site_scripting">http://en.wikipedia.org/wiki/Cross-site_scripting</a>
+  [System.Tuple]: <a href="http://msdn.microsoft.com/en-us/library/system.tuple.aspx">http://msdn.microsoft.com/en-us/library/system.tuple.aspx</a>
+  [HPP]: <a href="http://blog.iseclab.org/2010/12/08/http-parameter-pollution-so-how-many-flawed-applications-exist-out-there-we-go-online-with-a-new-service/">http://blog.iseclab.org/2010/12/08/http-parameter-pollution-so-how-many-flawed-applications-exist-out-there-we-go-online-with-a-new-service/</a></p>
 ]]></content>
   </entry>
   

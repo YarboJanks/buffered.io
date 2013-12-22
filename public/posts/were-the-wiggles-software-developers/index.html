@@ -8,12 +8,6 @@
   <title>Were the Wiggles Software Developers? - OJ's perspective</title>
   <meta name="author" content="OJ Reeves">
 
-  <link rel="openid.server" href="http://pip.verisignlabs.com/server" />
-  <link rel="openid.delegate" href="http://thecolonial.pip.verisignlabs.com/" />
-  <link rel="openid2.provider" href="http://pip.verisignlabs.com/server" />
-  <link rel="openid2.local_id" href="http://thecolonial.pip.verisignlabs.com/" />
-  <meta http-equiv="X-XRDS-Location" content="http://pip.verisignlabs.com/thecolonial/yadixrds" />
-
   
   <meta name="description" content="Some of you might not know about The Wiggles, but those of you who are either Australian or have any connection with an extremely young family member &hellip;">
   
@@ -24,39 +18,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's perspective RSS 2.0" type="application/rss+xml">
   <link rel="canonical" href="http://buffered.io/posts/were-the-wiggles-software-developers">
   <link href="/favicon.ico" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-
-  <script src="/javascripts/modernizr-2.0.js" type="text/javascript"></script>
-  <script src="/javascripts/ender.js" type="text/javascript"></script>
+  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's perspective" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
-
-  <script type="text/javascript">
-    Modernizr.load([
-      { load: '//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js' },
-      { load: '/javascripts/jquery.lightbox.js', complete: function() {
-        $("a[rel^='lightbox']").lightbox();
-      } }
-    ]);
-  </script>
-
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 
   
-
-  
-  <script type="text/javascript">
-    !function(g,s,q,r,d){r=g[r]=g[r]||function(){(r.q=r.q||[]).push(
-    arguments)};d=s.createElement(q);q=s.getElementsByTagName(q)[0];
-    d.src='//d1l6p2sc9645hc.cloudfront.net/tracker.js';q.parentNode.
-    insertBefore(d,q)}(window,document,'script','_gs');
-    _gs('GSN-416076-G');
-  </script>
-
 
 </head>
 
@@ -112,28 +86,28 @@
   
 
 
-
-<time datetime="2006-11-13T08:42:00+10:00" pubdate data-updated="true">13 Nov 2006</time>
+<time datetime="2006-11-13T08:42:00+10:00" pubdate data-updated="true"></time>
         
-         | <a href="#disqus_thread">Comments</a>
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://buffered.io">Comments</a>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>Some of you might not know about <a href="http://www.thewiggles.com.au/" title="The Wiggles" target="_blank">The Wiggles</a>, but those of you who are either Australian or have any connection with an extremely young family member will probably have a fair idea. In short, they&#8217;re a collection of dudes who do performances for kiddies, and have managed to make themselves a fortune putting smiles on the dials of kids all over the world. Hats off to them!</p>
+<div class="entry-content"><p>Some of you might not know about <a href="http://www.thewiggles.com.au/" title="The Wiggles" target="_blank">The Wiggles</a>, but those of you who are either Australian or have any connection with an extremely young family member will probably have a fair idea. In short, they&rsquo;re a collection of dudes who do performances for kiddies, and have managed to make themselves a fortune putting smiles on the dials of kids all over the world. Hats off to them!</p>
 
-<p>The question I&#8217;m asking isn&#8217;t serious ;) But I have to ask it because I think that one of their famous songs has been written with my current software development project in mind! The song I&#8217;m referring to is called Hot Potato. For a fab rendition, check out <a href="http://www.youtube.com/v/FV6nJxg7mM0" title="YouTube Video: The Wiggles" target="_blank">this YooooooouTube vid</a>. Feel free to play it a few times and get used to the dance moves :)</p>
+<p>The question I&rsquo;m asking isn&rsquo;t serious ;) But I have to ask it because I think that one of their famous songs has been written with my current software development project in mind! The song I&rsquo;m referring to is called Hot Potato. For a fab rendition, check out <a href="http://www.youtube.com/v/FV6nJxg7mM0" title="YouTube Video: The Wiggles" target="_blank">this YooooooouTube vid</a>. Feel free to play it a few times and get used to the dance moves :)</p>
 
-<p>So, why do I think that these guys might have based the song on software dev? Well I think it&#8217;s very simple:</p>
+<p>So, why do I think that these guys might have based the song on software dev? Well I think it&rsquo;s very simple:</p>
 
 <ul><li><strong>Hot potato</strong>: This refers to the job or task that noone wants to get done. It&#8217;s the feature that the client <em>really</em> wants that noone&#8217;s prepared to put the time into implementing. It could also mean a subsection of the system that was originally written to adhere to the &#8220;cold spaghetti&#8221; architecture, which has resulted in code that&#8217;s so hard to maintain the nobody wants to touch it.</li><li><strong>Cold Spaghetti</strong>: AKA &#8220;code spaghetti&#8221;. This is the overall architecture of the software system. It indicates the level of thought that was put into it, and gives a great visualisation of what the resulting code looks like. The beauty of the word &#8220;cold&#8221; in this scenario is that it adds a new dimension to the well known &#8220;spaghetti code&#8221; theory. As we all know, cold spaghetti <em>sticks together</em> in one nasty congealed clump of starchy mess, and dissecting it is a nightmare! Soooooo true in the case of spaghetti code.</li><li><strong>Mash Banana</strong>: Currently very regular in the project I&#8217;m working on! This is all those fabulous ideas that could possibly <em>improve</em> the quality of the system - but team members don&#8217;t like the tall poppies so those ideas are mashed to a pulp so that they never see the light of day and hence don&#8217;t make the rest of the team feel insecure due to them not thinking of the idea themselves.</li></ul>
 
 
 <p>See, it all makes sense!</p>
 
-<p>&#8230; or am I barking mad?</p>
+<p>&hellip; or am I barking mad?</p>
 </div>
 
 
@@ -156,8 +130,7 @@
   
 
 
-
-<time datetime="2006-11-13T08:42:00+10:00" pubdate data-updated="true">13 Nov 2006</time>
+<time datetime="2006-11-13T08:42:00+10:00" pubdate data-updated="true"></time>
       
 
 <span class="categories">
@@ -171,7 +144,7 @@
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://buffered.io/posts/were-the-wiggles-software-developers/" data-via="TheColonial" data-counturl="http://buffered.io/posts/were-the-wiggles-software-developers/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://buffered.io/posts/were-the-wiggles-software-developers/" data-via="TheColonial" data-counturl="http://buffered.io/posts/were-the-wiggles-software-developers/" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -185,7 +158,7 @@
         <a class="basic-alignment left" href="/posts/eas-steam-leaves-a-bad-smell/" title="Previous Post: EA's 'Steam' Leaves a Bad Smell">&laquo; EA's 'Steam' Leaves a Bad Smell</a>
       
       
-        <a class="basic-alignment right" href="/posts/todo-add-comments/" title="next Post: // TODO: Add Comments">// TODO: Add Comments &raquo;</a>
+        <a class="basic-alignment right" href="/posts/todo-add-comments/" title="Next Post: // TODO: Add Comments">// TODO: Add Comments &raquo;</a>
       
     </p>
   </footer>
@@ -386,7 +359,7 @@ Copyright &copy; 2013 -
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     }());
 </script>
@@ -410,7 +383,7 @@ Copyright &copy; 2013 -
       var twitterWidgets = document.createElement('script');
       twitterWidgets.type = 'text/javascript';
       twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
       document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
     })();
   </script>

@@ -5,14 +5,8 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Microsoft want to Annoy you, Cancel or Allow? - OJ's perspective</title>
+  <title>Microsoft Want to Annoy You, Cancel or Allow? - OJ's perspective</title>
   <meta name="author" content="OJ Reeves">
-
-  <link rel="openid.server" href="http://pip.verisignlabs.com/server" />
-  <link rel="openid.delegate" href="http://thecolonial.pip.verisignlabs.com/" />
-  <link rel="openid2.provider" href="http://pip.verisignlabs.com/server" />
-  <link rel="openid2.local_id" href="http://thecolonial.pip.verisignlabs.com/" />
-  <meta http-equiv="X-XRDS-Location" content="http://pip.verisignlabs.com/thecolonial/yadixrds" />
 
   
   <meta name="description" content="Before I even started using Vista, I hated UAC. I read about it all over the place, and laughed at the stupidity involved in asking users to &hellip;">
@@ -24,39 +18,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's perspective RSS 2.0" type="application/rss+xml">
   <link rel="canonical" href="http://buffered.io/posts/microsoft-want-to-annoy-you-cancel-or-allow">
   <link href="/favicon.ico" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-
-  <script src="/javascripts/modernizr-2.0.js" type="text/javascript"></script>
-  <script src="/javascripts/ender.js" type="text/javascript"></script>
+  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's perspective" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
-
-  <script type="text/javascript">
-    Modernizr.load([
-      { load: '//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js' },
-      { load: '/javascripts/jquery.lightbox.js', complete: function() {
-        $("a[rel^='lightbox']").lightbox();
-      } }
-    ]);
-  </script>
-
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 
   
-
-  
-  <script type="text/javascript">
-    !function(g,s,q,r,d){r=g[r]=g[r]||function(){(r.q=r.q||[]).push(
-    arguments)};d=s.createElement(q);q=s.getElementsByTagName(q)[0];
-    d.src='//d1l6p2sc9645hc.cloudfront.net/tracker.js';q.parentNode.
-    insertBefore(d,q)}(window,document,'script','_gs');
-    _gs('GSN-416076-G');
-  </script>
-
 
 </head>
 
@@ -112,17 +86,17 @@
   
 
 
-
-<time datetime="2008-04-12T21:43:00+10:00" pubdate data-updated="true">12 Apr 2008</time>
+<time datetime="2008-04-12T21:43:00+10:00" pubdate data-updated="true"></time>
         
-         | <a href="#disqus_thread">Comments</a>
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://buffered.io">Comments</a>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>Before I even started using Vista, I hated <a href="http://technet2.microsoft.com/WindowsVista/en/library/0d75f774-8514-4c9e-ac08-4c21f5c6c2d91033.mspx" title="User Access Control">UAC</a>. I read about it all over the place, and laughed at the stupidity involved in asking users to constantly &#8220;cancel or allow&#8221; every action they wanted to take. As soon as I was forced to use Vista for work (both on my work laptop and on site with the client) I turned off UAC on both installations.</p>
+<div class="entry-content"><p>Before I even started using Vista, I hated <a href="http://technet2.microsoft.com/WindowsVista/en/library/0d75f774-8514-4c9e-ac08-4c21f5c6c2d91033.mspx" title="User Access Control">UAC</a>. I read about it all over the place, and laughed at the stupidity involved in asking users to constantly &ldquo;cancel or allow&rdquo; every action they wanted to take. As soon as I was forced to use Vista for work (both on my work laptop and on site with the client) I turned off UAC on both installations.</p>
 
 <!--more-->
 
@@ -134,19 +108,19 @@
 
 <p>Yeah, I laughed too.</p>
 
-<p>But I didn&#8217;t really give UAC any credit. I didn&#8217;t think about why it was there, all I thought was that MS were being stupid. That was until a couple of days ago when I was thinking about it (don&#8217;t ask me why ;) ).</p>
+<p>But I didn&rsquo;t really give UAC any credit. I didn&rsquo;t think about why it was there, all I thought was that MS were being stupid. That was until a couple of days ago when I was thinking about it (don&rsquo;t ask me why ;) ).</p>
 
 <p>After deliberating on it for a day or so, trying to come up with the motivation behind it, <a href="http://arstechnica.com/news.ars/post/20080411-vistas-uac-security-prompt-was-designed-to-annoy-you.html" title="Vista's UAC security prompt was designed to annoy you">this landed in my RSS feed reader</a> and made it clear. MS are taking a hit in the hope that devs will sort their shit out!</p>
 
-<p>Windows users have had a long history of being administrators of their own machines by default. In general, most users do not login using an account with low levels of privileges. In Windows it has been too much of a pain in the butt to get anything done if you <em>don&#8217;t</em>. Is that the fault of MS and Windows? Yes it is, but it&#8217;s not their fault alone.</p>
+<p>Windows users have had a long history of being administrators of their own machines by default. In general, most users do not login using an account with low levels of privileges. In Windows it has been too much of a pain in the butt to get anything done if you <em>don&rsquo;t</em>. Is that the fault of MS and Windows? Yes it is, but it&rsquo;s not their fault alone.</p>
 
-<p>Looking back through history, developers who write software for Windows haven&#8217;t really been particularly brilliant when it comes to being mindful of security. This is something that needs to change. Some really basic applications, office applications, editors and even games have require administrator privileges to run. It&#8217;s no wonder that everyone decides to give themselves an admin account. Why would you want to face constant issues with security when all the things you&#8217;re trying to use need the elevated access?</p>
+<p>Looking back through history, developers who write software for Windows haven&rsquo;t really been particularly brilliant when it comes to being mindful of security. This is something that needs to change. Some really basic applications, office applications, editors and even games have require administrator privileges to run. It&rsquo;s no wonder that everyone decides to give themselves an admin account. Why would you want to face constant issues with security when all the things you&rsquo;re trying to use need the elevated access?</p>
 
-<p>The fault lies with the developers. They need to get into the habit of writing software that doesn&#8217;t require elevated privileges. UAC is part of MS&#8217;s effort to force the plebian developers to sort their shit out. By the looks of it, it&#8217;s beginning to work. It&#8217;s a brave move on MS&#8217;s part, as pissing off users to force developers to be mindful of security is not necessarily the smartest thing to do. Vista has enough pitfalls as it is without having something that&#8217;s designed to being annoying popping up in your face all the time.</p>
+<p>The fault lies with the developers. They need to get into the habit of writing software that doesn&rsquo;t require elevated privileges. UAC is part of MS&rsquo;s effort to force the plebian developers to sort their shit out. By the looks of it, it&rsquo;s beginning to work. It&rsquo;s a brave move on MS&rsquo;s part, as pissing off users to force developers to be mindful of security is not necessarily the smartest thing to do. Vista has enough pitfalls as it is without having something that&rsquo;s designed to being annoying popping up in your face all the time.</p>
 
-<p>Let&#8217;s hope the trend continues. In a perfect world it&#8217;d be fine to have something like UAC running all the time, so long as it doesn&#8217;t appear all the time!</p>
+<p>Let&rsquo;s hope the trend continues. In a perfect world it&rsquo;d be fine to have something like UAC running all the time, so long as it doesn&rsquo;t appear all the time!</p>
 
-<p>Note for those who care: sorry for the poorly written post :) I couldn&#8217;t be bothered fixing it up, it&#8217;s late and it&#8217;s time for bed!</p>
+<p>Note for those who care: sorry for the poorly written post :) I couldn&rsquo;t be bothered fixing it up, it&rsquo;s late and it&rsquo;s time for bed!</p>
 </div>
 
 
@@ -169,8 +143,7 @@
   
 
 
-
-<time datetime="2008-04-12T21:43:00+10:00" pubdate data-updated="true">12 Apr 2008</time>
+<time datetime="2008-04-12T21:43:00+10:00" pubdate data-updated="true"></time>
       
 
 <span class="categories">
@@ -184,7 +157,7 @@
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://buffered.io/posts/microsoft-want-to-annoy-you-cancel-or-allow/" data-via="TheColonial" data-counturl="http://buffered.io/posts/microsoft-want-to-annoy-you-cancel-or-allow/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://buffered.io/posts/microsoft-want-to-annoy-you-cancel-or-allow/" data-via="TheColonial" data-counturl="http://buffered.io/posts/microsoft-want-to-annoy-you-cancel-or-allow/" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -198,7 +171,7 @@
         <a class="basic-alignment left" href="/posts/because-the-cost-of-living-is-getting-so-high-high-high/" title="Previous Post: Because the Cost of Living is Getting so High, High, High">&laquo; Because the Cost of Living is Getting so High, High, High</a>
       
       
-        <a class="basic-alignment right" href="/posts/no-regrets/" title="next Post: No Regrets">No Regrets &raquo;</a>
+        <a class="basic-alignment right" href="/posts/no-regrets/" title="Next Post: No Regrets">No Regrets &raquo;</a>
       
     </p>
   </footer>
@@ -399,7 +372,7 @@ Copyright &copy; 2013 -
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     }());
 </script>
@@ -423,7 +396,7 @@ Copyright &copy; 2013 -
       var twitterWidgets = document.createElement('script');
       twitterWidgets.type = 'text/javascript';
       twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
       document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
     })();
   </script>
