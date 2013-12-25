@@ -5,17 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Websites are Hard to Build - A Case in Point - OJ's perspective</title>
+  <title>Websites Are Hard to Build - a Case in Point - OJ's perspective</title>
   <meta name="author" content="OJ Reeves">
 
-  <link rel="openid.server" href="http://pip.verisignlabs.com/server" />
-  <link rel="openid.delegate" href="http://thecolonial.pip.verisignlabs.com/" />
-  <link rel="openid2.provider" href="http://pip.verisignlabs.com/server" />
-  <link rel="openid2.local_id" href="http://thecolonial.pip.verisignlabs.com/" />
-  <meta http-equiv="X-XRDS-Location" content="http://pip.verisignlabs.com/thecolonial/yadixrds" />
-
   
-  <meta name="description" content="A short time ago I posted some thoughts on issues faced when building websites that most people aren&#8217;t aware of when they decide to have one &hellip;">
+  <meta name="description" content="A short time ago I posted some thoughts on issues faced when building websites that most people aren&rsquo;t aware of when they decide to have one &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -24,39 +18,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's perspective RSS 2.0" type="application/rss+xml">
   <link rel="canonical" href="http://buffered.io/posts/websites-are-hard-to-build-a-case-in-point">
-  <link href="/favicon.ico" rel="icon">
+  <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-
-  <script src="/javascripts/modernizr-2.0.js" type="text/javascript"></script>
-  <script src="/javascripts/ender.js" type="text/javascript"></script>
+  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's perspective" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
-
-  <script type="text/javascript">
-    Modernizr.load([
-      { load: '//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js' },
-      { load: '/javascripts/jquery.lightbox.js', complete: function() {
-        $("a[rel^='lightbox']").lightbox();
-      } }
-    ]);
-  </script>
-
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 
   
-
-  
-  <script type="text/javascript">
-    !function(g,s,q,r,d){r=g[r]=g[r]||function(){(r.q=r.q||[]).push(
-    arguments)};d=s.createElement(q);q=s.getElementsByTagName(q)[0];
-    d.src='//d1l6p2sc9645hc.cloudfront.net/tracker.js';q.parentNode.
-    insertBefore(d,q)}(window,document,'script','_gs');
-    _gs('GSN-416076-G');
-  </script>
-
 
 </head>
 
@@ -115,33 +89,34 @@
 
 <time datetime="2009-01-01T14:03:00+10:00" pubdate data-updated="true">01 Jan 2009</time>
         
-         | <a href="#disqus_thread">Comments</a>
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://buffered.io">Comments</a>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>A short time ago I <a href="/posts/websites-are-hard-to-build/" title="Websites are Hard to Build">posted some thoughts</a> on issues faced when building websites that most people aren&#8217;t aware of when they decide to have one built. I posted from the perspective of someone who has, on many occasions, been asked to build a site for someone who really doesn&#8217;t have a clue about what is involved. More importantly, they don&#8217;t <em>want</em> to know.</p>
+<div class="entry-content"><p>A short time ago I <a href="/posts/websites-are-hard-to-build/" title="Websites are Hard to Build">posted some thoughts</a> on issues faced when building websites that most people aren&rsquo;t aware of when they decide to have one built. I posted from the perspective of someone who has, on many occasions, been asked to build a site for someone who really doesn&rsquo;t have a clue about what is involved. More importantly, they don&rsquo;t <em>want</em> to know.</p>
 
-<p>There are people out there who don&#8217;t know about the issues faced, but are still in need of a site to fulfil their needs. Should they learn about these issues themselves? Should they put their faith in a developer/designer and let them do their job and just send them a bill at the end? A mixture of the two?</p>
+<p>There are people out there who don&rsquo;t know about the issues faced, but are still in need of a site to fulfil their needs. Should they learn about these issues themselves? Should they put their faith in a developer/designer and let them do their job and just send them a bill at the end? A mixture of the two?</p>
 
 <!--more-->
 
 
-<p>It&#8217;s a tough question to answer. Given that I am a developer, I am going to lean towards the &#8220;let the developers do it&#8221; option. But I also feel that the client has at least a small responsibility to make themselves aware of those problems. This is mainly because they are the ones who are going to be maintaining it when the site has been delivered. I do feel that the winning formula is a mixture of the two.</p>
+<p>It&rsquo;s a tough question to answer. Given that I am a developer, I am going to lean towards the &ldquo;let the developers do it&rdquo; option. But I also feel that the client has at least a small responsibility to make themselves aware of those problems. This is mainly because they are the ones who are going to be maintaining it when the site has been delivered. I do feel that the winning formula is a mixture of the two.</p>
 
 <p>The inspiration behind this post is the story of a lady who was starting an online business. I will not mention who they are, nor link to their site. This is to protect the innocent :)</p>
 
 <p>This poor lady was in need of a website. Given that her expertise lies outside the realm of computing, her knowledge and understanding of what goes into the development of a website is limited. She needed to have a site built and so enlisted the help of a designer and a developer. The designer was to create the banner image(s) for the site and the developer had the task of making the site functional.</p>
 
-<p>It&#8217;s probably obvious to the Geeks out there that there are already a couple of holes in this little set up. First is that nobody was really tasked with the job of creating the design <strong>for the entire site</strong>. This is a problem because it&#8217;ll end up the job of the developer who is generally woeful at web design. The second issue is that no grand &#8220;vision&#8221; for the site had been established, resulting in no connection between banner design, site design or needs of the client.</p>
+<p>It&rsquo;s probably obvious to the Geeks out there that there are already a couple of holes in this little set up. First is that nobody was really tasked with the job of creating the design <strong>for the entire site</strong>. This is a problem because it&rsquo;ll end up the job of the developer who is generally woeful at web design. The second issue is that no grand &ldquo;vision&rdquo; for the site had been established, resulting in no connection between banner design, site design or needs of the client.</p>
 
 <p>See if you can picture the result.</p>
 
-<p>It&#8217;s not pretty.</p>
+<p>It&rsquo;s not pretty.</p>
 
-<p>The site&#8217;s intent was to be the front for the online business. The client needed a means to post news and updates. They wanted to post blog entries. They required people to &#8220;sign up&#8221; for various features. They had certain sections of the site that required payment and full membership before access was given. Since it&#8217;s a front-end site to the business it needed to feel professional. It needed to work across different browsers and function to a certain level of quality.</p>
+<p>The site&rsquo;s intent was to be the front for the online business. The client needed a means to post news and updates. They wanted to post blog entries. They required people to &ldquo;sign up&rdquo; for various features. They had certain sections of the site that required payment and full membership before access was given. Since it&rsquo;s a front-end site to the business it needed to feel professional. It needed to work across different browsers and function to a certain level of quality.</p>
 
 <p>The short-list of requirements then become:</p>
 
@@ -154,25 +129,25 @@
 </ol>
 
 
-<p>I&#8217;d like to expand on that last point a little bit. It&#8217;s hard enough to create an online business when your site is amazing. The issues of marketing, security, recognition, trust, etc. are extremely tough to tackle <em>without</em> making the user feel like they&#8217;re dealing with a hodge-podge of technology connected together with a poor design.</p>
+<p>I&rsquo;d like to expand on that last point a little bit. It&rsquo;s hard enough to create an online business when your site is amazing. The issues of marketing, security, recognition, trust, etc. are extremely tough to tackle <em>without</em> making the user feel like they&rsquo;re dealing with a hodge-podge of technology connected together with a poor design.</p>
 
 <p>The professional look and feel is a must. The site must <strong>work</strong>. It must inspire confidence. It must make your users comfortable before they even attempt to consume the content therein. This makes that last requirement by far <em>the most important of all</em>. Without nailing it, the rest of the site may as well not exist.</p>
 
-<p>Now let&#8217;s get back to our poor client. They ended up with the first requirement, so long as we emphasise the word &#8220;basic&#8221;. They received a blog engine, which is actually a <a href="http://www.blogspot.com/" title="Blogspot">Blogspot</a> blog hosted in an <a href="http://en.wikipedia.org/wiki/IFrame" title="iframe element">iframe</a> with a completely different design. They received a website that had a fairly poor design, invalid mark-up and features that are not only useless but aid in making the design <strong>even worse</strong> in certain scenarios. No doubt the developer thought those features were cool.</p>
+<p>Now let&rsquo;s get back to our poor client. They ended up with the first requirement, so long as we emphasise the word &ldquo;basic&rdquo;. They received a blog engine, which is actually a <a href="http://www.blogspot.com/" title="Blogspot">Blogspot</a> blog hosted in an <a href="http://en.wikipedia.org/wiki/IFrame" title="iframe element">iframe</a> with a completely different design. They received a website that had a fairly poor design, invalid mark-up and features that are not only useless but aid in making the design <strong>even worse</strong> in certain scenarios. No doubt the developer thought those features were cool.</p>
 
-<p>Given that the developer had a bit of free reign they had no real restrictions on what to implement and were most likely able to bleed the client dry of as many hard-earned pennies as possible. The client paid a lot of money for something that feels like it was thrown together by inept site creators. It&#8217;s not feature-complete. It&#8217;s also broken in some ways.</p>
+<p>Given that the developer had a bit of free reign they had no real restrictions on what to implement and were most likely able to bleed the client dry of as many hard-earned pennies as possible. The client paid a lot of money for something that feels like it was thrown together by inept site creators. It&rsquo;s not feature-complete. It&rsquo;s also broken in some ways.</p>
 
 <p>The final interesting point of this case is that the developer never actually discussed the idea of support with the client. They developed the site (which actually runs on an open-source CMS engine which may well have been paid for unnecessarily by the client) and handed it over. When the client came back to talk about other work, they utilised their position of power to charge insanely high rates for small pieces of support work.</p>
 
 <p>So why am I talking about this?</p>
 
-<p>Because it makes me sad and embarrassed to be a developer. It makes me angry that I am in the same boat as the person who created the site. More importantly it helps illustrate that lack of knowledge of what&#8217;s involved can really bite you in the behind.</p>
+<p>Because it makes me sad and embarrassed to be a developer. It makes me angry that I am in the same boat as the person who created the site. More importantly it helps illustrate that lack of knowledge of what&rsquo;s involved can really bite you in the behind.</p>
 
-<p>I take my reputation very seriously and having happy clients is more important to me than getting paid as much as humanly possible for a job. I have certain morals and a different work ethic to the developer that is described above. I also wouldn&#8217;t want to give the guys in my industry a bad name.</p>
+<p>I take my reputation very seriously and having happy clients is more important to me than getting paid as much as humanly possible for a job. I have certain morals and a different work ethic to the developer that is described above. I also wouldn&rsquo;t want to give the guys in my industry a bad name.</p>
 
-<p>To finish up, the point that I&#8217;m trying to make is this: if you&#8217;re a developer, it&#8217;s just as much <em>your responsibility</em> to make your clients aware of the issues as it is theirs to learn of them. Don&#8217;t take the piss and charge huge amounts for simple work. Don&#8217;t ruin the reputation of web developers in general. Make sure the clients know what it is they want and make every effort to give it to them if the budget permits.</p>
+<p>To finish up, the point that I&rsquo;m trying to make is this: if you&rsquo;re a developer, it&rsquo;s just as much <em>your responsibility</em> to make your clients aware of the issues as it is theirs to learn of them. Don&rsquo;t take the piss and charge huge amounts for simple work. Don&rsquo;t ruin the reputation of web developers in general. Make sure the clients know what it is they want and make every effort to give it to them if the budget permits.</p>
 
-<p>There&#8217;s more at stake than the next invoice.</p>
+<p>There&rsquo;s more at stake than the next invoice.</p>
 </div>
 
 
@@ -210,7 +185,7 @@
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://buffered.io/posts/websites-are-hard-to-build-a-case-in-point/" data-via="TheColonial" data-counturl="http://buffered.io/posts/websites-are-hard-to-build-a-case-in-point/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://buffered.io/posts/websites-are-hard-to-build-a-case-in-point/" data-via="TheColonial" data-counturl="http://buffered.io/posts/websites-are-hard-to-build-a-case-in-point/" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -224,7 +199,7 @@
         <a class="basic-alignment left" href="/posts/random-resolutions/" title="Previous Post: Random Resolutions">&laquo; Random Resolutions</a>
       
       
-        <a class="basic-alignment right" href="/posts/the-sales-pipeline/" title="next Post: The Sales Pipeline">The Sales Pipeline &raquo;</a>
+        <a class="basic-alignment right" href="/posts/the-sales-pipeline/" title="Next Post: The Sales Pipeline">The Sales Pipeline &raquo;</a>
       
     </p>
   </footer>
@@ -425,7 +400,7 @@ Copyright &copy; 2013 -
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     }());
 </script>
@@ -449,7 +424,7 @@ Copyright &copy; 2013 -
       var twitterWidgets = document.createElement('script');
       twitterWidgets.type = 'text/javascript';
       twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
       document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
     })();
   </script>

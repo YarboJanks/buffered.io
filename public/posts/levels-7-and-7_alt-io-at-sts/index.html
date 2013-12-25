@@ -8,14 +8,8 @@
   <title>Levels 7 and 7_alt - IO at STS - OJ's perspective</title>
   <meta name="author" content="OJ Reeves">
 
-  <link rel="openid.server" href="http://pip.verisignlabs.com/server" />
-  <link rel="openid.delegate" href="http://thecolonial.pip.verisignlabs.com/" />
-  <link rel="openid2.provider" href="http://pip.verisignlabs.com/server" />
-  <link rel="openid2.local_id" href="http://thecolonial.pip.verisignlabs.com/" />
-  <meta http-equiv="X-XRDS-Location" content="http://pip.verisignlabs.com/thecolonial/yadixrds" />
-
   
-  <meta name="description" content="I&#8217;ve been documenting my experiences with IO at SmashTheStack for a while, but decided not to post them publicly for a few reasons. However &hellip;">
+  <meta name="description" content="I&rsquo;ve been documenting my experiences with IO at SmashTheStack for a while, but decided not to post them publicly for a few reasons. However &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -24,39 +18,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's perspective RSS 2.0" type="application/rss+xml">
   <link rel="canonical" href="http://buffered.io/posts/levels-7-and-7_alt-io-at-sts">
-  <link href="/favicon.ico" rel="icon">
+  <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-
-  <script src="/javascripts/modernizr-2.0.js" type="text/javascript"></script>
-  <script src="/javascripts/ender.js" type="text/javascript"></script>
+  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's perspective" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
-
-  <script type="text/javascript">
-    Modernizr.load([
-      { load: '//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js' },
-      { load: '/javascripts/jquery.lightbox.js', complete: function() {
-        $("a[rel^='lightbox']").lightbox();
-      } }
-    ]);
-  </script>
-
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 
   
-
-  
-  <script type="text/javascript">
-    !function(g,s,q,r,d){r=g[r]=g[r]||function(){(r.q=r.q||[]).push(
-    arguments)};d=s.createElement(q);q=s.getElementsByTagName(q)[0];
-    d.src='//d1l6p2sc9645hc.cloudfront.net/tracker.js';q.parentNode.
-    insertBefore(d,q)}(window,document,'script','_gs');
-    _gs('GSN-416076-G');
-  </script>
-
 
 </head>
 
@@ -115,50 +89,51 @@
 
 <time datetime="2013-08-15T13:51:00+10:00" pubdate data-updated="true">15 Aug 2013</time>
         
-         | <a href="#disqus_thread">Comments</a>
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://buffered.io">Comments</a>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>I&#8217;ve been documenting my experiences with <a href="http://io.smashthestack.org:84/" title="IO @ Smash The Stack">IO</a> at <a href="http://smashthestack.org/" title="Smash The Stack">SmashTheStack</a> for a while, but decided not to post them publicly for a few reasons. However level 7 (in particular the <code>alt</code> level) was the first that I thought worthy of posting. This post includes how I broke both applications to make it through to the level 8. If you haven&#8217;t had a play on the <a href="http://smashthestack.org/" title="Smash The Stack">SmashTheStack</a> wargames yet, I really do recommend it. They&#8217;re great fun.</p>
+<div class="entry-content"><p>I&rsquo;ve been documenting my experiences with <a href="http://io.smashthestack.org:84/" title="IO @ Smash The Stack">IO</a> at <a href="http://smashthestack.org/" title="Smash The Stack">SmashTheStack</a> for a while, but decided not to post them publicly for a few reasons. However level 7 (in particular the <code>alt</code> level) was the first that I thought worthy of posting. This post includes how I broke both applications to make it through to the level 8. If you haven&rsquo;t had a play on the <a href="http://smashthestack.org/" title="Smash The Stack">SmashTheStack</a> wargames yet, I really do recommend it. They&rsquo;re great fun.</p>
 
 <!--more-->
 
 
 <h2>Spoiler Alert</h2>
 
-<p>This post covers, in detail, how to get past level 7 and level 7 alt. If you haven&#8217;t done these levels yourself yet, and you plan to, then please don&#8217;t read this until you&#8217;ve nailed them yourself. I&#8217;d hate for this to ruin your experience.</p>
+<p>This post covers, in detail, how to get past level 7 and level 7 alt. If you haven&rsquo;t done these levels yourself yet, and you plan to, then please don&rsquo;t read this until you&rsquo;ve nailed them yourself. I&rsquo;d hate for this to ruin your experience.</p>
 
-<p>However, if you&#8217;ve done the level or you&#8217;re just interested in what&#8217;s involved, please read on.</p>
+<p>However, if you&rsquo;ve done the level or you&rsquo;re just interested in what&rsquo;s involved, please read on.</p>
 
 <h2>Connecting</h2>
 
-<p>Fire up a shell and connect to the game server with the password for the <code>level7</code> user (I won&#8217;t be sharing passwords here).</p>
+<p>Fire up a shell and connect to the game server with the password for the <code>level7</code> user (I won&rsquo;t be sharing passwords here).</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>ssh level7@io.smashthestack.org
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>Let&#8217;s see what challenges there are for us:</p>
+<p>Let&rsquo;s see what challenges there are for us:</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class='bash'><span class='line'>level7@io:~<span class="nv">$ </span>ls /levels/level07*
 </span><span class='line'>/levels/level07  /levels/level07_alt  /levels/level07_alt.c  /levels/level07.c
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>This level has two possible entry points, and we&#8217;ll be covering both in this post.</p>
+<p>This level has two possible entry points, and we&rsquo;ll be covering both in this post.</p>
 
 <h2>Level 07</h2>
 
 <p>We start by looking at the source of the target program:</p>
 
-<figure class='code'><figcaption><span>level07.c  </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span>level07.c </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -207,13 +182,13 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>What&#8217;s clear here is that we need to pass a number in that is less than <code>10</code>, but is big enough to allow us to overflow <code>buf</code> so that we can modify the value of <code>count</code>. The data that&#8217;s written to <code>buf</code> is only allowed to be <code>count * sizeof(int)</code> in size.  We can easily pass in numbers smaller than 10, but they won&#8217;t be big enough to overflow <code>buf</code>. If we pass in a <em>negative</em> number we bypass the check, but the call to <code>memcpy</code> will fail because <code>count * sizeof(int)</code> is negative.</p>
+<p>What&rsquo;s clear here is that we need to pass a number in that is less than <code>10</code>, but is big enough to allow us to overflow <code>buf</code> so that we can modify the value of <code>count</code>. The data that&rsquo;s written to <code>buf</code> is only allowed to be <code>count * sizeof(int)</code> in size.  We can easily pass in numbers smaller than 10, but they won&rsquo;t be big enough to overflow <code>buf</code>. If we pass in a <em>negative</em> number we bypass the check, but the call to <code>memcpy</code> will fail because <code>count * sizeof(int)</code> is negative.</p>
 
 <p>We need to find a way of turning this calculation into something positive, but also much bigger than <code>10 * sizeof(int)</code> so that we can overflow <code>buf</code>.</p>
 
-<p>What&#8217;s interesting about this is that <code>sizeof(int)</code> on a 32-bit machine is <code>4</code>, which is effectively a <code>SHL 2</code> operation. We can confirm this by disassembling <code>main</code> and looking at the generated output:</p>
+<p>What&rsquo;s interesting about this is that <code>sizeof(int)</code> on a 32-bit machine is <code>4</code>, which is effectively a <code>SHL 2</code> operation. We can confirm this by disassembling <code>main</code> and looking at the generated output:</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -304,10 +279,10 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>Some investigation of the behaviour of this instruction lead me to realise that there was room for abuse when values over/underflow. If we use <code>SHL</code> with numbers of a small enough negative value, those values become positive. Let&#8217;s have a look at that in action by whipping up a sample program and viewing the output:</p>
+<p>Some investigation of the behaviour of this instruction lead me to realise that there was room for abuse when values over/underflow. If we use <code>SHL</code> with numbers of a small enough negative value, those values become positive. Let&rsquo;s have a look at that in action by whipping up a sample program and viewing the output:</p>
 
-<figure class='code'><figcaption><span>Testing Shifts Source  </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span>Testing Shifts Source </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -328,10 +303,10 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>Compile this code with <code>gcc</code> and run it, and you&#8217;ll find the following:</p>
+<p>Compile this code with <code>gcc</code> and run it, and you&rsquo;ll find the following:</p>
 
-<figure class='code'><figcaption><span>Testing Shifts  </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span>Testing Shifts </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -344,10 +319,10 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>So we can pass in a negative integer, have it shift and turn it into a positive that&#8217;s big enough to overflow the buffer. Once we&#8217;ve overflowed, all we need to do is write the value <code>0x574f4c46</code> to the desired memory location and the level will pass. We can get smart and figure out exactly where this needs to be, or we can go with the approach of repeatedly writing it knowing that somewhere along the line it&#8217;ll end up being written to where we need it to be: in the <code>count</code> varaible. I chose to do the latter. We pass this data in as the second argument on the command line. Let&#8217;s see how this looks:</p>
+<p>So we can pass in a negative integer, have it shift and turn it into a positive that&rsquo;s big enough to overflow the buffer. Once we&rsquo;ve overflowed, all we need to do is write the value <code>0x574f4c46</code> to the desired memory location and the level will pass. We can get smart and figure out exactly where this needs to be, or we can go with the approach of repeatedly writing it knowing that somewhere along the line it&rsquo;ll end up being written to where we need it to be: in the <code>count</code> varaible. I chose to do the latter. We pass this data in as the second argument on the command line. Let&rsquo;s see how this looks:</p>
 
-<figure class='code'><figcaption><span>Exploit Run  </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span>Exploit Run </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -362,10 +337,10 @@
 
 <h2>Level 07 alt</h2>
 
-<p>Let&#8217;s start with the source of the alternate application, modified a little by me (and highlighted):</p>
+<p>Let&rsquo;s start with the source of the alternate application, modified a little by me (and highlighted):</p>
 
-<figure class='code'><figcaption><span>level07_alt.c  </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span>level07_alt.c </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -446,25 +421,25 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>On the surface it&#8217;s hard to see where this application could be attacked! It&#8217;s one of those bit of code that seems rather non-descript, yes has a very subtle issue in it which will allow us to gain some form of control. The obvious thing to look for is where memory is modified as a result of our user input, and this leads us to the following line:</p>
+<p>On the surface it&rsquo;s hard to see where this application could be attacked! It&rsquo;s one of those bit of code that seems rather non-descript, yes has a very subtle issue in it which will allow us to gain some form of control. The obvious thing to look for is where memory is modified as a result of our user input, and this leads us to the following line:</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">count</span><span class="p">[</span><span class="n">argv</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">i</span><span class="p">]]</span><span class="o">++</span><span class="p">;</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>Here the code is using the <code>j</code>th word (passed in on the command line via <code>argv</code>) and accessing its <code>i</code>th character, then using this character as an index into <code>count</code> to increment the count for that letter. The application is obviously doing a simple letter-tally. Straight up this looks like a potential point of attack because the values in <code>argv</code> are <em>signed</em> characters, and hence we can pass in values that are <strong>negative</strong> and write outside the bounds of the <code>count</code> array. Let&#8217;s <code>objdump</code> the binary to see where <code>count</code> lives:</p>
+<p>Here the code is using the <code>j</code>th word (passed in on the command line via <code>argv</code>) and accessing its <code>i</code>th character, then using this character as an index into <code>count</code> to increment the count for that letter. The application is obviously doing a simple letter-tally. Straight up this looks like a potential point of attack because the values in <code>argv</code> are <em>signed</em> characters, and hence we can pass in values that are <strong>negative</strong> and write outside the bounds of the <code>count</code> array. Let&rsquo;s <code>objdump</code> the binary to see where <code>count</code> lives:</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>objdump -D /levels/level07_alt | grep count
 </span><span class='line'>08049720 &lt;count&gt;:
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>The negative values we can use are from <code>CHAR_MIN</code> (<code>-128</code>) &times; <code>sizeof(int)</code> (<code>4</code> on a 32-bit system) to <code>0</code>. So with <code>count</code> located at <code>0x8049720</code>, it means we can write values from here, all the way back to <code>0x8049520</code>. Let&#8217;s see what fits within this range, again by looking at the output of <code>objdump</code>:</p>
+<p>The negative values we can use are from <code>CHAR_MIN</code> (<code>-128</code>) &times; <code>sizeof(int)</code> (<code>4</code> on a 32-bit system) to <code>0</code>. So with <code>count</code> located at <code>0x8049720</code>, it means we can write values from here, all the way back to <code>0x8049520</code>. Let&rsquo;s see what fits within this range, again by looking at the output of <code>objdump</code>:</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -774,15 +749,15 @@
 <p>As you can see, there area a few sections that we can write to:</p>
 
 <ul>
-<li>The <a href="http://gcc.gnu.org/onlinedocs/gccint/Initialization.html">.ctors</a> section is in range, but this isn&#8217;t going to help us because the code executed in constructors is executed before our code gets to execute.</li>
+<li>The <a href="http://gcc.gnu.org/onlinedocs/gccint/Initialization.html">.ctors</a> section is in range, but this isn&rsquo;t going to help us because the code executed in constructors is executed before our code gets to execute.</li>
 <li>The <a href="http://gcc.gnu.org/onlinedocs/gccint/Initialization.html">.dtors</a> section is in range, hence we might be able to write something to this section which would get executed when the program exits.</li>
 <li>The <a href="http://bottomupcs.sourceforge.net/csbu/x3824.htm" title="Global Offset Tables">GOT</a> is in range, so perhaps we can look into overwriting a <code>GOT</code> entry with something else that will help us compromise the application.</li>
 </ul>
 
 
-<p>Let&#8217;s take a look at what&#8217;s in the <code>GOT</code>:</p>
+<p>Let&rsquo;s take a look at what&rsquo;s in the <code>GOT</code>:</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -805,9 +780,9 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>Here we can see 5 entries. The first three are all executed prior to the body of the program, hence they&#8217;re not really options for attack. The last one, <code>printf</code>, looks promising because this doesn&#8217;t get invoked until <em>after</em> all of the input characters have been passed in. We have the opportunity to rewrite this value to point somewhere else. If we fire this up in <code>gdb</code> and take a look at the value that&#8217;s stored in this location just before the <code>printf</code> call we find that the value is <code>0x080482de</code>. Here&#8217;s a (tidied) snapshot from <code>gdb</code>:</p>
+<p>Here we can see 5 entries. The first three are all executed prior to the body of the program, hence they&rsquo;re not really options for attack. The last one, <code>printf</code>, looks promising because this doesn&rsquo;t get invoked until <em>after</em> all of the input characters have been passed in. We have the opportunity to rewrite this value to point somewhere else. If we fire this up in <code>gdb</code> and take a look at the value that&rsquo;s stored in this location just before the <code>printf</code> call we find that the value is <code>0x080482de</code>. Here&rsquo;s a (tidied) snapshot from <code>gdb</code>:</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -879,38 +854,38 @@
 <p>Where:</p>
 
 <ul>
-<li><code>CTE</code> -> CTOR END</li>
-<li><code>DYN</code> -> DYNAMIC</li>
-<li><code>GOT</code> -> GLOBAL OFFSET TABLE</li>
-<li><code>DSO</code> -> DSO HANDLE</li>
+<li><code>CTE</code> &ndash;> CTOR END</li>
+<li><code>DYN</code> &ndash;> DYNAMIC</li>
+<li><code>GOT</code> &ndash;> GLOBAL OFFSET TABLE</li>
+<li><code>DSO</code> &ndash;> DSO HANDLE</li>
 </ul>
 
 
-<p>Remember that the application only allows us to increment existing values one at a time for every &#8220;index&#8221; (ie. character) that is passed on the command line. As a result, this value is what we have to add start with, and any address we want to point to has to come after this. Unfortunately for us, there is a limitation on the command line which prevents us from passing in any more than 128k characters. This is going to bite us in the butt later on.</p>
+<p>Remember that the application only allows us to increment existing values one at a time for every &ldquo;index&rdquo; (ie. character) that is passed on the command line. As a result, this value is what we have to add start with, and any address we want to point to has to come after this. Unfortunately for us, there is a limitation on the command line which prevents us from passing in any more than 128k characters. This is going to bite us in the butt later on.</p>
 
-<p>We need to be able to point this address to an area of memory that we control. It&#8217;d be great if we could point this straight at <code>argv</code>, but we can&#8217;t do that. Why? Because:</p>
+<p>We need to be able to point this address to an area of memory that we control. It&rsquo;d be great if we could point this straight at <code>argv</code>, but we can&rsquo;t do that. Why? Because:</p>
 
 <ol>
-<li>The <code>count</code> array is an array of 32-bit integers. This means we can only increment whole <strong>word</strong> values, we can&#8217;t increment individual <em>bytes</em>.</li>
-<li>Areas of memory that we control, such as <code>argv[N]</code>, are in the high address ranges (think something like <code>o0xbffff___</code>). To increment a word value from the <code>printf</code> source value to a value like this, or even another value on the stack, we would need to increment that value too many times. We don&#8217;t have the command-line character budget to be able to do that.</li>
+<li>The <code>count</code> array is an array of 32-bit integers. This means we can only increment whole <strong>word</strong> values, we can&rsquo;t increment individual <em>bytes</em>.</li>
+<li>Areas of memory that we control, such as <code>argv[N]</code>, are in the high address ranges (think something like <code>o0xbffff___</code>). To increment a word value from the <code>printf</code> source value to a value like this, or even another value on the stack, we would need to increment that value too many times. We don&rsquo;t have the command-line character budget to be able to do that.</li>
 </ol>
 
 
-<p>This means that if we want to point the entry to something we control, we&#8217;re going to have to point it to <code>count</code> +/- 128 words. This comes with its own set of issues:</p>
+<p>This means that if we want to point the entry to something we control, we&rsquo;re going to have to point it to <code>count</code> +/&ndash; 128 words. This comes with its own set of issues:</p>
 
 <ul>
 <li>Within this range we would need to craft our own instructions that get executed, using nothing but incrementing values.</li>
 <li>Realistically, we can only write to the lower 2 bytes of each 4-byte word. If we attempt to write higher we either blow our budget or waste too many characters on a single instruction.</li>
 <li>The area of memory that we know we have control over that has predictable values prior to our code running is the intended storage area for the <code>count</code> array and at the start of the program that entire area is set to <code>zero</code>.</li>
-<li>To my knowledge, there&#8217;s no <code>GETROOT</code> instruction in x86 assembly, nor are there any instructions less than 3 bytes in size that can do something useful without other instructions working alongside them. This means writing multiple instructions to memory.</li>
+<li>To my knowledge, there&rsquo;s no <code>GETROOT</code> instruction in x86 assembly, nor are there any instructions less than 3 bytes in size that can do something useful without other instructions working alongside them. This means writing multiple instructions to memory.</li>
 <li>If we can only modify the lower 2 bytes, then the higher 2 bytes will remain <code>00 00</code>. Given that Intel x86 is little endian, this means that after our instructions those zero bytes will always be executed before our next instruction does.</li>
-<li>The opcode <code>00 00</code> translates to <code>MOV [EAX], AL</code>, which means &#8220;take the value of the lower-order byte in <code>EAX</code> and store it in the location pointed to by <code>EAX</code>&#8221;. This means we can&#8217;t really use <code>EAX</code> for something useful because the code will attempt to write back to areas of memory that we are interested in, probably clobbering code or pointers that are important.</li>
+<li>The opcode <code>00 00</code> translates to <code>MOV [EAX], AL</code>, which means &ldquo;take the value of the lower-order byte in <code>EAX</code> and store it in the location pointed to by <code>EAX</code>&rdquo;. This means we can&rsquo;t really use <code>EAX</code> for something useful because the code will attempt to write back to areas of memory that we are interested in, probably clobbering code or pointers that are important.</li>
 </ul>
 
 
-<p>Let&#8217;s take a look at the state of <code>EAX</code> at the time the <code>printf</code> function is called:</p>
+<p>Let&rsquo;s take a look at the state of <code>EAX</code> at the time the <code>printf</code> function is called:</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -959,11 +934,11 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>What&#8217;s interesting is that <code>EAX</code> contains the value <code>0x61</code>, which is ASCII for <code>a</code>. This happens to be the first character we pass in on the command line. As a result, we do have <em>some</em> control over <code>EAX</code> at this point, but not enough to allow us to point to a valid location. Unfortunately, if we are to allow the execution of <code>MOV [EAX], AL</code>, we can&#8217;t let <code>EAX</code> contain a value like <code>0x00000061</code>, as writing to this area will cause an access violation. We&#8217;re going to have to change this value to a valid pointer.</p>
+<p>What&rsquo;s interesting is that <code>EAX</code> contains the value <code>0x61</code>, which is ASCII for <code>a</code>. This happens to be the first character we pass in on the command line. As a result, we do have <em>some</em> control over <code>EAX</code> at this point, but not enough to allow us to point to a valid location. Unfortunately, if we are to allow the execution of <code>MOV [EAX], AL</code>, we can&rsquo;t let <code>EAX</code> contain a value like <code>0x00000061</code>, as writing to this area will cause an access violation. We&rsquo;re going to have to change this value to a valid pointer.</p>
 
-<p>Also, take a look at <code>ECX</code>, as it&#8217;s value looks to be in a memory area that we have control over. It turns out that <code>ECX</code> contains a pointer to <code>argc</code>, the number of arguments passed to the program on the command line. What&#8217;s great about this, is that <code>argv</code> immediately follows it. That is, <code>argv</code> is located at <code>ECX+4</code>. Here we can see the start of a possible attack vector.</p>
+<p>Also, take a look at <code>ECX</code>, as it&rsquo;s value looks to be in a memory area that we have control over. It turns out that <code>ECX</code> contains a pointer to <code>argc</code>, the number of arguments passed to the program on the command line. What&rsquo;s great about this, is that <code>argv</code> immediately follows it. That is, <code>argv</code> is located at <code>ECX+4</code>. Here we can see the start of a possible attack vector.</p>
 
-<p>To get <code>ECX</code> to point to <code>argv[0]</code> and execute, we&#8217;d need to do the following (ASM with opcodes):</p>
+<p>To get <code>ECX</code> to point to <code>argv[0]</code> and execute, we&rsquo;d need to do the following (ASM with opcodes):</p>
 
 <pre><code>INC ECX          41
 INC ECX          41
@@ -973,7 +948,7 @@ MOV ECX, [ECX]   8B 09
 JMP [ECX]        FF 21
 </code></pre>
 
-<p>This code increments <code>ECX</code> by <code>4</code>, then jumps to the address that is stored in the value <code>ECX</code> points to. This looks fine, but why can&#8217;t we do this? Firstly, we can&#8217;t have the instructions all close together like this. To write these values to the <code>count</code> array, we&#8217;d have to suffer the pain of having the double zero bytes in the way, like so:</p>
+<p>This code increments <code>ECX</code> by <code>4</code>, then jumps to the address that is stored in the value <code>ECX</code> points to. This looks fine, but why can&rsquo;t we do this? Firstly, we can&rsquo;t have the instructions all close together like this. To write these values to the <code>count</code> array, we&rsquo;d have to suffer the pain of having the double zero bytes in the way, like so:</p>
 
 <pre><code>INC ECX          41
 INC ECX          41
@@ -986,7 +961,7 @@ MOV [EAX], AL    00 00
 JMP [ECX]        FF 21
 </code></pre>
 
-<p>This is made worse by the fact that <code>EAX</code> contains a crap address. Given that we don&#8217;t really care about the content of <code>ECX</code> which is just a counter of arguments passed to the program, we can overwrite <code>EAX</code> with <code>ECX</code> resulting in a valid pointer that references an address we don&#8217;t really care about. Each time the double-null instruction is executed, a 1-byte value will be written over the top of <code>argc</code>. No more crash!</p>
+<p>This is made worse by the fact that <code>EAX</code> contains a crap address. Given that we don&rsquo;t really care about the content of <code>ECX</code> which is just a counter of arguments passed to the program, we can overwrite <code>EAX</code> with <code>ECX</code> resulting in a valid pointer that references an address we don&rsquo;t really care about. Each time the double-null instruction is executed, a 1-byte value will be written over the top of <code>argc</code>. No more crash!</p>
 
 <pre><code>MOV EAX, ECX     89 C8
 MOV [EAX], AL    00 00
@@ -1006,14 +981,14 @@ JMP [ECX]        FF 21
 <pre><code>0x0000C889 0x00004141 0x00004141 0x0000098B 0x000021FF
 </code></pre>
 
-<p>Wherever we write this value, we need to know the location so that we can increment the <code>printf</code> <code>GOT</code> entry so that it points to the start of this code. Great, we&#8217;re well underway then, right?</p>
+<p>Wherever we write this value, we need to know the location so that we can increment the <code>printf</code> <code>GOT</code> entry so that it points to the start of this code. Great, we&rsquo;re well underway then, right?</p>
 
-<p>Wrong, there is still one more issue. If this code runs successfully, then <code>EIP</code> should point directly at <code>argv[0]</code>; that is, it&#8217;ll point at the string which contains the name of the program that was executed, <code>/levels/level07_alt</code>. This isn&#8217;t exactly usable shellcode that is going to give us what we need. However, there is a way around this. In C, we can use the <code>execl()</code> function to invoke another binary, and specify <em>all</em> of the arguments <em>including</em> <code>argv[0]</code>. As a result, we can write some shellcode and use this for <code>argv[0]</code> instead of the program name.</p>
+<p>Wrong, there is still one more issue. If this code runs successfully, then <code>EIP</code> should point directly at <code>argv[0]</code>; that is, it&rsquo;ll point at the string which contains the name of the program that was executed, <code>/levels/level07_alt</code>. This isn&rsquo;t exactly usable shellcode that is going to give us what we need. However, there is a way around this. In C, we can use the <code>execl()</code> function to invoke another binary, and specify <em>all</em> of the arguments <em>including</em> <code>argv[0]</code>. As a result, we can write some shellcode and use this for <code>argv[0]</code> instead of the program name.</p>
 
-<p>So with all this in mind, below is the full source to the exploit (rather verbose, but it&#8217;s on purpose) in C:</p>
+<p>So with all this in mind, below is the full source to the exploit (rather verbose, but it&rsquo;s on purpose) in C:</p>
 
-<figure class='code'><figcaption><span>Exploit Source  </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span>Exploit Source </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -1212,8 +1187,8 @@ JMP [ECX]        FF 21
 
 <p>Upload, compile and run the exploit and this is what happens:</p>
 
-<figure class='code'><figcaption><span>Exploit Run  </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span>Exploit Run </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -1230,7 +1205,7 @@ JMP [ECX]        FF 21
 
 <p>Game over! What a great challenge that was.</p>
 
-<p>I&#8217;d like to point out that this alternate level took me a <em>very long time</em> to nail. It was well worth the effort, and I learned a stack in the process.</p>
+<p>I&rsquo;d like to point out that this alternate level took me a <em>very long time</em> to nail. It was well worth the effort, and I learned a stack in the process.</p>
 
 <p>Feedback is appreciated as always. Thanks for reading.</p>
 </div>
@@ -1270,7 +1245,7 @@ JMP [ECX]        FF 21
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://buffered.io/posts/levels-7-and-7_alt-io-at-sts/" data-via="TheColonial" data-counturl="http://buffered.io/posts/levels-7-and-7_alt-io-at-sts/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://buffered.io/posts/levels-7-and-7_alt-io-at-sts/" data-via="TheColonial" data-counturl="http://buffered.io/posts/levels-7-and-7_alt-io-at-sts/" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -1284,7 +1259,7 @@ JMP [ECX]        FF 21
         <a class="basic-alignment left" href="/posts/irssi-and-sasl-on-osx/" title="Previous Post: Irssi and SASL on OSX">&laquo; Irssi and SASL on OSX</a>
       
       
-        <a class="basic-alignment right" href="/posts/oscp-and-me/" title="next Post: OSCP and Me">OSCP and Me &raquo;</a>
+        <a class="basic-alignment right" href="/posts/oscp-and-me/" title="Next Post: OSCP and Me">OSCP and Me &raquo;</a>
       
     </p>
   </footer>
@@ -1485,7 +1460,7 @@ Copyright &copy; 2013 -
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     }());
 </script>
@@ -1509,7 +1484,7 @@ Copyright &copy; 2013 -
       var twitterWidgets = document.createElement('script');
       twitterWidgets.type = 'text/javascript';
       twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
       document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
     })();
   </script>

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Screencasts | OJ's perspective]]></title>
   <link href="http://buffered.io/categories/screencasts/atom.xml" rel="self"/>
   <link href="http://buffered.io/"/>
-  <updated>2013-12-21T20:54:15+10:00</updated>
+  <updated>2013-12-25T21:15:26+10:00</updated>
   <id>http://buffered.io/</id>
   <author>
     <name><![CDATA[OJ Reeves]]></name>
@@ -18,9 +18,9 @@
     <link href="http://buffered.io/posts/screencast-setting-up-unity-builds/"/>
     <updated>2008-06-19T23:20:00+10:00</updated>
     <id>http://buffered.io/posts/screencast-setting-up-unity-builds</id>
-    <content type="html"><![CDATA[<p>It has taken me a bit longer than expected, but I've finally got the screencast up!</p>
+    <content type="html"><![CDATA[<p>It has taken me a bit longer than expected, but I&rsquo;ve finally got the screencast up!</p>
 
-<p>That's right folks, my angelic voice is now online for you all to experience. 8 minutes of Unity Build glory!</p>
+<p>That&rsquo;s right folks, my angelic voice is now online for you all to experience. 8 minutes of Unity Build glory!</p>
 
 <!--more-->
 
@@ -31,7 +31,7 @@
 <em><a href="http://oj.blackapache.net.s3.amazonaws.com/UnityBuilds.html" target="_blank" title="Setting up Unity Builds">Setting up Unity Builds</a></em></div>
 
 
-<p>I made the screencast using the demo version of <a href="http://www.techsmith.com/camtasia.asp" title="Camtasia">Camtasia</a> (which I give a big thumbs up to!). It weighs in at around 19MB in total, but it's well worth watching if you haven't seen a Unity Build in action before. Remember to check out <a href="http://buffered.io/posts/the-magic-of-unity-builds/" title="The Magic of Unity Builds">The Magic of Unity Builds</a> if you want some more technical information on how these builds work.</p>
+<p>I made the screencast using the demo version of <a href="http://www.techsmith.com/camtasia.asp" title="Camtasia">Camtasia</a> (which I give a big thumbs up to!). It weighs in at around 19MB in total, but it&rsquo;s well worth watching if you haven&rsquo;t seen a Unity Build in action before. Remember to check out <a href="http://buffered.io/posts/the-magic-of-unity-builds/" title="The Magic of Unity Builds">The Magic of Unity Builds</a> if you want some more technical information on how these builds work.</p>
 
 <p>The project and associated source code that I used for this screencast is available for download <a href="http://buffered.io/uploads/2008/06/win32wrap.zip" title="Old code, but it's great for the demo">right here</a>.</p>
 

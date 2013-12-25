@@ -8,12 +8,6 @@
   <title>The First Move to Ubuntu - OJ's perspective</title>
   <meta name="author" content="OJ Reeves">
 
-  <link rel="openid.server" href="http://pip.verisignlabs.com/server" />
-  <link rel="openid.delegate" href="http://thecolonial.pip.verisignlabs.com/" />
-  <link rel="openid2.provider" href="http://pip.verisignlabs.com/server" />
-  <link rel="openid2.local_id" href="http://thecolonial.pip.verisignlabs.com/" />
-  <meta http-equiv="X-XRDS-Location" content="http://pip.verisignlabs.com/thecolonial/yadixrds" />
-
   
   <meta name="description" content="While mulling over the meaning of life during the course of the day, I decided to take the plunge and install Ubuntu on the disk that I freed up ages &hellip;">
   
@@ -24,39 +18,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's perspective RSS 2.0" type="application/rss+xml">
   <link rel="canonical" href="http://buffered.io/posts/the-first-move-to-ubuntu">
-  <link href="/favicon.ico" rel="icon">
+  <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-
-  <script src="/javascripts/modernizr-2.0.js" type="text/javascript"></script>
-  <script src="/javascripts/ender.js" type="text/javascript"></script>
+  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's perspective" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
-
-  <script type="text/javascript">
-    Modernizr.load([
-      { load: '//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js' },
-      { load: '/javascripts/jquery.lightbox.js', complete: function() {
-        $("a[rel^='lightbox']").lightbox();
-      } }
-    ]);
-  </script>
-
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 
   
-
-  
-  <script type="text/javascript">
-    !function(g,s,q,r,d){r=g[r]=g[r]||function(){(r.q=r.q||[]).push(
-    arguments)};d=s.createElement(q);q=s.getElementsByTagName(q)[0];
-    d.src='//d1l6p2sc9645hc.cloudfront.net/tracker.js';q.parentNode.
-    insertBefore(d,q)}(window,document,'script','_gs');
-    _gs('GSN-416076-G');
-  </script>
-
 
 </head>
 
@@ -115,30 +89,31 @@
 
 <time datetime="2006-10-21T21:55:00+10:00" pubdate data-updated="true">21 Oct 2006</time>
         
-         | <a href="#disqus_thread">Comments</a>
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://buffered.io">Comments</a>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p><a href="http://www.ubunutu.com" title="Ubuntu" target="_blank"><img src="https://wiki.ubuntu.com/WebsiteButtons?action=AttachFile&do=get&target=ubuntu_button_120x60_ooh.png" width="120" height="60" alt="Ubuntu Linux" class="InlineImageLeft" /></a>While mulling over the meaning of life during the course of the day, I decided to take the plunge and install <a href="http://www.ubunutu.com" title="Ubuntu" target="_blank">Ubuntu</a> on the disk that I freed up ages ago - why I waited this long, I really don&#8217;t know, I think it might have something to do with lack of spare time (or laziness). I thought that you all might like to know the bits that were good and the bits that were bad :)</p>
+<div class="entry-content"><p><a href="http://www.ubunutu.com" title="Ubuntu" target="_blank"><img src="https://wiki.ubuntu.com/WebsiteButtons?action=AttachFile&do=get&target=ubuntu_button_120x60_ooh.png" width="120" height="60" alt="Ubuntu Linux" class="InlineImageLeft" /></a>While mulling over the meaning of life during the course of the day, I decided to take the plunge and install <a href="http://www.ubunutu.com" title="Ubuntu" target="_blank">Ubuntu</a> on the disk that I freed up ages ago &ndash; why I waited this long, I really don&rsquo;t know, I think it might have something to do with lack of spare time (or laziness). I thought that you all might like to know the bits that were good and the bits that were bad :)</p>
 
-<p>On the whole, I have to say that my experience was <em>very</em> good. I&#8217;ve used quite a few distros in the past (as I&#8217;ve mentioned in a previous post), and I have to say that absolutley <strong>none</strong> of those distros were as easy to set up as this one. <a href="http://www.redhat.com/" title="Red Hat" target="_blank">Red Hat</a> is probably the closest I&#8217;ve experienced to this, but it still doesn&#8217;t really come close.</p>
+<p>On the whole, I have to say that my experience was <em>very</em> good. I&rsquo;ve used quite a few distros in the past (as I&rsquo;ve mentioned in a previous post), and I have to say that absolutley <strong>none</strong> of those distros were as easy to set up as this one. <a href="http://www.redhat.com/" title="Red Hat" target="_blank">Red Hat</a> is probably the closest I&rsquo;ve experienced to this, but it still doesn&rsquo;t really come close.</p>
 
-<p>I started by playing with the Live CD to see if I liked the look and feel of it, and for the most part it seemed to pick up all the hardware without any issues. It even ran the desktop at 1600x1200 by default despite not having the graphics drivers properly set up. Sure it wasn&#8217;t nice to look at, but it worked! The wired network interfaces were set up automagically, and everything was jolly swimming. After fiddling for a while, I took the plunge and went for the full install.</p>
+<p>I started by playing with the Live CD to see if I liked the look and feel of it, and for the most part it seemed to pick up all the hardware without any issues. It even ran the desktop at 1600x1200 by default despite not having the graphics drivers properly set up. Sure it wasn&rsquo;t nice to look at, but it worked! The wired network interfaces were set up automagically, and everything was jolly swimming. After fiddling for a while, I took the plunge and went for the full install.</p>
 
-<p>Again, this went really smoothly. After a 15 or so minute installation it was all up and running, the obvious difference along the way being that I had to set up some partitions and stuff, but for a seasoned computer builder that&#8217;s nothing special. That step has been made pretty easy for those who aren&#8217;t sure what it means by the wizard that is running through the install. So even the average Joe could have got it going.  When done, I was greeting with a lovely fresh installation with network connectivity, and everything was dandy. Not only was the install fast, it was very smooth - and it was all 64-bit.</p>
+<p>Again, this went really smoothly. After a 15 or so minute installation it was all up and running, the obvious difference along the way being that I had to set up some partitions and stuff, but for a seasoned computer builder that&rsquo;s nothing special. That step has been made pretty easy for those who aren&rsquo;t sure what it means by the wizard that is running through the install. So even the average Joe could have got it going.  When done, I was greeting with a lovely fresh installation with network connectivity, and everything was dandy. Not only was the install fast, it was very smooth &ndash; and it was all 64-bit.</p>
 
-<p>So, I took a bit of time to see what gaps were left in the system, during which time the OS told me that I had a few updates to download - which I proceeded to install, again without an issue. But by this time I had realsed the gaps. First of all I needed to install the <a href="http://www.ati.com/" title="ATI" target="_blank">ATI</a> <a href="http://www.ati.com/online/customercareportal/linux.html" title="ATI Linux Driver" target="_blank">driver</a> for my <a href="http://www.ati.com/products/radeonx1900/index.html" title="Radeon X1900 Series" target="_blank">x1900-xtx</a>, which is not really a surprise as this has to be done almost regardless of the OS when you first install otherwise you&#8217;d end up with no decent graphical performance whatsoever :) I took on the task with a bit of fear in the belly, but to my surprise is installed fine! Now I&#8217;m pretty sure there are some dependencies that haven&#8217;t come through, and I think that if I tried to do anything requiring 3D acceleration then it might all come crashing down, but the desktop and all things 2D look spiffing!</p>
+<p>So, I took a bit of time to see what gaps were left in the system, during which time the OS told me that I had a few updates to download &ndash; which I proceeded to install, again without an issue. But by this time I had realsed the gaps. First of all I needed to install the <a href="http://www.ati.com/" title="ATI" target="_blank">ATI</a> <a href="http://www.ati.com/online/customercareportal/linux.html" title="ATI Linux Driver" target="_blank">driver</a> for my <a href="http://www.ati.com/products/radeonx1900/index.html" title="Radeon X1900 Series" target="_blank">x1900-xtx</a>, which is not really a surprise as this has to be done almost regardless of the OS when you first install otherwise you&rsquo;d end up with no decent graphical performance whatsoever :) I took on the task with a bit of fear in the belly, but to my surprise is installed fine! Now I&rsquo;m pretty sure there are some dependencies that haven&rsquo;t come through, and I think that if I tried to do anything requiring 3D acceleration then it might all come crashing down, but the desktop and all things 2D look spiffing!</p>
 
-<p>The other gap was the wireless card - but since I had HUGE issues getting this running on my WinXP x64 I was prepared to take the hit. This is actually still an issue for me, and for some reason every time I try and do something with the wireless network interface the system becomes extremely unstable. As of yet I&#8217;m not sure what it is I&#8217;m going to do. I might update to the development version and see if they&#8217;ve fixed the issue. Downloading and rebuilding the drive from source didn&#8217;t seem to help much either, the issue remained <em>sigh</em>.</p>
+<p>The other gap was the wireless card &ndash; but since I had HUGE issues getting this running on my WinXP x64 I was prepared to take the hit. This is actually still an issue for me, and for some reason every time I try and do something with the wireless network interface the system becomes extremely unstable. As of yet I&rsquo;m not sure what it is I&rsquo;m going to do. I might update to the development version and see if they&rsquo;ve fixed the issue. Downloading and rebuilding the drive from source didn&rsquo;t seem to help much either, the issue remained <em>sigh</em>.</p>
 
-<p>Other than those two, I can hardly fault the process. I&#8217;ve been chatting to some lads in the Ubuntu IRC channel on freenode, and even though we didnt manage to nail the problem the guys were more than happy to help. I&#8217;m happy that I&#8217;ve actually got an operating system installed that not only comes with Firefox installed by default, but doesn&#8217;t actually feel like I&#8217;m committing some form of licencing sin before I even get going! I am a big fan of constant consoles, and I do like the apt-get mechanism that Ubuntu uses (which I believe comes from the <a href="http://www.debian.org/" title="Debian" taret="_blank">Debian distro</a>. The whole thing feels smooth, and though Gnome isn&#8217;t really my desktop of choice, it&#8217;s definitely not unpleasant.</p>
+<p>Other than those two, I can hardly fault the process. I&rsquo;ve been chatting to some lads in the Ubuntu IRC channel on freenode, and even though we didnt manage to nail the problem the guys were more than happy to help. I&rsquo;m happy that I&rsquo;ve actually got an operating system installed that not only comes with Firefox installed by default, but doesn&rsquo;t actually feel like I&rsquo;m committing some form of licencing sin before I even get going! I am a big fan of constant consoles, and I do like the apt-get mechanism that Ubuntu uses (which I believe comes from the <a href="http://www.debian.org/" title="Debian" taret="_blank">Debian distro</a>. The whole thing feels smooth, and though Gnome isn&rsquo;t really my desktop of choice, it&rsquo;s definitely not unpleasant.</p>
 
-<p>So, on the whole I can&#8217;t really complain about the experience I&#8217;ve had. My installation was great, and I did learn new stuff along the way. When I&#8217;ve got my wireless card installed and running I&#8217;ll be able to lose the network cords and all will be back to normal. How exciting! I&#8217;d recommend this distro to many a Linux newbie, and I think they&#8217;d find the experience just as painless/painful as getting a Windows install running the first time. In fact, I reckon that it&#8217;s not only easier, it&#8217;s faster!</p>
+<p>So, on the whole I can&rsquo;t really complain about the experience I&rsquo;ve had. My installation was great, and I did learn new stuff along the way. When I&rsquo;ve got my wireless card installed and running I&rsquo;ll be able to lose the network cords and all will be back to normal. How exciting! I&rsquo;d recommend this distro to many a Linux newbie, and I think they&rsquo;d find the experience just as painless/painful as getting a Windows install running the first time. In fact, I reckon that it&rsquo;s not only easier, it&rsquo;s faster!</p>
 
-<p>Now, time to start work on those cross-platform applications I&#8217;ve been thinking about ;)</p>
+<p>Now, time to start work on those cross-platform applications I&rsquo;ve been thinking about ;)</p>
 </div>
 
 
@@ -176,7 +151,7 @@
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://buffered.io/posts/the-first-move-to-ubuntu/" data-via="TheColonial" data-counturl="http://buffered.io/posts/the-first-move-to-ubuntu/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://buffered.io/posts/the-first-move-to-ubuntu/" data-via="TheColonial" data-counturl="http://buffered.io/posts/the-first-move-to-ubuntu/" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -190,7 +165,7 @@
         <a class="basic-alignment left" href="/posts/developers-vs-programmers/" title="Previous Post: Developers vs Programmers">&laquo; Developers vs Programmers</a>
       
       
-        <a class="basic-alignment right" href="/posts/firefox-2/" title="next Post: FireFox 2">FireFox 2 &raquo;</a>
+        <a class="basic-alignment right" href="/posts/firefox-2/" title="Next Post: FireFox 2">FireFox 2 &raquo;</a>
       
     </p>
   </footer>
@@ -391,7 +366,7 @@ Copyright &copy; 2013 -
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     }());
 </script>
@@ -415,7 +390,7 @@ Copyright &copy; 2013 -
       var twitterWidgets = document.createElement('script');
       twitterWidgets.type = 'text/javascript';
       twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
       document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
     })();
   </script>

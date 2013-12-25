@@ -8,14 +8,8 @@
   <title>OJ's perspective</title>
   <meta name="author" content="OJ Reeves">
 
-  <link rel="openid.server" href="http://pip.verisignlabs.com/server" />
-  <link rel="openid.delegate" href="http://thecolonial.pip.verisignlabs.com/" />
-  <link rel="openid2.provider" href="http://pip.verisignlabs.com/server" />
-  <link rel="openid2.local_id" href="http://thecolonial.pip.verisignlabs.com/" />
-  <meta http-equiv="X-XRDS-Location" content="http://pip.verisignlabs.com/thecolonial/yadixrds" />
-
   
-  <meta name="description" content="After reading Dan&#8217;s response to this a few days ago, I decided to have a bit of a play with Notepad++. I do think it&#8217;s a very nice little &hellip;">
+  <meta name="description" content="After reading Dan&rsquo;s response to this a few days ago, I decided to have a bit of a play with Notepad++. I do think it&rsquo;s a very nice little &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -24,39 +18,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's perspective RSS 2.0" type="application/rss+xml">
   <link rel="canonical" href="http://buffered.io/posts/page/26">
-  <link href="/favicon.ico" rel="icon">
+  <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-
-  <script src="/javascripts/modernizr-2.0.js" type="text/javascript"></script>
-  <script src="/javascripts/ender.js" type="text/javascript"></script>
+  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's perspective" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
-
-  <script type="text/javascript">
-    Modernizr.load([
-      { load: '//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js' },
-      { load: '/javascripts/jquery.lightbox.js', complete: function() {
-        $("a[rel^='lightbox']").lightbox();
-      } }
-    ]);
-  </script>
-
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 
   
-
-  
-  <script type="text/javascript">
-    !function(g,s,q,r,d){r=g[r]=g[r]||function(){(r.q=r.q||[]).push(
-    arguments)};d=s.createElement(q);q=s.getElementsByTagName(q)[0];
-    d.src='//d1l6p2sc9645hc.cloudfront.net/tracker.js';q.parentNode.
-    insertBefore(d,q)}(window,document,'script','_gs');
-    _gs('GSN-416076-G');
-  </script>
-
 
 </head>
 
@@ -118,26 +92,27 @@
 
 <time datetime="2006-09-20T13:50:00+10:00" pubdate data-updated="true">20 Sep 2006</time>
         
-         | <a href="/posts/an-ide-follow-up/#disqus_thread">Comments</a>
+           | <a href="/posts/an-ide-follow-up/#disqus_thread"
+             data-disqus-identifier="http://buffered.io/posts/an-ide-follow-up/">Comments</a>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>After reading Dan&#8217;s response to <a href="/posts/is-an-ide-all-its-cracked-up-to-be/" title="Is an IDE all it's cracked up to be?">this</a> a few days ago, I decided to have a bit of a play with Notepad++. I do think it&#8217;s a very nice little text editor with some lovely features. It&#8217;s quitck, it&#8217;s simple, and the syntax hilighting works a treat (no thanks to Scintilla of course). One thing I do like is that by default when line numbering is on and word-wrap is enabled, gaps appear between the numbers to indicate that a line has wrapped (I need to set up something like this with VIM, as it&#8217;s one of the things that&#8217;s currently driving me nuts). It&#8217;s a shame it&#8217;s Windows only! I now have it installed at work and I used it when I work on quite a few different things including stored procedures, general markup (XML/HTML/etc), and some other bits and pieces of code.</p>
+  <div class="entry-content"><p>After reading Dan&rsquo;s response to <a href="/posts/is-an-ide-all-its-cracked-up-to-be/" title="Is an IDE all it's cracked up to be?">this</a> a few days ago, I decided to have a bit of a play with Notepad++. I do think it&rsquo;s a very nice little text editor with some lovely features. It&rsquo;s quitck, it&rsquo;s simple, and the syntax hilighting works a treat (no thanks to Scintilla of course). One thing I do like is that by default when line numbering is on and word-wrap is enabled, gaps appear between the numbers to indicate that a line has wrapped (I need to set up something like this with VIM, as it&rsquo;s one of the things that&rsquo;s currently driving me nuts). It&rsquo;s a shame it&rsquo;s Windows only! I now have it installed at work and I used it when I work on quite a few different things including stored procedures, general markup (XML/HTML/etc), and some other bits and pieces of code.</p>
 
-<p>A couple of nights ago I also decided to install <a href="http://www.xemacs.org/" target="_blank" title="XEmacs">XEmacs</a> to see what it was like to edit text. So many people love Emacs and there are just as many evangelists for this as their are VI/VIM. I found it to be very much like VIM, but there was one thing that stood out which I didn&#8217;t quite like. That is, the command mode seemed to be extremely heavy on the use of the CTRL and ALT keys. That may sound like a petty whinge to you, but for me, having to keep at least one of my little fingers at the bottom of the keyboard while I&#8217;m moving around becomes painful. I like VIM&#8217;s idea of not having to move any fingers away from the home row if you want to move up/down/left/right by a single line/character. Pressing CTRL every time is a bit of overkill in my opinion, and it&#8217;s a bit off-putting for me. After going through a few tutorials with I noticed that my hands were becoming strained. I&#8217;m pretty sure this is partly down to my typing style (because I&#8217;m not a perfect touch-typist, I tend to use my left little finger for SHIFT and CTRL rather than alternating depending on the key I am pressing).</p>
+<p>A couple of nights ago I also decided to install <a href="http://www.xemacs.org/" target="_blank" title="XEmacs">XEmacs</a> to see what it was like to edit text. So many people love Emacs and there are just as many evangelists for this as their are VI/VIM. I found it to be very much like VIM, but there was one thing that stood out which I didn&rsquo;t quite like. That is, the command mode seemed to be extremely heavy on the use of the CTRL and ALT keys. That may sound like a petty whinge to you, but for me, having to keep at least one of my little fingers at the bottom of the keyboard while I&rsquo;m moving around becomes painful. I like VIM&rsquo;s idea of not having to move any fingers away from the home row if you want to move up/down/left/right by a single line/character. Pressing CTRL every time is a bit of overkill in my opinion, and it&rsquo;s a bit off-putting for me. After going through a few tutorials with I noticed that my hands were becoming strained. I&rsquo;m pretty sure this is partly down to my typing style (because I&rsquo;m not a perfect touch-typist, I tend to use my left little finger for SHIFT and CTRL rather than alternating depending on the key I am pressing).</p>
 
-<p>So the result is that I&#8217;ve decided to cut short my time with Emacs and carry on doing my best to learn VIM. I can use VIM enough to be able to do my work, but I&#8217;m still frustrated because I know I&#8217;m nowhere near being the power user that I dream to be. It&#8217;s all about the practice. I do find myself getting annoyed at the fact that I have to constantly refer to the quick-ref guide to do some of the basic things, but I&#8217;m sure this will happen less and less over time.</p>
+<p>So the result is that I&rsquo;ve decided to cut short my time with Emacs and carry on doing my best to learn VIM. I can use VIM enough to be able to do my work, but I&rsquo;m still frustrated because I know I&rsquo;m nowhere near being the power user that I dream to be. It&rsquo;s all about the practice. I do find myself getting annoyed at the fact that I have to constantly refer to the quick-ref guide to do some of the basic things, but I&rsquo;m sure this will happen less and less over time.</p>
 
-<p>I am still on the search for the ultimate development environment though. I do feel that having something which is a combination of VIM and Visual Studio would be awesome. I am even thinking of putting some time aside to build it myself. In my mind I have a vision of a unified IDE which not only has in-built support for debugging code, but has features such as memory windows, call stacks, etc - combined with the power of VIM for editing text, and the generic &#8220;Windows&#8221; functionality of things like CTRL-TAB for moving across buffers (yes, I know you can configure VIM to do this).</p>
+<p>I am still on the search for the ultimate development environment though. I do feel that having something which is a combination of VIM and Visual Studio would be awesome. I am even thinking of putting some time aside to build it myself. In my mind I have a vision of a unified IDE which not only has in-built support for debugging code, but has features such as memory windows, call stacks, etc &ndash; combined with the power of VIM for editing text, and the generic &ldquo;Windows&rdquo; functionality of things like CTRL-TAB for moving across buffers (yes, I know you can configure VIM to do this).</p>
 
-<p>I have a question for everyone :) I&#8217;ve done only a little bit of true development on a <em>nix machine, and I&#8217;m interested to know which tools most people use when <em>they</em> develop for </em>nix. I&#8217;d even be interested to know what you&#8217;d use for <strong>Mac</strong> development?! Are there are good selection of environments to use? Or is it all Emacs/VIM with a bunch of plugins? I realise VIM comes with some form of autocomplete, which I&#8217;m yet to play with, but how well does this work? Is it smart enough to autocomplete on functions names that don&#8217;t exist in the current file scope? Do your respective text editors have any support for intellisense? What is the <em>project-wide</em> support like? Is it really a pain in the butt to get debugging working? How easy it is to have your editor build your project for you without you having to manually create build files?</p>
+<p>I have a question for everyone :) I&rsquo;ve done only a little bit of true development on a <em>nix machine, and I&rsquo;m interested to know which tools most people use when <em>they</em> develop for </em>nix. I&rsquo;d even be interested to know what you&rsquo;d use for <strong>Mac</strong> development?! Are there are good selection of environments to use? Or is it all Emacs/VIM with a bunch of plugins? I realise VIM comes with some form of autocomplete, which I&rsquo;m yet to play with, but how well does this work? Is it smart enough to autocomplete on functions names that don&rsquo;t exist in the current file scope? Do your respective text editors have any support for intellisense? What is the <em>project-wide</em> support like? Is it really a pain in the butt to get debugging working? How easy it is to have your editor build your project for you without you having to manually create build files?</p>
 
-<p>Yup, I can get these answers of <a href="http://www.google.com.au/" title="Google" target="_blank">Google</a>, but I&#8217;m interested to hear the thoughts of the folks that find themselves reading this :D</p>
+<p>Yup, I can get these answers of <a href="http://www.google.com.au/" title="Google" target="_blank">Google</a>, but I&rsquo;m interested to hear the thoughts of the folks that find themselves reading this :D</p>
 
-<p>As a final point, me ol&#8217; mucka Keef pointed out that games developers are in a way &#8216;forced&#8217; to use Visual Studio, and to a point I agree. But that doesn&#8217;t mean to say that you can&#8217;t use something like VIM for basic coding tasks if you really want to. I used to work with a guy who was a real Emacs junkie, and that&#8217;s all he used for his dev work (that includes Win32/C++ coding through to HTML, C# and ASP). All the compiling and debugging was done from Emacs, and he seemed to be very productive with it - something I&#8217;m nowhere near achieving with VIM :)</p>
+<p>As a final point, me ol&#8217; mucka Keef pointed out that games developers are in a way &lsquo;forced&rsquo; to use Visual Studio, and to a point I agree. But that doesn&rsquo;t mean to say that you can&rsquo;t use something like VIM for basic coding tasks if you really want to. I used to work with a guy who was a real Emacs junkie, and that&rsquo;s all he used for his dev work (that includes Win32/C++ coding through to HTML, C# and ASP). All the compiling and debugging was done from Emacs, and he seemed to be very productive with it &ndash; something I&rsquo;m nowhere near achieving with VIM :)</p>
 </div>
   
   
@@ -169,16 +144,17 @@
 
 <time datetime="2006-09-18T16:36:00+10:00" pubdate data-updated="true">18 Sep 2006</time>
         
-         | <a href="/posts/finding-productivity-utopia/#disqus_thread">Comments</a>
+           | <a href="/posts/finding-productivity-utopia/#disqus_thread"
+             data-disqus-identifier="http://buffered.io/posts/finding-productivity-utopia/">Comments</a>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Productivity. It&#8217;s something that all of us, as developers, should be finding ways to increase. I say <em>should</em> because I know of a stack of people out there who don&#8217;t. In fact, there&#8217;s a surprising amount of people out there who are not only <strong>not</strong> looking to find ways to increase productivity, they seem to go out of their way to reduce it - and this doesn&#8217;t just affect their own output, it affects that of the people they work with.</p>
+  <div class="entry-content"><p>Productivity. It&rsquo;s something that all of us, as developers, should be finding ways to increase. I say <em>should</em> because I know of a stack of people out there who don&rsquo;t. In fact, there&rsquo;s a surprising amount of people out there who are not only <strong>not</strong> looking to find ways to increase productivity, they seem to go out of their way to reduce it &ndash; and this doesn&rsquo;t just affect their own output, it affects that of the people they work with.</p>
 
-<p>This is going to sound like a bit of a whinge, but I don&#8217;t mean it to :) I have a few frustrations when it comes to my routine that I would like to share, and see if you guys/gals feel the same, or have other things that you consider to be a hindrance while working.</p>
+<p>This is going to sound like a bit of a whinge, but I don&rsquo;t mean it to :) I have a few frustrations when it comes to my routine that I would like to share, and see if you guys/gals feel the same, or have other things that you consider to be a hindrance while working.</p>
 
 <ul>
 <li><strong>Typing speed</strong > - The first thing that most of you will think when you read that first title is &#8220;learn to touch-type&#8221;. And yes you&#8217;re right! But I have already. I learned to touch-type back in the days of university when I was well and truly frustrated by the speed at which I could get my ideas down in code. Thankfully, I&#8217;m nowhere near as slow as I used to be, but I&#8217;m still nowhere near as fast as I&#8217;d like. I don&#8217;t think this is something that people should use as a measure to determine if one developer has a higher output than the other, because quality of what is created is just as, if not more important, than the amount of code produced. There&#8217;s no point in having lots of code if it&#8217;s all rubbish. But that doesn&#8217;t mean that being a two-finger typist is justified either. I&#8217;ve worked with a fair few dudes who type so slow I feel like going to sleep when I sit <em>next</em> to them. I find it quite strange that they don&#8217;t feel compelled to learn to increase their typing speed just so they can get things down quicker. But I digress, this isn&#8217;t about other people, this is about me. I think that I&#8217;m close to having my fingers move as fast as I&#8217;m able to move them. Sure, I need to increase my accuracy, and I know that I could probably get the pace up just a little more, but I doubt I&#8217;ll ever reach the break-neck speeds of the really good typists (and that&#8217;s not just because I&#8217;m writing code instead of normal text). I don&#8217;t know about the rest of you, but the QWERTY keyboard layout can be painful to type on at faster speeds, which isn&#8217;t surprising considering it was designed to slow typists down in the ol&#8217; days. I&#8217;m actually considering the possibility of learning to touch-type using the <a href="http://en.wikipedia.org/wiki/Dvorak_Simplified_Keyboard" title="Dvorak Keyboard" target="_blank">Dvorak</a> keyboard, just to see if the layout changes do actually allow for a decent improvement in typing speeds.</li>
@@ -191,9 +167,9 @@
 </ul>
 
 
-<p>So there you have it. Some of the things that I find frustrating about working from day-to-day. The list is far from exhaustive, in fact there&#8217;s one that I&#8217;ve missed intentionally because it&#8217;s going to be the subject of another post:</p>
+<p>So there you have it. Some of the things that I find frustrating about working from day-to-day. The list is far from exhaustive, in fact there&rsquo;s one that I&rsquo;ve missed intentionally because it&rsquo;s going to be the subject of another post:</p>
 
-<p><strong>The use of all the latest and greatest buzzwords without first determining if it&#8217;s useful to the project.</strong></p>
+<p><strong>The use of all the latest and greatest buzzwords without first determining if it&rsquo;s useful to the project.</strong></p>
 </div>
   
   
@@ -225,16 +201,17 @@
 
 <time datetime="2006-09-18T06:39:00+10:00" pubdate data-updated="true">18 Sep 2006</time>
         
-         | <a href="/posts/weve-moved/#disqus_thread">Comments</a>
+           | <a href="/posts/weve-moved/#disqus_thread"
+             data-disqus-identifier="http://buffered.io/posts/weve-moved/">Comments</a>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Boy that was quick! I&#8217;m sure there&#8217;s still some DNS servers out there that need to be updated, but things certainly moved quickly. Blackapache is now on a new server, and I&#8217;m pretty darned happy with the ease and speed of the move. Not just that, but this new location feels a heck of a lot faster than the old one.</p>
+  <div class="entry-content"><p>Boy that was quick! I&rsquo;m sure there&rsquo;s still some DNS servers out there that need to be updated, but things certainly moved quickly. Blackapache is now on a new server, and I&rsquo;m pretty darned happy with the ease and speed of the move. Not just that, but this new location feels a heck of a lot faster than the old one.</p>
 
-<p>So we&#8217;re back online! Feel free to continue commenting/posting. I&#8217;ll be back later (possibly even later today) with some thoughts on episodic gaming.</p>
+<p>So we&rsquo;re back online! Feel free to continue commenting/posting. I&rsquo;ll be back later (possibly even later today) with some thoughts on episodic gaming.</p>
 </div>
   
   
@@ -266,18 +243,19 @@
 
 <time datetime="2006-09-16T21:13:00+10:00" pubdate data-updated="true">16 Sep 2006</time>
         
-         | <a href="/posts/server-change-imminent/#disqus_thread">Comments</a>
+           | <a href="/posts/server-change-imminent/#disqus_thread"
+             data-disqus-identifier="http://buffered.io/posts/server-change-imminent/">Comments</a>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>In the next couple of days Blackapache is going to be shifting to a new server. There are a few reasons for this, but the main one is the fact that I&#8217;m frustrated and unimpressed with the level of service I&#8217;m getting with the current provider. I&#8217;m not going to directly state who it is, but it&#8217;s pretty easy to find it out ;)</p>
+  <div class="entry-content"><p>In the next couple of days Blackapache is going to be shifting to a new server. There are a few reasons for this, but the main one is the fact that I&rsquo;m frustrated and unimpressed with the level of service I&rsquo;m getting with the current provider. I&rsquo;m not going to directly state who it is, but it&rsquo;s pretty easy to find it out ;)</p>
 
-<p>I&#8217;ll be moving my site, and a couple of others, to a server here in Australia where the speed and quality of service is substantially higher thanks to <a href="http://www.netlogistics.com.au/" title="NetLogistics" target="_blank">NetLogistics</a>. There may be a little bit of down-time during the move (which I&#8217;m not keen on, but there&#8217;s nothing I can do about it - curse you, DNS). So please bear with me while the move is made. I hope we&#8217;ll be back up and running pretty soon.</p>
+<p>I&rsquo;ll be moving my site, and a couple of others, to a server here in Australia where the speed and quality of service is substantially higher thanks to <a href="http://www.netlogistics.com.au/" title="NetLogistics" target="_blank">NetLogistics</a>. There may be a little bit of down-time during the move (which I&rsquo;m not keen on, but there&rsquo;s nothing I can do about it &ndash; curse you, DNS). So please bear with me while the move is made. I hope we&rsquo;ll be back up and running pretty soon.</p>
 
-<p>Cheers, and don&#8217;t go anywhere, we&#8217;ll be back after these short messages&#8230;. :)</p>
+<p>Cheers, and don&rsquo;t go anywhere, we&rsquo;ll be back after these short messages&hellip;. :)</p>
 </div>
   
   
@@ -309,43 +287,44 @@
 
 <time datetime="2006-09-15T15:58:00+10:00" pubdate data-updated="true">15 Sep 2006</time>
         
-         | <a href="/posts/whos-up-for-a-challenge/#disqus_thread">Comments</a>
+           | <a href="/posts/whos-up-for-a-challenge/#disqus_thread"
+             data-disqus-identifier="http://buffered.io/posts/whos-up-for-a-challenge/">Comments</a>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Before starting this blog up, I spent a bit of time thinking about the kind of things I would like to talk about which other people might find interesting. I also wanted to find some areas of discussion where people would be interested in giving me feedback and comments containing their thoughts and opinions so that I can learn something and possibly benefit from other people&#8217;s experience. While this is all very enlightening, it can be fun and it can be, shall we say, political.</p>
+  <div class="entry-content"><p>Before starting this blog up, I spent a bit of time thinking about the kind of things I would like to talk about which other people might find interesting. I also wanted to find some areas of discussion where people would be interested in giving me feedback and comments containing their thoughts and opinions so that I can learn something and possibly benefit from other people&rsquo;s experience. While this is all very enlightening, it can be fun and it can be, shall we say, political.</p>
 
-<p>So as well as having lots of industry-specific rants, posts on what&#8217;s considered good and bad, and large chunks of text relating to experiences while out on site working for clients, I thought it&#8217;d be a good thing to post some other bits and pieces that are a bit more light hearted, and dare I say it&#8230; FUN!</p>
+<p>So as well as having lots of industry-specific rants, posts on what&rsquo;s considered good and bad, and large chunks of text relating to experiences while out on site working for clients, I thought it&rsquo;d be a good thing to post some other bits and pieces that are a bit more light hearted, and dare I say it&hellip; FUN!</p>
 
-<p>Way back before I went to the U.K. I used to have a site up and running that had a small community of people interested in programming - specifically game development. While this site is long gone, never to be remembered, there were a few things that we used to do there which I thought were really good. One of which was listing programming challenges. Every now and then I&#8217;d come up with (or rip off) a programming challenge that I thought would be a good exercise for members of the community to undertake. It was surprising how many people were interested, and we ended up with many responses and submissions containing solutions to the problems.</p>
+<p>Way back before I went to the U.K. I used to have a site up and running that had a small community of people interested in programming &ndash; specifically game development. While this site is long gone, never to be remembered, there were a few things that we used to do there which I thought were really good. One of which was listing programming challenges. Every now and then I&rsquo;d come up with (or rip off) a programming challenge that I thought would be a good exercise for members of the community to undertake. It was surprising how many people were interested, and we ended up with many responses and submissions containing solutions to the problems.</p>
 
-<p>The beauty of it was that people learned a lot from the exercise - especially from each other&#8217;s varied approaches. They would come up with a solution and be eager to post it. After noticing that someone else had created a &#8220;better&#8221; solution than them, members would go away and try and improve what they had. It was great, as it bred a mindset of iteration and improvement, and over time most of the community members ended up being comfortable with the idea that their first solution generally isn&#8217;t perfect and they immediately look to make it better.</p>
+<p>The beauty of it was that people learned a lot from the exercise &ndash; especially from each other&rsquo;s varied approaches. They would come up with a solution and be eager to post it. After noticing that someone else had created a &ldquo;better&rdquo; solution than them, members would go away and try and improve what they had. It was great, as it bred a mindset of iteration and improvement, and over time most of the community members ended up being comfortable with the idea that their first solution generally isn&rsquo;t perfect and they immediately look to make it better.</p>
 
-<p>I&#8217;m of the view that the first solution that you write to solve a given problem is designed to give you a better understanding of the problem space. Sure, it&#8217;s not always the case that you can throw away the code you&#8217;ve written (depending on what you&#8217;re working on, and what timelines you have to adhere to), but if you can it&#8217;s a good idea to do it and start again fresh with the knowledge you&#8217;ve gained from your first attempt.</p>
+<p>I&rsquo;m of the view that the first solution that you write to solve a given problem is designed to give you a better understanding of the problem space. Sure, it&rsquo;s not always the case that you can throw away the code you&rsquo;ve written (depending on what you&rsquo;re working on, and what timelines you have to adhere to), but if you can it&rsquo;s a good idea to do it and start again fresh with the knowledge you&rsquo;ve gained from your first attempt.</p>
 
-<p>I would like to get this type of thing going again. I&#8217;m going to get some ideas together for problems and start posting them here for other people to have a stab at. I&#8217;ll be giving some of them a go as well, and if people are interested in sharing their solutions and discussing them, they can post their solutions as comments. If the idea becomes popular and the number of submissions goes up, then I may think about setting up a basic <em>Coding Challenges</em> forum for the discussion and submission of the problems and solutions. If people don&#8217;t like it, I&#8217;ll probably continue to post them anyway just in case someone at some stage finds them as interesting as I do :) If anyone&#8217;s interested in seeing my solution, then I&#8217;d be happy to post it.</p>
+<p>I would like to get this type of thing going again. I&rsquo;m going to get some ideas together for problems and start posting them here for other people to have a stab at. I&rsquo;ll be giving some of them a go as well, and if people are interested in sharing their solutions and discussing them, they can post their solutions as comments. If the idea becomes popular and the number of submissions goes up, then I may think about setting up a basic <em>Coding Challenges</em> forum for the discussion and submission of the problems and solutions. If people don&rsquo;t like it, I&rsquo;ll probably continue to post them anyway just in case someone at some stage finds them as interesting as I do :) If anyone&rsquo;s interested in seeing my solution, then I&rsquo;d be happy to post it.</p>
 
-<p>The problems themselves will most likely be small. I won&#8217;t be suggesting that people should go away and write a 3D rendering engine just to see the frames-per-second they can achieve on a 386! The problems will have a very small scope - meaning that solutions can be built quickly, and people won&#8217;t feel that they need to put a massive amount of time in to get the results required. Hopefully they&#8217;ll be quite challenging despite being small in stature.</p>
+<p>The problems themselves will most likely be small. I won&rsquo;t be suggesting that people should go away and write a 3D rendering engine just to see the frames-per-second they can achieve on a 386! The problems will have a very small scope &ndash; meaning that solutions can be built quickly, and people won&rsquo;t feel that they need to put a massive amount of time in to get the results required. Hopefully they&rsquo;ll be quite challenging despite being small in stature.</p>
 
-<p>One thing I will attempt to do when writing these problems up is make sure that the specification forces the programmer to do as much of the work as possible - without relying on the supporting framework or library set that comes with the language. In general the problems will not have a target language (or language set), but there may be cases where I state that the problem is intended to be solved using C++ or Miranda!</p>
+<p>One thing I will attempt to do when writing these problems up is make sure that the specification forces the programmer to do as much of the work as possible &ndash; without relying on the supporting framework or library set that comes with the language. In general the problems will not have a target language (or language set), but there may be cases where I state that the problem is intended to be solved using C++ or Miranda!</p>
 
-<p>I hope that you&#8217;ll find the challenges interesting, and that you&#8217;ll perhaps find the time to give a few of them a go to exercise the mind. I think some of them will be more useful to beginners learning the ropes of development, but I can&#8217;t see why experienced programmers shouldn&#8217;t give them a shot. There&#8217;s always the possibility that we&#8217;ll learn <em>something</em>.</p>
+<p>I hope that you&rsquo;ll find the challenges interesting, and that you&rsquo;ll perhaps find the time to give a few of them a go to exercise the mind. I think some of them will be more useful to beginners learning the ropes of development, but I can&rsquo;t see why experienced programmers shouldn&rsquo;t give them a shot. There&rsquo;s always the possibility that we&rsquo;ll learn <em>something</em>.</p>
 
-<p>So let&#8217;s begin with the first one that&#8217;s popped into my head. It&#8217;s a bit of a classic problem, but there&#8217;s still a chance that people out there might not have heard it before - or more importantly attempted to solve it themselves in code. I first heard about this problem through a friend of a friend of a friend of a &#8230; you get the idea ;)</p>
+<p>So let&rsquo;s begin with the first one that&rsquo;s popped into my head. It&rsquo;s a bit of a classic problem, but there&rsquo;s still a chance that people out there might not have heard it before &ndash; or more importantly attempted to solve it themselves in code. I first heard about this problem through a friend of a friend of a friend of a &hellip; you get the idea ;)</p>
 
-<p><strong><u>Challenge #1 - Linked List Loops</u></strong></p>
+<p><strong><u>Challenge #1 &ndash; Linked List Loops</u></strong></p>
 
 <blockquote>&#8220;What do you think is the most efficient and resource-friendly way to determine if a singly-linked-list contains a loop?&#8221;</blockquote>
 
 
-<p>When you have an instance of a linked list, it is usually <strong>NULL-terminated</strong>, that is, the last reference is a NULL reference which tells you that the end of the list has been found. The question asks how you determine if the list is <em>not</em> NULL-terminated, instead the &#8220;last&#8221; item in the list points back to another item in the list (thus creating a loop in the list).</p>
+<p>When you have an instance of a linked list, it is usually <strong>NULL-terminated</strong>, that is, the last reference is a NULL reference which tells you that the end of the list has been found. The question asks how you determine if the list is <em>not</em> NULL-terminated, instead the &ldquo;last&rdquo; item in the list points back to another item in the list (thus creating a loop in the list).</p>
 
-<p>To solve this problem you will need to have an understanding of <a href="http://en.wikipedia.org/wiki/Linked_list#Singly-linked_list" title="Singly-linked list" target="_blank">Singly-linked lists</a>. You don&#8217;t need to write code, I&#8217;m just interested in the algorithm you&#8217;d use.</p>
+<p>To solve this problem you will need to have an understanding of <a href="http://en.wikipedia.org/wiki/Linked_list#Singly-linked_list" title="Singly-linked list" target="_blank">Singly-linked lists</a>. You don&rsquo;t need to write code, I&rsquo;m just interested in the algorithm you&rsquo;d use.</p>
 
-<p>Sounds easy, and there are quite a few ways of doing it. So give it a shot! I&#8217;m interested to see what you guys come up with.</p>
+<p>Sounds easy, and there are quite a few ways of doing it. So give it a shot! I&rsquo;m interested to see what you guys come up with.</p>
 
 <p>Happy problem solving!</p>
 </div>
@@ -379,7 +358,8 @@
 
 <time datetime="2006-09-14T13:50:00+10:00" pubdate data-updated="true">14 Sep 2006</time>
         
-         | <a href="/posts/are-you-any-good/#disqus_thread">Comments</a>
+           | <a href="/posts/are-you-any-good/#disqus_thread"
+             data-disqus-identifier="http://buffered.io/posts/are-you-any-good/">Comments</a>
         
       </p>
     
@@ -388,44 +368,44 @@
 
   <div class="entry-content"><p>I was trundling through my usual collection of daily links yesterday morning (before diving into my work), and I stumbled on a link to a <a href="http://peterwright.blogspot.com/2006/09/good-bye-microsoft-pete-has-now-left.html" target="_blank" title=" Strange new worlds, and programming languages...">recent blog post</a> by a chap called Peter Wright. There are a couple of reasons why this blog post caught my eye.</p>
 
-<p>First of all, during my time in the U.K. over the last couple of years, I worked for a company in London that Peter also worked at. I&#8217;d been at the company for a few months doing some contract work when Peter was taken on board. No doubt Peter wouldn&#8217;t know me from a bar of soap, such as the nature of people who are too focussed on their own egos than the people they work with. I, however, remember him for a few reasons. More on this later.</p>
+<p>First of all, during my time in the U.K. over the last couple of years, I worked for a company in London that Peter also worked at. I&rsquo;d been at the company for a few months doing some contract work when Peter was taken on board. No doubt Peter wouldn&rsquo;t know me from a bar of soap, such as the nature of people who are too focussed on their own egos than the people they work with. I, however, remember him for a few reasons. More on this later.</p>
 
-<p>Secondly, the content of the blog was primarily a blast at Microsoft for apparently letting him down, a blast at those he perceives to be &#8220;muppets&#8221;, and a generic whinge about not being recognised or valued - which (surprise surprise) got me thinking :D</p>
+<p>Secondly, the content of the blog was primarily a blast at Microsoft for apparently letting him down, a blast at those he perceives to be &ldquo;muppets&rdquo;, and a generic whinge about not being recognised or valued &ndash; which (surprise surprise) got me thinking :D</p>
 
-<p>So, a bit of background. I was never formally introduced to Peter at any point. In fact, the attitude that Peter had while at work was that everyone should automatically know who he is without a need for introduction. This was immediately apparent the day he was called to stand up in front of the I.T. team and introduce himself.  I can&#8217;t quite recollect the exact comment but it went something like this:<blockquote>Hello, I&#8217;m Peter Wright.  For those of you who don&#8217;t know me, I did X, Y and Z for A, B and C, I&#8217;ve written 11 books and I&#8217;m here as a <em>insert job title here</em> to make sure you&#8217;re doing J, K and I correctly.</blockquote>Interesting. Truth be told, I did know Peter&#8217;s name through some of his books - books I had avoided looking through due to their apparent &#8220;Visual Basic rules the world&#8221; focus (I say <em>apparent</em> because I never read them - the plethora of online reviews of his work are what make me think that).</p>
+<p>So, a bit of background. I was never formally introduced to Peter at any point. In fact, the attitude that Peter had while at work was that everyone should automatically know who he is without a need for introduction. This was immediately apparent the day he was called to stand up in front of the I.T. team and introduce himself.  I can&rsquo;t quite recollect the exact comment but it went something like this:<blockquote>Hello, I&rsquo;m Peter Wright.  For those of you who don&rsquo;t know me, I did X, Y and Z for A, B and C, I&rsquo;ve written 11 books and I&rsquo;m here as a <em>insert job title here</em> to make sure you&rsquo;re doing J, K and I correctly.</blockquote>Interesting. Truth be told, I did know Peter&rsquo;s name through some of his books &ndash; books I had avoided looking through due to their apparent &ldquo;Visual Basic rules the world&rdquo; focus (I say <em>apparent</em> because I never read them &ndash; the plethora of online reviews of his work are what make me think that).</p>
 
-<p>The first thing I thought when I heard his little speech was &#8220;you pompous b*stard!&#8221;. The man was obviously enjoying riding the waves of MyEgo beach in Wrightland. From that point on my perception of Peter was clouded and I couldn&#8217;t help but think that he wasn&#8217;t here because he wanted to really achieve great things in software (particularly not the software we were working on). It seemed to me he was here to throw his ample professional weight around.</p>
+<p>The first thing I thought when I heard his little speech was &ldquo;you pompous b*stard!&rdquo;. The man was obviously enjoying riding the waves of MyEgo beach in Wrightland. From that point on my perception of Peter was clouded and I couldn&rsquo;t help but think that he wasn&rsquo;t here because he wanted to really achieve great things in software (particularly not the software we were working on). It seemed to me he was here to throw his ample professional weight around.</p>
 
-<p>The following weeks were crammed with Peter acting like the &#8220;biggest showoff since Lady Godiva entered the Royal Enclosure at Ascot claiming she had literally nothing to wear&#8221;. In my (very) few dealings with him he wasn&#8217;t anywhere near as open to ideas as he makes himself out to be in his blog post. Perhaps this is because I hadn&#8217;t yet &#8220;gained the respect of the man&#8221; (something I would never be destined to do as I was working in the trenches with the guys on the code, and generally not preaching as a technical evangelist in the meetings of the mighty)? Perhaps it was because when I did deal with him I didn&#8217;t show that I was profoundly amazed and grateful that I was allowed to even enjoy the mere prescence of this apparent supernatural talent? Perhaps it was because I gave the impression that I would judge him by the work that he was going to be doing and not by the fact that he&#8217;d made a mint selling VB books? Who knows?! I certainly don&#8217;t, and I doubt I ever will. Another question I doubt I&#8217;ll ever get an answer to is &#8220;Why on Earth was a supposed coding genius and highly-successful author working at <em>this</em> company in <em>this</em> role?!&#8221;. I smell something fishy, and I&#8217;m not talking about the contents of Baldrick&#8217;s apple crumble! [<a href="http://www.imdb.com/title/tt0758160/quotes" title="I've always loved this Blackadder quote" target="_blank">*</a>]</p>
+<p>The following weeks were crammed with Peter acting like the &ldquo;biggest showoff since Lady Godiva entered the Royal Enclosure at Ascot claiming she had literally nothing to wear&rdquo;. In my (very) few dealings with him he wasn&rsquo;t anywhere near as open to ideas as he makes himself out to be in his blog post. Perhaps this is because I hadn&rsquo;t yet &ldquo;gained the respect of the man&rdquo; (something I would never be destined to do as I was working in the trenches with the guys on the code, and generally not preaching as a technical evangelist in the meetings of the mighty)? Perhaps it was because when I did deal with him I didn&rsquo;t show that I was profoundly amazed and grateful that I was allowed to even enjoy the mere prescence of this apparent supernatural talent? Perhaps it was because I gave the impression that I would judge him by the work that he was going to be doing and not by the fact that he&rsquo;d made a mint selling VB books? Who knows?! I certainly don&rsquo;t, and I doubt I ever will. Another question I doubt I&rsquo;ll ever get an answer to is &ldquo;Why on Earth was a supposed coding genius and highly-successful author working at <em>this</em> company in <em>this</em> role?!&rdquo;. I smell something fishy, and I&rsquo;m not talking about the contents of Baldrick&rsquo;s apple crumble! [<a href="http://www.imdb.com/title/tt0758160/quotes" title="I've always loved this Blackadder quote" target="_blank">*</a>]</p>
 
-<p>I know a couple of the people that Peter mentioned in his blog, and I completely disagree with is assessment of them. That may sound harsh, but it&#8217;s an honest opinion. I believe the main reason that these guys are getting special mentions is due to the fact that they are both Microsoft &#8216;yes&#8217; men who don&#8217;t do anything unless Microsoft tell them to. This just happened to be exactly the way Mr Wright was working at the time. Their interests were aligned, and they bigged and backed each other up as much as they could because it pushed their cause forward. Did any of them really think that their fellow evangelists were any good? I don&#8217;t think they cared. I am speculating here - I was fortunate enough to only suffer one, maybe two, of the chest-beating sessions&#8230; oops.. I mean meetings.</p>
+<p>I know a couple of the people that Peter mentioned in his blog, and I completely disagree with is assessment of them. That may sound harsh, but it&rsquo;s an honest opinion. I believe the main reason that these guys are getting special mentions is due to the fact that they are both Microsoft &lsquo;yes&rsquo; men who don&rsquo;t do anything unless Microsoft tell them to. This just happened to be exactly the way Mr Wright was working at the time. Their interests were aligned, and they bigged and backed each other up as much as they could because it pushed their cause forward. Did any of them really think that their fellow evangelists were any good? I don&rsquo;t think they cared. I am speculating here &ndash; I was fortunate enough to only suffer one, maybe two, of the chest-beating sessions&hellip; oops.. I mean meetings.</p>
 
-<p><strong><u>Enough already.. what&#8217;s the point?!</u></strong></p>
+<p><strong><u>Enough already.. what&rsquo;s the point?!</u></strong></p>
 
-<p>So, to the point(s) of the post! Does your reputation in the I.T. world precede you? If you&#8217;re really good will people know it without you having to tell them? Is it true that &#8220;If by his work the master known&#8221;?</p>
+<p>So, to the point(s) of the post! Does your reputation in the I.T. world precede you? If you&rsquo;re really good will people know it without you having to tell them? Is it true that &ldquo;If by his work the master known&rdquo;?</p>
 
-<p>I tend to stick with the last option. I personally believe that when it comes to being a professional, your ability and your level of work will be shown after you&#8217;ve put the effort in. If you&#8217;re good, your colleagues will know you&#8217;re good. If you&#8217;re shit, they&#8217;ll know you&#8217;re shit.</p>
+<p>I tend to stick with the last option. I personally believe that when it comes to being a professional, your ability and your level of work will be shown after you&rsquo;ve put the effort in. If you&rsquo;re good, your colleagues will know you&rsquo;re good. If you&rsquo;re shit, they&rsquo;ll know you&rsquo;re shit.</p>
 
-<p>Now, I&#8217;ve worked with quite a few people over the course of my career to date. There are very few (and I do mean <em>very few</em>!) that stand out because they&#8217;re really good. Absolutely <strong>none</strong> of those people have attempted in any way to tell me how good they are - their work speaks for them. On the opposite side of the coin, every person that I have considered to be <strong>absolute shit</strong> have in one way or another attempted to make themselves out to be some form of software development genius. Between these two categories is a selection of people who are mediocre and are just happy to have a job! They do their thing day in day out and just attempt to stay off the radar.</p>
+<p>Now, I&rsquo;ve worked with quite a few people over the course of my career to date. There are very few (and I do mean <em>very few</em>!) that stand out because they&rsquo;re really good. Absolutely <strong>none</strong> of those people have attempted in any way to tell me how good they are &ndash; their work speaks for them. On the opposite side of the coin, every person that I have considered to be <strong>absolute shit</strong> have in one way or another attempted to make themselves out to be some form of software development genius. Between these two categories is a selection of people who are mediocre and are just happy to have a job! They do their thing day in day out and just attempt to stay off the radar.</p>
 
-<p>The whole issue of &#8220;earning your stripes&#8221; is one that we, as professionals, will face every time we move on to a different contrat/job/position/etc. Sure, I&#8217;d love it if people knew that I worked on X which did really well and were looking forward to working with me as a result. At the end of the day, you&#8217;re only as good as your last performance - and if you suck at what you&#8217;re doing then the people around you will think you suck regardless of what you&#8217;ve done in the past. I will strive to show people how good I am through the work that I do, and not through any other means. I will not ram my past down other people&#8217;s throats, nor will I assume that my delivery of SuperDuperSoftware v10.0 has any bearing on what I&#8217;m going to be doing for future clients.</p>
+<p>The whole issue of &ldquo;earning your stripes&rdquo; is one that we, as professionals, will face every time we move on to a different contrat/job/position/etc. Sure, I&rsquo;d love it if people knew that I worked on X which did really well and were looking forward to working with me as a result. At the end of the day, you&rsquo;re only as good as your last performance &ndash; and if you suck at what you&rsquo;re doing then the people around you will think you suck regardless of what you&rsquo;ve done in the past. I will strive to show people how good I am through the work that I do, and not through any other means. I will not ram my past down other people&rsquo;s throats, nor will I assume that my delivery of SuperDuperSoftware v10.0 has any bearing on what I&rsquo;m going to be doing for future clients.</p>
 
-<p>I look forward to meeting more of you who know that your past, while not totally irrelevant, is <em>not</em> as significant as what it is you&#8217;ll do the in future. Development is about moving forward, being on the cutting-edge, making some amazing shit happen! Not about stagnating and dwelling on the past.</p>
+<p>I look forward to meeting more of you who know that your past, while not totally irrelevant, is <em>not</em> as significant as what it is you&rsquo;ll do the in future. Development is about moving forward, being on the cutting-edge, making some amazing shit happen! Not about stagnating and dwelling on the past.</p>
 
-<p>But what is it that really makes you a good software professional? Is it the code you right? Is it the way you conduct yourself while on-site? Is it your vast knowledge of your domain? Is it your ability to apply things you do know to problems you haven&#8217;t previously encountered resulting in a solution?</p>
+<p>But what is it that really makes you a good software professional? Is it the code you right? Is it the way you conduct yourself while on-site? Is it your vast knowledge of your domain? Is it your ability to apply things you do know to problems you haven&rsquo;t previously encountered resulting in a solution?</p>
 
-<p>I think it&#8217;s probably a mixture of all of these. Note that chest-beating and technical evangelism doesn&#8217;t make an appearance. If you&#8217;re good:<ul>
-<li>&#8230; you know that you don&#8217;t know everything.</li>
-<li>&#8230; you know that because you don&#8217;t know everything there is always a chance to learn more and better yourself.</li>
-<li>&#8230; you don&#8217;t see other good people as a threat, you see them as an opportunity to help produce something even better than what you would by yourself.</li>
-<li>&#8230; you don&#8217;t view yourself as the &#8220;canine&#8217;s genetalia&#8221;, instead you find yourself frustrated at other people&#8217;s lack of competance.</li>
-<li>&#8230; you don&#8217;t spend time whinging about the work involved or that the client is a pain in the arse, instead you focus on solving the problems and getting on with the job regardless of the obstacles.</li>
-<li>&#8230; you listen to what other people have to say, take it on board and use it to improve that which you already have instead of assuming that your view is correct.</li>
-<li>&#8230; you pick up the slack and solve the problem regardless of who made the mistake.</li></ul>Rob recently posted something interesting over on his blog that he titled <a href="http://www.softwarebyrob.com/articles/Personality_Traits_of_the_Best_Software_Developers.aspx" title="The Personality Traits of the Best Developers" target="_blank">The Personality Traits of the Best Developers</a>, which in a few ways relates to what I am saying.  Even though he&#8217;s talking about developers, I think that the attributes can be applied to almost any industry.</p>
+<p>I think it&rsquo;s probably a mixture of all of these. Note that chest-beating and technical evangelism doesn&rsquo;t make an appearance. If you&rsquo;re good:<ul>
+<li>&hellip; you know that you don&rsquo;t know everything.</li>
+<li>&hellip; you know that because you don&rsquo;t know everything there is always a chance to learn more and better yourself.</li>
+<li>&hellip; you don&rsquo;t see other good people as a threat, you see them as an opportunity to help produce something even better than what you would by yourself.</li>
+<li>&hellip; you don&rsquo;t view yourself as the &ldquo;canine&rsquo;s genetalia&rdquo;, instead you find yourself frustrated at other people&rsquo;s lack of competance.</li>
+<li>&hellip; you don&rsquo;t spend time whinging about the work involved or that the client is a pain in the arse, instead you focus on solving the problems and getting on with the job regardless of the obstacles.</li>
+<li>&hellip; you listen to what other people have to say, take it on board and use it to improve that which you already have instead of assuming that your view is correct.</li>
+<li>&hellip; you pick up the slack and solve the problem regardless of who made the mistake.</li></ul>Rob recently posted something interesting over on his blog that he titled <a href="http://www.softwarebyrob.com/articles/Personality_Traits_of_the_Best_Software_Developers.aspx" title="The Personality Traits of the Best Developers" target="_blank">The Personality Traits of the Best Developers</a>, which in a few ways relates to what I am saying.  Even though he&rsquo;s talking about developers, I think that the attributes can be applied to almost any industry.</p>
 
-<p>I now have to resist the temptation to cover some thoughts on how to determine whether or not someone is good in an interview - to me it&#8217;s a bit of a black art that I don&#8217;t think I&#8217;ve nailed. I&#8217;ll talk about this is another posting down the track :)</p>
+<p>I now have to resist the temptation to cover some thoughts on how to determine whether or not someone is good in an interview &ndash; to me it&rsquo;s a bit of a black art that I don&rsquo;t think I&rsquo;ve nailed. I&rsquo;ll talk about this is another posting down the track :)</p>
 
-<p>As a final note: Peter - I&#8217;m glad you&#8217;ve moved on :D At least now you&#8217;re in a new world where you finally have to admit you don&#8217;t know everything. Take this opportunity to wind your neck in. People all over the world switch back and forth between Microsoft, Linux and Apple <em>all the time</em>, and we care about your movements almost as much as we care about their&#8217;s - that is, not at all.</p>
+<p>As a final note: Peter &ndash; I&rsquo;m glad you&rsquo;ve moved on :D At least now you&rsquo;re in a new world where you finally have to admit you don&rsquo;t know everything. Take this opportunity to wind your neck in. People all over the world switch back and forth between Microsoft, Linux and Apple <em>all the time</em>, and we care about your movements almost as much as we care about their&rsquo;s &ndash; that is, not at all.</p>
 </div>
   
   
@@ -457,7 +437,8 @@
 
 <time datetime="2006-09-12T22:35:00+10:00" pubdate data-updated="true">12 Sep 2006</time>
         
-         | <a href="/posts/is-an-ide-all-its-cracked-up-to-be/#disqus_thread">Comments</a>
+           | <a href="/posts/is-an-ide-all-its-cracked-up-to-be/#disqus_thread"
+             data-disqus-identifier="http://buffered.io/posts/is-an-ide-all-its-cracked-up-to-be/">Comments</a>
         
       </p>
     
@@ -468,27 +449,27 @@
 
 <p>IMHO, this argument is very much a Linux vs Windows style argument.</p>
 
-<p>To those long term VIM and Emacs users, there&#8217;s no reason to go an IDE like Visual Studio. Both of those editors are customisable, flexible and support a plethora of plugins and utilies. They even support a scripting language which lets you add your own special functionality.  While it may not be supported &#8220;out of the box&#8221;, you can have features such as <a href="http://en.wikipedia.org/wiki/Intellisense" title="Intellisense - Wikipedia" target="_blank">intellisense</a>, debugging support and source code browsing. They both work on lots of platforms - actually, they&#8217;re usually installed by default on quite a few Linux distributions. They also cost you nothing, zip, nada, nought and stuff all. I this this last point tends to be a winner - especially to those in the open-source and free software camps.  The power of these applications is not to be underestimated - there&#8217;s little they can&#8217;t do or can&#8217;t be made to do.</p>
+<p>To those long term VIM and Emacs users, there&rsquo;s no reason to go an IDE like Visual Studio. Both of those editors are customisable, flexible and support a plethora of plugins and utilies. They even support a scripting language which lets you add your own special functionality.  While it may not be supported &ldquo;out of the box&rdquo;, you can have features such as <a href="http://en.wikipedia.org/wiki/Intellisense" title="Intellisense - Wikipedia" target="_blank">intellisense</a>, debugging support and source code browsing. They both work on lots of platforms &ndash; actually, they&rsquo;re usually installed by default on quite a few Linux distributions. They also cost you nothing, zip, nada, nought and stuff all. I this this last point tends to be a winner &ndash; especially to those in the open-source and free software camps.  The power of these applications is not to be underestimated &ndash; there&rsquo;s little they can&rsquo;t do or can&rsquo;t be made to do.</p>
 
-<p>To those long term IDE junkies who have lived their lives in Visual Studio and/or <a href="http://www.borland.com/bcppbuilder/" title="Borland IDE" target="_blank">Borland IDE</a>, the comfort of the tool coverage in a single window is something that can&#8217;t be missed.  The IDEs contain a plethora of information and features - source browsing, project support, generation of makefiles, in-built debugging with call-stack and memory views, intellisense, <a href="http://en.wikipedia.org/wiki/Software_Configuration_Management" title="Software Configuration Management" target="_blank">SCM</a> integration, etc. Some even make the tea!</p>
+<p>To those long term IDE junkies who have lived their lives in Visual Studio and/or <a href="http://www.borland.com/bcppbuilder/" title="Borland IDE" target="_blank">Borland IDE</a>, the comfort of the tool coverage in a single window is something that can&rsquo;t be missed.  The IDEs contain a plethora of information and features &ndash; source browsing, project support, generation of makefiles, in-built debugging with call-stack and memory views, intellisense, <a href="http://en.wikipedia.org/wiki/Software_Configuration_Management" title="Software Configuration Management" target="_blank">SCM</a> integration, etc. Some even make the tea!</p>
 
 <p>Well, not really.</p>
 
-<p>So who wins? What&#8217;s the point of going for one instead of the other?  Of course, my list of editors and IDEs is far from exhaustive, but the ones mentioned are the ones that most people will know about and have an opinion on (so you&#8217;re by no means constrained to this pitiful list! :)).</p>
+<p>So who wins? What&rsquo;s the point of going for one instead of the other?  Of course, my list of editors and IDEs is far from exhaustive, but the ones mentioned are the ones that most people will know about and have an opinion on (so you&rsquo;re by no means constrained to this pitiful list! :)).</p>
 
-<p>One of the things that stands against the likes of VIM and Emacs is that they&#8217;re both very tough to learn. Initially, the interface and shortcuts are very hard to grasp, and it feels like it takes an ice-age to get anything done.  <strong>Time</strong> is something that is required to fully realise the power of these tools.  IDEs tend to be a lot more intuitive (note the word <em>tend</em>), and people are generally able to get up to speed with using them in a fairly short period of time.</p>
+<p>One of the things that stands against the likes of VIM and Emacs is that they&rsquo;re both very tough to learn. Initially, the interface and shortcuts are very hard to grasp, and it feels like it takes an ice-age to get anything done.  <strong>Time</strong> is something that is required to fully realise the power of these tools.  IDEs tend to be a lot more intuitive (note the word <em>tend</em>), and people are generally able to get up to speed with using them in a fairly short period of time.</p>
 
-<p>Personally, I can see a lot of value in both.  I try to do development work on a variety of platforms (my current targets are Windows XP x64 / x86 and Gentoo Linux AMD64), which doesn&#8217;t make an IDE such as Visual Studio an option for me despite the fact that it does make debugging applications an absolute breeze. I (try to) use VIM as much as I can but I find myself getting frustrated because I&#8217;m still not yet at that point where I don&#8217;t have to think about the shortcuts before I use them. I also find that since I&#8217;ve had to use Visual Studio so often in my day job as a contractor that I&#8217;m very used to this IDE as a development tool, which again makes me frustrated when dealing with VIM as I know I&#8217;d be able to use Visual Studio a lot quicker.</p>
+<p>Personally, I can see a lot of value in both.  I try to do development work on a variety of platforms (my current targets are Windows XP x64 / x86 and Gentoo Linux AMD64), which doesn&rsquo;t make an IDE such as Visual Studio an option for me despite the fact that it does make debugging applications an absolute breeze. I (try to) use VIM as much as I can but I find myself getting frustrated because I&rsquo;m still not yet at that point where I don&rsquo;t have to think about the shortcuts before I use them. I also find that since I&rsquo;ve had to use Visual Studio so often in my day job as a contractor that I&rsquo;m very used to this IDE as a development tool, which again makes me frustrated when dealing with VIM as I know I&rsquo;d be able to use Visual Studio a lot quicker.</p>
 
-<p>This isn&#8217;t putting me off though. I know from dealing with so many different people at work that VIM really can give you a huge productivity boost.  This reason alone is enough to make me continue trying to learn it, although I&#8217;m sure there are many others.  I like the idea that I can have a single editor that I&#8217;m familiar with that works on any development platform that I might find myself using - and not just a single editor, but one that has a great deal of power (as opposed to the likes of <a href="http://www.nano-editor.org/" title="Nano editor" target="_blank">nano</a>).</p>
+<p>This isn&rsquo;t putting me off though. I know from dealing with so many different people at work that VIM really can give you a huge productivity boost.  This reason alone is enough to make me continue trying to learn it, although I&rsquo;m sure there are many others.  I like the idea that I can have a single editor that I&rsquo;m familiar with that works on any development platform that I might find myself using &ndash; and not just a single editor, but one that has a great deal of power (as opposed to the likes of <a href="http://www.nano-editor.org/" title="Nano editor" target="_blank">nano</a>).</p>
 
-<p>So where am I goingn with this rant? The answer is simple - where is the editor that encompasses all these features? Why am I yet to find an IDE with the text-editing capabilities of VIM? Yes, I&#8217;m aware of some psuedo-plugins that make VIM work in Visual studio, but it just doesn&#8217;t nail it.  We need a cross-platform IDE that contains the power, speed, and text-editing capabilities of VIM, and the ease of debugging that comes with Visual Studio.</p>
+<p>So where am I goingn with this rant? The answer is simple &ndash; where is the editor that encompasses all these features? Why am I yet to find an IDE with the text-editing capabilities of VIM? Yes, I&rsquo;m aware of some psuedo-plugins that make VIM work in Visual studio, but it just doesn&rsquo;t nail it.  We need a cross-platform IDE that contains the power, speed, and text-editing capabilities of VIM, and the ease of debugging that comes with Visual Studio.</p>
 
-<p>My image of a development studio might seem a little skewed, in fact I can&#8217;t really picture in my mind what would make an IDE the perfect IDE.  <a href="http://www.codeproject.com/useritems/Visual_Studio_2020.asp" title="Visual Studio 2020 (non-Microsoft)" target="_blank">This guy</a> attempted to put his thoughts down on paper on what things should be like in the future, but I&#8217;m not sure he&#8217;s nailed it.</p>
+<p>My image of a development studio might seem a little skewed, in fact I can&rsquo;t really picture in my mind what would make an IDE the perfect IDE.  <a href="http://www.codeproject.com/useritems/Visual_Studio_2020.asp" title="Visual Studio 2020 (non-Microsoft)" target="_blank">This guy</a> attempted to put his thoughts down on paper on what things should be like in the future, but I&rsquo;m not sure he&rsquo;s nailed it.</p>
 
-<p>What I do know is this - we have a <em>long</em> way to go before we get to development tool utopia. VIM and Emacs do lack some of the development ease of Visual Studio with regards to debugging, and on the flip side Visual Studio&#8217;s text-editing just bites compared to the power of VIM/Emacs.  I hope that someone somewhere somehow manages to bring it all together - as that means I don&#8217;t have to do it :)</p>
+<p>What I do know is this &ndash; we have a <em>long</em> way to go before we get to development tool utopia. VIM and Emacs do lack some of the development ease of Visual Studio with regards to debugging, and on the flip side Visual Studio&rsquo;s text-editing just bites compared to the power of VIM/Emacs.  I hope that someone somewhere somehow manages to bring it all together &ndash; as that means I don&rsquo;t have to do it :)</p>
 
-<p>If any of you have any thoughts or links on the text editors and development environments you use and feel are good, then I&#8217;d love to hear about them. Until I find something more worthy, it&#8217;ll continue to be VIM and Visual Studio for me :D</p>
+<p>If any of you have any thoughts or links on the text editors and development environments you use and feel are good, then I&rsquo;d love to hear about them. Until I find something more worthy, it&rsquo;ll continue to be VIM and Visual Studio for me :D</p>
 </div>
   
   
@@ -520,16 +501,17 @@
 
 <time datetime="2006-09-12T21:49:00+10:00" pubdate data-updated="true">12 Sep 2006</time>
         
-         | <a href="/posts/minority-report-becomes-reality/#disqus_thread">Comments</a>
+           | <a href="/posts/minority-report-becomes-reality/#disqus_thread"
+             data-disqus-identifier="http://buffered.io/posts/minority-report-becomes-reality/">Comments</a>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>I was hoping to find a little more time this evening to write up some thoughts about Enterprise Application Development but that&#8217;s going to have to wait since it&#8217;s getting late and I have to be up early in the morning.</p>
+  <div class="entry-content"><p>I was hoping to find a little more time this evening to write up some thoughts about Enterprise Application Development but that&rsquo;s going to have to wait since it&rsquo;s getting late and I have to be up early in the morning.</p>
 
-<p>So for now, I think all of you would enjoy taking a peek at something a good mate of mine in the U.K. (Mark Webster) pointed me at earlier today.  It&#8217;s a YouTube video called <a href="http://www.youtube.com/watch?v=PLhMVNdplJc&NR" target="_blank" title="Minority Report becomes reality">Minority Report becomes reality</a>. Absolutely fascinating! It&#8217;s nice to think that we&#8217;ve got people working on some funky new ways for us to interact with our machines. I hope that brings with it some really cool challenges for the coders and designers to face when it comes to buildling applications that utilise interfaces like these.</p>
+<p>So for now, I think all of you would enjoy taking a peek at something a good mate of mine in the U.K. (Mark Webster) pointed me at earlier today.  It&rsquo;s a YouTube video called <a href="http://www.youtube.com/watch?v=PLhMVNdplJc&NR" target="_blank" title="Minority Report becomes reality">Minority Report becomes reality</a>. Absolutely fascinating! It&rsquo;s nice to think that we&rsquo;ve got people working on some funky new ways for us to interact with our machines. I hope that brings with it some really cool challenges for the coders and designers to face when it comes to buildling applications that utilise interfaces like these.</p>
 </div>
   
   
@@ -561,14 +543,15 @@
 
 <time datetime="2006-09-10T12:33:00+10:00" pubdate data-updated="true">10 Sep 2006</time>
         
-         | <a href="/posts/office-registration-and-activation/#disqus_thread">Comments</a>
+           | <a href="/posts/office-registration-and-activation/#disqus_thread"
+             data-disqus-identifier="http://buffered.io/posts/office-registration-and-activation/">Comments</a>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Yesterday I had one of those wonderful days that every geek gets to enjoy once in a while - the day of rebuilding one&#8217;s machine. In this case it wasn&#8217;t my machine it was Amy&#8217;s, but the effect is much the same :)  I went through the process of backing up, repartitioning, reinstalling WinXP Home, copying backed up files back onto the machine only to find myself stumped at the point of installing MS Office.</p>
+  <div class="entry-content"><p>Yesterday I had one of those wonderful days that every geek gets to enjoy once in a while &ndash; the day of rebuilding one&rsquo;s machine. In this case it wasn&rsquo;t my machine it was Amy&rsquo;s, but the effect is much the same :)  I went through the process of backing up, repartitioning, reinstalling WinXP Home, copying backed up files back onto the machine only to find myself stumped at the point of installing MS Office.</p>
 
 </div>
   
@@ -605,18 +588,19 @@
 
 <time datetime="2006-09-09T12:19:00+10:00" pubdate data-updated="true">09 Sep 2006</time>
         
-         | <a href="/posts/it-has-begun/#disqus_thread">Comments</a>
+           | <a href="/posts/it-has-begun/#disqus_thread"
+             data-disqus-identifier="http://buffered.io/posts/it-has-begun/">Comments</a>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Those of you who know me will know that I generally feel like I have a lot to say :-) I used to write a diary back in the day, but that was quite some time ago and the site, along with its content, is long since dead. For the last couple of years I&#8217;ve been continually reading people&#8217;s blogs and found they can be quite insightful. As a geek, I tend to read more geek blogs which cover upcoming technologies, opinions on methodologies and other bits of flotsam and jetsam. The only other blogs I read are by friends of mine who unfortunatley live a long way from me.</p>
+  <div class="entry-content"><p>Those of you who know me will know that I generally feel like I have a lot to say :&ndash;) I used to write a diary back in the day, but that was quite some time ago and the site, along with its content, is long since dead. For the last couple of years I&rsquo;ve been continually reading people&rsquo;s blogs and found they can be quite insightful. As a geek, I tend to read more geek blogs which cover upcoming technologies, opinions on methodologies and other bits of flotsam and jetsam. The only other blogs I read are by friends of mine who unfortunatley live a long way from me.</p>
 
-<p>So, after a good few years, I&#8217;ve decided to kick my own off again. Yes, it&#8217;s just another blog. Yes, it&#8217;s just another collection of ramblings, rants, and uesless trivia. You may find it interesting, funny, bland, boring or all of the above. Feel free to comment on anything I say, as I&#8217;m always keen to hear other people&#8217;s opinions&#8230; well, as long as they&#8217;re the same as mine ;)</p>
+<p>So, after a good few years, I&rsquo;ve decided to kick my own off again. Yes, it&rsquo;s just another blog. Yes, it&rsquo;s just another collection of ramblings, rants, and uesless trivia. You may find it interesting, funny, bland, boring or all of the above. Feel free to comment on anything I say, as I&rsquo;m always keen to hear other people&rsquo;s opinions&hellip; well, as long as they&rsquo;re the same as mine ;)</p>
 
-<p>Rather than just have a first blog post that is nothing but the standard &#8220;Welcome to my blog&#8221;, I thought I&#8217;d at least try and contribute something that you might find interesting&#8230; so here it is: <a href="http://www.youtube.com/watch?v=dMH0bHeiRNg" title="The Evolution of Dance" target="_blank">The Evolution of Dance</a>.</p>
+<p>Rather than just have a first blog post that is nothing but the standard &ldquo;Welcome to my blog&rdquo;, I thought I&rsquo;d at least try and contribute something that you might find interesting&hellip; so here it is: <a href="http://www.youtube.com/watch?v=dMH0bHeiRNg" title="The Evolution of Dance" target="_blank">The Evolution of Dance</a>.</p>
 </div>
   
   
@@ -626,7 +610,7 @@
   
   <div class="pagination">
     
-    <a href="/posts/archives">Blog Archives</a>
+    <a href="/blog/archives">Blog Archives</a>
     
     <a class="next" href="/posts/page/25/">Newer &rarr;</a>
     
@@ -815,7 +799,7 @@ Copyright &copy; 2013 -
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     }());
 </script>
@@ -839,7 +823,7 @@ Copyright &copy; 2013 -
       var twitterWidgets = document.createElement('script');
       twitterWidgets.type = 'text/javascript';
       twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
       document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
     })();
   </script>

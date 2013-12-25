@@ -8,14 +8,8 @@
   <title>Katacast: Shopping Checkout in Erlang - OJ's perspective</title>
   <meta name="author" content="OJ Reeves">
 
-  <link rel="openid.server" href="http://pip.verisignlabs.com/server" />
-  <link rel="openid.delegate" href="http://thecolonial.pip.verisignlabs.com/" />
-  <link rel="openid2.provider" href="http://pip.verisignlabs.com/server" />
-  <link rel="openid2.local_id" href="http://thecolonial.pip.verisignlabs.com/" />
-  <meta http-equiv="X-XRDS-Location" content="http://pip.verisignlabs.com/thecolonial/yadixrds" />
-
   
-  <meta name="description" content="I&#8217;ve recently discovered the joys of CodeKatas. If you&#8217;re a geek looking for a way to sharpen the saw then I highly recommend taking a &hellip;">
+  <meta name="description" content="I&rsquo;ve recently discovered the joys of CodeKatas. If you&rsquo;re a geek looking for a way to sharpen the saw then I highly recommend taking a &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -24,39 +18,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's perspective RSS 2.0" type="application/rss+xml">
   <link rel="canonical" href="http://buffered.io/posts/katacast-shopping-checkout-in-erlang">
-  <link href="/favicon.ico" rel="icon">
+  <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-
-  <script src="/javascripts/modernizr-2.0.js" type="text/javascript"></script>
-  <script src="/javascripts/ender.js" type="text/javascript"></script>
+  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's perspective" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
-
-  <script type="text/javascript">
-    Modernizr.load([
-      { load: '//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js' },
-      { load: '/javascripts/jquery.lightbox.js', complete: function() {
-        $("a[rel^='lightbox']").lightbox();
-      } }
-    ]);
-  </script>
-
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 
   
-
-  
-  <script type="text/javascript">
-    !function(g,s,q,r,d){r=g[r]=g[r]||function(){(r.q=r.q||[]).push(
-    arguments)};d=s.createElement(q);q=s.getElementsByTagName(q)[0];
-    d.src='//d1l6p2sc9645hc.cloudfront.net/tracker.js';q.parentNode.
-    insertBefore(d,q)}(window,document,'script','_gs');
-    _gs('GSN-416076-G');
-  </script>
-
 
 </head>
 
@@ -115,39 +89,40 @@
 
 <time datetime="2010-01-04T17:47:00+10:00" pubdate data-updated="true">04 Jan 2010</time>
         
-         | <a href="#disqus_thread">Comments</a>
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://buffered.io">Comments</a>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>I&#8217;ve recently discovered the joys of <a href="http://codekata.pragprog.com/" title="CodeKata">CodeKatas</a>. If you&#8217;re a geek looking for a way to <a href="http://en.wikipedia.org/wiki/The_Seven_Habits_of_Highly_Effective_People" title="The Seven Habits of Highly Effective People">sharpen the saw</a> then I highly recommend taking a look at these and trying a few out. They&#8217;re great fun and they&#8217;re a good way of getting your feet wet with new languages (especially if you&#8217;re tired of <a href="http://projecteuler.net/" title="Project Euler">Project Euler</a>).</p>
+<div class="entry-content"><p>I&rsquo;ve recently discovered the joys of <a href="http://codekata.pragprog.com/" title="CodeKata">CodeKatas</a>. If you&rsquo;re a geek looking for a way to <a href="http://en.wikipedia.org/wiki/The_Seven_Habits_of_Highly_Effective_People" title="The Seven Habits of Highly Effective People">sharpen the saw</a> then I highly recommend taking a look at these and trying a few out. They&rsquo;re great fun and they&rsquo;re a good way of getting your feet wet with new languages (especially if you&rsquo;re tired of <a href="http://projecteuler.net/" title="Project Euler">Project Euler</a>).</p>
 
 <!--more-->
 
 
-<p>I can thank <a href="http://twitter.com/gabriellelana" title="Gabrielle Lana on Twitter">Gabrielle Lana</a> for this discovery, as it was <a href="http://www.vimeo.com/8206748" title="String Calculator in Erlang">his attempt at one of the katas</a> that got me into it. He&#8217;s also the reason I looked into <a href="http://www.katacasts.com/" title="Katacasts">Katacasts</a>, which are simply screencasted recordings of people attempting to solve Code Katas.</p>
+<p>I can thank <a href="http://twitter.com/gabriellelana" title="Gabrielle Lana on Twitter">Gabrielle Lana</a> for this discovery, as it was <a href="http://www.vimeo.com/8206748" title="String Calculator in Erlang">his attempt at one of the katas</a> that got me into it. He&rsquo;s also the reason I looked into <a href="http://www.katacasts.com/" title="Katacasts">Katacasts</a>, which are simply screencasted recordings of people attempting to solve Code Katas.</p>
 
-<p>This post is about my first Katacast, capturing my attempt at <a href="http://codekata.pragprog.com/2007/01/kata_nine_back_.html" title="Checkout">Code Kata #9</a> using <a href="http://erlang.org/" title="Erlang">Erlang</a> and <a href="http://www.vim.org/" title="VIM">VIM</a> with <a href="http://rake.rubyforge.org/" title="Ruby Make">Rake</a> as my build system. I&#8217;ve put the video up on <a href="http://vimeo.com/8513414" title="Katacast for Codekata #9 by OJ Reeves">Vimeo</a> for the world to see/share. It&#8217;s also embedded below for your convenience.</p>
+<p>This post is about my first Katacast, capturing my attempt at <a href="http://codekata.pragprog.com/2007/01/kata_nine_back_.html" title="Checkout">Code Kata #9</a> using <a href="http://erlang.org/" title="Erlang">Erlang</a> and <a href="http://www.vim.org/" title="VIM">VIM</a> with <a href="http://rake.rubyforge.org/" title="Ruby Make">Rake</a> as my build system. I&rsquo;ve put the video up on <a href="http://vimeo.com/8513414" title="Katacast for Codekata #9 by OJ Reeves">Vimeo</a> for the world to see/share. It&rsquo;s also embedded below for your convenience.</p>
 
-<p>Before watching, I&#8217;d like to point out a few things about the video, and things that I have learned from the experience:</p>
+<p>Before watching, I&rsquo;d like to point out a few things about the video, and things that I have learned from the experience:</p>
 
 <ul>
-<li>I captured the video on my Linux Mint install. For some reason, capturing quality video in Linux is proving to be a bit of a pain for me. As a result, the video quality isn&#8217;t that great. This partly due to the compression of the video, and partly due to the software failing to pick up some screen updates.</li>
+<li>I captured the video on my Linux Mint install. For some reason, capturing quality video in Linux is proving to be a bit of a pain for me. As a result, the video quality isn&rsquo;t that great. This partly due to the compression of the video, and partly due to the software failing to pick up some screen updates.</li>
 <li>I tried really hard to add a backing sound-track but all of my efforts failed in one way or another. If I did manage to get one to work it was either WAY too big (ie. > 1GB in size) or the quality was absolutely terrible.</li>
-<li>There were points during the process where I had to alt-tab out to a browser to do a bit of research on something that I didn&#8217;t know (such as an Erlang syntax quirk). This resulted in a few points where I don&#8217;t appear to be doing anything. In future, I&#8217;ll remember to hit pause on the recording when this happens.</li>
-<li>I captured it in a non-standard resolution. I&#8217;m not sure if that&#8217;s going to make it look bad or not. Feedback here is appreciated. I think in future I&#8217;ll capture at a 800x600 resolution.</li>
+<li>There were points during the process where I had to alt-tab out to a browser to do a bit of research on something that I didn&rsquo;t know (such as an Erlang syntax quirk). This resulted in a few points where I don&rsquo;t appear to be doing anything. In future, I&rsquo;ll remember to hit pause on the recording when this happens.</li>
+<li>I captured it in a non-standard resolution. I&rsquo;m not sure if that&rsquo;s going to make it look bad or not. Feedback here is appreciated. I think in future I&rsquo;ll capture at a 800x600 resolution.</li>
 <li>This video is best viewed in full-screen mode.</li>
 </ul>
 
 
-<p>So please excuse the lack of quality in this first Katacast. I&#8217;ll be sure to improve when I next create one. That being said, on with the show!</p>
+<p>So please excuse the lack of quality in this first Katacast. I&rsquo;ll be sure to improve when I next create one. That being said, on with the show!</p>
 
 <div style="text-align: center"><iframe src="http://player.vimeo.com/video/8513414" width="400" height="335" frameborder="0"></iframe><p><a href="http://vimeo.com/8513414">Katacast for Codekata #9</a> from <a href="http://vimeo.com/thecolonial">OJ Reeves</a> on <a href="http://vimeo.com">Vimeo</a>.</p></div>
 
 
-<p>As always, feedback/criticism/etc is greatly appreciated. I&#8217;d love to hear what you guys do and use to capture and edit your screencasts, particularly in Linux.</p>
+<p>As always, feedback/criticism/etc is greatly appreciated. I&rsquo;d love to hear what you guys do and use to capture and edit your screencasts, particularly in Linux.</p>
 </div>
 
 
@@ -185,7 +160,7 @@
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://buffered.io/posts/katacast-shopping-checkout-in-erlang/" data-via="TheColonial" data-counturl="http://buffered.io/posts/katacast-shopping-checkout-in-erlang/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://buffered.io/posts/katacast-shopping-checkout-in-erlang/" data-via="TheColonial" data-counturl="http://buffered.io/posts/katacast-shopping-checkout-in-erlang/" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -199,7 +174,7 @@
         <a class="basic-alignment left" href="/posts/its-ok-to-fail/" title="Previous Post: 'It's OK to Fail">&laquo; 'It's OK to Fail</a>
       
       
-        <a class="basic-alignment right" href="/posts/the-wrong-decision-by-the-wrong-person/" title="next Post: The Wrong Decision by the Wrong Person">The Wrong Decision by the Wrong Person &raquo;</a>
+        <a class="basic-alignment right" href="/posts/the-wrong-decision-by-the-wrong-person/" title="Next Post: The Wrong Decision by the Wrong Person">The Wrong Decision by the Wrong Person &raquo;</a>
       
     </p>
   </footer>
@@ -400,7 +375,7 @@ Copyright &copy; 2013 -
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     }());
 </script>
@@ -424,7 +399,7 @@ Copyright &copy; 2013 -
       var twitterWidgets = document.createElement('script');
       twitterWidgets.type = 'text/javascript';
       twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
       document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
     })();
   </script>

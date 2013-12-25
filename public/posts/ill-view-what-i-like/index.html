@@ -8,12 +8,6 @@
   <title>I'll View What I Like! - OJ's perspective</title>
   <meta name="author" content="OJ Reeves">
 
-  <link rel="openid.server" href="http://pip.verisignlabs.com/server" />
-  <link rel="openid.delegate" href="http://thecolonial.pip.verisignlabs.com/" />
-  <link rel="openid2.provider" href="http://pip.verisignlabs.com/server" />
-  <link rel="openid2.local_id" href="http://thecolonial.pip.verisignlabs.com/" />
-  <meta http-equiv="X-XRDS-Location" content="http://pip.verisignlabs.com/thecolonial/yadixrds" />
-
   
   <meta name="description" content="I have a few questions for you: How would you feel if TV channels changed automatically because you weren&#8217;t paying attention to the ads?Would &hellip;">
   
@@ -24,39 +18,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's perspective RSS 2.0" type="application/rss+xml">
   <link rel="canonical" href="http://buffered.io/posts/ill-view-what-i-like">
-  <link href="/favicon.ico" rel="icon">
+  <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-
-  <script src="/javascripts/modernizr-2.0.js" type="text/javascript"></script>
-  <script src="/javascripts/ender.js" type="text/javascript"></script>
+  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's perspective" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
-
-  <script type="text/javascript">
-    Modernizr.load([
-      { load: '//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js' },
-      { load: '/javascripts/jquery.lightbox.js', complete: function() {
-        $("a[rel^='lightbox']").lightbox();
-      } }
-    ]);
-  </script>
-
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 
   
-
-  
-  <script type="text/javascript">
-    !function(g,s,q,r,d){r=g[r]=g[r]||function(){(r.q=r.q||[]).push(
-    arguments)};d=s.createElement(q);q=s.getElementsByTagName(q)[0];
-    d.src='//d1l6p2sc9645hc.cloudfront.net/tracker.js';q.parentNode.
-    insertBefore(d,q)}(window,document,'script','_gs');
-    _gs('GSN-416076-G');
-  </script>
-
 
 </head>
 
@@ -115,7 +89,8 @@
 
 <time datetime="2007-08-18T12:36:00+10:00" pubdate data-updated="true">18 Aug 2007</time>
         
-         | <a href="#disqus_thread">Comments</a>
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://buffered.io">Comments</a>
         
       </p>
     
@@ -127,34 +102,34 @@
 <ol><li>How would you feel if TV channels changed automatically because you weren&#8217;t paying attention to the ads?</li><li>Would you like it if your newspaper closed by itself because you were reading the articles but skipping over the classifieds?</li><li>How happy would you be if you were kicked out of a cinema for not watching the latest and greatest in <a href="http://www.valmorgan.com.au/" title="Val Morgan">Val Morgan Cinema Advertising</a>?</li><li>Would you be happy if you weren&#8217;t allowed to walk into a shop unless you HAD to buy something?</li></ol>
 
 
-<p>If you&#8217;re anything like me, you&#8217;d be pretty pissed off about it. The scary thing is that this kind of thing is already happening on the web.</p>
+<p>If you&rsquo;re anything like me, you&rsquo;d be pretty pissed off about it. The scary thing is that this kind of thing is already happening on the web.</p>
 
 <!--more-->
 
 
-<p>Quite a few news sites (such as <a href="http://slashdot.org/articles/07/08/17/1359206.shtml" title="A Campaign to Block Forefox Users">Slashdot</a>) have posted a story regarding websites that attempt to prevent the viewer from accessing its content should they be using the <a href="http://www.getfirefox.com/" title="Firefox">Firefox</a> browser. While this has got my back up a little, I&#8217;m not going to rant and rave about why it&#8217;s bad. Instead, I&#8217;m going to rant and rave about why it&#8217;s <strong>stupid</strong>.</p>
+<p>Quite a few news sites (such as <a href="http://slashdot.org/articles/07/08/17/1359206.shtml" title="A Campaign to Block Forefox Users">Slashdot</a>) have posted a story regarding websites that attempt to prevent the viewer from accessing its content should they be using the <a href="http://www.getfirefox.com/" title="Firefox">Firefox</a> browser. While this has got my back up a little, I&rsquo;m not going to rant and rave about why it&rsquo;s bad. Instead, I&rsquo;m going to rant and rave about why it&rsquo;s <strong>stupid</strong>.</p>
 
-<p>Before you read on, make sure you take a look at <a href="http://whyfirefoxisblocked.com/" title="Why Firefox is Blocked">this site</a>, as it&#8217;s the location that your browser is redirected to when Firefox is detected. Got the picture? OK, read on.</p>
+<p>Before you read on, make sure you take a look at <a href="http://whyfirefoxisblocked.com/" title="Why Firefox is Blocked">this site</a>, as it&rsquo;s the location that your browser is redirected to when Firefox is detected. Got the picture? OK, read on.</p>
 
-<p>Let&#8217;s start by picking on some of the things that are mentioned on that site&#8230;<blockquote><p>Software that blocks all advertisement is an infringement of the rights of web site owners and developers.</p></blockquote>I&#8217;m no expert in the legalities of web content and how it should be viewed. However, this claim doesn&#8217;t sound valid to me.</p>
+<p>Let&rsquo;s start by picking on some of the things that are mentioned on that site&hellip;<blockquote><p>Software that blocks all advertisement is an infringement of the rights of web site owners and developers.</p></blockquote>I&rsquo;m no expert in the legalities of web content and how it should be viewed. However, this claim doesn&rsquo;t sound valid to me.</p>
 
-<p>Consider the case where someone is using a text-based browser (such as <a href="http://lynx.browser.org/" title="Lynx">Lynx</a>) to view a page which contains picture advertisements. Are they infringing the rights of the page author because they&#8217;re unable to see the ads? Is Lynx also a candidate for blocking?</p>
+<p>Consider the case where someone is using a text-based browser (such as <a href="http://lynx.browser.org/" title="Lynx">Lynx</a>) to view a page which contains picture advertisements. Are they infringing the rights of the page author because they&rsquo;re unable to see the ads? Is Lynx also a candidate for blocking?</p>
 
-<p>Consider another case where a visually impaired person is using a <a href="http://en.wikipedia.org/wiki/Screen_reader" title="Screen reader">screen reader</a> or a custom <a href="http://en.wikipedia.org/wiki/Style_sheet_%28web_development%29" title="Style sheet">style-sheet</a> that either rearranges the contents of the site, or removes everything but the text. Is this person also a potential infringer because they too aren&#8217;t consuming the ads?</p>
+<p>Consider another case where a visually impaired person is using a <a href="http://en.wikipedia.org/wiki/Screen_reader" title="Screen reader">screen reader</a> or a custom <a href="http://en.wikipedia.org/wiki/Style_sheet_%28web_development%29" title="Style sheet">style-sheet</a> that either rearranges the contents of the site, or removes everything but the text. Is this person also a potential infringer because they too aren&rsquo;t consuming the ads?</p>
 
-<p>Next up&#8230;<blockquote><p>Numerous web sites exist in order to provide quality content in exchange for displaying ads. Accessing the content while blocking the ads, therefore would be no less than stealing. Millions of hard working people are being robbed of their time and effort by this type of software.</p></blockquote>I&#8217;m not sure I agree with the meaning behind this.</p>
+<p>Next up&hellip;<blockquote><p>Numerous web sites exist in order to provide quality content in exchange for displaying ads. Accessing the content while blocking the ads, therefore would be no less than stealing. Millions of hard working people are being robbed of their time and effort by this type of software.</p></blockquote>I&rsquo;m not sure I agree with the meaning behind this.</p>
 
 <p>Sites that provide quality content tend not to be smothered in ads (of course, this is subjective :) ).</p>
 
-<p>Sites that <em>exist</em> in order to provide <em>any</em> content in exchange for displaying ads are behaving as though their content is subscription-based. &#8220;Watch our ads or get no content&#8221;. How is that different to subscribing (other than you&#8217;re paying with time instead of cash)? These are the kind of sites I would prefer to avoid, and hence would be happy to be redirected :)</p>
+<p>Sites that <em>exist</em> in order to provide <em>any</em> content in exchange for displaying ads are behaving as though their content is subscription-based. &ldquo;Watch our ads or get no content&rdquo;. How is that different to subscribing (other than you&rsquo;re paying with time instead of cash)? These are the kind of sites I would prefer to avoid, and hence would be happy to be redirected :)</p>
 
-<p>The word &#8220;stealing&#8221; is just way over the top. In my view, unwanted ads chews up valuable bandwidth which I am paying for. So I <em>could</em> argue that they&#8217;re stealing bandwidth from me! My argument is only almost as ludicrous as theirs. Blocking ads is <strong>NOT</strong> stealing.</p>
+<p>The word &ldquo;stealing&rdquo; is just way over the top. In my view, unwanted ads chews up valuable bandwidth which I am paying for. So I <em>could</em> argue that they&rsquo;re stealing bandwidth from me! My argument is only almost as ludicrous as theirs. Blocking ads is <strong>NOT</strong> stealing.</p>
 
-<p>The implication that people are being robbed is also a joke. Those people who view sites using an ad-blocker are the kind of people who wouldn&#8217;t click on ads anyway, so the net effect is the same. Pushing viewers away just results in more traffic for a site&#8217;s competitors.</p>
+<p>The implication that people are being robbed is also a joke. Those people who view sites using an ad-blocker are the kind of people who wouldn&rsquo;t click on ads anyway, so the net effect is the same. Pushing viewers away just results in more traffic for a site&rsquo;s competitors.</p>
 
-<p>There are a few more things mentioned on the site that are easy to pick at, but the last thing I want to focus on is this&#8230;<blockquote><p>If you are offended by the Mozilla Corporation&#8217;s endorsement of dishonesty please contact the Mozilla Foundation and ask them to stop empowering internet theft.</p></blockquote>This is just laughable. Mozilla who release high-quality, free software to the masses? Mozilla who have an open-source model of software development? They&#8217;re <em>endorsing dishonesty</em>?! I don&#8217;t think so. They&#8217;re endorsing a user&#8217;s right to view content on their own computer in the way they want to view it.</p>
+<p>There are a few more things mentioned on the site that are easy to pick at, but the last thing I want to focus on is this&hellip;<blockquote><p>If you are offended by the Mozilla Corporation&rsquo;s endorsement of dishonesty please contact the Mozilla Foundation and ask them to stop empowering internet theft.</p></blockquote>This is just laughable. Mozilla who release high-quality, free software to the masses? Mozilla who have an open-source model of software development? They&rsquo;re <em>endorsing dishonesty</em>?! I don&rsquo;t think so. They&rsquo;re endorsing a user&rsquo;s right to view content on their own computer in the way they want to view it.</p>
 
-<p>Advertisers don&#8217;t seem to understand that part of the reason people have ad blockers installed is because of the extremely obtrusive ways in which they throw ads in our faces in the first place. Lots of sites have scripts that fire off when ANY part of the site is clicked (even blank space) resulting in an advertisment being loaded, or a popup ad. Stacks of sites have more ads than content, and it&#8217;s hard to find the content amongst the ads. Lots of sites seem to pollute their content with ads making it hard to read. The whole experience of using those sites is just painful, which is a large part of the reason why people use ad blockers.</p>
+<p>Advertisers don&rsquo;t seem to understand that part of the reason people have ad blockers installed is because of the extremely obtrusive ways in which they throw ads in our faces in the first place. Lots of sites have scripts that fire off when ANY part of the site is clicked (even blank space) resulting in an advertisment being loaded, or a popup ad. Stacks of sites have more ads than content, and it&rsquo;s hard to find the content amongst the ads. Lots of sites seem to pollute their content with ads making it hard to read. The whole experience of using those sites is just painful, which is a large part of the reason why people use ad blockers.</p>
 
 <p>In short, the things that make this whole exercise incredibly stupid are:</p>
 
@@ -197,7 +172,7 @@
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://buffered.io/posts/ill-view-what-i-like/" data-via="TheColonial" data-counturl="http://buffered.io/posts/ill-view-what-i-like/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://buffered.io/posts/ill-view-what-i-like/" data-via="TheColonial" data-counturl="http://buffered.io/posts/ill-view-what-i-like/" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -211,7 +186,7 @@
         <a class="basic-alignment left" href="/posts/safer-code-through-object-orientation/" title="Previous Post: Safer Code through Object-Orientation">&laquo; Safer Code through Object-Orientation</a>
       
       
-        <a class="basic-alignment right" href="/posts/biosham/" title="next Post: Biosham &#8482;">Biosham &#8482; &raquo;</a>
+        <a class="basic-alignment right" href="/posts/biosham/" title="Next Post: Biosham &#8482;">Biosham &#8482; &raquo;</a>
       
     </p>
   </footer>
@@ -412,7 +387,7 @@ Copyright &copy; 2013 -
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     }());
 </script>
@@ -436,7 +411,7 @@ Copyright &copy; 2013 -
       var twitterWidgets = document.createElement('script');
       twitterWidgets.type = 'text/javascript';
       twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
       document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
     })();
   </script>

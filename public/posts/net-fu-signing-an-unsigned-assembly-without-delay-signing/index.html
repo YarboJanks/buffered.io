@@ -5,14 +5,8 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>.NET-fu: Signing an Unsigned Assembly (without Delay Signing) - OJ's perspective</title>
+  <title>.NET-fu: Signing an Unsigned Assembly (Without Delay Signing) - OJ's perspective</title>
   <meta name="author" content="OJ Reeves">
-
-  <link rel="openid.server" href="http://pip.verisignlabs.com/server" />
-  <link rel="openid.delegate" href="http://thecolonial.pip.verisignlabs.com/" />
-  <link rel="openid2.provider" href="http://pip.verisignlabs.com/server" />
-  <link rel="openid2.local_id" href="http://thecolonial.pip.verisignlabs.com/" />
-  <meta http-equiv="X-XRDS-Location" content="http://pip.verisignlabs.com/thecolonial/yadixrds" />
 
   
   <meta name="description" content="This article is also available in Italian. The code-base that I am currently working with consists of a large set of binaries that are all signed. &hellip;">
@@ -24,39 +18,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's perspective RSS 2.0" type="application/rss+xml">
   <link rel="canonical" href="http://buffered.io/posts/net-fu-signing-an-unsigned-assembly-without-delay-signing">
-  <link href="/favicon.ico" rel="icon">
+  <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-
-  <script src="/javascripts/modernizr-2.0.js" type="text/javascript"></script>
-  <script src="/javascripts/ender.js" type="text/javascript"></script>
+  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's perspective" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
-
-  <script type="text/javascript">
-    Modernizr.load([
-      { load: '//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js' },
-      { load: '/javascripts/jquery.lightbox.js', complete: function() {
-        $("a[rel^='lightbox']").lightbox();
-      } }
-    ]);
-  </script>
-
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 
   
-
-  
-  <script type="text/javascript">
-    !function(g,s,q,r,d){r=g[r]=g[r]||function(){(r.q=r.q||[]).push(
-    arguments)};d=s.createElement(q);q=s.getElementsByTagName(q)[0];
-    d.src='//d1l6p2sc9645hc.cloudfront.net/tracker.js';q.parentNode.
-    insertBefore(d,q)}(window,document,'script','_gs');
-    _gs('GSN-416076-G');
-  </script>
-
 
 </head>
 
@@ -115,7 +89,8 @@
 
 <time datetime="2008-07-09T12:13:00+10:00" pubdate data-updated="true">09 Jul 2008</time>
         
-         | <a href="#disqus_thread">Comments</a>
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://buffered.io">Comments</a>
         
       </p>
     
@@ -126,20 +101,20 @@
 
 <hr />
 
-<p>The code-base that I am currently working with consists of a large set of binaries that are all <a href="http://msdn.microsoft.com/en-us/library/xc31ft41.aspx" title="Sign an Assembly with a Strong Name">signed</a>. The savvy .NET devs out there will know that any assembly that&#8217;s used/referenced by a signed assembly must <em>also</em> be signed.</p>
+<p>The code-base that I am currently working with consists of a large set of binaries that are all <a href="http://msdn.microsoft.com/en-us/library/xc31ft41.aspx" title="Sign an Assembly with a Strong Name">signed</a>. The savvy .NET devs out there will know that any assembly that&rsquo;s used/referenced by a signed assembly must <em>also</em> be signed.</p>
 
-<p>This is an issue when dealing with third-party libraries that are not signed. Sometimes you&#8217;ll be lucky enough to be dealing with vendor that is happy to provide a set of signed assemblies, other times you won&#8217;t. If your scenario fits the latter (as a recent one did for my colleagues and I), you need to sign the assemblies yourself. Here&#8217;s how.</p>
+<p>This is an issue when dealing with third-party libraries that are not signed. Sometimes you&rsquo;ll be lucky enough to be dealing with vendor that is happy to provide a set of signed assemblies, other times you won&rsquo;t. If your scenario fits the latter (as a recent one did for my colleagues and I), you need to sign the assemblies yourself. Here&rsquo;s how.</p>
 
 <!--more-->
 
 
 <p><em>Note:</em> <a href="http://msdn.microsoft.com/en-us/library/t07a3dye(VS.80).aspx" title="Delay Signing an Assembly">delay signing</a> is not covered in this article.</p>
 
-<h2>Scenario 1 - Foo and Bar</h2>
+<h2>Scenario 1 &ndash; Foo and Bar</h2>
 
 <ul>
-<li><code>Foo</code> is the component that you&#8217;re building which has to be signed.</li>
-<li><code>Bar</code> is the third-party component that you&#8217;re forced to use that <em>isn&#8217;t</em>.</li>
+<li><code>Foo</code> is the component that you&rsquo;re building which has to be signed.</li>
+<li><code>Bar</code> is the third-party component that you&rsquo;re forced to use that <em>isn&rsquo;t</em>.</li>
 </ul>
 
 
@@ -147,17 +122,17 @@
 
 <p>Grab <a href="/uploads/2008/07/bar.zip" title="Project/Binary for Bar">Bar.dll and project</a> along with <a href="/uploads/2008/07/foobar.zip" title="Project/Binary for Foo">Foo.dll and project</a> to see a source sample.</p>
 
-<p>You&#8217;ll notice <em>Foo</em> has a .snk which is used to sign <em>Foo.dll.</em> When you attempt to compile <em>Foo</em> you get the following error message:</p>
+<p>You&rsquo;ll notice <em>Foo</em> has a .snk which is used to sign <em>Foo.dll.</em> When you attempt to compile <em>Foo</em> you get the following error message:</p>
 
-<blockquote><p>Assembly generation failed &#8211; Referenced assembly &#8216;Bar&#8217; does not have a strong name.</p></blockquote>
+<blockquote><p>Assembly generation failed &mdash; Referenced assembly &lsquo;Bar&rsquo; does not have a strong name.</p></blockquote>
 
 <p>We need to sign <em>Bar</em> in order for <em>Foo</em> to compile.</p>
 
 <p><img src="/uploads/2008/07/step1.jpg" style="float: right; margin-left: 5px; margin-bottom: 2px;" alt="Disassemble Bar" /></p>
 
-<h3>Step 1 - Disassemble Bar</h3>
+<h3>Step 1 &ndash; Disassemble Bar</h3>
 
-<p>We need to open a command prompt which has the .NET framework binaries in the PATH environment variable. The easiest way to do this is to open a Visual Studio command prompt (which is usually under the &#8220;Visual Studio Tools&#8221; subfolder of &#8220;Visual Studio 20XX&#8221; in your programs menu). Change directory so that you&#8217;re in the folder which contains <em>Bar.dll</em>.</p>
+<p>We need to open a command prompt which has the .NET framework binaries in the PATH environment variable. The easiest way to do this is to open a Visual Studio command prompt (which is usually under the &ldquo;Visual Studio Tools&rdquo; subfolder of &ldquo;Visual Studio 20XX&rdquo; in your programs menu). Change directory so that you&rsquo;re in the folder which contains <em>Bar.dll</em>.</p>
 
 <p>Use <a href="http://msdn.microsoft.com/en-us/library/f7dy01k1(VS.80).aspx" title="MSIL Disassembly">ildasm</a> to disassemble the file using the <code>/all</code> and <code>/out</code>, like so:</p>
 
@@ -168,7 +143,7 @@
 
 <p><img src="/uploads/2008/07/step2.jpg" style="float: right; margin-left: 5px; margin-bottom: 2px;" alt="Rebuild and Sign Bar" /></p>
 
-<h3>Step 2 - Rebuild and Sign Bar</h3>
+<h3>Step 2 &ndash; Rebuild and Sign Bar</h3>
 
 <p>We can now use <a href="http://msdn.microsoft.com/en-us/library/496e4ekx.aspx" title="MSIL Assembler">ilasm</a> to reassemble <em>Bar.il</em> back into <em>Bar.dll</em>, but at the same time specify a strong-name key to use to sign the resulting assembly. We pass in the value <em>Foo.snk</em> to the <code>/key</code> switch on the command line, like so:</p>
 
@@ -203,13 +178,13 @@ Signing file with strong name
 Operation completed successfully
 </code></pre>
 
-<p><em>Bar.dll</em> is now signed! All we have to do is reopen <em>Foo</em>&#8217;s project, remove the reference to <em>Bar.dll</em>, re-add the reference to the new signed assembly and rebuild. Sorted!</p>
+<p><em>Bar.dll</em> is now signed! All we have to do is reopen <em>Foo</em>&rsquo;s project, remove the reference to <em>Bar.dll</em>, re-add the reference to the new signed assembly and rebuild. Sorted!</p>
 
-<h2>Scenario 2 - Foo, Bar and Baz</h2>
+<h2>Scenario 2 &ndash; Foo, Bar and Baz</h2>
 
 <ul>
-<li><code>Foo</code> is the component that you&#8217;re building which has to be signed.</li>
-<li><code>Bar</code> is the third-party component that you&#8217;re forced to use that <em>isn&#8217;t</em>.</li>
+<li><code>Foo</code> is the component that you&rsquo;re building which has to be signed.</li>
+<li><code>Bar</code> is the third-party component that you&rsquo;re forced to use that <em>isn&rsquo;t</em>.</li>
 <li><code>Baz</code> is another third-party component that is required in order for you to use <em>Bar</em>.</li>
 </ul>
 
@@ -220,17 +195,17 @@ Operation completed successfully
 
 <p>When you attempt to build <em>Foo</em> you get the same error as you do in the previous scenario. Bear in mind that this time, <strong>both</strong> <em>Bar.dll</em> and <em>Baz.dll</em> need to be signed. So first of all, follow the steps in <strong>Scenario 1</strong> for both <em>Bar.dll</em> and <em>Baz.dll</em>.</p>
 
-<p>Done? OK. When you attempt to build <em>Foo.dll</em> after pointing the project at the new <em>Bar.dll</em> no compiler errors will be shown. Don&#8217;t get too excited :)</p>
+<p>Done? OK. When you attempt to build <em>Foo.dll</em> after pointing the project at the new <em>Bar.dll</em> no compiler errors will be shown. Don&rsquo;t get too excited :)</p>
 
 <p>When you attempt to <strong>use</strong> <em>Foo.dll</em> your world will come crashing down. The reason is because <em>Bar.dll</em> was originally built with a reference to an <u>unsigned version</u> of <em>Baz.dll</em>. Now that <em>Baz.dll</em> is signed we need to force <em>Bar.dll</em> to reference the <strong>signed</strong> version of <em>Baz.dll</em>.</p>
 
 <p><img src="/uploads/2008/07/step3.jpg" style="float: right; margin-left: 5px; margin-bottom: 2px;" alt="Hack the Disassembled IL" /></p>
 
-<h3>Step 1 - Hack the Disassembled IL</h3>
+<h3>Step 1 &ndash; Hack the Disassembled IL</h3>
 
 <p>Just like we did in the previous steps we need to disassemble the binary that we need to fix. This time, make sure you disassemble the new binary that you created in the previous step (this binary has been signed, and will contain the signature block for the strong name). Once <em>Bar.il</em> has been created using ildasm, open it up in a <a href="http://www.vim.org/" title="VIM - @secretGeek loves it... no really, he does!">text editor</a>.</p>
 
-<p>Search for the reference to <em>Baz</em> &#8211; this should be located a fair way down the file, somewhere near the top of the actual code listing, just after the comments. Here&#8217;s what it looks like on my machine:</p>
+<p>Search for the reference to <em>Baz</em> &mdash; this should be located a fair way down the file, somewhere near the top of the actual code listing, just after the comments. Here&rsquo;s what it looks like on my machine:</p>
 
 <pre><code>.assembly extern /*23000002*/ Baz
 {
@@ -268,9 +243,9 @@ Public key token is 2ed7bbec811020ec
 
 <p><img src="/uploads/2008/07/step4.jpg" style="float: right; margin-left: 5px; margin-bottom: 2px;" alt="Reassemble Bar" /></p>
 
-<h3>Step 2 - Reassemble Bar</h3>
+<h3>Step 2 &ndash; Reassemble Bar</h3>
 
-<p>This step is just a repeat of previous steps. We are again using ilasm to reassemble <em>Bar.dll</em>, but this time from the new &#8220;hacked&#8221; <em>Bar.il</em> file. We must use the exact same command line as we did previously, and we still need to specify the <em>Foo.snk</em> for signing the assembly. To save you having to scroll up, here it is again:</p>
+<p>This step is just a repeat of previous steps. We are again using ilasm to reassemble <em>Bar.dll</em>, but this time from the new &ldquo;hacked&rdquo; <em>Bar.il</em> file. We must use the exact same command line as we did previously, and we still need to specify the <em>Foo.snk</em> for signing the assembly. To save you having to scroll up, here it is again:</p>
 
 <pre><code>C:\Foo\bin&gt; ilasm /dll /key=Foo.snk Bar.il
 
@@ -300,11 +275,11 @@ Signing file with strong name
 Operation completed successfully
 </code></pre>
 
-<p>Open up <em>Foo</em>&#8217;s project, remove and re-add the reference to <em>Bar.dll</em>, making sure you point to the new version that you just created. <em>Foo.dll</em> will not only build, but this time it will run!</p>
+<p>Open up <em>Foo</em>&rsquo;s project, remove and re-add the reference to <em>Bar.dll</em>, making sure you point to the new version that you just created. <em>Foo.dll</em> will not only build, but this time it will run!</p>
 
 <h2>Disclaimer</h2>
 
-<p>&#8220;Hacking&#8221; third-party binaries in this manner <strong><em>may</em> breach the license agreement</strong> of those binaries. Please make sure that you are not breaking the license agreement before adopting this technique.</p>
+<p>&ldquo;Hacking&rdquo; third-party binaries in this manner <strong><em>may</em> breach the license agreement</strong> of those binaries. Please make sure that you are not breaking the license agreement before adopting this technique.</p>
 
 <p>I hope this helps!</p>
 </div>
@@ -335,7 +310,7 @@ Operation completed successfully
 
 <span class="categories">
   
-    <a class='category' href='/categories/c-/'>C#</a>, <a class='category' href='/categories/howto/'>HOWTO</a>, <a class='category' href='/categories/microsoft/'>Microsoft</a>, <a class='category' href='/categories/security/'>Security</a>, <a class='category' href='/categories/software-development/'>Software Development</a>, <a class='category' href='/categories/tips-tricks/'>Tips/Tricks</a>
+    <a class='category' href='/categories/c-number/'>C#</a>, <a class='category' href='/categories/howto/'>HOWTO</a>, <a class='category' href='/categories/microsoft/'>Microsoft</a>, <a class='category' href='/categories/security/'>Security</a>, <a class='category' href='/categories/software-development/'>Software Development</a>, <a class='category' href='/categories/tips-slash-tricks/'>Tips/Tricks</a>
   
 </span>
 
@@ -344,7 +319,7 @@ Operation completed successfully
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://buffered.io/posts/net-fu-signing-an-unsigned-assembly-without-delay-signing/" data-via="TheColonial" data-counturl="http://buffered.io/posts/net-fu-signing-an-unsigned-assembly-without-delay-signing/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://buffered.io/posts/net-fu-signing-an-unsigned-assembly-without-delay-signing/" data-via="TheColonial" data-counturl="http://buffered.io/posts/net-fu-signing-an-unsigned-assembly-without-delay-signing/" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -358,7 +333,7 @@ Operation completed successfully
         <a class="basic-alignment left" href="/posts/things-that-suck-about-blogs/" title="Previous Post: Things that Suck about Blogs">&laquo; Things that Suck about Blogs</a>
       
       
-        <a class="basic-alignment right" href="/posts/validating-use-of-parenthesis/" title="next Post: Validating use of Parenthesis">Validating use of Parenthesis &raquo;</a>
+        <a class="basic-alignment right" href="/posts/validating-use-of-parenthesis/" title="Next Post: Validating use of Parenthesis">Validating use of Parenthesis &raquo;</a>
       
     </p>
   </footer>
@@ -559,7 +534,7 @@ Copyright &copy; 2013 -
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     }());
 </script>
@@ -583,7 +558,7 @@ Copyright &copy; 2013 -
       var twitterWidgets = document.createElement('script');
       twitterWidgets.type = 'text/javascript';
       twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
       document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
     })();
   </script>

@@ -8,14 +8,8 @@
   <title>Open Sauce - OJ's perspective</title>
   <meta name="author" content="OJ Reeves">
 
-  <link rel="openid.server" href="http://pip.verisignlabs.com/server" />
-  <link rel="openid.delegate" href="http://thecolonial.pip.verisignlabs.com/" />
-  <link rel="openid2.provider" href="http://pip.verisignlabs.com/server" />
-  <link rel="openid2.local_id" href="http://thecolonial.pip.verisignlabs.com/" />
-  <meta http-equiv="X-XRDS-Location" content="http://pip.verisignlabs.com/thecolonial/yadixrds" />
-
   
-  <meta name="description" content="I&#8217;ve been interested in Open Source Software (OSS) for quite some time now but I&#8217;ve never really attempted to find out much about it, nor &hellip;">
+  <meta name="description" content="I&rsquo;ve been interested in Open Source Software (OSS) for quite some time now but I&rsquo;ve never really attempted to find out much about it, nor &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -24,39 +18,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's perspective RSS 2.0" type="application/rss+xml">
   <link rel="canonical" href="http://buffered.io/posts/open-sauce">
-  <link href="/favicon.ico" rel="icon">
+  <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-
-  <script src="/javascripts/modernizr-2.0.js" type="text/javascript"></script>
-  <script src="/javascripts/ender.js" type="text/javascript"></script>
+  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's perspective" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
-
-  <script type="text/javascript">
-    Modernizr.load([
-      { load: '//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js' },
-      { load: '/javascripts/jquery.lightbox.js', complete: function() {
-        $("a[rel^='lightbox']").lightbox();
-      } }
-    ]);
-  </script>
-
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 
   
-
-  
-  <script type="text/javascript">
-    !function(g,s,q,r,d){r=g[r]=g[r]||function(){(r.q=r.q||[]).push(
-    arguments)};d=s.createElement(q);q=s.getElementsByTagName(q)[0];
-    d.src='//d1l6p2sc9645hc.cloudfront.net/tracker.js';q.parentNode.
-    insertBefore(d,q)}(window,document,'script','_gs');
-    _gs('GSN-416076-G');
-  </script>
-
 
 </head>
 
@@ -115,53 +89,54 @@
 
 <time datetime="2006-10-18T13:54:00+10:00" pubdate data-updated="true">18 Oct 2006</time>
         
-         | <a href="#disqus_thread">Comments</a>
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://buffered.io">Comments</a>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p><a href="http://www.opensource.org/docs/definition.php" target="_blank" title="Open Source (OSI) Logo"><img src="http://www.opensource.org/trademarks/opensource/web/opensource-110x95.png" alt="Open Source (OSI) Logo" border="0" width="110" height="95" class="InlineImageRight" /></a>I&#8217;ve been interested in <a href="http://en.wikipedia.org/wiki/Open_source_software" title="Open Source Software" target="_blank">Open Source Software</a> (OSS) for quite some time now but I&#8217;ve never really attempted to find out much about it, nor how I can contribute. Of course, being a professional developer, the immediate thought is &#8220;I make a living off writing software, so how does that work with Open Source?&#8221;.</p>
+<div class="entry-content"><p><a href="http://www.opensource.org/docs/definition.php" target="_blank" title="Open Source (OSI) Logo"><img src="http://www.opensource.org/trademarks/opensource/web/opensource-110x95.png" alt="Open Source (OSI) Logo" border="0" width="110" height="95" class="InlineImageRight" /></a>I&rsquo;ve been interested in <a href="http://en.wikipedia.org/wiki/Open_source_software" title="Open Source Software" target="_blank">Open Source Software</a> (OSS) for quite some time now but I&rsquo;ve never really attempted to find out much about it, nor how I can contribute. Of course, being a professional developer, the immediate thought is &ldquo;I make a living off writing software, so how does that work with Open Source?&rdquo;.</p>
 
-<p>After reading all the news about Vista and it&#8217;s attempts to completely revoke my rights as a user, my interest in the OSS movement in general has increased, and I do feel it&#8217;s time for me to not only get a better understanding of what it is and how it works, but how I can contribute to it.</p>
+<p>After reading all the news about Vista and it&rsquo;s attempts to completely revoke my rights as a user, my interest in the OSS movement in general has increased, and I do feel it&rsquo;s time for me to not only get a better understanding of what it is and how it works, but how I can contribute to it.</p>
 
-<p>What is it about OSS that makes it work? Is it possible to support yourself and a family off the fruits of your labours if you&#8217;re working in the OSS community? Is it going to provide the challenges I want from my job? Is it a valid model for writing bespoke software as per a client&#8217;s request?</p>
+<p>What is it about OSS that makes it work? Is it possible to support yourself and a family off the fruits of your labours if you&rsquo;re working in the OSS community? Is it going to provide the challenges I want from my job? Is it a valid model for writing bespoke software as per a client&rsquo;s request?</p>
 
-<p>If you ask <a href="http://www.theinquirer.net/default.aspx?article=34998" title="Open Source a billion dollar market" target="_blank">The Inquirer</a> they&#8217;ll tell you that:<blockquote>Getting your head around Open Source is a bit easier, and according to Bernard Dalle, from VC firm Index Ventures the movement, if you can still call it a movement, is accelerating like there&#8217;s no tomorrow.</p>
+<p>If you ask <a href="http://www.theinquirer.net/default.aspx?article=34998" title="Open Source a billion dollar market" target="_blank">The Inquirer</a> they&rsquo;ll tell you that:<blockquote>Getting your head around Open Source is a bit easier, and according to Bernard Dalle, from VC firm Index Ventures the movement, if you can still call it a movement, is accelerating like there&rsquo;s no tomorrow.</p>
 
-<p>He said there are around 120,000 Open Source projects up and running. &#8220;We&#8217;re not asking ourselves whether we can make money out of open source any more,&#8221; he said.</p>
+<p>He said there are around 120,000 Open Source projects up and running. &ldquo;We&rsquo;re not asking ourselves whether we can make money out of open source any more,&rdquo; he said.</p>
 
-<p>And better than that, it&#8217;s &#8220;a billion dollar market, going at a 40 or 50 per cent rate&#8221;.</blockquote>
-I don&#8217;t know about you but that sounds pretty darned impressive to me! So how do you get involved?</p>
+<p>And better than that, it&rsquo;s &ldquo;a billion dollar market, going at a 40 or 50 per cent rate&rdquo;.</blockquote>
+I don&rsquo;t know about you but that sounds pretty darned impressive to me! So how do you get involved?</p>
 
 <p>Looks like there are a few ways :)</p>
 
 <p><strong><u>1. SourceForge</u></strong></p>
 
-<p>Point you browser at <a href="http://www.sourceforge.net/" title="SourceForge" target="_blank">SourceForge</a>, have a browse through the plethora of OSS projects that are running (trust me, there&#8217;s a <em>shitload</em>), and join in! Most of the time the developers are keen to get help whenever they can. If you find that you&#8217;re stills aren&#8217;t up to date, then you&#8217;re going to have to make an effort to get up to speed before you can contribute.</p>
+<p>Point you browser at <a href="http://www.sourceforge.net/" title="SourceForge" target="_blank">SourceForge</a>, have a browse through the plethora of OSS projects that are running (trust me, there&rsquo;s a <em>shitload</em>), and join in! Most of the time the developers are keen to get help whenever they can. If you find that you&rsquo;re stills aren&rsquo;t up to date, then you&rsquo;re going to have to make an effort to get up to speed before you can contribute.</p>
 
-<p>If you can&#8217;t find a project that you&#8217;re interested in, or people aren&#8217;t necessarily interested in having you join in, then you can always start your own. You don&#8217;t have to find something that noone else is doing, all you have to do is come up with something you&#8217;d be interested in working on, and ask the guys at SF.net to set up a project for you. Then you&#8217;re in full control, and you can begin work straight away.</p>
+<p>If you can&rsquo;t find a project that you&rsquo;re interested in, or people aren&rsquo;t necessarily interested in having you join in, then you can always start your own. You don&rsquo;t have to find something that noone else is doing, all you have to do is come up with something you&rsquo;d be interested in working on, and ask the guys at SF.net to set up a project for you. Then you&rsquo;re in full control, and you can begin work straight away.</p>
 
 <p><strong><u>2. Just go it Alone</u></strong></p>
 
-<p>This is always a viable option, but people tend to &#8220;die out&#8221; when doing things this way. Get your own web space, and set up the development project yourself. It takes a pretty dedicated person to go through this kind of development task by themselves and see it through to the end without getting any help along the way.  I think that if you want to make sure you keep on track, it&#8217;s probably a good idea to try to get a few people to work with you, otherwise you may find that your motivation starts to drop and you don&#8217;t end up finishing (which is the bane of many programmers).</p>
+<p>This is always a viable option, but people tend to &ldquo;die out&rdquo; when doing things this way. Get your own web space, and set up the development project yourself. It takes a pretty dedicated person to go through this kind of development task by themselves and see it through to the end without getting any help along the way.  I think that if you want to make sure you keep on track, it&rsquo;s probably a good idea to try to get a few people to work with you, otherwise you may find that your motivation starts to drop and you don&rsquo;t end up finishing (which is the bane of many programmers).</p>
 
 <p><strong><u>3. Sign up for Contract OSS Work</u></strong></p>
 
-<p>I stumbled across this idea via the Larkware Site (see &#8220;Sites for Geeks&#8221; on the right) and thought it was pretty neat.  There&#8217;s a site currently being built which, by the looks of it, is designed to be a hub and a resource for employers and developers writing OSS. The site is called <a href="http://www.assembla.com/" title="Assembla" target="_blank">Assembla</a>, and is currently in the throws of being set up properly, though it looks like there is at least some form of collaboration and linking mechanism up there.  This could well be a way for potential OSS developers to get involved with a company <em>anywhere in the world</em> and aid them in building OSS. What a great idea!!  To pouch a snippet from the site:<blockquote>We take the best practices from <strong>open source</strong> and <strong>agile methodologies</strong>, and <strong>distributed teams</strong> and adapt them for commercial software development. It&#8217;s not typical contracting or outsourcing, but a third way that gets you the best talent available in the world, exactly when you need it, as part of a single global team. So, take advantage of our free development workspaces for distributed teams, advertise yourself as a developer, apply to work on Assembla projects, or get fast, full-service development and launch.</blockquote></p>
+<p>I stumbled across this idea via the Larkware Site (see &ldquo;Sites for Geeks&rdquo; on the right) and thought it was pretty neat.  There&rsquo;s a site currently being built which, by the looks of it, is designed to be a hub and a resource for employers and developers writing OSS. The site is called <a href="http://www.assembla.com/" title="Assembla" target="_blank">Assembla</a>, and is currently in the throws of being set up properly, though it looks like there is at least some form of collaboration and linking mechanism up there.  This could well be a way for potential OSS developers to get involved with a company <em>anywhere in the world</em> and aid them in building OSS. What a great idea!!  To pouch a snippet from the site:<blockquote>We take the best practices from <strong>open source</strong> and <strong>agile methodologies</strong>, and <strong>distributed teams</strong> and adapt them for commercial software development. It&rsquo;s not typical contracting or outsourcing, but a third way that gets you the best talent available in the world, exactly when you need it, as part of a single global team. So, take advantage of our free development workspaces for distributed teams, advertise yourself as a developer, apply to work on Assembla projects, or get fast, full-service development and launch.</blockquote></p>
 
 <p><strong><u>4. Use your Imagination</u></strong></p>
 
-<p>The point here is, the concept of OSS is pretty simple, so you could create software, zip up the source and send it to people through spam if you really wanted to :) The limit is your imagination, so use it! There are a stack of other ways you can get involved, and there&#8217;s really nothing stopping you.</p>
+<p>The point here is, the concept of OSS is pretty simple, so you could create software, zip up the source and send it to people through spam if you really wanted to :) The limit is your imagination, so use it! There are a stack of other ways you can get involved, and there&rsquo;s really nothing stopping you.</p>
 
 <p><strong><u>A Common Misconception</u></strong></p>
 
-<p>OSS doesn&#8217;t necessarily mean free, and free doesn&#8217;t necessarily mean OSS. It&#8217;s important to get an understanding of the difference between the two. Also, it&#8217;s fairly common for naive devs to think that you can&#8217;t write OSS on a Windows platform due to the nature of MS - again, that&#8217;s wrong. The software you create you can do whatever the hell you want with - if that includes releasing the source to the masses, then so be it. Be careful though, if you&#8217;re writing software for a client and they&#8217;re <em>paying</em> you to write it for them, make sure that you own the IP or there is a clause in your contract that states that you&#8217;re able to release the source if you want to before you actually do it. The last thing you want is to have a law suit on your hands.</p>
+<p>OSS doesn&rsquo;t necessarily mean free, and free doesn&rsquo;t necessarily mean OSS. It&rsquo;s important to get an understanding of the difference between the two. Also, it&rsquo;s fairly common for naive devs to think that you can&rsquo;t write OSS on a Windows platform due to the nature of MS &ndash; again, that&rsquo;s wrong. The software you create you can do whatever the hell you want with &ndash; if that includes releasing the source to the masses, then so be it. Be careful though, if you&rsquo;re writing software for a client and they&rsquo;re <em>paying</em> you to write it for them, make sure that you own the IP or there is a clause in your contract that states that you&rsquo;re able to release the source if you want to before you actually do it. The last thing you want is to have a law suit on your hands.</p>
 
 <p><strong><u>Conclusion</u></strong></p>
 
-<p>My knowledge of OSS is pretty limited, but from reading around the web and speaking to some mates who are in on it, I&#8217;m finding that I&#8217;m getting quite excited about it. It not only sounds interesting, but it looks like fun as well! A good start would be to get familiar with some of the <a href="http://en.wikipedia.org/wiki/Open-source_license" title="Open Source Licence" target="_blank">licencing</a> models such as <a href="http://en.wikipedia.org/wiki/GNU_General_Public_License" title="GPL" target="_blank">GPL</a>, <a href="http://en.wikipedia.org/wiki/GNU_Lesser_General_Public_License" title="LGPL" target="_blank">LGPL</a> and <a href="http://en.wikipedia.org/wiki/Adaptive_Public_License" title="APL" target="_blank">APL</a>.</p>
+<p>My knowledge of OSS is pretty limited, but from reading around the web and speaking to some mates who are in on it, I&rsquo;m finding that I&rsquo;m getting quite excited about it. It not only sounds interesting, but it looks like fun as well! A good start would be to get familiar with some of the <a href="http://en.wikipedia.org/wiki/Open-source_license" title="Open Source Licence" target="_blank">licencing</a> models such as <a href="http://en.wikipedia.org/wiki/GNU_General_Public_License" title="GPL" target="_blank">GPL</a>, <a href="http://en.wikipedia.org/wiki/GNU_Lesser_General_Public_License" title="LGPL" target="_blank">LGPL</a> and <a href="http://en.wikipedia.org/wiki/Adaptive_Public_License" title="APL" target="_blank">APL</a>.</p>
 
 <p>So, if there are devs out there wasting time by reading blogs such as this ;) Get off ya butts and start contributing, you never know where it may take you! I for one will be scouting the options for something to contribute to.</p>
 </div>
@@ -201,7 +176,7 @@ I don&#8217;t know about you but that sounds pretty darned impressive to me! So 
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://buffered.io/posts/open-sauce/" data-via="TheColonial" data-counturl="http://buffered.io/posts/open-sauce/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://buffered.io/posts/open-sauce/" data-via="TheColonial" data-counturl="http://buffered.io/posts/open-sauce/" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -215,7 +190,7 @@ I don&#8217;t know about you but that sounds pretty darned impressive to me! So 
         <a class="basic-alignment left" href="/posts/virtual-vista-stuff-up/" title="Previous Post: Virtual Vista Stuff-Up">&laquo; Virtual Vista Stuff-Up</a>
       
       
-        <a class="basic-alignment right" href="/posts/a-gaming-round-up/" title="next Post: A Gaming Round-Up">A Gaming Round-Up &raquo;</a>
+        <a class="basic-alignment right" href="/posts/a-gaming-round-up/" title="Next Post: A Gaming Round-Up">A Gaming Round-Up &raquo;</a>
       
     </p>
   </footer>
@@ -416,7 +391,7 @@ Copyright &copy; 2013 -
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     }());
 </script>
@@ -440,7 +415,7 @@ Copyright &copy; 2013 -
       var twitterWidgets = document.createElement('script');
       twitterWidgets.type = 'text/javascript';
       twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
       document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
     })();
   </script>

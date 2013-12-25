@@ -8,14 +8,8 @@
   <title>Project Euler #1 - OJ's perspective</title>
   <meta name="author" content="OJ Reeves">
 
-  <link rel="openid.server" href="http://pip.verisignlabs.com/server" />
-  <link rel="openid.delegate" href="http://thecolonial.pip.verisignlabs.com/" />
-  <link rel="openid2.provider" href="http://pip.verisignlabs.com/server" />
-  <link rel="openid2.local_id" href="http://thecolonial.pip.verisignlabs.com/" />
-  <meta http-equiv="X-XRDS-Location" content="http://pip.verisignlabs.com/thecolonial/yadixrds" />
-
   
-  <meta name="description" content="WARNING! This post contains a spoiler for Problem #1 listed at Project Euler. Do not read the rest of this post if you&#8217;re planning to attempt &hellip;">
+  <meta name="description" content="WARNING! This post contains a spoiler for Problem #1 listed at Project Euler. Do not read the rest of this post if you&rsquo;re planning to attempt &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -24,39 +18,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's perspective RSS 2.0" type="application/rss+xml">
   <link rel="canonical" href="http://buffered.io/posts/project-euler-1">
-  <link href="/favicon.ico" rel="icon">
+  <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-
-  <script src="/javascripts/modernizr-2.0.js" type="text/javascript"></script>
-  <script src="/javascripts/ender.js" type="text/javascript"></script>
+  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's perspective" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
-
-  <script type="text/javascript">
-    Modernizr.load([
-      { load: '//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js' },
-      { load: '/javascripts/jquery.lightbox.js', complete: function() {
-        $("a[rel^='lightbox']").lightbox();
-      } }
-    ]);
-  </script>
-
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 
   
-
-  
-  <script type="text/javascript">
-    !function(g,s,q,r,d){r=g[r]=g[r]||function(){(r.q=r.q||[]).push(
-    arguments)};d=s.createElement(q);q=s.getElementsByTagName(q)[0];
-    d.src='//d1l6p2sc9645hc.cloudfront.net/tracker.js';q.parentNode.
-    insertBefore(d,q)}(window,document,'script','_gs');
-    _gs('GSN-416076-G');
-  </script>
-
 
 </head>
 
@@ -115,21 +89,22 @@
 
 <time datetime="2008-03-17T17:31:00+10:00" pubdate data-updated="true">17 Mar 2008</time>
         
-         | <a href="#disqus_thread">Comments</a>
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://buffered.io">Comments</a>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p><strong>WARNING!</strong> This post contains a spoiler for Problem #1 listed at <a href="http://projecteuler.net/" title="Project Euler">Project Euler</a>. Do not read the rest of this post if you&#8217;re planning to attempt to solve the problem yourself.</p>
+<div class="entry-content"><p><strong>WARNING!</strong> This post contains a spoiler for Problem #1 listed at <a href="http://projecteuler.net/" title="Project Euler">Project Euler</a>. Do not read the rest of this post if you&rsquo;re planning to attempt to solve the problem yourself.</p>
 
 <!--more-->
 
 
-<p>I decided to work my way through these problems using <a href="http://www.haskell.org/" title="Haskell">Haskell</a>, as I felt it&#8217;d be a great way to learn the language (or at least start to get familiar with it).</p>
+<p>I decided to work my way through these problems using <a href="http://www.haskell.org/" title="Haskell">Haskell</a>, as I felt it&rsquo;d be a great way to learn the language (or at least start to get familiar with it).</p>
 
-<p><a href="http://projecteuler.net/index.php?section=problems&amp;id=1" title="Problem #1">Problem #1</a> in the series is a nice &#8220;starter&#8221; question. It&#8217;s a simple one to get you going, which for me was great since I am a bit of a Haskell beginner:</p>
+<p><a href="http://projecteuler.net/index.php?section=problems&amp;id=1" title="Problem #1">Problem #1</a> in the series is a nice &ldquo;starter&rdquo; question. It&rsquo;s a simple one to get you going, which for me was great since I am a bit of a Haskell beginner:</p>
 
 <blockquote><p>If we list all the natural numbers below 10 that are multiples of 3 or 5, we get 3, 5, 6 and 9. The sum of these multiples is 23.</p>
 
@@ -137,16 +112,16 @@
 
 <p>Here is my Haskell source that generates the required answer:</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='haskell'><span class='line'><span class="nf">sum</span> <span class="p">[</span> <span class="n">n</span> <span class="o">|</span> <span class="n">n</span> <span class="ow">&lt;-</span> <span class="p">[</span><span class="mi">1</span><span class="o">..</span><span class="mi">999</span><span class="p">],</span> <span class="p">((</span><span class="n">mod</span> <span class="n">n</span> <span class="mi">3</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="o">||</span> <span class="p">((</span><span class="n">mod</span> <span class="n">n</span> <span class="mi">5</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">]</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>Don&#8217;t you just love how concise the answer is? If you&#8217;re like me and are new to Haskell, let me explain it a little.</p>
+<p>Don&rsquo;t you just love how concise the answer is? If you&rsquo;re like me and are new to Haskell, let me explain it a little.</p>
 
 <ol>
-<li><strong><code>[1..999]</code></strong> - this generates a list of values from 1 to 999 inclusive.</li>
-<li><strong><code>[ value | item &amp;lt;- source list, condition ]</code></strong> - this is the basic <a href="http://en.wikipedia.org/wiki/List_comprehension" title="List Comprehension">list comprehension</a> syntax in Haskell (basically this is how you generate lists from other lists). Here is the breakdown.
+<li><strong><code>[1..999]</code></strong> &ndash; this generates a list of values from 1 to 999 inclusive.</li>
+<li><strong><code>[ value | item &amp;lt;- source list, condition ]</code></strong> &ndash; this is the basic <a href="http://en.wikipedia.org/wiki/List_comprehension" title="List Comprehension">list comprehension</a> syntax in Haskell (basically this is how you generate lists from other lists). Here is the breakdown.
 
 <ol>
 <li><em>source list</em> is a reference to a list which is used as the source to generate the new list.</li>
@@ -155,14 +130,14 @@
 <li><em>value</em> is the final expression that gets evaluated and stored in the list. The expression is only evaluated and added to the list <em>if the condition is true</em></li>
 </ol>
 </li>
-<li><strong><code>mod n 3</code></strong> - this evaluates &#8220;n modulo 3&#8221;, and hence gives the remainder when <em>n</em> is divided by 3.</li>
-<li><strong><code>((mod n 3) == 0) || ((mod n 5) == 0)</code></strong> - this is a condition that evaluates to true if n is evenly divisible by 3 or 5.</li>
-<li><strong><code>[ n | n &amp;lt;- [1..999], ((mod n 3) == 0) || ((mod n 5) == 0) ]</code></strong> - for each item <em>n</em> in the list of numbers 1 through 999, if the number is evenly divisible by 3 or 5, then include it in the list.</li>
-<li><strong><code>sum</code></strong> - this function simply produces the sum of all the numbers in the given list.</li>
+<li><strong><code>mod n 3</code></strong> &ndash; this evaluates &ldquo;n modulo 3&rdquo;, and hence gives the remainder when <em>n</em> is divided by 3.</li>
+<li><strong><code>((mod n 3) == 0) || ((mod n 5) == 0)</code></strong> &ndash; this is a condition that evaluates to true if n is evenly divisible by 3 or 5.</li>
+<li><strong><code>[ n | n &amp;lt;- [1..999], ((mod n 3) == 0) || ((mod n 5) == 0) ]</code></strong> &ndash; for each item <em>n</em> in the list of numbers 1 through 999, if the number is evenly divisible by 3 or 5, then include it in the list.</li>
+<li><strong><code>sum</code></strong> &ndash; this function simply produces the sum of all the numbers in the given list.</li>
 </ol>
 
 
-<p>Pretty simple really isn&#8217;t it :) Enjoy.</p>
+<p>Pretty simple really isn&rsquo;t it :) Enjoy.</p>
 </div>
 
 
@@ -200,7 +175,7 @@
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://buffered.io/posts/project-euler-1/" data-via="TheColonial" data-counturl="http://buffered.io/posts/project-euler-1/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://buffered.io/posts/project-euler-1/" data-via="TheColonial" data-counturl="http://buffered.io/posts/project-euler-1/" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -214,7 +189,7 @@
         <a class="basic-alignment left" href="/posts/f-presentation-tomorrow/" title="Previous Post: F# Presentation Tomorrow">&laquo; F# Presentation Tomorrow</a>
       
       
-        <a class="basic-alignment right" href="/posts/project-euler-2/" title="next Post: Project Euler #2">Project Euler #2 &raquo;</a>
+        <a class="basic-alignment right" href="/posts/project-euler-2/" title="Next Post: Project Euler #2">Project Euler #2 &raquo;</a>
       
     </p>
   </footer>
@@ -415,7 +390,7 @@ Copyright &copy; 2013 -
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     }());
 </script>
@@ -439,7 +414,7 @@ Copyright &copy; 2013 -
       var twitterWidgets = document.createElement('script');
       twitterWidgets.type = 'text/javascript';
       twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
       document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
     })();
   </script>

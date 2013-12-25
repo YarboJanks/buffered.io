@@ -8,12 +8,6 @@
   <title>A Quirk in List.Find() - OJ's perspective</title>
   <meta name="author" content="OJ Reeves">
 
-  <link rel="openid.server" href="http://pip.verisignlabs.com/server" />
-  <link rel="openid.delegate" href="http://thecolonial.pip.verisignlabs.com/" />
-  <link rel="openid2.provider" href="http://pip.verisignlabs.com/server" />
-  <link rel="openid2.local_id" href="http://thecolonial.pip.verisignlabs.com/" />
-  <meta http-equiv="X-XRDS-Location" content="http://pip.verisignlabs.com/thecolonial/yadixrds" />
-
   
   <meta name="description" content="Earlier today I was having a chat with a friend of mine, who lives in Vancouver, about finding items that are stored in generic Lists. He flicked me &hellip;">
   
@@ -24,39 +18,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's perspective RSS 2.0" type="application/rss+xml">
   <link rel="canonical" href="http://buffered.io/posts/a-quirk-in-listfind">
-  <link href="/favicon.ico" rel="icon">
+  <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-
-  <script src="/javascripts/modernizr-2.0.js" type="text/javascript"></script>
-  <script src="/javascripts/ender.js" type="text/javascript"></script>
+  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's perspective" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
-
-  <script type="text/javascript">
-    Modernizr.load([
-      { load: '//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js' },
-      { load: '/javascripts/jquery.lightbox.js', complete: function() {
-        $("a[rel^='lightbox']").lightbox();
-      } }
-    ]);
-  </script>
-
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 
   
-
-  
-  <script type="text/javascript">
-    !function(g,s,q,r,d){r=g[r]=g[r]||function(){(r.q=r.q||[]).push(
-    arguments)};d=s.createElement(q);q=s.getElementsByTagName(q)[0];
-    d.src='//d1l6p2sc9645hc.cloudfront.net/tracker.js';q.parentNode.
-    insertBefore(d,q)}(window,document,'script','_gs');
-    _gs('GSN-416076-G');
-  </script>
-
 
 </head>
 
@@ -115,7 +89,8 @@
 
 <time datetime="2009-03-25T05:31:00+10:00" pubdate data-updated="true">25 Mar 2009</time>
         
-         | <a href="#disqus_thread">Comments</a>
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://buffered.io">Comments</a>
         
       </p>
     
@@ -124,7 +99,7 @@
 
 <div class="entry-content"><p>Earlier today I was having a chat with a <a href="http://doomkeeper.com/" title="Jimmy's Blog">friend of mine</a>, who lives in Vancouver, about finding items that are stored in <a href="http://msdn.microsoft.com/en-us/library/6sh2ey19.aspx" title="List(T)">generic Lists</a>. He flicked me a code snippet that looked something like this:</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 </pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="n">List</span><span class="p">&lt;</span><span class="n">foo</span><span class="p">&gt;</span> <span class="n">list</span> <span class="p">=</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">foo</span><span class="p">&gt;();</span>
@@ -133,14 +108,14 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>Straight away I fired back with an update to the code which used <a href="http://msdn.microsoft.com/en-us/library/bb397687.aspx" title="Lambda Expressions (C# Programming Guide)">lambda expressions</a> instead, as I&#8217;m a fan of how concise they are ;)</p>
+<p>Straight away I fired back with an update to the code which used <a href="http://msdn.microsoft.com/en-us/library/bb397687.aspx" title="Lambda Expressions (C# Programming Guide)">lambda expressions</a> instead, as I&rsquo;m a fan of how concise they are ;)</p>
 
 <!--more-->
 
 
 
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 </pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="n">List</span><span class="p">&lt;</span><span class="n">foo</span><span class="p">&gt;</span> <span class="n">list</span> <span class="p">=</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">foo</span><span class="p">&gt;();</span>
@@ -149,23 +124,23 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>My friend ran this code against a data set that he had constructed and found that when the call to <a href="http://msdn.microsoft.com/en-us/library/x0b5b5bc.aspx" title="List(T).Find">Find()</a> was made, a <a href="http://msdn.microsoft.com/en-us/library/system.nullreferenceexception.aspx" title="System.NullReferenceException">NullReferenceException</a> was being thrown. I found this odd as I hadn&#8217;t seen that before. <em>list</em> was definitely a valid reference and the lambda expression was well-formed as well. So what was wrong?</p>
+<p>My friend ran this code against a data set that he had constructed and found that when the call to <a href="http://msdn.microsoft.com/en-us/library/x0b5b5bc.aspx" title="List(T).Find">Find()</a> was made, a <a href="http://msdn.microsoft.com/en-us/library/system.nullreferenceexception.aspx" title="System.NullReferenceException">NullReferenceException</a> was being thrown. I found this odd as I hadn&rsquo;t seen that before. <em>list</em> was definitely a valid reference and the lambda expression was well-formed as well. So what was wrong?</p>
 
-<p>It turns out that even though <em>list</em> was a valid reference, it <strong>didn&#8217;t contain any elements</strong>.</p>
+<p>It turns out that even though <em>list</em> was a valid reference, it <strong>didn&rsquo;t contain any elements</strong>.</p>
 
 <p>How odd! Why would the generic List object throw an exception when the user calls Find() when no elements are present? After a little bit of thinking I thought that I had the answer. I thought to myself:</p>
 
-<blockquote><p>What if the List was a container for a <a href="http://msdn.microsoft.com/en-us/library/34yytbws(VS.71).aspx" title="Value Types">value type</a>, such as <em>int</em>? If you attempt to find a value in an empty list, then the function cannot return <em>null</em> because that isn&#8217;t valid for value-types! Throwing an exception <em>does</em> make sense!</p></blockquote>
+<blockquote><p>What if the List was a container for a <a href="http://msdn.microsoft.com/en-us/library/34yytbws(VS.71).aspx" title="Value Types">value type</a>, such as <em>int</em>? If you attempt to find a value in an empty list, then the function cannot return <em>null</em> because that isn&rsquo;t valid for value-types! Throwing an exception <em>does</em> make sense!</p></blockquote>
 
-<p>Isn&#8217;t it amazing how easy it is to convince yourself of your own greatness? I thought I&#8217;d nailed it first go. So I proposed my argument to my friend, who initially was semi-sold on the idea.</p>
+<p>Isn&rsquo;t it amazing how easy it is to convince yourself of your own greatness? I thought I&rsquo;d nailed it first go. So I proposed my argument to my friend, who initially was semi-sold on the idea.</p>
 
-<p>Then I thought about it again and managed to convince myself that my apparent &#8220;brilliance&#8221; was, in fact, a failure. The perfect counter-argument to the above point is:</p>
+<p>Then I thought about it again and managed to convince myself that my apparent &ldquo;brilliance&rdquo; was, in fact, a failure. The perfect counter-argument to the above point is:</p>
 
 <blockquote><p>What happens when you have a List of ints which <em>does</em> contain elements and you attempt to search for a value that <strong>is not in the list</strong>?</p></blockquote>
 
-<p>It wasn&#8217;t immediately obvious. So I tried something to see what would happen:</p>
+<p>It wasn&rsquo;t immediately obvious. So I tried something to see what would happen:</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 </pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="n">List</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;</span> <span class="n">list</span> <span class="p">=</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;(</span><span class="k">new</span> <span class="kt">int</span><span class="p">[]</span> <span class="p">{</span> <span class="m">1</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="m">3</span> <span class="p">});</span>
@@ -174,11 +149,11 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>So what do you think the value of <em>i</em> is after those first two lines? Yes, you guessed it: <strong>Zero</strong>. Why? Well, duh, it&#8217;s because <a href="http://msdn.microsoft.com/en-us/library/xwth0h0d.aspx" title="default keyword">default(T)</a> for integers is Zero!</p>
+<p>So what do you think the value of <em>i</em> is after those first two lines? Yes, you guessed it: <strong>Zero</strong>. Why? Well, duh, it&rsquo;s because <a href="http://msdn.microsoft.com/en-us/library/xwth0h0d.aspx" title="default keyword">default(T)</a> for integers is Zero!</p>
 
 <p>This is where little alarm bells started to ring in my head. I immediately whipped up an example where this would be considered bad:</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 </pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="n">List</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;</span> <span class="n">list</span> <span class="p">=</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;(</span><span class="k">new</span> <span class="kt">int</span><span class="p">[]</span> <span class="p">{</span> <span class="m">0</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="m">3</span> <span class="p">});</span>
@@ -187,7 +162,7 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>Again, <em>i</em> is Zero when this code is executed, but the result is very misleading. Zero is contained in the collection but doesn&#8217;t match the predicate, yet Zero is returned because that&#8217;s the default value for this value-type.</p>
+<p>Again, <em>i</em> is Zero when this code is executed, but the result is very misleading. Zero is contained in the collection but doesn&rsquo;t match the predicate, yet Zero is returned because that&rsquo;s the default value for this value-type.</p>
 
 <p>I thought this was a bit of a glaring hole in the design. So I went straight to the <a href="http://msdn.microsoft.com/en-us/library/x0b5b5bc.aspx" title="List(T).Find">documentation</a> and found this:</p>
 
@@ -195,9 +170,9 @@
 
 <p>When searching a list containing value types, make sure the default value for the type does not satisfy the search predicate. Otherwise, there is no way to distinguish between a default value indicating that no match was found and a list element that happens to have the default value for the type. If the default value satisfies the search predicate, use the <a href="http://msdn.microsoft.com/en-us/library/0k601hd9.aspx" title="FindIndex">FindIndex</a> method instead.</p></blockquote>
 
-<p>This was concerning for a couple of reasons. First of all, the designers have left it up to you to determine that this is the default behaviour. Yes I should be able to come to that conclusion myself, but I didn&#8217;t until I got bitten :) So shut up! Secondly, you have to check your result value against your predicate <em>again</em> to be sure that it&#8217;s not dodgey. For example:</p>
+<p>This was concerning for a couple of reasons. First of all, the designers have left it up to you to determine that this is the default behaviour. Yes I should be able to come to that conclusion myself, but I didn&rsquo;t until I got bitten :) So shut up! Secondly, you have to check your result value against your predicate <em>again</em> to be sure that it&rsquo;s not dodgey. For example:</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -220,16 +195,16 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>Do <em>you</em> want to do that? I certainly don&#8217;t. After a bit of back-and-forth with Jimbo, I thought that the best option for a generic List Find() function would be one that is akin to the good old C++ days. It would look something like this:</p>
+<p>Do <em>you</em> want to do that? I certainly don&rsquo;t. After a bit of back-and-forth with Jimbo, I thought that the best option for a generic List Find() function would be one that is akin to the good old C++ days. It would look something like this:</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="kt">bool</span> <span class="n">Find</span><span class="p">&lt;</span><span class="n">t</span><span class="p">&gt;(</span><span class="n">Predicate</span><span class="p">&lt;</span><span class="n">t</span><span class="p">&gt;</span> <span class="n">predicate</span><span class="p">,</span> <span class="k">ref</span> <span class="n">T</span> <span class="n">output</span><span class="p">);</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
 <p>This would mean that you could change your code to something like the following:</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -252,11 +227,11 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>Note how with this option you could easily support the case for empty lists at the same time. It would be helpful and meaningful. Only when the function returns true can you rely on the output parameter. It&#8217;s very clear and caters for value-types and reference-types. It&#8217;d be easy to implement in an [extension method][] as well. I&#8217;d prefer this solution over using FindIndex().</p>
+<p>Note how with this option you could easily support the case for empty lists at the same time. It would be helpful and meaningful. Only when the function returns true can you rely on the output parameter. It&rsquo;s very clear and caters for value-types and reference-types. It&rsquo;d be easy to implement in an [extension method][] as well. I&rsquo;d prefer this solution over using FindIndex().</p>
 
-<p>In case it&#8217;s not obvious, this problem would no doubt exist in all functions on generic objects that attempt to return a single instance of <em>T</em> based on some form of predicate. <a href="%22http://msdn.microsoft.com/en-us/library/5kthb929.aspx%22">FindLast()</a> would be another example.</p>
+<p>In case it&rsquo;s not obvious, this problem would no doubt exist in all functions on generic objects that attempt to return a single instance of <em>T</em> based on some form of predicate. <a href="%22http://msdn.microsoft.com/en-us/library/5kthb929.aspx%22">FindLast()</a> would be another example.</p>
 
-<p>I&#8217;m very keen to know the reasons behind the original design decision. I&#8217;m sure that minds far greater than mine parsed that problem and came up with that solution, probably for a very good reason.</p>
+<p>I&rsquo;m very keen to know the reasons behind the original design decision. I&rsquo;m sure that minds far greater than mine parsed that problem and came up with that solution, probably for a very good reason.</p>
 
 <p>What do you guys think?</p>
 </div>
@@ -287,7 +262,7 @@
 
 <span class="categories">
   
-    <a class='category' href='/categories/c-/'>C#</a>, <a class='category' href='/categories/microsoft/'>Microsoft</a>, <a class='category' href='/categories/software-development/'>Software Development</a>
+    <a class='category' href='/categories/c-number/'>C#</a>, <a class='category' href='/categories/microsoft/'>Microsoft</a>, <a class='category' href='/categories/software-development/'>Software Development</a>
   
 </span>
 
@@ -296,7 +271,7 @@
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://buffered.io/posts/a-quirk-in-listfind/" data-via="TheColonial" data-counturl="http://buffered.io/posts/a-quirk-in-listfind/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://buffered.io/posts/a-quirk-in-listfind/" data-via="TheColonial" data-counturl="http://buffered.io/posts/a-quirk-in-listfind/" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -310,7 +285,7 @@
         <a class="basic-alignment left" href="/posts/damn-you-crystal-reports/" title="Previous Post: Damn you, Crystal Reports!">&laquo; Damn you, Crystal Reports!</a>
       
       
-        <a class="basic-alignment right" href="/posts/i-dont-need-your-frickin-framework/" title="next Post: I Don't Need Your Frickin' Framework!">I Don't Need Your Frickin' Framework! &raquo;</a>
+        <a class="basic-alignment right" href="/posts/i-dont-need-your-frickin-framework/" title="Next Post: I Don't Need Your Frickin' Framework!">I Don't Need Your Frickin' Framework! &raquo;</a>
       
     </p>
   </footer>
@@ -511,7 +486,7 @@ Copyright &copy; 2013 -
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     }());
 </script>
@@ -535,7 +510,7 @@ Copyright &copy; 2013 -
       var twitterWidgets = document.createElement('script');
       twitterWidgets.type = 'text/javascript';
       twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
       document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
     })();
   </script>

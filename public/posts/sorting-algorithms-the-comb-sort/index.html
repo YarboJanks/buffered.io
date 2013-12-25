@@ -8,14 +8,8 @@
   <title>Sorting Algorithms: The Comb Sort - OJ's perspective</title>
   <meta name="author" content="OJ Reeves">
 
-  <link rel="openid.server" href="http://pip.verisignlabs.com/server" />
-  <link rel="openid.delegate" href="http://thecolonial.pip.verisignlabs.com/" />
-  <link rel="openid2.provider" href="http://pip.verisignlabs.com/server" />
-  <link rel="openid2.local_id" href="http://thecolonial.pip.verisignlabs.com/" />
-  <meta http-equiv="X-XRDS-Location" content="http://pip.verisignlabs.com/thecolonial/yadixrds" />
-
   
-  <meta name="description" content="Welcome to this, the third post in the series on sorting algorithms. Next up, we&#8217;re going to cover the Comb Sort. Like the Cocktail Sort, the &hellip;">
+  <meta name="description" content="Welcome to this, the third post in the series on sorting algorithms. Next up, we&rsquo;re going to cover the Comb Sort. Like the Cocktail Sort, the &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -24,39 +18,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's perspective RSS 2.0" type="application/rss+xml">
   <link rel="canonical" href="http://buffered.io/posts/sorting-algorithms-the-comb-sort">
-  <link href="/favicon.ico" rel="icon">
+  <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-
-  <script src="/javascripts/modernizr-2.0.js" type="text/javascript"></script>
-  <script src="/javascripts/ender.js" type="text/javascript"></script>
+  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's perspective" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
-
-  <script type="text/javascript">
-    Modernizr.load([
-      { load: '//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js' },
-      { load: '/javascripts/jquery.lightbox.js', complete: function() {
-        $("a[rel^='lightbox']").lightbox();
-      } }
-    ]);
-  </script>
-
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 
   
-
-  
-  <script type="text/javascript">
-    !function(g,s,q,r,d){r=g[r]=g[r]||function(){(r.q=r.q||[]).push(
-    arguments)};d=s.createElement(q);q=s.getElementsByTagName(q)[0];
-    d.src='//d1l6p2sc9645hc.cloudfront.net/tracker.js';q.parentNode.
-    insertBefore(d,q)}(window,document,'script','_gs');
-    _gs('GSN-416076-G');
-  </script>
-
 
 </head>
 
@@ -115,16 +89,17 @@
 
 <time datetime="2008-09-14T20:26:00+10:00" pubdate data-updated="true">14 Sep 2008</time>
         
-         | <a href="#disqus_thread">Comments</a>
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://buffered.io">Comments</a>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p><img src="/uploads/2008/09/combsort.jpg" alt="Comb Sort" title="Comb Sort" width="150" style="float: left; margin-right: 5px; margin-bottom: 5px;" />Welcome to this, the third post in the series on <a href="/category/sorting/" title="Sorting @ OJ's rants">sorting</a> algorithms. Next up, we&#8217;re going to cover the <strong>Comb Sort</strong>.</p>
+<div class="entry-content"><p><img src="/uploads/2008/09/combsort.jpg" alt="Comb Sort" title="Comb Sort" width="150" style="float: left; margin-right: 5px; margin-bottom: 5px;" />Welcome to this, the third post in the series on <a href="/category/sorting/" title="Sorting @ OJ's rants">sorting</a> algorithms. Next up, we&rsquo;re going to cover the <strong>Comb Sort</strong>.</p>
 
-<p>Like the <a href="/posts/sorting-algorithms-the-cocktail-sort/" title="Sorting Algorithms: The Cocktail Sort">Cocktail Sort</a>, the Comb Sort isn&#8217;t particularly well known. Most people manage to make their way through tertiary studies without ever hearing of it. This post is designed to change that!</p>
+<p>Like the <a href="/posts/sorting-algorithms-the-cocktail-sort/" title="Sorting Algorithms: The Cocktail Sort">Cocktail Sort</a>, the Comb Sort isn&rsquo;t particularly well known. Most people manage to make their way through tertiary studies without ever hearing of it. This post is designed to change that!</p>
 
 <p>The Comb Sort is another <em>comparison</em> and <em>exchange</em> sort which builds on the idea of the <a href="/posts/sorting-algorithms-the-bubble-sort/" title="Sorting Algorithms: The Bubble Sort">Bubble Sort</a> and adds a potential optimisation or two.</p>
 
@@ -133,7 +108,7 @@
 <!--more-->
 
 
-<p>Right, enough with the introductions, let&#8217;s break it down!</p>
+<p>Right, enough with the introductions, let&rsquo;s break it down!</p>
 
 <h2>Common Terms</h2>
 
@@ -158,12 +133,12 @@
 
 <p>The Bubble Sort algorithm always compares values that are adjacent to each other in the <em>data set</em>. The Comb Sort improves on this by adding a <em>gap</em> which allows non-adjacent numbers to be compared. After each iteration, the <em>gap</em> is reduced by a <em>shrink factor</em> until it reaches the value of <strong>1</strong>. Hence, at the very end, the Comb Sort behaves exactly like the Bubble Sort.</p>
 
-<p>One interesting thing to note about this algorithm is that it&#8217;s almost as fast as a Quick Sort!</p>
+<p>One interesting thing to note about this algorithm is that it&rsquo;s almost as fast as a Quick Sort!</p>
 
 <h2>The Algorithm</h2>
 
 
-<p>Each iteration of the algorithm consists of three stages:<ol><li>Calculation of the <em>gap</em> value.</li><li>Iterating over the <em>data set</em> comparing each item with the item that is <em>&#8220;gap&#8221;</em> elements further down the list and swapping them if required.</li><li>Checking to see if the gap value has reached one and no swaps have occurred. If so, then the set has been sorted.</li></ol></p>
+<p>Each iteration of the algorithm consists of three stages:<ol><li>Calculation of the <em>gap</em> value.</li><li>Iterating over the <em>data set</em> comparing each item with the item that is <em>&ldquo;gap&rdquo;</em> elements further down the list and swapping them if required.</li><li>Checking to see if the gap value has reached one and no swaps have occurred. If so, then the set has been sorted.</li></ol></p>
 
 <h3>1. Calculating the &#8220;gap&#8221;</h3>
 
@@ -184,7 +159,7 @@
 <h3>3. Terminating the Loop</h3>
 
 
-<p>When the <em>gap</em> value reaches one, we know that we&#8217;re now behaving the same as the Bubble Sort algorithm (since we&#8217;re comparing <em>i</em> and <em>i + 1</em>), so we know that if we don&#8217;t perform any swaps during the iteration then the set must be sorted.</p>
+<p>When the <em>gap</em> value reaches one, we know that we&rsquo;re now behaving the same as the Bubble Sort algorithm (since we&rsquo;re comparing <em>i</em> and <em>i + 1</em>), so we know that if we don&rsquo;t perform any swaps during the iteration then the set must be sorted.</p>
 
 <h2>The Example</h2>
 
@@ -199,7 +174,7 @@
 
 <p>We start by setting our <em>gap</em> value to 10, which is the size of the set. We then shrink the gap by the <em>shrink factor</em>, 1.3, which results in the value of 7 (when rounded down).</p>
 
-<p>The first iteration starts at the beginning of the set, comparing the 1st item with the item that is &#8221;<em>gap</em>&#8221; elements further up the set (the 8th item). These two items are shown in red:</p>
+<p>The first iteration starts at the beginning of the set, comparing the 1st item with the item that is &ldquo;<em>gap</em>&rdquo; elements further up the set (the 8th item). These two items are shown in red:</p>
 
 <p><span class="eg"><b>33</b> 98 74 13 55 20 77 <b>45</b> 64 83</span></p>
 
@@ -217,7 +192,7 @@
 
 <p>Again, no swap is required here as the numbers are in the right order.</p>
 
-<p>At this point we have completed our first iteration as we&#8217;ve reached the end of the set. Given that the <em>gap</em> value is not 1, we know we still have more iterations to go. So we need to recalculate our <em>gap</em> value by dividing it again by the <em>shrink factor</em>, resulting in a value of 5 (after rounding down).</p>
+<p>At this point we have completed our first iteration as we&rsquo;ve reached the end of the set. Given that the <em>gap</em> value is not 1, we know we still have more iterations to go. So we need to recalculate our <em>gap</em> value by dividing it again by the <em>shrink factor</em>, resulting in a value of 5 (after rounding down).</p>
 
 <p>We then start another iteration from the beginning of the set, using the <em>gap</em> value of 5 as the offset. We start with the 1st and 6th items:</p>
 
@@ -247,9 +222,9 @@
 
 <p><span class="eg">20 64 45 13 <b>55</b> 33 77 74 98 <b>83</b></span></p>
 
-<p>Again, no swap required. We&#8217;ve hit the end of this next iteration, and since <em>gap</em> doesn&#8217;t equal 1, we recalculate (resulting in the value of 3) and go again.</p>
+<p>Again, no swap required. We&rsquo;ve hit the end of this next iteration, and since <em>gap</em> doesn&rsquo;t equal 1, we recalculate (resulting in the value of 3) and go again.</p>
 
-<p>This time I&#8217;ll just show a summary of the steps:</p>
+<p>This time I&rsquo;ll just show a summary of the steps:</p>
 
 <p><span class="eg"><b>20</b> 64 45 <b>13</b> 55 33 77 74 98 83</span>
 <span class="eg"><i>13</i> 64 45 <i>20</i> 55 33 77 74 98 83</span>
@@ -275,7 +250,7 @@
 <span class="eg">13 20 33 45 64 55 <b>77</b> 74 <b>98</b> 83</span>
 <span class="eg">13 20 33 45 64 55 77 <b>74</b> 98 <b>83</b></span></p>
 
-<p>Finally, we reduce the value of <em>gap</em> one more time, resulting in the value of 1. We&#8217;re finally at the <strong>Bubble Sort</strong> stage, and hence the last iteration looks like this:</p>
+<p>Finally, we reduce the value of <em>gap</em> one more time, resulting in the value of 1. We&rsquo;re finally at the <strong>Bubble Sort</strong> stage, and hence the last iteration looks like this:</p>
 
 <p><span class="eg"><b>13</b> <b>20</b> 33 45 64 55 77 74 98 83</span>
 <span class="eg">13 <b>20</b> <b>33</b> 45 64 55 77 74 98 83</span>
@@ -290,7 +265,7 @@
 <span class="eg">13 20 33 45 55 64 74 77 <i>83</i> <i>98</i></span>
 <span class="eg"><u>13</u> <u>20</u> <u>33</u> <u>45</u> <u>55</u> <u>64</u> <u>74</u> <u>77</u> <u>83</u> <u>98</u></span></p>
 
-<p>At this point we know, due to observation, that the list is sorted. Unfortunately, the algorithm is yet to know. It looks at the value of <em>gap</em> and sees that it is set to 1, but during the last iteration there were swaps &#8211; so the code will iterate again.</p>
+<p>At this point we know, due to observation, that the list is sorted. Unfortunately, the algorithm is yet to know. It looks at the value of <em>gap</em> and sees that it is set to 1, but during the last iteration there were swaps &mdash; so the code will iterate again.</p>
 
 <p>At the end of this iteration, given that there were no swaps, it will know that the list is sorted and the code will terminate.</p>
 
@@ -299,7 +274,7 @@
 
 <p>Here is a sample implementation written in <a href="http://en.wikipedia.org/wiki/C_Sharp" title="C Sharp">C#</a>. It is heavily commented in the hope that it will aid in understanding how the algorithm works:</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -390,19 +365,19 @@
 <h2>A Note on Performance</h2>
 
 
-<p>What I&#8217;m about to say is almost a direct rip-off of Wikipedia ;) But at least I&#8217;m being honest!</p>
+<p>What I&rsquo;m about to say is almost a direct rip-off of Wikipedia ;) But at least I&rsquo;m being honest!</p>
 
 <p>When you use a <em>shrink factor</em> of 1.3, as recommended, it turns out that there are only 3 ways for the gap sizes to reduce to 1. They are:</p>
 
-<p><span class="eg">1. - 9, 6, 4, 3, 2, 1</span>
-<span class="eg">2. - 10, 7, 5, 3, 2, 1</span>
-<span class="eg">3. - 11, 8, 6, 4, 3, 2, 1</span></p>
+<p><span class="eg">1. &ndash; 9, 6, 4, 3, 2, 1</span>
+<span class="eg">2. &ndash; 10, 7, 5, 3, 2, 1</span>
+<span class="eg">3. &ndash; 11, 8, 6, 4, 3, 2, 1</span></p>
 
-<p>According to Wikipedia, it turns out that the 3rd option is the only one which manages to <em>kill all turtles</em> before the <em>gap</em> becomes 1. I haven&#8217;t been able to find anything that backs this up though.</p>
+<p>According to Wikipedia, it turns out that the 3rd option is the only one which manages to <em>kill all turtles</em> before the <em>gap</em> becomes 1. I haven&rsquo;t been able to find anything that backs this up though.</p>
 
 <p>Assuming that this is true, we can create a modified version of the <strong>Comb Sort</strong> which has this extra little check:</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -420,9 +395,9 @@
 <h2>Other Implementations</h2>
 
 
-<p>I&#8217;m slowly gathering a collection of implementations of all the sorting algorithms, including the ones listed above, that I&#8217;m covering in this series and posting them up on <a href="http://www.bitbucket.org/OJ/sorting/overview/" title="Sorting @ OJ's BitBucket">BitBucket</a>. The Comb Sort implementations can be found <a href="http://www.bitbucket.org/OJ/sorting/src/b26f42ecdbe0/03-CombSort/" title="CombSort @ OJ's BitBucket">here</a>.</p>
+<p>I&rsquo;m slowly gathering a collection of implementations of all the sorting algorithms, including the ones listed above, that I&rsquo;m covering in this series and posting them up on <a href="http://www.bitbucket.org/OJ/sorting/overview/" title="Sorting @ OJ's BitBucket">BitBucket</a>. The Comb Sort implementations can be found <a href="http://www.bitbucket.org/OJ/sorting/src/b26f42ecdbe0/03-CombSort/" title="CombSort @ OJ's BitBucket">here</a>.</p>
 
-<p><em>Note: You&#8217;ll need <a href="http://www.selenic.com/mercurial/" title="Mercurial">Mercurial</a> if you want to pull directly from the repository, otherwise you&#8217;ll have to copy and paste from the web.</em></p>
+<p><em>Note: You&rsquo;ll need <a href="http://www.selenic.com/mercurial/" title="Mercurial">Mercurial</a> if you want to pull directly from the repository, otherwise you&rsquo;ll have to copy and paste from the web.</em></p>
 
 <h2>References and Other Information</h2>
 
@@ -432,12 +407,12 @@
 </ol>
 
 
-<p>Next up, we&#8217;ll be looking at the <a href="/posts/sorting-algorithms-the-gnome-sort/" title="Sorting Algorithms: The Gnome Sort">Gnome Sort</a>.</p>
+<p>Next up, we&rsquo;ll be looking at the <a href="/posts/sorting-algorithms-the-gnome-sort/" title="Sorting Algorithms: The Gnome Sort">Gnome Sort</a>.</p>
 
 <h2>Disclaimer</h2>
 
 
-<p>I&#8217;m no expert, nor an authority. The post above is based on my experience and a bit of research. If you find something wrong with anything I&#8217;ve said please let me know. Comments and feedback are greatly appreciated.</p>
+<p>I&rsquo;m no expert, nor an authority. The post above is based on my experience and a bit of research. If you find something wrong with anything I&rsquo;ve said please let me know. Comments and feedback are greatly appreciated.</p>
 
 <p><em>Note: For those reading this article in an RSS reader, you may find the colours do not appear in the examples properly. For some reason the feed is stripping out some of the formatting. I will do my best to fix this up soon.</em></p>
 </div>
@@ -477,7 +452,7 @@
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://buffered.io/posts/sorting-algorithms-the-comb-sort/" data-via="TheColonial" data-counturl="http://buffered.io/posts/sorting-algorithms-the-comb-sort/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://buffered.io/posts/sorting-algorithms-the-comb-sort/" data-via="TheColonial" data-counturl="http://buffered.io/posts/sorting-algorithms-the-comb-sort/" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -491,7 +466,7 @@
         <a class="basic-alignment left" href="/posts/wpf-shader-fx-on-codeplex/" title="Previous Post: WPF Shader FX on Codeplex">&laquo; WPF Shader FX on Codeplex</a>
       
       
-        <a class="basic-alignment right" href="/posts/sorting-algorithms-the-gnome-sort/" title="next Post: Sorting Algorithms: The Gnome Sort">Sorting Algorithms: The Gnome Sort &raquo;</a>
+        <a class="basic-alignment right" href="/posts/sorting-algorithms-the-gnome-sort/" title="Next Post: Sorting Algorithms: The Gnome Sort">Sorting Algorithms: The Gnome Sort &raquo;</a>
       
     </p>
   </footer>
@@ -692,7 +667,7 @@ Copyright &copy; 2013 -
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     }());
 </script>
@@ -716,7 +691,7 @@ Copyright &copy; 2013 -
       var twitterWidgets = document.createElement('script');
       twitterWidgets.type = 'text/javascript';
       twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
       document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
     })();
   </script>

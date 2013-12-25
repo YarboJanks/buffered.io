@@ -8,14 +8,8 @@
   <title>Project Euler #7 - OJ's perspective</title>
   <meta name="author" content="OJ Reeves">
 
-  <link rel="openid.server" href="http://pip.verisignlabs.com/server" />
-  <link rel="openid.delegate" href="http://thecolonial.pip.verisignlabs.com/" />
-  <link rel="openid2.provider" href="http://pip.verisignlabs.com/server" />
-  <link rel="openid2.local_id" href="http://thecolonial.pip.verisignlabs.com/" />
-  <meta http-equiv="X-XRDS-Location" content="http://pip.verisignlabs.com/thecolonial/yadixrds" />
-
   
-  <meta name="description" content="WARNING! This post contains a spoiler for Problem #7 listed at Project Euler. Do not read the rest of this post if you&#8217;re planning to attempt &hellip;">
+  <meta name="description" content="WARNING! This post contains a spoiler for Problem #7 listed at Project Euler. Do not read the rest of this post if you&rsquo;re planning to attempt &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -24,39 +18,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's perspective RSS 2.0" type="application/rss+xml">
   <link rel="canonical" href="http://buffered.io/posts/project-euler-7">
-  <link href="/favicon.ico" rel="icon">
+  <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-
-  <script src="/javascripts/modernizr-2.0.js" type="text/javascript"></script>
-  <script src="/javascripts/ender.js" type="text/javascript"></script>
+  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's perspective" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
-
-  <script type="text/javascript">
-    Modernizr.load([
-      { load: '//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js' },
-      { load: '/javascripts/jquery.lightbox.js', complete: function() {
-        $("a[rel^='lightbox']").lightbox();
-      } }
-    ]);
-  </script>
-
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 
   
-
-  
-  <script type="text/javascript">
-    !function(g,s,q,r,d){r=g[r]=g[r]||function(){(r.q=r.q||[]).push(
-    arguments)};d=s.createElement(q);q=s.getElementsByTagName(q)[0];
-    d.src='//d1l6p2sc9645hc.cloudfront.net/tracker.js';q.parentNode.
-    insertBefore(d,q)}(window,document,'script','_gs');
-    _gs('GSN-416076-G');
-  </script>
-
 
 </head>
 
@@ -115,33 +89,34 @@
 
 <time datetime="2008-06-15T04:53:00+10:00" pubdate data-updated="true">15 Jun 2008</time>
         
-         | <a href="#disqus_thread">Comments</a>
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://buffered.io">Comments</a>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p><strong>WARNING!</strong> This post contains a spoiler for Problem #7 listed at <a href="http://projecteuler.net/" title="Project Euler">Project Euler</a>. Do not read the rest of this post if you&#8217;re planning to attempt to solve the problem yourself.</p>
+<div class="entry-content"><p><strong>WARNING!</strong> This post contains a spoiler for Problem #7 listed at <a href="http://projecteuler.net/" title="Project Euler">Project Euler</a>. Do not read the rest of this post if you&rsquo;re planning to attempt to solve the problem yourself.</p>
 
 <!--more-->
 
 
-<p><a href="http://projecteuler.net/index.php?section=problems&id=7">Problem #7</a> was as boring as batshit (to be quite frank). The only reason I&#8217;m posting about it is to keep <a href="http://berkshirehunt.com/" title="Berkshire Hunt">The Head</a> happy ;)</p>
+<p><a href="http://projecteuler.net/index.php?section=problems&id=7">Problem #7</a> was as boring as batshit (to be quite frank). The only reason I&rsquo;m posting about it is to keep <a href="http://berkshirehunt.com/" title="Berkshire Hunt">The Head</a> happy ;)</p>
 
-<p>The reason I thought it was boring was because it was just the age-old problem of &#8220;how fast can you generate primes&#8221;:<blockquote><p>
+<p>The reason I thought it was boring was because it was just the age-old problem of &ldquo;how fast can you generate primes&rdquo;:<blockquote><p>
 By listing the first six prime numbers: 2, 3, 5, 7, 11, and 13, we can see that the 6th prime is 13.</p>
 
 <p>What is the 10001st prime number?</p></blockquote>
-A simple search of the web reveals a million different ways of solving this problem &#8211; mostly written by people smarter than me :)</p>
+A simple search of the web reveals a million different ways of solving this problem &mdash; mostly written by people smarter than me :)</p>
 
-<p>So did I cheat? No I didn&#8217;t. I wrote the standard <a href="http://en.wikipedia.org/wiki/Sieve_of_Eratosthenes" title="Sieve of Eratosthenes">Sieve of Eratosthenes</a> implementation in Haskell and got the answer in a respectable amount of time. Exciting stuff :|</p>
+<p>So did I cheat? No I didn&rsquo;t. I wrote the standard <a href="http://en.wikipedia.org/wiki/Sieve_of_Eratosthenes" title="Sieve of Eratosthenes">Sieve of Eratosthenes</a> implementation in Haskell and got the answer in a respectable amount of time. Exciting stuff :|</p>
 
-<p>I browsed around the web a little bit after solving the problem because I was interested to see how others might have solved it using Haskell. Yes, I am aware that there is a <a href="" title="">whole page dedicated to it</a> but that wasn&#8217;t enough.</p>
+<p>I browsed around the web a little bit after solving the problem because I was interested to see how others might have solved it using Haskell. Yes, I am aware that there is a <a href="" title="">whole page dedicated to it</a> but that wasn&rsquo;t enough.</p>
 
-<p>After a bit of a search, I stumbled across this little doozy. If you can make heads or tails of it you&#8217;re a better man than I ;) It&#8217;s quite a mind job to get your head around how this code works. This is an exercise I leave to the reader.</p>
+<p>After a bit of a search, I stumbled across this little doozy. If you can make heads or tails of it you&rsquo;re a better man than I ;) It&rsquo;s quite a mind job to get your head around how this code works. This is an exercise I leave to the reader.</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -192,7 +167,7 @@ A simple search of the web reveals a million different ways of solving this prob
 
 <p>Enjoy :)</p>
 
-<p>PS. Jon - are ya happy now? :D</p>
+<p>PS. Jon &ndash; are ya happy now? :D</p>
 </div>
 
 
@@ -230,7 +205,7 @@ A simple search of the web reveals a million different ways of solving this prob
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://buffered.io/posts/project-euler-7/" data-via="TheColonial" data-counturl="http://buffered.io/posts/project-euler-7/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://buffered.io/posts/project-euler-7/" data-via="TheColonial" data-counturl="http://buffered.io/posts/project-euler-7/" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -244,7 +219,7 @@ A simple search of the web reveals a million different ways of solving this prob
         <a class="basic-alignment left" href="/posts/an-interesting-little-problem/" title="Previous Post: An Interesting Little Problem">&laquo; An Interesting Little Problem</a>
       
       
-        <a class="basic-alignment right" href="/posts/ive-caved-in-to-twitter/" title="next Post: I've Caved-in to Twitter">I've Caved-in to Twitter &raquo;</a>
+        <a class="basic-alignment right" href="/posts/ive-caved-in-to-twitter/" title="Next Post: I've Caved-in to Twitter">I've Caved-in to Twitter &raquo;</a>
       
     </p>
   </footer>
@@ -445,7 +420,7 @@ Copyright &copy; 2013 -
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     }());
 </script>
@@ -469,7 +444,7 @@ Copyright &copy; 2013 -
       var twitterWidgets = document.createElement('script');
       twitterWidgets.type = 'text/javascript';
       twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
       document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
     })();
   </script>

@@ -8,14 +8,8 @@
   <title>PCs for the Family - OJ's perspective</title>
   <meta name="author" content="OJ Reeves">
 
-  <link rel="openid.server" href="http://pip.verisignlabs.com/server" />
-  <link rel="openid.delegate" href="http://thecolonial.pip.verisignlabs.com/" />
-  <link rel="openid2.provider" href="http://pip.verisignlabs.com/server" />
-  <link rel="openid2.local_id" href="http://thecolonial.pip.verisignlabs.com/" />
-  <meta http-equiv="X-XRDS-Location" content="http://pip.verisignlabs.com/thecolonial/yadixrds" />
-
   
-  <meta name="description" content="I know for sure that many of the geeks out there on the World Wide Wibbly have the &#8220;fun&#8221; task of sorting out every possible computer &hellip;">
+  <meta name="description" content="I know for sure that many of the geeks out there on the World Wide Wibbly have the &ldquo;fun&rdquo; task of sorting out every possible computer &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -24,39 +18,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's perspective RSS 2.0" type="application/rss+xml">
   <link rel="canonical" href="http://buffered.io/posts/pcs-for-the-family">
-  <link href="/favicon.ico" rel="icon">
+  <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-
-  <script src="/javascripts/modernizr-2.0.js" type="text/javascript"></script>
-  <script src="/javascripts/ender.js" type="text/javascript"></script>
+  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's perspective" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
-
-  <script type="text/javascript">
-    Modernizr.load([
-      { load: '//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js' },
-      { load: '/javascripts/jquery.lightbox.js', complete: function() {
-        $("a[rel^='lightbox']").lightbox();
-      } }
-    ]);
-  </script>
-
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 
   
-
-  
-  <script type="text/javascript">
-    !function(g,s,q,r,d){r=g[r]=g[r]||function(){(r.q=r.q||[]).push(
-    arguments)};d=s.createElement(q);q=s.getElementsByTagName(q)[0];
-    d.src='//d1l6p2sc9645hc.cloudfront.net/tracker.js';q.parentNode.
-    insertBefore(d,q)}(window,document,'script','_gs');
-    _gs('GSN-416076-G');
-  </script>
-
 
 </head>
 
@@ -115,48 +89,49 @@
 
 <time datetime="2006-11-09T07:59:00+10:00" pubdate data-updated="true">09 Nov 2006</time>
         
-         | <a href="#disqus_thread">Comments</a>
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://buffered.io">Comments</a>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>I know for sure that many of the geeks out there on the World Wide Wibbly have the &#8220;fun&#8221; task of sorting out every possible computer issue for any/all of their family and friends in the cases where they&#8217;re not geeks themselves. I am one such geek, and I&#8217;ll be honest and say that I do not mind helping out. It&#8217;s actually a bit of fun! I starting pondering thoughts on this topic when I stumbled across Roy&#8217;s <a href="http://weblogs.asp.net/rosherove/archive/posts/MomPC-_2D00_-Creating-a-parent-safe-PC.aspx" title="ISerializable - Roy Osherove's Blog : MomPC - Creating a parent safe PC" target="_blank">MomPC</a> blog post a week or two ago. I read the post with interest and think that it&#8217;s quite a handy little reference for those people looking to achieve the same thing.</p>
+<div class="entry-content"><p>I know for sure that many of the geeks out there on the World Wide Wibbly have the &ldquo;fun&rdquo; task of sorting out every possible computer issue for any/all of their family and friends in the cases where they&rsquo;re not geeks themselves. I am one such geek, and I&rsquo;ll be honest and say that I do not mind helping out. It&rsquo;s actually a bit of fun! I starting pondering thoughts on this topic when I stumbled across Roy&rsquo;s <a href="http://weblogs.asp.net/rosherove/archive/posts/MomPC-_2D00_-Creating-a-parent-safe-PC.aspx" title="ISerializable - Roy Osherove's Blog : MomPC - Creating a parent safe PC" target="_blank">MomPC</a> blog post a week or two ago. I read the post with interest and think that it&rsquo;s quite a handy little reference for those people looking to achieve the same thing.</p>
 
-<p>By the same token, I think there are some gaps in what was said. I also think that there&#8217;s a fundamental flaw in the assumption that Windows XP has to be used as the operating system. I&#8217;ll get onto that point a bit more in a moment, but for now I&#8217;d like to comment on a few other options that Roy hasn&#8217;t covered.</p>
+<p>By the same token, I think there are some gaps in what was said. I also think that there&rsquo;s a fundamental flaw in the assumption that Windows XP has to be used as the operating system. I&rsquo;ll get onto that point a bit more in a moment, but for now I&rsquo;d like to comment on a few other options that Roy hasn&rsquo;t covered.</p>
 
 <p><strong><u>Firewall</u></strong></p>
 
-<p>The main reasons for having a software firewall on Windows is to prevent nasty trojans from getting <em>out</em> to do their thing, and to prevent other trojans and script kiddies (<em>skiddies</em>) from getting <em>in</em>. Windows Defender is indeed one option, but it&#8217;s not the only one. <a href="http://www.webmasterfree.com/tpfw.html" title="Tiny Firewall" target="_blank">Tiny Firewall</a> is a nice option (though it looks like it might not be supported any more!) which is free for home use, and there&#8217;s always <a href="http://www.zonelabs.com/store/content/company/products/znalm/freeDownload.jsp?dc=12bms&ctry=GB&lang=en" title="Zone Labs ZoneAlarm" target="_blank">ZoneAlarm</a> which is also free for home use. These two do a good enough job as well. The latter has improved somewhat now that it no longer &#8220;phones home&#8221; while protecting you :)</p>
+<p>The main reasons for having a software firewall on Windows is to prevent nasty trojans from getting <em>out</em> to do their thing, and to prevent other trojans and script kiddies (<em>skiddies</em>) from getting <em>in</em>. Windows Defender is indeed one option, but it&rsquo;s not the only one. <a href="http://www.webmasterfree.com/tpfw.html" title="Tiny Firewall" target="_blank">Tiny Firewall</a> is a nice option (though it looks like it might not be supported any more!) which is free for home use, and there&rsquo;s always <a href="http://www.zonelabs.com/store/content/company/products/znalm/freeDownload.jsp?dc=12bms&ctry=GB&lang=en" title="Zone Labs ZoneAlarm" target="_blank">ZoneAlarm</a> which is also free for home use. These two do a good enough job as well. The latter has improved somewhat now that it no longer &ldquo;phones home&rdquo; while protecting you :)</p>
 
 <p><strong><u>Antivirus</u></strong></p>
 
-<p>I&#8217;ve never been a huge advocate of AVG, so I don&#8217;t agree with Roy on this point. Instead I have found that both the 32 and 64-bit versions of <a href="http://www.avast.com/" title="Avast" target="_blank">Avast</a> do a <em>very</em> good job of keeping the baddies at bay. I&#8217;ve been using this for well over a year now at home, and I have nothing but good things to say about it. People&#8217;s experiences do vary though, so take my comments with a grain of salt. If you&#8217;re looking for a freebie that&#8217;s good, then Avast is a winner.</p>
+<p>I&rsquo;ve never been a huge advocate of AVG, so I don&rsquo;t agree with Roy on this point. Instead I have found that both the 32 and 64-bit versions of <a href="http://www.avast.com/" title="Avast" target="_blank">Avast</a> do a <em>very</em> good job of keeping the baddies at bay. I&rsquo;ve been using this for well over a year now at home, and I have nothing but good things to say about it. People&rsquo;s experiences do vary though, so take my comments with a grain of salt. If you&rsquo;re looking for a freebie that&rsquo;s good, then Avast is a winner.</p>
 
 <p><strong><u>Email</u></strong></p>
 
-<p>I&#8217;d strongly recommend the use of <a href="http://www.mozilla.com/thunderbird/" title="Mozilla Thunderbird" target="_blank">Thunderbird</a> for all email-based stuff. This removes the need for having Outlook and/or Outlook Express installed at all. It&#8217;s got a built-in news reader and RSS feed reader, and is basically a fabulous comms application - better yet it&#8217;s a freebie!</p>
+<p>I&rsquo;d strongly recommend the use of <a href="http://www.mozilla.com/thunderbird/" title="Mozilla Thunderbird" target="_blank">Thunderbird</a> for all email-based stuff. This removes the need for having Outlook and/or Outlook Express installed at all. It&rsquo;s got a built-in news reader and RSS feed reader, and is basically a fabulous comms application &ndash; better yet it&rsquo;s a freebie!</p>
 
 <p><strong><u>Office Applications</u></strong></p>
 
-<p>For most home users, I personally feel that buying a licenced copy of Microsoft Office is overkill. People write a letter here and there, they might open a few word docs that are downloaded off the web, or want to open up some crappy powerpoint presentation with the latest &#8220;fluffy bunnies in tu-tus wishing you wealth, happiness and friendship for the rest of your days&#8221; accompanied with some cheezy music and awful text animations.</p>
+<p>For most home users, I personally feel that buying a licenced copy of Microsoft Office is overkill. People write a letter here and there, they might open a few word docs that are downloaded off the web, or want to open up some crappy powerpoint presentation with the latest &ldquo;fluffy bunnies in tu-tus wishing you wealth, happiness and friendship for the rest of your days&rdquo; accompanied with some cheezy music and awful text animations.</p>
 
-<p>At the end of the day, <a href="http://www.openoffice.org/" title="OpenOffice" target="_blank">OpenOffice</a> is more than sufficient for these purposes. Again, it&#8217;s free software, it has fairly regular releases (given that it&#8217;s a rather large application) and it&#8217;s cross-platform too. I can&#8217;t see the need to go for another office application which costs a fortune when 9 time out of 10 this will suffice.</p>
+<p>At the end of the day, <a href="http://www.openoffice.org/" title="OpenOffice" target="_blank">OpenOffice</a> is more than sufficient for these purposes. Again, it&rsquo;s free software, it has fairly regular releases (given that it&rsquo;s a rather large application) and it&rsquo;s cross-platform too. I can&rsquo;t see the need to go for another office application which costs a fortune when 9 time out of 10 this will suffice.</p>
 
-<p>Of course, there are cases where people need more than just a standard word processor. OpenOffice has its quirks and pitfalls, and if you&#8217;re looking to go for a package with a lot of functionality then MS Office might just be on the cards for you.</p>
+<p>Of course, there are cases where people need more than just a standard word processor. OpenOffice has its quirks and pitfalls, and if you&rsquo;re looking to go for a package with a lot of functionality then MS Office might just be on the cards for you.</p>
 
 <p><strong><u>Browser</u></strong></p>
 
-<p><a href="http://www.getfirefox.com/" title="FireFox" target="_blank">FireFox</a>. &#8216;Nuff said.</p>
+<p><a href="http://www.getfirefox.com/" title="FireFox" target="_blank">FireFox</a>. &lsquo;Nuff said.</p>
 
-<p><strong><u>The Key Point - What Operating System?</u></strong></p>
+<p><strong><u>The Key Point &ndash; What Operating System?</u></strong></p>
 
-<p>As I stated at the start of this post, I&#8217;m not really sure why Windows XP has to be the default installation for a family PC. The big thing that most people will focus on here is usability, followed closely by the range of software and support for things such as scanners, digital cameras and MP3 players - which you can&#8217;t argue with to a point.</p>
+<p>As I stated at the start of this post, I&rsquo;m not really sure why Windows XP has to be the default installation for a family PC. The big thing that most people will focus on here is usability, followed closely by the range of software and support for things such as scanners, digital cameras and MP3 players &ndash; which you can&rsquo;t argue with to a point.</p>
 
-<p>In Roy&#8217;s case, I think Windows XP is unnecessary. I think a default installation of Ubuntu with all the required software set up would be more than enough for the default family PC. It&#8217;d be a lot easier to secure, wouldn&#8217;t require constant maintenance and reinstalling every few months like Windows does, and doesn&#8217;t cost a bean. Ubuntu with FireFox, Thunderbird, OpenOffice and perhaps a few games (Solitaire, Mahjongg, etc) would keep the average non-geek family member amused for hours, and would probably cover most, if not all, of the things that the users want to do. The set up of a software firewall wouldn&#8217;t be so much of an issue since there&#8217;s very little (to no) malware that runs on Linux, hence it&#8217;s probably not needed. You don&#8217;t <em>need</em> to run antivirus software (though I still think you should) on Linux as 99.99999% of viruses are targetted at the Windows platform. Finally, auto-updates are on by default which means the OS keeps itself up to date just like the Auto-update feature of Windows.</p>
+<p>In Roy&rsquo;s case, I think Windows XP is unnecessary. I think a default installation of Ubuntu with all the required software set up would be more than enough for the default family PC. It&rsquo;d be a lot easier to secure, wouldn&rsquo;t require constant maintenance and reinstalling every few months like Windows does, and doesn&rsquo;t cost a bean. Ubuntu with FireFox, Thunderbird, OpenOffice and perhaps a few games (Solitaire, Mahjongg, etc) would keep the average non-geek family member amused for hours, and would probably cover most, if not all, of the things that the users want to do. The set up of a software firewall wouldn&rsquo;t be so much of an issue since there&rsquo;s very little (to no) malware that runs on Linux, hence it&rsquo;s probably not needed. You don&rsquo;t <em>need</em> to run antivirus software (though I still think you should) on Linux as 99.99999% of viruses are targetted at the Windows platform. Finally, auto-updates are on by default which means the OS keeps itself up to date just like the Auto-update feature of Windows.</p>
 
-<p>Bring on Ubuntu installs for the family I say! There&#8217;s no need to give yourself the extra workload of maintaining a family Windows machine when it doesn&#8217;t have to have Windows running on it. Do yourself, and your family a favour - get yourself a Linus distro, and just see how much longer it lasts before you have to blast it away and reinstall from scratch.</p>
+<p>Bring on Ubuntu installs for the family I say! There&rsquo;s no need to give yourself the extra workload of maintaining a family Windows machine when it doesn&rsquo;t have to have Windows running on it. Do yourself, and your family a favour &ndash; get yourself a Linus distro, and just see how much longer it lasts before you have to blast it away and reinstall from scratch.</p>
 </div>
 
 
@@ -194,7 +169,7 @@
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://buffered.io/posts/pcs-for-the-family/" data-via="TheColonial" data-counturl="http://buffered.io/posts/pcs-for-the-family/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://buffered.io/posts/pcs-for-the-family/" data-via="TheColonial" data-counturl="http://buffered.io/posts/pcs-for-the-family/" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -208,7 +183,7 @@
         <a class="basic-alignment left" href="/posts/gadget-me-up/" title="Previous Post: Gadget Me Up">&laquo; Gadget Me Up</a>
       
       
-        <a class="basic-alignment right" href="/posts/eas-steam-leaves-a-bad-smell/" title="next Post: EA's 'Steam' Leaves a Bad Smell">EA's 'Steam' Leaves a Bad Smell &raquo;</a>
+        <a class="basic-alignment right" href="/posts/eas-steam-leaves-a-bad-smell/" title="Next Post: EA's 'Steam' Leaves a Bad Smell">EA's 'Steam' Leaves a Bad Smell &raquo;</a>
       
     </p>
   </footer>
@@ -409,7 +384,7 @@ Copyright &copy; 2013 -
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     }());
 </script>
@@ -433,7 +408,7 @@ Copyright &copy; 2013 -
       var twitterWidgets = document.createElement('script');
       twitterWidgets.type = 'text/javascript';
       twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
       document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
     })();
   </script>

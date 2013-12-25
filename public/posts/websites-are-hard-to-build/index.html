@@ -5,17 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Websites are Hard to Build - OJ's perspective</title>
+  <title>Websites Are Hard to Build - OJ's perspective</title>
   <meta name="author" content="OJ Reeves">
 
-  <link rel="openid.server" href="http://pip.verisignlabs.com/server" />
-  <link rel="openid.delegate" href="http://thecolonial.pip.verisignlabs.com/" />
-  <link rel="openid2.provider" href="http://pip.verisignlabs.com/server" />
-  <link rel="openid2.local_id" href="http://thecolonial.pip.verisignlabs.com/" />
-  <meta http-equiv="X-XRDS-Location" content="http://pip.verisignlabs.com/thecolonial/yadixrds" />
-
   
-  <meta name="description" content="&#8220;It&#8217;s just a small site, how hard can it be?&#8221; &#8220;I thought you could do it for me as a favour. It&#8217;s not a complicated &hellip;">
+  <meta name="description" content="&ldquo;It&rsquo;s just a small site, how hard can it be?&rdquo; &ldquo;I thought you could do it for me as a favour. It&rsquo;s not a complicated &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -24,39 +18,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's perspective RSS 2.0" type="application/rss+xml">
   <link rel="canonical" href="http://buffered.io/posts/websites-are-hard-to-build">
-  <link href="/favicon.ico" rel="icon">
+  <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-
-  <script src="/javascripts/modernizr-2.0.js" type="text/javascript"></script>
-  <script src="/javascripts/ender.js" type="text/javascript"></script>
+  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's perspective" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
-
-  <script type="text/javascript">
-    Modernizr.load([
-      { load: '//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js' },
-      { load: '/javascripts/jquery.lightbox.js', complete: function() {
-        $("a[rel^='lightbox']").lightbox();
-      } }
-    ]);
-  </script>
-
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 
   
-
-  
-  <script type="text/javascript">
-    !function(g,s,q,r,d){r=g[r]=g[r]||function(){(r.q=r.q||[]).push(
-    arguments)};d=s.createElement(q);q=s.getElementsByTagName(q)[0];
-    d.src='//d1l6p2sc9645hc.cloudfront.net/tracker.js';q.parentNode.
-    insertBefore(d,q)}(window,document,'script','_gs');
-    _gs('GSN-416076-G');
-  </script>
-
 
 </head>
 
@@ -115,7 +89,8 @@
 
 <time datetime="2008-11-26T21:08:00+10:00" pubdate data-updated="true">26 Nov 2008</time>
         
-         | <a href="#disqus_thread">Comments</a>
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://buffered.io">Comments</a>
         
       </p>
     
@@ -124,90 +99,90 @@
 
 <div class="entry-content"><p><img class="right" src="/uploads/2008/11/elope-harlequin-jester.jpg" title="'Uninformed client'" ></p>
 
-<blockquote><p>&#8220;It&#8217;s just a small site, how hard can it be?&#8221;</p>
+<blockquote><p>&ldquo;It&rsquo;s just a small site, how hard can it be?&rdquo;</p>
 
-<p>&#8220;I thought you could do it for me as a favour. It&#8217;s not a complicated site.&#8221;</p>
+<p>&ldquo;I thought you could do it for me as a favour. It&rsquo;s not a complicated site.&rdquo;</p>
 
-<p>&#8220;This would take me an afternoon, but I don&#8217;t have time, can you do it for me?&#8221;</p></blockquote>
+<p>&ldquo;This would take me an afternoon, but I don&rsquo;t have time, can you do it for me?&rdquo;</p></blockquote>
 
-<p>Have you ever heard these comments before? Have you heard ones that are similar? I&#8217;ve been hearing them a lot in the last few weeks and it&#8217;s starting to get to me.</p>
+<p>Have you ever heard these comments before? Have you heard ones that are similar? I&rsquo;ve been hearing them a lot in the last few weeks and it&rsquo;s starting to get to me.</p>
 
 <p>I have just had a chat with a mate who is also suffering this pain, and that conversation is what inspired me to write this, the first random rant in a while.</p>
 
 <!--more-->
 
 
-<p>Let me start by saying that <em>building software is <strong>hard</strong></em>. Building <em>quality</em> software is <strong>harder</strong>. I&#8217;ve been in the industry for 10 years now, and I can say with a certain level of confidence (and perhaps a little bit of authority) that it&#8217;s harder than most people think &#8211; particularly business users, clients and lots of family and friends.</p>
+<p>Let me start by saying that <em>building software is <strong>hard</strong></em>. Building <em>quality</em> software is <strong>harder</strong>. I&rsquo;ve been in the industry for 10 years now, and I can say with a certain level of confidence (and perhaps a little bit of authority) that it&rsquo;s harder than most people think &mdash; particularly business users, clients and lots of family and friends.</p>
 
-<p>Let me follow that on by saying that websites are software (no way!). That puts them in the &#8220;hard&#8221; basket. Every site, even if it&#8217;s a static page with some simple content, comes with its own set of challenges &#8211; and those challenges are rarely understood by anyone who hasn&#8217;t experienced the pain of building software.</p>
+<p>Let me follow that on by saying that websites are software (no way!). That puts them in the &ldquo;hard&rdquo; basket. Every site, even if it&rsquo;s a static page with some simple content, comes with its own set of challenges &mdash; and those challenges are rarely understood by anyone who hasn&rsquo;t experienced the pain of building software.</p>
 
-<p>The point of this post it to give a little bit of exposure to some of these issues. I hope that this post gets read by those people who have plans to have some sort of software built but haven&#8217;t really got a clue what&#8217;s involved.</p>
+<p>The point of this post it to give a little bit of exposure to some of these issues. I hope that this post gets read by those people who have plans to have some sort of software built but haven&rsquo;t really got a clue what&rsquo;s involved.</p>
 
 <h2>Requirement Issues</h2>
 
-<p>Let&#8217;s be fair &#8230; you don&#8217;t know what you want. You <em>think</em> you do, but you really don&#8217;t. You have an idea for something that will either make your life easier or &#8220;be really cool&#8221;, but as far as actually <strong>thinking</strong> about how it would function &#8230; ? You haven&#8217;t done that at all.</p>
+<p>Let&rsquo;s be fair &hellip; you don&rsquo;t know what you want. You <em>think</em> you do, but you really don&rsquo;t. You have an idea for something that will either make your life easier or &ldquo;be really cool&rdquo;, but as far as actually <strong>thinking</strong> about how it would function &hellip; ? You haven&rsquo;t done that at all.</p>
 
-<p>Here lies the first of the big stumbling blocks. You want a website, because &#8220;everyone has a website these days&#8221; for almost everything. Started a new business? You must have a website! Released an album? You must have a website! Had a child? You must have a website! Never had a website? You must have a website!</p>
+<p>Here lies the first of the big stumbling blocks. You want a website, because &ldquo;everyone has a website these days&rdquo; for almost everything. Started a new business? You must have a website! Released an album? You must have a website! Had a child? You must have a website! Never had a website? You must have a website!</p>
 
 <p>Before you dive headlong into the quest to find the person to build the site for you, have a good long think about what it is you want that site to be. What is its purpose? What content is required? Will it be dynamic? Will it be static? Will it be data-driven and require a <a href="http://en.wikipedia.org/wiki/Content_management_system" title="Content Management System">Content Management System</a>? Do you want other people to submit content? Do you want to have the facility available for readers to add their own comments? Will it be product driven and need the ability for people to buy stuff directly from the site? Do you need it to work on all browsers? Does it require access via a mobile phone or hand-held gadget?</p>
 
-<p>These questions need to be answered well before any design is even contemplated, let alone structure and technical architecture. Do yourself and your site development team a favour. Think long and hard about what you want, and while you&#8217;re doing that, ponder what possible issues you might face. The more issues you think of now, the cheaper it will be to build the site that fits your needs. Not just that, but you&#8217;ll reduce the &#8220;scope on a rope&#8221; which results in the blowout of timelines and budgets.</p>
+<p>These questions need to be answered well before any design is even contemplated, let alone structure and technical architecture. Do yourself and your site development team a favour. Think long and hard about what you want, and while you&rsquo;re doing that, ponder what possible issues you might face. The more issues you think of now, the cheaper it will be to build the site that fits your needs. Not just that, but you&rsquo;ll reduce the &ldquo;scope on a rope&rdquo; which results in the blowout of timelines and budgets.</p>
 
 <h2>Design Issues</h2>
 
-<p>We&#8217;re coming to the end of 2008 and yet people still don&#8217;t realise that development is <strong>not the same as design</strong>. Ask yourself the question: if design is part of development, then why do people make a living out of website design? The answer is simple: It&#8217;s a big job, and it&#8217;s very hard to do it right. I&#8217;m a developer, and I feel that there are very few (if any) areas of development that I couldn&#8217;t work in, but I can tell you this for certain: I am <strong>not a designer</strong>. <a href="http://shiftperception.com/blog/" title="Shiftperception">Dan</a> will no doubt appreciate that.</p>
+<p>We&rsquo;re coming to the end of 2008 and yet people still don&rsquo;t realise that development is <strong>not the same as design</strong>. Ask yourself the question: if design is part of development, then why do people make a living out of website design? The answer is simple: It&rsquo;s a big job, and it&rsquo;s very hard to do it right. I&rsquo;m a developer, and I feel that there are very few (if any) areas of development that I couldn&rsquo;t work in, but I can tell you this for certain: I am <strong>not a designer</strong>. <a href="http://shiftperception.com/blog/" title="Shiftperception">Dan</a> will no doubt appreciate that.</p>
 
-<p>It&#8217;s true, I am not a designer. I can not design websites. I can do the technical desing, the architecture and the implementation. I can not do the design. Creating the right design for a website isn&#8217;t an easy thing to do. I can tell you when people get it right, and I can tell you when people get it wrong, I just can&#8217;t tell you why.</p>
+<p>It&rsquo;s true, I am not a designer. I can not design websites. I can do the technical desing, the architecture and the implementation. I can not do the design. Creating the right design for a website isn&rsquo;t an easy thing to do. I can tell you when people get it right, and I can tell you when people get it wrong, I just can&rsquo;t tell you why.</p>
 
-<p>So, again, do yourself a favour. Get a proper web designer with a great portfolio of projects and go through the ideas you have with them. They will end up providing you an interface which makes sense for what you&#8217;re trying to do. Do not fall into the trap of assuming that this part of the process isn&#8217;t important. Yes, up front the cost most appear higher, but in the long run you will not regret it.</p>
+<p>So, again, do yourself a favour. Get a proper web designer with a great portfolio of projects and go through the ideas you have with them. They will end up providing you an interface which makes sense for what you&rsquo;re trying to do. Do not fall into the trap of assuming that this part of the process isn&rsquo;t important. Yes, up front the cost most appear higher, but in the long run you will not regret it.</p>
 
 <h2>Technical Issues</h2>
 
-<p>Stumbling block number 3 is the lack of understanding of the technical issues. It&#8217;s no surprise though, considering that most people wanting sites are not technical in nature. While it&#8217;s fine for a client to not have (or want) an understanding of the technical issues, it&#8217;s certainly <em>not</em> fine for them to ignore the fact that they even exist. Sticking your head in the sand and saying things like &#8220;well you&#8217;ll figure it out&#8221; or &#8220;isn&#8217;t that what I&#8217;m paying you for&#8221; doesn&#8217;t really cut the mustard, particularly when you haven&#8217;t thought about what you want in the first place.</p>
+<p>Stumbling block number 3 is the lack of understanding of the technical issues. It&rsquo;s no surprise though, considering that most people wanting sites are not technical in nature. While it&rsquo;s fine for a client to not have (or want) an understanding of the technical issues, it&rsquo;s certainly <em>not</em> fine for them to ignore the fact that they even exist. Sticking your head in the sand and saying things like &ldquo;well you&rsquo;ll figure it out&rdquo; or &ldquo;isn&rsquo;t that what I&rsquo;m paying you for&rdquo; doesn&rsquo;t really cut the mustard, particularly when you haven&rsquo;t thought about what you want in the first place.</p>
 
-<p>When building websites there are all kinds of technical hurdles to leap over. To name a few&#8230;</p>
+<p>When building websites there are all kinds of technical hurdles to leap over. To name a few&hellip;</p>
 
 <ul>
-<li><strong>Platform</strong> - I think most of the non-techie readers will have no clue of what I mean here. The platform is what the site runs on. That is, the operating system, the runtime, the software that supports it, etc.</li>
-<li><strong>Cross-browser compatibility</strong> - The biggest issue in any Internet-facing website is cross-browser issues. Not all browsers were made equally. Each and every one has its own set of quirks, and the people responsible for building the interface to the site need to cater for all these quirks. If they don&#8217;t, then they may alienate a subset of potential readers which would do damage to the site&#8217;s potential traffic and income. <strong>DO NOT</strong> underestimate how painful this can be. Yes, there are tools out there which apparently take care of these issues for you, but let me tell you that most of the time they fail too. Be prepared for a great deal of work to go into making your site look and behave on the same on a variety of browsers. As a small side-note, some browsers actually behave differently on, say, Windows compared to how they would on, say, Mac OSX.</li>
-<li><strong>Secure payments</strong> - Sounds easy right? &#8220;I just want the ability for people to enter credit card details and pay for stuff.&#8221; Unfortunately it isn&#8217;t that simple. You have all kinds of issues to worry about if you want that to happen directly in your site. You have to set up <a href="http://en.wikipedia.org/wiki/Transport_Layer_Security" title="Transport layer security">SSL</a>, you have to arrange for a proper payment portal to site behind your site and handle the requests. You need to make sure your site is set up in such a way that any malicious users can not buy stuff without paying, nor have honest users&#8217; information compromised and shared. There are other options, such as <a href="http://www.paypal.com/" title="PayPal">PayPal</a> and <a href="https://payments.amazon.com/sdui/sdui/index.htm" title="Amazon Payments">Amazon</a>, but these facilities operate externally and won&#8217;t appear &#8220;incorporated&#8221; in the site.</li>
-<li><strong>Accessibility</strong> - You&#8217;ve done well if you already know what this is. In short, it refers to your sites ability to be read by people who are visually impaired who use devices such as <a href="http://en.wikipedia.org/wiki/Screen_reader" title="Screen reader">screen readers</a>. If you want your site to be fully accessible, then expect a great deal more effort to be involved. Your site needs to be structured in a special way and it needs to be <strong>fully</strong> compliant with a markup standard (such as <a href="http://www.w3.org/TR/html4/sgml/loosedtd.html" title="HTML 4.0">HTML 4.0 Transitional</a>).</li>
-<li><strong>Hosting</strong> - This issue comes with a stack of other issues that most people don&#8217;t even think about (sometimes even developers!). Do you have your own host? Do you have a shared host? Dedicated host? Do you need it in your own country? Do you need Windows or Linux? Do you need email facilities? Do you need SSL? Do you need a <a href="http://en.wikipedia.org/wiki/Content_Delivery_Network" title="Content delivery network">CDN</a>? Choosing a location for your site is affected by so many things. For example, if you&#8217;re looking for a fully secure site which keeps track of user details and sensitive information (such as credit cards) then a shared hosting solution is an <em>EPIC FAIL</em>. In case the reason isn&#8217;t obvious I&#8217;ll tell you. If you use a shared host, then the entire machine is only as secure as the weakest account. If another site, owned by someone else, is compromised then the attacker owns the box which contains YOUR sites as well.</li>
-<li><strong>Database</strong> - This isn&#8217;t just about which one to use. It&#8217;s about how to use it. Databases are underestimated and often misunderstood. It&#8217;s <em>very</em> easy to do databases wrong. This is a real kicker for those applications that are very database heavy. In particular, applications which require complex relationships and/or deep searching capabilities. If your application relies on an insanely speedy, distributed database or is search-heavy, you had best get yourself a DB guru &#8230; and be prepared to pay for them! A recent example with some interested details was recently posted on <a href="http://blog.stackoverflow.com/2008/11/sql-2008-full-text-search-problems/" title="SQL 2008 Full Text Search Problems">StackOverflow</a>, go have a read!</li>
-<li><strong>Traffic</strong> - If you&#8217;re aiming to build a site that isn&#8217;t going to be used often or doesn&#8217;t have a great deal of content, then this might not be so much of an issue. But if you have a site that is going to be bombarded with traffic, don&#8217;t expect your first cut of your system to, er, cut it. I once heard a semi-famous man say &#8221;<a href="http://www.codinghorror.com/blog/archives/000957.html" title="Everything is fast for small n">Everything is fast for small <em>n</em>&#8221;</a>, and he&#8217;s dead right. In development and testing, your app will probably fly. But under load, with thousands of people hitting it at the same time, it may just keel over and die. Be prepared to face this problem in the development stage.</li>
-<li><strong>Maintainability</strong> - I left this one last because it&#8217;s a little verbose and somewhat random. So many things can affect the maintainability of the site. The main problem here though is that in general, the idea of maintenance after a site has been developed is far from anyone&#8217;s thoughts. Maintenance is where you&#8217;ll spend most of your cash long term. Minimising the potential issues during development really is key to making a site which isn&#8217;t going to cost the earth to maintain or enhance. The most common cause of highly unmaintainable websites is &#8220;Little Johnny&#8221; (LJ). LJ is the bloke that someone knows through a friend of a friend, or through the family. He&#8217;s the guy who &#8220;knows stuff about computers&#8221;. Of course, that means that he can &lt;sarcasm&gt;build commercial websites that are flexible, secure, fast, extendible, easy to maintain and that WORK&lt;/sarcasm&gt;. In all seriousness, you might know someone who knows something about computers, but if you&#8217;re serious about your site, then get someone who knows what they&#8217;re doing. You&#8217;ll pay more in the long run for someone who doesn&#8217;t. Either that, or take one of your employees, and put them through a course so that they can learn how it&#8217;s done. To sum up, if you want to reduce the cost of maintenance there is a lot of work involved, and your developers need to know what they&#8217;re doing. Be prepared for a lot of work in this area.</li>
+<li><strong>Platform</strong> &ndash; I think most of the non-techie readers will have no clue of what I mean here. The platform is what the site runs on. That is, the operating system, the runtime, the software that supports it, etc.</li>
+<li><strong>Cross-browser compatibility</strong> &ndash; The biggest issue in any Internet-facing website is cross-browser issues. Not all browsers were made equally. Each and every one has its own set of quirks, and the people responsible for building the interface to the site need to cater for all these quirks. If they don&rsquo;t, then they may alienate a subset of potential readers which would do damage to the site&rsquo;s potential traffic and income. <strong>DO NOT</strong> underestimate how painful this can be. Yes, there are tools out there which apparently take care of these issues for you, but let me tell you that most of the time they fail too. Be prepared for a great deal of work to go into making your site look and behave on the same on a variety of browsers. As a small side-note, some browsers actually behave differently on, say, Windows compared to how they would on, say, Mac OSX.</li>
+<li><strong>Secure payments</strong> &ndash; Sounds easy right? &ldquo;I just want the ability for people to enter credit card details and pay for stuff.&rdquo; Unfortunately it isn&rsquo;t that simple. You have all kinds of issues to worry about if you want that to happen directly in your site. You have to set up <a href="http://en.wikipedia.org/wiki/Transport_Layer_Security" title="Transport layer security">SSL</a>, you have to arrange for a proper payment portal to site behind your site and handle the requests. You need to make sure your site is set up in such a way that any malicious users can not buy stuff without paying, nor have honest users&#8217; information compromised and shared. There are other options, such as <a href="http://www.paypal.com/" title="PayPal">PayPal</a> and <a href="https://payments.amazon.com/sdui/sdui/index.htm" title="Amazon Payments">Amazon</a>, but these facilities operate externally and won&rsquo;t appear &ldquo;incorporated&rdquo; in the site.</li>
+<li><strong>Accessibility</strong> &ndash; You&rsquo;ve done well if you already know what this is. In short, it refers to your sites ability to be read by people who are visually impaired who use devices such as <a href="http://en.wikipedia.org/wiki/Screen_reader" title="Screen reader">screen readers</a>. If you want your site to be fully accessible, then expect a great deal more effort to be involved. Your site needs to be structured in a special way and it needs to be <strong>fully</strong> compliant with a markup standard (such as <a href="http://www.w3.org/TR/html4/sgml/loosedtd.html" title="HTML 4.0">HTML 4.0 Transitional</a>).</li>
+<li><strong>Hosting</strong> &ndash; This issue comes with a stack of other issues that most people don&rsquo;t even think about (sometimes even developers!). Do you have your own host? Do you have a shared host? Dedicated host? Do you need it in your own country? Do you need Windows or Linux? Do you need email facilities? Do you need SSL? Do you need a <a href="http://en.wikipedia.org/wiki/Content_Delivery_Network" title="Content delivery network">CDN</a>? Choosing a location for your site is affected by so many things. For example, if you&rsquo;re looking for a fully secure site which keeps track of user details and sensitive information (such as credit cards) then a shared hosting solution is an <em>EPIC FAIL</em>. In case the reason isn&rsquo;t obvious I&rsquo;ll tell you. If you use a shared host, then the entire machine is only as secure as the weakest account. If another site, owned by someone else, is compromised then the attacker owns the box which contains YOUR sites as well.</li>
+<li><strong>Database</strong> &ndash; This isn&rsquo;t just about which one to use. It&rsquo;s about how to use it. Databases are underestimated and often misunderstood. It&rsquo;s <em>very</em> easy to do databases wrong. This is a real kicker for those applications that are very database heavy. In particular, applications which require complex relationships and/or deep searching capabilities. If your application relies on an insanely speedy, distributed database or is search-heavy, you had best get yourself a DB guru &hellip; and be prepared to pay for them! A recent example with some interested details was recently posted on <a href="http://blog.stackoverflow.com/2008/11/sql-2008-full-text-search-problems/" title="SQL 2008 Full Text Search Problems">StackOverflow</a>, go have a read!</li>
+<li><strong>Traffic</strong> &ndash; If you&rsquo;re aiming to build a site that isn&rsquo;t going to be used often or doesn&rsquo;t have a great deal of content, then this might not be so much of an issue. But if you have a site that is going to be bombarded with traffic, don&rsquo;t expect your first cut of your system to, er, cut it. I once heard a semi-famous man say &ldquo;<a href="http://www.codinghorror.com/blog/archives/000957.html" title="Everything is fast for small n">Everything is fast for small <em>n</em>&rdquo;</a>, and he&rsquo;s dead right. In development and testing, your app will probably fly. But under load, with thousands of people hitting it at the same time, it may just keel over and die. Be prepared to face this problem in the development stage.</li>
+<li><strong>Maintainability</strong> &ndash; I left this one last because it&rsquo;s a little verbose and somewhat random. So many things can affect the maintainability of the site. The main problem here though is that in general, the idea of maintenance after a site has been developed is far from anyone&rsquo;s thoughts. Maintenance is where you&rsquo;ll spend most of your cash long term. Minimising the potential issues during development really is key to making a site which isn&rsquo;t going to cost the earth to maintain or enhance. The most common cause of highly unmaintainable websites is &ldquo;Little Johnny&rdquo; (LJ). LJ is the bloke that someone knows through a friend of a friend, or through the family. He&rsquo;s the guy who &ldquo;knows stuff about computers&rdquo;. Of course, that means that he can &lt;sarcasm&gt;build commercial websites that are flexible, secure, fast, extendible, easy to maintain and that WORK&lt;/sarcasm&gt;. In all seriousness, you might know someone who knows something about computers, but if you&rsquo;re serious about your site, then get someone who knows what they&rsquo;re doing. You&rsquo;ll pay more in the long run for someone who doesn&rsquo;t. Either that, or take one of your employees, and put them through a course so that they can learn how it&rsquo;s done. To sum up, if you want to reduce the cost of maintenance there is a lot of work involved, and your developers need to know what they&rsquo;re doing. Be prepared for a lot of work in this area.</li>
 </ul>
 
 
 <h2>Testing Issues</h2>
 
-<p>Testing? What&#8217;s that?</p>
+<p>Testing? What&rsquo;s that?</p>
 
-<p>It&#8217;s frightening that even in Enterprise software, testing is generally an afterthought. Recently I was fortunate enough to be part of a team where testing was a huge part of the development process. It was <em>really</em> good and the result was a seriously higher quality application.</p>
+<p>It&rsquo;s frightening that even in Enterprise software, testing is generally an afterthought. Recently I was fortunate enough to be part of a team where testing was a huge part of the development process. It was <em>really</em> good and the result was a seriously higher quality application.</p>
 
-<p>Developers do not know how to test their own code properly. Sure, they can write unit tests, and they do some form of manual functional testing on a daily basis while they&#8217;re building the software. This is <strong>not</strong> the same as having a full test plan and suite of tests to verify the quality of the application.</p>
+<p>Developers do not know how to test their own code properly. Sure, they can write unit tests, and they do some form of manual functional testing on a daily basis while they&rsquo;re building the software. This is <strong>not</strong> the same as having a full test plan and suite of tests to verify the quality of the application.</p>
 
 <p>Do yourself a favour, spend some of your budget and get some testers in. They will put your application/site through its paces instead of your users!</p>
 
 <h2>Deployment Issues</h2>
 
-<p>Once you&#8217;ve worked with a development team, you&#8217;ll become very familiar with the following phrase:</p>
+<p>Once you&rsquo;ve worked with a development team, you&rsquo;ll become very familiar with the following phrase:</p>
 
 <blockquote><p>It works on my machine.</p></blockquote>
 
-<p>It&#8217;s something that you&#8217;ll hear constantly. I&#8217;ll admit to saying it on a regular basis.</p>
+<p>It&rsquo;s something that you&rsquo;ll hear constantly. I&rsquo;ll admit to saying it on a regular basis.</p>
 
-<p>The point here is that it is very common for things to work in the development environment, but end up breaking when deployed to a production environment. Deployment is another often overlooked area of the process. When it <em>is</em> considered, it&#8217;s underestimated.</p>
+<p>The point here is that it is very common for things to work in the development environment, but end up breaking when deployed to a production environment. Deployment is another often overlooked area of the process. When it <em>is</em> considered, it&rsquo;s underestimated.</p>
 
-<p>Be careful. Here be dragons. Before you get stuck, speak to someone who <a href="http://johnmcfadyen.spaces.live.com/" title="John Mcfadyen's Windows Installer blog">knows what they&#8217;re doing</a>.</p>
+<p>Be careful. Here be dragons. Before you get stuck, speak to someone who <a href="http://johnmcfadyen.spaces.live.com/" title="John Mcfadyen's Windows Installer blog">knows what they&rsquo;re doing</a>.</p>
 
 <h2>Support Issues</h2>
 
-<p>So you&#8217;ve managed to ship your application. It&#8217;s online, it&#8217;s deployed and it&#8217;s running. But something goes wrong. The site breaks every now and then. Users are having issues with the payment portal. People using Firefox on Mac OSX can&#8217;t sign in. Reports are coming back with incorrect values.</p>
+<p>So you&rsquo;ve managed to ship your application. It&rsquo;s online, it&rsquo;s deployed and it&rsquo;s running. But something goes wrong. The site breaks every now and then. Users are having issues with the payment portal. People using Firefox on Mac OSX can&rsquo;t sign in. Reports are coming back with incorrect values.</p>
 
 <p>Do you have a plan in place to handle these requests? Do you have a <a href="http://en.wikipedia.org/wiki/Bugtracker" title="Bug tracker">bug tracking system</a>? Do you have a support team ready to handle requests? Have you kept any of the development team on board to help you with the support issues?</p>
 
-<p>Generally, the answer to all of these questions is <em>no</em>. My advice would be to make it a <em>yes</em>. Put a plan in place to help you with the teething issues once you&#8217;ve gone live. Trust me, there <em>will</em> be issues.</p>
+<p>Generally, the answer to all of these questions is <em>no</em>. My advice would be to make it a <em>yes</em>. Put a plan in place to help you with the teething issues once you&rsquo;ve gone live. Trust me, there <em>will</em> be issues.</p>
 
 <h2>Conclusion</h2>
 
@@ -253,7 +228,7 @@
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://buffered.io/posts/websites-are-hard-to-build/" data-via="TheColonial" data-counturl="http://buffered.io/posts/websites-are-hard-to-build/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://buffered.io/posts/websites-are-hard-to-build/" data-via="TheColonial" data-counturl="http://buffered.io/posts/websites-are-hard-to-build/" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -267,7 +242,7 @@
         <a class="basic-alignment left" href="/posts/sorting-algorithms-the-gnome-sort/" title="Previous Post: Sorting Algorithms: The Gnome Sort">&laquo; Sorting Algorithms: The Gnome Sort</a>
       
       
-        <a class="basic-alignment right" href="/posts/the-admin-is-an-idiot/" title="next Post: The Admin is an Idiot">The Admin is an Idiot &raquo;</a>
+        <a class="basic-alignment right" href="/posts/the-admin-is-an-idiot/" title="Next Post: The Admin is an Idiot">The Admin is an Idiot &raquo;</a>
       
     </p>
   </footer>
@@ -468,7 +443,7 @@ Copyright &copy; 2013 -
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     }());
 </script>
@@ -492,7 +467,7 @@ Copyright &copy; 2013 -
       var twitterWidgets = document.createElement('script');
       twitterWidgets.type = 'text/javascript';
       twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
       document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
     })();
   </script>

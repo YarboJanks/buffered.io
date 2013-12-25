@@ -8,12 +8,6 @@
   <title>Webmachine, ErlyDTL and Riak - Part 3 - OJ's perspective</title>
   <meta name="author" content="OJ Reeves">
 
-  <link rel="openid.server" href="http://pip.verisignlabs.com/server" />
-  <link rel="openid.delegate" href="http://thecolonial.pip.verisignlabs.com/" />
-  <link rel="openid2.provider" href="http://pip.verisignlabs.com/server" />
-  <link rel="openid2.local_id" href="http://thecolonial.pip.verisignlabs.com/" />
-  <meta http-equiv="X-XRDS-Location" content="http://pip.verisignlabs.com/thecolonial/yadixrds" />
-
   
   <meta name="description" content="For those of you who are new to the series, you may want to check out Part 1 and Part 2 before reading this post. It will help give you some context &hellip;">
   
@@ -24,39 +18,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's perspective RSS 2.0" type="application/rss+xml">
   <link rel="canonical" href="http://buffered.io/posts/webmachine-erlydtl-and-riak-part-3">
-  <link href="/favicon.ico" rel="icon">
+  <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-
-  <script src="/javascripts/modernizr-2.0.js" type="text/javascript"></script>
-  <script src="/javascripts/ender.js" type="text/javascript"></script>
+  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's perspective" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
-
-  <script type="text/javascript">
-    Modernizr.load([
-      { load: '//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js' },
-      { load: '/javascripts/jquery.lightbox.js', complete: function() {
-        $("a[rel^='lightbox']").lightbox();
-      } }
-    ]);
-  </script>
-
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 
   
-
-  
-  <script type="text/javascript">
-    !function(g,s,q,r,d){r=g[r]=g[r]||function(){(r.q=r.q||[]).push(
-    arguments)};d=s.createElement(q);q=s.getElementsByTagName(q)[0];
-    d.src='//d1l6p2sc9645hc.cloudfront.net/tracker.js';q.parentNode.
-    insertBefore(d,q)}(window,document,'script','_gs');
-    _gs('GSN-416076-G');
-  </script>
-
 
 </head>
 
@@ -117,21 +91,22 @@
 
 <time datetime="2010-10-13T06:31:00+10:00" pubdate data-updated="true">13 Oct 2010</time>
         
-         | <a href="#disqus_thread">Comments</a>
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://buffered.io">Comments</a>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p><img src="/uploads/2010/09/riak-logo.png" alt="Riak Logo" style="float:left;padding-right:5px;padding-bottom:5px;"/>For those of you who are new to the series, you may want to check out <a href="/posts/webmachine-erlydtl-and-riak-part-1/" title="Wembachine, ErlyDTL and Riak - Part 1">Part 1</a> and <a href="/posts/webmachine-erlydtl-and-riak-part-2/" title="Webmachine, ErlyDTL and Riak - Part 2">Part 2</a> before reading this post. It will help give you some context as well as introduce you to some of the jargon and technology that I&#8217;m using. If you&#8217;ve already read then, or don&#8217;t want to, then please read on!</p>
+<div class="entry-content"><p><img src="/uploads/2010/09/riak-logo.png" alt="Riak Logo" style="float:left;padding-right:5px;padding-bottom:5px;"/>For those of you who are new to the series, you may want to check out <a href="/posts/webmachine-erlydtl-and-riak-part-1/" title="Wembachine, ErlyDTL and Riak - Part 1">Part 1</a> and <a href="/posts/webmachine-erlydtl-and-riak-part-2/" title="Webmachine, ErlyDTL and Riak - Part 2">Part 2</a> before reading this post. It will help give you some context as well as introduce you to some of the jargon and technology that I&rsquo;m using. If you&rsquo;ve already read then, or don&rsquo;t want to, then please read on!</p>
 
-<p>This post builds on the previous two, but not without a few little modifications. If you&#8217;re interested in following along step by step with your own version of the code running, then get yourself a copy of <a href="https://github.com/OJ/csd/tree/Part2-20110403" title="Source code for Part 2">this changeset</a> before doing so.</p>
+<p>This post builds on the previous two, but not without a few little modifications. If you&rsquo;re interested in following along step by step with your own version of the code running, then get yourself a copy of <a href="https://github.com/OJ/csd/tree/Part2-20110403" title="Source code for Part 2">this changeset</a> before doing so.</p>
 
-<p>In this post we&#8217;re going to cover:</p>
+<p>In this post we&rsquo;re going to cover:</p>
 
 <ol>
-<li>A slight refactor of code structure to support the &#8220;standard&#8221; approach to building applications in Erlang using OTP.</li>
+<li>A slight refactor of code structure to support the &ldquo;standard&rdquo; approach to building applications in Erlang using OTP.</li>
 <li>Building a small set of modules to talk to <a href="http://www.basho.com/developers.html#Riak" title="Riak">Riak</a>.</li>
 <li>Creation of some <a href="http://json.org/" title="JavaScript Object Notation">JSON</a> helper functions for reading and writing data.</li>
 <li>Calling all the way from the <a href="http://www.basho.com/developers.html#Webmachine" title="Webmachine">Webmachine</a> front-end to Riak to extract data and display it in a browser using <a href="http://github.com/evanmiller/erlydtl" title="ErlyDTL">ErlyDTL</a> templates.</li>
@@ -142,20 +117,20 @@
 
 <p>Be warned, this is a <em>long</em> post :) Get yourself a <em>shmoke und a pancake</em>, a glass of your favourite beverage and put some relaxing music on (instrumental is best).</p>
 
-<p>Are you ready? OK, here we go &#8230;</p>
+<p>Are you ready? OK, here we go &hellip;</p>
 
 <!--more-->
 
 
 <h2>A Slight Refactor</h2>
 
-<p>I was ready to embark on this third post a while back but then I sat back and thought about how I might structure things if I were using another set of technologies. Usually I would put another layer between the web tier and the back-end database cluster as opposed to having the web tier talk to the database directly. It didn&#8217;t make sense to me that this approach would be any different in Erlang.</p>
+<p>I was ready to embark on this third post a while back but then I sat back and thought about how I might structure things if I were using another set of technologies. Usually I would put another layer between the web tier and the back-end database cluster as opposed to having the web tier talk to the database directly. It didn&rsquo;t make sense to me that this approach would be any different in Erlang.</p>
 
-<p>I had a chat to <a href="http://twitter.com/sj_mackenzie" title="Stewart Mackenzie on Twitter">two</a> <a href="http://twitter.com/MatthewErbs" title="Matt Erbs on Twitter">blokes</a> that I really respect to get their views, and then I fired off a question to the Basho guys (via the <a href="irc://irc.freenode.com/riak" title="Riak IRC on Freenode">#riak IRC channel</a>). The Basho lads even made the effort to respond to me via the <a href="http://lists.basho.com/pipermail/riak-users_lists.basho.com/2010-September/001984.html" title="Riak Recap">Riak Recap</a> as they weren&#8217;t available at the time to answer me via IRC (thanks again <a href="http://twitter.com/pharkmillups" title="Mark Phillips on Twitter">Mark</a>). All three of them confirmed my thoughts. Here&#8217;s what appeared in the recap which captures the question and response nicely:</p>
+<p>I had a chat to <a href="http://twitter.com/sj_mackenzie" title="Stewart Mackenzie on Twitter">two</a> <a href="http://twitter.com/MatthewErbs" title="Matt Erbs on Twitter">blokes</a> that I really respect to get their views, and then I fired off a question to the Basho guys (via the <a href="irc://irc.freenode.com/riak" title="Riak IRC on Freenode">#riak IRC channel</a>). The Basho lads even made the effort to respond to me via the <a href="http://lists.basho.com/pipermail/riak-users_lists.basho.com/2010-September/001984.html" title="Riak Recap">Riak Recap</a> as they weren&rsquo;t available at the time to answer me via IRC (thanks again <a href="http://twitter.com/pharkmillups" title="Mark Phillips on Twitter">Mark</a>). All three of them confirmed my thoughts. Here&rsquo;s what appeared in the recap which captures the question and response nicely:</p>
 
-<blockquote><p>Q &#8212; I have a Webmachine application which will be talking to Riak. I was going to put application and controller logic in that application and I am wondering if [I] should instead be creating a &#8220;core&#8221; OTP application with the business style logic in it and have the Webmachine app talk to that app which, in turn, talks to Riak? Is that the general approach that is taken [in Erlang applications]? (from TheColonial via #riak)</p>
+<blockquote><p>Q &mdash;&ndash; I have a Webmachine application which will be talking to Riak. I was going to put application and controller logic in that application and I am wondering if [I] should instead be creating a &ldquo;core&rdquo; OTP application with the business style logic in it and have the Webmachine app talk to that app which, in turn, talks to Riak? Is that the general approach that is taken [in Erlang applications]? (from TheColonial via #riak)</p>
 
-<p>A &#8212; We recommend going with the latter approach. You&#8217;re better off to create a core app that talks to Webmachine and Riak separately.</p></blockquote>
+<p>A &mdash;&ndash; We recommend going with the latter approach. You&rsquo;re better off to create a core app that talks to Webmachine and Riak separately.</p></blockquote>
 
 <p>Perfect, that makes total sense. Therefore the following describes what I did to modify the code base that I had in order to support this set up. <strong>Any failure</strong> in implementation, structure or understanding is totally my own and in no way reflects on the abilities and advice of those mentioned above who took the time to offer assistance.</p>
 
@@ -189,19 +164,19 @@
 </table>
 
 
-<p>Given that we&#8217;re going to be using this structure, the &#8220;root&#8221; folder should actually be fairly clean without any source. Instead, each <code>csd</code>-related application should live in its own sub-folder under an <code>apps</code> folder and the root should just contain the means to build it and start it. In essence what we&#8217;d like to see in the root folder is something like this:</p>
+<p>Given that we&rsquo;re going to be using this structure, the &ldquo;root&rdquo; folder should actually be fairly clean without any source. Instead, each <code>csd</code>-related application should live in its own sub-folder under an <code>apps</code> folder and the root should just contain the means to build it and start it. In essence what we&rsquo;d like to see in the root folder is something like this:</p>
 
 <pre><code>oj@spawn-link ~/blog/csd $ ls -F
 apps/  dev.haproxy.conf  Makefile  proxy.sh*  rebar*  rebar.config  start.sh*
 </code></pre>
 
-<p>With that in mind, let&#8217;s start the surgery.</p>
+<p>With that in mind, let&rsquo;s start the surgery.</p>
 
 <h3>Moving csd to csd_web</h3>
 
 <p>There are two ways to approach this problem. The first is to do a <strong>find and replace</strong>, making sure you cover off file names as well as module names, etc. The second is to simply <strong>recreate the web site from scratch</strong>, copy over any missing files and make any other adjustments manually that may be required.</p>
 
-<p>I preferred the second approach, so that&#8217;s what I did. First I recreated the web application, which is now called <code>csd_web</code> in the <code>apps</code> folder:</p>
+<p>I preferred the second approach, so that&rsquo;s what I did. First I recreated the web application, which is now called <code>csd_web</code> in the <code>apps</code> folder:</p>
 
 <pre><code>oj@spawn-link ~/blog/csd $ mkdir apps &amp;&amp; cd apps
 oj@spawn-link ~/blog/csd/apps $ ~/blog/webmachine/scripts/new_webmachine.sh csd_web .
@@ -221,7 +196,7 @@ oj@spawn-link ~/blog/csd/apps $ ls -F
 csd_web/
 </code></pre>
 
-<p>Next I removed a few files which weren&#8217;t going to be needed any more. I then copied over <code>rebar.config</code>, the ErlyDTL templates and the <code>csd.app.src</code> file (which we need to modify):</p>
+<p>Next I removed a few files which weren&rsquo;t going to be needed any more. I then copied over <code>rebar.config</code>, the ErlyDTL templates and the <code>csd.app.src</code> file (which we need to modify):</p>
 
 <pre><code>oj@spawn-link ~/blog/csd/apps $ cd csd_web
 oj@spawn-link ~/blog/csd/apps/csd_web $ rm README rebar start.sh
@@ -232,8 +207,8 @@ oj@spawn-link ~/blog/csd/apps/csd_web $ cp ../../src/csd.app.src ./src/csd_web.a
 
 <p>I then edited the <code>csd_web.app.src</code> file so that the names were updated (I tidied it up a little and added a version number too):</p>
 
-<figure class='code'><figcaption><span>apps/csd_web/src/csd_web.app.src  </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span>apps/csd_web/src/csd_web.app.src </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -278,8 +253,8 @@ oj@spawn-link ~/blog/csd/apps/csd_web $ cp ../../src/csd.app.src ./src/csd_web.a
 
 <p>I then opened up <code>csd_web_resource.erl</code> and made it look like the original <code>csd_resource.erl</code> so that it called the ErlyDTL template:</p>
 
-<figure class='code'><figcaption><span>apps/csd_web/src/csd_web_resource.erl  </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span>apps/csd_web/src/csd_web_resource.erl </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -306,15 +281,15 @@ oj@spawn-link ~/blog/csd/apps/csd_web $ cp ../../src/csd.app.src ./src/csd_web.a
 
 <p><code>csd_web</code> is now ready to go. To build it, we need to go back up to the root <code>csd</code> folder and adjust the <code>rebar.config</code> so that it knows to look in the <code>apps</code> sub-folder (thanks to <a href="http://twitter.com/andrewtj" title="AndrewTJ on Twitter">Andrew</a> for <a href="http://lists.basho.com/pipermail/rebar_lists.basho.com/2010-October/000246.html" title="Configuring the Rebar apps folder on Basho list">pointing this out</a>). We can also remove all the dependencies because that will be taken care of by <code>csd_web</code>:</p>
 
-<figure class='code'><figcaption><span>rebar.config  </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span>rebar.config </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="c">%%-*- mode: erlang -*-</span>
 </span><span class='line'><span class="p">{</span><span class="n">sub_dirs</span><span class="p">,</span> <span class="p">[</span><span class="s">&quot;apps/csd_web&quot;</span><span class="p">]}.</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>Next, I removed all the other left-over stuff in the root folder that wasn&#8217;t required any more (including the startup script):</p>
+<p>Next, I removed all the other left-over stuff in the root folder that wasn&rsquo;t required any more (including the startup script):</p>
 
 <pre><code>oj@spawn-link ~/blog/csd $ rm -rf README priv src templates start.sh
 </code></pre>
@@ -409,15 +384,15 @@ Using sepoll() as the polling mechanism.
 
 <p><img src="/uploads/2010/10/localhost-slartibartfast.png" /></p>
 
-<p>Refactor complete. Now let&#8217;s start work on our new OTP application which will be responsible for talking to Riak.</p>
+<p>Refactor complete. Now let&rsquo;s start work on our new OTP application which will be responsible for talking to Riak.</p>
 
 <p>If you need a break, now is the time to take it! Go freshen up, take a leak and refill your glass.</p>
 
-<p>Ready to go again? Here we go &#8230;</p>
+<p>Ready to go again? Here we go &hellip;</p>
 
 <h3>Creating the csd_core OTP Application</h3>
 
-<p>Creation of an OTP-compliant application is another job for <a href="http://www.basho.com/developers.html#Rebar" title="Rebar">Rebar</a> as it comes with a set of templates built-in. Unfortunately those template aren&#8217;t 100% and hence don&#8217;t do everything we need to do out of the box. But we shall use them as a starting point:</p>
+<p>Creation of an OTP-compliant application is another job for <a href="http://www.basho.com/developers.html#Rebar" title="Rebar">Rebar</a> as it comes with a set of templates built-in. Unfortunately those template aren&rsquo;t 100% and hence don&rsquo;t do everything we need to do out of the box. But we shall use them as a starting point:</p>
 
 <pre><code>oj@spawn-link ~/blog/csd $ mkdir apps/csd_core &amp;&amp; cd apps/csd_core
 oj@spawn-link ~/blog/csd/apps/csd_core $ ../../rebar create-app appid=csd_core
@@ -427,10 +402,10 @@ Writing src/csd_core_app.erl
 Writing src/csd_core_sup.erl
 </code></pre>
 
-<p>We have a very simple application shell set up, but we need to do a bit more work to get it ready. First, let&#8217;s create our base <code>csd_core.erl</code> module which is used to fire up our application. For this we will use <code>csd_web.erl</code> (the one which is part of our Webmachine application) as a template. Note that I&#8217;ve shuffled things around and removed some things that are not relevant:</p>
+<p>We have a very simple application shell set up, but we need to do a bit more work to get it ready. First, let&rsquo;s create our base <code>csd_core.erl</code> module which is used to fire up our application. For this we will use <code>csd_web.erl</code> (the one which is part of our Webmachine application) as a template. Note that I&rsquo;ve shuffled things around and removed some things that are not relevant:</p>
 
-<figure class='code'><figcaption><span>apps/csd_core/src/csd_core.erl  </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span>apps/csd_core/src/csd_core.erl </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -505,8 +480,8 @@ Writing src/csd_core_sup.erl
 
 <p>Next up, edit <code>csd_core.app.src</code> and add some application-specific information:</p>
 
-<figure class='code'><figcaption><span>apps/csd_core/src/csd_core.app.src  </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span>apps/csd_core/src/csd_core.app.src </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -539,12 +514,12 @@ Writing src/csd_core_sup.erl
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>We know that we&#8217;ll be talking to Riak, so we need to make sure we&#8217;ve included the <code>riakc</code> (Riak client) dependency. Though I haven&#8217;t yet talked about it, we&#8217;ll also be using Mochiweb&#8217;s <a href="https://github.com/mochi/mochiweb/blob/master/src/mochijson2.erl" title="Mochiweb's json module">mochijson2</a> module to help with handling JSON data, so we shall add this as a dependency to the application. Bear in mind this is already a dependency for the web component of the application, so we&#8217;re not actually adding a <em>new</em> dependency to the overall application.</p>
+<p>We know that we&rsquo;ll be talking to Riak, so we need to make sure we&rsquo;ve included the <code>riakc</code> (Riak client) dependency. Though I haven&rsquo;t yet talked about it, we&rsquo;ll also be using Mochiweb&rsquo;s <a href="https://github.com/mochi/mochiweb/blob/master/src/mochijson2.erl" title="Mochiweb's json module">mochijson2</a> module to help with handling JSON data, so we shall add this as a dependency to the application. Bear in mind this is already a dependency for the web component of the application, so we&rsquo;re not actually adding a <em>new</em> dependency to the overall application.</p>
 
 <p>We can do this by creating a <code>rebar.config</code> in <code>apps/csd_core</code> and editing it to contain the following:</p>
 
-<figure class='code'><figcaption><span>apps/csd_core/rebar.config  </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span>apps/csd_core/rebar.config </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -563,15 +538,15 @@ Writing src/csd_core_sup.erl
 
 <p>Then we need to tell <code>rebar</code> to build this new application by adjusting the <code>rebar.config</code> in the <code>csd</code> root folder:</p>
 
-<figure class='code'><figcaption><span>rebar.config  </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span>rebar.config </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="c">%%-*- mode: erlang -*-</span>
 </span><span class='line'><span class="p">{</span><span class="n">sub_dirs</span><span class="p">,</span> <span class="p">[</span><span class="s">&quot;apps/csd_core&quot;</span><span class="p">,</span> <span class="s">&quot;apps/csd_web&quot;</span><span class="p">]}.</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>Now we have enough to get the <code>csd_core</code> application started, even though it doesn&#8217;t do anything. We just need to adjust our <code>Makefile</code> target so that it launches the <code>csd_core</code> application as well:</p>
+<p>Now we have enough to get the <code>csd_core</code> application started, even though it doesn&rsquo;t do anything. We just need to adjust our <code>Makefile</code> target so that it launches the <code>csd_core</code> application as well:</p>
 
 <figure class='code'><figcaption><span>Makefile </span></figcaption>
 <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -647,7 +622,7 @@ Compiled src/csd_core.erl
           started_at: nonode@nohost
 </code></pre>
 
-<p>As you can see we now have a system which contains both <code>csd_core</code> and <code>csd_web</code>. This is great, but <code>csd_core</code> needs a lot more work. The intent for this application is to be an <a href="http://en.wikipedia.org/wiki/Open_Telecom_Platform" title="Open Telecom Platform">OTP</a> application which provides an API to the <code>csd</code> logic and back-end database. This means we&#8217;re going to need to get ourselves a <a href="http://www.erlang.org/doc/design_principles/gen_server_concepts.html" title="gen_server behaviour">gen_server</a> set up which can handle requests from various clients. Let&#8217;s do that next.</p>
+<p>As you can see we now have a system which contains both <code>csd_core</code> and <code>csd_web</code>. This is great, but <code>csd_core</code> needs a lot more work. The intent for this application is to be an <a href="http://en.wikipedia.org/wiki/Open_Telecom_Platform" title="Open Telecom Platform">OTP</a> application which provides an API to the <code>csd</code> logic and back-end database. This means we&rsquo;re going to need to get ourselves a <a href="http://www.erlang.org/doc/design_principles/gen_server_concepts.html" title="gen_server behaviour">gen_server</a> set up which can handle requests from various clients. Let&rsquo;s do that next.</p>
 
 <p>Thankfully <code>rebar</code> comes with a simple template that we can use for creating the <code>gen_server</code> behaviour, so we can invoke that from the command line and have it generate the shell for us:</p>
 
@@ -658,8 +633,8 @@ Writing src/csd_core_server.erl
 
 <p>We now have a very dumb server ready to go, to make it start with the rest of the application we have to modify <code>csd_core_sup</code>, the <a href="http://www.erlang.org/doc/design_principles/sup_princ.html" title="supervisor behaviour">supervisor</a> and tell it to fire up the server for us:</p>
 
-<figure class='code'><figcaption><span>apps/csd_core/src/csd_core_sup.erl  </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span>apps/csd_core/src/csd_core_sup.erl </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -746,16 +721,16 @@ Writing src/csd_core_server.erl
 
 <h2>Preparing csd_core for Riak connectivity</h2>
 
-<p>Given that this is the first look at connecting to Riak, we&#8217;re going to have to set up a little infrastructure to support our needs. As a result, the data itself won&#8217;t be discussed much for fear of turning this post into something way more epic than originally intended.</p>
+<p>Given that this is the first look at connecting to Riak, we&rsquo;re going to have to set up a little infrastructure to support our needs. As a result, the data itself won&rsquo;t be discussed much for fear of turning this post into something way more epic than originally intended.</p>
 
-<p>So in short, we&#8217;re interested in storing the idea of a <em>code snippet</em>. That is an entity which contains two opposing blobs of code which are being compared. That snippet will have a title. Down the track, more information will be associated with this snippet, such as the author, along with links to a set of comments and votes. For now we&#8217;ll just focus on storing the bare essentials of the snippet.</p>
+<p>So in short, we&rsquo;re interested in storing the idea of a <em>code snippet</em>. That is an entity which contains two opposing blobs of code which are being compared. That snippet will have a title. Down the track, more information will be associated with this snippet, such as the author, along with links to a set of comments and votes. For now we&rsquo;ll just focus on storing the bare essentials of the snippet.</p>
 
 <h3>The Snippet</h3>
 
 <p>As far as our Erlang code is concerned, our snippet is going to be a simple list of properties that we can interact with via the <a href="http://www.erlang.org/doc/man/proplists.html" title="proplists">proplists</a> module. This keeps things really simple. To demonstrate what our snippet will look like in code, here is the function that takes a Title, and the two code blobs (called Left and Right) and returns a <code>snippet</code> instance. This code goes in a module called <code>csd_snippet</code> defined in <code>src/csd_snippet.erl</code>:</p>
 
-<figure class='code'><figcaption><span>apps/csd_core/src/csd_snippet.erl (part)  </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span>apps/csd_core/src/csd_snippet.erl (part) </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -774,7 +749,7 @@ Writing src/csd_core_server.erl
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>Note that the first part of the tuple is the atom <code>snippet</code> which I am using to identify the layout of the contents in the second part of the tuple. Down the track we&#8217;ll have more collections of data in the system than just snippets, and we may want to make sure that the caller doesn&#8217;t accidentally pass in a <code>user</code>, for example, to a function expecting a <code>snippet</code>.</p>
+<p>Note that the first part of the tuple is the atom <code>snippet</code> which I am using to identify the layout of the contents in the second part of the tuple. Down the track we&rsquo;ll have more collections of data in the system than just snippets, and we may want to make sure that the caller doesn&rsquo;t accidentally pass in a <code>user</code>, for example, to a function expecting a <code>snippet</code>.</p>
 
 <p>It is important at this point to note that, down the track, I will include a <code>key</code> property in all of the data objects that are pushed to Riak. This property serves as the identifier for the object in Riak and is stored alongside the rest of the data so that it is easy to relate the in-memory instance back to the stored instance. This value, if not specified, will be inserted automatically when an item is saved via the API functions in <code>csd_core</code>. More on this later.</p>
 
@@ -782,20 +757,20 @@ Writing src/csd_core_server.erl
 
 <p>Riak is very flexible in that it will store whatever kind of information you give it. This is good because it means we can cater our data format to whatever needs we have.</p>
 
-<p>In our case, the <em>easiest</em> option would be to store our Erlang terms as binary using <a href="http://www.erlang.org/doc/man/erlang.html#term_to_binary-1" title="term_to_binary">term_to_binary</a> as we wouldn&#8217;t have to think about <em>anything</em> else. We could easily read the data using <a href="http://www.erlang.org/doc/man/erlang.html#binary_to_term-1" title="binary_to_term">binary_to_term</a>. Done.</p>
+<p>In our case, the <em>easiest</em> option would be to store our Erlang terms as binary using <a href="http://www.erlang.org/doc/man/erlang.html#term_to_binary-1" title="term_to_binary">term_to_binary</a> as we wouldn&rsquo;t have to think about <em>anything</em> else. We could easily read the data using <a href="http://www.erlang.org/doc/man/erlang.html#binary_to_term-1" title="binary_to_term">binary_to_term</a>. Done.</p>
 
-<p>This comes with a set of problems though. For example, if we wanted to <a href="http://en.wikipedia.org/wiki/MapReduce" title="map/reduce">map/reduce</a> using JavaScript we wouldn&#8217;t find it easy to get the data into a format that we could use. Another example would be that the RESTful interface to Riak would be close to useless because <strong>any</strong> non-Erlang client would have to somehow get the data into a meaningful format to work with.</p>
+<p>This comes with a set of problems though. For example, if we wanted to <a href="http://en.wikipedia.org/wiki/MapReduce" title="map/reduce">map/reduce</a> using JavaScript we wouldn&rsquo;t find it easy to get the data into a format that we could use. Another example would be that the RESTful interface to Riak would be close to useless because <strong>any</strong> non-Erlang client would have to somehow get the data into a meaningful format to work with.</p>
 
-<p>Instead of using binary and throwing Erlang terms straight into Riak, we&#8217;re going to use <a href="http://json.org/" title="JavaScript Object Notation">JSON</a>. It&#8217;s very easy to convert to and from JSON in many different languages, and it&#8217;s very easy to read. We can also easily verify that the data is being stored correctly by querying Riak&#8217;s RESTful interface directly using <a href="http://curl.haxx.se/" title="cURL homepage">cURL</a> or a browser.</p>
+<p>Instead of using binary and throwing Erlang terms straight into Riak, we&rsquo;re going to use <a href="http://json.org/" title="JavaScript Object Notation">JSON</a>. It&rsquo;s very easy to convert to and from JSON in many different languages, and it&rsquo;s very easy to read. We can also easily verify that the data is being stored correctly by querying Riak&rsquo;s RESTful interface directly using <a href="http://curl.haxx.se/" title="cURL homepage">cURL</a> or a browser.</p>
 
-<p>In order to store data in JSON format, we&#8217;re going to enlist the help of <a href="https://github.com/mochi/mochiweb/blob/master/src/mochijson2.erl" title="Mochiweb's json module">mochijson2</a>, a library that comes with <a href="https://github.com/mochi/mochiweb" title="Mochiweb">Mochiweb</a> that makes it a <em>lot</em> easier to deal with JSON than doing everything manually. Given that we&#8217;re using Webmachine for the front-end (which itself relies on Mochiweb) we already have the dependency available.</p>
+<p>In order to store data in JSON format, we&rsquo;re going to enlist the help of <a href="https://github.com/mochi/mochiweb/blob/master/src/mochijson2.erl" title="Mochiweb's json module">mochijson2</a>, a library that comes with <a href="https://github.com/mochi/mochiweb" title="Mochiweb">Mochiweb</a> that makes it a <em>lot</em> easier to deal with JSON than doing everything manually. Given that we&rsquo;re using Webmachine for the front-end (which itself relies on Mochiweb) we already have the dependency available.</p>
 
-<p>Unfortunately we can&#8217;t just throw our data straight at this module and have it do everything for us. <code>mochijson2</code> requires data to be in a certain format before it can encode it to JSON. When decoding <em>from</em> JSON, it converts the data into the same format. Hence, we need the ability to convert our own data format to and from this intermediate data format so that <code>mochijson2</code> can deal with it.</p>
+<p>Unfortunately we can&rsquo;t just throw our data straight at this module and have it do everything for us. <code>mochijson2</code> requires data to be in a certain format before it can encode it to JSON. When decoding <em>from</em> JSON, it converts the data into the same format. Hence, we need the ability to convert our own data format to and from this intermediate data format so that <code>mochijson2</code> can deal with it.</p>
 
 <p>We need two functions: <code>to_json()</code> and <code>from_json()</code>, and we shall define these in a helper module called <code>csd_json</code>. This module will live in <code>csd_core</code>:</p>
 
-<figure class='code'><figcaption><span>apps/csd_core/src/csd_json.erl (part)  </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span>apps/csd_core/src/csd_json.erl (part) </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -826,14 +801,14 @@ Writing src/csd_core_server.erl
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>You&#8217;re probably wondering why each of these functions requires the <code>IsStrFun</code> parameter (if you&#8217;re not, you&#8217;re obviously an experienced Erlanger!). For those who don&#8217;t know, strings in Erlang are actually lists of integers. This is fantastic as it makes it easy to manipulate strings as if they were lists, but it comes at a small price: it&#8217;s not possible to determine the difference between a list of integers and a string.</p>
+<p>You&rsquo;re probably wondering why each of these functions requires the <code>IsStrFun</code> parameter (if you&rsquo;re not, you&rsquo;re obviously an experienced Erlanger!). For those who don&rsquo;t know, strings in Erlang are actually lists of integers. This is fantastic as it makes it easy to manipulate strings as if they were lists, but it comes at a small price: it&rsquo;s not possible to determine the difference between a list of integers and a string.</p>
 
-<p>Why is this important? <code>mochijson2</code> needs strings to be encoded as binaries, so we need a way to differentiate between integer lists and real strings. My original implementations of both the <code>to_json()</code> and <code>from_json()</code> functions attempted to figure out if certain fields were strings or not by looking at the content of the list. Not only was the code messy, but it wasn&#8217;t foolproof. Instead, I made the decision to force the user to provide a callback function which will tell the JSON serialiser if the given property is a string or not. This callback takes a single parameter which is the name (in atom form) of the property and returns a boolean &#8211; <code>true</code> indicates that the value is a string, <code>false</code> otherwise.</p>
+<p>Why is this important? <code>mochijson2</code> needs strings to be encoded as binaries, so we need a way to differentiate between integer lists and real strings. My original implementations of both the <code>to_json()</code> and <code>from_json()</code> functions attempted to figure out if certain fields were strings or not by looking at the content of the list. Not only was the code messy, but it wasn&rsquo;t foolproof. Instead, I made the decision to force the user to provide a callback function which will tell the JSON serialiser if the given property is a string or not. This callback takes a single parameter which is the name (in atom form) of the property and returns a boolean &mdash; <code>true</code> indicates that the value is a string, <code>false</code> otherwise.</p>
 
-<p>In some cases we might just be happy to encode/decode every single value as a string. Hence, there is an overload to both <code>to_json()</code> and <code>from_json()</code> which caters for this case. The rest of the code which implments the conversion is listed below. Don&#8217;t feel that you need to understand the code below, as it&#8217;s really not the goal of this post. The full source to this module is included in the source link specified at the end of this post.</p>
+<p>In some cases we might just be happy to encode/decode every single value as a string. Hence, there is an overload to both <code>to_json()</code> and <code>from_json()</code> which caters for this case. The rest of the code which implments the conversion is listed below. Don&rsquo;t feel that you need to understand the code below, as it&rsquo;s really not the goal of this post. The full source to this module is included in the source link specified at the end of this post.</p>
 
-<figure class='code'><figcaption><span>apps/csd_core/src/csd_json.erl (part)  </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span>apps/csd_core/src/csd_json.erl (part) </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -912,14 +887,14 @@ Writing src/csd_core_server.erl
 
 <p>The first problem we need to resolve is: <em>what do we do with configuration?</em></p>
 
-<p>This was a question I initially didn&#8217;t know how to answer. After a bit of deliberation and a chat with a <a href="http://twitter.com/mononcqc" title="Ferd T-H on Twitter">respected Erlang sifu</a> (who has a <a href="http://learnyousomeerlang.com/" title="Learng you some erlang">fantastic Erlang tutorial site</a>) I decided to go with a module-based option.</p>
+<p>This was a question I initially didn&rsquo;t know how to answer. After a bit of deliberation and a chat with a <a href="http://twitter.com/mononcqc" title="Ferd T-H on Twitter">respected Erlang sifu</a> (who has a <a href="http://learnyousomeerlang.com/" title="Learng you some erlang">fantastic Erlang tutorial site</a>) I decided to go with a module-based option.</p>
 
 <p>We have our Riak cluster hidden behind the <code>haproxy</code> load balancer, and hence we have a single entry-point to connect to. If this entry-point changes, it changes for all of the clients, not just a single client. Therefore, I want the ability to manage a single set of connection information, but I want the ability to update it on the fly without having to restart the <code>csd_core</code> application. This is Erlang, after all, and modifying code and configuration on-the-fly is extremely easy. We shall abuse that.</p>
 
 <p>We create a single module, <code>csd_riak_config.erl</code>, to contain our configuration which is referenced at start-up. It looks like this:</p>
 
-<figure class='code'><figcaption><span>apps/csd_core/src/csd_riak_config.erl  </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span>apps/csd_core/src/csd_riak_config.erl </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -932,10 +907,10 @@ Writing src/csd_core_server.erl
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>Pretty simple stuff. Let&#8217;s use this functionality in our <code>gen_server</code>, and carry the configuration through from initialisation to all of the calls that will be made to the Riak server. This requires two simple modifications to the <code>csd_core_server</code> module:</p>
+<p>Pretty simple stuff. Let&rsquo;s use this functionality in our <code>gen_server</code>, and carry the configuration through from initialisation to all of the calls that will be made to the Riak server. This requires two simple modifications to the <code>csd_core_server</code> module:</p>
 
-<figure class='code'><figcaption><span>apps/csd_core/src/csd_core_server.erl (part)  </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span>apps/csd_core/src/csd_core_server.erl (part) </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -954,14 +929,14 @@ Writing src/csd_core_server.erl
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>Confiuration is now loaded and is being passed to all of our <code>gen_server</code> callbacks. Let&#8217;s make use of it. <code>csd_snippet</code> is the entry point for all snippet-related information, and one of the things that we are going to want to be able to do is write a snippet to Riak. So let&#8217;s create a code-path that can do that.</p>
+<p>Confiuration is now loaded and is being passed to all of our <code>gen_server</code> callbacks. Let&rsquo;s make use of it. <code>csd_snippet</code> is the entry point for all snippet-related information, and one of the things that we are going to want to be able to do is write a snippet to Riak. So let&rsquo;s create a code-path that can do that.</p>
 
 <h4>Writing Data to Riak</h4>
 
-<p>The first point of call for a client is the OTP interface. Let&#8217;s create an API call and a call handler to support saving snippets in <code>csd_core_server</code>:</p>
+<p>The first point of call for a client is the OTP interface. Let&rsquo;s create an API call and a call handler to support saving snippets in <code>csd_core_server</code>:</p>
 
-<figure class='code'><figcaption><span>apps/csd_core/src/csd_core_server.erl (part)  </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span>apps/csd_core/src/csd_core_server.erl (part) </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -992,16 +967,16 @@ Writing src/csd_core_server.erl
 
 <p>Of course, we will need to export the <code>save_snippet()</code> function if we want to be able to call it.</p>
 
-<p>You&#8217;ll notice that we&#8217;re getting the connection information passed in as the state for the OTP call, and that we&#8217;re using that to create a connection to Riak via the <code>csd_riak</code> module. We shall cover this module in just a minute, but hopefully the interface to this function should make it relatively self-explanatory.</p>
+<p>You&rsquo;ll notice that we&rsquo;re getting the connection information passed in as the state for the OTP call, and that we&rsquo;re using that to create a connection to Riak via the <code>csd_riak</code> module. We shall cover this module in just a minute, but hopefully the interface to this function should make it relatively self-explanatory.</p>
 
-<p>You might be wondering &#8220;Why are you creating the Riak client connection here instead of letting the <code>csd_snippet:save()</code> function do it by itself. It&#8217;s a good question. The reason I decided to create the connection as part of OTP call rather than in the data/helper modules is because down the track there will probably be a need to do multiple interactions with Riak in a single call. If we force each of the called modules, such as <code>csd_snippet</code>, to establish their own connections then we&#8217;d probably have <em>multiple connections to Riak being created during a single client request</em>. This isn&#8217;t what I would like to see happen, so it made sense (in my view) to create the client connection once and reuse it across all modules that are invoked during the request.</p>
+<p>You might be wondering &ldquo;Why are you creating the Riak client connection here instead of letting the <code>csd_snippet:save()</code> function do it by itself. It&rsquo;s a good question. The reason I decided to create the connection as part of OTP call rather than in the data/helper modules is because down the track there will probably be a need to do multiple interactions with Riak in a single call. If we force each of the called modules, such as <code>csd_snippet</code>, to establish their own connections then we&rsquo;d probably have <em>multiple connections to Riak being created during a single client request</em>. This isn&rsquo;t what I would like to see happen, so it made sense (in my view) to create the client connection once and reuse it across all modules that are invoked during the request.</p>
 
 <p>With that out of the way, we need to implement the <code>save()</code> function in the <code>csd_snippet</code> module. Brace yourself:</p>
 
 <p><span class="filename"></span></p>
 
-<figure class='code'><figcaption><span>apps/csd_core/src/csd_snippet.erl (part)  </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span>apps/csd_core/src/csd_snippet.erl (part) </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -1032,21 +1007,21 @@ Writing src/csd_core_server.erl
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>On the surface this looks a little complicated, but it&#8217;s actually very simple. As mentioned earlier in the post, we use a <code>key</code> property to store the identifier of the object in Riak. This code supports this notion. It works as follows:</p>
+<p>On the surface this looks a little complicated, but it&rsquo;s actually very simple. As mentioned earlier in the post, we use a <code>key</code> property to store the identifier of the object in Riak. This code supports this notion. It works as follows:</p>
 
 <ol>
 <li><strong>Try to get the value of the <code>key</code> from the given list of properties.</strong></li>
-<li><strong>If <em>not</em> found &#8230;</strong>
+<li><strong>If <em>not</em> found &hellip;</strong>
 
 <ol>
 <li>create a new key using the <code>new_key()</code> function in the <code>csd_riak</code> module (this will be covered shortly).</li>
 <li>Add the <code>key</code> to the list of properties for the snippet.</li>
 <li>Create a new instance of a Riak object (more on this later) which contains the details of the snippet data to be written, along with the target bucket name and the key of the snippet.</li>
 <li>Save the Riak object to the Riak cluster using the specified Riak client connection (Pid), and for now assume that it succeeds.</li>
-<li>Return the new set of snippet data with the snippet&#8217;s key included.</li>
+<li>Return the new set of snippet data with the snippet&rsquo;s key included.</li>
 </ol>
 </li>
-<li><strong>If found &#8230;</strong>
+<li><strong>If found &hellip;</strong>
 
 <ol>
 <li>Load the existing data from the Riak cluster into a Riak object.</li>
@@ -1058,12 +1033,12 @@ Writing src/csd_core_server.erl
 </ol>
 
 
-<p>It&#8217;s fairly basic functionality which does enough to cater for our needs at this point. Through this one function, we can write new snippet instances to Riak, and we can update them too.</p>
+<p>It&rsquo;s fairly basic functionality which does enough to cater for our needs at this point. Through this one function, we can write new snippet instances to Riak, and we can update them too.</p>
 
-<p>You&#8217;ll also notice that another function is being called that hasn&#8217;t been discussed: <code>to_snippet_internal()</code>. Rather than try to explain this, let&#8217;s see the code as it&#8217;s quite easy to follow:</p>
+<p>You&rsquo;ll also notice that another function is being called that hasn&rsquo;t been discussed: <code>to_snippet_internal()</code>. Rather than try to explain this, let&rsquo;s see the code as it&rsquo;s quite easy to follow:</p>
 
-<figure class='code'><figcaption><span>apps/csd_core/src/csd_snippet.erl (part)  </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span>apps/csd_core/src/csd_snippet.erl (part) </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -1106,8 +1081,8 @@ Writing src/csd_core_server.erl
 
 <p>All that is left is to see how <code>csd_riak</code> deals with the underlying Riak connectivity. Prepare to be underwhelmed!</p>
 
-<figure class='code'><figcaption><span>apps/csd_core/src/csd_riak.erl  </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span>apps/csd_core/src/csd_riak.erl </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -1250,7 +1225,7 @@ Writing src/csd_core_server.erl
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>Hopefully the code in this module is fairly self-explanatory. It&#8217;s a very simple API to follow which made it very easy to build. So with this in place, let&#8217;s fire up the application, create a new snippet and see if it lands in the Riak store:</p>
+<p>Hopefully the code in this module is fairly self-explanatory. It&rsquo;s a very simple API to follow which made it very easy to build. So with this in place, let&rsquo;s fire up the application, create a new snippet and see if it lands in the Riak store:</p>
 
 <pre><code>oj@spawn-link  ~/blog/csd $ make webstart
 
@@ -1287,11 +1262,11 @@ PROGRESS REPORT==== 4-Apr-2011::22:57:13 ===
           {right,"(.^) = fmap `fmap` fmap"}]}
 </code></pre>
 
-<p>As you can see from the above script dump, a new <code>key</code> was generated for us and stored alongside the snippet (it&#8217;s highlighted in bold). Verifying that the data has persisted is simple. We can hit any of the Riak nodes via its web interface. Let&#8217;s take a look at <strong>http://localhost:8091/riak/snippet/B41kUQ==</strong> (your URL will have a different key):</p>
+<p>As you can see from the above script dump, a new <code>key</code> was generated for us and stored alongside the snippet (it&rsquo;s highlighted in bold). Verifying that the data has persisted is simple. We can hit any of the Riak nodes via its web interface. Let&rsquo;s take a look at **<a href="http://localhost:8091/riak/snippet/B41kUQ==**">http://localhost:8091/riak/snippet/B41kUQ==**</a> (your URL will have a different key):</p>
 
 <p><img src="/uploads/2010/10/localhost-verify-write.png" /></p>
 
-<p>Great stuff! For more detail, let&#8217;s see what cURL has to say:</p>
+<p>Great stuff! For more detail, let&rsquo;s see what cURL has to say:</p>
 
 <pre><code>oj@spawn-link ~/blog/csd/ $ curl http://localhost:8091/riak/snippet/B41kUQ== -v
 * About to connect() to localhost port 8091 (#0)
@@ -1321,14 +1296,14 @@ PROGRESS REPORT==== 4-Apr-2011::22:57:13 ===
 
 <p>As you can see, it has not only serialised to JSON properly, but the MIME type has been set correctly as well.</p>
 
-<p>This is all well and good, but we need our code to be able to read from Riak as well. That&#8217;s up next.</p>
+<p>This is all well and good, but we need our code to be able to read from Riak as well. That&rsquo;s up next.</p>
 
 <h4>Reading Data from Riak</h4>
 
-<p>We&#8217;ve already covered off what happens at the bottom level when reading data from Riak (see the above code snippet for more info). To enable this functionality at the top level, we simply need to create a <code>gen_server</code> call, handle it appropriately and expose a function in the <code>csd_snippet</code> module. Let&#8217;s start at the top level:</p>
+<p>We&rsquo;ve already covered off what happens at the bottom level when reading data from Riak (see the above code snippet for more info). To enable this functionality at the top level, we simply need to create a <code>gen_server</code> call, handle it appropriately and expose a function in the <code>csd_snippet</code> module. Let&rsquo;s start at the top level:</p>
 
-<figure class='code'><figcaption><span>- apps/csd_core/src/csd_core_server.erl (part)  </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span>- apps/csd_core/src/csd_core_server.erl (part) </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -1349,10 +1324,10 @@ PROGRESS REPORT==== 4-Apr-2011::22:57:13 ===
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>This code is a bit of a no-brainer. It&#8217;s very similar to the writing code, but just a bit simpler. Let&#8217;s see what the <code>csd_snippet:fetch()</code> function looks like:</p>
+<p>This code is a bit of a no-brainer. It&rsquo;s very similar to the writing code, but just a bit simpler. Let&rsquo;s see what the <code>csd_snippet:fetch()</code> function looks like:</p>
 
-<figure class='code'><figcaption><span>apps/csd_core/src/csd_snippet.erl (part)  </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span>apps/csd_core/src/csd_snippet.erl (part) </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -1375,14 +1350,14 @@ PROGRESS REPORT==== 4-Apr-2011::22:57:13 ===
           {right,"(.^) = fmap `fmap` fmap"}]}
 </code></pre>
 
-<p>Works like a charm. Now, for the icing on the cake, let&#8217;s get this rendering in a very simple template in our browser.</p>
+<p>Works like a charm. Now, for the icing on the cake, let&rsquo;s get this rendering in a very simple template in our browser.</p>
 
 <h3>End to End</h3>
 
-<p>In order to gain access to our data in Riak from the web we need to create a new resource. This resource will respond to any URI of the form <code>/snippet/&lt;key&gt;</code>. We shall call this resource <code>csd_web_snippet_resource</code> and we&#8217;ll be putting this in our web application. It looks like this:</p>
+<p>In order to gain access to our data in Riak from the web we need to create a new resource. This resource will respond to any URI of the form <code>/snippet/&lt;key&gt;</code>. We shall call this resource <code>csd_web_snippet_resource</code> and we&rsquo;ll be putting this in our web application. It looks like this:</p>
 
-<figure class='code'><figcaption><span>apps/csd_web/src/csd_web_snippet_resource.erl  </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span>apps/csd_web/src/csd_web_snippet_resource.erl </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -1423,12 +1398,12 @@ PROGRESS REPORT==== 4-Apr-2011::22:57:13 ===
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>As you can see, this code calls through to the <code>csd_core_server</code> to extract the data from the back-end. The value that is used as a key for the snippet is one that is pulled from the URI via Webmachine&#8217;s <code>wrq:path_info()</code> function. This function extracts values from the URI based on the rules in <code>dispatch.conf</code> and provides a <a href="http://www.erlang.org/doc/man/dict.html" title="Erlang dict">dict</a> which can be used to lookup the values.</p>
+<p>As you can see, this code calls through to the <code>csd_core_server</code> to extract the data from the back-end. The value that is used as a key for the snippet is one that is pulled from the URI via Webmachine&rsquo;s <code>wrq:path_info()</code> function. This function extracts values from the URI based on the rules in <code>dispatch.conf</code> and provides a <a href="http://www.erlang.org/doc/man/dict.html" title="Erlang dict">dict</a> which can be used to lookup the values.</p>
 
-<p>The code also uses a new ErlyDTL template called <code>snippet</code>. We&#8217;d best add that to the <code>templates</code> folder:</p>
+<p>The code also uses a new ErlyDTL template called <code>snippet</code>. We&rsquo;d best add that to the <code>templates</code> folder:</p>
 
-<figure class='code'><figcaption><span>apps/csd_web/templates/snippet.dtl  </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span>apps/csd_web/templates/snippet.dtl </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -1451,8 +1426,8 @@ PROGRESS REPORT==== 4-Apr-2011::22:57:13 ===
 
 <p>Finally, we just need to adjust <code>dispatch.conf</code> to include the new route handler so that our code gets called:</p>
 
-<figure class='code'><figcaption><span>apps/csd_web/priv/dispatch.conf  </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span>apps/csd_web/priv/dispatch.conf </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 </pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="c">%%-*- mode: erlang -*-</span>
@@ -1463,15 +1438,15 @@ PROGRESS REPORT==== 4-Apr-2011::22:57:13 ===
 
 <p>Note how <code>key</code> is specified alongside <code>"snippet"</code>. This means that the path following <code>snippet/</code> in the URI will be associated with the <code>key</code> atom in the <code>dict</code> generated by <code>wrq:path_info()</code>.</p>
 
-<p>We&#8217;re ready to rock. Rebuild, then hit the right URL, <strong>http://localhost/snippet/B41kUQ==</strong> (again, your key will be different), and you should get the following:</p>
+<p>We&rsquo;re ready to rock. Rebuild, then hit the right URL, **<a href="http://localhost/snippet/B41kUQ==**">http://localhost/snippet/B41kUQ==**</a> (again, your key will be different), and you should get the following:</p>
 
 <p><img src="/uploads/2010/10/webmachine-to-riak.png" /></p>
 
 <h2>Wrapping up</h2>
 
-<p>Thanks for sticking with me! As you can see there is a little bit of ground-work required if you&#8217;re interested in producing some form of structure that you can reuse all over your application, but the effort is definitely worth it. Now we have something in place which we can use to store arbitrarily complex <code>proplists</code> into Riak in JSON format, we have the ability to talk to Riak (read and write), and we have a proper application structure in place which we can build on.</p>
+<p>Thanks for sticking with me! As you can see there is a little bit of ground-work required if you&rsquo;re interested in producing some form of structure that you can reuse all over your application, but the effort is definitely worth it. Now we have something in place which we can use to store arbitrarily complex <code>proplists</code> into Riak in JSON format, we have the ability to talk to Riak (read and write), and we have a proper application structure in place which we can build on.</p>
 
-<p>Please note that the mechanism implemented in this post is quite simple and doesn&#8217;t cover all cases that will be required before the application is complete. In future posts, this implementation will change to support more of those cases, such as dealing with concurrent updates, handling versions, etc.</p>
+<p>Please note that the mechanism implemented in this post is quite simple and doesn&rsquo;t cover all cases that will be required before the application is complete. In future posts, this implementation will change to support more of those cases, such as dealing with concurrent updates, handling versions, etc.</p>
 
 <p>Many thanks to those people who took the time out of their busy schedules to review my post before I shared it with the world. Those people shall remain nameless to protect them from any mistakes made in this post (which are solely my own).</p>
 
@@ -1519,7 +1494,7 @@ PROGRESS REPORT==== 4-Apr-2011::22:57:13 ===
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://buffered.io/posts/webmachine-erlydtl-and-riak-part-3/" data-via="TheColonial" data-counturl="http://buffered.io/posts/webmachine-erlydtl-and-riak-part-3/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://buffered.io/posts/webmachine-erlydtl-and-riak-part-3/" data-via="TheColonial" data-counturl="http://buffered.io/posts/webmachine-erlydtl-and-riak-part-3/" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -1533,7 +1508,7 @@ PROGRESS REPORT==== 4-Apr-2011::22:57:13 ===
         <a class="basic-alignment left" href="/posts/asp-net-mvc-2-random-sign-offs-and-tempdata-loss/" title="Previous Post: ASP.NET MVC 2, Random Sign-offs and TempData Loss">&laquo; ASP.NET MVC 2, Random Sign-offs and TempData Loss</a>
       
       
-        <a class="basic-alignment right" href="/posts/issue-with-google-reader/" title="next Post: Issue with Google Reader">Issue with Google Reader &raquo;</a>
+        <a class="basic-alignment right" href="/posts/issue-with-google-reader/" title="Next Post: Issue with Google Reader">Issue with Google Reader &raquo;</a>
       
     </p>
   </footer>
@@ -1734,7 +1709,7 @@ Copyright &copy; 2013 -
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     }());
 </script>
@@ -1758,7 +1733,7 @@ Copyright &copy; 2013 -
       var twitterWidgets = document.createElement('script');
       twitterWidgets.type = 'text/javascript';
       twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
       document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
     })();
   </script>

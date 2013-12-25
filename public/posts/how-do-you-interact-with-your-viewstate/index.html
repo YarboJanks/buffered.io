@@ -5,17 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>How do you Interact with your ViewState? - OJ's perspective</title>
+  <title>How Do You Interact With Your ViewState? - OJ's perspective</title>
   <meta name="author" content="OJ Reeves">
 
-  <link rel="openid.server" href="http://pip.verisignlabs.com/server" />
-  <link rel="openid.delegate" href="http://thecolonial.pip.verisignlabs.com/" />
-  <link rel="openid2.provider" href="http://pip.verisignlabs.com/server" />
-  <link rel="openid2.local_id" href="http://thecolonial.pip.verisignlabs.com/" />
-  <meta http-equiv="X-XRDS-Location" content="http://pip.verisignlabs.com/thecolonial/yadixrds" />
-
   
-  <meta name="description" content="There comes a time in every ASP.NET developer&#8217;s life when the need arises for information to be persisted into ViewState. For the sake of this &hellip;">
+  <meta name="description" content="There comes a time in every ASP.NET developer&rsquo;s life when the need arises for information to be persisted into ViewState. For the sake of this &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -24,39 +18,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's perspective RSS 2.0" type="application/rss+xml">
   <link rel="canonical" href="http://buffered.io/posts/how-do-you-interact-with-your-viewstate">
-  <link href="/favicon.ico" rel="icon">
+  <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-
-  <script src="/javascripts/modernizr-2.0.js" type="text/javascript"></script>
-  <script src="/javascripts/ender.js" type="text/javascript"></script>
+  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's perspective" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
-
-  <script type="text/javascript">
-    Modernizr.load([
-      { load: '//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js' },
-      { load: '/javascripts/jquery.lightbox.js', complete: function() {
-        $("a[rel^='lightbox']").lightbox();
-      } }
-    ]);
-  </script>
-
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 
   
-
-  
-  <script type="text/javascript">
-    !function(g,s,q,r,d){r=g[r]=g[r]||function(){(r.q=r.q||[]).push(
-    arguments)};d=s.createElement(q);q=s.getElementsByTagName(q)[0];
-    d.src='//d1l6p2sc9645hc.cloudfront.net/tracker.js';q.parentNode.
-    insertBefore(d,q)}(window,document,'script','_gs');
-    _gs('GSN-416076-G');
-  </script>
-
 
 </head>
 
@@ -115,27 +89,28 @@
 
 <time datetime="2008-05-21T20:50:00+10:00" pubdate data-updated="true">21 May 2008</time>
         
-         | <a href="#disqus_thread">Comments</a>
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://buffered.io">Comments</a>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>There comes a time in every ASP.NET developer&#8217;s life when the need arises for information to be persisted into <a href="http://msdn.microsoft.com/en-us/library/ms972976.aspx" title="ViewState">ViewState</a>. For the sake of this post I&#8217;m not really interested in the reasons why. What I am interested in is <em>how</em>.</p>
+<div class="entry-content"><p>There comes a time in every ASP.NET developer&rsquo;s life when the need arises for information to be persisted into <a href="http://msdn.microsoft.com/en-us/library/ms972976.aspx" title="ViewState">ViewState</a>. For the sake of this post I&rsquo;m not really interested in the reasons why. What I am interested in is <em>how</em>.</p>
 
 <p>How do you interact with your ViewState?</p>
 
 <!--more-->
 
 
-<p>I&#8217;ve seen two methods in use in the various codebases that I&#8217;ve worked on. The first that I&#8217;ll demonstrate is the most common form I&#8217;ve seen.</p>
+<p>I&rsquo;ve seen two methods in use in the various codebases that I&rsquo;ve worked on. The first that I&rsquo;ll demonstrate is the most common form I&rsquo;ve seen.</p>
 
-<p>Let&#8217;s pretend we have a web form which has a property called <strong>MyMagicValue</strong> which needs to be stored across <a href="http://www.xefteri.com/articles/show.cfm?id=18" title="How postback works in ASP.NET">postbacks</a>.</p>
+<p>Let&rsquo;s pretend we have a web form which has a property called <strong>MyMagicValue</strong> which needs to be stored across <a href="http://www.xefteri.com/articles/show.cfm?id=18" title="How postback works in ASP.NET">postbacks</a>.</p>
 
 <p>Most developers would do something like this:</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -160,11 +135,11 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>Information is stored directly in the ViewState hash/dictionary by accessing the ViewState property that exists on every web form/control. In this case there&#8217;s a danger of things going horribly wrong &#8220;get&#8221; is invoked before &#8220;set&#8221;!</p>
+<p>Information is stored directly in the ViewState hash/dictionary by accessing the ViewState property that exists on every web form/control. In this case there&rsquo;s a danger of things going horribly wrong &ldquo;get&rdquo; is invoked before &ldquo;set&rdquo;!</p>
 
-<p>The second isn&#8217;t so common. In fact, the only times I&#8217;ve seen it in a codebase is when I&#8217;ve implemented it myself. This leads me to believe that most of the time developers don&#8217;t even know that this method exists. Here&#8217;s the code:</p>
+<p>The second isn&rsquo;t so common. In fact, the only times I&rsquo;ve seen it in a codebase is when I&rsquo;ve implemented it myself. This leads me to believe that most of the time developers don&rsquo;t even know that this method exists. Here&rsquo;s the code:</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -241,7 +216,7 @@
 
 <p>Quite a bit different from the first version. But which one is better? Which is considered best practice? Which has the better performance?</p>
 
-<p>I haven&#8217;t done any extensive research into this topic other than chatting to a <a href="http://secretgeek.net/" title="secretGeek">workmate</a> or two. So I wouldn&#8217;t say that I have hard data to back up what I&#8217;m about to say.</p>
+<p>I haven&rsquo;t done any extensive research into this topic other than chatting to a <a href="http://secretgeek.net/" title="secretGeek">workmate</a> or two. So I wouldn&rsquo;t say that I have hard data to back up what I&rsquo;m about to say.</p>
 
 <p>It seems to me that the latter implementation is preferrable for the following reasons:</p>
 
@@ -253,11 +228,11 @@
 <ol><li>It&#8217;s less code to write.</li><li>They don&#8217;t know that the latter method exists.</li></ol>
 
 
-<p>So what&#8217;s the verdict? Which of these is better, or considered &#8220;best practice&#8221;?</p>
+<p>So what&rsquo;s the verdict? Which of these is better, or considered &ldquo;best practice&rdquo;?</p>
 
-<p><strong>Edit:</strong> As per my comment below about using <a href="http://msdn.microsoft.com/en-us/library/system.web.ui.pair(VS.80).aspx" title="System.Web.UI.Pair">System.Web.UI.Pair</a>, I thought I would add an example of how this should be used. It&#8217;s not overly pretty when you get more and more values to store, but I still prefer it to directly manipulating the ViewState object.</p>
+<p><strong>Edit:</strong> As per my comment below about using <a href="http://msdn.microsoft.com/en-us/library/system.web.ui.pair(VS.80).aspx" title="System.Web.UI.Pair">System.Web.UI.Pair</a>, I thought I would add an example of how this should be used. It&rsquo;s not overly pretty when you get more and more values to store, but I still prefer it to directly manipulating the ViewState object.</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -294,7 +269,7 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>This doesn&#8217;t look so bad with just a single value, but for each value you add to the ViewState you need another Pair instance.</p>
+<p>This doesn&rsquo;t look so bad with just a single value, but for each value you add to the ViewState you need another Pair instance.</p>
 </div>
 
 
@@ -323,7 +298,7 @@
 
 <span class="categories">
   
-    <a class='category' href='/categories/asp-net/'>ASP.NET</a>, <a class='category' href='/categories/c-/'>C#</a>, <a class='category' href='/categories/software-development/'>Software Development</a>, <a class='category' href='/categories/tips-tricks/'>Tips/Tricks</a>
+    <a class='category' href='/categories/asp-dot-net/'>ASP.NET</a>, <a class='category' href='/categories/c-number/'>C#</a>, <a class='category' href='/categories/software-development/'>Software Development</a>, <a class='category' href='/categories/tips-slash-tricks/'>Tips/Tricks</a>
   
 </span>
 
@@ -332,7 +307,7 @@
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://buffered.io/posts/how-do-you-interact-with-your-viewstate/" data-via="TheColonial" data-counturl="http://buffered.io/posts/how-do-you-interact-with-your-viewstate/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://buffered.io/posts/how-do-you-interact-with-your-viewstate/" data-via="TheColonial" data-counturl="http://buffered.io/posts/how-do-you-interact-with-your-viewstate/" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -346,7 +321,7 @@
         <a class="basic-alignment left" href="/posts/we-are-the-champions/" title="Previous Post: We are the Champions!">&laquo; We are the Champions!</a>
       
       
-        <a class="basic-alignment right" href="/posts/the-best-sound-in-the-world/" title="next Post: The Best Sound in the World">The Best Sound in the World &raquo;</a>
+        <a class="basic-alignment right" href="/posts/the-best-sound-in-the-world/" title="Next Post: The Best Sound in the World">The Best Sound in the World &raquo;</a>
       
     </p>
   </footer>
@@ -547,7 +522,7 @@ Copyright &copy; 2013 -
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     }());
 </script>
@@ -571,7 +546,7 @@ Copyright &copy; 2013 -
       var twitterWidgets = document.createElement('script');
       twitterWidgets.type = 'text/javascript';
       twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
       document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
     })();
   </script>

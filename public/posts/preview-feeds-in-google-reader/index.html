@@ -8,14 +8,8 @@
   <title>Preview Feeds in Google Reader - OJ's perspective</title>
   <meta name="author" content="OJ Reeves">
 
-  <link rel="openid.server" href="http://pip.verisignlabs.com/server" />
-  <link rel="openid.delegate" href="http://thecolonial.pip.verisignlabs.com/" />
-  <link rel="openid2.provider" href="http://pip.verisignlabs.com/server" />
-  <link rel="openid2.local_id" href="http://thecolonial.pip.verisignlabs.com/" />
-  <meta http-equiv="X-XRDS-Location" content="http://pip.verisignlabs.com/thecolonial/yadixrds" />
-
   
-  <meta name="description" content="Here&#8217;s another reason why I find Google Reader a excellent choice for reading your RSS feeds. Most of us have a collection of feeds that &hellip;">
+  <meta name="description" content="Here&rsquo;s another reason why I find Google Reader a excellent choice for reading your RSS feeds. Most of us have a collection of feeds that &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -24,39 +18,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's perspective RSS 2.0" type="application/rss+xml">
   <link rel="canonical" href="http://buffered.io/posts/preview-feeds-in-google-reader">
-  <link href="/favicon.ico" rel="icon">
+  <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-
-  <script src="/javascripts/modernizr-2.0.js" type="text/javascript"></script>
-  <script src="/javascripts/ender.js" type="text/javascript"></script>
+  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's perspective" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
-
-  <script type="text/javascript">
-    Modernizr.load([
-      { load: '//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js' },
-      { load: '/javascripts/jquery.lightbox.js', complete: function() {
-        $("a[rel^='lightbox']").lightbox();
-      } }
-    ]);
-  </script>
-
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 
   
-
-  
-  <script type="text/javascript">
-    !function(g,s,q,r,d){r=g[r]=g[r]||function(){(r.q=r.q||[]).push(
-    arguments)};d=s.createElement(q);q=s.getElementsByTagName(q)[0];
-    d.src='//d1l6p2sc9645hc.cloudfront.net/tracker.js';q.parentNode.
-    insertBefore(d,q)}(window,document,'script','_gs');
-    _gs('GSN-416076-G');
-  </script>
-
 
 </head>
 
@@ -115,25 +89,26 @@
 
 <time datetime="2008-05-25T09:51:00+10:00" pubdate data-updated="true">25 May 2008</time>
         
-         | <a href="#disqus_thread">Comments</a>
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://buffered.io">Comments</a>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>Here&#8217;s another reason why I find <a href="http://reader.google.com/" title="Google Reader">Google Reader</a> a excellent choice for reading your RSS feeds.</p>
+<div class="entry-content"><p>Here&rsquo;s another reason why I find <a href="http://reader.google.com/" title="Google Reader">Google Reader</a> a excellent choice for reading your RSS feeds.</p>
 
 <p>Most of us have a collection of feeds that contain similar subject matter. As a geek, <em>most</em> of my feeds are geek-related. As a geek who likes to stay up to speed, I also like to know what other blogs and feeds are good to read.</p>
 
-<p>This is where Google Reader&#8217;s <strong>Top Recommendations</strong> come in. Google do a great job of throwing other feeds in your face that you might like to read based on the kind of stuff that you&#8217;ve already subscribed to.</p>
+<p>This is where Google Reader&rsquo;s <strong>Top Recommendations</strong> come in. Google do a great job of throwing other feeds in your face that you might like to read based on the kind of stuff that you&rsquo;ve already subscribed to.</p>
 
 <!--more-->
 
 
 <p><a href="/uploads/2008/05/reader_recommendations.png" rel="lightbox[rec_reader]" title="Recommended feeds"><img src="/uploads/2008/05/reader_recommendations.png" alt="A shortlist of recommended feeds" title="Recommended feeds" width="300" height="205" class="aligncenter size-medium wp-image-361" /></a></p>
 
-<p>As you can see, it lists a few blogs that are of a similar nature to those that you read and gives you the option to view them. When you click on the <em>View all &gt;&gt;</em> button, you&#8217;re presented with a rather extensive list:</p>
+<p>As you can see, it lists a few blogs that are of a similar nature to those that you read and gives you the option to view them. When you click on the <em>View all &gt;&gt;</em> button, you&rsquo;re presented with a rather extensive list:</p>
 
 <p><a href="/uploads/2008/05/reader_rec_list.png" title="Detail list of recommended feeds" rel="lightbox[rec_reader]"><img src="/uploads/2008/05/reader_rec_list.png" alt="Detail list of recommended feeds" title="Detail list of recommended feeds" width="300" height="205" class="aligncenter size-medium wp-image-362" /></a></p>
 
@@ -141,9 +116,9 @@
 
 <p><a href="/uploads/2008/05/reader_rec_preview.png" rel="lightbox[rec_reader]" title="Feed preview"><img src="/uploads/2008/05/reader_rec_preview.png" alt="Feed preview" title="Feed preview" width="300" height="205" class="aligncenter size-medium wp-image-360" /></a></p>
 
-<p>You can browse through the feed and interact with it as if it was part of your subscription list already. If you see some articles that take your fancy and the content appeals to you, you can easily subscribe by clicking on the profoundly obvious <em>Subscribe</em> button. If I don&#8217;t like it, I can go back to the list, and I can even click on the &#8220;No thanks&#8221; link next to the feed so that it doesn&#8217;t appear in my recommended list again.</p>
+<p>You can browse through the feed and interact with it as if it was part of your subscription list already. If you see some articles that take your fancy and the content appeals to you, you can easily subscribe by clicking on the profoundly obvious <em>Subscribe</em> button. If I don&rsquo;t like it, I can go back to the list, and I can even click on the &ldquo;No thanks&rdquo; link next to the feed so that it doesn&rsquo;t appear in my recommended list again.</p>
 
-<p>Too easy. This is exactly the kind of &#8220;ease of use&#8221; feature that I want from my RSS reader. I&#8217;m sure a couple of other readers would provide similar features, but the simplicity of this really blows my skirt up.</p>
+<p>Too easy. This is exactly the kind of &ldquo;ease of use&rdquo; feature that I want from my RSS reader. I&rsquo;m sure a couple of other readers would provide similar features, but the simplicity of this really blows my skirt up.</p>
 
 <p>+1 Google Reader (again).</p>
 </div>
@@ -174,7 +149,7 @@
 
 <span class="categories">
   
-    <a class='category' href='/categories/google/'>Google</a>, <a class='category' href='/categories/shortcuts/'>Shortcuts</a>, <a class='category' href='/categories/software/'>Software</a>, <a class='category' href='/categories/tips-tricks/'>Tips/Tricks</a>
+    <a class='category' href='/categories/google/'>Google</a>, <a class='category' href='/categories/shortcuts/'>Shortcuts</a>, <a class='category' href='/categories/software/'>Software</a>, <a class='category' href='/categories/tips-slash-tricks/'>Tips/Tricks</a>
   
 </span>
 
@@ -183,7 +158,7 @@
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://buffered.io/posts/preview-feeds-in-google-reader/" data-via="TheColonial" data-counturl="http://buffered.io/posts/preview-feeds-in-google-reader/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://buffered.io/posts/preview-feeds-in-google-reader/" data-via="TheColonial" data-counturl="http://buffered.io/posts/preview-feeds-in-google-reader/" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -197,7 +172,7 @@
         <a class="basic-alignment left" href="/posts/the-best-sound-in-the-world/" title="Previous Post: The Best Sound in the World">&laquo; The Best Sound in the World</a>
       
       
-        <a class="basic-alignment right" href="/posts/interesting-keyword-searches/" title="next Post: Interesting Keyword Searches">Interesting Keyword Searches &raquo;</a>
+        <a class="basic-alignment right" href="/posts/interesting-keyword-searches/" title="Next Post: Interesting Keyword Searches">Interesting Keyword Searches &raquo;</a>
       
     </p>
   </footer>
@@ -398,7 +373,7 @@ Copyright &copy; 2013 -
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     }());
 </script>
@@ -422,7 +397,7 @@ Copyright &copy; 2013 -
       var twitterWidgets = document.createElement('script');
       twitterWidgets.type = 'text/javascript';
       twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
       document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
     })();
   </script>

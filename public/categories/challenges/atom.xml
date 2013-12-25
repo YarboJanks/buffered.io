@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Challenges | OJ's perspective]]></title>
   <link href="http://buffered.io/categories/challenges/atom.xml" rel="self"/>
   <link href="http://buffered.io/"/>
-  <updated>2013-12-21T20:54:15+10:00</updated>
+  <updated>2013-12-25T21:15:26+10:00</updated>
   <id>http://buffered.io/</id>
   <author>
     <name><![CDATA[OJ Reeves]]></name>
@@ -18,7 +18,7 @@
     <link href="http://buffered.io/posts/another-quick-coding-challenge/"/>
     <updated>2008-07-25T04:46:00+10:00</updated>
     <id>http://buffered.io/posts/another-quick-coding-challenge</id>
-    <content type="html"><![CDATA[<p>I was about to head to bed when I stumbled across another interesting coding challenge. Since I had another half hour or so to kill I thought I'd give it a shot!</p>
+    <content type="html"><![CDATA[<p>I was about to head to bed when I stumbled across another interesting coding challenge. Since I had another half hour or so to kill I thought I&rsquo;d give it a shot!</p>
 
 <!--more-->
 
@@ -41,30 +41,21 @@ Also:
 </p></blockquote>
 
 
-<p>So without further ado, here's my solution:
-<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class='haskell'><span class='line'><span class="kr">import</span> <span class="nn">Data.List</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">noDups</span> <span class="ow">::</span> <span class="kt">String</span> <span class="ow">-&gt;</span> <span class="kt">Bool</span>
-</span><span class='line'><span class="nf">noDups</span> <span class="n">l</span> <span class="ow">=</span> <span class="n">length</span> <span class="n">l</span> <span class="o">==</span> <span class="n">length</span> <span class="p">(</span><span class="n">nub</span> <span class="n">l</span><span class="p">)</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">items</span> <span class="ow">::</span> <span class="p">[</span><span class="kt">Int</span><span class="p">]</span>
-</span><span class='line'><span class="nf">items</span> <span class="ow">=</span> <span class="n">filter</span> <span class="p">(</span><span class="n">noDups</span> <span class="o">.</span> <span class="n">show</span><span class="p">)</span> <span class="p">[</span><span class="mi">1</span><span class="o">..</span><span class="mi">10000</span><span class="p">]</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">main</span> <span class="ow">::</span> <span class="kt">IO</span> <span class="nb">()</span>
-</span><span class='line'><span class="nf">main</span> <span class="ow">=</span> <span class="n">print</span> <span class="o">$</span> <span class="p">(</span><span class="n">maximum</span> <span class="p">(</span><span class="n">zipWith</span> <span class="p">(</span><span class="o">-</span><span class="p">)</span> <span class="p">(</span><span class="n">tail</span> <span class="n">items</span><span class="p">)</span> <span class="n">items</span><span class="p">),</span> <span class="n">length</span> <span class="n">items</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p>So without further ado, here&rsquo;s my solution:
+{% codeblock lang:haskell %}
+import Data.List</p>
 
-<p>It's probably not as concise as it could be, and I'm sure a more experienced Haskeller would be able to tidy it up a little bit. Despite that, it still performs quite well:</p>
+<p>noDups :: String &ndash;> Bool
+noDups l = length l == length (nub l)</p>
+
+<p>items :: [Int]
+items = filter (noDups . show) [1..10000]</p>
+
+<p>main :: IO ()
+main = print $ (maximum (zipWith (&ndash;) (tail items) items), length items)
+{% endcodeblock %}</p>
+
+<p>It&rsquo;s probably not as concise as it could be, and I&rsquo;m sure a more experienced Haskeller would be able to tidy it up a little bit. Despite that, it still performs quite well:</p>
 
 <pre><code>Thu Jul 24 21:34 2008 Time and Allocation Profiling Report  (Final)
 
@@ -86,7 +77,7 @@ MAIN          MAIN           1           0   0.0    0.0     0.0  100.0
  CAF          GHC.Handle    88           4   0.0    0.0     0.0    0.0
 </code></pre>
 
-<p>Thoughts? How could I make this better/faster/more elegant? I'm keen to get some insight from a more experienced Haskell coder :) Cheers!</p>
+<p>Thoughts? How could I make this better/faster/more elegant? I&rsquo;m keen to get some insight from a more experienced Haskell coder :) Cheers!</p>
 ]]></content>
   </entry>
   
@@ -95,74 +86,51 @@ MAIN          MAIN           1           0   0.0    0.0     0.0  100.0
     <link href="http://buffered.io/posts/validating-use-of-parenthesis/"/>
     <updated>2008-07-24T09:11:00+10:00</updated>
     <id>http://buffered.io/posts/validating-use-of-parenthesis</id>
-    <content type="html"><![CDATA[<p>Yet another <a href="http://www.dev102.com/posts/a-programming-job-interview-challenge-13-brackets/" title="Programming Challenge">programming challenge appeared on dev102</a> the other day, and I thought that this time I'd post my solution here in the blog rather than letting it get lost in the depths of the comment thread!</p>
+    <content type="html"><![CDATA[<p>Yet another <a href="http://www.dev102.com/posts/a-programming-job-interview-challenge-13-brackets/" title="Programming Challenge">programming challenge appeared on dev102</a> the other day, and I thought that this time I&rsquo;d post my solution here in the blog rather than letting it get lost in the depths of the comment thread!</p>
 
 <!--more-->
 
 
-<p>The problem is as follows:<blockquote><p>Your input is a string which is composed from bracket characters. The allowed characters are:(', ), [', '], {, }, &lt; and &gt;. Your mission is to determine whether the brackets structure is legal or not.</p>
+<p>The problem is as follows:<blockquote><p>Your input is a string which is composed from bracket characters. The allowed characters are:(&lsquo;, ), [&rsquo;, &lsquo;], {, }, &lt; and &gt;. Your mission is to determine whether the brackets structure is legal or not.</p>
 
 <p>Example of a legal expression: (<a href="&amp;lt;{}&amp;gt;"></a>).</p>
 
-<p>Example of an illegal expression: ({&lt;)&gt;}.</p></blockquote>Is what I'm about to show the most efficient? No. Is it the most elegant? Hell no! But it works :)</p>
+<p>Example of an illegal expression: ({&lt;)&gt;}.</p></blockquote>Is what I&rsquo;m about to show the most efficient? No. Is it the most elegant? Hell no! But it works :)</p>
 
-<p>It's surprisingly similar to <a href="http://www.fsharp.it/posts/balanced-parenthesis/" title="Balanced Parenthesis">this solution</a> over at Fsharp.it. It is different in that it allows non-bracket characters to be entered into the string as well.
-<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-</pre></td><td class='code'><pre><code class='fsharp'><span class='line'><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">light</span><span class="o">&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="k">let</span> <span class="n">parens</span> <span class="o">=</span> <span class="o">[|</span> <span class="o">(</span><span class="sc">&#39;(&#39;</span><span class="o">,</span><span class="sc">&#39;)&#39;</span><span class="o">);(</span><span class="sc">&#39;[&#39;</span><span class="o">,</span><span class="sc">&#39;]&#39;</span><span class="o">);(</span><span class="sc">&#39;{&#39;</span><span class="o">,</span><span class="sc">&#39;}&#39;</span><span class="o">);(</span><span class="k">&#39;</span><span class="o">&amp;</span><span class="n">lt</span><span class="o">;</span><span class="sc">&#39;,&#39;</span><span class="o">&gt;</span><span class="k">&#39;</span><span class="o">)</span> <span class="o">|]</span>
-</span><span class='line'><span class="k">let</span> <span class="n">isOpen</span> <span class="n">l</span> <span class="o">=</span> <span class="nn">Array</span><span class="p">.</span><span class="n">exists</span> <span class="o">(</span><span class="k">fun</span><span class="o">(</span><span class="n">o</span><span class="o">,</span><span class="n">c</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">o</span> <span class="o">=</span> <span class="n">l</span><span class="o">)</span> <span class="n">parens</span>
-</span><span class='line'><span class="k">let</span> <span class="n">isClose</span> <span class="n">l</span> <span class="o">=</span> <span class="nn">Array</span><span class="p">.</span><span class="n">exists</span> <span class="o">(</span><span class="k">fun</span><span class="o">(</span><span class="n">o</span><span class="o">,</span><span class="n">c</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">c</span> <span class="o">=</span> <span class="n">l</span><span class="o">)</span> <span class="n">parens</span>
-</span><span class='line'><span class="k">let</span> <span class="n">isPair</span> <span class="n">p</span> <span class="o">=</span> <span class="nn">Array</span><span class="p">.</span><span class="n">exists</span> <span class="o">(</span><span class="k">fun</span> <span class="n">l</span> <span class="o">-&gt;</span> <span class="n">p</span> <span class="o">=</span> <span class="n">l</span><span class="o">)</span> <span class="n">parens</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="k">let</span> <span class="n">validate</span> <span class="n">inp</span> <span class="o">=</span>
-</span><span class='line'>  <span class="k">let</span> <span class="k">rec</span> <span class="n">v&#39;</span> <span class="n">str</span> <span class="n">stack</span> <span class="o">=&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="k">match</span> <span class="n">str</span> <span class="k">with</span>
-</span><span class='line'><span class="o">|</span> <span class="bp">[]</span> <span class="o">-&amp;</span><span class="n">gt</span><span class="o">;</span> <span class="n">stack</span> <span class="o">=</span> <span class="bp">[]</span>
-</span><span class='line'><span class="o">|</span> <span class="n">c</span> <span class="o">::</span> <span class="n">cs</span> <span class="k">when</span> <span class="n">isOpen</span> <span class="n">c</span> <span class="o">-&amp;</span><span class="n">gt</span><span class="o">;</span> <span class="n">v&#39;</span> <span class="n">cs</span> <span class="o">(</span><span class="n">c</span> <span class="o">::</span> <span class="n">stack</span><span class="o">)</span>
-</span><span class='line'><span class="o">|</span> <span class="n">c</span> <span class="o">::</span> <span class="n">cs</span> <span class="k">when</span> <span class="n">isClose</span> <span class="n">c</span> <span class="o">-&amp;</span><span class="n">gt</span><span class="o">;</span>
-</span><span class='line'>    <span class="k">if</span> <span class="n">isPair</span> <span class="o">((</span><span class="nn">List</span><span class="p">.</span><span class="n">hd</span> <span class="n">stack</span><span class="o">),</span> <span class="n">c</span><span class="o">)</span>
-</span><span class='line'>        <span class="k">then</span> <span class="n">v&#39;</span> <span class="n">cs</span> <span class="o">(</span><span class="nn">List</span><span class="p">.</span><span class="n">tl</span> <span class="n">stack</span><span class="o">)</span>
-</span><span class='line'>        <span class="k">else</span> <span class="bp">false</span>
-</span><span class='line'><span class="o">|</span> <span class="n">c</span> <span class="o">::</span> <span class="n">cs</span> <span class="o">-&amp;</span><span class="n">gt</span><span class="o">;</span> <span class="n">v&#39;</span> <span class="n">cs</span> <span class="n">stack</span>
-</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="n">v&#39;</span> <span class="o">(</span><span class="nn">List</span><span class="p">.</span><span class="n">of_seq</span> <span class="n">inp</span><span class="o">)</span> <span class="bp">[]</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p>It&rsquo;s surprisingly similar to <a href="http://www.fsharp.it/posts/balanced-parenthesis/" title="Balanced Parenthesis">this solution</a> over at Fsharp.it. It is different in that it allows non-bracket characters to be entered into the string as well.
+{% codeblock lang:fsharp %}</p>
+
+<h1>light</h1>
+
+<p>let parens = [| (&lsquo;(&rsquo;,&lsquo;)&rsquo;);(&lsquo;[&rsquo;,&lsquo;]&rsquo;);(&lsquo;{&rsquo;,&lsquo;}&rsquo;);(&lsquo;&lt;&rsquo;,&lsquo;>&rsquo;) |]
+let isOpen l = Array.exists (fun(o,c) &ndash;> o = l) parens
+let isClose l = Array.exists (fun(o,c) &ndash;> c = l) parens
+let isPair p = Array.exists (fun l &ndash;> p = l) parens</p>
+
+<p>let validate inp =
+  let rec v' str stack =</p>
+
+<pre><code>match str with
+| [] -&gt; stack = []
+| c :: cs when isOpen c -&gt; v' cs (c :: stack)
+| c :: cs when isClose c -&gt;
+    if isPair ((List.hd stack), c)
+        then v' cs (List.tl stack)
+        else false
+| c :: cs -&gt; v' cs stack
+</code></pre>
+
+<p>  v' (List.of_seq inp) []
+{% endcodeblock %}</p>
 
 <p>Call the function like so:
-<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='fsharp'><span class='line'><span class="n">validate</span> <span class="s2">&quot;thisIsAFunction(int[] foo, delegate{}, bar()); // &amp;lt; testing &gt;&quot;</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+{% codeblock lang:fsharp %}
+validate &ldquo;thisIsAFunction(int[] foo, delegate{}, bar()); // &lt; testing >&rdquo;
+{% endcodeblock %}</p>
 
-<p>In short, the function uses an internal "stack" (which is actually a list) to keep track of open brackets. When a closed bracket is found, it's validated against the open bracket at the top of the stack.</p>
+<p>In short, the function uses an internal &ldquo;stack&rdquo; (which is actually a list) to keep track of open brackets. When a closed bracket is found, it&rsquo;s validated against the open bracket at the top of the stack.</p>
 
-<p>Fairly simple stuff. There are optimisations that can be made around the searching for items in the <em>parens</em> array, but I couldn't be bothered changing it :) For me at the moment it's more about playing with F#.</p>
+<p>Fairly simple stuff. There are optimisations that can be made around the searching for items in the <em>parens</em> array, but I couldn&rsquo;t be bothered changing it :) For me at the moment it&rsquo;s more about playing with F#.</p>
 
 <p>Thoughts?</p>
 ]]></content>
@@ -173,7 +141,7 @@ MAIN          MAIN           1           0   0.0    0.0     0.0  100.0
     <link href="http://buffered.io/posts/an-interesting-little-problem/"/>
     <updated>2008-06-14T20:39:00+10:00</updated>
     <id>http://buffered.io/posts/an-interesting-little-problem</id>
-    <content type="html"><![CDATA[<p>This post was inspired by a recent interview question that was posted over at <a href="http://www.fsharp.it/posts/google-interview-question-product-of-other-elements-in-an-array-in-on/" title="Fsharp.it">fsharp.it</a>. It's one of those neat little questions which looks really simple on the surface but is quite tricky.</p>
+    <content type="html"><![CDATA[<p>This post was inspired by a recent interview question that was posted over at <a href="http://www.fsharp.it/posts/google-interview-question-product-of-other-elements-in-an-array-in-on/" title="Fsharp.it">fsharp.it</a>. It&rsquo;s one of those neat little questions which looks really simple on the surface but is quite tricky.</p>
 
 <!--more-->
 
@@ -187,44 +155,31 @@ There is an array A[N] of N integers. You have to compose an array Output[N] suc
 
 <p><strong>Note:</strong> Solve it <em>without</em> the division operator and in O(n).
 </p></blockquote>
-Since I had a spare 10 minutes, I decided to give it a shot ... in Haskell.</p>
+Since I had a spare 10 minutes, I decided to give it a shot &hellip; in Haskell.</p>
 
-<p>I'll cut to the chase, here's the source to my solution:
-<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-</pre></td><td class='code'><pre><code class='haskell'><span class='line'><span class="nf">vals</span> <span class="ow">::</span> <span class="p">[</span><span class="kt">Int</span><span class="p">]</span>
-</span><span class='line'><span class="nf">vals</span> <span class="ow">=</span> <span class="p">[</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span> <span class="p">]</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">answers</span> <span class="ow">::</span> <span class="p">[</span><span class="kt">Int</span><span class="p">]</span>
-</span><span class='line'><span class="nf">answers</span> <span class="ow">=</span> <span class="p">[</span> <span class="n">front</span> <span class="o">!!</span> <span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">back</span> <span class="o">!!</span> <span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">|</span> <span class="n">x</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="o">-</span> <span class="p">[</span><span class="mi">1</span><span class="o">..</span><span class="n">length</span> <span class="n">vals</span><span class="p">]</span> <span class="p">]</span>
-</span><span class='line'>  <span class="kr">where</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">front</span> <span class="ow">=</span> <span class="n">scanl1</span> <span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="n">temp</span>
-</span><span class='line'><span class="nf">back</span> <span class="ow">=</span> <span class="n">scanr1</span> <span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="n">temp</span>
-</span><span class='line'><span class="nf">temp</span> <span class="ow">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">++</span> <span class="n">vals</span> <span class="o">++</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p>I&rsquo;ll cut to the chase, here&rsquo;s the source to my solution:
+{% codeblock lang:haskell %}
+vals :: [Int]
+vals = [ 4, 3, 2, 1, 2 ]</p>
 
-<p>I'm hoping that this is quite self-explanatory. But in case it's not, I'll cover some of the gory bits.</p>
+<p>answers :: [Int]
+answers = [ front !! (x-1) * back !! (x+1) | x &lt;&ndash; [1..length vals] ]
+  where</p>
+
+<pre><code>front = scanl1 (*) temp
+back = scanr1 (*) temp
+temp = [1] ++ vals ++ [1]
+</code></pre>
+
+<p>{% endcodeblock %}</p>
+
+<p>I&rsquo;m hoping that this is quite self-explanatory. But in case it&rsquo;s not, I&rsquo;ll cover some of the gory bits.</p>
 
 <p>The core of the problem is coming up with a way of determining the value of the product of numbers from the start of the list up to a given index, and to do the same at the other end of the list from that given index.</p>
 
-<p>I thought that the easiest way would be to create two lists: both of them containing the compounded products of the numbers in the list, but each of them in different directions. To generate those lists, I thought that I'd add the value of 1 to the list, both at the start and at the end, as it would allow me to do two things:<ol><li>Generate the lists using the <a href="http://haskell.org/ghc/docs/latest/html/libraries/base/Prelude.html#v%3Ascanl1" title="scanl1">scanl1</a> and scanr1 functions.</li><li>Index into the list using a counter that's based on the size of the original values without having to worry about going past the bounds of the list.</li></ol>Yup, quite lazy, but very handy.</p>
+<p>I thought that the easiest way would be to create two lists: both of them containing the compounded products of the numbers in the list, but each of them in different directions. To generate those lists, I thought that I&rsquo;d add the value of 1 to the list, both at the start and at the end, as it would allow me to do two things:<ol><li>Generate the lists using the <a href="http://haskell.org/ghc/docs/latest/html/libraries/base/Prelude.html#v%3Ascanl1" title="scanl1">scanl1</a> and scanr1 functions.</li><li>Index into the list using a counter that&rsquo;s based on the size of the original values without having to worry about going past the bounds of the list.</li></ol>Yup, quite lazy, but very handy.</p>
 
-<p>Here's the output when I execute <em>answers</em> in <a href="http://www.haskell.org/ghc/docs/latest/html/users_guide/ghci.html" title="GHCi">GHCi</a>:</p>
+<p>Here&rsquo;s the output when I execute <em>answers</em> in <a href="http://www.haskell.org/ghc/docs/latest/html/users_guide/ghci.html" title="GHCi">GHCi</a>:</p>
 
 <pre><code>Prelude&gt; :l google.hs
 [1 of 1] Compiling Main             ( google.hs, interpreted )
@@ -234,41 +189,27 @@ Ok, modules loaded: Main.
 *Main&gt;
 </code></pre>
 
-<p>Problem solved in O(n). Neato! After feeling rather chuffed with myself I thought I'd go back to Fsharp.it and check out the answer posted there. The principle was similar, but the implementation listed was a little longer.</p>
+<p>Problem solved in O(n). Neato! After feeling rather chuffed with myself I thought I&rsquo;d go back to Fsharp.it and check out the answer posted there. The principle was similar, but the implementation listed was a little longer.</p>
 
-<p>So I thought I'd have a go at writing up my solution using F#. It didn't seem like a stretch until I realised how little of the language I know (I'm currently reading through <a href="http://www.amazon.com/Expert-F-Experts-Voice-Net/dp/1590598504" title="Expert F#">Expert F#</a>, but I'm still far from being one myself). Here's what I came up with:
-<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-</pre></td><td class='code'><pre><code class='ocaml'><span class='line'><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">light</span><span class="o">&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="k">let</span> <span class="n">vals</span> <span class="o">=</span> <span class="o">[</span> <span class="mi">4</span><span class="o">;</span> <span class="mi">3</span><span class="o">;</span> <span class="mi">2</span><span class="o">;</span> <span class="mi">1</span><span class="o">;</span> <span class="mi">2</span><span class="o">;</span> <span class="o">]&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="k">let</span> <span class="n">mul</span> <span class="n">a</span> <span class="n">b</span> <span class="o">=</span> <span class="n">a</span> <span class="o">*</span> <span class="n">b</span>
-</span><span class='line'><span class="k">let</span> <span class="o">(++)</span> <span class="o">=</span> <span class="nn">List</span><span class="p">.</span><span class="n">append</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="k">let</span> <span class="n">answers</span> <span class="o">=</span>
-</span><span class='line'>  <span class="k">let</span> <span class="n">temp</span> <span class="o">=</span> <span class="o">[</span><span class="mi">1</span><span class="o">]</span> <span class="o">++</span> <span class="n">vals</span> <span class="o">++</span> <span class="o">[</span><span class="mi">1</span><span class="o">]</span>
-</span><span class='line'>  <span class="k">let</span> <span class="n">front</span> <span class="o">=</span> <span class="nn">List</span><span class="p">.</span><span class="n">scan1_left</span> <span class="n">mul</span> <span class="n">temp</span> <span class="o">|&gt;</span> <span class="nn">List</span><span class="p">.</span><span class="n">to_array</span>
-</span><span class='line'>  <span class="k">let</span> <span class="n">back</span> <span class="o">=</span> <span class="nn">List</span><span class="p">.</span><span class="n">scan1_right</span> <span class="n">mul</span> <span class="n">temp</span> <span class="o">|&gt;</span> <span class="nn">List</span><span class="p">.</span><span class="n">to_array</span>
-</span><span class='line'>  <span class="n">seq</span> <span class="o">{</span> <span class="k">for</span> <span class="n">x</span> <span class="k">in</span> <span class="o">[</span><span class="mi">1</span> <span class="o">..</span> <span class="n">vals</span><span class="o">.</span><span class="nc">Length</span><span class="o">]</span> <span class="o">-&gt;</span> <span class="n">front</span><span class="o">.[</span><span class="n">x</span><span class="o">-</span><span class="mi">1</span><span class="o">]</span> <span class="o">*</span> <span class="n">back</span><span class="o">.[</span><span class="n">x</span><span class="o">+</span><span class="mi">1</span><span class="o">]</span> <span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p>So I thought I&rsquo;d have a go at writing up my solution using F#. It didn&rsquo;t seem like a stretch until I realised how little of the language I know (I&rsquo;m currently reading through <a href="http://www.amazon.com/Expert-F-Experts-Voice-Net/dp/1590598504" title="Expert F#">Expert F#</a>, but I&rsquo;m still far from being one myself). Here&rsquo;s what I came up with:
+{% codeblock lang:ocaml %}</p>
 
-<p>A few things you might notice:<ol><li>My syntax highlighter plugin doesn't currently support F# :)</li><li>I use a similar method to the Haskell solution, but ended up having to convert the <em>front</em> and <em>back</em> lists to arrays. The reason was because I need to be able to index into the resulting integer set, and I can't do that with lists (if I'm wrong, please let me know!)</li><li>I defined a function called <em>mul</em> which does a simple multiplication. I wanted to pass <em>(<em>)</em> as the first parameter to the scan1_</em> functions, but the interpreter took that as the start of a comment instead! So I had to resort to a dodgey hack. If you know a way around this, please let me know.</li><li>I wrote my own (++) operator because I didn't want to have to write List.append more than once :)</li></ol>
-In other words, my F# version smells like n00b. I'm sure there are so many better ways to implement this using the built-in features of the language and supporting libraries, but I'm yet to get to the level when I can write it. I'd love for someone to show me how :)</p>
+<h1>light</h1>
+
+<p>let vals = [ 4; 3; 2; 1; 2; ]</p>
+
+<p>let mul a b = a * b
+let (++) = List.append</p>
+
+<p>let answers =
+  let temp = [1] ++ vals ++ [1]
+  let front = List.scan1_left mul temp |> List.to_array
+  let back = List.scan1_right mul temp |> List.to_array
+  seq { for x in [1 .. vals.Length] &ndash;> front.[x-1] * back.[x+1] }
+{% endcodeblock %}</p>
+
+<p>A few things you might notice:<ol><li>My syntax highlighter plugin doesn&rsquo;t currently support F# :)</li><li>I use a similar method to the Haskell solution, but ended up having to convert the <em>front</em> and <em>back</em> lists to arrays. The reason was because I need to be able to index into the resulting integer set, and I can&rsquo;t do that with lists (if I&rsquo;m wrong, please let me know!)</li><li>I defined a function called <em>mul</em> which does a simple multiplication. I wanted to pass <em>(<em>)</em> as the first parameter to the scan1_</em> functions, but the interpreter took that as the start of a comment instead! So I had to resort to a dodgey hack. If you know a way around this, please let me know.</li><li>I wrote my own (++) operator because I didn&rsquo;t want to have to write List.append more than once :)</li></ol>
+In other words, my F# version smells like n00b. I&rsquo;m sure there are so many better ways to implement this using the built-in features of the language and supporting libraries, but I&rsquo;m yet to get to the level when I can write it. I&rsquo;d love for someone to show me how :)</p>
 
 <p>I did enjoy having a dabble with F# for the first time in ages, though I have to admit I much prefer using <a href="http://www.vim.org/" title="VIM">VIM</a> and <a href="http://research.microsoft.com/fsharp/manual/compiler.aspx" title="F# Interactive">fsi.exe</a> instead of <a href="http://msdn.microsoft.com/en-us/vstudio/default.aspx" title="Visual Studio">Visual Studio</a> and the <a href="http://blogs.msdn.com/dsyme/archive/posts/534925.aspx" title="A Taste of F# Interactive in Visual Studio">interactive F# add-in</a>.</p>
 
@@ -277,62 +218,36 @@ In other words, my F# version smells like n00b. I'm sure there are so many bette
 <h2>Update</h2>
 
 
-<p>After some great feedback (see below), I've come to realise that the !! operator in Haskell is actually O(n) itself. Hence it was a bad choice for inclusion. Back to the drawing board for me!</p>
+<p>After some great feedback (see below), I&rsquo;ve come to realise that the !! operator in Haskell is actually O(n) itself. Hence it was a bad choice for inclusion. Back to the drawing board for me!</p>
 
 <p>Here are a couple of submitted Haskell solutions.
-<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-</pre></td><td class='code'><pre><code class='haskell'><span class='line'><span class="c1">-- by lf</span>
-</span><span class='line'><span class="nf">scanm</span> <span class="n">f</span> <span class="n">z</span> <span class="n">xs</span> <span class="ow">=</span> <span class="n">zipWith</span> <span class="n">f</span> <span class="p">(</span><span class="n">scanl</span> <span class="n">f</span> <span class="n">z</span> <span class="n">xs</span><span class="p">)</span> <span class="p">(</span><span class="n">tail</span> <span class="o">$</span> <span class="n">scanr</span> <span class="n">f</span> <span class="n">z</span> <span class="n">xs</span><span class="p">)</span>
-</span><span class='line'><span class="nf">main</span> <span class="ow">=</span> <span class="n">print</span> <span class="o">$</span> <span class="n">scanm</span> <span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="mi">1</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;--</span> <span class="n">by</span> <span class="kt">Henning</span>
-</span><span class='line'><span class="nf">answers</span> <span class="ow">::</span> <span class="p">[</span><span class="kt">Int</span><span class="p">]</span> <span class="ow">-&gt;</span> <span class="p">[</span><span class="kt">Int</span><span class="p">]</span>
-</span><span class='line'><span class="nf">answers</span> <span class="n">vals</span> <span class="ow">=</span> <span class="n">zipWith</span> <span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="n">front</span> <span class="p">(</span><span class="n">drop</span> <span class="mi">1</span> <span class="n">back</span><span class="p">)</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="kr">where</span>
-</span><span class='line'><span class="nf">front</span> <span class="ow">=</span> <span class="n">scanl</span> <span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="mi">1</span> <span class="n">vals</span>
-</span><span class='line'><span class="nf">back</span> <span class="ow">=</span> <span class="n">scanr</span> <span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="mi">1</span> <span class="n">vals</span>
-</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;--</span> <span class="n">by</span> <span class="n">desp</span>
-</span><span class='line'><span class="nf">problem</span> <span class="n">input</span> <span class="ow">=</span> <span class="n">zipWith</span> <span class="p">(</span><span class="o">&lt;</span><span class="n">em</span><span class="o">&gt;</span><span class="p">)</span> <span class="n">front</span> <span class="n">back</span> <span class="kr">where</span>
-</span><span class='line'>  <span class="n">front</span> <span class="ow">=</span> <span class="n">init</span> <span class="p">(</span><span class="n">scanl</span> <span class="p">(</span><span class="o">&lt;/</span><span class="n">em</span><span class="o">&gt;</span><span class="p">)</span> <span class="mi">1</span> <span class="n">input</span><span class="p">)</span>
-</span><span class='line'>  <span class="n">back</span> <span class="ow">=</span> <span class="n">tail</span> <span class="p">(</span><span class="n">scanr</span> <span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="mi">1</span> <span class="n">input</span><span class="p">)</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;--</span> <span class="n">by</span> <span class="n">foobar</span>
-</span><span class='line'><span class="nf">foo</span> <span class="kt">[]</span> <span class="kr">_</span> <span class="ow">=</span> <span class="p">(</span><span class="kt">[]</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-</span><span class='line'><span class="nf">foo</span> <span class="p">(</span><span class="n">x</span><span class="kt">:</span><span class="n">xs</span><span class="p">)</span> <span class="n">acc</span> <span class="ow">=</span> <span class="kr">let</span> <span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">m</span><span class="p">)</span> <span class="ow">=</span> <span class="n">foo</span> <span class="n">xs</span> <span class="p">(</span><span class="n">acc</span><span class="o">*</span><span class="n">x</span><span class="p">)</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span>             <span class="kr">in</span> <span class="p">((</span><span class="n">m</span><span class="o">*</span><span class="n">acc</span><span class="p">)</span><span class="kt">:</span><span class="n">l</span> <span class="p">,</span> <span class="n">m</span><span class="o">*</span><span class="n">x</span><span class="p">)</span>
-</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+{% codeblock lang:haskell %}
+&mdash; by lf
+scanm f z xs = zipWith f (scanl f z xs) (tail $ scanr f z xs)
+main = print $ scanm (*) 1 [4,3,2,1,2]</p>
+
+<p>&mdash; by Henning
+answers :: [Int] &ndash;> [Int]
+answers vals = zipWith (*) front (drop 1 back)</p>
+
+<pre><code>where
+front = scanl (*) 1 vals
+back = scanr (*) 1 vals
+</code></pre>
+
+<p>&mdash; by desp
+problem input = zipWith (<em>) front back where
+  front = init (scanl (</em>) 1 input)
+  back = tail (scanr (*) 1 input)</p>
+
+<p>&mdash; by foobar
+foo [] _ = ([], 1)
+foo (x:xs) acc = let (l, m) = foo xs (acc*x)</p>
+
+<pre><code>             in ((m*acc):l , m*x)
+</code></pre>
+
+<p>{% endcodeblock %}</p>
 
 <p>Thanks for the submissions guys :) Sorry for not including the imperative versions in the update.</p>
 ]]></content>
@@ -343,9 +258,9 @@ In other words, my F# version smells like n00b. I'm sure there are so many bette
     <link href="http://buffered.io/posts/more-rce-goodness/"/>
     <updated>2007-03-06T12:45:00+10:00</updated>
     <id>http://buffered.io/posts/more-rce-goodness</id>
-    <content type="html"><![CDATA[<p>I'm quite excited.  My previous RCE solution and tutorial has been <a href="http://www.crackmes.de/users/cyclops/nts_crackme10/" title="My Solution">approved</a>!</p>
+    <content type="html"><![CDATA[<p>I&rsquo;m quite excited.  My previous RCE solution and tutorial has been <a href="http://www.crackmes.de/users/cyclops/nts_crackme10/" title="My Solution">approved</a>!</p>
 
-<p>Plus, the first keygenme that I've ever written is now <a href="http://www.crackmes.de/users/thecolonial/thecolonials_keygenme01_x64/" title="My Keygenme">approved and available for download</a>.  So if you're up for a 64-bit RCE challenge, go check it out (or download it directly from <a href="http://buffered.io/uploads/2007/03/thecolonial_keygenme01_winx64.zip" title="My Keygenme">here</a>).</p>
+<p>Plus, the first keygenme that I&rsquo;ve ever written is now <a href="http://www.crackmes.de/users/thecolonial/thecolonials_keygenme01_x64/" title="My Keygenme">approved and available for download</a>.  So if you&rsquo;re up for a 64-bit RCE challenge, go check it out (or download it directly from <a href="http://buffered.io/uploads/2007/03/thecolonial_keygenme01_winx64.zip" title="My Keygenme">here</a>).</p>
 
 <p>Feel free to let me know how good/bad/ugly you think this stuff is!</p>
 ]]></content>
@@ -356,15 +271,15 @@ In other words, my F# version smells like n00b. I'm sure there are so many bette
     <link href="http://buffered.io/posts/challenge-3-day-of-birth/"/>
     <updated>2007-02-04T02:02:00+10:00</updated>
     <id>http://buffered.io/posts/challenge-3-day-of-birth</id>
-    <content type="html"><![CDATA[<p>I haven't posted a challenge for a while, so I thought I'd get you all thinking again with another basic little program.  It's simple, but there are a stack of possible solutions, so I'm expecting a bit of variety. So here we go.</p>
+    <content type="html"><![CDATA[<p>I haven&rsquo;t posted a challenge for a while, so I thought I&rsquo;d get you all thinking again with another basic little program.  It&rsquo;s simple, but there are a stack of possible solutions, so I&rsquo;m expecting a bit of variety. So here we go.</p>
 
 <p>Write a program that asks the user for their date of birth using the date format YYYY-MM-DD (eg. 1978-12-05 in my case). The program should respond by telling the user what <em>day of the week</em> they were born on.</p>
 
-<p>You're allowed to use any language you want, but you're <strong>not</strong> allowed to use the built-in date object functionality other than to determine the current system date. That is, you can't date difference functions to determine time that's passed. You have to figure that out for yourself.</p>
+<p>You&rsquo;re allowed to use any language you want, but you&rsquo;re <strong>not</strong> allowed to use the built-in date object functionality other than to determine the current system date. That is, you can&rsquo;t date difference functions to determine time that&rsquo;s passed. You have to figure that out for yourself.</p>
 
-<p>For those C# coders, don't even <em>think</em> about posting: <em>dateOfBirth.Day</em> :) You're supposed to do the hard bit yourself</p>
+<p>For those C# coders, don&rsquo;t even <em>think</em> about posting: <em>dateOfBirth.Day</em> :) You&rsquo;re supposed to do the hard bit yourself</p>
 
-<p>Anyway, it's easy peasy :)  Don't forget about leap years and stuff! I look forward to seeing your answers. I'll post up a solution in a week or so. Let me know if I haven't been clear.</p>
+<p>Anyway, it&rsquo;s easy peasy :)  Don&rsquo;t forget about leap years and stuff! I look forward to seeing your answers. I&rsquo;ll post up a solution in a week or so. Let me know if I haven&rsquo;t been clear.</p>
 ]]></content>
   </entry>
   

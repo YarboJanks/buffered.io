@@ -8,14 +8,8 @@
   <title>Server Refresh - OJ's perspective</title>
   <meta name="author" content="OJ Reeves">
 
-  <link rel="openid.server" href="http://pip.verisignlabs.com/server" />
-  <link rel="openid.delegate" href="http://thecolonial.pip.verisignlabs.com/" />
-  <link rel="openid2.provider" href="http://pip.verisignlabs.com/server" />
-  <link rel="openid2.local_id" href="http://thecolonial.pip.verisignlabs.com/" />
-  <meta http-equiv="X-XRDS-Location" content="http://pip.verisignlabs.com/thecolonial/yadixrds" />
-
   
-  <meta name="description" content="Over the weekend I revamped the webserver. Over the last month or two I&#8217;ve been bummed about the amount of overhead in maintaining a Gentoo &hellip;">
+  <meta name="description" content="Over the weekend I revamped the webserver. Over the last month or two I&rsquo;ve been bummed about the amount of overhead in maintaining a Gentoo &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -24,39 +18,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's perspective RSS 2.0" type="application/rss+xml">
   <link rel="canonical" href="http://buffered.io/posts/server-refresh">
-  <link href="/favicon.ico" rel="icon">
+  <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-
-  <script src="/javascripts/modernizr-2.0.js" type="text/javascript"></script>
-  <script src="/javascripts/ender.js" type="text/javascript"></script>
+  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's perspective" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
-
-  <script type="text/javascript">
-    Modernizr.load([
-      { load: '//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js' },
-      { load: '/javascripts/jquery.lightbox.js', complete: function() {
-        $("a[rel^='lightbox']").lightbox();
-      } }
-    ]);
-  </script>
-
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 
   
-
-  
-  <script type="text/javascript">
-    !function(g,s,q,r,d){r=g[r]=g[r]||function(){(r.q=r.q||[]).push(
-    arguments)};d=s.createElement(q);q=s.getElementsByTagName(q)[0];
-    d.src='//d1l6p2sc9645hc.cloudfront.net/tracker.js';q.parentNode.
-    insertBefore(d,q)}(window,document,'script','_gs');
-    _gs('GSN-416076-G');
-  </script>
-
 
 </head>
 
@@ -115,20 +89,21 @@
 
 <time datetime="2009-02-16T07:24:00+10:00" pubdate data-updated="true">16 Feb 2009</time>
         
-         | <a href="#disqus_thread">Comments</a>
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://buffered.io">Comments</a>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>Over the weekend I revamped the webserver. Over the last month or two I&#8217;ve been bummed about the amount of overhead in maintaining a <a href="Gentoo" title="http://www.gentoo.org/">Gentoo</a> install as my webserver. Now before any of you Gentoo zealots have a whinge, let me explain.</p>
+<div class="entry-content"><p>Over the weekend I revamped the webserver. Over the last month or two I&rsquo;ve been bummed about the amount of overhead in maintaining a <a href="Gentoo" title="http://www.gentoo.org/">Gentoo</a> install as my webserver. Now before any of you Gentoo zealots have a whinge, let me explain.</p>
 
-<p>Yes, <a href="Portage" title="http://en.wikipedia.org/wiki/Portage_(software)">Portage</a> is cool. It&#8217;s quick, it builds stuff from source, etc. While that power is great, it&#8217;s a pain in the butt at the same time. Especially when you&#8217;re running on a <a href="VPS" title="http://en.wikipedia.org/wiki/Virtual_private_server">VPS</a>. I am tired of the underlying bits and pieces changing constantly and me having to muck around with masking and unmasking packages just to get things to update and play nicely together.</p>
+<p>Yes, <a href="Portage" title="http://en.wikipedia.org/wiki/Portage_(software)">Portage</a> is cool. It&rsquo;s quick, it builds stuff from source, etc. While that power is great, it&rsquo;s a pain in the butt at the same time. Especially when you&rsquo;re running on a <a href="VPS" title="http://en.wikipedia.org/wiki/Virtual_private_server">VPS</a>. I am tired of the underlying bits and pieces changing constantly and me having to muck around with masking and unmasking packages just to get things to update and play nicely together.</p>
 
-<p>I made the decision to switch to <a href="Debian" title="http://www.debian.org/">Debian</a> and I am happy I did it. I don&#8217;t think the time I&#8217;ll have to spend maintaining the server will be as high as before. This is all about productivity and as far as I&#8217;m concerned this is going to reduce my workload. Given that my software installs don&#8217;t change once I&#8217;ve got the server up and running, I shouldn&#8217;t have to spend that amount of time keeping things running.</p>
+<p>I made the decision to switch to <a href="Debian" title="http://www.debian.org/">Debian</a> and I am happy I did it. I don&rsquo;t think the time I&rsquo;ll have to spend maintaining the server will be as high as before. This is all about productivity and as far as I&rsquo;m concerned this is going to reduce my workload. Given that my software installs don&rsquo;t change once I&rsquo;ve got the server up and running, I shouldn&rsquo;t have to spend that amount of time keeping things running.</p>
 
-<p>As always, there&#8217;s a risk of teething problems when you do a full reinstall. So if anyone out there is having issues then please <a href="Contact me" title="/contact-me/">let me know</a>. Cheers! :)</p>
+<p>As always, there&rsquo;s a risk of teething problems when you do a full reinstall. So if anyone out there is having issues then please <a href="Contact me" title="/contact-me/">let me know</a>. Cheers! :)</p>
 </div>
 
 
@@ -166,7 +141,7 @@
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://buffered.io/posts/server-refresh/" data-via="TheColonial" data-counturl="http://buffered.io/posts/server-refresh/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://buffered.io/posts/server-refresh/" data-via="TheColonial" data-counturl="http://buffered.io/posts/server-refresh/" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -180,7 +155,7 @@
         <a class="basic-alignment left" href="/posts/always-question-the-source-aka-dont-lock-on-type-objects/" title="Previous Post: Always Question the Source (aka "Don't Lock on Type Objects")">&laquo; Always Question the Source (aka "Don't Lock on Type Objects")</a>
       
       
-        <a class="basic-alignment right" href="/posts/an-all-too-common-issue/" title="next Post: An All Too Common Issue">An All Too Common Issue &raquo;</a>
+        <a class="basic-alignment right" href="/posts/an-all-too-common-issue/" title="Next Post: An All Too Common Issue">An All Too Common Issue &raquo;</a>
       
     </p>
   </footer>
@@ -381,7 +356,7 @@ Copyright &copy; 2013 -
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     }());
 </script>
@@ -405,7 +380,7 @@ Copyright &copy; 2013 -
       var twitterWidgets = document.createElement('script');
       twitterWidgets.type = 'text/javascript';
       twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
       document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
     })();
   </script>

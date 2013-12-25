@@ -8,14 +8,8 @@
   <title>OJ's perspective</title>
   <meta name="author" content="OJ Reeves">
 
-  <link rel="openid.server" href="http://pip.verisignlabs.com/server" />
-  <link rel="openid.delegate" href="http://thecolonial.pip.verisignlabs.com/" />
-  <link rel="openid2.provider" href="http://pip.verisignlabs.com/server" />
-  <link rel="openid2.local_id" href="http://thecolonial.pip.verisignlabs.com/" />
-  <meta http-equiv="X-XRDS-Location" content="http://pip.verisignlabs.com/thecolonial/yadixrds" />
-
   
-  <meta name="description" content="I found a pretty inspiring video the other day that I think is a perfect visual representation of what should happen in software. OK, that&#8217;s &hellip;">
+  <meta name="description" content="I found a pretty inspiring video the other day that I think is a perfect visual representation of what should happen in software. OK, that&rsquo;s &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -24,39 +18,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's perspective RSS 2.0" type="application/rss+xml">
   <link rel="canonical" href="http://buffered.io/posts/page/22">
-  <link href="/favicon.ico" rel="icon">
+  <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-
-  <script src="/javascripts/modernizr-2.0.js" type="text/javascript"></script>
-  <script src="/javascripts/ender.js" type="text/javascript"></script>
+  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's perspective" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
-
-  <script type="text/javascript">
-    Modernizr.load([
-      { load: '//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js' },
-      { load: '/javascripts/jquery.lightbox.js', complete: function() {
-        $("a[rel^='lightbox']").lightbox();
-      } }
-    ]);
-  </script>
-
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 
   
-
-  
-  <script type="text/javascript">
-    !function(g,s,q,r,d){r=g[r]=g[r]||function(){(r.q=r.q||[]).push(
-    arguments)};d=s.createElement(q);q=s.getElementsByTagName(q)[0];
-    d.src='//d1l6p2sc9645hc.cloudfront.net/tracker.js';q.parentNode.
-    insertBefore(d,q)}(window,document,'script','_gs');
-    _gs('GSN-416076-G');
-  </script>
-
 
 </head>
 
@@ -118,22 +92,23 @@
 
 <time datetime="2006-11-07T09:30:00+10:00" pubdate data-updated="true">07 Nov 2006</time>
         
-         | <a href="/posts/iteration/#disqus_thread">Comments</a>
+           | <a href="/posts/iteration/#disqus_thread"
+             data-disqus-identifier="http://buffered.io/posts/iteration/">Comments</a>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>I found a pretty inspiring video the other day that I think is a perfect visual representation of what should happen in software. OK, that&#8217;s not quite true, I didn&#8217;t <em>find</em> it, I was given it by none other than Dan the man (@shifty). The video is a time-lapsed video of someone drawing a picture of a wasp-like insect (I don&#8217;t pretend to be cluey in the world of insects, so just be happy with that description :)), but the beauty of it is that you can see how the final product evolves as the picture is iterated.</p>
+  <div class="entry-content"><p>I found a pretty inspiring video the other day that I think is a perfect visual representation of what should happen in software. OK, that&rsquo;s not quite true, I didn&rsquo;t <em>find</em> it, I was given it by none other than Dan the man (@shifty). The video is a time-lapsed video of someone drawing a picture of a wasp-like insect (I don&rsquo;t pretend to be cluey in the world of insects, so just be happy with that description :)), but the beauty of it is that you can see how the final product evolves as the picture is iterated.</p>
 
-<p>So, on with the video. The first link I found is located <a href="http://www.ursispaltenstein.ch/blog/weblog.php?/weblog/the_daily_drawing/" title="Ursi's Blog" target="_blank">here</a>, but for some reason I&#8217;m having issues getting to that address. The video is also mirrored <a href="http://www.ursispaltenstein.ch/cgi-bin/EE/index.php?/weblog/the_daily_drawing/" title="Ursi's Blog" target="_blank">here</a> - it&#8217;s about 5 or 6 minutes long, but it&#8217;s worth watching.</p>
+<p>So, on with the video. The first link I found is located <a href="http://www.ursispaltenstein.ch/blog/weblog.php?/weblog/the_daily_drawing/" title="Ursi's Blog" target="_blank">here</a>, but for some reason I&rsquo;m having issues getting to that address. The video is also mirrored <a href="http://www.ursispaltenstein.ch/cgi-bin/EE/index.php?/weblog/the_daily_drawing/" title="Ursi's Blog" target="_blank">here</a> &ndash; it&rsquo;s about 5 or 6 minutes long, but it&rsquo;s worth watching.</p>
 
-<p>Finished? Good. Now imagine that drawing as a piece of software. What would you liken it to? I&#8217;m sure we could all draw a few comparisons, but the thing I wanted to focus on was the iteration and constant improvement. When the artist started out, there was a very basic outline of what it was he/she wanted to draw. After 30 seconds of the video, it was clear to the viewer that the goal was to be a wasp - and at that point the artist could have stopped. The drawing was far from finished, but it did solve the main problem of &#8220;creating a wasp drawing&#8221;. This, to me, is exactly the same as attempting to create a code solution to a problem the very first time, and assuming that it&#8217;s sufficient enough to release as production code.</p>
+<p>Finished? Good. Now imagine that drawing as a piece of software. What would you liken it to? I&rsquo;m sure we could all draw a few comparisons, but the thing I wanted to focus on was the iteration and constant improvement. When the artist started out, there was a very basic outline of what it was he/she wanted to draw. After 30 seconds of the video, it was clear to the viewer that the goal was to be a wasp &ndash; and at that point the artist could have stopped. The drawing was far from finished, but it did solve the main problem of &ldquo;creating a wasp drawing&rdquo;. This, to me, is exactly the same as attempting to create a code solution to a problem the very first time, and assuming that it&rsquo;s sufficient enough to release as production code.</p>
 
-<p>The more you iterate, the better your software will be. Your understanding of the problem increases each time you iterate, and you start to see areas of the problem that you didn&#8217;t initially realise existed. This gives you more opportunities to iterate and improve, iterate and improve. Over time your solution becomes a very clearly defined and good looking wasp, with colours, specular highlights, and even hair on the legs.</p>
+<p>The more you iterate, the better your software will be. Your understanding of the problem increases each time you iterate, and you start to see areas of the problem that you didn&rsquo;t initially realise existed. This gives you more opportunities to iterate and improve, iterate and improve. Over time your solution becomes a very clearly defined and good looking wasp, with colours, specular highlights, and even hair on the legs.</p>
 
-<p>I think that your software should come alive in the same way that the drawing did. The only way for this to happen - iterate.</p>
+<p>I think that your software should come alive in the same way that the drawing did. The only way for this to happen &ndash; iterate.</p>
 
 <p>Thoughts?</p>
 </div>
@@ -167,7 +142,8 @@
 
 <time datetime="2006-11-03T18:03:00+10:00" pubdate data-updated="true">03 Nov 2006</time>
         
-         | <a href="/posts/ego-affliction/#disqus_thread">Comments</a>
+           | <a href="/posts/ego-affliction/#disqus_thread"
+             data-disqus-identifier="http://buffered.io/posts/ego-affliction/">Comments</a>
         
       </p>
     
@@ -176,9 +152,9 @@
 
   <div class="entry-content"><p>For some reason I thought that the I.T. industry as a whole had matured enough to the point that all developers would have realised that programming with an ego has a bad affect on the software. I also thought that people would stay up to speed, work hard, and focus on producing good quality code. I am very much mistaken :)</p>
 
-<p>Recently I&#8217;ve been in the unfortunate position of having to deal with some of the most appalling I.T. professionals in the industry (I used the word &#8220;professional&#8221; in its broadest possible sense!), and the software that&#8217;s oozing out of the team is a reflection of the quality of the individuals therein. I could rant for ages about the coding horrors, bad practices and lack of understanding, but that to a point has already been discussed in a previous post (see: <a href="/posts/the-day-job/" title="The Day Job">The Day Job</a>). Instead I&#8217;m going to focus on the one point that I feel is one of the root causes of the trouble: <strong>EGO</strong>.</p>
+<p>Recently I&rsquo;ve been in the unfortunate position of having to deal with some of the most appalling I.T. professionals in the industry (I used the word &ldquo;professional&rdquo; in its broadest possible sense!), and the software that&rsquo;s oozing out of the team is a reflection of the quality of the individuals therein. I could rant for ages about the coding horrors, bad practices and lack of understanding, but that to a point has already been discussed in a previous post (see: <a href="/posts/the-day-job/" title="The Day Job">The Day Job</a>). Instead I&rsquo;m going to focus on the one point that I feel is one of the root causes of the trouble: <strong>EGO</strong>.</p>
 
-<p>These people are clearly unaware of what it means to undertake egoless programming. They don&#8217;t seem to realise the damage that they&#8217;re doing in behaving the way they do. They&#8217;re so protective of their own work, and so ignorant of everyone else&#8217;s that the result is what can only be described as a <em>Pot Mess</em>. ie. A pot with nothing but a huge mess in it.  If you&#8217;re unaware of the general concept of egoless programming, check out <a href="http://www.codinghorror.com/blog/archives/000584.html" title="Coding Horror: The Ten Commandments of Egoless Programming" target="_blank">this link over at Coding Horror</a> - it covers the 10 commandments of egoless programming - and while you&#8217;re reading that, please pray to the Development Gods and sacrifice a few Cobol programmers to them to help appease them for my sake, as I fear there&#8217;s no other hope for me :)</p>
+<p>These people are clearly unaware of what it means to undertake egoless programming. They don&rsquo;t seem to realise the damage that they&rsquo;re doing in behaving the way they do. They&rsquo;re so protective of their own work, and so ignorant of everyone else&rsquo;s that the result is what can only be described as a <em>Pot Mess</em>. ie. A pot with nothing but a huge mess in it.  If you&rsquo;re unaware of the general concept of egoless programming, check out <a href="http://www.codinghorror.com/blog/archives/000584.html" title="Coding Horror: The Ten Commandments of Egoless Programming" target="_blank">this link over at Coding Horror</a> &ndash; it covers the 10 commandments of egoless programming &ndash; and while you&rsquo;re reading that, please pray to the Development Gods and sacrifice a few Cobol programmers to them to help appease them for my sake, as I fear there&rsquo;s no other hope for me :)</p>
 </div>
   
   
@@ -210,16 +186,17 @@
 
 <time datetime="2006-11-03T08:19:00+10:00" pubdate data-updated="true">03 Nov 2006</time>
         
-         | <a href="/posts/vista-speech-recognition-maybe-try-it-in-yiddish/#disqus_thread">Comments</a>
+           | <a href="/posts/vista-speech-recognition-maybe-try-it-in-yiddish/#disqus_thread"
+             data-disqus-identifier="http://buffered.io/posts/vista-speech-recognition-maybe-try-it-in-yiddish/">Comments</a>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>As a final post for today, I just got sent <a href="http://video.google.com/videoplay?docid=-1123221217782777472" title="Windows Vista Speech Recognition Demo Gone Awry - Google Video" target="_blank">this classic Google Video</a> from Dan over at Shifty. It&#8217;s pretty funny!</p>
+  <div class="entry-content"><p>As a final post for today, I just got sent <a href="http://video.google.com/videoplay?docid=-1123221217782777472" title="Windows Vista Speech Recognition Demo Gone Awry - Google Video" target="_blank">this classic Google Video</a> from Dan over at Shifty. It&rsquo;s pretty funny!</p>
 
-<p>Having said that, I&#8217;m sure that most devs know how tough something like voice recognition can be to build.  Try demoing something like this to the world, it&#8217;d be an absolute nightmare! I do feel a bit sorry for this guy, as I&#8217;m sure he&#8217;s not the one responsible for the internal workings of the software.</p>
+<p>Having said that, I&rsquo;m sure that most devs know how tough something like voice recognition can be to build.  Try demoing something like this to the world, it&rsquo;d be an absolute nightmare! I do feel a bit sorry for this guy, as I&rsquo;m sure he&rsquo;s not the one responsible for the internal workings of the software.</p>
 </div>
   
   
@@ -251,59 +228,60 @@
 
 <time datetime="2006-11-03T08:10:00+10:00" pubdate data-updated="true">03 Nov 2006</time>
         
-         | <a href="/posts/the-joy-of-blogging/#disqus_thread">Comments</a>
+           | <a href="/posts/the-joy-of-blogging/#disqus_thread"
+             data-disqus-identifier="http://buffered.io/posts/the-joy-of-blogging/">Comments</a>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>I&#8217;ve had this link archived for a little while, and today&#8217;s the day I decided to be arsed to comment on it. A long-term blogger known as Greg posted about what he&#8217;s learned about blogging in his <a href="http://coolthingoftheday.blogspot.com/2006/10/2000th-post.html" title="2,000th Post" target="_blank">2000th blog post</a>. I enjoyed reading it, and it made me ask myself the questions:</p>
+  <div class="entry-content"><p>I&rsquo;ve had this link archived for a little while, and today&rsquo;s the day I decided to be arsed to comment on it. A long-term blogger known as Greg posted about what he&rsquo;s learned about blogging in his <a href="http://coolthingoftheday.blogspot.com/2006/10/2000th-post.html" title="2,000th Post" target="_blank">2000th blog post</a>. I enjoyed reading it, and it made me ask myself the questions:</p>
 
 <ul><li>What do you get out of blogging?</li><li>What is it you <em>want</em> to get out of blogging</li><li>Do you feel like you have to post at least once per day?</li><li>Do you think your blog is a &#8216;successful&#8217; blog?</li></ul>
 
 
-<p>I&#8217;ve been thinking about these questions for a little while, and now I think I finally have a couple of answers, and I&#8217;d like to share them with you.</p>
+<p>I&rsquo;ve been thinking about these questions for a little while, and now I think I finally have a couple of answers, and I&rsquo;d like to share them with you.</p>
 
 <p><strong><u>What do you get out of blogging?</u></strong></p>
 
-<p>Well, I think blogging is definitely a very personal thing (duh!), and it&#8217;s important for the blogger to feel like they&#8217;re getting something worthwhile out of investing their time in a blog. I feel like I get a lot out of blogging.</p>
+<p>Well, I think blogging is definitely a very personal thing (duh!), and it&rsquo;s important for the blogger to feel like they&rsquo;re getting something worthwhile out of investing their time in a blog. I feel like I get a lot out of blogging.</p>
 
-<p>The first is it&#8217;s a bit of a venting mechanism. Sometimes I want to share ideas, sometimes I want to scream in joy about nailing an issue (such as getting ATi drivers working in Ubuntu :), sometimes I feel like I just want to get something off my chest. To me, my blog is a means of dumping my thoughts in a place where other people can share and enjoy them. Sure, some people might <em>hate</em> them, but that&#8217;s ok! :) All they have to do is choose another URL and they&#8217;ll be redirected away from my obnoxiousness.</p>
+<p>The first is it&rsquo;s a bit of a venting mechanism. Sometimes I want to share ideas, sometimes I want to scream in joy about nailing an issue (such as getting ATi drivers working in Ubuntu :), sometimes I feel like I just want to get something off my chest. To me, my blog is a means of dumping my thoughts in a place where other people can share and enjoy them. Sure, some people might <em>hate</em> them, but that&rsquo;s ok! :) All they have to do is choose another URL and they&rsquo;ll be redirected away from my obnoxiousness.</p>
 
 <p>I find that having a venting/ranting location is good for me as a professional. I share some frustration and learn from what other people have to say. I hope that other people can come here and learn from my experiences too.</p>
 
-<p>On a slightly different tact, I use it as a means to make myself stay up to date with what&#8217;s going on in the industry. I like to read a lot of news sites, and every now and then I&#8217;ll post interesting bits of news that I&#8217;ve found along the way. I try not to post things that aren&#8217;t interesting, though I may not succeed all the time. An let&#8217;s face it, &#8220;interesting&#8221; is a matter of opinion, so chances are a lot of people will come here and find my blogs and links completely shit-boring. I feel the need to share this kind of information around as much as I can. I get a lot out of staying in touch with things, and I am sure that I&#8217;m not the only one. This is just another way of spreading the wealth.</p>
+<p>On a slightly different tact, I use it as a means to make myself stay up to date with what&rsquo;s going on in the industry. I like to read a lot of news sites, and every now and then I&rsquo;ll post interesting bits of news that I&rsquo;ve found along the way. I try not to post things that aren&rsquo;t interesting, though I may not succeed all the time. An let&rsquo;s face it, &ldquo;interesting&rdquo; is a matter of opinion, so chances are a lot of people will come here and find my blogs and links completely shit-boring. I feel the need to share this kind of information around as much as I can. I get a lot out of staying in touch with things, and I am sure that I&rsquo;m not the only one. This is just another way of spreading the wealth.</p>
 
-<p>By the same token, I am a teacher by nature :) I do like to teach people. As I&#8217;ve said in my previous posts, I think that Software Development isn&#8217;t a black art that should be kept secret. Knowledge and information should be shared, and this blog gives me another way of working to that philosophy. You can post tips and snippets of code for people to read and do what they want with. You can post challenges and watch other people&#8217;s minds at work. You can literally provoke all kinds of thought! It&#8217;s quite amazing.</p>
+<p>By the same token, I am a teacher by nature :) I do like to teach people. As I&rsquo;ve said in my previous posts, I think that Software Development isn&rsquo;t a black art that should be kept secret. Knowledge and information should be shared, and this blog gives me another way of working to that philosophy. You can post tips and snippets of code for people to read and do what they want with. You can post challenges and watch other people&rsquo;s minds at work. You can literally provoke all kinds of thought! It&rsquo;s quite amazing.</p>
 
-<p>Finally, I love hearing what other people have to say about what I&#8217;ve posted. I used to run a forum or two a while back and they were great fun. People can be really amazing, and their comments and ideas are extremely thought provoking. Not only is it good when you find like-minded people coming here to post their thoughts, but even more so when someone with a completely different outlook comes along and points out something that you hadn&#8217;t really thought about before. The bloggosphere is a great place for the encouragement of interesting discussion about any topic you feel like discussing.  I find it not only enlightening, but extremely entertaining.</p>
+<p>Finally, I love hearing what other people have to say about what I&rsquo;ve posted. I used to run a forum or two a while back and they were great fun. People can be really amazing, and their comments and ideas are extremely thought provoking. Not only is it good when you find like-minded people coming here to post their thoughts, but even more so when someone with a completely different outlook comes along and points out something that you hadn&rsquo;t really thought about before. The bloggosphere is a great place for the encouragement of interesting discussion about any topic you feel like discussing.  I find it not only enlightening, but extremely entertaining.</p>
 
 <p><strong><u>What is it you <em>want</em> to get out of blogging</u></strong></p>
 
-<p>I am lucky as far as my blog goes. For the most part I get everything that I want (see the list above :)). There are some gaps though. I would like more frequent and more in-depth responses from people, but that&#8217;s something I can&#8217;t expect. I would like to see more people come out with comments on why what I&#8217;ve said is <em>bad or wrong</em> - after all, I want it to be a good learning experience for me too.</p>
+<p>I am lucky as far as my blog goes. For the most part I get everything that I want (see the list above :)). There are some gaps though. I would like more frequent and more in-depth responses from people, but that&rsquo;s something I can&rsquo;t expect. I would like to see more people come out with comments on why what I&rsquo;ve said is <em>bad or wrong</em> &ndash; after all, I want it to be a good learning experience for me too.</p>
 
-<p>As a writer (if I&#8217;m allowed to say that, since there&#8217;s a chance that I&#8217;m technically <em>not</em> a writer in the true sense of the word) I like people to read what I write! I like people to read it, enjoy reading it and not struggle to get through it (especially when I&#8217;ve written a fair bit :)). I&#8217;ve had some people comment (verbally) that they enjoy reading what I write, as it&#8217;s entertaining and light-hearted. I hope that I continue to wrote posts in a manner which gives people this kind of feeling. That&#8217;s something that I would like to see more of :) I like the idea of people reading my posts and <em>enjoying</em> the experience even if they don&#8217;t agree with anything I&#8217;ve said.</p>
+<p>As a writer (if I&rsquo;m allowed to say that, since there&rsquo;s a chance that I&rsquo;m technically <em>not</em> a writer in the true sense of the word) I like people to read what I write! I like people to read it, enjoy reading it and not struggle to get through it (especially when I&rsquo;ve written a fair bit :)). I&rsquo;ve had some people comment (verbally) that they enjoy reading what I write, as it&rsquo;s entertaining and light-hearted. I hope that I continue to wrote posts in a manner which gives people this kind of feeling. That&rsquo;s something that I would like to see more of :) I like the idea of people reading my posts and <em>enjoying</em> the experience even if they don&rsquo;t agree with anything I&rsquo;ve said.</p>
 
 <p><strong><u>Do you feel like you have to post at least once per day?</u></strong></p>
 
-<p>Well, yes I do. I want to keep my blog &#8220;alive&#8221;. I want people to come back to the site knowing that there&#8217;s a good chance of finding something new. I know what it&#8217;s like to go to a place that you find interesting and be disappointed that there&#8217;s no new content up there to enjoy. The problem here is that if you post every day even if you don&#8217;t really have anything meaningful to say then you start to reduce the quality of your blog.</p>
+<p>Well, yes I do. I want to keep my blog &ldquo;alive&rdquo;. I want people to come back to the site knowing that there&rsquo;s a good chance of finding something new. I know what it&rsquo;s like to go to a place that you find interesting and be disappointed that there&rsquo;s no new content up there to enjoy. The problem here is that if you post every day even if you don&rsquo;t really have anything meaningful to say then you start to reduce the quality of your blog.</p>
 
-<p>So, let me answer by saying this: I feel like every time I post it has to be interesting, or funny (or both ;)). I feel that posting quality is more important than posting quantity - but I would very much like to have both quality <em>and</em> quantity.  I&#8217;ll be focussing on the former, and hope that the latter happens by itself :)</p>
+<p>So, let me answer by saying this: I feel like every time I post it has to be interesting, or funny (or both ;)). I feel that posting quality is more important than posting quantity &ndash; but I would very much like to have both quality <em>and</em> quantity.  I&rsquo;ll be focussing on the former, and hope that the latter happens by itself :)</p>
 
-<p>As a final comment on this point - I think <a href="http://keithjudge.com/musings/?p=4" title="What's it all about?" target="_blank">Keef&#8217;s recent blog post</a> is bang on with regards to blog content. In general people don&#8217;t want to hear what you have had for breakfast, or whether or not the cat&#8217;s puked on the carpet again. Day to day activities, in my opinion, are one of the most boring things to read about on blogs (unless of course you can make an entertaining story out of it - at which point it&#8217;s no longer a mundane activity). If I ever post something like this, please DDoS my site :) (ok, that&#8217;s not your cue to DDoS regardless).</p>
+<p>As a final comment on this point &ndash; I think <a href="http://keithjudge.com/musings/?p=4" title="What's it all about?" target="_blank">Keef&rsquo;s recent blog post</a> is bang on with regards to blog content. In general people don&rsquo;t want to hear what you have had for breakfast, or whether or not the cat&rsquo;s puked on the carpet again. Day to day activities, in my opinion, are one of the most boring things to read about on blogs (unless of course you can make an entertaining story out of it &ndash; at which point it&rsquo;s no longer a mundane activity). If I ever post something like this, please DDoS my site :) (ok, that&rsquo;s not your cue to DDoS regardless).</p>
 
-<p><strong><u>Do you think your blog is a &#8216;successful&#8217; blog?</u></strong></p>
+<p><strong><u>Do you think your blog is a &lsquo;successful&rsquo; blog?</u></strong></p>
 
-<p>I think this question is essentially asking &#8220;Do you get everything you want out of your blog?&#8221;. Success is relative to the person viewing the site. In my eyes, my site isn&#8217;t totally successful, but I don&#8217;t consider it to be unsuccessful. I&#8217;ve already had some interesting posts with some very interesting responses. I have a fair few subscribers to my RSS feed who read what I write on a fairly regular basis, and that&#8217;s very fulfilling. I enjoy writing, and I enjoy seeing my blog live and breathe.</p>
+<p>I think this question is essentially asking &ldquo;Do you get everything you want out of your blog?&rdquo;. Success is relative to the person viewing the site. In my eyes, my site isn&rsquo;t totally successful, but I don&rsquo;t consider it to be unsuccessful. I&rsquo;ve already had some interesting posts with some very interesting responses. I have a fair few subscribers to my RSS feed who read what I write on a fairly regular basis, and that&rsquo;s very fulfilling. I enjoy writing, and I enjoy seeing my blog live and breathe.</p>
 
-<p>I think my blog is more successful than not, but I do think that there&#8217;s room for improvement. I reckon the readers will have a stack of suggestions for improvement (so feel free to post them).</p>
+<p>I think my blog is more successful than not, but I do think that there&rsquo;s room for improvement. I reckon the readers will have a stack of suggestions for improvement (so feel free to post them).</p>
 
 <p><strong><u>Conclusion</u></strong></p>
 
-<p>I have enjoyed this little brain-dump immensely. I hope you guys enjoy reading it, particularly those of you who have your own blogs. Let me know what you think as far as what makes your blog an enjoyable experience as I&#8217;m sure many people&#8217;s views will differ greatly from mine.</p>
+<p>I have enjoyed this little brain-dump immensely. I hope you guys enjoy reading it, particularly those of you who have your own blogs. Let me know what you think as far as what makes your blog an enjoyable experience as I&rsquo;m sure many people&rsquo;s views will differ greatly from mine.</p>
 
-<p>Next up, I&#8217;m probably going post something that&#8217;s more along the rant/vent lines. The need to get some frustration out is quite large, and this is the ideal place to stick it - especially after a week as bad as this one!</p>
+<p>Next up, I&rsquo;m probably going post something that&rsquo;s more along the rant/vent lines. The need to get some frustration out is quite large, and this is the ideal place to stick it &ndash; especially after a week as bad as this one!</p>
 </div>
   
   
@@ -335,22 +313,23 @@
 
 <time datetime="2006-11-03T07:29:00+10:00" pubdate data-updated="true">03 Nov 2006</time>
         
-         | <a href="/posts/crazy-glass-cd/#disqus_thread">Comments</a>
+           | <a href="/posts/crazy-glass-cd/#disqus_thread"
+             data-disqus-identifier="http://buffered.io/posts/crazy-glass-cd/">Comments</a>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Technology is pretty amazing. What makes it more amazing is that just when you think a particular idea has been taken to the <em>n</em>th degree and couldn&#8217;t go much further, another boffin comes along and shows that there is more that can be done!</p>
+  <div class="entry-content"><p>Technology is pretty amazing. What makes it more amazing is that just when you think a particular idea has been taken to the <em>n</em>th degree and couldn&rsquo;t go much further, another boffin comes along and shows that there is more that can be done!</p>
 
 <p><a href="http://www.theinquirer.net/default.aspx?article=35267" title="Glass CD developed" target="_blank">This glass CD</a> is a prime example. CD/DVD technology is now run of the mill. HD DVD and Blu-Ray are currently battling it out for supremecy. Where do you think the secondary storage technology will end up?</p>
 
-<p>Even though this tech is tres cool, I personally feel that it&#8217;s getting to the point where removable media is already big enough for day to day needs. As a home user, a 4.7 GB disc is definitely big enough to do personal back-ups of data. Heck, if anything, it&#8217;s a back-up deterrant because you&#8217;re constantly waiting for more data to stick on the disc before burning it!</p>
+<p>Even though this tech is tres cool, I personally feel that it&rsquo;s getting to the point where removable media is already big enough for day to day needs. As a home user, a 4.7 GB disc is definitely big enough to do personal back-ups of data. Heck, if anything, it&rsquo;s a back-up deterrant because you&rsquo;re constantly waiting for more data to stick on the disc before burning it!</p>
 
-<p>As a corporate user, tape back-ups are really the only way to go. Other than games and movies, right now I can&#8217;t see a huge need for anything bigger than a dual-layer DVD. When you end up with a disc being able to hold so much data you then have the added issue of being able to read that data off that disc <em>fast enough to make it usable</em>. It&#8217;s all well and good having huge amounts of data on these monsterous discs, but when it takes an ice-age to get access to it, all of a sudden the tech doesn&#8217;t seem so great.</p>
+<p>As a corporate user, tape back-ups are really the only way to go. Other than games and movies, right now I can&rsquo;t see a huge need for anything bigger than a dual-layer DVD. When you end up with a disc being able to hold so much data you then have the added issue of being able to read that data off that disc <em>fast enough to make it usable</em>. It&rsquo;s all well and good having huge amounts of data on these monsterous discs, but when it takes an ice-age to get access to it, all of a sudden the tech doesn&rsquo;t seem so great.</p>
 
-<p>I&#8217;d like to see some more advances in disc read speeds (both optical and magnetic areas), then at least the increase in volume on the media can be utilised to its full.  The hard drive and the CD/DVD drive are the slowest bits in my machine - and I can&#8217;t wait for them to catch up with the other bits!</p>
+<p>I&rsquo;d like to see some more advances in disc read speeds (both optical and magnetic areas), then at least the increase in volume on the media can be utilised to its full.  The hard drive and the CD/DVD drive are the slowest bits in my machine &ndash; and I can&rsquo;t wait for them to catch up with the other bits!</p>
 </div>
   
   
@@ -382,14 +361,15 @@
 
 <time datetime="2006-10-27T07:47:00+10:00" pubdate data-updated="true">27 Oct 2006</time>
         
-         | <a href="/posts/pumpkin-computer/#disqus_thread">Comments</a>
+           | <a href="/posts/pumpkin-computer/#disqus_thread"
+             data-disqus-identifier="http://buffered.io/posts/pumpkin-computer/">Comments</a>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>I had to post this for the masses/geeks to enjoy (though chances are that you&#8217;ve already seen it if you&#8217;re a <a href="http://www.gizmodo.com/" title="Gizmodo" target="_blank">Gizmodo</a> reader). Some chap decided to make himself a <a href="http://www.gizmodo.com/gadgets/pcs/pumpkin-computer-just-like-mom-used-to-make-209299.php" title="Pumpkin Computer: Just Like Mom Used to Make - Gizmodo" target="_blank">computer made from a pumpkin</a> (well, for the chassis). Yup, another geek with too much time (and pumpkin) on his hands. I wonder how long it&#8217;s going to take before it starts to stink!</p>
+  <div class="entry-content"><p>I had to post this for the masses/geeks to enjoy (though chances are that you&rsquo;ve already seen it if you&rsquo;re a <a href="http://www.gizmodo.com/" title="Gizmodo" target="_blank">Gizmodo</a> reader). Some chap decided to make himself a <a href="http://www.gizmodo.com/gadgets/pcs/pumpkin-computer-just-like-mom-used-to-make-209299.php" title="Pumpkin Computer: Just Like Mom Used to Make - Gizmodo" target="_blank">computer made from a pumpkin</a> (well, for the chassis). Yup, another geek with too much time (and pumpkin) on his hands. I wonder how long it&rsquo;s going to take before it starts to stink!</p>
 </div>
   
   
@@ -421,7 +401,8 @@
 
 <time datetime="2006-10-26T08:20:00+10:00" pubdate data-updated="true">26 Oct 2006</time>
         
-         | <a href="/posts/microsoft-congratulate-mozilla/#disqus_thread">Comments</a>
+           | <a href="/posts/microsoft-congratulate-mozilla/#disqus_thread"
+             data-disqus-identifier="http://buffered.io/posts/microsoft-congratulate-mozilla/">Comments</a>
         
       </p>
     
@@ -430,7 +411,7 @@
 
   <div class="entry-content"><p>After shipping the FireFox 2 browser, Mozilla received a present from the IE team at Microsoft. TO take a look, point your browser over <a href="http://www.smh.com.au/news/web/firefox-2-boasts-improved-security-and-interface/posts/1161743792256.html" title="Improved security for new Firefox browser - web - Technology - smh.com.au" target="_blank">here</a> and read the story.</p>
 
-<p>If <em>I</em> was a FireFox developer, I&#8217;d be <em>veeeeeery</em> wary of taking a bite of that ;) I get the feeling I&#8217;d spend the rest of the day on the dunny!</p>
+<p>If <em>I</em> was a FireFox developer, I&rsquo;d be <em>veeeeeery</em> wary of taking a bite of that ;) I get the feeling I&rsquo;d spend the rest of the day on the dunny!</p>
 </div>
   
   
@@ -462,28 +443,29 @@
 
 <time datetime="2006-10-25T22:07:00+10:00" pubdate data-updated="true">25 Oct 2006</time>
         
-         | <a href="/posts/howto-getting-ati-drivers-working-in-ubuntu/#disqus_thread">Comments</a>
+           | <a href="/posts/howto-getting-ati-drivers-working-in-ubuntu/#disqus_thread"
+             data-disqus-identifier="http://buffered.io/posts/howto-getting-ati-drivers-working-in-ubuntu/">Comments</a>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>As I&#8217;ve already mentioned, I&#8217;ve started dabbling in the joys of Linux by installing Ubuntu (<a href="http://www.ubuntu.com/support/faq#head-3df1e0e29bc1a807664ce156fb9fe6f09c35bfdd" title="Ubuntu FAQ" target="_blank">Dapper Drake</a>). This was partly joyous and partly painful - but mostly joyous :) While going through some of the less enjoyable moments I spent a fair bit of time trawling forums and hanging in IRC channels (#ubuntu-au on irc.freenode.net to be exact, check out <a href="http://ubuntu.com.au/welcome/" title="Ubuntu Australian Team" target="_blank">here</a> and <a href="http://www.matthewv.id.au/ubuntu-au/" title="Ubuntu Australian Team" target="_blank">here</a>) trying to find the information I needed to get things going.</p>
+  <div class="entry-content"><p>As I&rsquo;ve already mentioned, I&rsquo;ve started dabbling in the joys of Linux by installing Ubuntu (<a href="http://www.ubuntu.com/support/faq#head-3df1e0e29bc1a807664ce156fb9fe6f09c35bfdd" title="Ubuntu FAQ" target="_blank">Dapper Drake</a>). This was partly joyous and partly painful &ndash; but mostly joyous :) While going through some of the less enjoyable moments I spent a fair bit of time trawling forums and hanging in IRC channels (#ubuntu-au on irc.freenode.net to be exact, check out <a href="http://ubuntu.com.au/welcome/" title="Ubuntu Australian Team" target="_blank">here</a> and <a href="http://www.matthewv.id.au/ubuntu-au/" title="Ubuntu Australian Team" target="_blank">here</a>) trying to find the information I needed to get things going.</p>
 
-<p>The most recent issue that I have since solved is that of getting drivers working with my ATi Radeon X1900-XTX, and it was the pain of this set up that inspired me to write this post - and in fact, what will look to be a long stream of posts. After the quality of feedback and help, and the time investment by some of the guys in #ubuntu-au (thanks lads! Especially <em>DarkMageZ</em> and <em>siccness</em>), I thought that I want to help share this information to aid in getting other people up to speed to. In fact, I&#8217;ve decided to start a whole new category of blog posts - HOWTOs! You can consider this the first :) I won&#8217;t just be doing HOWTOs on things that I experience with Linux, but I&#8217;ll aim to cover code examples, bits and pieces to do with Windows, and whatever else takes my fancy. Information should be shared, so feel free to let me know if anything that you would like me to share, and I&#8217;ll do my best to cover it.</p>
+<p>The most recent issue that I have since solved is that of getting drivers working with my ATi Radeon X1900-XTX, and it was the pain of this set up that inspired me to write this post &ndash; and in fact, what will look to be a long stream of posts. After the quality of feedback and help, and the time investment by some of the guys in #ubuntu-au (thanks lads! Especially <em>DarkMageZ</em> and <em>siccness</em>), I thought that I want to help share this information to aid in getting other people up to speed to. In fact, I&rsquo;ve decided to start a whole new category of blog posts &ndash; HOWTOs! You can consider this the first :) I won&rsquo;t just be doing HOWTOs on things that I experience with Linux, but I&rsquo;ll aim to cover code examples, bits and pieces to do with Windows, and whatever else takes my fancy. Information should be shared, so feel free to let me know if anything that you would like me to share, and I&rsquo;ll do my best to cover it.</p>
 
-<p>So, on with the juicy bits. The default installation of Ubunutu worked fine with the vesa driver which allowed Xorg to fire up without any issues, but of course, I wasn&#8217;t happy to suffer for second best while having a fairly beefy video card. The goal was to get the ATi drivers working in both 2D and 3D.</p>
+<p>So, on with the juicy bits. The default installation of Ubunutu worked fine with the vesa driver which allowed Xorg to fire up without any issues, but of course, I wasn&rsquo;t happy to suffer for second best while having a fairly beefy video card. The goal was to get the ATi drivers working in both 2D and 3D.</p>
 
-<p>The first mistake that I made was to approach the issue in the same way that I would approach it as a Windows user - that is, go to the ATi driver website and download the latest driver. This turned out to be a bit of a mistake, but I&#8217;ll go through the process I took anyway just FYI :) I downloaded the driver from the <a href="http://www.ati.com/online/customercareportal/linux.html" title="Linux ATi Drivers" target="_blank">ATi Linux driver page</a> and read the instructions that came with it. Seemed fairly simple, so I did as I was told and waited for the magic to happen.</p>
+<p>The first mistake that I made was to approach the issue in the same way that I would approach it as a Windows user &ndash; that is, go to the ATi driver website and download the latest driver. This turned out to be a bit of a mistake, but I&rsquo;ll go through the process I took anyway just FYI :) I downloaded the driver from the <a href="http://www.ati.com/online/customercareportal/linux.html" title="Linux ATi Drivers" target="_blank">ATi Linux driver page</a> and read the instructions that came with it. Seemed fairly simple, so I did as I was told and waited for the magic to happen.</p>
 
-<p>The first thing that I failed to notice was that the install notes stated that the driver had only been tested with Red Hat Linux. Now I don&#8217;t know if there is that much of a difference between that and Ubuntu, but given that certain things refused to work I&#8217;m <em>guessing</em> they are. After performing the installation, I restarted Xorg (which, FYI, can be done using the shortcut <strong>CTRL+ALT+BACKSPACE</strong>) and I was knocked off my chair by the clarity of what I was seeing. It was magic :) But to my dismay, things were not all good under the hood. It turned out that even though 2D was clearly working, the 3D part (and with it OpenGL functionality) was nowhere to be seen. This is what got me started with the forum trawling and the IRC rants. I learned very quickly that downloading the driver from the ATi site was a bad move, and that I should have instead used the <strong>apt-get</strong> functionality to get the drivers set up.</p>
+<p>The first thing that I failed to notice was that the install notes stated that the driver had only been tested with Red Hat Linux. Now I don&rsquo;t know if there is that much of a difference between that and Ubuntu, but given that certain things refused to work I&rsquo;m <em>guessing</em> they are. After performing the installation, I restarted Xorg (which, FYI, can be done using the shortcut <strong>CTRL+ALT+BACKSPACE</strong>) and I was knocked off my chair by the clarity of what I was seeing. It was magic :) But to my dismay, things were not all good under the hood. It turned out that even though 2D was clearly working, the 3D part (and with it OpenGL functionality) was nowhere to be seen. This is what got me started with the forum trawling and the IRC rants. I learned very quickly that downloading the driver from the ATi site was a bad move, and that I should have instead used the <strong>apt-get</strong> functionality to get the drivers set up.</p>
 
-<p>At this point I went through the process of uninstalling the drivers that I had downloaded, and got my machine back to a point where I could try and install the new ones. The <em>vesa</em> driver fuzzyness returned and I was ready to rock with the instructions I was given. I downloaded and installed the correct drivers using the correct utility and did exactly what I was told to do, only to find that this refused to work as well. The driver install was apparently successful, but I still had the VESA fuzzyness indicating that the driver was not loading properly. I read around some more, and chatted some more, and determined that I needed to modify my <strong>/etc/X11/xorg.conf</strong> file to set the default video driver to <strong>fglrx</strong> (not VESA), so that&#8217;s what I did!</p>
+<p>At this point I went through the process of uninstalling the drivers that I had downloaded, and got my machine back to a point where I could try and install the new ones. The <em>vesa</em> driver fuzzyness returned and I was ready to rock with the instructions I was given. I downloaded and installed the correct drivers using the correct utility and did exactly what I was told to do, only to find that this refused to work as well. The driver install was apparently successful, but I still had the VESA fuzzyness indicating that the driver was not loading properly. I read around some more, and chatted some more, and determined that I needed to modify my <strong>/etc/X11/xorg.conf</strong> file to set the default video driver to <strong>fglrx</strong> (not VESA), so that&rsquo;s what I did!</p>
 
-<p>Restarting Xorg resulted in my world crumbling (well, not quite ;)). My screen was blank. I had no UI, I had no idea what was on screen, so I ended up having to boot back in using recovery mode and modifying the file so that it was set back to VESA. It was about this time I was getting pretty narked as I&#8217;d been messing with quite a few things for a few hours and my patience was wearing thin.  It was 11:45pm when I thanked my Aussie Ubuntu colleagues for their help and made the move to shut down, as I was going to continue tackling the problem the next day. While shutting down, I was just having a last flick through the tabs I had open in FireFox when I noticed a comment at the bottom of a forum thread. This turned out to be the magic missile!</p>
+<p>Restarting Xorg resulted in my world crumbling (well, not quite ;)). My screen was blank. I had no UI, I had no idea what was on screen, so I ended up having to boot back in using recovery mode and modifying the file so that it was set back to VESA. It was about this time I was getting pretty narked as I&rsquo;d been messing with quite a few things for a few hours and my patience was wearing thin.  It was 11:45pm when I thanked my Aussie Ubuntu colleagues for their help and made the move to shut down, as I was going to continue tackling the problem the next day. While shutting down, I was just having a last flick through the tabs I had open in FireFox when I noticed a comment at the bottom of a forum thread. This turned out to be the magic missile!</p>
 
-<p>There are a stack of modules that you can specify to load in Xorg, and apparently there&#8217;s issues with the ATi driver when two of the many are loaded at the same time. The suggestion was to comment out the culprit (which was called <strong>extmod</strong> I believe) which was clashing with the one you needed (which was called <strong>dri</strong>, I think :)). After making this change, I restarted Xorg and all was clear and beautiful! And for the first time ever on this new installation both <strong>fglrxinfo</strong> and <strong>glxgears</strong> behaved the way they should. 2D and 3D was up and running! Mission accomplished.  So, now that my story is told, please find listed below the steps that I had to take to get the ATi drivers installed on Ubuntu AMD64 Dapper Drake. I hope you find them useful.</p>
+<p>There are a stack of modules that you can specify to load in Xorg, and apparently there&rsquo;s issues with the ATi driver when two of the many are loaded at the same time. The suggestion was to comment out the culprit (which was called <strong>extmod</strong> I believe) which was clashing with the one you needed (which was called <strong>dri</strong>, I think :)). After making this change, I restarted Xorg and all was clear and beautiful! And for the first time ever on this new installation both <strong>fglrxinfo</strong> and <strong>glxgears</strong> behaved the way they should. 2D and 3D was up and running! Mission accomplished.  So, now that my story is told, please find listed below the steps that I had to take to get the ATi drivers installed on Ubuntu AMD64 Dapper Drake. I hope you find them useful.</p>
 
 <pre><code>sudo apt-get install xorg-driver-fglrx fglrx-control
 sudo aticonfig --initial
@@ -528,14 +510,15 @@ restart xorg (CTRL+ALT+BACKSPACE)
 
 <time datetime="2006-10-25T08:33:00+10:00" pubdate data-updated="true">25 Oct 2006</time>
         
-         | <a href="/posts/cyberface/#disqus_thread">Comments</a>
+           | <a href="/posts/cyberface/#disqus_thread"
+             data-disqus-identifier="http://buffered.io/posts/cyberface/">Comments</a>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>I could have squeezed this into the gaming round up that I posted a few days back, but this deserves to be shown out on its own (besides, it&#8217;s not just game-specific). I stumbled accross this last week, and it blew me away.  The article, called <a href="http://www.nytimes.com/posts/movies/15waxm.html?em&ex=1161144000&en=40ce02b6fecabbcc&ei=5087%0A" title="Cyberface: New Technology That Captures the Soul - New York Times" target="_blank">Cyberface: New Technology That Captures the Soul</a> from the New York Times shows off some very funky software. Head over there and check it out, it&#8217;s awesome. Make sure you <strong>watch the video</strong> :)</p>
+  <div class="entry-content"><p>I could have squeezed this into the gaming round up that I posted a few days back, but this deserves to be shown out on its own (besides, it&rsquo;s not just game-specific). I stumbled accross this last week, and it blew me away.  The article, called <a href="http://www.nytimes.com/posts/movies/15waxm.html?em&ex=1161144000&en=40ce02b6fecabbcc&ei=5087%0A" title="Cyberface: New Technology That Captures the Soul - New York Times" target="_blank">Cyberface: New Technology That Captures the Soul</a> from the New York Times shows off some very funky software. Head over there and check it out, it&rsquo;s awesome. Make sure you <strong>watch the video</strong> :)</p>
 </div>
   
   
@@ -567,16 +550,17 @@ restart xorg (CTRL+ALT+BACKSPACE)
 
 <time datetime="2006-10-25T08:27:00+10:00" pubdate data-updated="true">25 Oct 2006</time>
         
-         | <a href="/posts/dvd-cracker-nails-apples-ipod-code/#disqus_thread">Comments</a>
+           | <a href="/posts/dvd-cracker-nails-apples-ipod-code/#disqus_thread"
+             data-disqus-identifier="http://buffered.io/posts/dvd-cracker-nails-apples-ipod-code/">Comments</a>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>You gotta hand it to this guy, he says that he &#8220;doesn&#8217;t like closed systems&#8221;, which is pretty darned obvious :) The man, Jon Lech Johansen, who years ago cracked the DVD encryption known as <a href="http://en.wikipedia.org/wiki/Content_Scrambling_System" title="Content Scrambling System" target="_blank">CSS</a>, and released (with two other unknowns) the software that could be used to decrypt DVDs (called <a href="http://en.wikipedia.org/wiki/DeCSS" title="DeCSS" target="_blank">DeCSS</a>), has taken his code-breaking career to a new level - he&#8217;s nailed Apple iPod&#8217;s <a href="http://www.andrewhargadon.com/blog/?p=36" title="iPod's Ecosystem" target="_blank">ecosystem</a> (or so he claims) by breaking their <a href="http://en.wikipedia.org/wiki/FairPlay" title="FairPlay" target="_blank">FairPlay DRM software</a>.</p>
+  <div class="entry-content"><p>You gotta hand it to this guy, he says that he &ldquo;doesn&rsquo;t like closed systems&rdquo;, which is pretty darned obvious :) The man, Jon Lech Johansen, who years ago cracked the DVD encryption known as <a href="http://en.wikipedia.org/wiki/Content_Scrambling_System" title="Content Scrambling System" target="_blank">CSS</a>, and released (with two other unknowns) the software that could be used to decrypt DVDs (called <a href="http://en.wikipedia.org/wiki/DeCSS" title="DeCSS" target="_blank">DeCSS</a>), has taken his code-breaking career to a new level &ndash; he&rsquo;s nailed Apple iPod&rsquo;s <a href="http://www.andrewhargadon.com/blog/?p=36" title="iPod's Ecosystem" target="_blank">ecosystem</a> (or so he claims) by breaking their <a href="http://en.wikipedia.org/wiki/FairPlay" title="FairPlay" target="_blank">FairPlay DRM software</a>.</p>
 
-<p>I have no reason to find his claims outrageous, since he&#8217;s quite clearly experienced in this area (he was 15 when he cracked CSS after all), so it looks like Apple have got themselves an issue to deal with. It&#8217;ll be interesting to see if they take steps to stop him and his new <a href="http://doubletwistventures.com/" title="DoubleTwist" target="_blank">DoubleTwist</a> venture from taking off, or releasing any information/software pertaining to the crack.</p>
+<p>I have no reason to find his claims outrageous, since he&rsquo;s quite clearly experienced in this area (he was 15 when he cracked CSS after all), so it looks like Apple have got themselves an issue to deal with. It&rsquo;ll be interesting to see if they take steps to stop him and his new <a href="http://doubletwistventures.com/" title="DoubleTwist" target="_blank">DoubleTwist</a> venture from taking off, or releasing any information/software pertaining to the crack.</p>
 
 <p>Check out <a href="http://www.smh.com.au/news/digital-music/apples-ipoditunes-code-cracked/posts/1161455702584.html" title="Apple's iPod code 'cracked' - Digital Music - Gadgets - Technology - smh.com.au" target="_blank">this SMH article</a> for a bit more info.</p>
 </div>
@@ -590,7 +574,7 @@ restart xorg (CTRL+ALT+BACKSPACE)
     
       <a class="prev" href="/posts/page/23/">&larr; Older</a>
     
-    <a href="/posts/archives">Blog Archives</a>
+    <a href="/blog/archives">Blog Archives</a>
     
     <a class="next" href="/posts/page/21/">Newer &rarr;</a>
     
@@ -779,7 +763,7 @@ Copyright &copy; 2013 -
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     }());
 </script>
@@ -803,7 +787,7 @@ Copyright &copy; 2013 -
       var twitterWidgets = document.createElement('script');
       twitterWidgets.type = 'text/javascript';
       twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
       document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
     })();
   </script>

@@ -5,14 +5,8 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>A Better 'nub' - OJ's perspective</title>
+  <title>A Better 'Nub' - OJ's perspective</title>
   <meta name="author" content="OJ Reeves">
-
-  <link rel="openid.server" href="http://pip.verisignlabs.com/server" />
-  <link rel="openid.delegate" href="http://thecolonial.pip.verisignlabs.com/" />
-  <link rel="openid2.provider" href="http://pip.verisignlabs.com/server" />
-  <link rel="openid2.local_id" href="http://thecolonial.pip.verisignlabs.com/" />
-  <meta http-equiv="X-XRDS-Location" content="http://pip.verisignlabs.com/thecolonial/yadixrds" />
 
   
   <meta name="description" content="During my Haskell travels I have found myself using the nub function quite regularly. For those too lazy to click the link: nub removes duplicates &hellip;">
@@ -24,39 +18,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's perspective RSS 2.0" type="application/rss+xml">
   <link rel="canonical" href="http://buffered.io/posts/a-better-nub">
-  <link href="/favicon.ico" rel="icon">
+  <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-
-  <script src="/javascripts/modernizr-2.0.js" type="text/javascript"></script>
-  <script src="/javascripts/ender.js" type="text/javascript"></script>
+  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's perspective" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
-
-  <script type="text/javascript">
-    Modernizr.load([
-      { load: '//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js' },
-      { load: '/javascripts/jquery.lightbox.js', complete: function() {
-        $("a[rel^='lightbox']").lightbox();
-      } }
-    ]);
-  </script>
-
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 
   
-
-  
-  <script type="text/javascript">
-    !function(g,s,q,r,d){r=g[r]=g[r]||function(){(r.q=r.q||[]).push(
-    arguments)};d=s.createElement(q);q=s.getElementsByTagName(q)[0];
-    d.src='//d1l6p2sc9645hc.cloudfront.net/tracker.js';q.parentNode.
-    insertBefore(d,q)}(window,document,'script','_gs');
-    _gs('GSN-416076-G');
-  </script>
-
 
 </head>
 
@@ -115,7 +89,8 @@
 
 <time datetime="2008-07-28T17:10:00+10:00" pubdate data-updated="true">28 Jul 2008</time>
         
-         | <a href="#disqus_thread">Comments</a>
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://buffered.io">Comments</a>
         
       </p>
     
@@ -124,21 +99,21 @@
 
 <div class="entry-content"><p>During my Haskell travels I have found myself using the <a href="http://haskell.org/ghc/docs/latest/html/libraries/base/Data-List.html#v%3Anub" title="Data.List nub">nub</a> function quite regularly. For those too lazy to click the link: <em>nub</em> removes duplicates from a list of items. eg:</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class='haskell'><span class='line'><span class="kt">Prelude</span><span class="o">&gt;</span> <span class="n">nub</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
 </span><span class='line'><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">]</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>Fairly simple stuff. Until recently I hadn&#8217;t bothered pondering the internal implementation of this function because I hadn&#8217;t really been too worried about performance. That&#8217;s no longer the case. I recently cracked open the hood of <em>nub</em>, and was rather surprised by what I saw.</p>
+<p>Fairly simple stuff. Until recently I hadn&rsquo;t bothered pondering the internal implementation of this function because I hadn&rsquo;t really been too worried about performance. That&rsquo;s no longer the case. I recently cracked open the hood of <em>nub</em>, and was rather surprised by what I saw.</p>
 
 <!--more-->
 
 
-<p>Since the source of <a href="http://www.haskell.org/ghc/docs/latest/html/libraries/base/Prelude.html" title="Prelude">Prelude</a> is in the public domain, I&#8217;m safe to show you the content:</p>
+<p>Since the source of <a href="http://www.haskell.org/ghc/docs/latest/html/libraries/base/Prelude.html" title="Prelude">Prelude</a> is in the public domain, I&rsquo;m safe to show you the content:</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -153,14 +128,14 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>So <em>nub</em> uses <em>nubBy</em> and passes <em>(==)</em> as the filter for the items. This is all well and good, but the result is an O(n<sup>2</sup>) level of complexity! In this day and age that&#8217;s pretty poor for a simple filtering mechanism, especially when we have more powerful mechanisms built-in to most libraries.</p>
+<p>So <em>nub</em> uses <em>nubBy</em> and passes <em>(==)</em> as the filter for the items. This is all well and good, but the result is an O(n<sup>2</sup>) level of complexity! In this day and age that&rsquo;s pretty poor for a simple filtering mechanism, especially when we have more powerful mechanisms built-in to most libraries.</p>
 
-<p>Since seeing this I had added a &#8220;write my own nub&#8221; task to my TODO list, but I haven&#8217;t yet got round to it. So you can imagine my delight when I found <a href="http://www.hvergi.net/2008/07/playing-with-haskells-lazy-lists/#comment-50" title="Playing with Haskell's lazy lists - Comment by Jedai">this comment</a> by Jedai over at <a href="http://www.hvergi.net/" title="hvergi.net">hvergi.net</a>. He&#8217;d pointed out that <em>nub</em> was indeed inefficient, and showed an alternative implementation:</p>
+<p>Since seeing this I had added a &ldquo;write my own nub&rdquo; task to my TODO list, but I haven&rsquo;t yet got round to it. So you can imagine my delight when I found <a href="http://www.hvergi.net/2008/07/playing-with-haskells-lazy-lists/#comment-50" title="Playing with Haskell's lazy lists - Comment by Jedai">this comment</a> by Jedai over at <a href="http://www.hvergi.net/" title="hvergi.net">hvergi.net</a>. He&rsquo;d pointed out that <em>nub</em> was indeed inefficient, and showed an alternative implementation:</p>
 
 <blockquote cite="Jedai"><p>Note that nub only demands that the list element be part of the Eq typeclass. As a result it is very inefficient and a better solution must always be prefered whenever the nature of the elements allows it.
 
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -180,7 +155,7 @@ La diffrence de performance est norme.</p></blockquote>
 
 <p>You got that right! Thanks to Jedai (and Arnar via hvergi.net) I now have a much faster <em>nub</em> implementation. Cheers guys!</p>
 
-<p>It just goes to show that even these days you can&#8217;t always trust the libraries. There is no harm is taking a look under the hood to see what&#8217;s going on! You don&#8217;t have to reinvent the wheel, but there&#8217;s nothing wrong with making the wheel smoother :)</p>
+<p>It just goes to show that even these days you can&rsquo;t always trust the libraries. There is no harm is taking a look under the hood to see what&rsquo;s going on! You don&rsquo;t have to reinvent the wheel, but there&rsquo;s nothing wrong with making the wheel smoother :)</p>
 </div>
 
 
@@ -218,7 +193,7 @@ La diffrence de performance est norme.</p></blockquote>
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://buffered.io/posts/a-better-nub/" data-via="TheColonial" data-counturl="http://buffered.io/posts/a-better-nub/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://buffered.io/posts/a-better-nub/" data-via="TheColonial" data-counturl="http://buffered.io/posts/a-better-nub/" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -232,7 +207,7 @@ La diffrence de performance est norme.</p></blockquote>
         <a class="basic-alignment left" href="/posts/project-euler-9/" title="Previous Post: Project Euler #9">&laquo; Project Euler #9</a>
       
       
-        <a class="basic-alignment right" href="/posts/unit-tests-boldly-crossing-boundaries-and-gently-breaking-rules/" title="next Post: Unit Tests: Boldly Crossing Boundaries and Gently Breaking Rules">Unit Tests: Boldly Crossing Boundaries and Gently Breaking Rules &raquo;</a>
+        <a class="basic-alignment right" href="/posts/unit-tests-boldly-crossing-boundaries-and-gently-breaking-rules/" title="Next Post: Unit Tests: Boldly Crossing Boundaries and Gently Breaking Rules">Unit Tests: Boldly Crossing Boundaries and Gently Breaking Rules &raquo;</a>
       
     </p>
   </footer>
@@ -433,7 +408,7 @@ Copyright &copy; 2013 -
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     }());
 </script>
@@ -457,7 +432,7 @@ Copyright &copy; 2013 -
       var twitterWidgets = document.createElement('script');
       twitterWidgets.type = 'text/javascript';
       twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
       document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
     })();
   </script>

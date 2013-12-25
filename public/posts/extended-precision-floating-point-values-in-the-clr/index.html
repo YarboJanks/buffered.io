@@ -8,14 +8,8 @@
   <title>Extended-Precision Floating-Point Values in the CLR - OJ's perspective</title>
   <meta name="author" content="OJ Reeves">
 
-  <link rel="openid.server" href="http://pip.verisignlabs.com/server" />
-  <link rel="openid.delegate" href="http://thecolonial.pip.verisignlabs.com/" />
-  <link rel="openid2.provider" href="http://pip.verisignlabs.com/server" />
-  <link rel="openid2.local_id" href="http://thecolonial.pip.verisignlabs.com/" />
-  <meta http-equiv="X-XRDS-Location" content="http://pip.verisignlabs.com/thecolonial/yadixrds" />
-
   
-  <meta name="description" content="While at work today I hit a problem that I&#8217;ve never hit before (which is quite rare these days :) ), and while it was frustrating it was also &hellip;">
+  <meta name="description" content="While at work today I hit a problem that I&rsquo;ve never hit before (which is quite rare these days :) ), and while it was frustrating it was also &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -24,39 +18,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's perspective RSS 2.0" type="application/rss+xml">
   <link rel="canonical" href="http://buffered.io/posts/extended-precision-floating-point-values-in-the-clr">
-  <link href="/favicon.ico" rel="icon">
+  <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-
-  <script src="/javascripts/modernizr-2.0.js" type="text/javascript"></script>
-  <script src="/javascripts/ender.js" type="text/javascript"></script>
+  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's perspective" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
-
-  <script type="text/javascript">
-    Modernizr.load([
-      { load: '//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js' },
-      { load: '/javascripts/jquery.lightbox.js', complete: function() {
-        $("a[rel^='lightbox']").lightbox();
-      } }
-    ]);
-  </script>
-
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 
   
-
-  
-  <script type="text/javascript">
-    !function(g,s,q,r,d){r=g[r]=g[r]||function(){(r.q=r.q||[]).push(
-    arguments)};d=s.createElement(q);q=s.getElementsByTagName(q)[0];
-    d.src='//d1l6p2sc9645hc.cloudfront.net/tracker.js';q.parentNode.
-    insertBefore(d,q)}(window,document,'script','_gs');
-    _gs('GSN-416076-G');
-  </script>
-
 
 </head>
 
@@ -115,28 +89,29 @@
 
 <time datetime="2007-06-27T12:54:00+10:00" pubdate data-updated="true">27 Jun 2007</time>
         
-         | <a href="#disqus_thread">Comments</a>
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://buffered.io">Comments</a>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>While at work today I hit a problem that I&#8217;ve never hit before (which is quite rare these days :) ), and while it was frustrating it was also good to learn about something that I never knew was a problem. If you&#8217;re having some issues marshalling double-precision floating-point information through managed components to unmanaged components, or you&#8217;re just interested in learning something new, then read on :)</p>
+<div class="entry-content"><p>While at work today I hit a problem that I&rsquo;ve never hit before (which is quite rare these days :) ), and while it was frustrating it was also good to learn about something that I never knew was a problem. If you&rsquo;re having some issues marshalling double-precision floating-point information through managed components to unmanaged components, or you&rsquo;re just interested in learning something new, then read on :)</p>
 
 <p>Let me start by explaining the scenario:<!--more--></p>
 
-<p>One of our <acronym title="Visual Basic v6">VB6</acronym> applications passes a variant array of 64-bit doubles to a managed C++ component. The managed code does a bit of munging, before passing the same information on to another component which is an <em>un</em>managed C++ DLL written and maintained by a third party. This second DLL is responsible for doing boolean operations on 3D solids. When this component is invoked, the application dies with a nice obscure &#8220;screwed-up memory&#8221; error. Unfortunately, since the component is closed-source, we needed to pass the information on to the author of the code and wait for a response.</p>
+<p>One of our <acronym title="Visual Basic v6">VB6</acronym> applications passes a variant array of 64-bit doubles to a managed C++ component. The managed code does a bit of munging, before passing the same information on to another component which is an <em>un</em>managed C++ DLL written and maintained by a third party. This second DLL is responsible for doing boolean operations on 3D solids. When this component is invoked, the application dies with a nice obscure &ldquo;screwed-up memory&rdquo; error. Unfortunately, since the component is closed-source, we needed to pass the information on to the author of the code and wait for a response.</p>
 
 <p>After the author had investigated the problem he informed us that the reason for the crash was that the values that are being passed in are <a href="http://en.wikipedia.org/wiki/Extended_precision" title="Extended Precision">80-bit extended-precision</a> values, and not the expected <a href="http://en.wikipedia.org/wiki/IEEE_754" title="IEEE 754">IEEE</a> <a href="http://en.wikipedia.org/wiki/Double_precision" title="Double Precision">64-bit double-precision</a> values.</p>
 
-<p>Wierd! That didn&#8217;t make any sense to me. On hearing this I started to investigate where the process was falling down. The original data was 64-bit, so how come it <em>wasn&#8217;t</em> by the time it hit the final DLL? Something must be converting the 64-bit double-precision values to their 80-bit extended-precision equivalents. I spent a fair bit of time trying to find out as much as I could about the various floating-point representations, and where they&#8217;re used, but it took me an eternity to locate the information I was searching for.</p>
+<p>Wierd! That didn&rsquo;t make any sense to me. On hearing this I started to investigate where the process was falling down. The original data was 64-bit, so how come it <em>wasn&rsquo;t</em> by the time it hit the final DLL? Something must be converting the 64-bit double-precision values to their 80-bit extended-precision equivalents. I spent a fair bit of time trying to find out as much as I could about the various floating-point representations, and where they&rsquo;re used, but it took me an eternity to locate the information I was searching for.</p>
 
-<p>In the deep, dark depths of the web, I stumbled across this little nugget of information (thanks to <a href="http://www.extremeoptimization.com/resources/Articles/FPDotNetConceptsAndFormats.aspx#standards" title="FP .NET Concepts and Formats">ExtremeOptimization.com</a>):<blockquote><p>&#8230; the &#8216;extended&#8217; format, for which the IEC 60559 standard defines minimum specifications, and which is used by the floating-point unit on Intel processors, and is also <strong>used internally by the CLR</strong>.</p></blockquote>Ah ha! You bastards :) So we&#8217;re always dealing with 80-bit values when we use <em>double</em> in the <a href="http://en.wikipedia.org/wiki/Common_Language_Runtime" title="Common Language Runtime">CLR</a>.</p>
+<p>In the deep, dark depths of the web, I stumbled across this little nugget of information (thanks to <a href="http://www.extremeoptimization.com/resources/Articles/FPDotNetConceptsAndFormats.aspx#standards" title="FP .NET Concepts and Formats">ExtremeOptimization.com</a>):<blockquote><p>&hellip; the &lsquo;extended&rsquo; format, for which the IEC 60559 standard defines minimum specifications, and which is used by the floating-point unit on Intel processors, and is also <strong>used internally by the CLR</strong>.</p></blockquote>Ah ha! You bastards :) So we&rsquo;re always dealing with 80-bit values when we use <em>double</em> in the <a href="http://en.wikipedia.org/wiki/Common_Language_Runtime" title="Common Language Runtime">CLR</a>.</p>
 
-<p>Now that we know this, we can take steps to sort it out. In a nutshell, we need to set the <a href="http://en.wikipedia.org/wiki/Floating_point_unit" title="Floating Point Unit">FPU</a> state to force the use of 64-bit values before invoking the unmanaged component. Thankfully there&#8217;s an API function that we can use to do this, it&#8217;s called <a href="http://msdn2.microsoft.com/en-us/library/e9b52ceh(VS.80).aspx" title="_controlfp"><em>controlfp()</a>. In VS 2005, this function is deprecated, so we&#8217;re forced to use the &#8216;secure&#8217; equivalent </em>controlfp_s(). Here&#8217;s how you do it:</p>
+<p>Now that we know this, we can take steps to sort it out. In a nutshell, we need to set the <a href="http://en.wikipedia.org/wiki/Floating_point_unit" title="Floating Point Unit">FPU</a> state to force the use of 64-bit values before invoking the unmanaged component. Thankfully there&rsquo;s an API function that we can use to do this, it&rsquo;s called <a href="http://msdn2.microsoft.com/en-us/library/e9b52ceh(VS.80).aspx" title="_controlfp"><em>controlfp()</a>. In VS 2005, this function is deprecated, so we&rsquo;re forced to use the &lsquo;secure&rsquo; equivalent </em>controlfp_s(). Here&rsquo;s how you do it:</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -202,7 +177,7 @@
 
 <span class="categories">
   
-    <a class='category' href='/categories/c-/'>C#</a>, <a class='category' href='/categories/clr/'>CLR</a>, <a class='category' href='/categories/tips-tricks/'>Tips/Tricks</a>
+    <a class='category' href='/categories/c-number/'>C#</a>, <a class='category' href='/categories/clr/'>CLR</a>, <a class='category' href='/categories/tips-slash-tricks/'>Tips/Tricks</a>
   
 </span>
 
@@ -211,7 +186,7 @@
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://buffered.io/posts/extended-precision-floating-point-values-in-the-clr/" data-via="TheColonial" data-counturl="http://buffered.io/posts/extended-precision-floating-point-values-in-the-clr/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://buffered.io/posts/extended-precision-floating-point-values-in-the-clr/" data-via="TheColonial" data-counturl="http://buffered.io/posts/extended-precision-floating-point-values-in-the-clr/" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -225,7 +200,7 @@
         <a class="basic-alignment left" href="/posts/online-order-tracking/" title="Previous Post: Online Order Tracking">&laquo; Online Order Tracking</a>
       
       
-        <a class="basic-alignment right" href="/posts/becoming-a-geek-part-3-the-game-geek/" title="next Post: Becoming a Geek Part 3: The Game Geek">Becoming a Geek Part 3: The Game Geek &raquo;</a>
+        <a class="basic-alignment right" href="/posts/becoming-a-geek-part-3-the-game-geek/" title="Next Post: Becoming a Geek Part 3: The Game Geek">Becoming a Geek Part 3: The Game Geek &raquo;</a>
       
     </p>
   </footer>
@@ -426,7 +401,7 @@ Copyright &copy; 2013 -
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     }());
 </script>
@@ -450,7 +425,7 @@ Copyright &copy; 2013 -
       var twitterWidgets = document.createElement('script');
       twitterWidgets.type = 'text/javascript';
       twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
       document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
     })();
   </script>

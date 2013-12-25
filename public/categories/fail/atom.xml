@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Fail | OJ's perspective]]></title>
   <link href="http://buffered.io/categories/fail/atom.xml" rel="self"/>
   <link href="http://buffered.io/"/>
-  <updated>2013-12-21T20:54:15+10:00</updated>
+  <updated>2013-12-25T21:15:26+10:00</updated>
   <id>http://buffered.io/</id>
   <author>
     <name><![CDATA[OJ Reeves]]></name>
@@ -18,7 +18,7 @@
     <link href="http://buffered.io/posts/issue-with-google-reader/"/>
     <updated>2010-11-26T09:58:00+10:00</updated>
     <id>http://buffered.io/posts/issue-with-google-reader</id>
-    <content type="html"><![CDATA[<p>For some reason Google Reader has failed to update and include my latest <a href="/posts/webmachine-erlydtl-and-riak-part-3/">Web Development in Erlang</a> post. This is rather odd as every other RSS reader I have tested (including the one built-in to MS Outlook) has managed to parse and handle the post just fine. I have attempted to get in touch with the GReader team but I haven't had any luck so far in getting them to respond.</p>
+    <content type="html"><![CDATA[<p>For some reason Google Reader has failed to update and include my latest <a href="/posts/webmachine-erlydtl-and-riak-part-3/">Web Development in Erlang</a> post. This is rather odd as every other RSS reader I have tested (including the one built-in to MS Outlook) has managed to parse and handle the post just fine. I have attempted to get in touch with the GReader team but I haven&rsquo;t had any luck so far in getting them to respond.</p>
 
 <p>Those of you who are using Google Reader and are interested in this post, please point your browser in <a href="/posts/webmachine-erlydtl-and-riak-part-3/">this direction</a>.</p>
 
@@ -31,8 +31,8 @@
     <link href="http://buffered.io/posts/epic-fail-cuil-search-engine/"/>
     <updated>2008-07-29T08:55:00+10:00</updated>
     <id>http://buffered.io/posts/epic-fail-cuil-search-engine</id>
-    <content type="html"><![CDATA[<p>Don't believe the <a href="http://www.hurricanesoftwares.com/posts/ex-google-engineers-launched-cuil-a-better-search-engine/" title="Cuil">hype</a>.
-[caption id="attachment_436" align="aligncenter" width="500" caption="EPIC FAIL"]<img src="http://buffered.io/uploads/2008/07/cuil_fail.png" alt="EPIC FAIL" title="Cuil" width="500" height="227" class="size-full wp-image-436" />[/caption]</p>
+    <content type="html"><![CDATA[<p>Don&rsquo;t believe the <a href="http://www.hurricanesoftwares.com/posts/ex-google-engineers-launched-cuil-a-better-search-engine/" title="Cuil">hype</a>.
+[caption id=&ldquo;attachment_436&rdquo; align=&ldquo;aligncenter&rdquo; width=&ldquo;500&rdquo; caption=&ldquo;EPIC FAIL&rdquo;]<img src="http://buffered.io/uploads/2008/07/cuil_fail.png" alt="EPIC FAIL" title="Cuil" width="500" height="227" class="size-full wp-image-436" />[/caption]</p>
 
 <p><a href="http://twitter.com/MikeG1/statuses/870514922">Mike G</a> and <a href="http://twitter.com/Carnage4Life/statuses/870561061">Dare</a> are dead right.</p>
 ]]></content>

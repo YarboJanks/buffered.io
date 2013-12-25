@@ -8,14 +8,8 @@
   <title>Project Euler #4 - OJ's perspective</title>
   <meta name="author" content="OJ Reeves">
 
-  <link rel="openid.server" href="http://pip.verisignlabs.com/server" />
-  <link rel="openid.delegate" href="http://thecolonial.pip.verisignlabs.com/" />
-  <link rel="openid2.provider" href="http://pip.verisignlabs.com/server" />
-  <link rel="openid2.local_id" href="http://thecolonial.pip.verisignlabs.com/" />
-  <meta http-equiv="X-XRDS-Location" content="http://pip.verisignlabs.com/thecolonial/yadixrds" />
-
   
-  <meta name="description" content="WARNING! This post contains a spoiler for Problem #4 listed at Project Euler. Do not read the rest of this post if you&#8217;re planning to attempt &hellip;">
+  <meta name="description" content="WARNING! This post contains a spoiler for Problem #4 listed at Project Euler. Do not read the rest of this post if you&rsquo;re planning to attempt &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -24,39 +18,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's perspective RSS 2.0" type="application/rss+xml">
   <link rel="canonical" href="http://buffered.io/posts/project-euler-4">
-  <link href="/favicon.ico" rel="icon">
+  <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-
-  <script src="/javascripts/modernizr-2.0.js" type="text/javascript"></script>
-  <script src="/javascripts/ender.js" type="text/javascript"></script>
+  <link href="http://feeds.feedburner.com/OjsRants" rel="alternate" title="OJ's perspective" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
-
-  <script type="text/javascript">
-    Modernizr.load([
-      { load: '//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js' },
-      { load: '/javascripts/jquery.lightbox.js', complete: function() {
-        $("a[rel^='lightbox']").lightbox();
-      } }
-    ]);
-  </script>
-
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 
   
-
-  
-  <script type="text/javascript">
-    !function(g,s,q,r,d){r=g[r]=g[r]||function(){(r.q=r.q||[]).push(
-    arguments)};d=s.createElement(q);q=s.getElementsByTagName(q)[0];
-    d.src='//d1l6p2sc9645hc.cloudfront.net/tracker.js';q.parentNode.
-    insertBefore(d,q)}(window,document,'script','_gs');
-    _gs('GSN-416076-G');
-  </script>
-
 
 </head>
 
@@ -115,24 +89,25 @@
 
 <time datetime="2008-03-21T13:23:00+10:00" pubdate data-updated="true">21 Mar 2008</time>
         
-         | <a href="#disqus_thread">Comments</a>
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://buffered.io">Comments</a>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p><strong>WARNING!</strong> This post contains a spoiler for Problem #4 listed at <a href="http://projecteuler.net/" title="Project Euler">Project Euler</a>. Do not read the rest of this post if you&#8217;re planning to attempt to solve the problem yourself.</p>
+<div class="entry-content"><p><strong>WARNING!</strong> This post contains a spoiler for Problem #4 listed at <a href="http://projecteuler.net/" title="Project Euler">Project Euler</a>. Do not read the rest of this post if you&rsquo;re planning to attempt to solve the problem yourself.</p>
 
 <!--more-->
 
 
-<p>The next in the series, <a href="http://projecteuler.net/index.php?section=problems&id=4">Problem #4</a>, isn&#8217;t a particularly difficult one, but it could pose some interesting issues depending on which language you use as well as which method you use. It reads:<blockquote><p>A palindromic number reads the same both ways. The largest palindrome made from the product of two 2-digit numbers is 9009 = 91  99.</p>
+<p>The next in the series, <a href="http://projecteuler.net/index.php?section=problems&id=4">Problem #4</a>, isn&rsquo;t a particularly difficult one, but it could pose some interesting issues depending on which language you use as well as which method you use. It reads:<blockquote><p>A palindromic number reads the same both ways. The largest palindrome made from the product of two 2-digit numbers is 9009 = 91  99.</p>
 
 <p>Find the largest palindrome made from the product of two 3-digit numbers.</p></blockquote>
-Thankfully, the built-in features of our chosen language, Haskell, make this problem extremely simple. The obvious way to solve this problem is brute force. So that&#8217;s exactly what I did with a bit of tweaking. For those following my Euler posts so far who are also new to Haskell, you may find there&#8217;s some additional syntax and functions here that you haven&#8217;t seen before.</p>
+Thankfully, the built-in features of our chosen language, Haskell, make this problem extremely simple. The obvious way to solve this problem is brute force. So that&rsquo;s exactly what I did with a bit of tweaking. For those following my Euler posts so far who are also new to Haskell, you may find there&rsquo;s some additional syntax and functions here that you haven&rsquo;t seen before.</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -154,9 +129,9 @@ Thankfully, the built-in features of our chosen language, Haskell, make this pro
 <ol><li><strong>show</strong> - essentially converts a value to a string representation. So in our case, it converts the Integer to a String (or [Char] as it is in fact behind the scenes)</li><li><strong>reverse</strong> - reverses a list. So we take the list of characters from the previous call, and reverse it.</li><li><strong>read</strong> - reads a string of characters, and converts it into another type based on the one specified (in our case &#8220;::Integer&#8221; says to make the value an Integer)</li><li><strong>maximum</strong> - returns the largest numeric value found in a list.</li></ol>
 
 
-<p>Yet another neat little solution. Essentially a two-liner! I can&#8217;t see that happening in an imperative language :)</p>
+<p>Yet another neat little solution. Essentially a two-liner! I can&rsquo;t see that happening in an imperative language :)</p>
 
-<p>But what is the trade-off? Since this is the first brute force solution to a problem that might be faster solved by doing something smarter, let&#8217;s see how long it takes. Here&#8217;s a profile dump from GHC:</p>
+<p>But what is the trade-off? Since this is the first brute force solution to a problem that might be faster solved by doing something smarter, let&rsquo;s see how long it takes. Here&rsquo;s a profile dump from GHC:</p>
 
 <pre><code>  Fri Mar 21 13:13 2008 Time and Allocation Profiling Report  (Final)
 
@@ -219,7 +194,7 @@ MAIN           MAIN             1           0   0.0    0.0   100.0  100.0
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://buffered.io/posts/project-euler-4/" data-via="TheColonial" data-counturl="http://buffered.io/posts/project-euler-4/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://buffered.io/posts/project-euler-4/" data-via="TheColonial" data-counturl="http://buffered.io/posts/project-euler-4/" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -233,7 +208,7 @@ MAIN           MAIN             1           0   0.0    0.0   100.0  100.0
         <a class="basic-alignment left" href="/posts/hrm-revenue-customs-idiots/" title="Previous Post: HRM Revenue &amp; Customs - Idiots!">&laquo; HRM Revenue &amp; Customs - Idiots!</a>
       
       
-        <a class="basic-alignment right" href="/posts/delicious-feeds/" title="next Post: Delicious Feeds">Delicious Feeds &raquo;</a>
+        <a class="basic-alignment right" href="/posts/delicious-feeds/" title="Next Post: Delicious Feeds">Delicious Feeds &raquo;</a>
       
     </p>
   </footer>
@@ -434,7 +409,7 @@ Copyright &copy; 2013 -
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     }());
 </script>
@@ -458,7 +433,7 @@ Copyright &copy; 2013 -
       var twitterWidgets = document.createElement('script');
       twitterWidgets.type = 'text/javascript';
       twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
       document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
     })();
   </script>

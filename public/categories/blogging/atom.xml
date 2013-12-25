@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Blogging | OJ's perspective]]></title>
   <link href="http://buffered.io/categories/blogging/atom.xml" rel="self"/>
   <link href="http://buffered.io/"/>
-  <updated>2013-12-21T20:54:15+10:00</updated>
+  <updated>2013-12-25T21:15:26+10:00</updated>
   <id>http://buffered.io/</id>
   <author>
     <name><![CDATA[OJ Reeves]]></name>
@@ -18,24 +18,24 @@
     <link href="http://buffered.io/posts/now-powered-by-blogofile/"/>
     <updated>2011-02-15T20:44:00+10:00</updated>
     <id>http://buffered.io/posts/now-powered-by-blogofile</id>
-    <content type="html"><![CDATA[<p><a href="http://buffered.io/uploads/2011/02/V8SFIEngine2001.jpg" title="Time for a new engine" rel="lightbox"><img src="http://buffered.io/uploads/2011/02/V8SFIEngine2001.jpg" width="150" style="float:right;margin-left:5px;margin-bottom:5px;" alt="Time for a new engine"/></a>When I <a href="/posts/office-registration-and-activation/">first started blogging</a> back in 2006 the platform of choice at the time was <a href="http://wordpress.org/">Wordpress</a>, a feature-rich blogging platform build with <a href="http://www.php.net/">PHP</a>. Since then the platform has improved substantially and the number of community-driven contributions and plug-ins has increased to a massive number. I've thoroughly enjoyed using Wordpress for the past 5 years and would recommend it to anyone (I already have!) who is looking for a quality blogging platform.</p>
+    <content type="html"><![CDATA[<p><a href="http://buffered.io/uploads/2011/02/V8SFIEngine2001.jpg" title="Time for a new engine" rel="lightbox"><img src="http://buffered.io/uploads/2011/02/V8SFIEngine2001.jpg" width="150" style="float:right;margin-left:5px;margin-bottom:5px;" alt="Time for a new engine"/></a>When I <a href="/posts/office-registration-and-activation/">first started blogging</a> back in 2006 the platform of choice at the time was <a href="http://wordpress.org/">Wordpress</a>, a feature-rich blogging platform build with <a href="http://www.php.net/">PHP</a>. Since then the platform has improved substantially and the number of community-driven contributions and plug-ins has increased to a massive number. I&rsquo;ve thoroughly enjoyed using Wordpress for the past 5 years and would recommend it to anyone (I already have!) who is looking for a quality blogging platform.</p>
 
-<p>For me, however, Wordpress was becoming less and less appealing. This isn't due to a failing in the platform itself, but more because my needs/desires for my blogging engine were changing.</p>
+<p>For me, however, Wordpress was becoming less and less appealing. This isn&rsquo;t due to a failing in the platform itself, but more because my needs/desires for my blogging engine were changing.</p>
 
 <!--more-->
 
 
-<p>One of the curses of maintaining a technical blog is that the posts very quickly "expire". Their use-by date can be very short, and hence it becomes a burden to keep them up to date. So far, I've not done a great job of updating my posts, partly due to laziness, and partly because doing it using Wordpress is a little painful. I was looking for a solution to this problem, and nothing that I could see coming out of the Wordpress community was helping. What I really wanted was to have instant access to posts on my file system, not via a web front-end. Ideally, I would be able to store all of my posts in a <a href="http://hg-scm.org/">Mercurial</a> repository.</p>
+<p>One of the curses of maintaining a technical blog is that the posts very quickly &ldquo;expire&rdquo;. Their use-by date can be very short, and hence it becomes a burden to keep them up to date. So far, I&rsquo;ve not done a great job of updating my posts, partly due to laziness, and partly because doing it using Wordpress is a little painful. I was looking for a solution to this problem, and nothing that I could see coming out of the Wordpress community was helping. What I really wanted was to have instant access to posts on my file system, not via a web front-end. Ideally, I would be able to store all of my posts in a <a href="http://hg-scm.org/">Mercurial</a> repository.</p>
 
-<p>I was also tired of having to write posts using straight HTML. I am not a fan of using online editors. Browsers are unpredictable and a stray keystroke can move you from your page to another page, resulting in you losing anything that hasn't been saved along the way. Also, the editors are terrible, relatively featureless and often buggy. Wordpress's editor, while very good, is not my cup of tea. It was getting to the point where I really wanted to write my posts in <a href="http://daringfireball.net/projects/markdown/">Markdown</a> instead. I am aware of some plug-ins which allow this kind of functionality, but my experiences with them weren't that great. I wanted to write things in VIM and easily save/publish to the site without having to leave VIM.</p>
+<p>I was also tired of having to write posts using straight HTML. I am not a fan of using online editors. Browsers are unpredictable and a stray keystroke can move you from your page to another page, resulting in you losing anything that hasn&rsquo;t been saved along the way. Also, the editors are terrible, relatively featureless and often buggy. Wordpress&rsquo;s editor, while very good, is not my cup of tea. It was getting to the point where I really wanted to write my posts in <a href="http://daringfireball.net/projects/markdown/">Markdown</a> instead. I am aware of some plug-ins which allow this kind of functionality, but my experiences with them weren&rsquo;t that great. I wanted to write things in VIM and easily save/publish to the site without having to leave VIM.</p>
 
-<p>Recently I have received offers of help in updating content from other people in the technical community. They have been interested in getting access to the content so they can contribute in keeping it up to date. Providing access to these people would be painful using Wordpress as a tool. Not because it doesn't do access control, but because the workflow is just unpleasant. Ultimately the ideal scenario is to store my Mercurial repository, with all the posts in it, on <a href="http://bitbucket.org/">Bitbucket</a> so that other people can fork the repository, make changes and submit <a href="http://confluence.atlassian.com/display/BITBUCKET/Forking+a+Bitbucket+Repository">pull requests</a> when they have modified the content. I could easily merge the changes and republish my site.</p>
+<p>Recently I have received offers of help in updating content from other people in the technical community. They have been interested in getting access to the content so they can contribute in keeping it up to date. Providing access to these people would be painful using Wordpress as a tool. Not because it doesn&rsquo;t do access control, but because the workflow is just unpleasant. Ultimately the ideal scenario is to store my Mercurial repository, with all the posts in it, on <a href="http://bitbucket.org/">Bitbucket</a> so that other people can fork the repository, make changes and submit <a href="http://confluence.atlassian.com/display/BITBUCKET/Forking+a+Bitbucket+Repository">pull requests</a> when they have modified the content. I could easily merge the changes and republish my site.</p>
 
 <p>Apart from the workflow and technical reasons, I was very interested in changing the way the site was served. The blog content is totally static except for two cases, both of which can be handled externally:</p>
 
 <ul>
-<li>Comments - for a while I've been using <a href="http://disqus.com/">Disqus</a> to handle my comments. The platform is awesome. No spam, no need to get people to sign in to comment, no overhead. Can't recommend it enough.</li>
-<li>Post updates - posts are updated by me and only me. All I needed was a way of converting my posts to a static HTML website and then copying that to my webserver.</li>
+<li>Comments &ndash; for a while I&rsquo;ve been using <a href="http://disqus.com/">Disqus</a> to handle my comments. The platform is awesome. No spam, no need to get people to sign in to comment, no overhead. Can&rsquo;t recommend it enough.</li>
+<li>Post updates &ndash; posts are updated by me and only me. All I needed was a way of converting my posts to a static HTML website and then copying that to my webserver.</li>
 </ul>
 
 
@@ -45,7 +45,7 @@
 
 <blockquote><p>Blogofile is a static website compiler, primarily (though not exclusively) designed to be a simple blogging engine. It requires no database and no special hosting environment. You customize a set of templates with Mako, create posts in a markup language of your choice (see Post Content) and Blogofile renders your entire website as static HTML and Atom/RSS feeds which you can then upload to any old web server you like.</p></blockquote>
 
-<p>Exactly what I need! I'm no <a href="http://www.python.org/">Python</a> guru, but I knew I had enough coding chops to pick up the essentials to hack together a template which would suit my needs. I decided to dive in. My plan was:</p>
+<p>Exactly what I need! I&rsquo;m no <a href="http://www.python.org/">Python</a> guru, but I knew I had enough coding chops to pick up the essentials to hack together a template which would suit my needs. I decided to dive in. My plan was:</p>
 
 <ul>
 <li>Port my current WP theme to Blogofile (which uses <a href="http://www.makotemplates.org/">Mako</a> behind the scenes).</li>
@@ -66,13 +66,13 @@
 </ul>
 
 
-<p>It will come as no surprise that I had to learn a little bit along the way :) I'm now exposed to how Python hangs together, and I have a (relatively) solid grasp of Mako templates.</p>
+<p>It will come as no surprise that I had to learn a little bit along the way :) I&rsquo;m now exposed to how Python hangs together, and I have a (relatively) solid grasp of Mako templates.</p>
 
-<p>The net result is the site that you're now looking at! From my side of the planet the speed different is noticable, and the experience of publishing to it is as simple as <code>hg commit -m "message" &amp;&amp; hg push web</code> - I don't have to leave VIM at all to do that. All of my goals have been met, and I'm happy :)</p>
+<p>The net result is the site that you&rsquo;re now looking at! From my side of the planet the speed different is noticable, and the experience of publishing to it is as simple as <code>hg commit -m "message" &amp;&amp; hg push web</code> &ndash; I don&rsquo;t have to leave VIM at all to do that. All of my goals have been met, and I&rsquo;m happy :)</p>
 
-<p>Now this task is out of the way, I'll be continuing work on my <a href="/series/web-development-with-erlang/">Erlang blog series</a>. I'm looking forward to having the next post done and ready for your critique.</p>
+<p>Now this task is out of the way, I&rsquo;ll be continuing work on my <a href="/series/web-development-with-erlang/">Erlang blog series</a>. I&rsquo;m looking forward to having the next post done and ready for your critique.</p>
 
-<p>For those of you considering other blogging platforms which suit different workflows better than the mainstream options, be sure to check <a href="http://blogofile.com/">Blogofile</a> out. It's a great system, and worth the effort of diving into. I'm happy to answer questions if you have any.</p>
+<p>For those of you considering other blogging platforms which suit different workflows better than the mainstream options, be sure to check <a href="http://blogofile.com/">Blogofile</a> out. It&rsquo;s a great system, and worth the effort of diving into. I&rsquo;m happy to answer questions if you have any.</p>
 
 <p>Until next time!</p>
 ]]></content>
@@ -83,7 +83,7 @@
     <link href="http://buffered.io/posts/out-with-the-old-and-in-with-the-new/"/>
     <updated>2009-04-23T21:57:00+10:00</updated>
     <id>http://buffered.io/posts/out-with-the-old-and-in-with-the-new</id>
-    <content type="html"><![CDATA[<p>For the past year or so I've been constantly annoyed with the blackapache.net domain. Not because I think it's awful, but because it's such a <acronym title="Pain in the arse">PITA</acronym> to say to people. Here's an example of a very common conversation:</p>
+    <content type="html"><![CDATA[<p>For the past year or so I&rsquo;ve been constantly annoyed with the blackapache.net domain. Not because I think it&rsquo;s awful, but because it&rsquo;s such a <acronym title="Pain in the arse">PITA</acronym> to say to people. Here&rsquo;s an example of a very common conversation:</p>
 
 <blockquote><p>Them: "Do you have an email address?"
 Me: "Yes, it's 'oh-oj' ..."
@@ -100,19 +100,19 @@ Me: *sigh*...</p></blockquote>
 
 <p>You can see where this is going. While the above example might be slightly exaggerated, the point is still valid. At the same time I was a little tired at the length of the original URI had chosen.</p>
 
-<p>For some reason I felt the need to put the 'rant' subdomain in to give people an idea of what the content was going to be like. Hence, rant.blackapache.net was born (the origin of blackapache as a name is related to the combination of my favourite song and my wife's favourite song).</p>
+<p>For some reason I felt the need to put the &lsquo;rant&rsquo; subdomain in to give people an idea of what the content was going to be like. Hence, rant.blackapache.net was born (the origin of blackapache as a name is related to the combination of my favourite song and my wife&rsquo;s favourite song).</p>
 
-<p>It served it purpose rather well and over time it's managed to get linked here and there and thankfully has around 100 readers on a regular basis! I have learned a great deal from both researching my posts and from reading the comments that others have left. It has been a great experience.</p>
+<p>It served it purpose rather well and over time it&rsquo;s managed to get linked here and there and thankfully has around 100 readers on a regular basis! I have learned a great deal from both researching my posts and from reading the comments that others have left. It has been a great experience.</p>
 
-<p>My plan now is to take it up a notch. Write more often, try and get more technical, cover a wider range of things, etc. But I didn't want the same URL. I wanted something fresh, shorter and a bit more indicative of what it is that this site is about.</p>
+<p>My plan now is to take it up a notch. Write more often, try and get more technical, cover a wider range of things, etc. But I didn&rsquo;t want the same URL. I wanted something fresh, shorter and a bit more indicative of what it is that this site is about.</p>
 
-<p>So last night I bought a new domain and migrated all of the content over. Everyone please welcome <a href="" title="OJ's rants">buffered.io</a>. Those geeks out there will hopefully appreciate the meaning and agree that it's not a bad indication of what goes on here.</p>
+<p>So last night I bought a new domain and migrated all of the content over. Everyone please welcome <a href="" title="OJ's rants">buffered.io</a>. Those geeks out there will hopefully appreciate the meaning and agree that it&rsquo;s not a bad indication of what goes on here.</p>
 
-<p>In the grand scheme of things the new URI doesn't really mean much other than the links will be a little shorter and both the site and the emails hanging off it will be a little easier to say :)</p>
+<p>In the grand scheme of things the new URI doesn&rsquo;t really mean much other than the links will be a little shorter and both the site and the emails hanging off it will be a little easier to say :)</p>
 
-<p>I'll be keeping the blackapache.net domain and all of the old content will redirect to the new URI and point to the appropriate articles. Hopefully after a period of time the respective links will be updated in the search engines and people will fix up their bookmarks.</p>
+<p>I&rsquo;ll be keeping the blackapache.net domain and all of the old content will redirect to the new URI and point to the appropriate articles. Hopefully after a period of time the respective links will be updated in the search engines and people will fix up their bookmarks.</p>
 
-<p>Those of you who subscribe via RSS shouldn't have to do anything. The feeds were running through <a href="http://feedburner.com/" title="Feedburner">Feedburner</a> which has been updated to reflect the new address. Having said that, if anyone has any issues then please let me know as soon as possible.</p>
+<p>Those of you who subscribe via RSS shouldn&rsquo;t have to do anything. The feeds were running through <a href="http://feedburner.com/" title="Feedburner">Feedburner</a> which has been updated to reflect the new address. Having said that, if anyone has any issues then please let me know as soon as possible.</p>
 
 <p>As always your feedback, both good and bad, is greatly appreciated. Thanks!</p>
 ]]></content>
@@ -123,15 +123,15 @@ Me: *sigh*...</p></blockquote>
     <link href="http://buffered.io/posts/assembly-signing-article-translated-into-italian/"/>
     <updated>2009-01-14T18:16:00+10:00</updated>
     <id>http://buffered.io/posts/assembly-signing-article-translated-into-italian</id>
-    <content type="html"><![CDATA[<p>You may remember a little while ago I wrote a post on <a href="http://buffered.io/posts/net-fu-signing-an-unsigned-assembly-without-delay-signing/" title=".NET-fu: Signing an Unsigned Assembly (without Delay Signing)">signing assemblies</a> that you don't have the source code to. It got a bit of attention and was reproduced in full on <a href="http://dotnet.dzone.com/news/net-fu-zero-delay-signing-of-a" title=".NET-Fu: Zero Delay Signing Of An Unsigned Assembly">dzone's dotnet site</a>. That was pretty exciting.</p>
+    <content type="html"><![CDATA[<p>You may remember a little while ago I wrote a post on <a href="http://buffered.io/posts/net-fu-signing-an-unsigned-assembly-without-delay-signing/" title=".NET-fu: Signing an Unsigned Assembly (without Delay Signing)">signing assemblies</a> that you don&rsquo;t have the source code to. It got a bit of attention and was reproduced in full on <a href="http://dotnet.dzone.com/news/net-fu-zero-delay-signing-of-a" title=".NET-Fu: Zero Delay Signing Of An Unsigned Assembly">dzone&rsquo;s dotnet site</a>. That was pretty exciting.</p>
 
 <p>This, however, I find <em>more</em> exciting. This article has now been <strong>translated into Italian</strong>! This is the first time an article of mine has been reproduced in another language, which I think is just fantastic.</p>
 
-<p>My colleague, <a href="http://www.otherbit.com/modules/blog/" title="otherbit - New Media & Software">Cosimo</a> has been hard at work making the Italian version for the last couple of weeks. From what I can see it looks like he's done a marvellous job.</p>
+<p>My colleague, <a href="http://www.otherbit.com/modules/blog/" title="otherbit - New Media & Software">Cosimo</a> has been hard at work making the Italian version for the last couple of weeks. From what I can see it looks like he&rsquo;s done a marvellous job.</p>
 
-<p>So for those of you who are looking for the Italian version of this article, you can find it over <a href="http://www.otherbit.com/modules/blog/BlogContent.aspx?ID=174" title=".NET-FU : come trasformare in SIGNED un assembly UNSIGNED (senza ricorrere al DELAY SIGNING)">here on Cosimo's blog: .NET-FU : come trasformare in SIGNED un assembly UNSIGNED (senza ricorrere al DELAY SIGNING)</a>. Thanks very much Cosimo!</p>
+<p>So for those of you who are looking for the Italian version of this article, you can find it over <a href="http://www.otherbit.com/modules/blog/BlogContent.aspx?ID=174" title=".NET-FU : come trasformare in SIGNED un assembly UNSIGNED (senza ricorrere al DELAY SIGNING)">here on Cosimo&rsquo;s blog: .NET-FU : come trasformare in SIGNED un assembly UNSIGNED (senza ricorrere al DELAY SIGNING)</a>. Thanks very much Cosimo!</p>
 
-<p>If there's anyone else out there who is interested in translating articles into your home language then please feel free to contact me.</p>
+<p>If there&rsquo;s anyone else out there who is interested in translating articles into your home language then please feel free to contact me.</p>
 
 <p>Enjoy!</p>
 ]]></content>
@@ -142,7 +142,7 @@ Me: *sigh*...</p></blockquote>
     <link href="http://buffered.io/posts/the-sales-pipeline/"/>
     <updated>2009-01-13T19:21:00+10:00</updated>
     <id>http://buffered.io/posts/the-sales-pipeline</id>
-    <content type="html"><![CDATA[<p>Here's a brief list of what's coming down the pipe on this blog in the coming weeks. I thought I'd post this info as I've had a few people ask what's up next and I'm tired of telling the same story over and over :) So here it is!</p>
+    <content type="html"><![CDATA[<p>Here&rsquo;s a brief list of what&rsquo;s coming down the pipe on this blog in the coming weeks. I thought I&rsquo;d post this info as I&rsquo;ve had a few people ask what&rsquo;s up next and I&rsquo;m tired of telling the same story over and over :) So here it is!</p>
 
 <!--more-->
 
@@ -171,20 +171,20 @@ Me: *sigh*...</p></blockquote>
     <id>http://buffered.io/posts/stop-cutting-your-feeds-short</id>
     <content type="html"><![CDATA[<p>Despite the fact the Internet is accessible from nearly everywhere, there are still times when you are forced to work in a disconnected environment. There are also times where you <em>want</em> to work in a disconnected environment (probably to avoid distractions from <a href="http://en.wikipedia.org/wiki/Instant_messaging" title="Instant Messaging">IM</a>, <a href="http://twitter.com/" title="Twitter">Twitter</a>, etc).</p>
 
-<p>So why is it that we still don't seem to do a good job of catering for these cases? Offline capabilities are currently few and far between. Sure, it can be hard to add offline functionality to an application, depending on what the application does, but sometimes there's really no excuse.</p>
+<p>So why is it that we still don&rsquo;t seem to do a good job of catering for these cases? Offline capabilities are currently few and far between. Sure, it can be hard to add offline functionality to an application, depending on what the application does, but sometimes there&rsquo;s really no excuse.</p>
 
 <!--more-->
 
 
 <p>One example where there is no excuse: blog feeds!</p>
 
-<p>These days everyone seems to have a chunk of <a href="https://www.google.com/adsense/" title="Google Ads">Google Ads</a> on their blog pages in the hope they'll be <a href="http://en.wikipedia.org/wiki/Slashdotted" title="Slashdotted">Slashdotted</a>, <a href="http://reddit.com/" title="Reddit">Reddited</a> or <a href="http://digg.com/" title="Digg">Digged</a> enough to bring in a small fortune in advertising revenue. While I can understand the desire to earn some cash from writing, I don't think it's a good enough excuse to cut the content of the <a href="http://en.wikipedia.org/wiki/RSS" title="RSS">RSS</a>/<a href="http://en.wikipedia.org/wiki/Atom_%28standard%29" title="Atom">Atom</a> feeds short.</p>
+<p>These days everyone seems to have a chunk of <a href="https://www.google.com/adsense/" title="Google Ads">Google Ads</a> on their blog pages in the hope they&rsquo;ll be <a href="http://en.wikipedia.org/wiki/Slashdotted" title="Slashdotted">Slashdotted</a>, <a href="http://reddit.com/" title="Reddit">Reddited</a> or <a href="http://digg.com/" title="Digg">Digged</a> enough to bring in a small fortune in advertising revenue. While I can understand the desire to earn some cash from writing, I don&rsquo;t think it&rsquo;s a good enough excuse to cut the content of the <a href="http://en.wikipedia.org/wiki/RSS" title="RSS">RSS</a>/<a href="http://en.wikipedia.org/wiki/Atom_%28standard%29" title="Atom">Atom</a> feeds short.</p>
 
-<p>To read an article offline, those of us who use a reader which supports offline reading capabilities (which include the likes of <a href="http://reader.google.com/" title="Google Reader">Google Reader</a> via <a href="http://gears.google.com/" title="Google Gears">Google Gears</a>) end up missing out on the content of each article which doesn't make it to the feed in its entirity.</p>
+<p>To read an article offline, those of us who use a reader which supports offline reading capabilities (which include the likes of <a href="http://reader.google.com/" title="Google Reader">Google Reader</a> via <a href="http://gears.google.com/" title="Google Gears">Google Gears</a>) end up missing out on the content of each article which doesn&rsquo;t make it to the feed in its entirity.</p>
 
-<p>While this is frustrating for the reader, it can be damaging for the writer as well. I personally have removed fistfuls of feeds from my reading list because they expect me to browse to their sites. I don't plan on returning to those sites in the future either. I'd be very surprised if I was the only person who has done this or who will do it in the future.</p>
+<p>While this is frustrating for the reader, it can be damaging for the writer as well. I personally have removed fistfuls of feeds from my reading list because they expect me to browse to their sites. I don&rsquo;t plan on returning to those sites in the future either. I&rsquo;d be very surprised if I was the only person who has done this or who will do it in the future.</p>
 
-<p>Thankfully I am yet to come across an semi-fed article while offline that I do want to read. But I reckon I'll be pretty pissed the day it does happen.</p>
+<p>Thankfully I am yet to come across an semi-fed article while offline that I do want to read. But I reckon I&rsquo;ll be pretty pissed the day it does happen.</p>
 
 <p>In short, stop cutting your f**cking feeds short. Please :)</p>
 ]]></content>
