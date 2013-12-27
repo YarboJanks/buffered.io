@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Security | OJ's perspective]]></title>
   <link href="http://buffered.io/categories/security/atom.xml" rel="self"/>
   <link href="http://buffered.io/"/>
-  <updated>2013-12-27T23:36:02+10:00</updated>
+  <updated>2013-12-28T08:12:06+10:00</updated>
   <id>http://buffered.io/</id>
   <author>
     <name><![CDATA[OJ Reeves]]></name>
@@ -27,6 +27,10 @@ In August this year I was fortunate enough to land a three-month contract workin
 
 <!--more-->
 
+
+<h2>TL;DR</h2>
+
+<p>This post is long. So if you&rsquo;re keen to see a nice summary, you should go and read the <a href="https://community.rapid7.com/community/metasploit/blog/2013/12/27/meterpreter-reloaded">wicked post over at Security Street</a> which gives a great summary of what&rsquo;s in this post. Thanks to the rather classy <a href="https://twitter.com/todb">Tod Beardsley</a> for serving this baby up!</p>
 
 <h2>A Whole New Build Environment</h2>
 
@@ -1163,7 +1167,7 @@ schmidt  CN=schmidt,CN=Computers,DC=windows,DC=old         test PC</p>
 
 <p>If you have suggestions, let&rsquo;s hear them! Even better, submit a PR, and to encourage you:</p>
 
-<blockquote><p>I will personally send a quality, quintessentially Australian fluffy crocodile toy via snail-mail to the first non-Rapid7 person who submits a pull request with a non-trivial fix or contribution to Meterpreter.</p></blockquote>
+<blockquote><p>I will personally send a quality, quintessentially Australian fluffy crocodile toy via snail-mail to the first non-Rapid7 person who submits a pull request with a non-trivial fix or contribution to Meterpreter and have it merged into master.</p></blockquote>
 
 <p>That&rsquo;s right, you could be a winner of some Oz awesome! So get coding, it&rsquo;s not that hard&hellip; any more!</p>
 
@@ -1867,7 +1871,7 @@ pDllMain = (DLLMAIN)pReflectiveLoader();
 <p>Fire up a shell and connect to the game server with the password for the <code>level7</code> user (I won&rsquo;t be sharing passwords here).</p>
 
 <p>{% codeblock lang:bash %}
-$ ssh <a href="&#109;&#97;&#105;&#x6c;&#116;&#x6f;&#x3a;&#108;&#101;&#118;&#101;&#108;&#55;&#64;&#105;&#x6f;&#x2e;&#115;&#x6d;&#97;&#x73;&#x68;&#x74;&#x68;&#101;&#115;&#x74;&#97;&#99;&#x6b;&#46;&#111;&#x72;&#103;">&#x6c;&#101;&#x76;&#x65;&#108;&#55;&#x40;&#x69;&#111;&#46;&#x73;&#x6d;&#x61;&#115;&#x68;&#116;&#x68;&#101;&#x73;&#116;&#97;&#99;&#107;&#x2e;&#111;&#114;&#x67;</a>
+$ ssh <a href="&#x6d;&#97;&#x69;&#x6c;&#116;&#111;&#58;&#x6c;&#101;&#118;&#101;&#108;&#55;&#x40;&#105;&#x6f;&#x2e;&#x73;&#x6d;&#97;&#115;&#x68;&#116;&#104;&#x65;&#x73;&#x74;&#97;&#99;&#x6b;&#46;&#x6f;&#x72;&#x67;">&#x6c;&#101;&#x76;&#x65;&#x6c;&#55;&#x40;&#x69;&#111;&#x2e;&#115;&#109;&#97;&#115;&#104;&#116;&#104;&#101;&#x73;&#116;&#97;&#99;&#x6b;&#46;&#111;&#114;&#x67;</a>
 {% endcodeblock %}</p>
 
 <p>Let&rsquo;s see what challenges there are for us:</p>

@@ -4,7 +4,7 @@
   <title><![CDATA[Series: Web Development with Erlang | OJ's perspective]]></title>
   <link href="http://buffered.io/series/web-development-with-erlang/atom.xml" rel="self"/>
   <link href="http://buffered.io/"/>
-  <updated>2013-12-27T23:36:02+10:00</updated>
+  <updated>2013-12-28T08:12:06+10:00</updated>
   <id>http://buffered.io/</id>
   <author>
     <name><![CDATA[OJ Reeves]]></name>
@@ -131,11 +131,11 @@ oj@air ~/blog/riak/dev $ dev2/bin/riak start
 oj@air ~/blog/riak/dev $ dev3/bin/riak start
 oj@air ~/blog/riak/dev $ dev4/bin/riak start
 oj@air ~/blog/riak/dev $ dev2/bin/riak-admin cluster join dev1
-Success: staged join request for &lsquo;<a href="&#x6d;&#97;&#x69;&#x6c;&#x74;&#111;&#x3a;&#100;&#101;&#x76;&#50;&#x40;&#x31;&#50;&#55;&#46;&#48;&#x2e;&#x30;&#x2e;&#49;">&#100;&#101;&#x76;&#x32;&#x40;&#49;&#50;&#x37;&#x2e;&#48;&#x2e;&#48;&#46;&#49;</a>&rsquo; to dev1
+Success: staged join request for &lsquo;<a href="&#109;&#x61;&#x69;&#x6c;&#x74;&#x6f;&#58;&#x64;&#x65;&#118;&#x32;&#64;&#x31;&#x32;&#x37;&#x2e;&#x30;&#x2e;&#48;&#46;&#x31;">&#x64;&#101;&#118;&#x32;&#x40;&#49;&#x32;&#x37;&#46;&#48;&#x2e;&#48;&#46;&#x31;</a>&rsquo; to dev1
 oj@air ~/blog/riak/dev $ dev3/bin/riak-admin cluster join dev1
-Success: staged join request for &lsquo;<a href="&#x6d;&#97;&#x69;&#x6c;&#116;&#111;&#x3a;&#x64;&#x65;&#118;&#x33;&#x40;&#49;&#x32;&#x37;&#46;&#x30;&#x2e;&#48;&#46;&#49;">&#100;&#101;&#118;&#x33;&#64;&#x31;&#50;&#55;&#x2e;&#x30;&#x2e;&#x30;&#46;&#49;</a>&rsquo; to dev1
+Success: staged join request for &lsquo;<a href="&#x6d;&#x61;&#x69;&#108;&#116;&#x6f;&#x3a;&#x64;&#101;&#118;&#51;&#64;&#49;&#x32;&#55;&#46;&#x30;&#46;&#x30;&#x2e;&#x31;">&#100;&#x65;&#118;&#x33;&#64;&#x31;&#50;&#55;&#x2e;&#x30;&#x2e;&#48;&#46;&#x31;</a>&rsquo; to dev1
 oj@air ~/blog/riak/dev $ dev4/bin/riak-admin cluster join dev1
-Success: staged join request for &lsquo;<a href="&#x6d;&#x61;&#x69;&#108;&#116;&#x6f;&#x3a;&#100;&#101;&#118;&#x34;&#64;&#x31;&#50;&#55;&#46;&#48;&#46;&#48;&#x2e;&#49;">&#100;&#101;&#118;&#52;&#x40;&#x31;&#x32;&#55;&#46;&#x30;&#x2e;&#x30;&#x2e;&#x31;</a>&rsquo; to dev1
+Success: staged join request for &lsquo;<a href="&#109;&#x61;&#105;&#x6c;&#116;&#111;&#58;&#100;&#101;&#x76;&#52;&#x40;&#49;&#50;&#55;&#46;&#x30;&#46;&#x30;&#46;&#x31;">&#x64;&#x65;&#x76;&#x34;&#64;&#x31;&#50;&#55;&#x2e;&#x30;&#46;&#x30;&#x2e;&#49;</a>&rsquo; to dev1
 {% endcodeblock %}</p>
 
 <p>This is where things are a different compared to earlier versions of Riak (&lt;= 1.1.4). Here we have just planned to set up our cluster, we haven&rsquo;t yet actually made any changes. To see the current state of the plan, we can use the new <code>cluster plan</code> command on any of the nodes:</p>
@@ -146,10 +146,10 @@ oj@air ~/blog/riak/dev $ dev1/bin/riak-admin cluster plan
 
 <h2>Action         Nodes(s)</h2>
 
-<p>join           &lsquo;<a href="&#x6d;&#97;&#105;&#x6c;&#116;&#x6f;&#58;&#100;&#101;&#118;&#x32;&#64;&#x31;&#x32;&#x37;&#46;&#x30;&#x2e;&#48;&#46;&#49;">&#x64;&#x65;&#x76;&#x32;&#x40;&#x31;&#50;&#55;&#46;&#x30;&#46;&#48;&#x2e;&#x31;</a>&rsquo;
-join           &lsquo;<a href="&#x6d;&#97;&#105;&#x6c;&#x74;&#111;&#58;&#x64;&#x65;&#118;&#51;&#x40;&#x31;&#50;&#x37;&#x2e;&#48;&#46;&#x30;&#x2e;&#x31;">&#100;&#101;&#x76;&#x33;&#64;&#49;&#x32;&#x37;&#46;&#48;&#46;&#48;&#46;&#x31;</a>&rsquo;</p>
+<p>join           &lsquo;<a href="&#x6d;&#97;&#105;&#x6c;&#116;&#x6f;&#x3a;&#x64;&#101;&#118;&#x32;&#64;&#x31;&#x32;&#x37;&#x2e;&#48;&#x2e;&#48;&#46;&#49;">&#100;&#x65;&#x76;&#50;&#64;&#49;&#x32;&#x37;&#46;&#x30;&#46;&#48;&#x2e;&#x31;</a>&rsquo;
+join           &lsquo;<a href="&#109;&#97;&#x69;&#108;&#116;&#x6f;&#x3a;&#100;&#101;&#x76;&#51;&#64;&#x31;&#x32;&#55;&#x2e;&#x30;&#x2e;&#48;&#46;&#x31;">&#x64;&#x65;&#118;&#51;&#x40;&#x31;&#x32;&#x37;&#46;&#48;&#x2e;&#x30;&#x2e;&#x31;</a>&rsquo;</p>
 
-<h2>join           &lsquo;<a href="&#x6d;&#x61;&#105;&#x6c;&#116;&#111;&#x3a;&#100;&#x65;&#x76;&#x34;&#x40;&#x31;&#50;&#55;&#x2e;&#x30;&#46;&#x30;&#x2e;&#x31;">&#100;&#x65;&#118;&#x34;&#x40;&#x31;&#x32;&#55;&#x2e;&#48;&#x2e;&#48;&#46;&#49;</a>&rsquo;</h2>
+<h2>join           &lsquo;<a href="&#x6d;&#97;&#x69;&#108;&#x74;&#111;&#58;&#x64;&#x65;&#x76;&#x34;&#x40;&#49;&#50;&#x37;&#x2e;&#48;&#46;&#48;&#46;&#x31;">&#x64;&#101;&#118;&#52;&#64;&#49;&#x32;&#x37;&#46;&#x30;&#x2e;&#48;&#46;&#x31;</a>&rsquo;</h2>
 
 <p>NOTE: Applying these changes will result in 1 cluster transition</p>
 
@@ -164,18 +164,18 @@ join           &lsquo;<a href="&#x6d;&#97;&#105;&#x6c;&#x74;&#111;&#58;&#x64;&#x
 
 <h2>Status     Ring    Pending    Node</h2>
 
-<p>valid     100.0%     25.0%    &lsquo;<a href="&#x6d;&#97;&#105;&#x6c;&#116;&#x6f;&#58;&#x64;&#x65;&#118;&#x31;&#64;&#49;&#x32;&#x37;&#x2e;&#x30;&#x2e;&#48;&#x2e;&#49;">&#100;&#101;&#x76;&#49;&#64;&#49;&#x32;&#55;&#46;&#48;&#x2e;&#x30;&#46;&#49;</a>&rsquo;
-valid       0.0%     25.0%    &lsquo;<a href="&#x6d;&#x61;&#x69;&#108;&#116;&#x6f;&#x3a;&#100;&#x65;&#118;&#50;&#64;&#x31;&#x32;&#x37;&#x2e;&#48;&#x2e;&#x30;&#x2e;&#x31;">&#x64;&#x65;&#118;&#50;&#64;&#49;&#x32;&#x37;&#46;&#48;&#46;&#48;&#x2e;&#49;</a>&rsquo;
-valid       0.0%     25.0%    &lsquo;<a href="&#109;&#97;&#x69;&#x6c;&#116;&#x6f;&#x3a;&#100;&#x65;&#118;&#x33;&#64;&#49;&#50;&#x37;&#46;&#x30;&#x2e;&#x30;&#46;&#x31;">&#x64;&#101;&#118;&#51;&#x40;&#49;&#50;&#x37;&#x2e;&#48;&#x2e;&#48;&#x2e;&#49;</a>&rsquo;</p>
+<p>valid     100.0%     25.0%    &lsquo;<a href="&#x6d;&#97;&#x69;&#108;&#x74;&#111;&#58;&#100;&#101;&#118;&#49;&#x40;&#49;&#50;&#x37;&#x2e;&#x30;&#46;&#x30;&#x2e;&#49;">&#x64;&#101;&#118;&#x31;&#64;&#x31;&#50;&#55;&#x2e;&#x30;&#46;&#x30;&#46;&#49;</a>&rsquo;
+valid       0.0%     25.0%    &lsquo;<a href="&#109;&#97;&#105;&#x6c;&#116;&#x6f;&#x3a;&#100;&#x65;&#x76;&#x32;&#64;&#x31;&#50;&#x37;&#46;&#48;&#x2e;&#48;&#46;&#49;">&#100;&#x65;&#118;&#x32;&#64;&#x31;&#x32;&#x37;&#x2e;&#x30;&#46;&#x30;&#46;&#x31;</a>&rsquo;
+valid       0.0%     25.0%    &lsquo;<a href="&#x6d;&#x61;&#105;&#x6c;&#116;&#x6f;&#x3a;&#x64;&#101;&#x76;&#51;&#x40;&#x31;&#x32;&#x37;&#46;&#x30;&#46;&#x30;&#x2e;&#x31;">&#100;&#101;&#118;&#x33;&#x40;&#x31;&#x32;&#55;&#x2e;&#48;&#46;&#48;&#46;&#x31;</a>&rsquo;</p>
 
-<h2>valid       0.0%     25.0%    &lsquo;<a href="&#109;&#x61;&#x69;&#108;&#116;&#111;&#58;&#100;&#101;&#118;&#x34;&#64;&#49;&#50;&#55;&#46;&#x30;&#x2e;&#48;&#46;&#49;">&#x64;&#101;&#118;&#52;&#64;&#x31;&#50;&#55;&#46;&#48;&#46;&#x30;&#46;&#49;</a>&rsquo;</h2>
+<h2>valid       0.0%     25.0%    &lsquo;<a href="&#x6d;&#97;&#105;&#108;&#116;&#x6f;&#58;&#x64;&#x65;&#118;&#x34;&#x40;&#x31;&#x32;&#55;&#x2e;&#48;&#46;&#x30;&#46;&#49;">&#x64;&#x65;&#x76;&#x34;&#x40;&#49;&#x32;&#x37;&#46;&#x30;&#46;&#48;&#x2e;&#49;</a>&rsquo;</h2>
 
 <p>Valid:4 / Leaving:0 / Exiting:0 / Joining:0 / Down:0</p>
 
 <p>Transfers resulting from cluster changes: 48
-  16 transfers from &lsquo;<a href="&#x6d;&#97;&#105;&#x6c;&#116;&#x6f;&#x3a;&#x64;&#x65;&#x76;&#x31;&#x40;&#x31;&#50;&#x37;&#x2e;&#48;&#x2e;&#x30;&#x2e;&#x31;">&#x64;&#101;&#x76;&#x31;&#64;&#49;&#x32;&#55;&#46;&#48;&#x2e;&#48;&#46;&#x31;</a>&rsquo; to &lsquo;<a href="&#109;&#x61;&#105;&#x6c;&#116;&#x6f;&#58;&#x64;&#101;&#x76;&#x34;&#x40;&#x31;&#50;&#x37;&#46;&#x30;&#46;&#48;&#x2e;&#49;">&#x64;&#x65;&#x76;&#x34;&#x40;&#x31;&#50;&#x37;&#46;&#x30;&#x2e;&#x30;&#x2e;&#x31;</a>&rsquo;
-  16 transfers from &lsquo;<a href="&#109;&#x61;&#x69;&#x6c;&#x74;&#111;&#58;&#x64;&#101;&#118;&#49;&#64;&#49;&#50;&#x37;&#x2e;&#48;&#46;&#48;&#46;&#x31;">&#x64;&#x65;&#x76;&#49;&#x40;&#x31;&#x32;&#x37;&#46;&#48;&#x2e;&#x30;&#46;&#49;</a>&rsquo; to &lsquo;<a href="&#x6d;&#97;&#x69;&#108;&#116;&#x6f;&#58;&#x64;&#x65;&#118;&#51;&#64;&#x31;&#50;&#55;&#x2e;&#x30;&#x2e;&#48;&#46;&#x31;">&#100;&#x65;&#x76;&#x33;&#64;&#x31;&#50;&#x37;&#x2e;&#48;&#46;&#48;&#x2e;&#49;</a>&rsquo;
-  16 transfers from &lsquo;<a href="&#109;&#x61;&#105;&#x6c;&#116;&#x6f;&#x3a;&#x64;&#101;&#x76;&#x31;&#x40;&#49;&#x32;&#x37;&#x2e;&#48;&#x2e;&#48;&#x2e;&#49;">&#100;&#x65;&#118;&#49;&#64;&#x31;&#50;&#55;&#46;&#x30;&#x2e;&#x30;&#x2e;&#49;</a>&rsquo; to &lsquo;<a href="&#109;&#97;&#105;&#x6c;&#116;&#x6f;&#58;&#x64;&#101;&#x76;&#x32;&#x40;&#49;&#50;&#x37;&#x2e;&#x30;&#46;&#48;&#x2e;&#49;">&#x64;&#101;&#118;&#x32;&#x40;&#x31;&#50;&#55;&#x2e;&#x30;&#46;&#x30;&#x2e;&#x31;</a>&rsquo;
+  16 transfers from &lsquo;<a href="&#x6d;&#x61;&#x69;&#108;&#116;&#x6f;&#x3a;&#x64;&#101;&#118;&#x31;&#x40;&#49;&#50;&#x37;&#46;&#48;&#46;&#48;&#x2e;&#x31;">&#x64;&#x65;&#x76;&#49;&#64;&#49;&#x32;&#55;&#x2e;&#x30;&#x2e;&#48;&#46;&#49;</a>&rsquo; to &lsquo;<a href="&#109;&#x61;&#x69;&#x6c;&#116;&#111;&#x3a;&#x64;&#101;&#x76;&#52;&#x40;&#x31;&#50;&#x37;&#46;&#48;&#46;&#48;&#x2e;&#49;">&#100;&#x65;&#x76;&#52;&#64;&#x31;&#50;&#x37;&#x2e;&#48;&#x2e;&#x30;&#x2e;&#x31;</a>&rsquo;
+  16 transfers from &lsquo;<a href="&#x6d;&#x61;&#105;&#108;&#116;&#x6f;&#x3a;&#x64;&#101;&#x76;&#49;&#64;&#x31;&#50;&#55;&#46;&#48;&#46;&#x30;&#46;&#x31;">&#100;&#x65;&#x76;&#x31;&#64;&#x31;&#50;&#x37;&#46;&#x30;&#46;&#48;&#x2e;&#x31;</a>&rsquo; to &lsquo;<a href="&#109;&#97;&#105;&#x6c;&#116;&#x6f;&#x3a;&#x64;&#x65;&#x76;&#x33;&#x40;&#x31;&#50;&#x37;&#x2e;&#x30;&#x2e;&#48;&#46;&#49;">&#x64;&#x65;&#118;&#51;&#x40;&#49;&#x32;&#x37;&#x2e;&#48;&#x2e;&#48;&#46;&#49;</a>&rsquo;
+  16 transfers from &lsquo;<a href="&#109;&#x61;&#x69;&#x6c;&#116;&#111;&#x3a;&#100;&#101;&#x76;&#x31;&#x40;&#49;&#50;&#55;&#46;&#48;&#x2e;&#x30;&#46;&#x31;">&#100;&#101;&#118;&#49;&#64;&#49;&#x32;&#55;&#46;&#48;&#46;&#48;&#x2e;&#49;</a>&rsquo; to &lsquo;<a href="&#109;&#97;&#x69;&#108;&#116;&#111;&#x3a;&#x64;&#101;&#x76;&#x32;&#64;&#x31;&#50;&#x37;&#46;&#48;&#x2e;&#48;&#46;&#x31;">&#100;&#x65;&#x76;&#50;&#x40;&#x31;&#x32;&#x37;&#46;&#x30;&#46;&#48;&#46;&#49;</a>&rsquo;
 {% endcodeblock %}</p>
 
 <p>Isn&rsquo;t that awesome! We can plan our cluster set up before actually commiting changes. This gets a big thumbs up from me. In order to commit changes, we use <code>cluster commit</code>:</p>
@@ -188,11 +188,11 @@ oj@air ~/blog/riak/dev $ dev2/bin/riak-admin member-status
 
 <h2>Status     Ring    Pending    Node</h2>
 
-<p>valid      25.0%      &mdash;      &lsquo;<a href="&#109;&#97;&#105;&#x6c;&#116;&#x6f;&#58;&#x64;&#x65;&#x76;&#x31;&#x40;&#49;&#x32;&#x37;&#x2e;&#x30;&#46;&#48;&#x2e;&#49;">&#x64;&#x65;&#118;&#x31;&#64;&#x31;&#50;&#x37;&#46;&#x30;&#x2e;&#x30;&#x2e;&#x31;</a>&rsquo;
-valid      25.0%      &mdash;      &lsquo;<a href="&#x6d;&#x61;&#x69;&#x6c;&#116;&#111;&#58;&#x64;&#101;&#x76;&#x32;&#64;&#49;&#x32;&#55;&#x2e;&#x30;&#x2e;&#48;&#46;&#49;">&#100;&#x65;&#118;&#50;&#64;&#49;&#x32;&#x37;&#x2e;&#48;&#46;&#48;&#46;&#x31;</a>&rsquo;
-valid      25.0%      &mdash;      &lsquo;<a href="&#x6d;&#97;&#x69;&#108;&#x74;&#111;&#x3a;&#x64;&#101;&#x76;&#x33;&#64;&#49;&#50;&#55;&#46;&#48;&#x2e;&#48;&#x2e;&#x31;">&#100;&#x65;&#118;&#x33;&#64;&#x31;&#x32;&#x37;&#x2e;&#x30;&#46;&#x30;&#46;&#49;</a>&rsquo;</p>
+<p>valid      25.0%      &mdash;      &lsquo;<a href="&#109;&#97;&#105;&#108;&#116;&#x6f;&#x3a;&#100;&#x65;&#118;&#x31;&#x40;&#49;&#50;&#x37;&#46;&#48;&#46;&#x30;&#x2e;&#49;">&#x64;&#101;&#x76;&#49;&#64;&#49;&#50;&#x37;&#46;&#x30;&#x2e;&#48;&#x2e;&#x31;</a>&rsquo;
+valid      25.0%      &mdash;      &lsquo;<a href="&#109;&#97;&#x69;&#108;&#x74;&#x6f;&#x3a;&#100;&#x65;&#118;&#50;&#x40;&#49;&#50;&#x37;&#x2e;&#48;&#46;&#x30;&#46;&#49;">&#x64;&#101;&#x76;&#50;&#x40;&#49;&#50;&#x37;&#x2e;&#x30;&#46;&#x30;&#46;&#49;</a>&rsquo;
+valid      25.0%      &mdash;      &lsquo;<a href="&#x6d;&#x61;&#105;&#x6c;&#116;&#111;&#x3a;&#100;&#101;&#x76;&#x33;&#x40;&#49;&#x32;&#55;&#46;&#x30;&#x2e;&#48;&#46;&#49;">&#x64;&#101;&#118;&#x33;&#x40;&#x31;&#x32;&#x37;&#46;&#x30;&#46;&#x30;&#x2e;&#x31;</a>&rsquo;</p>
 
-<h2>valid      25.0%      &mdash;      &lsquo;<a href="&#109;&#x61;&#105;&#x6c;&#x74;&#x6f;&#58;&#x64;&#x65;&#118;&#52;&#64;&#x31;&#x32;&#55;&#46;&#48;&#46;&#x30;&#46;&#x31;">&#x64;&#x65;&#118;&#52;&#64;&#x31;&#50;&#55;&#46;&#x30;&#46;&#x30;&#x2e;&#49;</a>&rsquo;</h2>
+<h2>valid      25.0%      &mdash;      &lsquo;<a href="&#109;&#x61;&#x69;&#108;&#x74;&#111;&#x3a;&#100;&#101;&#118;&#52;&#64;&#x31;&#50;&#x37;&#46;&#48;&#46;&#48;&#46;&#x31;">&#100;&#x65;&#118;&#x34;&#x40;&#49;&#x32;&#x37;&#x2e;&#48;&#x2e;&#x30;&#x2e;&#x31;</a>&rsquo;</h2>
 
 <p>Valid:4 / Leaving:0 / Exiting:0 / Joining:0 / Down:0
 {% endcodeblock %}</p>
@@ -767,7 +767,7 @@ Using sepoll() as the polling mechanism.
 1> {ok, C1} = riakc_pb_socket:start_link(&ldquo;127.0.0.1&rdquo;, 8080).
 {ok,&lt;0.113.0>}
 2> riakc_pb_socket:get_server_info(C1).
-{ok,[{node,&lt;&lt;&ldquo;<a href="&#109;&#97;&#105;&#108;&#x74;&#x6f;&#58;&#x64;&#101;&#x76;&#x32;&#64;&#x31;&#x32;&#x37;&#x2e;&#48;&#46;&#x30;&#x2e;&#x31;">&#x64;&#101;&#x76;&#x32;&#64;&#49;&#50;&#x37;&#x2e;&#48;&#46;&#x30;&#46;&#49;</a>&rdquo;>>},</p>
+{ok,[{node,&lt;&lt;&ldquo;<a href="&#109;&#97;&#105;&#x6c;&#116;&#111;&#x3a;&#x64;&#x65;&#x76;&#50;&#x40;&#x31;&#50;&#55;&#x2e;&#48;&#46;&#x30;&#46;&#x31;">&#100;&#101;&#118;&#x32;&#64;&#49;&#50;&#x37;&#46;&#x30;&#x2e;&#48;&#x2e;&#49;</a>&rdquo;>>},</p>
 
 <pre><code> {server_version,&lt;&lt;"1.1.2"&gt;&gt;}]}
 </code></pre>
@@ -775,7 +775,7 @@ Using sepoll() as the polling mechanism.
 <p>3> {ok, C2} = riakc_pb_socket:start_link(&ldquo;127.0.0.1&rdquo;, 8080).
 {ok,&lt;0.116.0>}
 4> riakc_pb_socket:get_server_info(C2).                   <br/>
-{ok,[{node,&lt;&lt;&ldquo;<a href="&#x6d;&#x61;&#105;&#108;&#x74;&#x6f;&#58;&#x64;&#101;&#x76;&#51;&#x40;&#49;&#x32;&#55;&#x2e;&#48;&#46;&#x30;&#x2e;&#x31;">&#100;&#101;&#x76;&#x33;&#x40;&#x31;&#x32;&#x37;&#46;&#x30;&#46;&#x30;&#x2e;&#49;</a>&rdquo;>>},</p>
+{ok,[{node,&lt;&lt;&ldquo;<a href="&#109;&#x61;&#105;&#x6c;&#x74;&#x6f;&#x3a;&#100;&#x65;&#118;&#51;&#64;&#49;&#50;&#x37;&#46;&#x30;&#46;&#x30;&#x2e;&#x31;">&#x64;&#101;&#118;&#51;&#64;&#x31;&#x32;&#55;&#x2e;&#48;&#46;&#48;&#46;&#49;</a>&rdquo;>>},</p>
 
 <pre><code> {server_version,&lt;&lt;"1.1.2"&gt;&gt;}]}
 </code></pre>
@@ -783,7 +783,7 @@ Using sepoll() as the polling mechanism.
 <p>5> {ok, C3} = riakc_pb_socket:start_link(&ldquo;127.0.0.1&rdquo;, 8080).
 {ok,&lt;0.119.0>}
 6> riakc_pb_socket:get_server_info(C3).                   <br/>
-{ok,[{node,&lt;&lt;&ldquo;<a href="&#x6d;&#97;&#105;&#108;&#116;&#111;&#x3a;&#100;&#101;&#118;&#52;&#x40;&#49;&#50;&#55;&#x2e;&#48;&#46;&#x30;&#x2e;&#49;">&#x64;&#x65;&#x76;&#52;&#x40;&#x31;&#50;&#55;&#46;&#48;&#x2e;&#x30;&#x2e;&#49;</a>&rdquo;>>},</p>
+{ok,[{node,&lt;&lt;&ldquo;<a href="&#x6d;&#x61;&#x69;&#108;&#116;&#x6f;&#58;&#x64;&#x65;&#x76;&#52;&#64;&#49;&#50;&#x37;&#46;&#48;&#46;&#48;&#46;&#49;">&#100;&#x65;&#x76;&#52;&#64;&#x31;&#50;&#x37;&#x2e;&#48;&#46;&#x30;&#46;&#49;</a>&rdquo;>>},</p>
 
 <pre><code> {server_version,&lt;&lt;"1.1.2"&gt;&gt;}]}
 </code></pre>
@@ -791,7 +791,7 @@ Using sepoll() as the polling mechanism.
 <p>7> {ok, C4} = riakc_pb_socket:start_link(&ldquo;127.0.0.1&rdquo;, 8080).
 {ok,&lt;0.122.0>}
 8> riakc_pb_socket:get_server_info(C4).                   <br/>
-{ok,[{node,&lt;&lt;&ldquo;<a href="&#x6d;&#x61;&#x69;&#x6c;&#x74;&#x6f;&#58;&#100;&#x65;&#118;&#49;&#64;&#49;&#x32;&#55;&#46;&#x30;&#x2e;&#x30;&#46;&#x31;">&#100;&#x65;&#x76;&#49;&#64;&#x31;&#50;&#x37;&#46;&#48;&#46;&#x30;&#x2e;&#49;</a>&rdquo;>>},</p>
+{ok,[{node,&lt;&lt;&ldquo;<a href="&#x6d;&#x61;&#x69;&#108;&#x74;&#111;&#x3a;&#x64;&#101;&#x76;&#49;&#64;&#x31;&#50;&#55;&#x2e;&#48;&#46;&#x30;&#x2e;&#49;">&#x64;&#x65;&#x76;&#49;&#64;&#x31;&#x32;&#x37;&#x2e;&#x30;&#x2e;&#x30;&#46;&#x31;</a>&rdquo;>>},</p>
 
 <pre><code> {server_version,&lt;&lt;"1.1.2"&gt;&gt;}]}
 </code></pre>
@@ -820,7 +820,7 @@ ok
 10> {ok, C1} = riakc_pb_socket:start_link(&ldquo;127.0.0.1&rdquo;, 8080).
 {ok,&lt;0.128.0>}
 11> riakc_pb_socket:get_server_info(C1).                   <br/>
-{ok,[{node,&lt;&lt;&ldquo;<a href="&#109;&#97;&#105;&#108;&#x74;&#111;&#x3a;&#x64;&#x65;&#118;&#x34;&#x40;&#x31;&#50;&#55;&#x2e;&#x30;&#46;&#x30;&#46;&#49;">&#x64;&#101;&#118;&#52;&#64;&#49;&#50;&#55;&#x2e;&#48;&#46;&#x30;&#46;&#x31;</a>&rdquo;>>},</p>
+{ok,[{node,&lt;&lt;&ldquo;<a href="&#109;&#97;&#105;&#x6c;&#x74;&#111;&#x3a;&#x64;&#x65;&#x76;&#52;&#x40;&#x31;&#50;&#55;&#46;&#x30;&#x2e;&#x30;&#46;&#49;">&#100;&#x65;&#x76;&#x34;&#x40;&#49;&#50;&#55;&#x2e;&#48;&#46;&#x30;&#46;&#x31;</a>&rdquo;>>},</p>
 
 <pre><code> {server_version,&lt;&lt;"1.1.2"&gt;&gt;}]}
 </code></pre>
@@ -828,7 +828,7 @@ ok
 <p>12> {ok, C2} = riakc_pb_socket:start_link(&ldquo;127.0.0.1&rdquo;, 8080).
 {ok,&lt;0.131.0>}
 13> riakc_pb_socket:get_server_info(C2).                   <br/>
-{ok,[{node,&lt;&lt;&ldquo;<a href="&#109;&#x61;&#105;&#108;&#116;&#111;&#x3a;&#x64;&#x65;&#118;&#x31;&#64;&#x31;&#x32;&#x37;&#46;&#x30;&#46;&#48;&#46;&#49;">&#100;&#101;&#x76;&#49;&#64;&#x31;&#x32;&#x37;&#46;&#48;&#46;&#x30;&#46;&#49;</a>&rdquo;>>},</p>
+{ok,[{node,&lt;&lt;&ldquo;<a href="&#109;&#97;&#105;&#108;&#116;&#x6f;&#58;&#x64;&#101;&#118;&#x31;&#64;&#x31;&#50;&#55;&#x2e;&#48;&#46;&#x30;&#x2e;&#x31;">&#100;&#101;&#118;&#49;&#x40;&#49;&#50;&#55;&#46;&#x30;&#x2e;&#x30;&#x2e;&#x31;</a>&rdquo;>>},</p>
 
 <pre><code> {server_version,&lt;&lt;"1.1.2"&gt;&gt;}]}
 </code></pre>
@@ -836,7 +836,7 @@ ok
 <p>14> {ok, C3} = riakc_pb_socket:start_link(&ldquo;127.0.0.1&rdquo;, 8080).
 {ok,&lt;0.134.0>}
 15> riakc_pb_socket:get_server_info(C3).                   <br/>
-{ok,[{node,&lt;&lt;&ldquo;<a href="&#x6d;&#97;&#x69;&#108;&#x74;&#x6f;&#x3a;&#x64;&#x65;&#118;&#x32;&#x40;&#x31;&#x32;&#x37;&#x2e;&#48;&#x2e;&#48;&#x2e;&#49;">&#100;&#101;&#x76;&#x32;&#64;&#x31;&#x32;&#x37;&#x2e;&#x30;&#46;&#x30;&#x2e;&#49;</a>&rdquo;>>},</p>
+{ok,[{node,&lt;&lt;&ldquo;<a href="&#x6d;&#97;&#x69;&#108;&#116;&#x6f;&#x3a;&#100;&#x65;&#x76;&#50;&#64;&#49;&#50;&#x37;&#x2e;&#48;&#x2e;&#x30;&#46;&#x31;">&#100;&#101;&#x76;&#x32;&#64;&#49;&#50;&#x37;&#x2e;&#x30;&#46;&#x30;&#46;&#49;</a>&rdquo;>>},</p>
 
 <pre><code> {server_version,&lt;&lt;"1.1.2"&gt;&gt;}]}
 </code></pre>
@@ -844,7 +844,7 @@ ok
 <p>16> {ok, C4} = riakc_pb_socket:start_link(&ldquo;127.0.0.1&rdquo;, 8080).
 {ok,&lt;0.137.0>}
 17> riakc_pb_socket:get_server_info(C4).                   <br/>
-{ok,[{node,&lt;&lt;&ldquo;<a href="&#109;&#97;&#x69;&#x6c;&#x74;&#x6f;&#58;&#100;&#x65;&#118;&#x34;&#64;&#49;&#x32;&#55;&#x2e;&#x30;&#46;&#x30;&#46;&#49;">&#100;&#x65;&#x76;&#x34;&#64;&#x31;&#50;&#x37;&#46;&#48;&#x2e;&#48;&#46;&#49;</a>&rdquo;>>},</p>
+{ok,[{node,&lt;&lt;&ldquo;<a href="&#x6d;&#x61;&#x69;&#108;&#116;&#x6f;&#58;&#x64;&#x65;&#x76;&#52;&#64;&#x31;&#50;&#55;&#x2e;&#x30;&#46;&#x30;&#x2e;&#x31;">&#x64;&#x65;&#x76;&#x34;&#x40;&#49;&#x32;&#55;&#46;&#48;&#46;&#48;&#x2e;&#49;</a>&rdquo;>>},</p>
 
 <pre><code> {server_version,&lt;&lt;"1.1.2"&gt;&gt;}]}
 </code></pre>
@@ -873,7 +873,7 @@ ok
 19> {ok, C1} = riakc_pb_socket:start_link(&ldquo;127.0.0.1&rdquo;, 8080).
 {ok,&lt;0.141.0>}
 20> riakc_pb_socket:get_server_info(C1).                   <br/>
-{ok,[{node,&lt;&lt;&ldquo;<a href="&#109;&#x61;&#x69;&#108;&#116;&#x6f;&#58;&#x64;&#x65;&#x76;&#x31;&#64;&#49;&#50;&#x37;&#46;&#48;&#x2e;&#x30;&#x2e;&#x31;">&#x64;&#101;&#x76;&#49;&#64;&#x31;&#x32;&#x37;&#x2e;&#x30;&#x2e;&#x30;&#46;&#x31;</a>&rdquo;>>},</p>
+{ok,[{node,&lt;&lt;&ldquo;<a href="&#109;&#97;&#105;&#x6c;&#x74;&#x6f;&#58;&#100;&#101;&#118;&#49;&#x40;&#x31;&#50;&#55;&#46;&#48;&#46;&#48;&#x2e;&#x31;">&#x64;&#101;&#118;&#x31;&#64;&#49;&#x32;&#55;&#46;&#x30;&#x2e;&#48;&#46;&#49;</a>&rdquo;>>},</p>
 
 <pre><code> {server_version,&lt;&lt;"1.1.2"&gt;&gt;}]}
 </code></pre>
@@ -881,7 +881,7 @@ ok
 <p>21> {ok, C2} = riakc_pb_socket:start_link(&ldquo;127.0.0.1&rdquo;, 8080).
 {ok,&lt;0.144.0>}
 22> riakc_pb_socket:get_server_info(C2).                   <br/>
-{ok,[{node,&lt;&lt;&ldquo;<a href="&#x6d;&#x61;&#x69;&#108;&#116;&#111;&#58;&#100;&#101;&#118;&#50;&#64;&#49;&#x32;&#x37;&#x2e;&#48;&#46;&#48;&#x2e;&#49;">&#100;&#x65;&#x76;&#x32;&#64;&#x31;&#50;&#x37;&#x2e;&#48;&#x2e;&#x30;&#x2e;&#x31;</a>&rdquo;>>},</p>
+{ok,[{node,&lt;&lt;&ldquo;<a href="&#109;&#x61;&#105;&#108;&#116;&#111;&#58;&#x64;&#101;&#118;&#50;&#64;&#49;&#50;&#55;&#46;&#x30;&#x2e;&#48;&#x2e;&#x31;">&#100;&#101;&#118;&#x32;&#64;&#49;&#50;&#55;&#46;&#48;&#46;&#x30;&#x2e;&#49;</a>&rdquo;>>},</p>
 
 <pre><code> {server_version,&lt;&lt;"1.1.2"&gt;&gt;}]}
 </code></pre>
@@ -889,7 +889,7 @@ ok
 <p>23> {ok, C3} = riakc_pb_socket:start_link(&ldquo;127.0.0.1&rdquo;, 8080).
 {ok,&lt;0.147.0>}
 24> riakc_pb_socket:get_server_info(C3).                   <br/>
-{ok,[{node,&lt;&lt;&ldquo;<a href="&#x6d;&#97;&#x69;&#108;&#116;&#x6f;&#58;&#x64;&#x65;&#x76;&#51;&#x40;&#49;&#x32;&#x37;&#x2e;&#x30;&#x2e;&#48;&#x2e;&#x31;">&#x64;&#101;&#x76;&#51;&#x40;&#x31;&#x32;&#55;&#x2e;&#x30;&#46;&#x30;&#46;&#49;</a>&rdquo;>>},</p>
+{ok,[{node,&lt;&lt;&ldquo;<a href="&#x6d;&#x61;&#105;&#x6c;&#x74;&#x6f;&#x3a;&#100;&#x65;&#x76;&#51;&#x40;&#49;&#50;&#x37;&#x2e;&#x30;&#46;&#x30;&#x2e;&#x31;">&#x64;&#x65;&#x76;&#51;&#x40;&#x31;&#50;&#x37;&#46;&#x30;&#46;&#48;&#x2e;&#x31;</a>&rdquo;>>},</p>
 
 <pre><code> {server_version,&lt;&lt;"1.1.2"&gt;&gt;}]}
 </code></pre>
@@ -897,7 +897,7 @@ ok
 <p>25> {ok, C4} = riakc_pb_socket:start_link(&ldquo;127.0.0.1&rdquo;, 8080).
 {ok,&lt;0.150.0>}
 26> riakc_pb_socket:get_server_info(C4).                   <br/>
-{ok,[{node,&lt;&lt;&ldquo;<a href="&#x6d;&#97;&#105;&#108;&#x74;&#x6f;&#x3a;&#100;&#x65;&#118;&#x34;&#x40;&#x31;&#x32;&#x37;&#46;&#48;&#46;&#48;&#x2e;&#x31;">&#100;&#x65;&#118;&#52;&#64;&#x31;&#50;&#x37;&#46;&#48;&#46;&#48;&#46;&#x31;</a>&rdquo;>>},</p>
+{ok,[{node,&lt;&lt;&ldquo;<a href="&#x6d;&#97;&#105;&#x6c;&#116;&#x6f;&#58;&#x64;&#x65;&#118;&#x34;&#x40;&#x31;&#x32;&#55;&#46;&#48;&#46;&#48;&#x2e;&#49;">&#x64;&#101;&#118;&#52;&#x40;&#x31;&#x32;&#x37;&#x2e;&#48;&#46;&#x30;&#x2e;&#49;</a>&rdquo;>>},</p>
 
 <pre><code> {server_version,&lt;&lt;"1.1.2"&gt;&gt;}]}
 </code></pre>
@@ -1169,13 +1169,13 @@ Writing src/csd_core_sup.erl
 <p>We have a very simple application shell set up, but we need to do a bit more work to get it ready. First, let&rsquo;s create our base <code>csd_core.erl</code> module which is used to fire up our application. For this we will use <code>csd_web.erl</code> (the one which is part of our Webmachine application) as a template. Note that I&rsquo;ve shuffled things around and removed some things that are not relevant:</p>
 
 <p>{% codeblock apps/csd_core/src/csd_core.erl lang:erlang %}
-%% @author OJ Reeves <a href="&#x6d;&#97;&#105;&#108;&#x74;&#111;&#x3a;&#111;&#x6a;&#64;&#98;&#117;&#102;&#102;&#101;&#114;&#x65;&#100;&#x2e;&#105;&#x6f;">&#x6f;&#x6a;&#x40;&#98;&#x75;&#102;&#102;&#x65;&#114;&#x65;&#x64;&#46;&#x69;&#x6f;</a>
+%% @author OJ Reeves <a href="&#x6d;&#97;&#105;&#x6c;&#116;&#111;&#58;&#x6f;&#x6a;&#x40;&#x62;&#x75;&#x66;&#x66;&#x65;&#114;&#x65;&#x64;&#46;&#105;&#x6f;">&#x6f;&#x6a;&#64;&#98;&#117;&#x66;&#x66;&#101;&#114;&#x65;&#x64;&#46;&#x69;&#111;</a>
 %% @copyright 2011 OJ Reeves</p>
 
 <p>%% @doc csd_core startup code</p>
 
 <p>-module(csd_core).
--author(&lsquo;OJ Reeves <a href="&#109;&#x61;&#105;&#108;&#x74;&#x6f;&#58;&#x6f;&#x6a;&#x40;&#x62;&#x75;&#102;&#102;&#101;&#114;&#x65;&#x64;&#46;&#105;&#x6f;">&#x6f;&#106;&#64;&#x62;&#x75;&#x66;&#102;&#x65;&#x72;&#x65;&#x64;&#46;&#x69;&#111;</a>&rsquo;).
+-author(&lsquo;OJ Reeves <a href="&#109;&#x61;&#105;&#x6c;&#116;&#x6f;&#x3a;&#x6f;&#106;&#64;&#x62;&#117;&#102;&#102;&#x65;&#114;&#x65;&#100;&#x2e;&#105;&#x6f;">&#111;&#x6a;&#64;&#98;&#x75;&#x66;&#x66;&#x65;&#114;&#101;&#100;&#x2e;&#105;&#x6f;</a>&rsquo;).
 -export([start/0, start_link/0, stop/0]).</p>
 
 <p>ensure_started(App) &ndash;></p>
@@ -1824,12 +1824,12 @@ fetch(RiakPid, Key) &ndash;>
 <p>In order to gain access to our data in Riak from the web we need to create a new resource. This resource will respond to any URI of the form <code>/snippet/&lt;key&gt;</code>. We shall call this resource <code>csd_web_snippet_resource</code> and we&rsquo;ll be putting this in our web application. It looks like this:</p>
 
 <p>{% codeblock apps/csd_web/src/csd_web_snippet_resource.erl lang:erlang %}
-%% @author OJ Reeves <a href="&#x6d;&#97;&#105;&#108;&#116;&#x6f;&#58;&#x6f;&#106;&#64;&#98;&#117;&#x66;&#x66;&#101;&#x72;&#x65;&#100;&#46;&#x69;&#x6f;">&#x6f;&#106;&#x40;&#98;&#x75;&#102;&#102;&#101;&#x72;&#101;&#x64;&#46;&#105;&#111;</a>
+%% @author OJ Reeves <a href="&#x6d;&#97;&#105;&#108;&#116;&#x6f;&#x3a;&#x6f;&#x6a;&#x40;&#98;&#x75;&#x66;&#102;&#101;&#x72;&#x65;&#100;&#46;&#x69;&#111;">&#x6f;&#106;&#64;&#98;&#117;&#102;&#102;&#x65;&#114;&#101;&#100;&#46;&#105;&#x6f;</a>
 %% @copyright 2010 OJ Reeves
 %% @doc Webmachine resource that handles snippet-related actions</p>
 
 <p>-module(csd_web_snippet_resource).
--author(&lsquo;OJ Reeves <a href="&#109;&#97;&#105;&#x6c;&#116;&#111;&#x3a;&#111;&#x6a;&#x40;&#x62;&#117;&#102;&#x66;&#101;&#x72;&#101;&#x64;&#x2e;&#x69;&#111;">&#x6f;&#x6a;&#64;&#x62;&#117;&#102;&#102;&#101;&#114;&#101;&#100;&#46;&#105;&#111;</a>&rsquo;).</p>
+-author(&lsquo;OJ Reeves <a href="&#x6d;&#x61;&#105;&#108;&#116;&#111;&#58;&#x6f;&#x6a;&#64;&#98;&#117;&#102;&#102;&#101;&#x72;&#x65;&#x64;&#46;&#x69;&#x6f;">&#111;&#x6a;&#64;&#98;&#x75;&#102;&#102;&#101;&#114;&#x65;&#x64;&#46;&#105;&#x6f;</a>&rsquo;).</p>
 
 <p>-export([init/1, to_html/2]).</p>
 
@@ -2110,13 +2110,13 @@ Compiled src/pooler.erl</p>
 <p>Given that we&rsquo;re using <code>pooler</code> the first thing we need to do is make sure that it loads and runs when <code>csd_core</code> fires up. To do this, we need to modify <code>csd_core.erl</code> so that it looks like this:</p>
 
 <p>{% codeblock apps/csd_core/src/csd_core.erl lang:erlang %}
-%% @author OJ Reeves <a href="&#109;&#97;&#x69;&#x6c;&#x74;&#111;&#58;&#111;&#106;&#x40;&#98;&#x75;&#x66;&#102;&#x65;&#114;&#101;&#100;&#x2e;&#105;&#x6f;">&#x6f;&#106;&#x40;&#98;&#117;&#102;&#102;&#x65;&#114;&#101;&#x64;&#x2e;&#105;&#111;</a>
+%% @author OJ Reeves <a href="&#109;&#97;&#x69;&#108;&#x74;&#x6f;&#58;&#x6f;&#x6a;&#64;&#x62;&#x75;&#x66;&#102;&#x65;&#114;&#x65;&#x64;&#x2e;&#x69;&#x6f;">&#x6f;&#x6a;&#64;&#x62;&#117;&#x66;&#102;&#101;&#x72;&#x65;&#100;&#x2e;&#105;&#111;</a>
 %% @copyright 2011 OJ Reeves</p>
 
 <p>%% @doc csd_core startup code</p>
 
 <p>-module(csd_core).
--author(&lsquo;OJ Reeves <a href="&#109;&#97;&#105;&#108;&#x74;&#x6f;&#x3a;&#111;&#106;&#x40;&#x62;&#117;&#x66;&#x66;&#x65;&#x72;&#101;&#x64;&#x2e;&#105;&#x6f;">&#x6f;&#106;&#x40;&#98;&#117;&#102;&#102;&#x65;&#114;&#101;&#100;&#46;&#x69;&#111;</a>&rsquo;).
+-author(&lsquo;OJ Reeves <a href="&#109;&#x61;&#105;&#x6c;&#x74;&#x6f;&#58;&#111;&#106;&#64;&#x62;&#x75;&#102;&#102;&#101;&#x72;&#101;&#x64;&#x2e;&#105;&#111;">&#x6f;&#x6a;&#64;&#x62;&#x75;&#x66;&#x66;&#101;&#x72;&#101;&#x64;&#x2e;&#105;&#111;</a>&rsquo;).
 -export([start/0, start_link/0, stop/0]).</p>
 
 <p>ensure_started(App) &ndash;></p>
@@ -2539,13 +2539,13 @@ webstart: app</p>
 
 <p>{% codeblock apps/csd_web/src/csd_web.erl lang:erlang %}</p>
 
-<p>%% @author OJ Reeves <a href="&#x6d;&#97;&#x69;&#108;&#x74;&#111;&#x3a;&#x6f;&#x6a;&#x40;&#x62;&#117;&#x66;&#102;&#x65;&#x72;&#x65;&#x64;&#x2e;&#105;&#x6f;">&#111;&#106;&#x40;&#x62;&#117;&#102;&#x66;&#x65;&#x72;&#101;&#100;&#x2e;&#x69;&#111;</a>
+<p>%% @author OJ Reeves <a href="&#109;&#x61;&#x69;&#108;&#116;&#x6f;&#x3a;&#x6f;&#x6a;&#x40;&#x62;&#x75;&#x66;&#x66;&#101;&#x72;&#x65;&#x64;&#x2e;&#105;&#111;">&#111;&#x6a;&#x40;&#98;&#x75;&#x66;&#x66;&#101;&#114;&#101;&#100;&#x2e;&#x69;&#111;</a>
 %% @copyright 2012 OJ Reeves.</p>
 
 <p>%% @doc csd_web startup code</p>
 
 <p>-module(csd_web).
--author(&lsquo;OJ Reeves <a href="&#109;&#97;&#105;&#108;&#x74;&#x6f;&#x3a;&#111;&#106;&#x40;&#x62;&#117;&#102;&#102;&#x65;&#114;&#101;&#x64;&#x2e;&#x69;&#x6f;">&#x6f;&#x6a;&#64;&#98;&#117;&#102;&#x66;&#101;&#114;&#x65;&#100;&#46;&#x69;&#111;</a>&rsquo;).
+-author(&lsquo;OJ Reeves <a href="&#x6d;&#97;&#x69;&#108;&#116;&#111;&#58;&#x6f;&#106;&#x40;&#x62;&#x75;&#102;&#102;&#101;&#114;&#101;&#100;&#46;&#x69;&#x6f;">&#x6f;&#x6a;&#64;&#x62;&#x75;&#102;&#x66;&#101;&#x72;&#x65;&#100;&#46;&#105;&#111;</a>&rsquo;).
 -export([start/0, start_link/0, stop/0]).</p>
 
 <p>ensure_started(App) &ndash;>
@@ -2598,12 +2598,12 @@ stop() &ndash;>
 
 <p>{% codeblock apps/csd_web/src/twitter.erl lang:erlang %}</p>
 
-<p>%% @author OJ Reeves <a href="&#x6d;&#97;&#x69;&#x6c;&#x74;&#111;&#x3a;&#x6f;&#106;&#x40;&#98;&#x75;&#x66;&#102;&#101;&#x72;&#x65;&#x64;&#46;&#x69;&#111;">&#x6f;&#106;&#x40;&#x62;&#117;&#102;&#x66;&#101;&#114;&#101;&#x64;&#46;&#x69;&#x6f;</a>
+<p>%% @author OJ Reeves <a href="&#109;&#97;&#105;&#x6c;&#116;&#x6f;&#58;&#111;&#106;&#64;&#98;&#117;&#102;&#x66;&#101;&#x72;&#101;&#x64;&#46;&#105;&#111;">&#x6f;&#x6a;&#x40;&#98;&#117;&#102;&#102;&#101;&#114;&#101;&#100;&#x2e;&#x69;&#x6f;</a>
 %% @copyright 2012 OJ Reeves</p>
 
 <p>-module(twitter).</p>
 
-<p>-author(&lsquo;OJ Reeves <a href="&#x6d;&#97;&#105;&#108;&#116;&#x6f;&#x3a;&#x6f;&#x6a;&#x40;&#x62;&#117;&#102;&#x66;&#101;&#x72;&#x65;&#x64;&#x2e;&#105;&#111;">&#x6f;&#106;&#64;&#x62;&#117;&#102;&#x66;&#x65;&#x72;&#101;&#100;&#x2e;&#105;&#x6f;</a>&rsquo;).</p>
+<p>-author(&lsquo;OJ Reeves <a href="&#x6d;&#97;&#x69;&#x6c;&#116;&#x6f;&#58;&#x6f;&#x6a;&#x40;&#x62;&#x75;&#x66;&#x66;&#x65;&#x72;&#x65;&#x64;&#46;&#x69;&#x6f;">&#x6f;&#x6a;&#x40;&#x62;&#117;&#x66;&#102;&#x65;&#114;&#x65;&#100;&#x2e;&#x69;&#111;</a>&rsquo;).</p>
 
 <p>-export([request_access/0, verify_access/3, get_current_user_info/2]).</p>
 
@@ -2670,12 +2670,12 @@ call_json_service(UrlKey, AccessToken, AccessTokenSecret) &ndash;>
 
 <p>{% codeblock apps/csd_web/src/cookie.erl (partial) lang:erlang %}</p>
 
-<p>%% @author OJ Reeves <a href="&#109;&#x61;&#105;&#x6c;&#116;&#x6f;&#x3a;&#111;&#x6a;&#64;&#x62;&#117;&#x66;&#102;&#101;&#x72;&#x65;&#x64;&#x2e;&#x69;&#x6f;">&#111;&#x6a;&#64;&#x62;&#117;&#102;&#x66;&#101;&#114;&#101;&#100;&#x2e;&#105;&#x6f;</a>
+<p>%% @author OJ Reeves <a href="&#x6d;&#97;&#105;&#108;&#116;&#x6f;&#58;&#x6f;&#106;&#x40;&#98;&#x75;&#102;&#x66;&#101;&#x72;&#101;&#x64;&#x2e;&#x69;&#111;">&#x6f;&#x6a;&#64;&#98;&#x75;&#102;&#102;&#101;&#x72;&#101;&#100;&#x2e;&#105;&#111;</a>
 %% @copyright 2012 OJ Reeves</p>
 
 <p>-module(cookie).</p>
 
-<p>-author(&lsquo;OJ Reeves <a href="&#109;&#x61;&#105;&#108;&#116;&#111;&#x3a;&#x6f;&#x6a;&#64;&#x62;&#117;&#x66;&#102;&#101;&#114;&#x65;&#100;&#x2e;&#x69;&#x6f;">&#x6f;&#x6a;&#64;&#x62;&#x75;&#x66;&#x66;&#x65;&#x72;&#x65;&#x64;&#x2e;&#x69;&#x6f;</a>&rsquo;).</p>
+<p>-author(&lsquo;OJ Reeves <a href="&#x6d;&#x61;&#105;&#108;&#x74;&#x6f;&#x3a;&#x6f;&#106;&#64;&#x62;&#x75;&#x66;&#102;&#101;&#114;&#101;&#x64;&#x2e;&#x69;&#x6f;">&#x6f;&#x6a;&#64;&#x62;&#117;&#102;&#x66;&#x65;&#x72;&#101;&#x64;&#46;&#105;&#x6f;</a>&rsquo;).</p>
 
 <p>-export([load_auth/1, store_auth/5]).</p>
 
@@ -2872,12 +2872,12 @@ _ -&gt;
 <p>The <code>csd_view</code> module is new and was created to abstract the idea of template rendering. All the ErlyDTL handling happens in <code>csd_view</code>. Let&rsquo;s take a look at it now.</p>
 
 <p>{% codeblock apps/csd_web/src/csd_view.erl (partial) lang:erlang %}
-%% @author OJ Reeves <a href="&#x6d;&#97;&#x69;&#108;&#x74;&#x6f;&#x3a;&#111;&#106;&#64;&#98;&#117;&#x66;&#102;&#x65;&#x72;&#x65;&#100;&#46;&#x69;&#111;">&#111;&#106;&#x40;&#x62;&#117;&#102;&#102;&#x65;&#114;&#x65;&#100;&#46;&#105;&#x6f;</a>
+%% @author OJ Reeves <a href="&#109;&#97;&#105;&#x6c;&#116;&#x6f;&#58;&#x6f;&#106;&#64;&#98;&#117;&#102;&#x66;&#101;&#x72;&#x65;&#x64;&#46;&#x69;&#111;">&#111;&#x6a;&#64;&#98;&#117;&#102;&#x66;&#x65;&#114;&#101;&#x64;&#46;&#x69;&#111;</a>
 %% @copyright 2012 OJ Reeves</p>
 
 <p>-module(csd_view).</p>
 
-<p>-author(&lsquo;OJ Reeves <a href="&#x6d;&#x61;&#105;&#x6c;&#x74;&#111;&#x3a;&#x6f;&#106;&#x40;&#98;&#x75;&#102;&#x66;&#x65;&#114;&#x65;&#x64;&#46;&#105;&#111;">&#111;&#x6a;&#64;&#x62;&#x75;&#102;&#102;&#x65;&#114;&#x65;&#100;&#46;&#x69;&#111;</a>&rsquo;).</p>
+<p>-author(&lsquo;OJ Reeves <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#111;&#106;&#x40;&#98;&#117;&#102;&#x66;&#101;&#x72;&#101;&#x64;&#x2e;&#105;&#x6f;">&#x6f;&#106;&#64;&#98;&#117;&#102;&#x66;&#x65;&#x72;&#x65;&#x64;&#x2e;&#x69;&#x6f;</a>&rsquo;).</p>
 
 <p>-export([home/0, home/1]).</p>
 
@@ -2953,12 +2953,12 @@ _ -&gt;
 <p>Easily done. Now let&rsquo;s look at the implementation of the first handler which handles the <code>/oauth/request</code> URI, <code>csd_web_request_resource</code>.</p>
 
 <p>{% codeblock apps/csd_web/src/csd_web_request_resource.erl lang:erlang %}
-%% @author OJ Reeves <a href="&#x6d;&#97;&#x69;&#x6c;&#116;&#x6f;&#x3a;&#x6f;&#x6a;&#64;&#98;&#x75;&#x66;&#102;&#101;&#114;&#101;&#100;&#x2e;&#x69;&#111;">&#111;&#x6a;&#64;&#x62;&#x75;&#x66;&#x66;&#x65;&#114;&#x65;&#x64;&#46;&#x69;&#111;</a>
+%% @author OJ Reeves <a href="&#x6d;&#x61;&#x69;&#108;&#116;&#x6f;&#58;&#111;&#x6a;&#64;&#98;&#x75;&#102;&#x66;&#101;&#114;&#101;&#x64;&#46;&#105;&#111;">&#111;&#x6a;&#x40;&#x62;&#117;&#x66;&#x66;&#101;&#114;&#101;&#x64;&#46;&#105;&#x6f;</a>
 %% @copyright 2012 OJ Reeves</p>
 
 <p>-module(csd_web_request_resource).</p>
 
-<p>-author(&lsquo;OJ Reeves <a href="&#109;&#97;&#x69;&#x6c;&#x74;&#111;&#58;&#x6f;&#x6a;&#64;&#x62;&#x75;&#102;&#x66;&#101;&#x72;&#x65;&#100;&#46;&#x69;&#x6f;">&#111;&#106;&#x40;&#x62;&#x75;&#102;&#102;&#x65;&#x72;&#101;&#100;&#x2e;&#105;&#x6f;</a>&rsquo;).</p>
+<p>-author(&lsquo;OJ Reeves <a href="&#109;&#x61;&#105;&#108;&#116;&#111;&#58;&#x6f;&#106;&#64;&#x62;&#117;&#102;&#x66;&#101;&#x72;&#x65;&#100;&#46;&#105;&#111;">&#111;&#x6a;&#x40;&#98;&#117;&#x66;&#102;&#101;&#x72;&#x65;&#100;&#46;&#x69;&#111;</a>&rsquo;).</p>
 
 <p>-export([init/1, resource_exists/2, previously_existed/2, moved_temporarily/2]).</p>
 
@@ -2989,12 +2989,12 @@ _ -&gt;
 <p>Exciting! We&rsquo;re nearly there. Don&rsquo;t click &ldquo;Sign In&rdquo; just yet because we don&rsquo;t yet have the callback set up to handle the result. Let&rsquo;s do that now. Here&rsquo;s the resource:</p>
 
 <p>{% codeblock apps/csd_web/src/csd_web_callback_resource.erl lang:erlang %}
-%% @author OJ Reeves <a href="&#x6d;&#97;&#x69;&#108;&#x74;&#x6f;&#x3a;&#x6f;&#106;&#64;&#x62;&#x75;&#102;&#102;&#101;&#x72;&#x65;&#100;&#46;&#105;&#x6f;">&#x6f;&#x6a;&#64;&#98;&#117;&#102;&#102;&#101;&#114;&#101;&#x64;&#46;&#x69;&#x6f;</a>
+%% @author OJ Reeves <a href="&#x6d;&#x61;&#105;&#108;&#x74;&#111;&#58;&#x6f;&#x6a;&#x40;&#x62;&#117;&#102;&#102;&#101;&#114;&#101;&#100;&#46;&#x69;&#x6f;">&#111;&#106;&#x40;&#98;&#117;&#102;&#102;&#101;&#114;&#101;&#x64;&#x2e;&#105;&#111;</a>
 %% @copyright 2012 OJ Reeves</p>
 
 <p>-module(csd_web_callback_resource).</p>
 
-<p>-author(&lsquo;OJ Reeves <a href="&#109;&#x61;&#105;&#x6c;&#x74;&#111;&#58;&#111;&#106;&#64;&#98;&#117;&#102;&#102;&#101;&#114;&#101;&#x64;&#x2e;&#105;&#x6f;">&#111;&#106;&#64;&#98;&#x75;&#102;&#x66;&#x65;&#x72;&#101;&#x64;&#46;&#105;&#111;</a>&rsquo;).</p>
+<p>-author(&lsquo;OJ Reeves <a href="&#x6d;&#x61;&#105;&#108;&#116;&#x6f;&#58;&#111;&#x6a;&#64;&#98;&#x75;&#102;&#102;&#x65;&#x72;&#x65;&#x64;&#x2e;&#105;&#x6f;">&#x6f;&#x6a;&#x40;&#98;&#x75;&#x66;&#x66;&#101;&#114;&#x65;&#x64;&#x2e;&#x69;&#111;</a>&rsquo;).</p>
 
 <p>-export([init/1, resource_exists/2, previously_existed/2, moved_temporarily/2]).</p>
 
@@ -3315,7 +3315,7 @@ value(V) &ndash;>
 
 <p>{% codeblock apps/csd_core/src/csd_riak_mr.erl lang:erlang %}
 -module(csd_riak_mr).
--author(&lsquo;OJ Reeves <a href="&#x6d;&#97;&#x69;&#108;&#x74;&#x6f;&#58;&#x6f;&#x6a;&#x40;&#x62;&#117;&#x66;&#102;&#x65;&#x72;&#x65;&#x64;&#x2e;&#x69;&#x6f;">&#111;&#x6a;&#64;&#98;&#x75;&#102;&#x66;&#x65;&#114;&#101;&#x64;&#x2e;&#x69;&#x6f;</a>&rsquo;).</p>
+-author(&lsquo;OJ Reeves <a href="&#x6d;&#97;&#105;&#x6c;&#x74;&#111;&#x3a;&#x6f;&#106;&#x40;&#98;&#x75;&#x66;&#102;&#101;&#x72;&#x65;&#100;&#46;&#x69;&#111;">&#x6f;&#106;&#x40;&#98;&#117;&#x66;&#x66;&#x65;&#114;&#x65;&#100;&#x2e;&#x69;&#x6f;</a>&rsquo;).</p>
 
 <p>%% &mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;
 %% API Function Exports
@@ -3469,7 +3469,7 @@ add_reduce_sort_js(MR=#mr{phases=P}, CompareFun, Keep) &ndash;>
 
 <p>{% codeblock apps/csd_core/src/csd_db.erl (partial) lang:erlang %}
 -module(csd_db).
--author(&lsquo;OJ Reeves <a href="&#109;&#97;&#x69;&#x6c;&#116;&#111;&#58;&#111;&#x6a;&#64;&#x62;&#117;&#x66;&#x66;&#101;&#x72;&#101;&#100;&#46;&#x69;&#111;">&#x6f;&#x6a;&#64;&#x62;&#117;&#102;&#102;&#x65;&#x72;&#x65;&#x64;&#x2e;&#105;&#111;</a>&rsquo;).</p>
+-author(&lsquo;OJ Reeves <a href="&#109;&#x61;&#105;&#x6c;&#x74;&#111;&#58;&#111;&#x6a;&#64;&#x62;&#117;&#x66;&#x66;&#x65;&#114;&#x65;&#100;&#x2e;&#105;&#111;">&#x6f;&#x6a;&#64;&#x62;&#117;&#x66;&#x66;&#x65;&#x72;&#x65;&#x64;&#46;&#x69;&#x6f;</a>&rsquo;).</p>
 
 <p>%% &mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;
 %% API Function Exports
@@ -3692,7 +3692,7 @@ is_string(_) &ndash;> false.</p>
 
 <p>{% codeblock apps/csd_core/src/csd_snippet_store.erl (partial) lang:erlang %}
 -module(csd_snippet_store).
--author(&lsquo;OJ Reeves <a href="&#x6d;&#x61;&#105;&#x6c;&#116;&#111;&#x3a;&#x6f;&#x6a;&#64;&#x62;&#117;&#102;&#x66;&#x65;&#x72;&#101;&#100;&#x2e;&#105;&#x6f;">&#x6f;&#106;&#x40;&#98;&#x75;&#102;&#x66;&#101;&#x72;&#x65;&#100;&#46;&#x69;&#x6f;</a>&rsquo;).</p>
+-author(&lsquo;OJ Reeves <a href="&#109;&#x61;&#x69;&#108;&#116;&#x6f;&#x3a;&#x6f;&#106;&#64;&#98;&#x75;&#x66;&#102;&#101;&#114;&#x65;&#x64;&#x2e;&#x69;&#111;">&#x6f;&#106;&#64;&#98;&#x75;&#x66;&#102;&#101;&#114;&#x65;&#100;&#46;&#105;&#111;</a>&rsquo;).</p>
 
 <p>-define(BUCKET, &lt;&lt;&ldquo;snippet&rdquo;>>).
 -define(USERID_INDEX, &ldquo;userid&rdquo;).
@@ -3920,7 +3920,7 @@ Content-Length: 117</p>
 
 <p>{% codeblock apps/csd_core/src/csd_vote.erl (partial) lang:erlang %}
 -module(csd_vote).
--author(&lsquo;OJ Reeves <a href="&#109;&#x61;&#105;&#x6c;&#116;&#111;&#58;&#x6f;&#x6a;&#64;&#98;&#117;&#102;&#102;&#x65;&#114;&#101;&#100;&#46;&#x69;&#111;">&#x6f;&#106;&#x40;&#x62;&#x75;&#102;&#x66;&#x65;&#x72;&#x65;&#x64;&#46;&#x69;&#x6f;</a>&rsquo;).</p>
+-author(&lsquo;OJ Reeves <a href="&#109;&#x61;&#105;&#x6c;&#x74;&#111;&#x3a;&#111;&#106;&#64;&#98;&#117;&#x66;&#102;&#x65;&#114;&#101;&#x64;&#46;&#105;&#x6f;">&#111;&#x6a;&#x40;&#98;&#117;&#102;&#102;&#101;&#114;&#101;&#100;&#x2e;&#105;&#111;</a>&rsquo;).</p>
 
 <p>%% &mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;
 %% API Function Exports
@@ -4165,7 +4165,7 @@ is_string(_) &ndash;> false.</p>
 
 <p>{% codeblock apps/csd_core/src/csd_vote_store.erl (partial) lang:erlang %}
 -module(csd_vote_store).
--author(&lsquo;OJ Reeves <a href="&#x6d;&#97;&#x69;&#108;&#x74;&#x6f;&#58;&#x6f;&#x6a;&#64;&#x62;&#x75;&#102;&#x66;&#x65;&#114;&#101;&#100;&#46;&#x69;&#111;">&#x6f;&#106;&#x40;&#98;&#x75;&#102;&#x66;&#101;&#114;&#101;&#x64;&#46;&#105;&#x6f;</a>&rsquo;).</p>
+-author(&lsquo;OJ Reeves <a href="&#x6d;&#x61;&#x69;&#x6c;&#x74;&#x6f;&#58;&#x6f;&#106;&#64;&#98;&#117;&#102;&#x66;&#x65;&#x72;&#x65;&#x64;&#46;&#105;&#x6f;">&#111;&#x6a;&#x40;&#98;&#x75;&#x66;&#x66;&#x65;&#114;&#x65;&#100;&#x2e;&#105;&#x6f;</a>&rsquo;).</p>
 
 <p>-define(BUCKET, &lt;&lt;&ldquo;vote&rdquo;>>).
 -define(SNIPPET_INDEX, &lt;&lt;&ldquo;snippetid&rdquo;>>).
@@ -4374,7 +4374,7 @@ Error -&gt; Error
 
 <p>{% codeblock apps/csd_core/src/csd_user.erl lang:erlang %}
 -module(csd_user).
--author(&lsquo;OJ Reeves <a href="&#x6d;&#x61;&#x69;&#108;&#x74;&#x6f;&#x3a;&#111;&#106;&#x40;&#98;&#117;&#x66;&#102;&#101;&#114;&#101;&#x64;&#46;&#105;&#x6f;">&#111;&#106;&#64;&#98;&#117;&#x66;&#x66;&#101;&#x72;&#101;&#x64;&#46;&#x69;&#111;</a>&rsquo;).</p>
+-author(&lsquo;OJ Reeves <a href="&#109;&#97;&#x69;&#x6c;&#116;&#x6f;&#x3a;&#x6f;&#106;&#x40;&#98;&#x75;&#102;&#x66;&#x65;&#114;&#101;&#100;&#x2e;&#x69;&#111;">&#x6f;&#106;&#x40;&#98;&#117;&#102;&#102;&#x65;&#x72;&#x65;&#x64;&#x2e;&#x69;&#111;</a>&rsquo;).</p>
 
 <p>%% &mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;
 %% API Function Exports
@@ -4463,7 +4463,7 @@ is_string(_) &ndash;> false.
 
 <p>{% codeblock apps/csd_core/src/csd_user_store.erl lang:erlang %}
 -module(csd_user_store).
--author(&lsquo;OJ Reeves <a href="&#x6d;&#97;&#x69;&#108;&#116;&#111;&#58;&#111;&#x6a;&#64;&#98;&#117;&#x66;&#x66;&#101;&#x72;&#101;&#100;&#x2e;&#x69;&#111;">&#111;&#106;&#x40;&#98;&#x75;&#x66;&#102;&#x65;&#114;&#101;&#x64;&#x2e;&#x69;&#x6f;</a>&rsquo;).</p>
+-author(&lsquo;OJ Reeves <a href="&#x6d;&#97;&#105;&#108;&#116;&#x6f;&#58;&#x6f;&#x6a;&#x40;&#x62;&#x75;&#x66;&#x66;&#x65;&#114;&#x65;&#100;&#x2e;&#x69;&#111;">&#x6f;&#x6a;&#64;&#x62;&#117;&#x66;&#102;&#x65;&#114;&#x65;&#x64;&#x2e;&#x69;&#x6f;</a>&rsquo;).</p>
 
 <p>-define(BUCKET, &lt;&lt;&ldquo;user&rdquo;>>).</p>
 
@@ -5011,7 +5011,7 @@ _ -&gt;
 
 <p>{% codeblock apps/csd_web/src/csd_web_static_resource.erl lang:erlang %}
 -module(csd_web_static_resource).
--author(&lsquo;OJ Reeves <a href="&#x6d;&#97;&#x69;&#108;&#x74;&#x6f;&#58;&#x6f;&#106;&#64;&#98;&#x75;&#102;&#102;&#x65;&#x72;&#x65;&#x64;&#x2e;&#105;&#x6f;">&#111;&#106;&#x40;&#98;&#117;&#x66;&#x66;&#x65;&#x72;&#101;&#x64;&#x2e;&#x69;&#x6f;</a>&rsquo;).</p>
+-author(&lsquo;OJ Reeves <a href="&#x6d;&#97;&#105;&#x6c;&#x74;&#x6f;&#58;&#111;&#x6a;&#x40;&#x62;&#x75;&#102;&#x66;&#101;&#x72;&#x65;&#100;&#x2e;&#x69;&#x6f;">&#x6f;&#x6a;&#x40;&#x62;&#x75;&#102;&#102;&#101;&#x72;&#x65;&#100;&#x2e;&#x69;&#x6f;</a>&rsquo;).</p>
 
 <p>%% &mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;
 %% API Function Exports

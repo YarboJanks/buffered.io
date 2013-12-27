@@ -14,6 +14,10 @@ So, in a semi-chronological-semi-ad-hoc order, here's how Meterpreter has evolve
 
 <!--more-->
 
+## TL;DR
+
+This post is long. So if you're keen to see a nice summary, you should go and read the [wicked post over at Security Street][sec_street_tldr] which gives a great summary of what's in this post. Thanks to the rather classy [Tod Beardsley][todb] for serving this baby up!
+
 ## A Whole New Build Environment
 
 Getting contributions from the Open Source community can be tricky enough, even when your build is clean and your development environment is very easy to get up and running. In the case of Meterpreter, **neither** of these things were true and hence anyone looking to contribute had to first negotiate the gauntlet of getting a functioning build environment configured.
@@ -1080,7 +1084,7 @@ I'm happy to say that Rapid7 are keeping me on for a while longer! There's alway
 
 If you have suggestions, let's hear them! Even better, submit a PR, and to encourage you:
 
-> I will personally send a quality, quintessentially Australian fluffy crocodile toy via snail-mail to the first non-Rapid7 person who submits a pull request with a non-trivial fix or contribution to Meterpreter.
+> I will personally send a quality, quintessentially Australian fluffy crocodile toy via snail-mail to the first non-Rapid7 person who submits a pull request with a non-trivial fix or contribution to Meterpreter and have it merged into master.
 
 That's right, you could be a winner of some Oz awesome! So get coding, it's not that hard... any more!
 
@@ -1184,3 +1188,4 @@ Thanks to you all for reading. I hope you enjoyed it and I hope it broke down so
   [channel_refactor_pr]: https://github.com/rapid7/meterpreter/pull/38
   [indigo_montoya]: https://www.youtube.com/watch?v=G2y8Sx4B2Sk
   [Matthew Risck]: https://twitter.com/Mateusz_Jozef
+  [sec_street_tldr]: https://community.rapid7.com/community/metasploit/blog/2013/12/27/meterpreter-reloaded
