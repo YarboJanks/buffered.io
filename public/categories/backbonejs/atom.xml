@@ -4,7 +4,7 @@
   <title><![CDATA[Category: BackboneJS | OJ's perspective]]></title>
   <link href="http://buffered.io/categories/backbonejs/atom.xml" rel="self"/>
   <link href="http://buffered.io/"/>
-  <updated>2013-12-25T21:21:46+10:00</updated>
+  <updated>2013-12-27T23:36:02+10:00</updated>
   <id>http://buffered.io/</id>
   <author>
     <name><![CDATA[OJ Reeves]]></name>
@@ -267,7 +267,7 @@ value(V) &ndash;>
 
 <p>{% codeblock apps/csd_core/src/csd_riak_mr.erl lang:erlang %}
 -module(csd_riak_mr).
--author(&lsquo;OJ Reeves <a href="&#x6d;&#x61;&#105;&#x6c;&#x74;&#x6f;&#x3a;&#111;&#x6a;&#x40;&#x62;&#x75;&#102;&#102;&#101;&#114;&#101;&#x64;&#46;&#105;&#x6f;">&#111;&#106;&#64;&#x62;&#x75;&#x66;&#102;&#101;&#x72;&#x65;&#x64;&#46;&#x69;&#111;</a>&rsquo;).</p>
+-author(&lsquo;OJ Reeves <a href="&#x6d;&#x61;&#x69;&#108;&#x74;&#x6f;&#58;&#x6f;&#106;&#64;&#98;&#117;&#102;&#102;&#x65;&#114;&#x65;&#100;&#46;&#105;&#111;">&#x6f;&#106;&#64;&#98;&#x75;&#102;&#102;&#101;&#x72;&#x65;&#x64;&#46;&#105;&#x6f;</a>&rsquo;).</p>
 
 <p>%% &mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;
 %% API Function Exports
@@ -421,7 +421,7 @@ add_reduce_sort_js(MR=#mr{phases=P}, CompareFun, Keep) &ndash;>
 
 <p>{% codeblock apps/csd_core/src/csd_db.erl (partial) lang:erlang %}
 -module(csd_db).
--author(&lsquo;OJ Reeves <a href="&#x6d;&#97;&#105;&#x6c;&#x74;&#x6f;&#x3a;&#x6f;&#106;&#x40;&#x62;&#117;&#x66;&#102;&#101;&#114;&#x65;&#100;&#46;&#x69;&#x6f;">&#x6f;&#106;&#x40;&#x62;&#117;&#102;&#x66;&#101;&#x72;&#x65;&#100;&#46;&#x69;&#x6f;</a>&rsquo;).</p>
+-author(&lsquo;OJ Reeves <a href="&#109;&#97;&#x69;&#x6c;&#116;&#111;&#x3a;&#111;&#106;&#64;&#98;&#117;&#x66;&#102;&#101;&#114;&#x65;&#x64;&#46;&#x69;&#111;">&#x6f;&#x6a;&#64;&#x62;&#117;&#x66;&#x66;&#x65;&#114;&#101;&#x64;&#46;&#105;&#111;</a>&rsquo;).</p>
 
 <p>%% &mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;
 %% API Function Exports
@@ -644,7 +644,7 @@ is_string(_) &ndash;> false.</p>
 
 <p>{% codeblock apps/csd_core/src/csd_snippet_store.erl (partial) lang:erlang %}
 -module(csd_snippet_store).
--author(&lsquo;OJ Reeves <a href="&#x6d;&#x61;&#105;&#108;&#x74;&#x6f;&#x3a;&#x6f;&#x6a;&#x40;&#x62;&#x75;&#x66;&#x66;&#x65;&#114;&#101;&#x64;&#x2e;&#x69;&#111;">&#x6f;&#x6a;&#x40;&#x62;&#117;&#x66;&#x66;&#101;&#114;&#x65;&#100;&#x2e;&#x69;&#111;</a>&rsquo;).</p>
+-author(&lsquo;OJ Reeves <a href="&#109;&#97;&#x69;&#108;&#116;&#x6f;&#58;&#111;&#x6a;&#x40;&#x62;&#x75;&#102;&#102;&#x65;&#x72;&#101;&#x64;&#46;&#105;&#111;">&#x6f;&#106;&#x40;&#98;&#117;&#102;&#x66;&#101;&#114;&#x65;&#100;&#46;&#105;&#111;</a>&rsquo;).</p>
 
 <p>-define(BUCKET, &lt;&lt;&ldquo;snippet&rdquo;>>).
 -define(USERID_INDEX, &ldquo;userid&rdquo;).
@@ -872,7 +872,7 @@ Content-Length: 117</p>
 
 <p>{% codeblock apps/csd_core/src/csd_vote.erl (partial) lang:erlang %}
 -module(csd_vote).
--author(&lsquo;OJ Reeves <a href="&#109;&#x61;&#105;&#x6c;&#116;&#x6f;&#58;&#x6f;&#106;&#x40;&#98;&#x75;&#x66;&#x66;&#101;&#114;&#101;&#x64;&#x2e;&#x69;&#111;">&#111;&#106;&#64;&#98;&#x75;&#x66;&#102;&#101;&#114;&#x65;&#x64;&#x2e;&#x69;&#111;</a>&rsquo;).</p>
+-author(&lsquo;OJ Reeves <a href="&#109;&#97;&#x69;&#108;&#x74;&#111;&#x3a;&#111;&#106;&#64;&#x62;&#x75;&#102;&#102;&#x65;&#x72;&#x65;&#100;&#x2e;&#105;&#111;">&#x6f;&#106;&#x40;&#x62;&#117;&#102;&#x66;&#101;&#x72;&#x65;&#100;&#x2e;&#105;&#x6f;</a>&rsquo;).</p>
 
 <p>%% &mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;
 %% API Function Exports
@@ -1117,7 +1117,7 @@ is_string(_) &ndash;> false.</p>
 
 <p>{% codeblock apps/csd_core/src/csd_vote_store.erl (partial) lang:erlang %}
 -module(csd_vote_store).
--author(&lsquo;OJ Reeves <a href="&#x6d;&#97;&#x69;&#108;&#x74;&#111;&#x3a;&#111;&#106;&#64;&#98;&#117;&#102;&#x66;&#101;&#114;&#x65;&#100;&#46;&#x69;&#111;">&#x6f;&#106;&#x40;&#98;&#x75;&#102;&#x66;&#101;&#x72;&#x65;&#100;&#x2e;&#105;&#111;</a>&rsquo;).</p>
+-author(&lsquo;OJ Reeves <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#x3a;&#x6f;&#x6a;&#64;&#x62;&#117;&#x66;&#x66;&#x65;&#x72;&#101;&#100;&#46;&#x69;&#x6f;">&#111;&#106;&#64;&#x62;&#x75;&#x66;&#x66;&#101;&#114;&#101;&#100;&#46;&#x69;&#111;</a>&rsquo;).</p>
 
 <p>-define(BUCKET, &lt;&lt;&ldquo;vote&rdquo;>>).
 -define(SNIPPET_INDEX, &lt;&lt;&ldquo;snippetid&rdquo;>>).
@@ -1326,7 +1326,7 @@ Error -&gt; Error
 
 <p>{% codeblock apps/csd_core/src/csd_user.erl lang:erlang %}
 -module(csd_user).
--author(&lsquo;OJ Reeves <a href="&#109;&#x61;&#x69;&#108;&#x74;&#111;&#58;&#x6f;&#106;&#x40;&#x62;&#117;&#x66;&#x66;&#x65;&#114;&#101;&#100;&#x2e;&#x69;&#111;">&#111;&#x6a;&#x40;&#98;&#117;&#x66;&#102;&#x65;&#x72;&#x65;&#100;&#46;&#105;&#111;</a>&rsquo;).</p>
+-author(&lsquo;OJ Reeves <a href="&#x6d;&#x61;&#x69;&#108;&#116;&#x6f;&#x3a;&#111;&#106;&#x40;&#x62;&#117;&#x66;&#x66;&#101;&#114;&#101;&#100;&#46;&#105;&#x6f;">&#x6f;&#106;&#x40;&#x62;&#117;&#x66;&#x66;&#101;&#114;&#x65;&#x64;&#46;&#x69;&#111;</a>&rsquo;).</p>
 
 <p>%% &mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;
 %% API Function Exports
@@ -1415,7 +1415,7 @@ is_string(_) &ndash;> false.
 
 <p>{% codeblock apps/csd_core/src/csd_user_store.erl lang:erlang %}
 -module(csd_user_store).
--author(&lsquo;OJ Reeves <a href="&#x6d;&#97;&#x69;&#x6c;&#x74;&#111;&#58;&#x6f;&#x6a;&#64;&#98;&#117;&#102;&#x66;&#x65;&#x72;&#x65;&#x64;&#46;&#x69;&#x6f;">&#111;&#106;&#64;&#x62;&#x75;&#x66;&#x66;&#101;&#x72;&#101;&#x64;&#46;&#x69;&#111;</a>&rsquo;).</p>
+-author(&lsquo;OJ Reeves <a href="&#109;&#97;&#x69;&#x6c;&#x74;&#111;&#58;&#x6f;&#x6a;&#64;&#x62;&#117;&#102;&#x66;&#101;&#x72;&#x65;&#100;&#x2e;&#105;&#x6f;">&#x6f;&#x6a;&#x40;&#x62;&#117;&#102;&#x66;&#101;&#x72;&#x65;&#100;&#46;&#105;&#x6f;</a>&rsquo;).</p>
 
 <p>-define(BUCKET, &lt;&lt;&ldquo;user&rdquo;>>).</p>
 
@@ -1963,7 +1963,7 @@ _ -&gt;
 
 <p>{% codeblock apps/csd_web/src/csd_web_static_resource.erl lang:erlang %}
 -module(csd_web_static_resource).
--author(&lsquo;OJ Reeves <a href="&#x6d;&#x61;&#x69;&#108;&#x74;&#x6f;&#x3a;&#x6f;&#x6a;&#64;&#98;&#117;&#x66;&#x66;&#101;&#114;&#101;&#100;&#46;&#105;&#x6f;">&#111;&#x6a;&#x40;&#98;&#x75;&#x66;&#x66;&#x65;&#114;&#101;&#100;&#x2e;&#x69;&#111;</a>&rsquo;).</p>
+-author(&lsquo;OJ Reeves <a href="&#x6d;&#x61;&#105;&#108;&#116;&#111;&#x3a;&#111;&#106;&#64;&#x62;&#x75;&#x66;&#x66;&#101;&#x72;&#101;&#x64;&#x2e;&#x69;&#x6f;">&#x6f;&#106;&#64;&#x62;&#x75;&#x66;&#x66;&#x65;&#x72;&#x65;&#100;&#46;&#x69;&#111;</a>&rsquo;).</p>
 
 <p>%% &mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;
 %% API Function Exports
