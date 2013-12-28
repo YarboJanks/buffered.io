@@ -4,7 +4,7 @@
   <title><![CDATA[Category: XSS | OJ's perspective]]></title>
   <link href="http://buffered.io/categories/xss/atom.xml" rel="self"/>
   <link href="http://buffered.io/"/>
-  <updated>2013-12-28T08:12:06+10:00</updated>
+  <updated>2013-12-28T12:48:10+10:00</updated>
   <id>http://buffered.io/</id>
   <author>
     <name><![CDATA[OJ Reeves]]></name>
@@ -33,80 +33,125 @@
 
 <p>Let&rsquo;s see some code starting with the &ldquo;details&rdquo; of the person:</p>
 
-<p>{% codeblock Person.cs lang:csharp %}
-public class Person
-{</p>
-
-<pre><code>public string Name { get;set; }
-public int Age { get; set; }
-</code></pre>
-
-<p>}
-{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Person.cs </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">public</span> <span class="k">class</span> <span class="nc">Person</span>
+</span><span class='line'><span class="p">{&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">pre</span><span class="p">&gt;&lt;</span><span class="n">code</span><span class="p">&gt;</span><span class="k">public</span> <span class="kt">string</span> <span class="n">Name</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span><span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+</span><span class='line'><span class="k">public</span> <span class="kt">int</span> <span class="n">Age</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+</span><span class='line'><span class="p">&lt;/</span><span class="n">code</span><span class="p">&gt;&lt;/</span><span class="n">pre</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>Nothing too amazing there. Here&rsquo;s the parts of the page which renders the list of people:</p>
 
-<p>{% codeblock Index.aspx (partial) lang:html %}
-Please choose a person &lt;%= Html.DropDownList(&ldquo;people&rdquo;, Model) %></p>
-
-<script type="text/javascript">
-$(document).ready(function () {
-  $("#people").change(function () {
-    window.location = '<%= Url.Action("Detail", "Person") %>?index=' + $(this).val();
-  });
-});
-</script>
-
-
-<p>{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Index.aspx (partial) </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'>Please choose a person <span class="ni">&amp;lt;</span>%= Html.DropDownList(<span class="ni">&amp;ldquo;</span>people<span class="ni">&amp;rdquo;</span>, Model) %&gt;<span class="nt">&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'><span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">ready</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#people&quot;</span><span class="p">).</span><span class="nx">change</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nb">window</span><span class="p">.</span><span class="nx">location</span> <span class="o">=</span> <span class="s1">&#39;&lt;%= Url.Action(&quot;Detail&quot;, &quot;Person&quot;) %&gt;?index=&#39;</span> <span class="o">+</span> <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">val</span><span class="p">();</span>
+</span><span class='line'>  <span class="p">});</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'><span class="nt">&lt;/script&gt;</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;p&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>Again, nothing too mind boggling here either. We can see how the <code>change</code> event fires and updates the <code>window.location</code> and moves the user to the <code>Details</code> page. The <code>Model</code> for this page is of type <code>IEnumerable&lt;SelectListItem&gt;</code>.</p>
 
 <p>Next we&rsquo;ll take a look at the controller action which gets invoked when the drop-down is changed:</p>
 
-<p>{% codeblock PersonController.cs (Partial) lang:csharp %}
-public ActionResult Detail(int index)
-{</p>
-
-<pre><code>return View("Detail", Tuple.Create(People[index], GetPeople()));
-</code></pre>
-
-<p>}
-{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>PersonController.cs (Partial) </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">public</span> <span class="n">ActionResult</span> <span class="nf">Detail</span><span class="p">(</span><span class="kt">int</span> <span class="n">index</span><span class="p">)</span>
+</span><span class='line'><span class="p">{&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">pre</span><span class="p">&gt;&lt;</span><span class="n">code</span><span class="p">&gt;</span><span class="k">return</span> <span class="n">View</span><span class="p">(</span><span class="s">&quot;Detail&quot;</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">.</span><span class="n">Create</span><span class="p">(</span><span class="n">People</span><span class="p">[</span><span class="n">index</span><span class="p">],</span> <span class="n">GetPeople</span><span class="p">()));</span>
+</span><span class='line'><span class="p">&lt;/</span><span class="n">code</span><span class="p">&gt;&lt;/</span><span class="n">pre</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>We&rsquo;re using the <code>index</code> parameter (note the <em>type</em> of this parameter, it&rsquo;s important) to index into the list of people we have stashed somewhere to extract the user that is being viewed. This person, along with the full list of people in <code>SelectListItem</code> form, is being passed to the view.</p>
 
 <p>Let&rsquo;s see what the view does with this information:</p>
 
-<p>{% codeblock Detail.aspx (partial) lang:html %}
-Please choose a person &lt;%= Html.DropDownList(&ldquo;people&rdquo;, Model.Item2) %></p>
-
-<script type="text/javascript">
-$(document).ready(function () {
-  $("#people").val(<%= Request.QueryString["index"] %>);
-  $("#people").change(function () {
-    window.location = '<%= Url.Action("Detail", "Person") %>?index=' + $(this).val();
-  });
-});
-</script>
-
-
-
-
-<p><p>
-&lt;%= Html.Encode(Model.Item1.Name) %> is a whopping &lt;%= Model.Item1.Age %> years old!
-</p>
-{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Detail.aspx (partial) </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'>Please choose a person <span class="ni">&amp;lt;</span>%= Html.DropDownList(<span class="ni">&amp;ldquo;</span>people<span class="ni">&amp;rdquo;</span>, Model.Item2) %&gt;<span class="nt">&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'><span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">ready</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#people&quot;</span><span class="p">).</span><span class="nx">val</span><span class="p">(</span><span class="o">&lt;%=</span> <span class="nx">Request</span><span class="p">.</span><span class="nx">QueryString</span><span class="p">[</span><span class="s2">&quot;index&quot;</span><span class="p">]</span> <span class="o">%&gt;</span><span class="p">);</span>
+</span><span class='line'>  <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#people&quot;</span><span class="p">).</span><span class="nx">change</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nb">window</span><span class="p">.</span><span class="nx">location</span> <span class="o">=</span> <span class="s1">&#39;&lt;%= Url.Action(&quot;Detail&quot;, &quot;Person&quot;) %&gt;?index=&#39;</span> <span class="o">+</span> <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">val</span><span class="p">();</span>
+</span><span class='line'>  <span class="p">});</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'><span class="nt">&lt;/script&gt;</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;p&gt;&lt;p&gt;</span>
+</span><span class='line'><span class="ni">&amp;lt;</span>%= Html.Encode(Model.Item1.Name) %&gt; is a whopping <span class="ni">&amp;lt;</span>%= Model.Item1.Age %&gt; years old!
+</span><span class='line'><span class="nt">&lt;/p&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>This is starting to get a bit more interesting. The rendering of the drop-down is the same as before, except it&rsquo;s pulling data from the [System.Tuple][] that was passed in as the <code>Model</code>. The event handler that&rsquo;s invoked on <code>change</code> is the same, and there&rsquo;s a bit of non-descript content rendering a the bottom. The subtle but important difference is the code that sets the currently selected person in the drop-down.</p>
 
 <p>I plugged this code into a standard MVC application and this is what it looks like:</p>
 
-<p>{% img /uploads/2012/11/xss-index.png &lsquo;Choosing a person&rsquo; %}</p>
+<p><img src="/uploads/2012/11/xss-index.png" title="&lsquo;Choosing a person&rsquo;" ></p>
 
 <p>After selecting a person from the drop down it looks like this:</p>
 
-<p>{% img /uploads/2012/11/xss-details.png &lsquo;Person details&rsquo; %}</p>
+<p><img src="/uploads/2012/11/xss-details.png" title="&lsquo;Person details&rsquo;" ></p>
 
 <h2>A bad assumption</h2>
 
@@ -114,7 +159,7 @@ $(document).ready(function () {
 
 <p>Let&rsquo;s see.</p>
 
-<p>{% img /uploads/2012/11/xss-type-fail.png &lsquo;Person details&rsquo; %}</p>
+<p><img src="/uploads/2012/11/xss-type-fail.png" title="&lsquo;Person details&rsquo;" ></p>
 
 <p>OK, so MVC will require that this value be an integer, otherwise the action will fail to be invoked. If that&rsquo;s the case, then the view won&rsquo;t be rendered and our code which directly accesses <code>Request.QueryString</code> will not be invoked and hence there&rsquo;s no risk.</p>
 
@@ -142,11 +187,11 @@ $(document).ready(function () {
 
 <p>Let&rsquo;s take a look at what might happen if we threw multiple instances via the query string at our dodgy MVC application:</p>
 
-<p>{% img /uploads/2012/11/xss-hpp-invalid.png &lsquo;HPP example&rsquo; %}</p>
+<p><img src="/uploads/2012/11/xss-hpp-invalid.png" title="&lsquo;HPP example&rsquo;" ></p>
 
 <p>The above screenshot shows both the query string and the page source when we do this. That&rsquo;s right, MVC used the first value, set to <code>0</code>, without any issues and invoked the view engine. The view&rsquo;s assumption that the <code>index</code> parameter has been sanitised by the controller has now been proven unsafe. Now we can see that we do have access to the source. Let&rsquo;s see what happens if we went a step further and passed in a more sinister value:</p>
 
-<p>{% img /uploads/2012/11/xss-hpp-valid.png &lsquo;HPP XSS exploit&rsquo; %}</p>
+<p><img src="/uploads/2012/11/xss-hpp-valid.png" title="&lsquo;HPP XSS exploit&rsquo;" ></p>
 
 <p>Pwned.</p>
 

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Merb | OJ's perspective]]></title>
   <link href="http://buffered.io/categories/merb/atom.xml" rel="self"/>
   <link href="http://buffered.io/"/>
-  <updated>2013-12-28T08:12:06+10:00</updated>
+  <updated>2013-12-28T12:48:10+10:00</updated>
   <id>http://buffered.io/</id>
   <author>
     <name><![CDATA[OJ Reeves]]></name>
@@ -88,23 +88,32 @@ app/views/home/index.html.erb
 </code></pre>
 
 <p>The content of the controller is very basic, and should look something like the following:
-{% codeblock lang:ruby %}
-class Home &lt; Application</p>
-
-<p>  def index</p>
-
-<pre><code>render
-</code></pre>
-
-<p>  end</p>
-
-<p>en
-{% endcodeblock %}</p>
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Home</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span> <span class="no">Application</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sr">&lt;p&gt;  def index&lt;/</span><span class="nb">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">render</span>
+</span><span class='line'><span class="o">&lt;</span><span class="sr">/code&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span>  <span class="k">end</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sr">&lt;p&gt;en</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>This is simply telling the framework to render the default view associated with the action. That is, render that which is stored in the home/index.html.erb file. The default content looks like this:
-{% codeblock lang:html %}
-You&rsquo;re in index of the Home
-{% endcodeblock %}</p>
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'>You<span class="ni">&amp;rsquo;</span>re in index of the Home
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p><a href="http://buffered.io/uploads/2008/04/merb-default-home.png" rel="lightbox[merb]"><img src="http://buffered.io/uploads/2008/04/merb-default-home.png" alt="This is the default content of an action which is associated with a controller." title="Default Merb index action render" width="120" style="float: right; padding-left: 3px; padding-bottom: 3px" /></a>If you killed off the merb server, fire it up again and browse to <a href="http://localhost:4000/home"><a href="http://localhost:4000/home">http://localhost:4000/home</a></a>, you should see the site as shown on the right.</p>
 
@@ -114,22 +123,35 @@ You&rsquo;re in index of the Home
 </code></pre>
 
 <p>Open this file in your text editor, and uncomment the second-last line of the file which allows you to match the root folder to a controller and action. Specify &ldquo;home&rdquo; as the controller, and leave &ldquo;index&rdquo; specified as the action. Your router.rb file should look like this:
-{% codeblock lang:ruby %}
-Merb.logger.info(&ldquo;Compiling routes&hellip;&rdquo;)
-Merb::Router.prepare do |r|
-  # RESTful routes
-  # r.resources :posts</p>
-
-<p>  # This is the default route for /:controller/:action/:id
-  # This is fine for most cases.  If you&rsquo;re heavily using resource-based
-  # routes, you may want to comment/remove this line to prevent
-  # clients from calling your create or destroy actions with a GET
-  r.default_routes</p>
-
-<p>  # Change this for your home page to be available at /
-  r.match(&lsquo;/&rsquo;).to(:controller => &lsquo;home&rsquo;, :action =>&lsquo;index&rsquo;)
-end
-{% endcodeblock %}</p>
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="no">Merb</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="no">Compiling</span> <span class="n">routes</span><span class="o">&amp;</span><span class="n">hellip</span><span class="p">;</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;)</span>
+</span><span class='line'><span class="ss">Merb</span><span class="p">:</span><span class="ss">:Router</span><span class="o">.</span><span class="n">prepare</span> <span class="k">do</span> <span class="o">|</span><span class="n">r</span><span class="o">|</span>
+</span><span class='line'>  <span class="c1"># RESTful routes</span>
+</span><span class='line'>  <span class="c1"># r.resources :posts&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span>  <span class="c1"># This is the default route for /:controller/:action/:id</span>
+</span><span class='line'>  <span class="c1"># This is fine for most cases.  If you&amp;rsquo;re heavily using resource-based</span>
+</span><span class='line'>  <span class="c1"># routes, you may want to comment/remove this line to prevent</span>
+</span><span class='line'>  <span class="c1"># clients from calling your create or destroy actions with a GET</span>
+</span><span class='line'>  <span class="n">r</span><span class="o">.</span><span class="n">default_routes</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sr">&lt;p&gt;  # Change this for your home page to be available at /</span>
+</span><span class='line'>  <span class="n">r</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="o">&amp;</span><span class="n">lsquo</span><span class="p">;</span><span class="o">/&amp;</span><span class="n">rsquo</span><span class="p">;)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="ss">:controller</span> <span class="o">=&gt;</span> <span class="o">&amp;</span><span class="n">lsquo</span><span class="p">;</span><span class="n">home</span><span class="o">&amp;</span><span class="n">rsquo</span><span class="p">;,</span> <span class="ss">:action</span> <span class="o">=&gt;&amp;</span><span class="n">lsquo</span><span class="p">;</span><span class="n">index</span><span class="o">&amp;</span><span class="n">rsquo</span><span class="p">;)</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>Fire up your application by browsing to <a href="http://localhost:4000"><a href="http://localhost:4000">http://localhost:4000</a></a> again, you should be greeted with the same screenshot shown above.</p>
 

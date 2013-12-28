@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Haskell | OJ's perspective]]></title>
   <link href="http://buffered.io/categories/haskell/atom.xml" rel="self"/>
   <link href="http://buffered.io/"/>
-  <updated>2013-12-28T08:12:06+10:00</updated>
+  <updated>2013-12-28T12:48:10+10:00</updated>
   <id>http://buffered.io/</id>
   <author>
     <name><![CDATA[OJ Reeves]]></name>
@@ -122,22 +122,25 @@ Unfortunately, this kind of communication also has a downside. The real-time nat
 <p>If we take a look at the <a href=http://en.wikipedia.org/wiki/Point-free_programming" title="Wikipedia">Wikipedia</a> we can see that..<blockquote><p>Tacit [point-free] programming is a programming paradigm in which a function definition does not include information regarding its arguments, using combinators and function composition (but not ?-abstraction) instead of variables.</p></blockquote>Simple eh? :) In essence, it basically means that your function definition doesn&rsquo;t reference any of its arguments/variables. For a crass definition, think <em>point == argument</em> and it should make sense.</p>
 
 <p>So we&rsquo;re writing functions without directly referencing its arguments. For those not familiar with Haskell or other languages that support this, let&rsquo;s take a look at an example:
-{% codeblock lang:haskell %}
-&mdash; sum : take a list of numbers and add them all up to get a total
-&mdash; start with the base-case: an empty list
-sum [] = 0
-sum (x:xs) = x + sum xs
-{% endcodeblock %}</p>
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='haskell'><span class='line'><span class="o">&amp;</span><span class="n">mdash</span><span class="p">;</span> <span class="n">sum</span> <span class="kt">:</span> <span class="n">take</span> <span class="n">a</span> <span class="n">list</span> <span class="kr">of</span> <span class="n">numbers</span> <span class="n">and</span> <span class="n">add</span> <span class="n">them</span> <span class="n">all</span> <span class="n">up</span> <span class="n">to</span> <span class="n">get</span> <span class="n">a</span> <span class="n">total</span>
+</span><span class='line'><span class="o">&amp;</span><span class="n">mdash</span><span class="p">;</span> <span class="n">start</span> <span class="n">with</span> <span class="n">the</span> <span class="n">base</span><span class="o">-</span><span class="kr">case</span><span class="kt">:</span> <span class="n">an</span> <span class="n">empty</span> <span class="n">list</span>
+</span><span class='line'><span class="nf">sum</span> <span class="kt">[]</span> <span class="ow">=</span> <span class="mi">0</span>
+</span><span class='line'><span class="nf">sum</span> <span class="p">(</span><span class="n">x</span><span class="kt">:</span><span class="n">xs</span><span class="p">)</span> <span class="ow">=</span> <span class="n">x</span> <span class="o">+</span> <span class="n">sum</span> <span class="n">xs</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>We can see that the above function is written in such a way that the arguments passed into the function are actually referenced in the body of the code. This is how a standard imperative programmer would write this function if he/she was new to Haskell. If we instead used a <a href="http://www.haskell.org/haskellwiki/Fold" title="Fold">fold</a>, we could define it like so:
-{% codeblock lang:haskell %}
-sum xs = foldr (+) 0 xs
-{% endcodeblock %}</p>
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='haskell'><span class='line'><span class="nf">sum</span> <span class="n">xs</span> <span class="ow">=</span> <span class="n">foldr</span> <span class="p">(</span><span class="o">+</span><span class="p">)</span> <span class="mi">0</span> <span class="n">xs</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>This does exactly the same thing as the previous definition, but as you can see the grunt work is done by the fold function. Now that we have this definition, we can easily move to Point-Free style:
-{% codeblock lang:haskell %}
-sum = foldr (+) 0
-{% endcodeblock %}</p>
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='haskell'><span class='line'><span class="nf">sum</span> <span class="ow">=</span> <span class="n">foldr</span> <span class="p">(</span><span class="o">+</span><span class="p">)</span> <span class="mi">0</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>Here we can see that no reference is made to the arguments of the function. Since we haven&rsquo;t referenced any &ldquo;points&rdquo;, we have a Point-Free implementation.</p>
 
@@ -160,10 +163,11 @@ sum = foldr (+) 0
 <p>Haskell developers use the <a href="http://www.haskell.org/haskellwiki/Function_composition" title="Function composition">composition operator</a> <a href="http://haskell.org/ghc/docs/latest/html/libraries/base/src/GHC-Base.html#." title="(.) implementation in Prelude">(.)</a> a lot. It actually aids in creating Point-Free style. I love the irony here. We add points (.) to remove points (arguments).</p>
 
 <p>Anyway, the composition operator&rsquo;s definition, according to <a href="http://www.haskell.org/onlinereport/standard-prelude.html" title="Prelude">Prelude</a> is:
-{% codeblock lang:haskell %}
-(.)       :: (b &ndash;> c) &ndash;> (a &ndash;> b) &ndash;> a &ndash;> c
-(.) f g x = f (g x)
-{% endcodeblock %}</p>
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='haskell'><span class='line'><span class="p">(</span><span class="o">.</span><span class="p">)</span>       <span class="ow">::</span> <span class="p">(</span><span class="n">b</span> <span class="o">&amp;</span><span class="n">ndash</span><span class="p">;</span><span class="o">&gt;</span> <span class="n">c</span><span class="p">)</span> <span class="o">&amp;</span><span class="n">ndash</span><span class="p">;</span><span class="o">&gt;</span> <span class="p">(</span><span class="n">a</span> <span class="o">&amp;</span><span class="n">ndash</span><span class="p">;</span><span class="o">&gt;</span> <span class="n">b</span><span class="p">)</span> <span class="o">&amp;</span><span class="n">ndash</span><span class="p">;</span><span class="o">&gt;</span> <span class="n">a</span> <span class="o">&amp;</span><span class="n">ndash</span><span class="p">;</span><span class="o">&gt;</span> <span class="n">c</span>
+</span><span class='line'><span class="p">(</span><span class="o">.</span><span class="p">)</span> <span class="n">f</span> <span class="n">g</span> <span class="n">x</span> <span class="ow">=</span> <span class="n">f</span> <span class="p">(</span><span class="n">g</span> <span class="n">x</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>This operator takes two functions and produces a function which is composed of the two. This function takes the output of one function and sends it through as the input to another function, returning the result of that call.</p>
 
@@ -195,9 +199,9 @@ ghci&gt;
 </code></pre>
 
 <p>As you can see, ghci doesn&rsquo;t like it. And rightly so! This is because the composition operator&rsquo;s signature is:
-{% codeblock lang:haskell %}
-(.) :: (b &ndash;> c) &ndash;> (a &ndash;> b) &ndash;> a &ndash;> c
-{% endcodeblock %}</p>
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='haskell'><span class='line'><span class="p">(</span><span class="o">.</span><span class="p">)</span> <span class="ow">::</span> <span class="p">(</span><span class="n">b</span> <span class="o">&amp;</span><span class="n">ndash</span><span class="p">;</span><span class="o">&gt;</span> <span class="n">c</span><span class="p">)</span> <span class="o">&amp;</span><span class="n">ndash</span><span class="p">;</span><span class="o">&gt;</span> <span class="p">(</span><span class="n">a</span> <span class="o">&amp;</span><span class="n">ndash</span><span class="p">;</span><span class="o">&gt;</span> <span class="n">b</span><span class="p">)</span> <span class="o">&amp;</span><span class="n">ndash</span><span class="p">;</span><span class="o">&gt;</span> <span class="n">a</span> <span class="o">&amp;</span><span class="n">ndash</span><span class="p">;</span><span class="o">&gt;</span> <span class="n">c</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>That is:</p>
 
@@ -205,18 +209,21 @@ ghci&gt;
 
 
 <p>This doesn&rsquo;t work in our case, as we want our right-hand function to take two arguments. That is, we want a type signature that looks like this:
-{% codeblock lang:haskell %}
-foo :: (b &ndash;> c) &ndash;> (a &ndash;> a1 &ndash;> b) &ndash;> a &ndash;> a1 &ndash;> c
-{% endcodeblock %}</p>
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='haskell'><span class='line'><span class="nf">foo</span> <span class="ow">::</span> <span class="p">(</span><span class="n">b</span> <span class="o">&amp;</span><span class="n">ndash</span><span class="p">;</span><span class="o">&gt;</span> <span class="n">c</span><span class="p">)</span> <span class="o">&amp;</span><span class="n">ndash</span><span class="p">;</span><span class="o">&gt;</span> <span class="p">(</span><span class="n">a</span> <span class="o">&amp;</span><span class="n">ndash</span><span class="p">;</span><span class="o">&gt;</span> <span class="n">a1</span> <span class="o">&amp;</span><span class="n">ndash</span><span class="p">;</span><span class="o">&gt;</span> <span class="n">b</span><span class="p">)</span> <span class="o">&amp;</span><span class="n">ndash</span><span class="p">;</span><span class="o">&gt;</span> <span class="n">a</span> <span class="o">&amp;</span><span class="n">ndash</span><span class="p">;</span><span class="o">&gt;</span> <span class="n">a1</span> <span class="o">&amp;</span><span class="n">ndash</span><span class="p">;</span><span class="o">&gt;</span> <span class="n">c</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>So everywhere we had <em>(a &ndash;> b)</em>, what we really want is <em>(a &ndash;> a1 &ndash;> b)</em>. Given that we don&rsquo;t have an operator that does that for us, let&rsquo;s define one. We&rsquo;ll start with the definition of the (.) operator and work towards a function that does what we need.</p>
 
-<p>{% codeblock lang:haskell %}
-&mdash; here is the composition operator again
-(.) f g x = f (g x)
-&mdash; here&rsquo;s our new operator&rsquo;s definition
-(.^) f g x y = f (g x y)
-{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='haskell'><span class='line'><span class="o">&amp;</span><span class="n">mdash</span><span class="p">;</span> <span class="n">here</span> <span class="n">is</span> <span class="n">the</span> <span class="n">composition</span> <span class="n">operator</span> <span class="n">again</span>
+</span><span class='line'><span class="p">(</span><span class="o">.</span><span class="p">)</span> <span class="n">f</span> <span class="n">g</span> <span class="n">x</span> <span class="ow">=</span> <span class="n">f</span> <span class="p">(</span><span class="n">g</span> <span class="n">x</span><span class="p">)</span>
+</span><span class='line'><span class="o">&amp;</span><span class="n">mdash</span><span class="p">;</span> <span class="n">here</span><span class="o">&amp;</span><span class="n">rsquo</span><span class="p">;</span><span class="n">s</span> <span class="n">our</span> <span class="n">new</span> <span class="n">operator</span><span class="o">&amp;</span><span class="n">rsquo</span><span class="p">;</span><span class="n">s</span> <span class="n">definition</span>
+</span><span class='line'><span class="p">(</span><span class="o">.^</span><span class="p">)</span> <span class="n">f</span> <span class="n">g</span> <span class="n">x</span> <span class="n">y</span> <span class="ow">=</span> <span class="n">f</span> <span class="p">(</span><span class="n">g</span> <span class="n">x</span> <span class="n">y</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>Simple! Let&rsquo;s see what ghci says about it:</p>
 
@@ -228,12 +235,15 @@ a :: (t2 -&gt; t3) -&gt; (t -&gt; t1 -&gt; t2) -&gt; t -&gt; t1 -&gt; t3
 <p>Looks good! This is exactly what we need. Now that we have a working function, let&rsquo;s aim to write this in Point-Free style. We do this by breaking down the function slowly and eliminating arguments by moving them to the far right hand side of the function definition.</p>
 
 <p>The first argument to get rid of is &lsquo;y&rsquo;, as this is the last argument passed in:
-{% codeblock lang:haskell %}
-&mdash; start by moving y to the right
-(.^) f g x y = f (g x y)
-&mdash; becomes
-(.^) f g x y = f . (g x) $ y
-{% endcodeblock %}</p>
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='haskell'><span class='line'><span class="o">&amp;</span><span class="n">mdash</span><span class="p">;</span> <span class="n">start</span> <span class="n">by</span> <span class="n">moving</span> <span class="n">y</span> <span class="n">to</span> <span class="n">the</span> <span class="n">right</span>
+</span><span class='line'><span class="p">(</span><span class="o">.^</span><span class="p">)</span> <span class="n">f</span> <span class="n">g</span> <span class="n">x</span> <span class="n">y</span> <span class="ow">=</span> <span class="n">f</span> <span class="p">(</span><span class="n">g</span> <span class="n">x</span> <span class="n">y</span><span class="p">)</span>
+</span><span class='line'><span class="o">&amp;</span><span class="n">mdash</span><span class="p">;</span> <span class="n">becomes</span>
+</span><span class='line'><span class="p">(</span><span class="o">.^</span><span class="p">)</span> <span class="n">f</span> <span class="n">g</span> <span class="n">x</span> <span class="n">y</span> <span class="ow">=</span> <span class="n">f</span> <span class="o">.</span> <span class="p">(</span><span class="n">g</span> <span class="n">x</span><span class="p">)</span> <span class="o">$</span> <span class="n">y</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>These are functionally equivalent, and now that &lsquo;y&rsquo; is out on it&rsquo;s own, we can drop it from our function definition:</p>
 
@@ -244,20 +254,31 @@ ghci&gt;
 </code></pre>
 
 <p>Excellent, we&rsquo;re a step closer. Now we need to do the same with &lsquo;x&rsquo;. This takes a little more fiddling:
-{% codeblock lang:haskell %}
-&mdash; we need to take the original definition
-(.^) f g x = f . (g x)
-&mdash; and change it so that it uses prefix notation instead of infix
-(.^) f g x = (.) f (g x)
-&mdash; which is the same as
-(.^) f g x = ((.) f) (g x)
-&mdash; what we&rsquo;re doing is calling g with x and applying the result to f
-&mdash; and hence we can compose the composition of f with the call to g
-&mdash; giving us the following
-(.^) f g x = ((.) f) . g $ x
-&mdash; finally leaving us with
-(.^) f g = ((.) f) . g
-{% endcodeblock %}</p>
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='haskell'><span class='line'><span class="o">&amp;</span><span class="n">mdash</span><span class="p">;</span> <span class="n">we</span> <span class="n">need</span> <span class="n">to</span> <span class="n">take</span> <span class="n">the</span> <span class="n">original</span> <span class="n">definition</span>
+</span><span class='line'><span class="p">(</span><span class="o">.^</span><span class="p">)</span> <span class="n">f</span> <span class="n">g</span> <span class="n">x</span> <span class="ow">=</span> <span class="n">f</span> <span class="o">.</span> <span class="p">(</span><span class="n">g</span> <span class="n">x</span><span class="p">)</span>
+</span><span class='line'><span class="o">&amp;</span><span class="n">mdash</span><span class="p">;</span> <span class="n">and</span> <span class="n">change</span> <span class="n">it</span> <span class="n">so</span> <span class="n">that</span> <span class="n">it</span> <span class="n">uses</span> <span class="n">prefix</span> <span class="n">notation</span> <span class="n">instead</span> <span class="kr">of</span> <span class="kr">infix</span>
+</span><span class='line'><span class="p">(</span><span class="o">.^</span><span class="p">)</span> <span class="n">f</span> <span class="n">g</span> <span class="n">x</span> <span class="ow">=</span> <span class="p">(</span><span class="o">.</span><span class="p">)</span> <span class="n">f</span> <span class="p">(</span><span class="n">g</span> <span class="n">x</span><span class="p">)</span>
+</span><span class='line'><span class="o">&amp;</span><span class="n">mdash</span><span class="p">;</span> <span class="n">which</span> <span class="n">is</span> <span class="n">the</span> <span class="n">same</span> <span class="n">as</span>
+</span><span class='line'><span class="p">(</span><span class="o">.^</span><span class="p">)</span> <span class="n">f</span> <span class="n">g</span> <span class="n">x</span> <span class="ow">=</span> <span class="p">((</span><span class="o">.</span><span class="p">)</span> <span class="n">f</span><span class="p">)</span> <span class="p">(</span><span class="n">g</span> <span class="n">x</span><span class="p">)</span>
+</span><span class='line'><span class="o">&amp;</span><span class="n">mdash</span><span class="p">;</span> <span class="n">what</span> <span class="n">we</span><span class="o">&amp;</span><span class="n">rsquo</span><span class="p">;</span><span class="n">re</span> <span class="n">doing</span> <span class="n">is</span> <span class="n">calling</span> <span class="n">g</span> <span class="n">with</span> <span class="n">x</span> <span class="n">and</span> <span class="n">applying</span> <span class="n">the</span> <span class="n">result</span> <span class="n">to</span> <span class="n">f</span>
+</span><span class='line'><span class="o">&amp;</span><span class="n">mdash</span><span class="p">;</span> <span class="n">and</span> <span class="n">hence</span> <span class="n">we</span> <span class="n">can</span> <span class="n">compose</span> <span class="n">the</span> <span class="n">composition</span> <span class="kr">of</span> <span class="n">f</span> <span class="n">with</span> <span class="n">the</span> <span class="n">call</span> <span class="n">to</span> <span class="n">g</span>
+</span><span class='line'><span class="o">&amp;</span><span class="n">mdash</span><span class="p">;</span> <span class="n">giving</span> <span class="n">us</span> <span class="n">the</span> <span class="n">following</span>
+</span><span class='line'><span class="p">(</span><span class="o">.^</span><span class="p">)</span> <span class="n">f</span> <span class="n">g</span> <span class="n">x</span> <span class="ow">=</span> <span class="p">((</span><span class="o">.</span><span class="p">)</span> <span class="n">f</span><span class="p">)</span> <span class="o">.</span> <span class="n">g</span> <span class="o">$</span> <span class="n">x</span>
+</span><span class='line'><span class="o">&amp;</span><span class="n">mdash</span><span class="p">;</span> <span class="n">finally</span> <span class="n">leaving</span> <span class="n">us</span> <span class="n">with</span>
+</span><span class='line'><span class="p">(</span><span class="o">.^</span><span class="p">)</span> <span class="n">f</span> <span class="n">g</span> <span class="ow">=</span> <span class="p">((</span><span class="o">.</span><span class="p">)</span> <span class="n">f</span><span class="p">)</span> <span class="o">.</span> <span class="n">g</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>Phew :) I hope you can see the progression. We&rsquo;ve managed to move x out of the picture, so now we&rsquo;re down to a fairly crazy looking definition. Let&rsquo;s see what ghci has to say:</p>
 
@@ -267,14 +288,19 @@ ghci&gt; :t (.^)
 </code></pre>
 
 <p>So we&rsquo;ve got rid of two variables, but there are still two more to go! Remember, &lsquo;f&rsquo; and &lsquo;g&rsquo; are still variables, they just carry functions. So let&rsquo;s get rid of &lsquo;g&rsquo;:
-{% codeblock lang:haskell %}
-&mdash; start with what we had before
-(.^) f g = ((.) f) . g
-&mdash; change to prefix notation again
-(.^) f g = (.) ((.) f) g
-&mdash; and drop g
-(.^) f = (.) ((.) f)
-{% endcodeblock %}</p>
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='haskell'><span class='line'><span class="o">&amp;</span><span class="n">mdash</span><span class="p">;</span> <span class="n">start</span> <span class="n">with</span> <span class="n">what</span> <span class="n">we</span> <span class="n">had</span> <span class="n">before</span>
+</span><span class='line'><span class="p">(</span><span class="o">.^</span><span class="p">)</span> <span class="n">f</span> <span class="n">g</span> <span class="ow">=</span> <span class="p">((</span><span class="o">.</span><span class="p">)</span> <span class="n">f</span><span class="p">)</span> <span class="o">.</span> <span class="n">g</span>
+</span><span class='line'><span class="o">&amp;</span><span class="n">mdash</span><span class="p">;</span> <span class="n">change</span> <span class="n">to</span> <span class="n">prefix</span> <span class="n">notation</span> <span class="n">again</span>
+</span><span class='line'><span class="p">(</span><span class="o">.^</span><span class="p">)</span> <span class="n">f</span> <span class="n">g</span> <span class="ow">=</span> <span class="p">(</span><span class="o">.</span><span class="p">)</span> <span class="p">((</span><span class="o">.</span><span class="p">)</span> <span class="n">f</span><span class="p">)</span> <span class="n">g</span>
+</span><span class='line'><span class="o">&amp;</span><span class="n">mdash</span><span class="p">;</span> <span class="n">and</span> <span class="n">drop</span> <span class="n">g</span>
+</span><span class='line'><span class="p">(</span><span class="o">.^</span><span class="p">)</span> <span class="n">f</span> <span class="ow">=</span> <span class="p">(</span><span class="o">.</span><span class="p">)</span> <span class="p">((</span><span class="o">.</span><span class="p">)</span> <span class="n">f</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>This is looking rather crazy :) Again, let&rsquo;s make sure we haven&rsquo;t done anything stupid:</p>
 
@@ -284,15 +310,21 @@ ghci&gt; :t (.^)
 </code></pre>
 
 <p>Excellent. We&rsquo;ve still got what we need. One more point needs to be dropped, so let&rsquo;s get rid of &lsquo;f&rsquo;:
-{% codeblock lang:haskell %}
-&mdash; start with what we had before
-(.^) f = (.) ((.) f)
-&mdash; which means that we&rsquo;re composing a composition with a
-&mdash; function composed of f and something else
-(.^) f = (.) . (.) $ f
-&mdash; and we finally drop f
-(.^) = (.) . (.)
-{% endcodeblock %}</p>
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='haskell'><span class='line'><span class="o">&amp;</span><span class="n">mdash</span><span class="p">;</span> <span class="n">start</span> <span class="n">with</span> <span class="n">what</span> <span class="n">we</span> <span class="n">had</span> <span class="n">before</span>
+</span><span class='line'><span class="p">(</span><span class="o">.^</span><span class="p">)</span> <span class="n">f</span> <span class="ow">=</span> <span class="p">(</span><span class="o">.</span><span class="p">)</span> <span class="p">((</span><span class="o">.</span><span class="p">)</span> <span class="n">f</span><span class="p">)</span>
+</span><span class='line'><span class="o">&amp;</span><span class="n">mdash</span><span class="p">;</span> <span class="n">which</span> <span class="n">means</span> <span class="n">that</span> <span class="n">we</span><span class="o">&amp;</span><span class="n">rsquo</span><span class="p">;</span><span class="n">re</span> <span class="n">composing</span> <span class="n">a</span> <span class="n">composition</span> <span class="n">with</span> <span class="n">a</span>
+</span><span class='line'><span class="o">&amp;</span><span class="n">mdash</span><span class="p">;</span> <span class="n">function</span> <span class="n">composed</span> <span class="kr">of</span> <span class="n">f</span> <span class="n">and</span> <span class="n">something</span> <span class="kr">else</span>
+</span><span class='line'><span class="p">(</span><span class="o">.^</span><span class="p">)</span> <span class="n">f</span> <span class="ow">=</span> <span class="p">(</span><span class="o">.</span><span class="p">)</span> <span class="o">.</span> <span class="p">(</span><span class="o">.</span><span class="p">)</span> <span class="o">$</span> <span class="n">f</span>
+</span><span class='line'><span class="o">&amp;</span><span class="n">mdash</span><span class="p">;</span> <span class="n">and</span> <span class="n">we</span> <span class="n">finally</span> <span class="n">drop</span> <span class="n">f</span>
+</span><span class='line'><span class="p">(</span><span class="o">.^</span><span class="p">)</span> <span class="ow">=</span> <span class="p">(</span><span class="o">.</span><span class="p">)</span> <span class="o">.</span> <span class="p">(</span><span class="o">.</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>Isn&rsquo;t that just crazy! Let&rsquo;s again check ghci:</p>
 
@@ -419,14 +451,21 @@ function sum(var data:Array, var index:Integer):Number
 
 <p>First, I put the data into Haskell&rsquo;s list format:</p>
 
-<p>{% codeblock lang:haskell %}
-vals = [[150,200,45,57,95,2,45,32,15,10,5,2,2,4],</p>
-
-<pre><code>    [12,20,45,37,10,5,2,2,10,95,2,45,32,7],
-    [32,15,10,5,2,23,24,15,20,45,57,95,0,45]]
-</code></pre>
-
-<p>{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='haskell'><span class='line'><span class="nf">vals</span> <span class="ow">=</span> <span class="p">[[</span><span class="mi">150</span><span class="p">,</span><span class="mi">200</span><span class="p">,</span><span class="mi">45</span><span class="p">,</span><span class="mi">57</span><span class="p">,</span><span class="mi">95</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">45</span><span class="p">,</span><span class="mi">32</span><span class="p">,</span><span class="mi">15</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">],</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span>    <span class="p">[</span><span class="mi">12</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">45</span><span class="p">,</span><span class="mi">37</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">95</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">45</span><span class="p">,</span><span class="mi">32</span><span class="p">,</span><span class="mi">7</span><span class="p">],</span>
+</span><span class='line'>    <span class="p">[</span><span class="mi">32</span><span class="p">,</span><span class="mi">15</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">23</span><span class="p">,</span><span class="mi">24</span><span class="p">,</span><span class="mi">15</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">45</span><span class="p">,</span><span class="mi">57</span><span class="p">,</span><span class="mi">95</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">45</span><span class="p">]]</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>That was easy enough. The next step was to break the problem down so that I could use some of the built in functions of Haskell&rsquo;s <a href="http://haskell.org/ghc/docs/latest/html/libraries/base/Prelude.html" title="Prelude">Prelude</a> libraries. My thought processes were:</p>
 
@@ -438,16 +477,25 @@ vals = [[150,200,45,57,95,2,45,32,15,10,5,2,2,4],</p>
 
 
 <p>Being a bit of a primitive Haskeller, my first pass was something like this:
-{% codeblock lang:haskell %}
-extremes n = (b, s)
-  where</p>
-
-<pre><code>l = map sum $ transpose n
-b = maximum l
-s = minimum l
-</code></pre>
-
-<p>{% endcodeblock %}</p>
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='haskell'><span class='line'><span class="nf">extremes</span> <span class="n">n</span> <span class="ow">=</span> <span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>
+</span><span class='line'>  <span class="kr">where</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">l</span> <span class="ow">=</span> <span class="n">map</span> <span class="n">sum</span> <span class="o">$</span> <span class="n">transpose</span> <span class="n">n</span>
+</span><span class='line'><span class="nf">b</span> <span class="ow">=</span> <span class="n">maximum</span> <span class="n">l</span>
+</span><span class='line'><span class="nf">s</span> <span class="ow">=</span> <span class="n">minimum</span> <span class="n">l</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>The function <em>extremes</em> is the function which takes the data (list of lists) and spits out a tuple of <em>(max, min)</em>.</p>
 
@@ -456,16 +504,16 @@ s = minimum l
 <p>The first thing that I thought could be improved would be using a custom <a href="http://www.haskell.org/haskellwiki/Fold" title="Fold">fold</a> to get the max and min while parsing the transposed list. This would allow us to calculate the values in a single pass and hence be a little better with regards to performance. That would obviously sacrifice a little bit of the conciseness we&rsquo;re looking for.</p>
 
 <p>When the conversation ended, I jumped onto IRC and spoke to some more seasoned Haskellers. The first suggested improvement that popped out of that chat was to use <a href="http://www.haskell.org/arrows/" title="Arrows">arrows</a> to remove the need for the where clause. That solution looks like this:
-{% codeblock lang:haskell %}
-extremes = (maximum &amp;&amp;&amp; minimum) . map sum . transpose
-{% endcodeblock %}</p>
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='haskell'><span class='line'><span class="nf">extremes</span> <span class="ow">=</span> <span class="p">(</span><span class="n">maximum</span> <span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span><span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span><span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span> <span class="n">minimum</span><span class="p">)</span> <span class="o">.</span> <span class="n">map</span> <span class="n">sum</span> <span class="o">.</span> <span class="n">transpose</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>Nifty :) Of all the other options, this proved to be the most readable and concise, though not the best performing.</p>
 
 <p>The next most notable solution included the fold which calculated the min and max in a single parse, not a double parse:
-{% codeblock lang:haskell %}
-extremes = foldl1 ((a, b) &ndash;> max a *** min b) . join zip . map sum . transpose
-{% endcodeblock %}</p>
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='haskell'><span class='line'><span class="nf">extremes</span> <span class="ow">=</span> <span class="n">foldl1</span> <span class="p">((</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="o">&amp;</span><span class="n">ndash</span><span class="p">;</span><span class="o">&gt;</span> <span class="n">max</span> <span class="n">a</span> <span class="o">***</span> <span class="n">min</span> <span class="n">b</span><span class="p">)</span> <span class="o">.</span> <span class="n">join</span> <span class="n">zip</span> <span class="o">.</span> <span class="n">map</span> <span class="n">sum</span> <span class="o">.</span> <span class="n">transpose</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>Folds really are fantastic aren&rsquo;t they. Again we&rsquo;re using arrows here to do a bit of heavy lifting and that keeps things looking a little nicer.</p>
 
@@ -494,37 +542,65 @@ extremes = foldl1 ((a, b) &ndash;> max a *** min b) . join zip . map sum . trans
 Exciting stuff! Since we&rsquo;ve already got ourselves a relatively nifty prime number generator from a <a title="Project Euler #7" href="http://buffered.io/posts/project-euler-7/">previous post</a>, we can simply reuse this, along with the sum function that comes in <a title="Prelude" href="http://www.haskell.org/ghc/docs/latest/html/libraries/base/Prelude.html">Prelude</a>, to generate the answer.</p>
 
 <p>Here is what the code looks like:
-{% codeblock lang:haskell %}
-merge :: (Ord a) => [a] &ndash;> [a] &ndash;> [a]
-merge xs@(x:xt) ys@(y:yt) =
-  case compare x y of</p>
-
-<pre><code>LT -&gt; x : (merge xt ys)
-EQ -&gt; x : (merge xt yt)
-GT -&gt; y : (merge xs yt)
-</code></pre>
-
-<p>diff :: (Ord a) => [a] &ndash;> [a] &ndash;> [a]
-diff xs@(x:xt) ys@(y:yt) =
-  case compare x y of</p>
-
-<pre><code>LT -&gt; x : (diff xt ys)
-EQ -&gt; diff xt yt
-GT -&gt; diff xs yt
-</code></pre>
-
-<p>primes, nonprimes :: [Integer]
-primes    = [2, 3, 5] ++ (diff [7, 9 ..] nonprimes)
-nonprimes = foldr1 f $ map g $ tail primes
-  where</p>
-
-<pre><code>f (x:xt) ys = x : (merge xt ys)
-g p         = [ n * p | n &lt;- [p, p + 2 ..]]
-</code></pre>
-
-<p>main :: IO ()
-main = print $ sum (takeWhile (&lt;2000000) primes)
-{% endcodeblock %}</p>
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+</pre></td><td class='code'><pre><code class='haskell'><span class='line'><span class="nf">merge</span> <span class="ow">::</span> <span class="p">(</span><span class="kt">Ord</span> <span class="n">a</span><span class="p">)</span> <span class="ow">=&gt;</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="o">&amp;</span><span class="n">ndash</span><span class="p">;</span><span class="o">&gt;</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="o">&amp;</span><span class="n">ndash</span><span class="p">;</span><span class="o">&gt;</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span>
+</span><span class='line'><span class="nf">merge</span> <span class="n">xs</span><span class="o">@</span><span class="p">(</span><span class="n">x</span><span class="kt">:</span><span class="n">xt</span><span class="p">)</span> <span class="n">ys</span><span class="o">@</span><span class="p">(</span><span class="n">y</span><span class="kt">:</span><span class="n">yt</span><span class="p">)</span> <span class="ow">=</span>
+</span><span class='line'>  <span class="kr">case</span> <span class="n">compare</span> <span class="n">x</span> <span class="n">y</span> <span class="kr">of</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="kt">LT</span> <span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span> <span class="n">x</span> <span class="kt">:</span> <span class="p">(</span><span class="n">merge</span> <span class="n">xt</span> <span class="n">ys</span><span class="p">)</span>
+</span><span class='line'><span class="kt">EQ</span> <span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span> <span class="n">x</span> <span class="kt">:</span> <span class="p">(</span><span class="n">merge</span> <span class="n">xt</span> <span class="n">yt</span><span class="p">)</span>
+</span><span class='line'><span class="kt">GT</span> <span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span> <span class="n">y</span> <span class="kt">:</span> <span class="p">(</span><span class="n">merge</span> <span class="n">xs</span> <span class="n">yt</span><span class="p">)</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">diff</span> <span class="ow">::</span> <span class="p">(</span><span class="kt">Ord</span> <span class="n">a</span><span class="p">)</span> <span class="ow">=&gt;</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="o">&amp;</span><span class="n">ndash</span><span class="p">;</span><span class="o">&gt;</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="o">&amp;</span><span class="n">ndash</span><span class="p">;</span><span class="o">&gt;</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span>
+</span><span class='line'><span class="nf">diff</span> <span class="n">xs</span><span class="o">@</span><span class="p">(</span><span class="n">x</span><span class="kt">:</span><span class="n">xt</span><span class="p">)</span> <span class="n">ys</span><span class="o">@</span><span class="p">(</span><span class="n">y</span><span class="kt">:</span><span class="n">yt</span><span class="p">)</span> <span class="ow">=</span>
+</span><span class='line'>  <span class="kr">case</span> <span class="n">compare</span> <span class="n">x</span> <span class="n">y</span> <span class="kr">of</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="kt">LT</span> <span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span> <span class="n">x</span> <span class="kt">:</span> <span class="p">(</span><span class="n">diff</span> <span class="n">xt</span> <span class="n">ys</span><span class="p">)</span>
+</span><span class='line'><span class="kt">EQ</span> <span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span> <span class="n">diff</span> <span class="n">xt</span> <span class="n">yt</span>
+</span><span class='line'><span class="kt">GT</span> <span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span> <span class="n">diff</span> <span class="n">xs</span> <span class="n">yt</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">primes</span><span class="p">,</span> <span class="n">nonprimes</span> <span class="ow">::</span> <span class="p">[</span><span class="kt">Integer</span><span class="p">]</span>
+</span><span class='line'><span class="nf">primes</span>    <span class="ow">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span> <span class="o">++</span> <span class="p">(</span><span class="n">diff</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">9</span> <span class="o">..</span><span class="p">]</span> <span class="n">nonprimes</span><span class="p">)</span>
+</span><span class='line'><span class="nf">nonprimes</span> <span class="ow">=</span> <span class="n">foldr1</span> <span class="n">f</span> <span class="o">$</span> <span class="n">map</span> <span class="n">g</span> <span class="o">$</span> <span class="n">tail</span> <span class="n">primes</span>
+</span><span class='line'>  <span class="kr">where</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">f</span> <span class="p">(</span><span class="n">x</span><span class="kt">:</span><span class="n">xt</span><span class="p">)</span> <span class="n">ys</span> <span class="ow">=</span> <span class="n">x</span> <span class="kt">:</span> <span class="p">(</span><span class="n">merge</span> <span class="n">xt</span> <span class="n">ys</span><span class="p">)</span>
+</span><span class='line'><span class="nf">g</span> <span class="n">p</span>         <span class="ow">=</span> <span class="p">[</span> <span class="n">n</span> <span class="o">*</span> <span class="n">p</span> <span class="o">|</span> <span class="n">n</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="o">-</span> <span class="p">[</span><span class="n">p</span><span class="p">,</span> <span class="n">p</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">..</span><span class="p">]]</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">main</span> <span class="ow">::</span> <span class="kt">IO</span> <span class="nb">()</span>
+</span><span class='line'><span class="nf">main</span> <span class="ow">=</span> <span class="n">print</span> <span class="o">$</span> <span class="n">sum</span> <span class="p">(</span><span class="n">takeWhile</span> <span class="p">(</span><span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="mi">2000000</span><span class="p">)</span> <span class="n">primes</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>I don&rsquo;t really have much else to say about this. I won&rsquo;t bother with the performance information because it&rsquo;s not really doing anything too exciting that hasn&rsquo;t already been discussed.</p>
 

@@ -4,7 +4,7 @@
   <title><![CDATA[OJ's perspective]]></title>
   <link href="http://buffered.io/atom.xml" rel="self"/>
   <link href="http://buffered.io/"/>
-  <updated>2013-12-28T08:11:18+10:00</updated>
+  <updated>2013-12-28T12:48:10+10:00</updated>
   <id>http://buffered.io/</id>
   <author>
     <name><![CDATA[OJ Reeves]]></name>
@@ -1367,7 +1367,7 @@ In August this year I was fortunate enough to land a three-month contract workin
 </span><span class='line'>You have been owned!</span></code></pre></td></tr></table></div></figure>
 
 
-<p>This rather large chunk of work was merged by <a href="https://twitter.com/egyp7">Egypt</a> and <a href="https://twitter.com/Meatballs__">Meatballs</a>, who deserve a big thanks for waiting through my steaming pile of code to make sure it was as stink-free as possible before it landed in master.</p>
+<p>This rather large chunk of work was merged by <a href="https://twitter.com/egyp7">Egypt</a> and <a href="https://twitter.com/Meatballs__">Meatballs</a>, who deserve a big thanks for wading through my steaming pile of code to make sure it was as stink-free as possible before it landed in master.</p>
 
 <h4>ADSI Integration</h4>
 

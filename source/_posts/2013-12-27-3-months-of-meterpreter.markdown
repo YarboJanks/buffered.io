@@ -908,7 +908,7 @@ Current Clipboard Text
 You have been owned!
 ```
 
-This rather large chunk of work was merged by [Egypt][] and [Meatballs][], who deserve a big thanks for waiting through my steaming pile of code to make sure it was as stink-free as possible before it landed in master.
+This rather large chunk of work was merged by [Egypt][] and [Meatballs][], who deserve a big thanks for wading through my steaming pile of code to make sure it was as stink-free as possible before it landed in master.
 
 #### ADSI Integration
 
