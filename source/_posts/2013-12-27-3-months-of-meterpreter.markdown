@@ -1098,7 +1098,7 @@ I've had an absolute blast working on Meterpreter these last few months, and I w
 
 Second is [Egypt][]. Not only is this bloke super smart and super nice, but he seems to have unending patience when it comes to me and my stupid questions. It's humbling to be in the presence of this guy, and it was a career highlight to meet him this year at [BPX][]/[Rux][] and get to share some stories over a scotch or three.
 
-Next, a collective holler to the other legendary Rapid7 folk who put up with me every day and who are a constant source of inspiration and learnings: [TheLightCosine][], [Juan][], [sinn3r][], [wvu][] and [HD Moore][]. Just being present when these people have a conversation is enough to make me realise how much more I need to learn and vast their abilities are. Thanks to you all for your time and support. I am easily the dumbest guy in the room which means I'm in the right room!
+Next, a collective holler to the other legendary Rapid7 folk who put up with me every day and who are a constant source of inspiration and learnings: [TheLightCosine][], [Juan][], [sinn3r][], [wvu][], [Brandon][] and [HD Moore][]. Just being present when these people have a conversation is enough to make me realise how much more I need to learn and vast their abilities are. Thanks to you all for your time and support. I am easily the dumbest guy in the room which means I'm in the right room!
 
 To the general security community folk who, despite not being involved with Rapid7, have given me time and support beyond that which I deserve while working on Meterpreter and trying to make the jump into the security field: [Pipes][], [Mubix][], [Kernelsmith][], [Meatballs][] (thanks for landing those PRs!), [Zeknox][], [Matthew Risck][], [SmilingRaccoon][], [Justin][justinsteven], [radac][], [sw1tch][], [Novex][], [Ash][] and [Wade][] ... and many others. You're all bloody legends.
 
@@ -1188,4 +1188,5 @@ Thanks to you all for reading. I hope you enjoyed it and I hope it broke down so
   [channel_refactor_pr]: https://github.com/rapid7/meterpreter/pull/38
   [indigo_montoya]: https://www.youtube.com/watch?v=G2y8Sx4B2Sk
   [Matthew Risck]: https://twitter.com/Mateusz_Jozef
+  [Brandon]: https://twitter.com/blt04
   [sec_street_tldr]: https://community.rapid7.com/community/metasploit/blog/2013/12/27/meterpreter-reloaded
