@@ -479,7 +479,7 @@ The Extended API, or `extapi`, is an extension that was born out of the need to 
 
 The meat of `extapi` comes from ideas that were shared with me by [Mubix][] and [Kernelsmith][], so credit where credit is due, these guys were the minds behind the extension. I just built it, which is the easy bit. The extension is new, and only has a little bit of functionality so far, but I have a goal to add a lot more very useful stuff in the future. The Metasploit pull request can be [found here][metasploit_extapi_pr] and the Meterpreter side is [over here][meterpreter_extapi_pr] if you'd like to dive into the code.
 
-[Tod][todb] posted some details about this extension on a [recent Metasploit blog post[metasploit_post_extapi] (thanks Tod!), but I'm going to dive into the guts a little more in this post.
+[Tod][todb] posted some details about this extension on a [recent Metasploit blog post][metasploit_post_extapi] (thanks Tod!), but I'm going to dive into the guts a little more in this post.
 
 `extapi` is Windows-only at this point, as the functionality that was added is Windows-specific. However, there's plenty of room for improvement and plenty of room for addition of features that POSIX will appreciate. If you feel compelled to get involved this is a great spot to get started.
 
@@ -1190,3 +1190,4 @@ Thanks to you all for reading. I hope you enjoyed it and I hope it broke down so
   [Matthew Risck]: https://twitter.com/Mateusz_Jozef
   [Brandon]: https://twitter.com/blt04
   [sec_street_tldr]: https://community.rapid7.com/community/metasploit/blog/2013/12/27/meterpreter-reloaded
+  [metasploit_post_extapi]: https://community.rapid7.com/community/metasploit/blog/2013/12/12/weekly-metasploit-update
