@@ -113,7 +113,7 @@ I pushed on reworking scripts, automating things, and generally "Trying Harder".
 
 At this point I thought I had it made. I saw the entry point, I saw the potential ways to abuse what I had learned and I thought that the process would be a simple 1..2..3.._pop_! But again I wrong and Offsec showed me again how devious they could be.
 
-During the rest of the day I built no less than 10 different "attacks" (I'm deliberately using vague words here so that I don't give anything away), all of which would work nicely in my test environments but would not work at all on the client. 2pm came. 4pm. 6pm. **9pm**. Idea after idea came and went, many working locally, none working remotely. It was driving me mad. It was making me feel _really_ stupid. I was hating it at loving it at the same time.
+During the rest of the day I built no less than 10 different "attacks" (I'm deliberately using vague words here so that I don't give anything away), all of which would work nicely in my test environments but would not work at all on the client. 2pm came. 4pm. 6pm. **9pm**. Idea after idea came and went, many working locally, none working remotely. It was driving me mad. It was making me feel _really_ stupid. I was hating it and loving it at the same time.
 
 At 9pm something came to me, almost out of nowhere. It might have had something to do with the fact that I was sweaty, running on adrenaline, and my brain was going a bit bonkers. I had a moment of clarity and came up with something that was a little out of left field, which I admit was influenced by my development background a little.
 
