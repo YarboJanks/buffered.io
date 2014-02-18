@@ -32,3 +32,5 @@ And here it is in action. See it in all its Youtubey glory!
 <iframe width="640" height="480" src="//www.youtube.com/embed/5WgLlGCMez0" frameborder="0" allowfullscreen></iframe>
 
 Feedback, comments and questions are welcome as always.
+
+  [fork]: https://help.github.com/articles/fork-a-repo "Fork a Repo"
