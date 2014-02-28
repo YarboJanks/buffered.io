@@ -16,10 +16,10 @@ With [OSCE][] out of the way and the family in need of a break from me doing stu
 On this particular day I thought I'd try one of the harder exploitme challenges and it just so happened that something appeared in my Twitter feed that pointed me to [Ammar][]'s post discussing a level `500` exploit challenge from the [IDSECCONF 2013 CTF][idsecconf]. To quote Ammar:
 
 > ... during the IDSECCONF offline CTF, none of the team were able to wrap
-> up a working remote exploit, although one team were [sic] able to get [the]
+> up a working remote exploit, although one team were able to get [the]
 > correct offset to overwrite EIP ...
 
-I asked Ammar if the binary was still available and he kindly made it available for download (head to his site if you would like to have a shot at it yourself).
+This had the hallmarks of being tricky and fun! I asked Ammar if the binary was still available and he kindly made it available for download (head to his site if you would like to have a shot at it yourself).
 
 What follows is my dissection of the binary, along with my approach to exploiting it so that it would allow the attacker to submit _any_ payload including reverse [Meterpreter][] shells, bind shells and VNC injection. If you're keen to take this challenge on by yourself, please don't read this as it's a blatant spoiler. Otherwise, let's get stuck in!
 
@@ -704,7 +704,21 @@ So we can see that `EBX` contains the `socket` function address as we had planne
 MOV EDI, EAX          ; Store the socket handle somewhere else
 ```
 
-Once we've got the socket, we need to bind it to an address. This is where the existing global variable comes in which was used to set up the existing socket. We're going to abuse the knowledge of the location of this thing and reuse it in our call. Note that we can't bind to the same socket, so we'll just increment the socket number prior to making our call. The address is `0x00407434`, which just happens to be `0x4000` past our current `EBX` value. We'll abuse this fact to get the value bumped quicky, and then we'll increment the port number:
+Once we've got the socket, we need to bind it to an address. This is where the existing global variable comes in which was used to set up the existing socket. To locate this structure in memory, all I had to do was use Immunity to locate the exiting call to `bind`. This was as simple as setting a breakpoint on the same memory address as the `bind` jump call, which is at `0x00403454`. This is invoked during start-up, and so launching the application results in the breakpoint being hit. From there we can step through a few instructions until we find ourselves back at the call site, located at address `0x00403134`. The instructions leading up to the call look like this:
+
+```
+00403116   . 52             PUSH EDX                                 ; |Socket
+00403117   . A3 38744000    MOV DWORD PTR DS:[407438],EAX            ; |
+0040311C   . C74424 08 1000>MOV DWORD PTR SS:[ESP+8],10              ; |
+00403124   . C74424 04 3474>MOV DWORD PTR SS:[ESP+4],myftpd.00407434 ; |
+0040312C   . A1 30744000    MOV EAX,DWORD PTR DS:[407430]            ; |
+00403131   . 890424         MOV DWORD PTR SS:[ESP],EAX               ; |
+00403134   . E8 1B030000    CALL <JMP.&WS2_32.bind>                  ; \bind
+```
+
+The second parameter to a `bind` call is the socket address structure, which means the address stored in `ESP+4` is the one we're interested in. Here we can see that the value being stored here is `myftpd.00407434`, which is the global variable containing the socket address.
+
+We're going to abuse the knowledge of the location of this thing and reuse it in our call. Note that we can't bind to the same socket, so we'll just increment the socket number prior to making our call. The address is `0x00407434`, which just happens to be `0x4000` past our current `EBX` value. We'll abuse this fact to get the value bumped quicky, and then we'll increment the port number:
 
 ```
 MOV EDI, EAX          ; Store the socket handle somewhere else
