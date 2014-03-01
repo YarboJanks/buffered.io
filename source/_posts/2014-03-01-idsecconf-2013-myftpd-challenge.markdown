@@ -556,7 +556,7 @@ We can actually use a handy trick to solve this problem. Observe the locations o
 00403EA4   JMP DWORD PTR DS:[<&KERNEL32.VirtualProt>;  kernel32.VirtualProtect
 {% endcodeblock %}
 
-We can see that these imports are close together. So we could perform the above calculation the first time we need to call a function, but from that point on we can just offset from the previous call to move to the next function we need to invoke. The `ADD` or `SUB` instructions are smaller (3 bytes in total) and hence save us 5 bytes for each call. Excellent! We just need to pick a register that will not change across function calls, and that will allow us to operate on the two lower order bytes easy. I chose `EBX` for this purpose.
+We can see that these imports are close together. So we could perform the above calculation the first time we need to call a function, but from that point on we can just modify the lower-order bytes directly. The `MOV ?L` and `MOV ?H` instructions are just 2 bytes, and `MOV ?X` is 3 bytes and hence save 5 or 6 bytes per call. Excellent! We just need to pick a register that will not change across function calls, and that will allow us to operate on the two lower order bytes easy. I chose `EBX` for this purpose.
 
 So with that lot in mind, let's get shellcoding.
 
