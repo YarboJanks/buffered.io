@@ -571,7 +571,7 @@ SUB ESP, 0x7C         ; Move the stack pointer somewhere safe
 We subtract `0x7C` bytes because:
 
 1. Anything more than `0x7F` results in an instruction that is 6 bytes. Also, each byte needs to be a non-bad char, which means that `ESP` would be adjusted too far away, resulting in other problems.
-1. The largest stack-aligned value under '0x7F` is `0x7C`, and keeping the stack aligned for certain function calls is very important.
+1. The largest stack-aligned value under `0x7F` is `0x7C`, and keeping the stack aligned for certain function calls is very important.
 
 The stack now points to somewhere in the block of zeros that overwrote our original payload. This will prove to be handy later on when we need zeros pushed onto the stack.
 
