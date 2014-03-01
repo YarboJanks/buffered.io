@@ -1427,4 +1427,5 @@ I hope you enjoyed the reading. Comments and questions are always welcome, as ar
   [Immunity Debugger]: https://www.immunityinc.com/products-immdbg.shtml
   [Mona.py]: http://redmine.corelan.be/projects/mona
   [Corelanc0d3r]: https://twitter.com/corelanc0d3r
+  [muts]: https://twitter.com/kalilinux
 
