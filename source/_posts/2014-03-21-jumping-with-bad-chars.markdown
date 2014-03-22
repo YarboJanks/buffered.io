@@ -74,17 +74,13 @@ The Jump Net isn't anything revolutionary. It's not mind-expanding. It's not som
 
 There's no doubt that it's out there and being used by everyone all the time. But here it is, bloggified in all its simplistic glory.
 
-The theory is really simple and based on the following:
+The theory is really simple. We have an unknown state `s`, this could be a flag for example, and a predicate `P` which will test `s` to determine whether or not a jump is made. Those who are savvy with the basics of predicate logic will know that `P(s) || ~P(s) == true`. That is, any boolean value `b` logically `OR`ed with `~b` will result in a value of `true`. In our case `s` is not known (ie. the content of the flag at a given time might not be known), but `P` is known (ie. we are using `JA`, or `JO` for our jump). To determine `~P`, we can just look for the logical opposite of the jump instruction that we have chosen. For example, the "opposite" of `JA` is `JNA` (which is a synonym for `JBE`, or _Jump if below or equal_).
 
-* A jump for predicate `P` is `true` when `X` is `true`.
-* A jump for predicate `~P` is `true` when `~X` is `true`.
-* A guaranteed jump for predicate `P` is possible if we combine a jump for `X` and a jump for `~X`.
-* Each jump instruction has a logical opposite (ie. something that handles the `not` case). For example `JNA` (a synonym for `JBE`) is the logical opposite `JA`.
-* Each conditional short jump happens to have a very similar instruction byte value to its logical opposite. For example, `JNA` is `76` and `JA` is `77`.
+To make use of this knowledge, we just need to pair up two logically opposing jump conditions and have `EIP` pass over them. If the first condition succeeds our jump is taken and we win. If not, the second condition _must_ succeed (it's the inverse of the first after all), and so we still win.
 
-For a list of the jumps, their opposites and their short jump opcode values take a look at [this nice summary][jmpsummary] at Unixwiz.
+Each conditional short jump just happens to have a very similar instruction byte value to its logical opposite. For example, `JNA` is `76` and `JA` is `77`. So this means that the chances of the characters being _bad_ are slim (but admittedly non-zero).
 
-So armed with this knowledge, we can pair up two jumps which when combined form a "net" of conditions which will always "catch" a positive/true case and perform the jump. Here's an example:
+Armed with this knowledge, we can pair up two jumps which when combined form a "net" of conditions which will always "catch" a positive/true case and perform the jump. Here's an example that uses `JO` and `JNO`:
 
 ![The Jump Net](/uploads/2014/03/jmp-3-jojno.png)
 
