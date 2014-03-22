@@ -14,7 +14,7 @@ In this post I want to briefly cover a few options for performing those jumps in
 
 ### SEH overwrites
 
-SEH overwrites tend to follow the pattern of having an input field overwrite its target buffer and overflow beyond the return address through to the `SEH` pointers. The `SEH` pointer is overwritten with an address that contains a `POP # POP # RET` instruction sequence, and this results in `EIP` being redirected to the `NSEH` pointer address. The `NSEH` pointer address is contained in the `4` bytes immediately preceeding the `SEH` pointer.
+SEH overwrites tend to follow the pattern of having an input field overwrite its target buffer and overflow beyond the return address through to the `SEH` pointers. The `SEH` pointer is overwritten with an address that contains a `POP # POP # RET` instruction sequence, and this results in `EIP` being redirected to the `NSEH` pointer address. The `NSEH` pointer address is contained in the `4` bytes immediately preceding the `SEH` pointer.
 
 In order to exploit an SEH overwrite, the attacker need to execute shellcode which will perform some kind of operation on the target machine. It could be a reverse shell, a bind shell or something like a command execution. Regardless of the payload, it's almost certain that `4` bytes is not going to be enough to fit the entire instruction sequence in.
 
@@ -24,7 +24,7 @@ So once control has been gained and `EIP` is pointing to those `4` bytes, the fi
 
 Jumps tend to only require `2` bytes, and so in the case of SEH overwrites it is common to see the `NSEH` entry overwritten with a `2` byte jump followed by `NOP` instructions to fill the gap. See the image below for a synthetic example:
 
-![Basic SEH overwite JMP](/uploads/2014/03/jmp-1-basicjmp.png)
+![Basic SEH overwrite JMP](/uploads/2014/03/jmp-1-basicjmp.png)
 
 For the sake of discussion we'll assume that the address at `0x77F7F594` is the `NSEH` pointer location and that `0x77F7F598` is the `SEH` pointer location. The example shows that `NSEH` contains a `JMP SHORT` instruction which moves control forward to the address at `0x77F7FC9C`
 
@@ -34,7 +34,7 @@ Once the SEH has been overwritten and the `POP # POP # RET` sequence has been ex
 
 It is easy to see that flaws that allow for SEH overwrites can appear in any application, and they do! However, some applications only allow a restricted set of characters to be used for input. As an example, a web server might be vulnerable to a stack buffer overflow when handling the URI of a given request. The problem for the attacker is that characters that are allowed in the URI are very limited. More often than not, non-printable or extended characters are not allowed in the target buffer and hence using them will result in behaviour that avoids or changes the process of exploitation.
 
-In the above example we can see that the `JMP` instruction maps to the bytes `EB 06`, and `EB` is a byte that tends not to make webservers very happy. As a result, using this instruction in the `NSEH` block isn't possible. Instead we need to find other jumps which are bad-character friendly. As a generalisation, if we can stick to instructions made up of bytes that are lower than `7E` we can usually get by. This does come with some caveats, such as spaces, newlines or `/` characters when dealing with web server URIs.
+In the above example we can see that the `JMP` instruction maps to the bytes `EB 06`, and `EB` is a byte that tends not to make web servers very happy. As a result, using this instruction in the `NSEH` block isn't possible. Instead we need to find other jumps which are bad-character friendly. As a generalisation, if we can stick to instructions made up of bytes that are lower than `7E` we can usually get by. This does come with some caveats, such as spaces, newlines or `/` characters when dealing with web server URIs.
 
 So with this constraint in place, how does the attacker perform the simple jump?
 
@@ -96,7 +96,7 @@ Note how similar the instructions are. If `70` is a valid byte, there's a good c
 
 ### Conclusion
 
-That's literally. As I promised, it isn't anything that's mind-blowingly insightful. It isn't something that can be applied every time because of bad characers. However it does work most of the time, and it's another handy technique to have in your shellcoding toolbox.
+That's literally it. As I promised, it isn't anything that's mind-blowingly insightful. It isn't something that can be applied every time because of bad characters. However it does work most of the time, and it's another handy technique to have in your shellcoding toolbox.
 
 
   [SEH overwrites]: https://www.corelan.be/index.php/2009/07/25/writing-buffer-overflow-exploits-a-quick-and-basic-tutorial-part-3-seh/
