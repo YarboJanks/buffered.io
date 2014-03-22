@@ -89,9 +89,6 @@ delicious_count: 3
 disqus_short_name: ojsrants
 disqus_show_comment_count: true
 
-# Google Analytics
-Xgoogle_analytics_tracking_id: UA-8648787-1
-
 # Gosquared
 gosquared_analytics_tracking_id: GSN-416076-G
 
