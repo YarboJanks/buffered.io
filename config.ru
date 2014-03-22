@@ -1,36 +1,10 @@
 require 'bundler/setup'
 require 'sinatra/base'
-require 'rack'
-require 'rack/rewrite'
 
 # The project root directory
 $root = ::File.dirname(__FILE__)
 
-use Rack::Deflater
-use Rack::Rewrite do
-    r301 %r{.*}, 'http://functional.io$&', :if => Proc.new {|rack_env|
-      rack_env['SERVER_NAME'] == 'functionalio.com' || rack_env['SERVER_NAME'] == 'functionalio.com.au' || rack_env['SERVER_NAME'] == 'www.functionalio.com' || rack_env['SERVER_NAME'] == 'www.functionalio.com.au'
-    }
-
-    r301 %r{.*}, 'http://www.bnosql.com$&', :if => Proc.new {|rack_env|
-      rack_env['SERVER_NAME'] == 'bnosql.com' || rack_env['SERVER_NAME'] == 'brosql.org'
-    }
-
-    r301 %r{.*}, 'http://www.bfpg.org$&', :if => Proc.new {|rack_env|
-      rack_env['SERVER_NAME'] == 'bfpg.org'
-    }
-
-    r301 %r{.*}, 'http://buffered.io$&', :if => Proc.new {|rack_env|
-          rack_env['SERVER_NAME'] != 'buffered.io' && ENV['RACK_ENV'] == 'production'
-    }
-
-    r301 %r{^/\d\d\d\d/\d\d/\d\d/(.*)$}, '/posts/$1'
-    r301 %r{^/\+$}, 'https://plus.google.com/109005609397751560350/about'
-    r301 %r{^/about$}, 'http://about.me/ojreeves'
-    r301 %r{^/contact$}, 'http://www.google.com/recaptcha/mailhide/d?k=01KtoERsnUusX9vVliTm27uQ==&c=Be1wE57A4P96e6U9_HLCvw=='
-end
-
-class SinatraStaticServer < Sinatra::Base  
+class SinatraStaticServer < Sinatra::Base
 
   get(/.+/) do
     send_sinatra_file(request.path) {404}

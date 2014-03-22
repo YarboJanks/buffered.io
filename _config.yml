@@ -7,7 +7,7 @@ title: OJ's perspective
 subtitle: Security and software development
 author: OJ Reeves
 simple_search: http://google.com/search
-description: Security, software development and technology blog site written by OJ Reeves in Brisbane, Australia.
+description: Security, exploit development, hacking, software development and technology blog site written by OJ Reeves in Brisbane, Australia.
 
 # Default date format is "ordinal" (resulting in "July 22nd 2007")
 # You can customize the format as defined in
@@ -33,7 +33,6 @@ destination: public
 plugins: plugins
 code_dir: downloads/code
 category_dir: categories
-series_dir: series
 markdown: rdiscount
 rdiscount:
   extensions:
@@ -51,7 +50,7 @@ titlecase: true       # Converts page and post titles to titlecase
 
 # list each of the sidebar modules you want to include, in the order you want them to appear.
 # To add custom asides, create files in /source/_includes/custom/asides/ and add them to the list like 'custom/asides/custom_aside_name.html'
-default_asides: [custom/asides/about.html, asides/recent_posts.html, asides/twitter.html, custom/asides/series.html, custom/asides/categories.html]
+default_asides: [custom/asides/about.html, asides/recent_posts.html, asides/twitter.html]
 
 # Each layout uses the default asides, but they can have their own asides instead. Simply uncomment the lines below
 # and add an array with the asides you want to use.
@@ -68,14 +67,6 @@ github_user: OJ
 github_repo_count: 0
 github_show_profile_link: true
 github_skip_forks: true
-
-# Twitter
-twitter_user: TheColonial
-twitter_tweet_count: 4
-twitter_show_replies: false
-twitter_follow_button: true
-twitter_show_follower_count: false
-twitter_tweet_button: true
 
 # Google +1
 google_plus_one: true
@@ -97,8 +88,6 @@ delicious_count: 3
 # Disqus Comments
 disqus_short_name: ojsrants
 disqus_show_comment_count: true
-#disqus_short_name: 
-#disqus_show_comment_count: false
 
 # Google Analytics
 Xgoogle_analytics_tracking_id: UA-8648787-1
