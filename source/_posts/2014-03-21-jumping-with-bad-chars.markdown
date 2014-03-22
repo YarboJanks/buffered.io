@@ -86,7 +86,7 @@ For a list of the jumps, their opposites and their short jump opcode values take
 
 So armed with this knowledge, we can pair up two jumps which when combined form a "net" of conditions which will always "catch" a positive/true case and perform the jump. Here's an example:
 
-![The Jump Net](/uploads/2014/03/jmp-1-jojno.png)
+![The Jump Net](/uploads/2014/03/jmp-3-jojno.png)
 
 When `EIP` is at `0x77F7F594` a test is performed to see if `OF` (the overflow flag) is set to `0`. If it is, then a jump is performed and `EIP` moves to `0x77F7F59C` .
 
