@@ -9,7 +9,7 @@ title: Corelan Live Exploit Development Bootcamp
 It is an extreme honour to announce that industry guru Peter Van Eeckhoutte, founder of [Corelan][] and expert in the ways of exploit development, is coming Down Under to teach the [Corelan Live Win32 Exploit Development Bootcamp][bootcamp]! This course is recognised world-wide by many a security professional for its quality, depth and educational value. Anyone interested in drastically improving their abilities in the field of exploit discovery and development would benefit enormously from attending this bootcamp.
 
 {% img left /images/corelan-bootcamp.png 150 Corelan %}
-Peter, who normally resides in the Northern Hemisphere, has decided to make the trek to Sydney to share his expertise. To aid him in his journey, local Brisbane-based security firm Functional IO has offered to help with the administration and organisation, while none other than BAE Systems has offered up a fantastic venue in the heart of the Sydney CBD and will be supporting the event further by providing lunch for those who attend.
+Peter, who normally resides in the Northern Hemisphere, has decided to make the trek to Sydney to share his expertise. To aid him in his journey, local Brisbane-based security firm Beyond Binary has offered to help with the administration and organisation, while none other than BAE Systems has offered up a fantastic venue in the heart of the Sydney CBD and will be supporting the event further by providing lunch for those who attend.
 
 The details of the course can be found [on the Corelan Training website][bootcamp], and will be held over 3 days, starting on the 17th December 2014 and finishing on the 19th. To be eligible to attend the course you need to be able to:
 
