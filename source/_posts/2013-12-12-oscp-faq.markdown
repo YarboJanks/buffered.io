@@ -9,6 +9,8 @@ Since publishing the article that detailed my experiences with the [PWB][] labs 
 
 From this point on I have decided not to respond to questions directly via email. This post will stand instead of those emails as a point of reference for common OSCP-related questions. As more questions come in I will update this post so that all future readers can benfit from the answers without me having to repost them.
 
+Believe it or not, every single one of these questions has appeared in my inbox.
+
 <!--more-->
 
 > Do I need to be good at programming to do PWB?
@@ -42,6 +44,10 @@ No. PWB and OSCP is all about learning to learn. The journey is probably more im
 > Can I please see your lab notes?
 
 Absolutely not.
+
+> I failed my exam, can you please help me pass it next time?
+
+Let me think about it for a minute ... No. If you ask me this, I'll take your name and pass it on to the Offensive Security team.
 
 > I have been a developer for many years and want to try for OSCP, is it a waste of time?
 
