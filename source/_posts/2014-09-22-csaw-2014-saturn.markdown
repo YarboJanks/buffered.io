@@ -997,3 +997,4 @@ Game over. Thanks for reading!
 
   [csaw]: https://ctf.isis.poly.edu/
   [patchelf]: https://github.com/NixOS/patchelf
+  [IDA]: https://www.hex-rays.com/products/ida/
