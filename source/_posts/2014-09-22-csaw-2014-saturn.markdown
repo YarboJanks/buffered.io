@@ -236,7 +236,7 @@ The only frustration left is that each time a connection is made, `gdb` follows 
 
 Time to analyse the behaviour of the application.
 
-## Binary Analsys of Challenge Extraction
+## Binary Analysis of Challenge Extraction
 
 This is where the fun starts. We begin by going back to IDA, and looking at some of the basic flow around the application where the banner is rendered:
 
