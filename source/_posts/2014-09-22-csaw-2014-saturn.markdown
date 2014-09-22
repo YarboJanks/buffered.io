@@ -167,7 +167,11 @@ Continuing.
 CSAW ChallengeResponseAuthenticationProtocol Flag Storage
 ```
 
-The application is now waiting for input on `stdin`. If we type a couple of characters from the keyboard we'll see the application terminate. However, we know that it's running and we're ready to begin debuggin.
+The application is now waiting for input on `stdin`. If we type a couple of characters from the keyboard we'll see the application terminate. However, we know that it's running and we're ready to begin debugging.
+
+### A Note on LD_PRELOAD
+
+I've had a few people ask me why I didn't just use `LD_LIBRARY_PATH`/`LD_PRELOAD` with a custom library. The short answer is that I _did_ try it, but for some reason it wouldn't work on my machine (could be a Fedora thing, not sure). At some point I'll dig into it to see what is wrong, it could just be that I was doing something stupid. However, in the middle of a CTF when time is precious, debugging my environment wasn't something I was up for. Instead, I changed tact and went with patching the binary this way. While it might seem like it was a bit of an epic job, the process of patching took just a couple of minutes.
 
 ## Debugging the Binary
 
@@ -993,8 +997,12 @@ Response  7: 0x1b3a1ce0
 Flag: flag{greetings_to_pure_digital}
 ```
 
-Game over. Thanks for reading!
+Game over.
+
+You can download the original binary, along with my patched binary and IDA database, from [here][binaries].
 
   [csaw]: https://ctf.isis.poly.edu/
   [patchelf]: https://github.com/NixOS/patchelf
   [IDA]: https://www.hex-rays.com/products/ida/
+  [binaries]: /uploads/2014/09/saturn.zip
+
