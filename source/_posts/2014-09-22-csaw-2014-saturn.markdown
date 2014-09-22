@@ -99,7 +99,7 @@ From this disassembly we can infer the following about the `fillChallengeRespons
 
 1. It's probably a `cdecl` function.
 1. It takes two parameters passed via `[esp]` and `[esp+4]` (remember that the top of the stack contains the first parameter).
-1. The two parameters, `off_804a050` and `off_804a05f` passed in are addresses to areas of memory, which implies that the call to the function is going to fill this memory with values.
+1. The two parameters, `off_804a050` and `off_804a054` passed in are addresses to areas of memory, which implies that the call to the function is going to fill this memory with values.
 1. The return parameter indicates success or failure of the function.
 
 We can confirm this last point by looking at the contents of the branch for when the return value (coming via `EAX`) is `-1` (aka `0FFFFFFFFh`):
