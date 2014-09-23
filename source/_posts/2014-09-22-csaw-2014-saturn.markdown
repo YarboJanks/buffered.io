@@ -182,7 +182,7 @@ One of the things that is particularly annoying about such challenges is that th
 $ nc -l -p 8888 -e ./saturn -k &
 [1] 789
 ```
-Your version of `nc` might be different to mind, but the command line above says
+Your version of `nc` might be different to mine, but the command line above says
 
 * `-l`: Bind and listen for incoming connections.
 * `-p`: Specify the source port which is `8888`.
