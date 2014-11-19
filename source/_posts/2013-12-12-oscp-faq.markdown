@@ -21,6 +21,10 @@ I'd say _no_, but it really does help. If you're not good with at least one lang
 
 I haven't done CEH, GPEN or CPTE. In fact, to date, OSCP is the only security certification I have attempted to tackle (though I will be taking [CTP][] later this month with a goal of nailing [OSCE][] in January). As a result I don't have a valid opinion of the quality or usefulness of the other certifications. My feeling is that it's down to you, dear reader, to determine which is best for you, just as I did when I was looking for a challenge. If you feel that OSCP is out of your depth then by all means go and find something easier.
 
+> I have done cert _A_, cert _B_, and course _C_. I know language _X_, operating system _Y_ and technology _Z_. Am I ready to do OSCP?
+
+I have no idea. Only you can answer that.
+
 > Is there much web application hacking involved?
 
 It's hard to quantify "much", but yes there is a bit of hacking of web applications involved. Some are known applications, some are custom applications built specifically for the labs. If you're not across the basics before you start, be prepared to ramp up quickly once your lab time commences.
