@@ -6,7 +6,7 @@ comments: true
 categories: [Security, Disclosure]
 ---
 
-In October last year, while conducting an internal assessment for a client in Sydney, I found a vulnerability in a vendor product. The flaw allows for remote code execution execution on the device, _as the root user_, without requiring authentication. Needless to say, "instant remote root" vulnerabilities are bad. On the scale of bug severity, they're up pretty high. For a device such as this, it doesn't really get any worse.
+In October last year, while conducting an internal assessment for a client in Sydney, I found a vulnerability in a vendor product. The flaw allows for remote code execution on the device, _as the root user_, without requiring authentication. Needless to say, "instant remote root" vulnerabilities are bad. On the scale of bug severity, they're up pretty high. For a device such as this, it doesn't really get any worse.
 
 Once I had a working proof-of-concept which demonstrated the flaw, I made contact with the vendor in an effort to disclose the issue in a secure and responsible manner. I was aware that other options were available, such as handing the issue over the CERT or some other initiative that deals with the pain of disclosure, but I wanted to get first-hand experience of the process, hence I decided to do it myself.
 
