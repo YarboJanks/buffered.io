@@ -69,7 +69,7 @@ github_show_profile_link: true
 github_skip_forks: true
 
 # Google +1
-google_plus_one: true
+google_plus_one: false
 google_plus_one_size: medium
 
 # Google Plus Profile
@@ -90,7 +90,7 @@ disqus_short_name: ojsrants
 disqus_show_comment_count: true
 
 # Gosquared
-gosquared_analytics_tracking_id: GSN-416076-G
+gosquared_analytics_tracking_id:
 
 # Facebook Like
 facebook_like: false
