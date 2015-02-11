@@ -13,4 +13,4 @@ There are quite a few ways you can reach me if you'd like to get in touch, here 
 If it's casual, I recommend trying [Twitter][] first.
 
   [Twitter]: https://twitter.com/TheColonial "OJ @ Twitter"
-  [PGP key]: /key.asc "PGP Key"
+  [PGP key]: https://keybase.io/oj "PGP Key"
