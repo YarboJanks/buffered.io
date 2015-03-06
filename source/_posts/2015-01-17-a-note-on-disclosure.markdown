@@ -55,8 +55,13 @@ In closing, the point that I am trying to make here is that while I think "hard 
 
 If you've made it this far, thanks for reading. Expect to see full disclosure, Metasploit module, and a standalone Python exploit appear on the **1st March 2015**.
 
+## Update 1st March 2015
+
+The disclosure deadline has come and gone and the [advisory has now been released][advisory].
+
 
   [Google]: https://code.google.com/p/google-security-research/issues/detail?id=123
   [Microsoft]: http://blogs.technet.com/b/msrc/archive/2015/01/11/a-call-for-better-coordinated-vulnerability-disclosure.aspx
   [errata]: http://blog.erratasec.com/2015/01/a-call-for-better-vulnerability-response.html
   [spacerogue]: http://www.spacerogue.net/wordpress/?p=536
+  [advisory]: https://beyondbinary.io/advisory/seagate-nas-rce/
