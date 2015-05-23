@@ -10,8 +10,8 @@ A few days ago I was having a chat to a <a href="http://shiftperception.com/blog
 A sample of the data might look something like this:
 
     data = ({150,200,45,57,95,2,45,32,15,10,5,2,2,4},
-             12,20,45,37,10,5,2,2,10,95,2,45,32,7},
-             32,15,10,5,2,23,24,15,20,45,57,95,0,45})
+            {12,20,45,37,10,5,2,2,10,95,2,45,32,7},
+            {32,15,10,5,2,23,24,15,20,45,57,95,0,45})
 
 So the first step would be to add 150, 12 and 32 and store the value. Then 200, 20 and 15, and store the value. Do this for all of the columns, then get a maximum and a minimum.
 
