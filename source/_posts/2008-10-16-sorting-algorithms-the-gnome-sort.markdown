@@ -29,12 +29,14 @@ The first principle to bear in mind when doing a <strong>Gnome Sort</strong> is 
 The first part of the algorithm looks at the first two items in the <em>data set</em> and swaps them around if they are in the wrong order. Then, for each iteration thereafter, the next item is <em>bubbled backwards</em> towards to head of the list until a value is encountered which is less than the current item (or the head of the list is reached). At this point, the current item is left alone, and the sort continues from the next item.
 
 <h2>The Example</h2>
+<div>
 <style type="text/css">
-span.eg { font-family: Courier new; font-size: 12px; }
+span.eg { font-family: Courier new; font-size: 12px; display: block; }
 span.eg b { color: Red; }
 span.eg u { color: Green; }
 span.eg i { color: Blue; }
 </style>
+</div>
 
 As per usual we will use the same initial <em>data set</em> that we used for the Bubble Sort and Cocktail Sort to aid in highlighting the differences.
 

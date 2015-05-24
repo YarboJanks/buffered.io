@@ -30,12 +30,14 @@ The second stage loops through the <em>data set</em> in the <strong>opposite</st
 The Cocktail Sort also fits in the category of <strong>Exchange Sorts</strong> due to the manner in which elements are moved inside the <em>data set</em> during the sorting process.
 
 <h2>The Example</h2>
+<div>
 <style type="text/css">
-span.eg { font-family: Courier new; font-size: 12px; }
+span.eg { font-family: Courier new; font-size: 12px; display: block; }
 span.eg b { color: Red; }
 span.eg u { color: Green; }
 span.eg i { color: Blue; }
 </style>
+</div>
 
 We will use the same initial <em>data set</em> that we used for the Bubble Sort to aid in highlighting the differences.
 

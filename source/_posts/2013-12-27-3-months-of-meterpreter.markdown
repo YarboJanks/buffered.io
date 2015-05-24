@@ -233,7 +233,7 @@ To fix this problem, I changed a bunch of things:
 * If a channel is terminated while suspended, the caller signals resumption prior to termination, so this means that the channel's scheduler thread doesn't hang.
 * When a channel is terminated, the process that is associated with the channel is also terminated.
 
-Once this work was done, I completely removed the old POSIX implementation and replaced it with this new one. It wasn't a smooth transition as I had to tweak a few other things, including the [signalling code][posix_signalling]. This was because on Windows we were using [AutoResetEvent][] objects, but POSIX wasn't behaving the same.
+Once this work was done, I completely removed the old POSIX implementation and replaced it with this new one. It wasn't a smooth transition as I had to tweak a few other things, including the [signalling code][posix_signalling]. This was because on Windows we were using [Event][] objects that were auto-resetting, but POSIX wasn't behaving the same.
 
 There were a few other issues with regards to competing threads cleaning things up when they shouldn't resulting in some threads terminating horribly periodically. This was also adjusted so that the termination and tidying were a little more deterministic (yes, I [keep using that word][indigo_montoya]).
 
@@ -1191,3 +1191,4 @@ Thanks to you all for reading. I hope you enjoyed it and I hope it broke down so
   [Brandon]: https://twitter.com/blt04
   [sec_street_tldr]: https://community.rapid7.com/community/metasploit/blog/2013/12/27/meterpreter-reloaded
   [metasploit_post_extapi]: https://community.rapid7.com/community/metasploit/blog/2013/12/12/weekly-metasploit-update
+  [Event]: https://msdn.microsoft.com/en-us/library/windows/desktop/ms682396%28v=vs.85%29.aspx

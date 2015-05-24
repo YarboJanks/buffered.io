@@ -55,12 +55,14 @@ At this point the <em>gap is recalculated</em> and we go again.
 When the <em>gap</em> value reaches one, we know that we're now behaving the same as the Bubble Sort algorithm (since we're comparing <em>i</em> and <em>i + 1</em>), so we know that if we don't perform any swaps during the iteration then the set must be sorted.
 
 <h2>The Example</h2>
+<div>
 <style type="text/css">
-span.eg { font-family: Courier new; font-size: 12px; }
+span.eg { font-family: Courier new; font-size: 12px; display: block; }
 span.eg b { color: Red; }
 span.eg u { color: Green; }
 span.eg i { color: Blue; }
 </style>
+</div>
 
 As per usual we will use the same initial <em>data set</em> that we used for the Bubble Sort and Cocktail Sort to aid in highlighting the differences.
 

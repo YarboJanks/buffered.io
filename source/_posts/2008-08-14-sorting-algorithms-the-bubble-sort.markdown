@@ -26,12 +26,14 @@ The algorithm consists of a repeated iteration over the elements of the <em>data
 The Bubble Sort fits in the category of <strong>Exchange Sorts</strong> due to the manner in which elements are moved inside the <em>data set</em> during the sorting process.
 
 <h2>The Example</h2>
+<div>
 <style type="text/css">
-span.eg { font-family: Courier new; font-size: 12px; }
+span.eg { font-family: Courier new; font-size: 12px; display: block; }
 span.eg b { color: Red; }
 span.eg u { color: Green; }
 span.eg i { color: Blue; }
 </style>
+</div>
 We start with an unsorted <em>data set</em> of 10 elements which we want to sort in <em>ascending</em> order:
 
 <span class="eg">33 98 74 13 55 20 77 45 64 83</span>
