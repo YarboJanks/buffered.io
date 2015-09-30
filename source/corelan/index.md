@@ -39,7 +39,9 @@ We believe those are just a few arguments that makes this training stand out bet
 
 Finally, we offer you post-training support as well.   If you have taken the course and you still have questions afterwards, we will help.
 
-For more details see the official [Corelan Advanced][] course details page. In order to sign up for the [Corelan Advanced][] course, you must first have completed the [Corelan Bootcamp][]. Exceptions made be taken, but they must first be discussed with Peter. If you wish to attempt the Advanced course without taking the Bootcamp, please email [oj@beyondbinary.io][email] to discuss.
+For more details see the official [Corelan Advanced][] course details page. In order to sign up for the [Corelan Advanced][] course, you must first have completed the [Corelan Bootcamp][]. Exceptions made be taken, but they must first be discussed with Peter. People wishing to take this course not only have an understanding of ROP chains, they must also be able to _write_ ROP chains themselves.
+
+If you wish to attempt the Advanced course without taking the Bootcamp, please email [oj@beyondbinary.io][email] to discuss.
 
 ## Should you do both?
 
