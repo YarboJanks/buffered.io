@@ -14,7 +14,7 @@ The Corelan **"BOOTCAMP"** is a truly unique opportunity to learn both basic & a
 
 We believe it is important to start the course by explaining the basics of buffer overflows and exploit writing, but this is most certainly not "your average" entry level course. In fact, this is a true bootcamp and one of the finest and most advanced courses you will find on Win32 stack based exploit development.
 
-This hardcore hands-on course will provide students with solid understanding of current Win32 (stack based) exploitation techniques and memory protection bypass techniques.  We make sure the course material is kept updated with current techniques, includes previously undocumented tricks and techniques, and details about research we performed ourselves.  Combined with the way the course is built up, this will turn these 2 days into a truly unique experience.
+This hardcore hands-on course will provide students with solid understanding of current Win32 (stack based) exploitation techniques and memory protection bypass techniques.  We make sure the course material is kept updated with current techniques, includes previously undocumented tricks and techniques, and details about research we performed ourselves.  Combined with the way the course is built up, this will turn these 3 days into a truly unique experience.
 
 During all of our courses, we don’t just focus on techniques and mechanics, but we also want to make sure you understand why a given technique is used, why something works and why something doesn’t work.
 
@@ -29,9 +29,9 @@ For more details see the official [Corelan Bootcamp][] course details page.
 <img src="/images/corelan-advanced.png" style="float:right;margin-left:5px;margin-bottom:5px" />
 The Corelan **"ADVANCED"** exploit development class is our brand new fast-paced, mind-bending, hands-on course where you will learn advanced exploit development techniques from an experienced exploit developer. During this 3 day long course, students will get the opportunity to learn how to write exploits that bypass modern memory protections for the Win32 platform.  The trainer will share his “notes from the field” and various tips & tricks to become more effective at writing exploits.
 
-This is most certainly not anentry level course. In fact, this is a one of the finest and most advanced courses you will find on Win32 exploit development.  To be sure that all students are on the same page, students may be requested to pass a test/exam prior to taking the course.  
+This is most certainly not an entry level course. In fact, this is a one of the finest and most advanced courses you will find on Win32 exploit development.  To be sure that all students are on the same page, students may be requested to pass a test/exam prior to taking the course.  
 
-This hardcore, partical, hands-on course will provide students with solid understanding of current Win32 exploitation technique & memory protection bypass techniques.  We make sure the course material is kept updated with current techniques, includes previously undocumented tricks and techniques, and details about research we performed ourselves.  Combined with the way the course is built up, this will turn these 2 days into a truly unique experience.
+This hardcore, partical, hands-on course will provide students with solid understanding of current Win32 exploitation technique & memory protection bypass techniques.  We make sure the course material is kept updated with current techniques, includes previously undocumented tricks and techniques, and details about research we performed ourselves.  Combined with the way the course is built up, this will turn these 3 days into a truly unique experience.
 
 During all of our courses, we don’t just focus on techniques and mechanics, but we also want to make sure you understand why a given technique is used, why something works and why something doesn’t work.
 
@@ -39,7 +39,7 @@ We believe those are just a few arguments that makes this training stand out bet
 
 Finally, we offer you post-training support as well.   If you have taken the course and you still have questions afterwards, we will help.
 
-For more details see the official [Corelan Advanced][] course details page. In order to sign up for the [Corelan Advanced][] course, you must first have completed the [Corelan Bootcamp][].
+For more details see the official [Corelan Advanced][] course details page. In order to sign up for the [Corelan Advanced][] course, you must first have completed the [Corelan Bootcamp][]. Exceptions made be taken, but they must first be discussed with Peter. If you wish to attempt the Advanced course without taking the Bootcamp, please email [oj@beyondbinary.io][email] to discuss.
 
 ## Should you do both?
 
@@ -56,6 +56,10 @@ The event will be held in Sydney's CBD, though the exact location is to be deter
 
 Note: Attendees that are not from Australia will not be charged GST.
 
+### Refunds
+
+If Peter is unable to attend, then all fees for the course will be refunded. However, other than this possibility, refunds will not be possible.
+
 ## Register
 
 Last year's registration process, involving Paypal and EventBrite, was utterly painful for all involved. As a result, this year we are taking a different approach to registrations.
@@ -66,7 +70,7 @@ To register please send email to [oj@beyondbinary.io][email] with the following 
 * Full names and email addresses of all people attending
 * Name of the course that is being attended
 * Email address of invoice recipient
-* Indication of whether the fees are to be paid via credit card (please don't send actual credit card details)
+* Indication of whether the fees are to be paid via direct bank deposit or credit card (please don't send actual credit card details)
 
 An invoice will be generated specifically for you, or your business, that can be paid directly.
 
