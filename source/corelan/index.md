@@ -7,7 +7,7 @@ After the rousing success of last year's training in Sydney, **Peter Van Eeckhou
 
 There are a maximum of 30 spots available for each course, so get in quick!
 
-## Corelan Bootcamp - 18th Nov 2015 to 20th Nov 2015
+## Corelan Bootcamp - 11th Nov 2015 to 13th Nov 2015
 
 <img src="/images/corelan-bootcamp.png" style="float:right;margin-left:5px;margin-bottom:5px" />
 The Corelan **"BOOTCAMP"** is a truly unique opportunity to learn both basic & advanced techniques from an experienced exploit developer, at a conference. During this 3 day long course, students will be able to learn all ins and outs about writing reliable exploits for the Win32 platform.  The trainer will share his "notes from the field" and various tips & tricks to become more effective at writing exploits.
@@ -24,14 +24,14 @@ Finally, we offer you post-training support as well.   If you have taken the cou
 
 For more details see the official [Corelan Bootcamp][] course details page.
 
-## Corelan Advanced - 23rd Nov 2015 to 25th Nov 2015
+## Corelan Advanced - 16th Nov 2015 to 18th Nov 2015
 
 <img src="/images/corelan-advanced.png" style="float:right;margin-left:5px;margin-bottom:5px" />
 The Corelan **"ADVANCED"** exploit development class is our brand new fast-paced, mind-bending, hands-on course where you will learn advanced exploit development techniques from an experienced exploit developer. During this 3 day long course, students will get the opportunity to learn how to write exploits that bypass modern memory protections for the Win32 platform.  The trainer will share his “notes from the field” and various tips & tricks to become more effective at writing exploits.
 
 This is most certainly not an entry level course. In fact, this is a one of the finest and most advanced courses you will find on Win32 exploit development.  To be sure that all students are on the same page, students may be requested to pass a test/exam prior to taking the course.  
 
-This hardcore, partical, hands-on course will provide students with solid understanding of current Win32 exploitation technique & memory protection bypass techniques.  We make sure the course material is kept updated with current techniques, includes previously undocumented tricks and techniques, and details about research we performed ourselves.  Combined with the way the course is built up, this will turn these 3 days into a truly unique experience.
+This hardcore, practical, hands-on course will provide students with solid understanding of current Win32 exploitation technique & memory protection bypass techniques.  We make sure the course material is kept updated with current techniques, includes previously undocumented tricks and techniques, and details about research we performed ourselves.  Combined with the way the course is built up, this will turn these 3 days into a truly unique experience.
 
 During all of our courses, we don’t just focus on techniques and mechanics, but we also want to make sure you understand why a given technique is used, why something works and why something doesn’t work.
 
@@ -45,11 +45,20 @@ If you wish to attempt the Advanced course without taking the Bootcamp, please e
 
 ## Should you do both?
 
-The short answer is "no". Peter recommends that you do one or the other, because both of the courses are very intense. After doing the Bootcamp, you'll need a break, as well as a bit more practice, before taking on Advanced. Special consideration may be taken, so if you feel compelled to tackle both, then please email [oj@beyondbinary.io][email] to discuss.
+The short answer is "no", however it is possible to do both if you really feel like you're up to it. Both courses are very intense, and so Peter recommends that you do one or the other. Special consideration may be taken, so if you feel compelled to tackle both, then please email [oj@beyondbinary.io][email] to discuss.
 
 ## Location
 
-The event will be held in Sydney's CBD, though the exact location is to be determined. The wonderful folks at Ernst &amp; Young's Sydney office have kindly offered to sponsor this event and provide hosting and catering for all the attendees.
+Both Corelan training sessions will be held at the head office of our hosting partner, PricewaterhouseCoopers, in Sydney. We would like to extend a great deal of thanks to PwC who kindly stepped up to host these events on very short notice. The support for the course, and the wider Australian security community, is very much appreciated.
+
+The address is:
+
+> PricewaterhouseCoopers<br/>
+> 201 Sussex Street<br/>
+> SYDNEY<br/>
+> NSW 2000<br/>
+
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3312.672834418581!2d151.20270029126277!3d-33.8723215300528!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6b12ae3bfdbfdef3%3A0xd15f952b780005bf!2sPwC+Australia!5e0!3m2!1sen!2sau!4v1444112173886" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
 
 ## Price
 
