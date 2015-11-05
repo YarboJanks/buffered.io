@@ -3,6 +3,10 @@ layout: page
 title: Corelan Exploit Development Training
 ---
 
+**Note:** _Registrations for Corelan courses in 2015 are now closed_.
+
+-------------
+
 After the rousing success of last year's training in Sydney, **Peter Van Eeckhoutte** (aka [corelanc0d3r][]) is making a return trip to Australia to deliver both [Corelan Bootcamp][] and [Corelan Advanced][] training courses! This is an incredible opportunity for folks in the southern hemisphere to learn about exploit develpoment on the Windows platform from one of the true masters of the art. Don't miss this opportunity, as it doesn't come very often!
 
 There are a maximum of 30 spots available for each course, so get in quick!
@@ -81,7 +85,7 @@ To register please send email to [oj@beyondbinary.io][email] with the following 
 * Full names and email addresses of all people attending
 * Name of the course that is being attended
 * Email address of invoice recipient
-* Indication of whether the fees are to be paid via direct bank deposit or credit card (please don't send actual credit card details)
+* Indication of whether the fees are to be paid via direct bank deposit or credit card (use of credit card incurs extra fees, also please don't send actual credit card details)
 
 An invoice will be generated specifically for you, or your business, that can be paid directly.
 
