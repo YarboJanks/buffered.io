@@ -57,12 +57,13 @@ Both Corelan training sessions will be held at the head office of our hosting pa
 
 The address is:
 
-> PricewaterhouseCoopers<br/>
-> 201 Sussex Street<br/>
+> Flat Floor Theatre<br/>
+> UNSW CBD Campus<br/>
+> 1 O'Connell St<br/>
 > SYDNEY<br/>
 > NSW 2000<br/>
 
-<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3312.672834418581!2d151.20270029126277!3d-33.8723215300528!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6b12ae3bfdbfdef3%3A0xd15f952b780005bf!2sPwC+Australia!5e0!3m2!1sen!2sau!4v1444112173886" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6626.0504458324585!2d151.20674174022685!3d-33.86324083447674!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6b12ae41e34ea769%3A0xdc7bc8a1ff51a3b4!2s1+O&#39;Connell+St%2C+Sydney+NSW+2000!5e0!3m2!1sen!2sau!4v1446701795617" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
 
 ## Price
 
